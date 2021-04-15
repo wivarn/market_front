@@ -4,11 +4,41 @@ import { useState } from 'react'
 import { MenuIcon, CurrencyDollarIcon, ShoppingCartIcon, UserCircleIcon } from '@heroicons/react/outline'
 import { FireIcon } from '@heroicons/react/solid'
 
+function NavLinks() {
+  return (
+    <SignedInNav />
+  )
+}
+
+function SignedInNav() {
+  return (
+    <div className='lg:flex-row lg:ml-auto lg:w-auto lg:items-center items-start flex flex-col lg:h-auto'>
+      <Link href='/'>
+        <a className='lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-green-600 hover:text-white'>
+          <CurrencyDollarIcon className='h-8 w-8'/>
+          <span className='text-xs font-bold'>Sell stuff</span>
+        </a>
+      </Link>
+      <Link href='/'>
+        <a className='lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-green-600 hover:text-white'>
+          <ShoppingCartIcon className='h-8 w-8'/>
+          <span className='text-xs font-bold'>Cart</span>
+        </a>
+      </Link>
+      <Link href='/'>
+        <a className='lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-green-600 hover:text-white'>
+          <UserCircleIcon className='h-8 w-8'/>
+          <span className='text-xs font-bold'>Username</span>
+        </a>
+      </Link>
+    </div>
+  )
+}
+
 export default function Layout({
   children
 }) {
   const [active, setActive] = useState(false)
-
   const handleClick = () => {
     setActive(!active)
   }
@@ -42,26 +72,7 @@ export default function Layout({
               active ? '' : 'hidden'
             } w-full lg:inline-flex lg:flex-grow lg:w-auto`}
           >
-            <div className='lg:flex-row lg:ml-auto lg:w-auto lg:items-center items-start flex flex-col lg:h-auto'>
-              <Link href='/'>
-                <a className='lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-green-600 hover:text-white'>
-                  <CurrencyDollarIcon className='h-8 w-8'/>
-                  <span className='text-xs font-bold'>Sell stuff</span>
-                </a>
-              </Link>
-              <Link href='/'>
-                <a className='lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-green-600 hover:text-white'>
-                  <ShoppingCartIcon className='h-8 w-8'/>
-                  <span className='text-xs font-bold'>Cart</span>
-                </a>
-              </Link>
-              <Link href='/'>
-                <a className='lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-green-600 hover:text-white'>
-                  <UserCircleIcon className='h-8 w-8'/>
-                  <span className='text-xs font-bold'>Username</span>
-                </a>
-              </Link>
-            </div>
+            <NavLinks />
           </div>
         </nav>
       </header>
