@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useState, ReactNode } from 'react'
 import { MenuIcon, CurrencyDollarIcon, ShoppingCartIcon, UserCircleIcon } from '@heroicons/react/outline'
 import { FireIcon } from '@heroicons/react/solid'
 
@@ -35,9 +35,7 @@ function SignedInNav() {
   )
 }
 
-export default function Layout({
-  children
-}) {
+export default function Layout ({children}: {children: ReactNode}) {
   const [active, setActive] = useState(false)
   const handleClick = () => {
     setActive(!active)
