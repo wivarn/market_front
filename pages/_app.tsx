@@ -2,6 +2,7 @@ import 'tailwindcss/tailwind.css'
 import Layout from "../components/layout"
 import { AppProps } from 'next/app'
 import Auth from '@aws-amplify/auth'
+import { AuthProvider } from '../contexts/auth'
 
 Auth.configure({
   mandatorySignIn: false,
@@ -12,9 +13,11 @@ Auth.configure({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <AuthProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </AuthProvider>
   )
 }
 
