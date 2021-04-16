@@ -3,14 +3,10 @@ import Head from 'next/head'
 import { useState, ReactNode } from 'react'
 import { MenuIcon, CurrencyDollarIcon, ShoppingCartIcon, UserCircleIcon } from '@heroicons/react/outline'
 import { FireIcon } from '@heroicons/react/solid'
-
-function NavLinks() {
-  return (
-    <SignedInNav />
-  )
-}
+import { useAuthContext } from '../contexts/auth'
 
 function SignedInNav() {
+  const {user} = useAuthContext()
   return (
     <div className='lg:flex-row lg:ml-auto lg:w-auto lg:items-center items-start flex flex-col lg:h-auto'>
       <Link href='/'>
@@ -28,7 +24,20 @@ function SignedInNav() {
       <Link href='/'>
         <a className='lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-green-600 hover:text-white'>
           <UserCircleIcon className='h-8 w-8'/>
-          <span className='text-xs font-bold'>Username</span>
+          <span className='text-xs font-bold'>{user && user.attributes.email}</span>
+        </a>
+      </Link>
+    </div>
+  )
+}
+
+function SignedOutNav() {
+  return (
+    <div className='lg:flex-row lg:ml-auto lg:w-auto lg:items-center items-start flex flex-col lg:h-auto'>
+      <Link href='/sign_in'>
+        <a className='lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-green-600 hover:text-white'>
+          <UserCircleIcon className='h-8 w-8'/>
+          <span className='text-xs font-bold'>Sign in</span>
         </a>
       </Link>
     </div>
@@ -40,6 +49,7 @@ export default function Layout ({children}: {children: ReactNode}) {
   const handleClick = () => {
     setActive(!active)
   }
+  const {user} = useAuthContext()
 
   return (
     <div>
@@ -70,7 +80,7 @@ export default function Layout ({children}: {children: ReactNode}) {
               active ? '' : 'hidden'
             } w-full lg:inline-flex lg:flex-grow lg:w-auto`}
           >
-            <NavLinks />
+            {(user) ? <SignedInNav /> : <SignedOutNav />}
           </div>
         </nav>
       </header>

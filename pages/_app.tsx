@@ -6,9 +6,9 @@ import { AuthProvider } from '../contexts/auth'
 
 Auth.configure({
   mandatorySignIn: false,
-  region: process.env.AWS_REGION,
-  userPoolId: process.env.USER_POOL_ID,
-  userPoolWebClientId: process.env.USER_POOL_CLIENT_ID,
+  region: process.env.NEXT_PUBLIC_AWS_REGION,
+  userPoolId: process.env.NEXT_PUBLIC_USER_POOL_ID,
+  userPoolWebClientId: process.env.NEXT_PUBLIC_USER_POOL_CLIENT_ID,
 })
 
 function MyApp({ Component, pageProps }: AppProps) {
