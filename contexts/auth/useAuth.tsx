@@ -1,44 +1,44 @@
-import { useState, useEffect, useCallback } from 'react'
-import { Auth, Hub } from 'aws-amplify'
-import { CognitoUserExt } from './types'
+import { useState, useEffect, useCallback } from "react";
+import { Auth, Hub } from "aws-amplify";
+import { CognitoUserExt } from "./types";
 
 export default function useAuth() {
-  const [user, setUser] = useState<CognitoUserExt | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState<CognitoUserExt | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Hub.listen('auth', ({ payload: { event, data } }) => {
+    Hub.listen("auth", ({ payload: { event, data } }) => {
       switch (event) {
-        case 'signIn': {
-          console.log(data)
-          setUser(data)
-          break
+        case "signIn": {
+          console.log(data);
+          setUser(data);
+          break;
         }
-        case 'signOut': {
-          setUser(null)
-          break
+        case "signOut": {
+          setUser(null);
+          break;
         }
         default:
-          break
+          break;
       }
-    })
-  }, [])
+    });
+  }, []);
 
   const checkUserAuth = useCallback(async () => {
     try {
-      const cognitoUser = (await Auth.currentAuthenticatedUser()) as CognitoUserExt
-      setUser(cognitoUser)
+      const cognitoUser = (await Auth.currentAuthenticatedUser()) as CognitoUserExt;
+      setUser(cognitoUser);
     } catch (err) {
-      setUser(null)
+      setUser(null);
     }
-    setLoading(false)
-  }, [])
+    setLoading(false);
+  }, []);
 
   useEffect(() => {
-    checkUserAuth()
-    const unsubscribe = Hub.listen('auth', () => checkUserAuth())
-    return () => unsubscribe()
-  }, [checkUserAuth])
+    checkUserAuth();
+    const unsubscribe = Hub.listen("auth", () => checkUserAuth());
+    return () => unsubscribe();
+  }, [checkUserAuth]);
 
-  return { user: user, loading }
+  return { user: user, loading };
 }

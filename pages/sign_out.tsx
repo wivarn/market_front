@@ -1,9 +1,12 @@
-import {AmplifyAuthenticator, AmplifyFormField, AmplifySignUp} from "@aws-amplify/ui-react";
+import {
+  AmplifyAuthenticator,
+  AmplifyFormField,
+  AmplifySignUp,
+} from "@aws-amplify/ui-react";
 
 export default function SignIn() {
   return (
     <AmplifyAuthenticator>
-
       {/* <AmplifySignUp
         usernameAlias="email"
         slot="sign-up"
@@ -14,6 +17,6 @@ export default function SignIn() {
       >
       </AmplifySignUp> */}
       {/* <AmplifySignIn slot="sign-in" usernameAlias="email" /> */}
-    </ AmplifyAuthenticator>
-  )
+    </AmplifyAuthenticator>
+  );
 }
