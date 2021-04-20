@@ -5,6 +5,8 @@ import Auth from "@aws-amplify/auth";
 import { AuthProvider } from "../contexts/auth";
 import { StrictMode } from "react";
 import Head from "next/head";
+import { DefaultSeo } from "next-seo";
+import SEO from "../next-seo-config";
 
 Auth.configure({
   mandatorySignIn: false,
@@ -24,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             content="initial-scale=1.0, width=device-width"
           />
         </Head>
+        <DefaultSeo {...SEO} />
         <Layout>
           <Component {...pageProps} />
         </Layout>
