@@ -3,6 +3,8 @@ import Layout from "../components/layout";
 import { AppProps } from "next/app";
 import Auth from "@aws-amplify/auth";
 import { AuthProvider } from "../contexts/auth";
+import { StrictMode } from "react";
+import Head from "next/head";
 
 Auth.configure({
   mandatorySignIn: false,
@@ -13,11 +15,20 @@ Auth.configure({
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AuthProvider>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </AuthProvider>
+    <StrictMode>
+      <AuthProvider>
+        <Head>
+          <meta charSet="UTF-8" />
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
+        </Head>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </AuthProvider>
+    </StrictMode>
   );
 }
 
