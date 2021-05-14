@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Head from "next/head";
-import { useState, ReactNode } from "react";
+import { useState } from "react";
 import {
   MenuIcon,
   CurrencyDollarIcon,
@@ -47,7 +47,7 @@ function SignedOutNav() {
   );
 }
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default function Header() {
   const [active, setActive] = useState(false);
   const handleClick = () => {
     setActive(!active);
@@ -87,10 +87,6 @@ export default function Layout({ children }: { children: ReactNode }) {
           </div>
         </nav>
       </header>
-
-      {children}
-
-      <footer>This is the footer</footer>
     </div>
   );
 }
