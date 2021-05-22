@@ -9,7 +9,7 @@ import {
 } from "@heroicons/react/outline";
 import { FireIcon } from "@heroicons/react/solid";
 
-function SignedInNav() {
+function LoggedInNav() {
   return (
     <div className="lg:flex-row lg:ml-auto lg:w-auto lg:items-center items-start flex flex-col lg:h-auto">
       <Link href="/">
@@ -34,13 +34,13 @@ function SignedInNav() {
   );
 }
 
-function SignedOutNav() {
+function LoggedOutNav() {
   return (
     <div className="lg:flex-row lg:ml-auto lg:w-auto lg:items-center items-start flex flex-col lg:h-auto">
-      <Link href="/sign_in">
+      <Link href="/login">
         <a className="lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-green-600 hover:text-white">
           <UserCircleIcon className="h-8 w-8" />
-          <span className="text-xs font-bold">Sign in</span>
+          <span className="text-xs font-bold">Login</span>
         </a>
       </Link>
     </div>
@@ -83,7 +83,7 @@ export default function Header() {
               active ? "" : "hidden"
             } w-full lg:inline-flex lg:flex-grow lg:w-auto`}
           >
-            {user ? <SignedInNav /> : <SignedOutNav />}
+            {user ? <LoggedInNav /> : <LoggedOutNav />}
           </div>
         </nav>
       </header>
