@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
-import api from "../../../services/api";
+import api from "services/api";
 
 const providers = [
   Providers.Credentials({

@@ -13,7 +13,7 @@ import { useSession } from "next-auth/client";
 function LoggedInNav() {
   return (
     <div className="lg:flex-row lg:ml-auto lg:w-auto lg:items-center items-start flex flex-col lg:h-auto">
-      <Link href="/">
+      <Link href="listings/new">
         <a className="lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-green-600 hover:text-white">
           <CurrencyDollarIcon className="h-8 w-8" />
           <span className="text-xs font-bold">Sell stuff</span>
