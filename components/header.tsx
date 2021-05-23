@@ -8,6 +8,7 @@ import {
   UserCircleIcon,
 } from "@heroicons/react/outline";
 import { FireIcon } from "@heroicons/react/solid";
+import { useSession } from "next-auth/client";
 
 function LoggedInNav() {
   return (
@@ -52,7 +53,7 @@ export default function Header() {
   const handleClick = () => {
     setActive(!active);
   };
-  const { user } = { user: false };
+  const [session, loading] = useSession();
 
   return (
     <div>
@@ -83,7 +84,7 @@ export default function Header() {
               active ? "" : "hidden"
             } w-full lg:inline-flex lg:flex-grow lg:w-auto`}
           >
-            {user ? <LoggedInNav /> : <LoggedOutNav />}
+            {session ? <LoggedInNav /> : <LoggedOutNav />}
           </div>
         </nav>
       </header>

@@ -7,6 +7,7 @@ import Head from "next/head";
 import { DefaultSeo } from "next-seo";
 import SEO from "../next-seo-config";
 import { AuthProvider } from "../contexts/auth";
+import { Provider } from "next-auth/client";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -17,9 +18,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <DefaultSeo {...SEO} />
       <AuthProvider>
-        <Header />
-        <Component {...pageProps} />
-        <Footer />
+        <Provider session={pageProps.session}>
+          <Header />
+          <Component {...pageProps} />
+          <Footer />
+        </Provider>
       </AuthProvider>
     </StrictMode>
   );

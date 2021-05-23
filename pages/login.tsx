@@ -2,6 +2,7 @@ import { Formik, Form, FormikHelpers, useField, FieldHookConfig } from "formik";
 import * as Yup from "yup";
 import { DetailedHTMLProps, InputHTMLAttributes } from "react";
 import { useAuth } from "../contexts/auth";
+import { signIn } from "next-auth/client";
 
 interface Values {
   email: string;
@@ -51,7 +52,11 @@ export default function login() {
           values: Values,
           { setSubmitting }: FormikHelpers<Values>
         ) => {
-          login(values.email, values.password);
+          signIn("credentials", {
+            login: values.email,
+            password: values.password,
+          });
+          // login(values.email, values.password);
         }}
       >
         {({ isSubmitting }) => (
