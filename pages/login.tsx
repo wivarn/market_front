@@ -1,6 +1,7 @@
 import { Formik, Form, FormikHelpers, useField, FieldHookConfig } from "formik";
 import * as Yup from "yup";
 import { DetailedHTMLProps, InputHTMLAttributes } from "react";
+import { useAuth } from "../contexts/auth";
 
 interface Values {
   email: string;
@@ -36,6 +37,7 @@ const TextInput: React.FC<TextFieldProps> = ({ label, ...props }) => {
 };
 
 export default function login() {
+  const { user, accessToken, login } = useAuth();
   return (
     <div>
       <h1>Login</h1>
@@ -49,10 +51,7 @@ export default function login() {
           values: Values,
           { setSubmitting }: FormikHelpers<Values>
         ) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 500);
+          login(values.email, values.password);
         }}
       >
         {({ isSubmitting }) => (

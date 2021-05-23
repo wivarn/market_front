@@ -6,6 +6,7 @@ import { StrictMode } from "react";
 import Head from "next/head";
 import { DefaultSeo } from "next-seo";
 import SEO from "../next-seo-config";
+import { AuthProvider } from "../contexts/auth";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -15,9 +16,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <DefaultSeo {...SEO} />
-      <Header />
-      <Component {...pageProps} />
-      <Footer />
+      <AuthProvider>
+        <Header />
+        <Component {...pageProps} />
+        <Footer />
+      </AuthProvider>
     </StrictMode>
   );
 }
