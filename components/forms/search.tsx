@@ -16,7 +16,7 @@ const querySchema = Yup.object().shape({
 export default function SearchForm() {
   const router = useRouter();
   return (
-    <div>
+    <div className="m-2">
       <h1 className="font-bold">
         Find the next centerpiece for your collection
       </h1>
