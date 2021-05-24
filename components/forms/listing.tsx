@@ -2,6 +2,7 @@ import * as Yup from "yup";
 
 import { Form, Formik, FormikHelpers } from "formik";
 
+import { Listing } from "types/listings";
 import { NumberField } from "./fields";
 import { TextField } from "./fields";
 import api from "services/api";
@@ -13,10 +14,10 @@ interface Values {
   title: string;
   condition: string;
   currency: string;
-  description: string;
-  price: number;
-  domesticShipping: number;
-  status: string;
+  description?: string;
+  price: number | string;
+  domesticShipping: number | string;
+  status?: string;
 }
 
 const listingSchema = Yup.object().shape({
@@ -41,22 +42,50 @@ const listingSchema = Yup.object().shape({
   status: Yup.string().required("Required"),
 });
 
-export default function ListingForm() {
+const newListingProps: Listing = {
+  photos: ["fake_url"],
+  title: "",
+  condition: "",
+  currency: "USD",
+  description: "",
+  price: 0,
+  domestic_shipping: 0,
+  status: "draft",
+};
+
+const ListingForm: React.FC<Listing> = (props) => {
   const router = useRouter();
   const [session, loading] = useSession();
+
+  const newListing = !props.id;
+
+  const deleteListing = async () => {
+    await api
+      .delete(`listings/${props.id}`, {
+        headers: { Authorization: `Bearer ${session?.accessToken}` },
+      })
+      .then((_) => {
+        router.push("/listings");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(error.response.data.error);
+      });
+  };
+
   return (
     <div className="m-2 border border-blue-500">
-      <h1 className="font-bold">Create Listing</h1>
+      <h1 className="font-bold">{newListing ? "Create" : "Update"} Listing</h1>
       <Formik
         initialValues={{
-          photos: ["fake_url"],
-          title: "",
-          condition: "",
-          currency: "USD",
-          description: "",
-          price: 0,
-          domesticShipping: 0,
-          status: "draft",
+          photos: props.photos,
+          title: props.title,
+          condition: props.condition,
+          currency: props.currency,
+          description: props.description,
+          price: props.price,
+          domesticShipping: props.domestic_shipping,
+          status: props.status,
         }}
         validationSchema={listingSchema}
         onSubmit={async (
@@ -65,7 +94,7 @@ export default function ListingForm() {
         ) => {
           await api
             .post(
-              "listings",
+              `listings${newListing ? "" : `/${props.id}`}`,
               {
                 listing: {
                   photos: values.photos,
@@ -127,11 +156,23 @@ export default function ListingForm() {
               className="bg-red-900 p-2 font-bold hover:bg-red-700"
               disabled={isSubmitting}
             >
-              Create Listing
+              {newListing ? "Create" : "Update"} Listing
             </button>
           </Form>
         )}
       </Formik>
+      {newListing ? null : (
+        <button
+          className="bg-red-900 p-2 font-bold hover:bg-red-700 float-right"
+          onClick={deleteListing}
+        >
+          Delete
+        </button>
+      )}
     </div>
   );
-}
+};
+
+ListingForm.defaultProps = newListingProps;
+
+export default ListingForm;
