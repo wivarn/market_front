@@ -66,11 +66,14 @@ export default function Header() {
       <header>
         <nav className="flex flex-wrap items-center bg-red-900 p-3">
           <Link href="/">
-            <a className="inline-flex p-2 mr-4 text-white">
-              {/* Placeholder icon */}
-              <FireIcon className="w-6 h-6" />
-              <span className="text-xl font-bold uppercase tracking-wide">
+            <a className="p-2 mr-4 text-white">
+              <span className="inline-flex text-xl font-bold uppercase tracking-wide">
+                {/* Placeholder icon */}
+                <FireIcon className="w-6 h-6" />
                 Swkirly
+              </span>
+              <span className="text-xs align-text-bottom">
+                A 90s themed geocites marketboard
               </span>
             </a>
           </Link>
