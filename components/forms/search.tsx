@@ -16,7 +16,7 @@ const querySchema = Yup.object().shape({
 export default function SearchForm() {
   const router = useRouter();
   return (
-    <div className="m-2">
+    <div className="m-2 border border-blue-500">
       <h1 className="font-bold">
         Find the next centerpiece for your collection
       </h1>
@@ -44,7 +44,11 @@ export default function SearchForm() {
               disabled={true}
             />
 
-            <button type="submit" disabled={isSubmitting}>
+            <button
+              type="submit"
+              className="bg-red-900 p-2 font-bold hover:bg-red-700"
+              disabled={isSubmitting}
+            >
               Go!
             </button>
           </Form>

@@ -21,7 +21,7 @@ const loginSchema = Yup.object().shape({
 export default function LoginForm() {
   const router = useRouter();
   return (
-    <div>
+    <div className="m-2 border border-blue-500">
       <h1 className="font-bold">Login</h1>
       <Formik
         initialValues={{
@@ -51,7 +51,11 @@ export default function LoginForm() {
 
             <TextField label="Password" name="password" type="password" />
 
-            <button type="submit" disabled={isSubmitting}>
+            <button
+              type="submit"
+              className="bg-red-900 p-2 font-bold hover:bg-red-700"
+              disabled={isSubmitting}
+            >
               Login
             </button>
           </Form>

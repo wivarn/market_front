@@ -12,12 +12,12 @@ export const TextField: React.FC<TextFieldProps> = ({ label, ...props }) => {
   // message if the field is invalid and it has been touched (i.e. visited)
   const [field, meta] = useField(props);
   return (
-    <>
+    <div className="my-2">
       <label htmlFor={props.name}>{label}</label>
-      <input className="text-input" {...field} {...props} />
+      <input className="text-input text-black" {...field} {...props} />
       {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
+        <div className="error text-red-300 italic">{meta.error}</div>
       ) : null}
-    </>
+    </div>
   );
 };

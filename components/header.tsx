@@ -72,7 +72,7 @@ export default function Header() {
                 <FireIcon className="w-6 h-6" />
                 Swkirly
               </span>
-              <span className="text-xs align-text-bottom">
+              <span className="text-xs align-text-bottom text-transparent hover:text-white">
                 A 90s themed geocites marketboard
               </span>
             </a>
