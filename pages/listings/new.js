@@ -1,5 +1,5 @@
-import { useSession } from "next-auth/client";
 import api from "services/api";
+import { useSession } from "next-auth/client";
 
 export default function NewListing() {
   const [session, loading] = useSession();

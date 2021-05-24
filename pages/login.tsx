@@ -1,7 +1,8 @@
-import { Formik, Form, FormikHelpers, useField, FieldHookConfig } from "formik";
 import * as Yup from "yup";
+
 import { DetailedHTMLProps, InputHTMLAttributes } from "react";
-import { useAuth } from "../contexts/auth";
+import { FieldHookConfig, Form, Formik, FormikHelpers, useField } from "formik";
+
 import { signIn } from "next-auth/client";
 
 interface Values {
@@ -38,7 +39,6 @@ const TextInput: React.FC<TextFieldProps> = ({ label, ...props }) => {
 };
 
 export default function login() {
-  const { user, accessToken, login } = useAuth();
   return (
     <div>
       <h1>Login</h1>
@@ -62,10 +62,10 @@ export default function login() {
         {({ isSubmitting }) => (
           <Form>
             <TextInput
-              label="Eamil"
+              label="Email"
               name="email"
               type="email"
-              placeholder="example@eamil.com"
+              placeholder="example@email.com"
             />
 
             <TextInput label="Password" name="password" type="password" />

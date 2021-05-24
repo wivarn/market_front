@@ -1,14 +1,15 @@
-import Link from "next/link";
-import Head from "next/head";
-import { useState } from "react";
 import {
-  MenuIcon,
   CurrencyDollarIcon,
+  MenuIcon,
   ShoppingCartIcon,
   UserCircleIcon,
 } from "@heroicons/react/outline";
+
 import { FireIcon } from "@heroicons/react/solid";
+import Head from "next/head";
+import Link from "next/link";
 import { useSession } from "next-auth/client";
+import { useState } from "react";
 
 function LoggedInNav() {
   return (

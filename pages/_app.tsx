@@ -1,14 +1,16 @@
 import "tailwindcss/tailwind.css";
-import Header from "../components/header";
-import Footer from "../components/footer";
-import { AppProps } from "next/app";
-import { StrictMode } from "react";
-import Head from "next/head";
-import { DefaultSeo } from "next-seo";
-import SEO from "../next-seo-config";
-import { Provider } from "next-auth/client";
 
-function MyApp({ Component, pageProps }: AppProps) {
+import { AppProps } from "next/app";
+import { DefaultSeo } from "next-seo";
+import Footer from "components/footer";
+import Head from "next/head";
+import Header from "components/header";
+import Layout from "components/layout";
+import { Provider } from "next-auth/client";
+import SEO from "next-seo-config";
+import { StrictMode } from "react";
+
+function Market({ Component, pageProps }: AppProps) {
   return (
     <StrictMode>
       <Head>
@@ -17,12 +19,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <DefaultSeo {...SEO} />
       <Provider session={pageProps.session}>
-        <Header />
-        <Component {...pageProps} />
-        <Footer />
+        <Layout>
+          <Header />
+          <Component {...pageProps} />
+          <Footer />
+        </Layout>
       </Provider>
     </StrictMode>
   );
 }
 
-export default MyApp;
+export default Market;
