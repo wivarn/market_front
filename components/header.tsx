@@ -11,31 +11,6 @@ import Link from "next/link";
 import { useSession } from "next-auth/client";
 import { useState } from "react";
 
-function LoggedInNav() {
-  return (
-    <div className="lg:flex-row lg:ml-auto lg:w-auto lg:items-center items-start flex flex-col lg:h-auto">
-      <Link href="listings/new">
-        <a className="lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-red-700 hover:text-white">
-          <CurrencyDollarIcon className="h-8 w-8" />
-          <span className="text-xs font-bold">Sell stuff</span>
-        </a>
-      </Link>
-      <Link href="/">
-        <a className="lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-red-700 hover:text-white">
-          <ShoppingCartIcon className="h-8 w-8" />
-          <span className="text-xs font-bold">Cart</span>
-        </a>
-      </Link>
-      <Link href="/">
-        <a className="lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-red-700 hover:text-white">
-          <UserCircleIcon className="h-8 w-8" />
-          <span className="text-xs font-bold">username goes here</span>
-        </a>
-      </Link>
-    </div>
-  );
-}
-
 function LoggedOutNav() {
   return (
     <div className="lg:flex-row lg:ml-auto lg:w-auto lg:items-center items-start flex flex-col lg:h-auto">
@@ -55,6 +30,31 @@ export default function Header() {
     setActive(!active);
   };
   const [session, loading] = useSession();
+
+  function LoggedInNav() {
+    return (
+      <div className="lg:flex-row lg:ml-auto lg:w-auto lg:items-center items-start flex flex-col lg:h-auto">
+        <Link href="listings/new">
+          <a className="lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-red-700 hover:text-white">
+            <CurrencyDollarIcon className="h-8 w-8" />
+            <span className="text-xs font-bold">Sell stuff</span>
+          </a>
+        </Link>
+        <Link href="/">
+          <a className="lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-red-700 hover:text-white">
+            <ShoppingCartIcon className="h-8 w-8" />
+            <span className="text-xs font-bold">Cart</span>
+          </a>
+        </Link>
+        <Link href="/">
+          <a className="lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-red-700 hover:text-white">
+            <UserCircleIcon className="h-8 w-8" />
+            <span className="text-xs font-bold">{session?.user?.name}</span>
+          </a>
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div>

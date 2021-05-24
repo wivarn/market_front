@@ -7,13 +7,16 @@ const providers = [
     name: "Credentials",
     authorize: async (credentials) => {
       try {
-        const user = await api.post("auth/login", {
+        const tokens = await api.post("auth/login", {
           login: credentials.login,
           password: credentials.password,
         });
 
-        if (user) {
-          return user.data;
+        if (tokens) {
+          const profile = await api.get("profile", {
+            headers: { Authorization: `Bearer ${tokens.data.access_token}` },
+          });
+          return { ...tokens.data, ...profile.data };
         }
       } catch (e) {
         const errorMessage = e.response.data.message;
@@ -26,14 +29,17 @@ const providers = [
 
 const callbacks = {
   async jwt(token, user) {
-    if (user?.access_token) {
+    if (user) {
       token.accessToken = user.access_token;
+      token.giveName = user.given_name;
+      token.picture = user.picture;
     }
     return token;
   },
 
   async session(session, token) {
     session.accessToken = token.accessToken;
+    session.user.name = token.giveName;
     return session;
   },
 };
