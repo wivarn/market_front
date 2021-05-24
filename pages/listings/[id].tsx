@@ -32,6 +32,8 @@ export default function ShowListing() {
       currency={listing.currency}
       domestic_shipping={listing.domestic_shipping}
       condition={listing.condition}
+      description={listing.description}
+      sellerName={`${listing.given_name} ${listing.family_name}`}
     />
   );
 }

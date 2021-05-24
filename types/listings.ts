@@ -9,4 +9,6 @@ export interface BasicListing {
 export interface Listing extends BasicListing {
   id?: string;
   photos: string[];
+  description?: string;
+  sellerName?: string;
 }
