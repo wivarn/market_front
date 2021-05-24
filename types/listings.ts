@@ -1,4 +1,5 @@
 export interface Listing {
+  id?: string;
   photos: string[];
   title: string;
   price: string;

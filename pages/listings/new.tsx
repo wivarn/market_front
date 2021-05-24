@@ -4,7 +4,7 @@ import { useSession } from "next-auth/client";
 export default function NewListing() {
   const [session, loading] = useSession();
 
-  const createListing = async (event) => {
+  const createListing = async (event: any) => {
     event.preventDefault();
 
     await api
@@ -23,7 +23,7 @@ export default function NewListing() {
           },
         },
         {
-          headers: { Authorization: `Bearer ${session.accessToken}` },
+          headers: { Authorization: `Bearer ${session?.accessToken}` },
         }
       )
       .then((res) => {

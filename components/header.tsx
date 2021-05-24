@@ -46,7 +46,7 @@ export default function Header() {
             <span className="text-xs font-bold">Cart</span>
           </a>
         </Link>
-        <Link href="/">
+        <Link href="/listings">
           <a className="lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-red-700 hover:text-white">
             <UserCircleIcon className="h-8 w-8" />
             <span className="text-xs font-bold">{session?.user?.name}</span>
