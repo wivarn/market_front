@@ -12,6 +12,7 @@ const ListingPreviewGrid = (props: Listings) => {
         return (
           <ListingPreview
             key={listing.id}
+            id={listing.id}
             photos={listing.photos}
             title={listing.title}
             price={listing.price}
