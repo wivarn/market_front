@@ -11,19 +11,6 @@ import Link from "next/link";
 import { useSession } from "next-auth/client";
 import { useState } from "react";
 
-function LoggedOutNav() {
-  return (
-    <div className="lg:flex-row lg:ml-auto lg:w-auto lg:items-center items-start flex flex-col lg:h-auto">
-      <Link href="/login">
-        <a className="lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-red-700 hover:text-white">
-          <UserCircleIcon className="h-8 w-8" />
-          <span className="text-xs font-bold">Login</span>
-        </a>
-      </Link>
-    </div>
-  );
-}
-
 export default function Header() {
   const [active, setActive] = useState(false);
   const handleClick = () => {
@@ -31,9 +18,27 @@ export default function Header() {
   };
   const [session, loading] = useSession();
 
+  function renderNav() {
+    if (loading) return <></>;
+    return session ? <LoggedInNav /> : <LoggedOutNav />;
+  }
+
+  function LoggedOutNav() {
+    return (
+      <>
+        <Link href="/login">
+          <a className="lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-red-700 hover:text-white">
+            <UserCircleIcon className="h-8 w-8" />
+            <span className="text-xs font-bold">Login</span>
+          </a>
+        </Link>
+      </>
+    );
+  }
+
   function LoggedInNav() {
     return (
-      <div className="lg:flex-row lg:ml-auto lg:w-auto lg:items-center items-start flex flex-col lg:h-auto">
+      <>
         <Link href="/listings/new">
           <a className="lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-red-700 hover:text-white">
             <CurrencyDollarIcon className="h-8 w-8" />
@@ -52,7 +57,7 @@ export default function Header() {
             <span className="text-xs font-bold">{session?.user?.name}</span>
           </a>
         </Link>
-      </div>
+      </>
     );
   }
 
@@ -88,7 +93,9 @@ export default function Header() {
               active ? "" : "hidden"
             } w-full lg:inline-flex lg:flex-grow lg:w-auto`}
           >
-            {session ? <LoggedInNav /> : <LoggedOutNav />}
+            <div className="lg:flex-row lg:ml-auto lg:w-auto lg:items-center items-start flex flex-col lg:h-auto">
+              {renderNav()}
+            </div>
           </div>
         </nav>
       </header>

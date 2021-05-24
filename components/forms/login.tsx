@@ -4,7 +4,6 @@ import { Form, Formik, FormikHelpers } from "formik";
 
 import { TextField } from "./fields";
 import { signIn } from "next-auth/client";
-import { useRouter } from "next/router";
 
 interface Values {
   email: string;
@@ -19,7 +18,6 @@ const loginSchema = Yup.object().shape({
 });
 
 export default function LoginForm() {
-  const router = useRouter();
   return (
     <div className="m-2 border border-blue-500">
       <h1 className="font-bold">Login</h1>
@@ -36,8 +34,8 @@ export default function LoginForm() {
           signIn("credentials", {
             login: values.email,
             password: values.password,
+            callbackUrl: "/",
           });
-          router.push("/");
         }}
       >
         {({ isSubmitting }) => (
