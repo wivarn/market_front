@@ -18,6 +18,7 @@ const ListingDetails = (props: Listing) => {
               domestic_shipping={props.domestic_shipping}
               condition={props.condition}
             />
+            <button className="bg-blue-500 p-2">Add To Cart</button>
           </div>
           <div className="pt-10">
             <UserCircleIcon className="h-20 w-20 bg-blue-500 float-left" />
