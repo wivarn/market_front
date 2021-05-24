@@ -1,13 +1,6 @@
-interface ListingProps {
-  photos: string[];
-  title: string;
-  price: string;
-  currency: string;
-  domestic_shipping: string;
-  condition: string;
-}
+import { Listing } from "types/listings";
 
-const ListingPreview = (props: ListingProps) => {
+const ListingPreview = (props: Listing) => {
   return (
     <div className="border border-blue-500 w-52">
       <div className="border border-blue-500 w-full h-56">

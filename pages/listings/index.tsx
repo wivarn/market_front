@@ -1,3 +1,4 @@
+import { Listing } from "types/listings";
 import ListingPreview from "components/listing/preview";
 import api from "services/api";
 import useSWR from "swr";
@@ -14,27 +15,18 @@ function getListings() {
   };
 }
 
-interface ListingProps {
-  photos: string[];
-  title: string;
-  price: string;
-  currency: string;
-  domestic_shipping: string;
-  condition: string;
-}
-
 export default function Listings() {
   const { listings, isLoading, isError } = getListings();
 
   if (isLoading) return <div>Spinner</div>;
   if (isError) return <div>Error</div>;
 
-  // const listing = listings?.data[0];
   return (
     <div className="grid grid-cols-4 gap-4">
-      {listings?.data.map((listing: ListingProps) => {
+      {listings?.data.map((listing: Listing & { id: string }) => {
         return (
           <ListingPreview
+            key={listing.id}
             photos={listing.photos}
             title={listing.title}
             price={listing.price}
