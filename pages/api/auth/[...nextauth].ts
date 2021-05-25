@@ -1,5 +1,4 @@
 import NextAuth from "next-auth";
-import { NumberLocale } from "yup/lib/locale";
 import Providers from "next-auth/providers";
 import api from "services/api";
 
@@ -98,4 +97,5 @@ const options = {
   },
 };
 
+// @ts-ignore
 export default (req, res) => NextAuth(req, res, options);

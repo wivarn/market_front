@@ -88,6 +88,7 @@ const ListingForm: React.FC<Listing> = (props) => {
           status: props.status,
         }}
         validationSchema={listingSchema}
+        // @ts-ignore
         onSubmit={async (
           values: Values,
           { setSubmitting }: FormikHelpers<Values>

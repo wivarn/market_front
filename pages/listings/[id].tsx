@@ -28,6 +28,7 @@ export default function ShowListing() {
 
   const listing = response?.data;
 
+  // @ts-ignore
   const isSeller = session?.user?.id == listing.account_id;
 
   if (isSeller)
