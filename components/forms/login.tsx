@@ -19,8 +19,8 @@ const loginSchema = Yup.object().shape({
 
 export default function LoginForm() {
   return (
-    <div className="m-2 border border-blue-800">
-      <h1 className="font-bold">Login</h1>
+    <div className="m-4 border-2 border-blue-800 p-2 rounded-md bg-blue-50">
+      <h3>Login</h3>
       <Formik
         initialValues={{
           email: "",
@@ -41,17 +41,22 @@ export default function LoginForm() {
         {({ isSubmitting }) => (
           <Form>
             <TextField
-              label="Email"
+              className="px-2 py-1 border-2 rounded-md"
               name="email"
               type="email"
-              placeholder="example@email.com"
+              placeholder="Email"
             />
 
-            <TextField label="Password" name="password" type="password" />
+            <TextField
+              className="px-2 py-1 border-2 rounded-md"
+              name="password"
+              type="password"
+              placeholder="Password"
+            />
 
             <button
               type="submit"
-              className="bg-red-900 p-2 font-bold hover:bg-red-700"
+              className="rounded bg-blue-800 text-white hover:bg-blue-50 hover:text-blue-800 border-2 border-blue-800 px-2 py-1 font-semibold"
               disabled={isSubmitting}
             >
               Login

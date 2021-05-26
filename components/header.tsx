@@ -24,9 +24,9 @@ export default function Header() {
     return (
       <>
         <Link href="/login">
-          <a className="md:block md:w-auto w-full px-3 py-2 rounded text-white hover:bg-blue-700 hover:text-white">
+          <a className="py-2 rounded text-white hover:text-blue-200 text-center">
             <UserCircleIcon className="h-8 w-8" />
-            <span className="text-xs font-bold">Login</span>
+            <div className="text-xs font-bold">Login</div>
           </a>
         </Link>
       </>
