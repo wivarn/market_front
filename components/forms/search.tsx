@@ -16,44 +16,46 @@ const querySchema = Yup.object().shape({
 export default function SearchForm() {
   const router = useRouter();
   return (
-    <div className="m-2 border border-blue-500">
-      <h1 className="font-bold">
-        Find the next centerpiece for your collection
-      </h1>
-      <Formik
-        initialValues={{
-          query: "",
-        }}
-        validationSchema={querySchema}
-        onSubmit={(
-          values: Values,
-          { setSubmitting }: FormikHelpers<Values>
-        ) => {
-          router.push({
-            pathname: "/listings/search",
-            query: { query: values.query },
-          });
-        }}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <TextField
-              name="search"
-              type="text"
-              placeholder="Search feature pending "
-              disabled={true}
-            />
+    <div className="mt-8 mx-4 border-2 bg-blue-50 border-blue-800 rounded-md">
+      <h2 className="p-2">Find the next centerpiece for your collection
+      </h2>
+      <div className="p-2">
+        <Formik
+          initialValues={{
+            query: "",
+          }}
+          validationSchema={querySchema}
+          onSubmit={(
+            values: Values,
+            { setSubmitting }: FormikHelpers<Values>
+          ) => {
+            router.push({
+              pathname: "/listings/search",
+              query: { query: values.query },
+            });
+          }}
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              <TextField
+                name="search"
+                type="text"
+                className="p-2"
+                placeholder="Search"
+                disabled={true}
+              />
 
-            <button
-              type="submit"
-              className="bg-red-900 p-2 font-bold hover:bg-red-700"
-              disabled={isSubmitting}
-            >
-              Go!
-            </button>
-          </Form>
-        )}
-      </Formik>
+              <button
+                type="submit"
+                className="px-2 py-1 font-bold"
+                disabled={isSubmitting}
+              >
+                Search
+              </button>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </div>
   );
 }
