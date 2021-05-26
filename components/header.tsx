@@ -27,7 +27,7 @@ export default function Header() {
     return (
       <>
         <Link href="/login">
-          <a className="lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-blue-600 hover:text-white">
+          <a className="md:block md:w-auto w-full px-3 py-2 rounded text-white hover:bg-blue-700 hover:text-white">
             <UserCircleIcon className="h-8 w-8" />
             <span className="text-xs font-bold">Login</span>
           </a>
@@ -39,24 +39,24 @@ export default function Header() {
   function LoggedInNav() {
     return (
       <>
-        <Link href="/listings/new">
-          <a className="lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-blue-600 hover:text-white">
-            <CurrencyDollarIcon className="h-8 w-8" />
-            <span className="text-xs font-bold">Sell stuff</span>
-          </a>
-        </Link>
-        <Link href="/">
-          <a className="lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-blue-600 hover:text-white">
-            <ShoppingCartIcon className="h-8 w-8" />
-            <span className="text-xs font-bold">Cart</span>
-          </a>
-        </Link>
-        <Link href="/listings">
-          <a className="lg:block lg:w-auto w-full px-3 py-2 rounded text-white hover:bg-blue-600 hover:text-white">
-            <UserCircleIcon className="h-8 w-8" />
-            <span className="text-xs font-bold">{session?.user?.name}</span>
-          </a>
-        </Link>
+          <Link href="/listings/new">
+            <a className="md:block md:w-auto w-full px-3 py-2 rounded text-white hover:bg-blue-700 hover:text-white">
+              <CurrencyDollarIcon className="h-8 w-8" />
+              <span className="text-xs font-semibold">Sell stuff</span>
+            </a>
+          </Link>
+          <Link href="/">
+            <a className="md:block md:w-auto w-full px-3 py-2 rounded text-white hover:bg-blue-700 hover:text-white">
+              <ShoppingCartIcon className="h-8 w-8" />
+              <span className="text-xs font-semibold">Cart</span>
+            </a>
+          </Link>
+          <Link href="/listings">
+            <a className="md:block md:w-auto w-full px-3 py-2 rounded text-white hover:bg-blue-700 hover:text-white">
+              <UserCircleIcon className="h-8 w-8" />
+              <span className="text-xs font-semibold">{session?.user?.name}</span>
+            </a>
+          </Link>
       </>
     );
   }
@@ -69,7 +69,7 @@ export default function Header() {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <header>
-        <nav className="flex flex-wrap items-center bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 p-3">
+        <nav className="flex flex-wrap items-center bg-blue-900 p-3">
           <Link href="/">
             <a className="p-2 mr-4 text-white">
               <span className="inline-flex text-2xl font-bold tracking-wide">
@@ -77,13 +77,10 @@ export default function Header() {
                 <FireIcon className="w-8 h-8" />
                 Skwirl
               </span>
-              <span className="text-xs align-text-bottom text-transparent hover:text-white">
-                A 90s themed geocites marketboard
-              </span>
             </a>
           </Link>
           <button
-            className="inline-flex p-3 m-1 hover:bg-blue-600 rounded lg:hidden text-white ml-auto hover:text-white"
+            className="inline-flex p-2 m-1 hover:bg-blue-700 rounded md:hidden text-white ml-auto hover:text-white"
             onClick={handleClick}
           >
             <MenuIcon className="w-6 h-6" />
@@ -91,9 +88,9 @@ export default function Header() {
           <div
             className={`${
               active ? "" : "hidden"
-            } w-full lg:inline-flex lg:flex-grow lg:w-auto`}
+            } w-full md:inline-flex md:flex-grow md:w-auto`}
           >
-            <div className="lg:flex-row lg:ml-auto lg:w-auto lg:items-center items-start flex flex-col lg:h-auto">
+            <div className="md:flex-row md:ml-auto md:w-auto md:items-center items-start flex flex-col md:h-auto">
               {renderNav()}
             </div>
           </div>

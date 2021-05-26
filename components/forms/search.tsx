@@ -17,8 +17,7 @@ export default function SearchForm() {
   const router = useRouter();
   return (
     <div className="mt-8 mx-4 border-2 bg-blue-50 border-blue-800 rounded-md">
-      <h2 className="p-2">Find the next centerpiece for your collection
-      </h2>
+      <h2 className="p-2">Find the next centerpiece for your collection</h2>
       <div className="p-2">
         <Formik
           initialValues={{
@@ -47,7 +46,7 @@ export default function SearchForm() {
 
               <button
                 type="submit"
-                className="px-2 py-1 font-bold"
+                className="rounded bg-blue-800 text-white hover:bg-blue-50 hover:text-blue-800 border-2 border-blue-800 px-2 py-1 font-bold"
                 disabled={isSubmitting}
               >
                 Search
