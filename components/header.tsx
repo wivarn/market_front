@@ -64,7 +64,7 @@ export default function Header() {
   return (
     <div>
       <Head>
-        <title>Skwirly</title>
+        <title>Skwirl</title>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
@@ -72,10 +72,10 @@ export default function Header() {
         <nav className="flex flex-wrap items-center bg-red-900 p-3">
           <Link href="/">
             <a className="p-2 mr-4 text-white">
-              <span className="inline-flex text-xl font-bold uppercase tracking-wide">
+              <span className="inline-flex text-xl font-bold tracking-wide">
                 {/* Placeholder icon */}
                 <FireIcon className="w-6 h-6" />
-                Swkirly
+                Skwirl
               </span>
               <span className="text-xs align-text-bottom text-transparent hover:text-white">
                 A 90s themed geocites marketboard
