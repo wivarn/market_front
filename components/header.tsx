@@ -13,9 +13,6 @@ import { useState } from "react";
 
 export default function Header() {
   const [active, setActive] = useState(false);
-  const handleClick = () => {
-    setActive(!active);
-  };
   const [session, loading] = useSession();
 
   function renderNav() {
@@ -39,24 +36,27 @@ export default function Header() {
   function LoggedInNav() {
     return (
       <>
+        <div className="grid grid-flow-col justify-items-center auto-cols-max items-center space-x-4">
           <Link href="/listings/new">
-            <a className="md:block md:w-auto w-full px-3 py-2 rounded text-white hover:bg-blue-700 hover:text-white">
+            <a className="px-3 py-2 rounded text-white hover:text-blue-200 text-center">
               <CurrencyDollarIcon className="h-8 w-8" />
-              <span className="text-xs font-semibold">Sell stuff</span>
+              <div className="text-xs font-semibold">Sell</div>
             </a>
           </Link>
           <Link href="/">
-            <a className="md:block md:w-auto w-full px-3 py-2 rounded text-white hover:bg-blue-700 hover:text-white">
+            <a className="px-3 py-2 rounded text-white hover:text-blue-200 text-center">
               <ShoppingCartIcon className="h-8 w-8" />
-              <span className="text-xs font-semibold">Cart</span>
+              <div className="text-xs font-semibold">Cart</div>
             </a>
           </Link>
           <Link href="/listings">
-            <a className="md:block md:w-auto w-full px-3 py-2 rounded text-white hover:bg-blue-700 hover:text-white">
+            <a className="px-3 py-2 rounded text-white hover:text-blue-200 text-center">
               <UserCircleIcon className="h-8 w-8" />
-              <span className="text-xs font-semibold">{session?.user?.name}</span>
+              <div className="text-xs font-semibold">{session?.user?.name}
+              </div>
             </a>
           </Link>
+        </div>
       </>
     );
   }
@@ -72,28 +72,16 @@ export default function Header() {
         <nav className="flex flex-wrap items-center bg-blue-900 p-3">
           <Link href="/">
             <a className="p-2 mr-4 text-white">
-              <span className="inline-flex text-2xl font-bold tracking-wide">
+              <h1 className="inline-flex">
                 {/* Placeholder icon */}
-                <FireIcon className="w-8 h-8" />
+                <FireIcon className="w-10 h-10" />
                 Skwirl
-              </span>
+              </h1>
             </a>
           </Link>
-          <button
-            className="inline-flex p-2 m-1 hover:bg-blue-700 rounded md:hidden text-white ml-auto hover:text-white"
-            onClick={handleClick}
-          >
-            <MenuIcon className="w-6 h-6" />
-          </button>
-          <div
-            className={`${
-              active ? "" : "hidden"
-            } w-full md:inline-flex md:flex-grow md:w-auto`}
-          >
-            <div className="md:flex-row md:ml-auto md:w-auto md:items-center items-start flex flex-col md:h-auto">
+            <div className="ml-auto">
               {renderNav()}
             </div>
-          </div>
         </nav>
       </header>
     </div>
