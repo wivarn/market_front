@@ -45,7 +45,7 @@ export default function SearchForm() {
               />
               <button
                 type="submit"
-                className="rounded bg-blue-800 text-white hover:bg-blue-50 hover:text-blue-800 border-2 border-blue-800 px-2 py-1 font-semibold"
+                className="rounded bg-primary text-white hover:bg-primary-light hover:text-accent-dark border-2 border-primary px-2 py-1 font-semibold"
                 disabled={isSubmitting}
               >
                 Search
