@@ -1,12 +1,13 @@
+import { LargeUserCircleIcon } from "components/icons";
 import { Listing } from "types/listings";
 import ListingBasicInfo from "./basicInfo";
-import { UserCircleIcon } from "@heroicons/react/outline";
+import { SubmitButton } from "components/buttons";
 
 const ListingDetails = (props: Listing) => {
   return (
     <div>
       <div className="flex space-x-4">
-        <div className="flex-initial bg-blue-500 w-96 h-96">
+        <div className="flex-initial bg-primary w-96 h-96">
           image url: {props.photos[0]}
         </div>
         <div className="flex-initial pl-10">
@@ -18,14 +19,14 @@ const ListingDetails = (props: Listing) => {
               domestic_shipping={props.domestic_shipping}
               condition={props.condition}
             />
-            <button className="bg-blue-500 p-2">Add To Cart</button>
+            <SubmitButton text="Add to Cart" disabled={true} />
           </div>
           <div className="pt-10">
-            <UserCircleIcon className="h-20 w-20 bg-blue-500 float-left" />
+            <LargeUserCircleIcon />
             <span className="float-right">
               <div className="text-4xl font-bold">{props.sellerName}</div>
-              <div className="text-sm text-gray-500">Location</div>
-              <div className="text-sm text-green-500">User Rating</div>
+              <div className="text-sm text-accent">Location</div>
+              <div className="text-sm text-success">User Rating</div>
             </span>
           </div>
         </div>

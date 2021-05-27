@@ -1,7 +1,9 @@
 import * as Yup from "yup";
 
+import { DeleteButton, SubmitButton } from "components/buttons";
 import { Form, Formik, FormikHelpers } from "formik";
 
+import FormContainer from "./container";
 import { Listing } from "types/listings";
 import { NumberField } from "./fields";
 import { TextField } from "./fields";
@@ -74,8 +76,8 @@ const ListingForm: React.FC<Listing> = (props) => {
   };
 
   return (
-    <div className="m-2 border border-blue-500">
-      <h1 className="font-bold">{newListing ? "Create" : "Update"} Listing</h1>
+    <FormContainer>
+      <h2>{newListing ? "Create" : "Update"} Listing</h2>
       <Formik
         initialValues={{
           photos: props.photos,
@@ -124,53 +126,45 @@ const ListingForm: React.FC<Listing> = (props) => {
         {({ isSubmitting }) => (
           <Form>
             <TextField
-              label="Title"
+              label="Title: "
               name="title"
               type="text"
               placeholder="title"
             />
 
             <TextField
-              label="Condition"
+              label="Condition: "
               name="condition"
               type="text"
               placeholder="condition"
             />
 
             <TextField
-              label="Description"
+              label="Description: "
               name="description"
               type="text"
               placeholder="description"
             />
 
-            <NumberField label="Price" name="price" placeholder="0" />
+            <NumberField label="Price: " name="price" placeholder="0" />
 
             <NumberField
-              label="Domestic Shipping"
+              label="Domestic Shipping: "
               name="domesticShipping"
               placeholder="0"
             />
 
-            <button
-              type="submit"
-              className="bg-red-900 p-2 font-bold hover:bg-red-700"
+            <SubmitButton
+              text={(newListing ? "Save" : "Update") + " Listing"}
               disabled={isSubmitting}
-            >
-              {newListing ? "Create" : "Update"} Listing
-            </button>
+            />
           </Form>
         )}
       </Formik>
       {newListing ? null : (
-        <button
-          className="bg-red-900 p-2 font-bold hover:bg-red-700 float-right"
-          onClick={deleteListing}
-        >
-          Delete
-        </button>
+        <DeleteButton text="Delete" disabled={!!deleteListing} />
       )}
-    </div>
+    </FormContainer>
   );
 };
 

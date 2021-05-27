@@ -12,11 +12,11 @@ export const TextField: React.FC<TextFieldProps> = ({ label, ...props }) => {
   // message if the field is invalid and it has been touched (i.e. visited)
   const [field, meta] = useField(props);
   return (
-    <div className="my-2">
+    <div className="text-primary-dark my-2">
       <label htmlFor={props.name}>{label}</label>
-      <input className="text-input text-black" {...field} {...props} />
+      <input className="px-2 py-1 border-2 rounded-md" {...field} {...props} />
       {meta.touched && meta.error ? (
-        <div className="error text-red-300 italic">{meta.error}</div>
+        <div className="text-error italic">{meta.error}</div>
       ) : null}
     </div>
   );
@@ -28,11 +28,16 @@ export const NumberField: React.FC<TextFieldProps> = ({ label, ...props }) => {
   // message if the field is invalid and it has been touched (i.e. visited)
   const [field, meta] = useField(props);
   return (
-    <div className="my-2">
+    <div className="text-primary-dark my-2">
       <label htmlFor={props.name}>{label}</label>
-      <input type="number" className="text-black" {...field} {...props} />
+      <input
+        type="number"
+        className="px-2 py-1 border-2 rounded-md"
+        {...field}
+        {...props}
+      />
       {meta.touched && meta.error ? (
-        <div className="error text-red-300 italic">{meta.error}</div>
+        <div className="text-error italic">{meta.error}</div>
       ) : null}
     </div>
   );

@@ -2,6 +2,8 @@ import * as Yup from "yup";
 
 import { Form, Formik, FormikHelpers } from "formik";
 
+import FormContainer from "./container";
+import { SubmitButton } from "components/buttons";
 import { TextField } from "./fields";
 import { signIn } from "next-auth/client";
 
@@ -19,8 +21,8 @@ const loginSchema = Yup.object().shape({
 
 export default function LoginForm() {
   return (
-    <div className="m-2 border border-blue-500">
-      <h1 className="font-bold">Login</h1>
+    <FormContainer>
+      <h3>Login</h3>
       <Formik
         initialValues={{
           email: "",
@@ -40,25 +42,14 @@ export default function LoginForm() {
       >
         {({ isSubmitting }) => (
           <Form>
-            <TextField
-              label="Email"
-              name="email"
-              type="email"
-              placeholder="example@email.com"
-            />
+            <TextField name="email" type="email" placeholder="Email" />
 
-            <TextField label="Password" name="password" type="password" />
+            <TextField name="password" type="password" placeholder="Password" />
 
-            <button
-              type="submit"
-              className="bg-red-900 p-2 font-bold hover:bg-red-700"
-              disabled={isSubmitting}
-            >
-              Login
-            </button>
+            <SubmitButton text="Login" disabled={isSubmitting} />
           </Form>
         )}
       </Formik>
-    </div>
+    </FormContainer>
   );
 }

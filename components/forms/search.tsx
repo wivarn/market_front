@@ -2,6 +2,8 @@ import * as Yup from "yup";
 
 import { Form, Formik, FormikHelpers } from "formik";
 
+import FormContainer from "./container";
+import { SubmitButton } from "components/buttons";
 import { TextField } from "./fields";
 import { useRouter } from "next/router";
 
@@ -16,44 +18,39 @@ const querySchema = Yup.object().shape({
 export default function SearchForm() {
   const router = useRouter();
   return (
-    <div className="m-2 border border-blue-500">
-      <h1 className="font-bold">
+    <FormContainer>
+      <h2 className="mt-2 px-2">
         Find the next centerpiece for your collection
-      </h1>
-      <Formik
-        initialValues={{
-          query: "",
-        }}
-        validationSchema={querySchema}
-        onSubmit={(
-          values: Values,
-          { setSubmitting }: FormikHelpers<Values>
-        ) => {
-          router.push({
-            pathname: "/listings/search",
-            query: { query: values.query },
-          });
-        }}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <TextField
-              name="search"
-              type="text"
-              placeholder="Search feature pending "
-              disabled={true}
-            />
-
-            <button
-              type="submit"
-              className="bg-red-900 p-2 font-bold hover:bg-red-700"
-              disabled={isSubmitting}
-            >
-              Go!
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+      </h2>
+      <div className="p-2 grid grid-col-2">
+        <Formik
+          initialValues={{
+            query: "",
+          }}
+          validationSchema={querySchema}
+          onSubmit={(
+            values: Values,
+            { setSubmitting }: FormikHelpers<Values>
+          ) => {
+            router.push({
+              pathname: "/listings/search",
+              query: { query: values.query },
+            });
+          }}
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              <TextField
+                name="search"
+                type="text"
+                placeholder="Search for anything"
+                disabled={true}
+              />
+              <SubmitButton text="Search" disabled={isSubmitting} />
+            </Form>
+          )}
+        </Formik>
+      </div>
+    </FormContainer>
   );
 }
