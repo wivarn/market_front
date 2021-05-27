@@ -26,11 +26,12 @@ module.exports = {
           light: "#F4F3EE",
           DEFAULT: "#BCB8B1",
           dark: "#2E282A",
-        }
-
+        },
       },
-  variants: {
-    extend: {},
+      variants: {
+        extend: {},
+      },
+      plugins: [],
+    },
   },
-  plugins: [],
 };
