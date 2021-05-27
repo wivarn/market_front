@@ -1,5 +1,6 @@
 import { Listing } from "types/listings";
 import ListingBasicInfo from "./basicInfo";
+import { SubmitButton } from "components/buttons";
 import { UserCircleIcon } from "@heroicons/react/outline";
 
 const ListingDetails = (props: Listing) => {
@@ -18,7 +19,7 @@ const ListingDetails = (props: Listing) => {
               domestic_shipping={props.domestic_shipping}
               condition={props.condition}
             />
-            <button className="bg-blue-500 p-2">Add To Cart</button>
+            <SubmitButton text="Add to Cart" disabled={true} />
           </div>
           <div className="pt-10">
             <UserCircleIcon className="h-20 w-20 bg-blue-500 float-left" />

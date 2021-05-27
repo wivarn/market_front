@@ -2,6 +2,7 @@ import * as Yup from "yup";
 
 import { Form, Formik, FormikHelpers } from "formik";
 
+import { SubmitButton } from "components/buttons";
 import { TextField } from "./fields";
 import { signIn } from "next-auth/client";
 
@@ -44,13 +45,7 @@ export default function LoginForm() {
 
             <TextField name="password" type="password" placeholder="Password" />
 
-            <button
-              type="submit"
-              className="rounded bg-blue-800 text-white hover:bg-blue-50 hover:text-blue-800 border-2 border-blue-800 px-2 py-1 font-semibold"
-              disabled={isSubmitting}
-            >
-              Login
-            </button>
+            <SubmitButton text="Login" disabled={isSubmitting} />
           </Form>
         )}
       </Formik>

@@ -2,6 +2,7 @@ import * as Yup from "yup";
 
 import { Form, Formik, FormikHelpers } from "formik";
 
+import { SubmitButton } from "components/buttons";
 import { TextField } from "./fields";
 import { useRouter } from "next/router";
 
@@ -44,13 +45,7 @@ export default function SearchForm() {
                 placeholder="Search for anything"
                 disabled={true}
               />
-              <button
-                type="submit"
-                className="rounded bg-primary text-white hover:bg-primary-light hover:text-accent-dark border-2 border-primary px-2 py-1 font-semibold"
-                disabled={isSubmitting}
-              >
-                Search
-              </button>
+              <SubmitButton text="Search" disabled={isSubmitting} />
             </Form>
           )}
         </Formik>

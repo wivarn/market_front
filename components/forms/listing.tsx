@@ -1,5 +1,6 @@
 import * as Yup from "yup";
 
+import { DeleteButton, SubmitButton } from "components/buttons";
 import { Form, Formik, FormikHelpers } from "formik";
 
 import { Listing } from "types/listings";
@@ -152,23 +153,15 @@ const ListingForm: React.FC<Listing> = (props) => {
               placeholder="0"
             />
 
-            <button
-              type="submit"
-              className="rounded bg-blue-800 text-white hover:bg-blue-50 hover:text-blue-800 border-2 border-blue-800 px-2 py-1 font-semibold"
+            <SubmitButton
+              text={(newListing ? "Save" : "Update") + " Listing"}
               disabled={isSubmitting}
-            >
-              {newListing ? "Save" : "Update"} Listing
-            </button>
+            />
           </Form>
         )}
       </Formik>
       {newListing ? null : (
-        <button
-          className="rounded bg-blue-800 text-white hover:bg-blue-50 hover:text-blue-800 border-2 border-blue-800 px-2 py-1 font-semibold"
-          onClick={deleteListing}
-        >
-          Delete
-        </button>
+        <DeleteButton text="Delete" disabled={!!deleteListing} />
       )}
     </div>
   );
