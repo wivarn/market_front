@@ -1,20 +1,5 @@
-@tailwind base;
+@import "tailwindcss/base";
+@import "./base.css";
 
-/* Write your own custom base styles here */
-@layer base {
-  h1 {
-    @apply font-bold text-4xl;
-  }
-  h2 {
-    @apply text-2xl font-bold;
-  }
-  h3 {
-    @apply text-xl font-bold;
-  }
-  p {
-    @apply text-base;
-  }
-}
-
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
