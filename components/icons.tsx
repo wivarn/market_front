@@ -18,6 +18,10 @@ export const UserCircleIcon = () => {
   return <HiOutlineUserCircle className="icon" />;
 };
 
+export const LargeUserCircleIcon = () => {
+  return <HiOutlineUserCircle className="h-20 w-20 bg-blue-500 float-left" />;
+};
+
 export const SquirrelIcon = () => {
   return <GiSquirrel className="icon-large" />;
 };

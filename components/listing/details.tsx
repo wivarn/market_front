@@ -1,7 +1,7 @@
+import { LargeUserCircleIcon } from "components/icons";
 import { Listing } from "types/listings";
 import ListingBasicInfo from "./basicInfo";
 import { SubmitButton } from "components/buttons";
-import { UserCircleIcon } from "@heroicons/react/outline";
 
 const ListingDetails = (props: Listing) => {
   return (
@@ -22,7 +22,7 @@ const ListingDetails = (props: Listing) => {
             <SubmitButton text="Add to Cart" disabled={true} />
           </div>
           <div className="pt-10">
-            <UserCircleIcon className="h-20 w-20 bg-blue-500 float-left" />
+            <LargeUserCircleIcon />
             <span className="float-right">
               <div className="text-4xl font-bold">{props.sellerName}</div>
               <div className="text-sm text-gray-500">Location</div>
