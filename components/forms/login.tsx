@@ -40,19 +40,9 @@ export default function LoginForm() {
       >
         {({ isSubmitting }) => (
           <Form>
-            <TextField
-              className="px-2 py-1 border-2 rounded-md"
-              name="email"
-              type="email"
-              placeholder="Email"
-            />
+            <TextField name="email" type="email" placeholder="Email" />
 
-            <TextField
-              className="px-2 py-1 border-2 rounded-md"
-              name="password"
-              type="password"
-              placeholder="Password"
-            />
+            <TextField name="password" type="password" placeholder="Password" />
 
             <button
               type="submit"

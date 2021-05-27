@@ -125,7 +125,6 @@ const ListingForm: React.FC<Listing> = (props) => {
           <Form>
             <TextField
               label="Title: "
-              className="px-2 py-1 border-2 rounded-md"
               name="title"
               type="text"
               placeholder="title"
@@ -133,7 +132,6 @@ const ListingForm: React.FC<Listing> = (props) => {
 
             <TextField
               label="Condition: "
-              className="px-2 py-1 border-2 rounded-md"
               name="condition"
               type="text"
               placeholder="condition"
@@ -141,22 +139,15 @@ const ListingForm: React.FC<Listing> = (props) => {
 
             <TextField
               label="Description: "
-              className="px-2 py-1 border-2 rounded-md"
               name="description"
               type="text"
               placeholder="description"
             />
 
-            <NumberField
-              label="Price: "
-              className="px-2 py-1 border-2 rounded-md"
-              name="price"
-              placeholder="0"
-            />
+            <NumberField label="Price: " name="price" placeholder="0" />
 
             <NumberField
               label="Domestic Shipping: "
-              className="px-2 py-1 border-2 rounded-md"
               name="domesticShipping"
               placeholder="0"
             />
