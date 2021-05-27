@@ -43,7 +43,6 @@ export default function SearchForm() {
                 placeholder="Search for anything"
                 disabled={true}
               />
-
               <button
                 type="submit"
                 className="rounded bg-blue-800 text-white hover:bg-blue-50 hover:text-blue-800 border-2 border-blue-800 px-2 py-1 font-semibold"
