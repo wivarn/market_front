@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { DeleteButton, SubmitButton } from "components/buttons";
 import { Form, Formik, FormikHelpers } from "formik";
 
+import FormContainer from "./container";
 import { Listing } from "types/listings";
 import { NumberField } from "./fields";
 import { TextField } from "./fields";
@@ -75,7 +76,7 @@ const ListingForm: React.FC<Listing> = (props) => {
   };
 
   return (
-    <div className="m-4 p-2 border-2 rounded-md bg-gray-50">
+    <FormContainer>
       <h2>{newListing ? "Create" : "Update"} Listing</h2>
       <Formik
         initialValues={{
@@ -163,7 +164,7 @@ const ListingForm: React.FC<Listing> = (props) => {
       {newListing ? null : (
         <DeleteButton text="Delete" disabled={!!deleteListing} />
       )}
-    </div>
+    </FormContainer>
   );
 };
 

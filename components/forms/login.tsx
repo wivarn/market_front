@@ -2,6 +2,7 @@ import * as Yup from "yup";
 
 import { Form, Formik, FormikHelpers } from "formik";
 
+import FormContainer from "./container";
 import { SubmitButton } from "components/buttons";
 import { TextField } from "./fields";
 import { signIn } from "next-auth/client";
@@ -20,7 +21,7 @@ const loginSchema = Yup.object().shape({
 
 export default function LoginForm() {
   return (
-    <div className="m-4 border-2 p-2 rounded-md bg-gray-50">
+    <FormContainer>
       <h3>Login</h3>
       <Formik
         initialValues={{
@@ -49,6 +50,6 @@ export default function LoginForm() {
           </Form>
         )}
       </Formik>
-    </div>
+    </FormContainer>
   );
 }

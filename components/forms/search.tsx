@@ -2,6 +2,7 @@ import * as Yup from "yup";
 
 import { Form, Formik, FormikHelpers } from "formik";
 
+import FormContainer from "./container";
 import { SubmitButton } from "components/buttons";
 import { TextField } from "./fields";
 import { useRouter } from "next/router";
@@ -17,7 +18,7 @@ const querySchema = Yup.object().shape({
 export default function SearchForm() {
   const router = useRouter();
   return (
-    <div className="mt-8 mx-4 border-2 bg-gray-50 rounded-md">
+    <FormContainer>
       <h2 className="mt-2 px-2">
         Find the next centerpiece for your collection
       </h2>
@@ -50,6 +51,6 @@ export default function SearchForm() {
           )}
         </Formik>
       </div>
-    </div>
+    </FormContainer>
   );
 }
