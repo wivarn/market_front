@@ -5,7 +5,7 @@ import Link from "next/link";
 interface Props {
   href: string;
   icon: ReactNode;
-  text: string | null | undefined;
+  text: string;
 }
 
 export const IconLink: React.FC<Props> = (props) => {

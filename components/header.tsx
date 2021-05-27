@@ -39,7 +39,7 @@ export default function Header() {
           <IconLink
             href="/listings"
             icon={<UserCircleIcon />}
-            text={session?.user?.name}
+            text={session?.user?.name || ""}
           />
         </div>
       </>
