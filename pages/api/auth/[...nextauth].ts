@@ -2,6 +2,8 @@ import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import api from "services/api";
 
+process.env.NEXTAUTH_URL = process.env.NEXTAUTH_URL || process.env.VERCEL_URL;
+
 interface Credentials {
   login: string;
   password: string;
