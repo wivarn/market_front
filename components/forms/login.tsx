@@ -19,7 +19,7 @@ const loginSchema = Yup.object().shape({
 
 export default function LoginForm() {
   return (
-    <div className="m-4 border-2 border-blue-800 p-2 rounded-md bg-gray-50">
+    <div className="m-4 border-2 p-2 rounded-md bg-gray-50">
       <h3>Login</h3>
       <Formik
         initialValues={{

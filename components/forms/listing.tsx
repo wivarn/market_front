@@ -74,7 +74,7 @@ const ListingForm: React.FC<Listing> = (props) => {
   };
 
   return (
-    <div className="m-4 p-2 border-2 border-blue-900 rounded-md bg-gray-50">
+    <div className="m-4 p-2 border-2 rounded-md bg-gray-50">
       <h2>{newListing ? "Create" : "Update"} Listing</h2>
       <Formik
         initialValues={{
