@@ -1,18 +1,16 @@
 import {
   CurrencyDollarIcon,
-  MenuIcon,
   ShoppingCartIcon,
+  SquirrelIcon,
   UserCircleIcon,
-} from "@heroicons/react/outline";
+} from "components/icons";
 
-import { FireIcon } from "@heroicons/react/solid";
 import Head from "next/head";
+import { IconLink } from "./iconLink";
 import Link from "next/link";
 import { useSession } from "next-auth/client";
-import { useState } from "react";
 
 export default function Header() {
-  const [active, setActive] = useState(false);
   const [session, loading] = useSession();
 
   function renderNav() {
@@ -22,40 +20,27 @@ export default function Header() {
 
   function LoggedOutNav() {
     return (
-      <>
-        <Link href="/login">
-          <a className="py-2 rounded text-white hover:text-blue-200 text-center">
-            <UserCircleIcon className="h-8 w-8" />
-            <div className="text-xs font-bold">Login</div>
-          </a>
-        </Link>
-      </>
+      <div className="pr-3">
+        <IconLink href="/login" icon={<UserCircleIcon />} text="Login" />
+      </div>
     );
   }
 
   function LoggedInNav() {
     return (
       <>
-        <div className="grid grid-flow-col justify-items-center auto-cols-max items-center space-x-4">
-          <Link href="/listings/new">
-            <a className="px-3 py-2 rounded text-white hover:text-blue-200 text-center">
-              <CurrencyDollarIcon className="h-8 w-8" />
-              <div className="text-xs font-semibold">Sell</div>
-            </a>
-          </Link>
-          <Link href="/">
-            <a className="px-3 py-2 rounded text-white hover:text-blue-200 text-center">
-              <ShoppingCartIcon className="h-8 w-8" />
-              <div className="text-xs font-semibold">Cart</div>
-            </a>
-          </Link>
-          <Link href="/listings">
-            <a className="px-3 py-2 rounded text-white hover:text-blue-200 text-center">
-              <UserCircleIcon className="h-8 w-8" />
-              <div className="text-xs font-semibold">{session?.user?.name}
-              </div>
-            </a>
-          </Link>
+        <div className="grid grid-flow-col justify-items-center auto-cols-max items-center space-x-10 pr-3">
+          <IconLink
+            href="/listings/new"
+            icon={<CurrencyDollarIcon />}
+            text="Sell"
+          />
+          <IconLink href="/" icon={<ShoppingCartIcon />} text="Cart" />
+          <IconLink
+            href="/listings"
+            icon={<UserCircleIcon />}
+            text={session?.user?.name}
+          />
         </div>
       </>
     );
@@ -71,17 +56,14 @@ export default function Header() {
       <header>
         <nav className="flex flex-wrap items-center bg-primary py-2 px-3">
           <Link href="/">
-            <a className="p-2 mr-4 text-white">
+            <a className="p-2 mr-4 text-accent-light">
               <h1 className="inline-flex">
-                {/* Placeholder icon */}
-                <FireIcon className="w-10 h-10" />
+                <SquirrelIcon />
                 Skwirl
               </h1>
             </a>
           </Link>
-            <div className="ml-auto">
-              {renderNav()}
-            </div>
+          <div className="ml-auto">{renderNav()}</div>
         </nav>
       </header>
     </div>
