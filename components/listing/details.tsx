@@ -7,7 +7,7 @@ const ListingDetails = (props: Listing) => {
   return (
     <div>
       <div className="flex space-x-4">
-        <div className="flex-initial bg-blue-500 w-96 h-96">
+        <div className="flex-initial bg-primary w-96 h-96">
           image url: {props.photos[0]}
         </div>
         <div className="flex-initial pl-10">
@@ -25,8 +25,8 @@ const ListingDetails = (props: Listing) => {
             <LargeUserCircleIcon />
             <span className="float-right">
               <div className="text-4xl font-bold">{props.sellerName}</div>
-              <div className="text-sm text-gray-500">Location</div>
-              <div className="text-sm text-green-500">User Rating</div>
+              <div className="text-sm text-accent">Location</div>
+              <div className="text-sm text-success">User Rating</div>
             </span>
           </div>
         </div>

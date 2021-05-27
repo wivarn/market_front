@@ -6,8 +6,8 @@ const ListingPreview = (props: Listing) => {
   return (
     <Link href={`/listings/${props.id}`}>
       <a>
-        <div className="border border-blue-500 w-52">
-          <div className="border border-blue-500 w-full h-56">
+        <div className="border border-primary w-52">
+          <div className="border border-primary w-full h-56">
             image url: {props.photos[0]}
           </div>
           <ListingBasicInfo
