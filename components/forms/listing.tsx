@@ -74,8 +74,8 @@ const ListingForm: React.FC<Listing> = (props) => {
   };
 
   return (
-    <div className="m-2 border border-blue-500">
-      <h1 className="font-bold">{newListing ? "Create" : "Update"} Listing</h1>
+    <div className="m-4 p-2 border-2 border-blue-900 rounded-md bg-gray-50">
+      <h2>{newListing ? "Create" : "Update"} Listing</h2>
       <Formik
         initialValues={{
           photos: props.photos,
@@ -124,47 +124,56 @@ const ListingForm: React.FC<Listing> = (props) => {
         {({ isSubmitting }) => (
           <Form>
             <TextField
-              label="Title"
+              label="Title: "
+              className="px-2 py-1 border-2 rounded-md"
               name="title"
               type="text"
               placeholder="title"
             />
 
             <TextField
-              label="Condition"
+              label="Condition: "
+              className="px-2 py-1 border-2 rounded-md"
               name="condition"
               type="text"
               placeholder="condition"
             />
 
             <TextField
-              label="Description"
+              label="Description: "
+              className="px-2 py-1 border-2 rounded-md"
               name="description"
               type="text"
               placeholder="description"
             />
 
-            <NumberField label="Price" name="price" placeholder="0" />
+            <NumberField
+              label="Price: "
+              className="px-2 py-1 border-2 rounded-md"
+              name="price"
+              placeholder="0"
+            />
 
             <NumberField
-              label="Domestic Shipping"
+              label="Domestic Shipping: "
+              className="px-2 py-1 border-2 rounded-md"
               name="domesticShipping"
               placeholder="0"
             />
 
             <button
               type="submit"
-              className="bg-red-900 p-2 font-bold hover:bg-red-700"
+              className="rounded bg-blue-800 text-white hover:bg-blue-50 hover:text-blue-800 border-2 border-blue-800 px-2 py-1 font-semibold"
               disabled={isSubmitting}
             >
-              {newListing ? "Create" : "Update"} Listing
+              {newListing ? "Save" : "Update"} Listing
             </button>
           </Form>
         )}
       </Formik>
       {newListing ? null : (
         <button
-          className="bg-red-900 p-2 font-bold hover:bg-red-700 float-right"
+          className="rounded bg-blue-800 text-white hover:bg-blue-50 hover:text-blue-800 border-2 border-blue-800 px-2 py-1 font-semibold"
           onClick={deleteListing}
         >
           Delete
