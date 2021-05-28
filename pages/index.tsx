@@ -8,7 +8,7 @@ export default function Home() {
         <div className="flex-grow">
           <h3>Support us on SubscribeStar!</h3>
           <a href="#">
-            <div className="bg-secondary border-2 border-secondary-dark rounded-md shadow-md h-96">
+            <div className="bg-secondary rounded-md shadow-md h-96">
               Some image link to SubscribeStar
             </div>
           </a>
@@ -16,7 +16,7 @@ export default function Home() {
         <div className="flex-grow">
           <h3>Get some pro tips on selling</h3>
           <a href="#">
-            <div className="bg-secondary border-2 border-secondary-dark rounded-md shadow-md h-96">
+            <div className="bg-secondary rounded-md shadow-md h-96">
               Some image link to a youtube video
             </div>
           </a>

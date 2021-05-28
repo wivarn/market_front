@@ -22,7 +22,7 @@ export default function SearchForm() {
       <h2 className="mt-2 px-2">
         Find the next centerpiece for your collection
       </h2>
-      <div className="p-2 grid grid-col-2">
+      <div className="p-2">
         <Formik
           initialValues={{
             query: "",
@@ -40,13 +40,13 @@ export default function SearchForm() {
         >
           {({ isSubmitting }) => (
             <Form>
-              <TextField
-                name="search"
-                type="text"
-                placeholder="Search for anything"
-                disabled={true}
-              />
-              <SubmitButton text="Search" disabled={isSubmitting} />
+                <TextField
+                  name="search"
+                  type="text"
+                  placeholder="Search for anything"
+                  disabled={true}
+                />
+                <SubmitButton text="Search" disabled={isSubmitting} />
             </Form>
           )}
         </Formik>
