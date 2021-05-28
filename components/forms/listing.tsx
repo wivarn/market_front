@@ -44,8 +44,26 @@ const listingSchema = Yup.object().shape({
   status: Yup.string().required("Required"),
 });
 
+// Stub photos while waiting for S3 integration
+const stubPhotos = [
+  "/images/picture-1.jpg",
+  "/images/picture-2.jpg",
+  "/images/picture-3.jpg",
+  "/images/picture-4.jpg",
+  "/images/picture-5.jpg",
+];
+
+// Pick random photo from library
+var i = Math.floor(Math.random() * stubPhotos.length);
+var randomPhotos = [];
+
+while (i <= stubPhotos.length) {
+  randomPhotos.push(stubPhotos[i]);
+  i++;
+}
+
 const newListingProps: Listing = {
-  photos: ["fake_url"],
+  photos: randomPhotos,
   title: "",
   condition: "",
   currency: "USD",
