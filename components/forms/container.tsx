@@ -1,9 +1,11 @@
-const FormContainer: React.FC<{}> = ({ children }) => {
+export default function FormContainer({
+  children,
+}: {
+  children?: React.ReactNode;
+}) {
   return (
     <div className="m-4 p-2 border-2 rounded-md bg-accent-light">
       {children}
     </div>
   );
-};
-
-export default FormContainer;
+}

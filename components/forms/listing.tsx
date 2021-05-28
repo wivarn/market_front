@@ -55,7 +55,7 @@ const newListingProps: Listing = {
   status: "draft",
 };
 
-const ListingForm: React.FC<Listing> = (props) => {
+const ListingForm = (props: Listing) => {
   const router = useRouter();
   const [session, loading] = useSession();
 
@@ -90,11 +90,7 @@ const ListingForm: React.FC<Listing> = (props) => {
           status: props.status,
         }}
         validationSchema={listingSchema}
-        // @ts-ignore
-        onSubmit={async (
-          values: Values,
-          { setSubmitting }: FormikHelpers<Values>
-        ) => {
+        onSubmit={async (values: Values) => {
           await api
             .post(
               `listings${newListing ? "" : `/${props.id}`}`,

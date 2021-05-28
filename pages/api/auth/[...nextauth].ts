@@ -10,6 +10,7 @@ interface Credentials {
 }
 
 interface Token {
+  id?: string;
   email: string;
   picture: string | null;
   sub: string;
