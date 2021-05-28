@@ -19,7 +19,7 @@ export default function SearchForm() {
   const router = useRouter();
   return (
     <FormContainer>
-      <h2 className="mt-2 px-2">
+      <h2 className="px-2 mt-2">
         Find the next centerpiece for your collection
       </h2>
       <div className="p-2">
@@ -40,13 +40,13 @@ export default function SearchForm() {
         >
           {({ isSubmitting }) => (
             <Form>
-                <TextField
-                  name="search"
-                  type="text"
-                  placeholder="Search for anything"
-                  disabled={true}
-                />
-                <SubmitButton text="Search" disabled={isSubmitting} />
+              <TextField
+                name="search"
+                type="text"
+                placeholder="Search for anything"
+                disabled={true}
+              />
+              <SubmitButton text="Search" disabled={isSubmitting} />
             </Form>
           )}
         </Formik>

@@ -19,7 +19,7 @@ export const UserCircleIcon = () => {
 };
 
 export const LargeUserCircleIcon = () => {
-  return <HiOutlineUserCircle className="h-20 w-20 float-left" />;
+  return <HiOutlineUserCircle className="float-left w-20 h-20" />;
 };
 
 export const SquirrelIcon = () => {

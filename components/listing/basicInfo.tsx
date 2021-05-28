@@ -9,7 +9,7 @@ const ListingBasicInfo = (props: BasicListing) => {
         <span className="text-xs text-accent-dark">{props.currency}</span>
       </div>
       <div className="text-accent">+${props.domestic_shipping} Shipping</div>
-      <div className="text-success uppercase font-bold">{props.condition}</div>
+      <div className="font-bold uppercase text-success">{props.condition}</div>
     </div>
   );
 };
