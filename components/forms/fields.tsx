@@ -6,7 +6,7 @@ type TextFieldProps = FieldHookConfig<string> &
     label?: string;
   };
 
-export const TextField: React.FC<TextFieldProps> = ({ label, ...props }) => {
+export const TextField = ({ label, ...props }: TextFieldProps) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input>. We can use field meta to show an error
   // message if the field is invalid and it has been touched (i.e. visited)
@@ -22,7 +22,7 @@ export const TextField: React.FC<TextFieldProps> = ({ label, ...props }) => {
   );
 };
 
-export const NumberField: React.FC<TextFieldProps> = ({ label, ...props }) => {
+export const NumberField = ({ label, ...props }: TextFieldProps) => {
   // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
   // which we can spread on <input>. We can use field meta to show an error
   // message if the field is invalid and it has been touched (i.e. visited)

@@ -3,7 +3,7 @@ interface Props {
   text: string;
 }
 
-export const SubmitButton: React.FC<Props> = (props) => {
+export const SubmitButton = (props: Props) => {
   return (
     <button
       type="submit"
@@ -15,7 +15,7 @@ export const SubmitButton: React.FC<Props> = (props) => {
   );
 };
 
-export const DeleteButton: React.FC<Props> = (props) => {
+export const DeleteButton = (props: Props) => {
   return (
     <button
       type="submit"
