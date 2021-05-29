@@ -10,6 +10,7 @@ import { TextField } from "./fields";
 import api from "services/api";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
+import _ from "lodash";
 
 interface Values {
   photos: string[];
@@ -54,13 +55,7 @@ const stubPhotos = [
 ];
 
 // Pick random photo from library
-var i = Math.floor(Math.random() * stubPhotos.length);
-var randomPhotos = [];
-
-while (i <= stubPhotos.length) {
-  randomPhotos.push(stubPhotos[i]);
-  i++;
-}
+var randomPhotos = _.sampleSize(stubPhotos, Math.floor(Math.random() * stubPhotos.length));
 
 const newListingProps: Listing = {
   photos: randomPhotos,
