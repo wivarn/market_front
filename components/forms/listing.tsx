@@ -7,10 +7,10 @@ import FormContainer from "./container";
 import { Listing } from "types/listings";
 import { NumberField } from "./fields";
 import { TextField } from "./fields";
+import _ from "lodash";
 import api from "services/api";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
-import _ from "lodash";
 
 interface Values {
   photos: string[];
@@ -55,7 +55,10 @@ const stubPhotos = [
 ];
 
 // Pick random photo from library
-var randomPhotos = _.sampleSize(stubPhotos, Math.floor(Math.random() * stubPhotos.length));
+const randomPhotos = _.sampleSize(
+  stubPhotos,
+  Math.floor(Math.random() * stubPhotos.length)
+);
 
 const newListingProps: Listing = {
   photos: randomPhotos,
@@ -70,11 +73,11 @@ const newListingProps: Listing = {
 
 const ListingForm: React.FC<Listing> = (props) => {
   const router = useRouter();
-  const [session, loading] = useSession();
+  const [session] = useSession();
 
   const newListing = !props.id;
 
-  const deleteListing = async () => {
+  const deleteListing: () => Promise<void> = async () => {
     await api
       .delete(`listings/${props.id}`, {
         headers: { Authorization: `Bearer ${session?.accessToken}` },
@@ -175,7 +178,7 @@ const ListingForm: React.FC<Listing> = (props) => {
         )}
       </Formik>
       {newListing ? null : (
-        <DeleteButton text="Delete" disabled={!!deleteListing} />
+        <DeleteButton text="Delete" onClick={deleteListing} />
       )}
     </FormContainer>
   );

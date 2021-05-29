@@ -1,6 +1,7 @@
 interface Props {
-  disabled: boolean;
+  disabled?: boolean;
   text: string;
+  onClick?: () => Promise<void>;
 }
 
 export const SubmitButton: React.FC<Props> = (props) => {
@@ -20,7 +21,7 @@ export const DeleteButton: React.FC<Props> = (props) => {
     <button
       type="submit"
       className="px-2 py-1 font-semibold border-2 rounded-md bg-secondary-dark text-accent-light hover:bg-secondary"
-      disabled={props.disabled}
+      onClick={props.onClick}
     >
       {props.text}
     </button>
