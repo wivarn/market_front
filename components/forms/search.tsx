@@ -19,10 +19,10 @@ export default function SearchForm() {
   const router = useRouter();
   return (
     <FormContainer>
-      <h2 className="mt-2 px-2">
+      <h2 className="px-2 mt-2">
         Find the next centerpiece for your collection
       </h2>
-      <div className="p-2 grid grid-col-2">
+      <div className="p-2">
         <Formik
           initialValues={{
             query: "",

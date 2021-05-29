@@ -22,6 +22,7 @@ export default function Listings() {
 
   return (
     <div>
+      <h2 className="m-6 text-primary-dark">Your search results</h2>
       <ListingPreviewGrid listings={listings?.data} />
     </div>
   );

@@ -3,13 +3,13 @@ import { BasicListing } from "types/listings";
 const ListingBasicInfo = (props: BasicListing) => {
   return (
     <div>
-      <div className="text-accent">{props.title}</div>
+      <h3 className="text-accent-dark">{props.title}</h3>
       <div>
-        <span className="text-4xl text-primary">${props.price} </span>
-        <span className="text-xs italic text-accent">{props.currency}</span>
+        <span className="text-2xl text-accent-dark">${props.price} </span>
+        <span className="text-xs text-accent-dark">{props.currency}</span>
       </div>
       <div className="text-accent">+${props.domestic_shipping} Shipping</div>
-      <div className="text-success uppercase font-bold">{props.condition}</div>
+      <div className="font-bold uppercase text-success">{props.condition}</div>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import FormContainer from "./container";
 import { Listing } from "types/listings";
 import { NumberField } from "./fields";
 import { TextField } from "./fields";
+import _ from "lodash";
 import api from "services/api";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
@@ -44,8 +45,23 @@ const listingSchema = Yup.object().shape({
   status: Yup.string().required("Required"),
 });
 
+// Stub photos while waiting for S3 integration
+const stubPhotos = [
+  "/images/picture-1.jpg",
+  "/images/picture-2.jpg",
+  "/images/picture-3.jpg",
+  "/images/picture-4.jpg",
+  "/images/picture-5.jpg",
+];
+
+// Pick random photo from library
+const randomPhotos = _.sampleSize(
+  stubPhotos,
+  Math.floor(Math.random() * stubPhotos.length)
+);
+
 const newListingProps: Listing = {
-  photos: ["fake_url"],
+  photos: randomPhotos,
   title: "",
   condition: "",
   currency: "USD",
@@ -57,11 +73,11 @@ const newListingProps: Listing = {
 
 const ListingForm = (props: Listing) => {
   const router = useRouter();
-  const [session, loading] = useSession();
+  const [session] = useSession();
 
   const newListing = !props.id;
 
-  const deleteListing = async () => {
+  const deleteListing: () => Promise<void> = async () => {
     await api
       .delete(`listings/${props.id}`, {
         headers: { Authorization: `Bearer ${session?.accessToken}` },
@@ -158,7 +174,7 @@ const ListingForm = (props: Listing) => {
         )}
       </Formik>
       {newListing ? null : (
-        <DeleteButton text="Delete" disabled={!!deleteListing} />
+        <DeleteButton text="Delete" onClick={deleteListing} />
       )}
     </FormContainer>
   );

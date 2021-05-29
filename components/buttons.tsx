@@ -1,13 +1,14 @@
 interface Props {
-  disabled: boolean;
+  disabled?: boolean;
   text: string;
+  onClick?: () => Promise<void>;
 }
 
 export const SubmitButton = (props: Props) => {
   return (
     <button
       type="submit"
-      className="bg-primary-dark border-primary-dark text-accent-light hover:bg-primary-light hover:border-primary-dark rounded border-2 px-2 py-1 font-semibold"
+      className="px-2 py-1 font-semibold rounded bg-primary text-accent-light hover:bg-primary-light"
       disabled={props.disabled}
     >
       {props.text}
@@ -19,8 +20,8 @@ export const DeleteButton = (props: Props) => {
   return (
     <button
       type="submit"
-      className="bg-secondary-dark border-secondary-dark text-accent-light hover:bg-secondary-light hover:border-secondary-dark rounded border-2 px-2 py-1 font-semibold"
-      disabled={props.disabled}
+      className="px-2 py-1 font-semibold border-2 rounded-md bg-secondary-dark text-accent-light hover:bg-secondary"
+      onClick={props.onClick}
     >
       {props.text}
     </button>
