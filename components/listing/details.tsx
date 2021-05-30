@@ -1,20 +1,34 @@
+import Image from "next/image";
 import { LargeUserCircleIcon } from "components/icons";
 import { Listing } from "types/listings";
 import ListingBasicInfo from "./basicInfo";
+import SimpleImageSlider from "react-simple-image-slider";
 import { SubmitButton } from "components/buttons";
-import Image from "next/image";
 
+// Stub photos for slide show
+const slidePhotos = [
+ {url: "/images/picture-1.jpg"},
+ {url: "/images/picture-2.jpg"},
+ {url: "/images/picture-3.jpg"},
+ {url: "/images/picture-4.jpg"},
+ {url: "/images/picture-5.jpg"},
+];
+
+// Listing details
 const ListingDetails = (props: Listing) => {
   return (
     <div className="">
       <div className="container p-4 mx-auto">
         <div className="flex space-x-4">
           <div className="flex-initial">
-            <Image
-              src={props.photos[0]}
-              alt={props.title}
-              height={400}
-              width={300}
+            <SimpleImageSlider
+              width={450}
+              height={600}
+              images={slidePhotos}
+              showNavs={true}
+              showBullets={true}
+              navStyle={2}
+              navMargin={1}
             />
           </div>
           <div className="flex-initial pl-10">

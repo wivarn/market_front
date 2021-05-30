@@ -7,10 +7,10 @@ import FormContainer from "./container";
 import { Listing } from "types/listings";
 import { NumberField } from "./fields";
 import { TextField } from "./fields";
+import _ from "lodash";
 import api from "services/api";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
-import _ from "lodash";
 
 interface Values {
   photos: string[];
@@ -58,7 +58,7 @@ const stubPhotos = [
 var randomPhotos = _.sampleSize(stubPhotos, Math.floor(Math.random() * stubPhotos.length));
 
 const newListingProps: Listing = {
-  photos: randomPhotos,
+  photos: stubPhotos,
   title: "",
   condition: "",
   currency: "USD",
