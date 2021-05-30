@@ -11,7 +11,7 @@ interface Props {
 export const IconLink: React.FC<Props> = (props) => {
   return (
     <Link href={props.href}>
-      <a className="py-2 text-center rounded text-primary hover:text-primary-light">
+      <a className="text-primary hover:text-primary-dark">
         {props.icon}
         <div className="text-sm font-semibold text-center">{props.text}</div>
       </a>
