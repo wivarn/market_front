@@ -48,18 +48,18 @@ export const DropDown = (props: Props) => {
   const router = useRouter();
 
   async function signOutAndRedirect() {
-    signOut({ redirect: false }).then(async (_) => {
+    signOut({ redirect: false, callbackUrl: "/" }).then(async (_) => {
       if (_) {
         router.push("/");
-      }
 
-      await api.post(
-        "/logout",
-        {},
-        {
-          headers: { Authorization: `Bearer ${session?.accessToken}` },
-        }
-      );
+        await api.post(
+          "/logout",
+          {},
+          {
+            headers: { Authorization: `Bearer ${session?.accessToken}` },
+          }
+        );
+      }
     });
   }
 

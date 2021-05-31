@@ -61,7 +61,6 @@ export default function CreateAccountForm() {
             });
 
             if (response) {
-              console.log(response);
               router.push("/");
             }
           } catch (error) {
