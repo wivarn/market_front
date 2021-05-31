@@ -5,6 +5,7 @@ import {
   UserCircleIcon,
 } from "components/icons";
 
+import { DropDown } from "./dropdown";
 import Head from "next/head";
 import { IconLink } from "./iconLink";
 import Link from "next/link";
@@ -21,7 +22,7 @@ export default function Header() {
   function LoggedOutNav() {
     return (
       <div className="pr-3">
-        <IconLink href="/login" icon={<UserCircleIcon />} text="Login" />
+        <IconLink href="/login" icon={<UserCircleIcon />} text="Log In" />
       </div>
     );
   }
@@ -36,11 +37,7 @@ export default function Header() {
             text="Sell"
           />
           <IconLink href="/" icon={<ShoppingCartIcon />} text="Cart" />
-          <IconLink
-            href="/listings"
-            icon={<UserCircleIcon />}
-            text={session?.user?.name || ""}
-          />
+          <DropDown name={session?.user?.name}></DropDown>
         </div>
       </>
     );
