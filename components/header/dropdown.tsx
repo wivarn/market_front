@@ -1,9 +1,12 @@
 import { Fragment, LegacyRef, forwardRef } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import { signOut, useSession } from "next-auth/client";
 
 import { IconLink } from "./iconLink";
 import Link from "next/link";
 import { UserCircleIcon } from "components/icons";
+import api from "services/api";
+import { useRouter } from "next/router";
 
 interface Props {
   name?: string;
@@ -41,6 +44,22 @@ function classNames(...classes: string[]) {
 }
 
 export const DropDown = (props: Props) => {
+  const [session] = useSession();
+  const router = useRouter();
+
+  async function signOutAndRedirect() {
+    router.push("/");
+    signOut({ redirect: false });
+
+    await api.post(
+      "/logout",
+      {},
+      {
+        headers: { Authorization: `Bearer ${session?.accessToken}` },
+      }
+    );
+  }
+
   return (
     <Menu as="span" className="relative">
       {({ open }) => (
@@ -79,7 +98,11 @@ export const DropDown = (props: Props) => {
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <LinkWrapper href="#" active={active}>
+                    <LinkWrapper
+                      href=""
+                      active={active}
+                      onClick={signOutAndRedirect}
+                    >
                       Log Out
                     </LinkWrapper>
                   )}
