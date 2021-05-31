@@ -1,4 +1,5 @@
 import ListingPreviewGrid from "components/listing/previewGrid";
+import { NextSeo } from "next-seo";
 import api from "services/api";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
@@ -30,6 +31,7 @@ export default function Listings() {
 
   return (
     <div>
+      <NextSeo title="Your Listings" />
       <ListingPreviewGrid listings={listings?.data} />
     </div>
   );

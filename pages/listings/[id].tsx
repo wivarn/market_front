@@ -1,5 +1,6 @@
 import ListingDetails from "components/listing/details";
 import ListingForm from "components/forms/listing";
+import { NextSeo } from "next-seo";
 import api from "services/api";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -31,8 +32,25 @@ export default function ShowListing() {
 
   if (isSeller)
     return (
-      <ListingForm
-        id={listing.id}
+      <>
+        <NextSeo title="Update Listing" />
+        <ListingForm
+          id={listing.id}
+          photos={listing.photos}
+          title={listing.title}
+          price={listing.price}
+          currency={listing.currency}
+          domestic_shipping={listing.domestic_shipping}
+          condition={listing.condition}
+          description={listing.description}
+        />
+      </>
+    );
+
+  return (
+    <>
+      <NextSeo title={listing.title} />
+      <ListingDetails
         photos={listing.photos}
         title={listing.title}
         price={listing.price}
@@ -40,19 +58,8 @@ export default function ShowListing() {
         domestic_shipping={listing.domestic_shipping}
         condition={listing.condition}
         description={listing.description}
+        sellerName={`${listing.given_name} ${listing.family_name}`}
       />
-    );
-
-  return (
-    <ListingDetails
-      photos={listing.photos}
-      title={listing.title}
-      price={listing.price}
-      currency={listing.currency}
-      domestic_shipping={listing.domestic_shipping}
-      condition={listing.condition}
-      description={listing.description}
-      sellerName={`${listing.given_name} ${listing.family_name}`}
-    />
+    </>
   );
 }

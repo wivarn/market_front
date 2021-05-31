@@ -1,4 +1,5 @@
 import ListingPreviewGrid from "components/listing/previewGrid";
+import { NextSeo } from "next-seo";
 import api from "services/api";
 import useSWR from "swr";
 
@@ -22,6 +23,7 @@ export default function Listings() {
 
   return (
     <div>
+      <NextSeo title="Search Results" />
       <h2 className="m-6 text-primary-dark">Your search results</h2>
       <ListingPreviewGrid listings={listings?.data} />
     </div>

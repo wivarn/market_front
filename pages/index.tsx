@@ -1,8 +1,10 @@
+import { NextSeo } from "next-seo";
 import SearchForm from "components/forms/search";
 
 export default function Home() {
   return (
     <div>
+      <NextSeo title="Home" />
       <SearchForm />
       <div className="flex p-4 space-x-8">
         <div className="flex-grow">
