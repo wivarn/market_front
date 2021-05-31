@@ -36,6 +36,8 @@ export default NextAuth({
     }),
   ],
 
+  secret: process.env.NEXT_AUTH_SECRET,
+
   callbacks: {
     async jwt(token, user) {
       if (user) {
@@ -54,9 +56,6 @@ export default NextAuth({
     },
   },
   session: {
-    maxAge: 30 * 60, // 30 min
-  },
-  pages: {
-    error: "/login", // Changing the error redirect page to our custom login page
+    maxAge: 14 * 24 * 60 * 60, // 14 days
   },
 });
