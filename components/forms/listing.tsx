@@ -1,11 +1,11 @@
 import * as Yup from "yup";
 
 import { DeleteButton, SubmitButton } from "components/buttons";
-import { Form, Formik, FormikHelpers } from "formik";
+import { ErrorField, NumberField } from "./fields";
+import { Form, Formik } from "formik";
 
 import FormContainer from "./container";
 import { Listing } from "types/listings";
-import { NumberField } from "./fields";
 import { TextField } from "./fields";
 import _ from "lodash";
 import api from "services/api";
@@ -106,7 +106,7 @@ const ListingForm = (props: Listing) => {
           status: props.status,
         }}
         validationSchema={listingSchema}
-        onSubmit={async (values: Values) => {
+        onSubmit={async (values: Values, actions) => {
           await api
             .post(
               `listings${newListing ? "" : `/${props.id}`}`,
@@ -130,13 +130,17 @@ const ListingForm = (props: Listing) => {
               router.push("/listings");
             })
             .catch((error) => {
-              console.log(error);
-              alert(error.response.data.error);
+              actions.setFieldError(
+                "formError",
+                JSON.stringify(error.response.data)
+              );
             });
         }}
       >
         {({ isSubmitting }) => (
           <Form>
+            <ErrorField name="formError" />
+
             <TextField
               label="Title: "
               name="title"

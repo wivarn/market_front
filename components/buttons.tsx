@@ -8,7 +8,7 @@ export const SubmitButton = (props: Props) => {
   return (
     <button
       type="submit"
-      className="px-2 py-1 font-semibold rounded bg-primary text-accent-light hover:bg-primary-light"
+      className="px-2 py-1 my-1 font-semibold rounded bg-primary text-accent-light hover:bg-primary-light"
       disabled={props.disabled}
     >
       {props.text}
@@ -20,7 +20,7 @@ export const DeleteButton = (props: Props) => {
   return (
     <button
       type="submit"
-      className="px-2 py-1 font-semibold border-2 rounded-md bg-secondary-dark text-accent-light hover:bg-secondary"
+      className="px-2 py-1 my-1 font-semibold rounded-md bg-secondary-dark text-accent-light hover:bg-secondary"
       onClick={props.onClick}
     >
       {props.text}

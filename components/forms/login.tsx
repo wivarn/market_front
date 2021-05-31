@@ -1,15 +1,18 @@
 import * as Yup from "yup";
 
-import { Form, Formik, FormikHelpers } from "formik";
+import { ErrorField, TextField } from "./fields";
+import { Form, Formik } from "formik";
 
 import FormContainer from "./container";
+import Link from "next/link";
 import { SubmitButton } from "components/buttons";
-import { TextField } from "./fields";
 import { signIn } from "next-auth/client";
+import { useRouter } from "next/router";
 
 interface Values {
   email: string;
   password: string;
+  formError?: string;
 }
 
 const loginSchema = Yup.object().shape({
@@ -20,6 +23,8 @@ const loginSchema = Yup.object().shape({
 });
 
 export default function LoginForm() {
+  const router = useRouter();
+
   return (
     <FormContainer>
       <h3>Login</h3>
@@ -29,27 +34,41 @@ export default function LoginForm() {
           password: "",
         }}
         validationSchema={loginSchema}
-        onSubmit={(
-          values: Values,
-          { setSubmitting }: FormikHelpers<Values>
-        ) => {
+        onSubmit={(values: Values, actions) => {
           signIn("credentials", {
             login: values.email,
             password: values.password,
-            callbackUrl: "/",
+            redirect: false,
+          }).then((response) => {
+            if (response?.ok) {
+              router.push("/");
+            } else {
+              actions.resetForm();
+              actions.setFieldError(
+                "formError",
+                "Email or password is invalid"
+              );
+            }
           });
         }}
       >
-        {({ isSubmitting }) => (
+        {(props) => (
           <Form>
+            <ErrorField name="formError" />
+
             <TextField name="email" type="email" placeholder="Email" />
 
             <TextField name="password" type="password" placeholder="Password" />
 
-            <SubmitButton text="Login" disabled={isSubmitting} />
+            <SubmitButton text="Login" disabled={props.isSubmitting} />
           </Form>
         )}
       </Formik>
+      <Link href="/account/new">
+        <a>
+          <SubmitButton text="Create Account" />
+        </a>
+      </Link>
     </FormContainer>
   );
 }

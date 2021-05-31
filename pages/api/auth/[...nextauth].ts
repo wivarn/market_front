@@ -16,21 +16,21 @@ export default NextAuth({
       name: "Credentials",
       authorize: async (credentials: Credentials) => {
         try {
-          const tokens = await api.post("auth/login", {
+          const response = await api.post("auth/login", {
             login: credentials.login,
             password: credentials.password,
           });
 
-          if (tokens) {
+          if (response) {
             const profile = await api.get("profile", {
-              headers: { Authorization: `Bearer ${tokens.data.access_token}` },
+              headers: {
+                Authorization: `Bearer ${response.data.access_token}`,
+              },
             });
-            return { ...tokens.data, ...profile.data };
+            return { ...response.data, ...profile.data };
           }
-        } catch (e) {
-          const errorMessage = e.response.data.message;
-          // Redirecting to the login page with error message in the URL
-          throw new Error(errorMessage + "&email=" + credentials.login);
+        } catch (_) {
+          return null;
         }
       },
     }),

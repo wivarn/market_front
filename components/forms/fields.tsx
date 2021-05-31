@@ -7,28 +7,22 @@ type TextFieldProps = FieldHookConfig<string> &
   };
 
 export const TextField = ({ label, ...props }: TextFieldProps) => {
-  // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
-  // which we can spread on <input>. We can use field meta to show an error
-  // message if the field is invalid and it has been touched (i.e. visited)
   const [field, meta] = useField(props);
   return (
-    <div className="text-primary-dark my-2">
+    <div className="my-2 text-primary-dark">
       <label htmlFor={props.name}>{label}</label>
       <input className="px-2 py-1 border-2 rounded-md" {...field} {...props} />
       {meta.touched && meta.error ? (
-        <div className="text-error italic">{meta.error}</div>
+        <div className="italic text-error">{meta.error}</div>
       ) : null}
     </div>
   );
 };
 
 export const NumberField = ({ label, ...props }: TextFieldProps) => {
-  // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
-  // which we can spread on <input>. We can use field meta to show an error
-  // message if the field is invalid and it has been touched (i.e. visited)
   const [field, meta] = useField(props);
   return (
-    <div className="text-primary-dark my-2">
+    <div className="my-2 text-primary-dark">
       <label htmlFor={props.name}>{label}</label>
       <input
         type="number"
@@ -37,8 +31,17 @@ export const NumberField = ({ label, ...props }: TextFieldProps) => {
         {...props}
       />
       {meta.touched && meta.error ? (
-        <div className="text-error italic">{meta.error}</div>
+        <div className="italic text-error">{meta.error}</div>
       ) : null}
     </div>
   );
+};
+
+export const ErrorField = (props: TextFieldProps) => {
+  const [_, meta] = useField(props);
+
+  if (meta.error) {
+    return <div className="italic text-error">{meta.error}</div>;
+  }
+  return <></>;
 };
