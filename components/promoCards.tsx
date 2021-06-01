@@ -11,7 +11,7 @@ interface Props {
 export const PromoCard = (props: Props) => {
   return (
     <div className="flex w-10/12 rounded-b-lg shadow-md hover:shadow-xl">
-      <a href={props.url}>
+      <a href={props.url} target="_blank">
         <Image
           src={props.image}
           height={600}
