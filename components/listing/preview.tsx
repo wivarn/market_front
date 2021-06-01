@@ -1,7 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Listing } from "types/listings";
 import ListingBasicInfo from "./basicInfo";
-import Image from "next/image";
 
 const ListingPreview = (props: Listing) => {
   return (
@@ -9,12 +9,13 @@ const ListingPreview = (props: Listing) => {
       <div className="px-3 py-6">
         <Link href={`/listings/${props.id}`}>
           <a>
-            <div className="container rounded-lg shadow-md w-72 hover:shadow-xl">
+            <div className="container rounded-b-lg shadow-md w-72 hover:shadow-xl">
               <Image
                 src={props.photos[0]}
                 alt={props.title}
                 height={800}
                 width={600}
+                className="rounded-t-lg"
               />
               <div className="p-2">
                 <ListingBasicInfo

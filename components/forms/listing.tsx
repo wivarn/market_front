@@ -47,11 +47,11 @@ const listingSchema = Yup.object().shape({
 
 // Stub photos while waiting for S3 integration
 const stubPhotos = [
-  "/images/picture-1.jpg",
-  "/images/picture-2.jpg",
-  "/images/picture-3.jpg",
-  "/images/picture-4.jpg",
-  "/images/picture-5.jpg",
+  "/cards/picture-1.jpg",
+  "/cards/picture-2.jpg",
+  "/cards/picture-3.jpg",
+  "/cards/picture-4.jpg",
+  "/cards/picture-5.jpg",
 ];
 
 // Pick random photo from library
