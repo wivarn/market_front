@@ -3,17 +3,17 @@ import Image from "next/image";
 interface Props {
   title: string;
   text: string;
-  image: string;
-  url: string;
+  imgSrc: string;
+  href: string;
 }
 
 // Card container
 export const PromoCard = (props: Props) => {
   return (
     <div className="flex w-10/12 rounded-b-lg shadow-md hover:shadow-xl">
-      <a href={props.url} target="_blank">
+      <a href={props.href} target="_blank">
         <Image
-          src={props.image}
+          src={props.imgSrc}
           height={600}
           width={800}
           alt=""
