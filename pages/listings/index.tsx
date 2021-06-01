@@ -32,6 +32,7 @@ export default function Listings() {
   return (
     <div>
       <NextSeo title="Your Listings" />
+      <h2 className="m-6 text-primary-dark">Your Listings</h2>
       <ListingPreviewGrid listings={listings?.data} />
     </div>
   );

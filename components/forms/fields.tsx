@@ -11,7 +11,7 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
   return (
     <div className="my-2 text-primary-dark">
       <label htmlFor={props.name}>{label}</label>
-      <input className="px-2 py-1 border-2 rounded-md" {...field} {...props} />
+      <input className="px-2 py-1 border rounded-md border-accent" {...field} {...props} />
       {meta.touched && meta.error ? (
         <div className="italic text-error">{meta.error}</div>
       ) : null}
@@ -26,7 +26,7 @@ export const NumberField = ({ label, ...props }: TextFieldProps) => {
       <label htmlFor={props.name}>{label}</label>
       <input
         type="number"
-        className="px-2 py-1 border-2 rounded-md"
+        className="px-2 py-1 border rounded-md border-accent"
         {...field}
         {...props}
       />
