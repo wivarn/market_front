@@ -8,23 +8,23 @@ export default function Home() {
       <NextSeo title="Home" />
       <SearchForm />
       <div>
-        <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
           <PromoCard
             title="Follow us on SubscribeStar"
             text="Subscribe to us and recieve insight into our roadmap as well as buyer and seller perks. We even send our backers a collectible surprise pack each month!"
-            image="/images/subscribe_star.jpg"
+            image="/promo/subscribe_star.jpg"
             url="https://www.subscribestar.com/"
           />
           <PromoCard
             title="Watch us on Youtube"
-            text="Head on over to our Youtube channel to get tips on selling, collecting and more!"
-            image="/images/youtube.jpg"
+            text="Head on over to our Youtube channel to see videos on all things collectibles! Get the latest insider news and tips from the pros"
+            image="/promo/youtube.jpg"
             url="https://www.youtube.com/"
           />
           <PromoCard
             title="Get expert selling tips"
-            text="Some text"
-            image="/images/youtube.jpg"
+            text="Learn from our experts on how to up your selling game. We'll teach you how to list your items, price them appropriately and package up and ship them around the world. Don't know where to start? Don't worry, we're here to help."
+            image="/promo/selling.jpg"
             url="#"
           />
         </div>
