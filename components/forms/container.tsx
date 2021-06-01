@@ -4,7 +4,7 @@ export default function FormContainer({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="m-4 p-2 rounded-md bg-accent-light">
+    <div className="p-2 m-4 bg-opacity-50 border rounded-md bg-accent-lightest border-accent-light">
       {children}
     </div>
   );
