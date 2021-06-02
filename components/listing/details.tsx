@@ -15,6 +15,7 @@ const ListingDetails = (props: Listing) => {
               alt={props.title}
               height={400}
               width={300}
+              className="rounded-md"
             />
           </div>
           <div className="flex-initial pl-10">
