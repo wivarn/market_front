@@ -32,7 +32,7 @@ export default function Header() {
       <>
         <div className="grid items-center grid-flow-col space-x-10 justify-items-center auto-cols-max">
           <IconLink
-            href="/listings/new"
+            href="/listings"
             icon={<CurrencyDollarIcon />}
             text="Sell"
           />
