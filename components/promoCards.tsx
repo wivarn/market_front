@@ -16,7 +16,7 @@ export const PromoCard = (props: Props) => {
           src={props.imgSrc}
           height={600}
           width={800}
-          alt=""
+          alt={props.title}
           className="overflow-hidden rounded-t-lg"
         />
         <div className="p-4">
