@@ -1,9 +1,10 @@
 import ListingPreviewGrid from "components/listing/previewGrid";
 import { NextSeo } from "next-seo";
-import { PrimaryButton } from "components/buttonLink";
+import { PrimaryButton } from "components/buttons";
 import api from "services/api";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
+import Link from "next/link";
 
 export default function Listings() {
   const [session, loading] = useSession();
@@ -35,7 +36,7 @@ export default function Listings() {
       <NextSeo title="Your Listings" />
       <div className="space-x-2">
         <h2 className="inline-block m-6 text-primary-dark">Your Listings</h2>
-          <PrimaryButton text="+ New Listing" href="listings/new" />
+            <PrimaryButton text="+ New Listing" href="listings/new" />
       </div>
       <ListingPreviewGrid listings={listings?.data} />
     </div>
