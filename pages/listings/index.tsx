@@ -4,7 +4,6 @@ import { PrimaryButton } from "components/buttons";
 import api from "services/api";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
-import Link from "next/link";
 
 export default function Listings() {
   const [session, loading] = useSession();
