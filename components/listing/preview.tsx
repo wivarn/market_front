@@ -34,4 +34,4 @@ const ListingPreview = (props: Listing) => {
   );
 };
 
-export default ListingPreview;4
+export default ListingPreview;
