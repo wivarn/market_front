@@ -6,7 +6,6 @@ import { AuthApi } from "services/backendApi/auth";
 import { IconLink } from "./iconLink";
 import Link from "next/link";
 import { UserCircleIcon } from "components/icons";
-import api from "services/api";
 import { useRouter } from "next/router";
 
 interface Props {

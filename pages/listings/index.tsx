@@ -1,9 +1,7 @@
-import Link from "next/link";
 import { ListingApi } from "services/backendApi/listing";
 import ListingPreviewGrid from "components/listing/previewGrid";
 import { NextSeo } from "next-seo";
 import { PrimaryButton } from "components/buttons";
-import api from "services/api";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
