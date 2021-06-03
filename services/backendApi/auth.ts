@@ -41,5 +41,11 @@ export const AuthApi = (accessToken?: string) => {
     );
   };
 
-  return { login, logout, createAccount, refreshToken };
+  const verifyAccount = async (key: string) => {
+    return await base.post("/auth/verify-account", {
+      key: key,
+    });
+  };
+
+  return { login, logout, createAccount, refreshToken, verifyAccount };
 };

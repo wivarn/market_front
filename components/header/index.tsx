@@ -15,7 +15,7 @@ export default function Header() {
   const [session, loading] = useSession();
 
   function renderNav() {
-    if (loading) return <></>;
+    if (loading) return <div>Spinner</div>;
     return session ? <LoggedInNav /> : <LoggedOutNav />;
   }
 

@@ -48,7 +48,7 @@ export default function CreateAccountForm() {
             const response = await AuthApi().createAccount(account);
 
             if (response) {
-              router.push("/");
+              router.push("/verify-account");
             }
           } catch (error) {
             actions.setFieldError(
