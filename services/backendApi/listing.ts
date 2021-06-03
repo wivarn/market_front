@@ -2,7 +2,13 @@ import { AxiosResponse } from "axios";
 import { Listing } from "../../types/listings";
 import { base } from "./base";
 
-export const ListingApi = (accessToken: string) => {
+export const ListingApi = (accessToken?: string) => {
+  const fetch = async (path: string) => {
+    return base.get(path, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  };
+
   const create = async (listing: Listing) => {
     return base.post(
       "listings",
@@ -51,5 +57,5 @@ export const ListingApi = (accessToken: string) => {
     });
   };
 
-  return { create, update, destroy };
+  return { fetch, create, update, destroy };
 };
