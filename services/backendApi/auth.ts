@@ -29,5 +29,17 @@ export const AuthApi = (accessToken?: string) => {
     });
   };
 
-  return { login, logout, createAccount };
+  const refreshToken = async (refreshToken: string) => {
+    return await base.post(
+      "/auth/jwt-refresh",
+      {
+        refresh_token: refreshToken,
+      },
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+  };
+
+  return { login, logout, createAccount, refreshToken };
 };

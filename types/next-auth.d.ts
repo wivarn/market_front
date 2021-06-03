@@ -5,6 +5,8 @@ declare module "next-auth/jwt" {
     picture: string | null;
     sub: string;
     accessToken: string;
+    accessTokenExpires: number;
+    refreshToken: string;
     givenName: string;
     familyName: string;
   }

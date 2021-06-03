@@ -11,6 +11,36 @@ interface Credentials {
   password: string;
 }
 
+const accessTokenAge = 29 * 1000; // 29 minutes, backend is configured for 30 minutes
+
+async function refreshAccessToken(token: JWT) {
+  try {
+    const response = await AuthApi(token.accessToken).refreshToken(
+      token.refreshToken
+    );
+
+    const refreshedTokens = await response.data;
+
+    if (response.status != 200) {
+      throw refreshedTokens;
+    }
+
+    return {
+      ...token,
+      accessToken: refreshedTokens.access_token,
+      accessTokenExpires: Date.now() + accessTokenAge,
+      refreshToken: refreshedTokens.refresh_token,
+    };
+  } catch (error) {
+    console.log(error);
+
+    return {
+      ...token,
+      error: "RefreshAccessTokenError",
+    };
+  }
+}
+
 export default NextAuth({
   providers: [
     Providers.Credentials({
@@ -41,10 +71,16 @@ export default NextAuth({
     async jwt(token, user) {
       if (user) {
         token.accessToken = user.access_token;
+        token.accessTokenExpires = Date.now() + accessTokenAge;
+        token.refreshToken = user.refresh_token;
         token.givenName = user.given_name;
         token.picture = user.picture;
       }
-      return token;
+
+      if (Date.now() < token.accessTokenExpires) {
+        return token;
+      }
+      return refreshAccessToken(token);
     },
 
     async session(session, token: JWT) {
