@@ -3,18 +3,11 @@ import * as Yup from "yup";
 import { ErrorField, TextField } from "./fields";
 import { Form, Formik } from "formik";
 
+import { Account } from "types/account";
+import { AuthApi } from "services/backendApi/auth";
 import FormContainer from "./container";
 import { SubmitButton } from "components/buttons";
-import api from "services/api";
 import { useRouter } from "next/router";
-
-interface Values {
-  email: string;
-  givenName: string;
-  familyName: string;
-  password: string;
-  passwordConfirmation: string;
-}
 
 const createAccountSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -50,15 +43,9 @@ export default function CreateAccountForm() {
           passwordConfirmation: "",
         }}
         validationSchema={createAccountSchema}
-        onSubmit={async (values: Values, actions) => {
+        onSubmit={async (account: Account, actions) => {
           try {
-            const response = await api.post("/auth/create-account", {
-              login: values.email,
-              given_name: values.givenName,
-              family_name: values.familyName,
-              password: values.password,
-              "password-confirm": values.passwordConfirmation,
-            });
+            const response = await AuthApi().createAccount(account);
 
             if (response) {
               router.push("/");

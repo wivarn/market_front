@@ -1,7 +1,8 @@
+import { AuthApi } from "services/backendApi/auth";
 import { JWT } from "next-auth/jwt";
 import NextAuth from "next-auth";
+import { ProfileApi } from "./../../../services/backendApi/profile";
 import Providers from "next-auth/providers";
-import api from "services/api";
 
 process.env.NEXTAUTH_URL = process.env.NEXTAUTH_URL || process.env.VERCEL_URL;
 
@@ -16,17 +17,15 @@ export default NextAuth({
       name: "Credentials",
       authorize: async (credentials: Credentials) => {
         try {
-          const response = await api.post("auth/login", {
-            login: credentials.login,
-            password: credentials.password,
-          });
+          const response = await AuthApi().login(
+            credentials.login,
+            credentials.password
+          );
 
           if (response) {
-            const profile = await api.get("profile", {
-              headers: {
-                Authorization: `Bearer ${response.data.access_token}`,
-              },
-            });
+            const profile = await ProfileApi(
+              response.data.access_token
+            ).myProfile();
             return { ...response.data, ...profile.data };
           }
         } catch (_) {

@@ -6,22 +6,22 @@ import { Form, Formik } from "formik";
 
 import FormContainer from "./container";
 import { Listing } from "types/listings";
+import { ListingApi } from "services/backendApi/listing";
 import { TextField } from "./fields";
 import _ from "lodash";
-import api from "services/api";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
-interface Values {
-  photos: string[];
-  title: string;
-  condition: string;
-  currency: string;
-  description?: string;
-  price: number | string;
-  domesticShipping: number | string;
-  status?: string;
-}
+// interface Values {
+//   photos: string[];
+//   title: string;
+//   condition: string;
+//   currency: string;
+//   description?: string;
+//   price: number | string;
+//   domesticShipping: number | string;
+//   status?: string;
+// }
 
 const listingSchema = Yup.object().shape({
   photos: Yup.array(Yup.string()).min(1).max(10),
@@ -38,7 +38,7 @@ const listingSchema = Yup.object().shape({
     .positive()
     .max(999999, "Must be at most 999999")
     .required("Required"),
-  domesticShipping: Yup.number()
+  domestic_shipping: Yup.number()
     .min(0, "Must be at least 0")
     .max(999999, "Must be at most 999999")
     .required("Required"),
@@ -77,19 +77,27 @@ const ListingForm = (props: Listing) => {
 
   const newListing = !props.id;
 
-  const deleteListing: () => Promise<void> = async () => {
-    await api
-      .delete(`listings/${props.id}`, {
-        headers: { Authorization: `Bearer ${session?.accessToken}` },
-      })
-      .then((_) => {
-        router.push("/listings");
-      })
-      .catch((error) => {
-        console.log(error);
-        alert(error.response.data.error);
-      });
-  };
+  if (!session) return <div>Spinner</div>;
+
+  function renderDeleteButton(id: string | undefined, accessToken: string) {
+    if (!id || !accessToken) return null;
+    return (
+      <DeleteButton
+        text="Delete"
+        onClick={async () => {
+          await ListingApi(accessToken)
+            .destroy(id)
+            .then((_) => {
+              router.push("/listings");
+            })
+            .catch((error) => {
+              console.log(error);
+              alert(error.response.data.error);
+            });
+        }}
+      />
+    );
+  }
 
   return (
     <FormContainer>
@@ -102,30 +110,17 @@ const ListingForm = (props: Listing) => {
           currency: props.currency,
           description: props.description,
           price: props.price,
-          domesticShipping: props.domestic_shipping,
+          domestic_shipping: props.domestic_shipping,
           status: props.status,
         }}
         validationSchema={listingSchema}
-        onSubmit={async (values: Values, actions) => {
-          await api
-            .post(
-              `listings${newListing ? "" : `/${props.id}`}`,
-              {
-                listing: {
-                  photos: values.photos,
-                  title: values.title,
-                  condition: values.condition,
-                  currency: values.currency,
-                  description: values.description,
-                  price: values.price,
-                  domestic_shipping: values.domesticShipping,
-                  status: values.status,
-                },
-              },
-              {
-                headers: { Authorization: `Bearer ${session?.accessToken}` },
-              }
-            )
+        onSubmit={async (values: Listing, actions) => {
+          await console.log("clicked");
+          const request = newListing
+            ? ListingApi(session.accessToken).create(values)
+            : ListingApi(session.accessToken).update(values);
+
+          request
             .then((_) => {
               router.push("/listings");
             })
@@ -166,20 +161,18 @@ const ListingForm = (props: Listing) => {
 
             <NumberField
               label="Domestic Shipping: "
-              name="domesticShipping"
+              name="domestic_shipping"
               placeholder="0"
             />
 
             <SubmitButton
               text={(newListing ? "Save" : "Update") + " Listing"}
-              disabled={isSubmitting}
+              // disabled={isSubmitting}
             />
           </Form>
         )}
       </Formik>
-      {newListing ? null : (
-        <DeleteButton text="Delete" onClick={deleteListing} />
-      )}
+      {renderDeleteButton(props.id, session.accessToken)}
     </FormContainer>
   );
 };
