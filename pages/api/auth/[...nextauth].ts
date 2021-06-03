@@ -1,7 +1,7 @@
 import { AuthApi } from "services/backendApi/auth";
 import { JWT } from "next-auth/jwt";
 import NextAuth from "next-auth";
-import { ProfileApi } from "./../../../services/backendApi/profile";
+import { ProfileApi } from "services/backendApi/profile";
 import Providers from "next-auth/providers";
 
 process.env.NEXTAUTH_URL = process.env.NEXTAUTH_URL || process.env.VERCEL_URL;
