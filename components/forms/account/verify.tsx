@@ -6,6 +6,7 @@ import { Form, Formik } from "formik";
 import { AuthApi } from "services/backendApi/auth";
 import FormContainer from "../container";
 import { SubmitButton } from "components/buttons";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 interface Values {
@@ -19,32 +20,32 @@ const verifySchema = Yup.object().shape({
 export default function VerifyAccountForm() {
   const router = useRouter();
 
-  if (!router.isReady) return <div>Spinner</div>;
+  useEffect(() => {
+    if (!router.isReady) return;
 
-  const { key } = router.query;
+    const { key } = router.query;
 
-  if (key) {
-    console.log(key);
-    AuthApi()
-      .verifyAccount(`${key}`)
-      .then((response) => {
-        console.log(response);
-        router.push("/");
-      })
-      .catch((error) => {});
-  }
+    if (key) {
+      AuthApi()
+        .verifyAccount(`${key}`)
+        .then((response) => {
+          console.log(response);
+          router.push("/");
+        })
+        .catch((_) => {});
+    }
+  }, [router.isReady]);
 
   return (
     <FormContainer>
       <h3>Verify Account</h3>
       <Formik
-        initialValues={{ key: key }}
+        initialValues={{ key: "" }}
         validationSchema={verifySchema}
         onSubmit={(values: Values, actions) => {
           AuthApi()
             .verifyAccount(`${values.key}`)
             .then((response) => {
-              console.log(response);
               router.push("/");
             })
             .catch((error) => {
