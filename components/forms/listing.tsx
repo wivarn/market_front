@@ -12,17 +12,6 @@ import _ from "lodash";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
-// interface Values {
-//   photos: string[];
-//   title: string;
-//   condition: string;
-//   currency: string;
-//   description?: string;
-//   price: number | string;
-//   domesticShipping: number | string;
-//   status?: string;
-// }
-
 const listingSchema = Yup.object().shape({
   photos: Yup.array(Yup.string()).min(1).max(10),
   title: Yup.string()

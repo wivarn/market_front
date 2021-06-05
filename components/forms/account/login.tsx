@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import { ErrorField, TextField } from "../fields";
+import { TextField } from "../fields";
 import { Form, Formik } from "formik";
 
 import FormContainer from "../container";
