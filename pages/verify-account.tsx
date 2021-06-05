@@ -16,12 +16,12 @@ export default function verifyAccount() {
     if (key) {
       AuthApi()
         .verifyAccount(`${key}`)
-        .then((verifyResponse) => {
+        .then((response) => {
           signIn("jwt", {
-            ...verifyResponse.data,
+            ...response.data,
             redirect: false,
           });
-          toast(verifyResponse.data.success);
+          toast(response.data.success);
           router.push("/");
         })
         .catch((error) => {

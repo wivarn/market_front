@@ -53,6 +53,18 @@ export const AuthApi = (accessToken?: string) => {
     });
   };
 
+  const resetPassword = async (
+    key: string,
+    password: string,
+    passwordConfirmation: string
+  ) => {
+    return await base.post("/auth/reset-password", {
+      key: key,
+      password: password,
+      "password-confirm": passwordConfirmation,
+    });
+  };
+
   return {
     login,
     logout,
@@ -60,5 +72,6 @@ export const AuthApi = (accessToken?: string) => {
     refreshToken,
     verifyAccount,
     passwordResetRequest,
+    resetPassword,
   };
 };
