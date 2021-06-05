@@ -1,11 +1,11 @@
 import * as Yup from "yup";
 
-import { ErrorField, TextField } from "./fields";
+import { ErrorField, TextField } from "../fields";
 import { Form, Formik } from "formik";
 
 import { Account } from "types/account";
 import { AuthApi } from "services/backendApi/auth";
-import FormContainer from "./container";
+import FormContainer from "../container";
 import { SubmitButton } from "components/buttons";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -44,17 +44,16 @@ export default function CreateAccountForm() {
           passwordConfirmation: "",
         }}
         validationSchema={createAccountSchema}
-        onSubmit={async (account: Account, actions) => {
-          try {
-            const response = await AuthApi().createAccount(account);
-
-            if (response) {
+        onSubmit={async (account: Account) => {
+          await AuthApi()
+            .createAccount(account)
+            .then((response) => {
               toast(response.data.success);
               router.push("/");
-            }
-          } catch (error) {
-            toast(error.response.data.error);
-          }
+            })
+            .catch((error) => {
+              toast(error.response.data.error);
+            });
         }}
       >
         {({ isSubmitting }) => (

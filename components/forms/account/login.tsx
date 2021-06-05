@@ -1,12 +1,13 @@
 import * as Yup from "yup";
 
-import { ErrorField, TextField } from "./fields";
+import { ErrorField, TextField } from "../fields";
 import { Form, Formik } from "formik";
 
-import FormContainer from "./container";
+import FormContainer from "../container";
 import Link from "next/link";
 import { SubmitButton } from "components/buttons";
 import { signIn } from "next-auth/client";
+import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
 interface Values {
@@ -34,7 +35,7 @@ export default function LoginForm() {
           password: "",
         }}
         validationSchema={loginSchema}
-        onSubmit={(values: Values, actions) => {
+        onSubmit={async (values: Values, actions) => {
           signIn("credentials", {
             login: values.email,
             password: values.password,
@@ -43,11 +44,9 @@ export default function LoginForm() {
             if (response?.ok) {
               router.push("/");
             } else {
-              actions.resetForm();
-              actions.setFieldError(
-                "formError",
-                "Email or password is invalid"
-              );
+              actions.setSubmitting(false);
+              actions.setFieldValue("password", "");
+              toast("Email or password is invalid");
             }
           });
         }}
@@ -60,6 +59,11 @@ export default function LoginForm() {
 
             <TextField name="password" type="password" placeholder="Password" />
 
+            <Link href="/account/forgotPassword">
+              <a className="underline text-primary">
+                <p>Forgot Password?</p>
+              </a>
+            </Link>
             <SubmitButton text="Login" disabled={props.isSubmitting} />
           </Form>
         )}

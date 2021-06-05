@@ -47,5 +47,18 @@ export const AuthApi = (accessToken?: string) => {
     });
   };
 
-  return { login, logout, createAccount, refreshToken, verifyAccount };
+  const passwordResetRequest = async (email: string) => {
+    return await base.post("/auth/reset-password-request", {
+      login: email,
+    });
+  };
+
+  return {
+    login,
+    logout,
+    createAccount,
+    refreshToken,
+    verifyAccount,
+    passwordResetRequest,
+  };
 };
