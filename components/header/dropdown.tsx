@@ -2,10 +2,10 @@ import { Fragment, LegacyRef, forwardRef } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { signOut, useSession } from "next-auth/client";
 
+import { AuthApi } from "services/backendApi/auth";
 import { IconLink } from "./iconLink";
 import Link from "next/link";
 import { UserCircleIcon } from "components/icons";
-import api from "services/api";
 import { useRouter } from "next/router";
 
 interface Props {
@@ -52,13 +52,12 @@ export const DropDown = (props: Props) => {
       if (_) {
         router.push("/");
 
-        await api.post(
-          "/logout",
-          {},
-          {
-            headers: { Authorization: `Bearer ${session?.accessToken}` },
-          }
-        );
+        session &&
+          AuthApi(session.accessToken)
+            .logout()
+            .catch((error) => {
+              alert(error);
+            });
       }
     });
   }

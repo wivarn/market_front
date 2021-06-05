@@ -1,12 +1,15 @@
+import { ListingApi } from "services/backendApi/listing";
 import ListingDetails from "components/listing/details";
 import ListingForm from "components/forms/listing";
 import { NextSeo } from "next-seo";
-import api from "services/api";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
-const fetcher = (path: string) => api.get(path).then((res) => res);
+const fetcher = (path: string) =>
+  ListingApi()
+    .fetch(path)
+    .then((res) => res);
 
 export default function ShowListing() {
   const router = useRouter();

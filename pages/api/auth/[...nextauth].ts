@@ -1,7 +1,9 @@
+import NextAuth, { BackendJwt } from "next-auth";
+
+import { AuthApi } from "services/backendApi/auth";
 import { JWT } from "next-auth/jwt";
-import NextAuth from "next-auth";
+import { ProfileApi } from "services/backendApi/profile";
 import Providers from "next-auth/providers";
-import api from "services/api";
 
 process.env.NEXTAUTH_URL = process.env.NEXTAUTH_URL || process.env.VERCEL_URL;
 
@@ -10,25 +12,66 @@ interface Credentials {
   password: string;
 }
 
+const accessTokenAge = 29 * 60 * 1000; // 29 minutes, backend is configured for 30 minutes
+
+async function refreshAccessToken(token: JWT) {
+  try {
+    const response = await AuthApi(token.accessToken).refreshToken(
+      token.refreshToken
+    );
+
+    const refreshedTokens = await response.data;
+
+    if (response.status != 200) {
+      throw refreshedTokens;
+    }
+
+    return {
+      ...token,
+      accessToken: refreshedTokens.access_token,
+      accessTokenExpires: Date.now() + accessTokenAge,
+      refreshToken: refreshedTokens.refresh_token,
+    };
+  } catch (error) {
+    console.log(error);
+
+    return {
+      ...token,
+      error: "RefreshAccessTokenError",
+    };
+  }
+}
+
 export default NextAuth({
   providers: [
     Providers.Credentials({
+      id: "credentials",
       name: "Credentials",
       authorize: async (credentials: Credentials) => {
         try {
-          const response = await api.post("auth/login", {
-            login: credentials.login,
-            password: credentials.password,
-          });
+          const response = await AuthApi().login(
+            credentials.login,
+            credentials.password
+          );
 
           if (response) {
-            const profile = await api.get("profile", {
-              headers: {
-                Authorization: `Bearer ${response.data.access_token}`,
-              },
-            });
+            const profile = await ProfileApi(
+              response.data.access_token
+            ).myProfile();
             return { ...response.data, ...profile.data };
           }
+        } catch (error) {
+          throw new Error(error.response.data.error);
+        }
+      },
+    }),
+    Providers.Credentials({
+      id: "jwt",
+      name: "Jwt",
+      authorize: async (jwt: BackendJwt) => {
+        try {
+          const profile = await ProfileApi(jwt.access_token).myProfile();
+          return { ...jwt, ...profile.data };
         } catch (_) {
           return null;
         }
@@ -42,10 +85,16 @@ export default NextAuth({
     async jwt(token, user) {
       if (user) {
         token.accessToken = user.access_token;
+        token.accessTokenExpires = Date.now() + accessTokenAge;
+        token.refreshToken = user.refresh_token;
         token.givenName = user.given_name;
         token.picture = user.picture;
       }
-      return token;
+
+      if (Date.now() < token.accessTokenExpires) {
+        return token;
+      }
+      return refreshAccessToken(token);
     },
 
     async session(session, token: JWT) {

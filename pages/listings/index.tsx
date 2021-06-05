@@ -1,7 +1,7 @@
+import { ListingApi } from "services/backendApi/listing";
 import ListingPreviewGrid from "components/listing/previewGrid";
 import { NextSeo } from "next-seo";
 import { PrimaryButton } from "components/buttons";
-import api from "services/api";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
@@ -9,10 +9,8 @@ export default function Listings() {
   const [session, loading] = useSession();
 
   const fetcher = (path: string) =>
-    api
-      .get(path, {
-        headers: { Authorization: `Bearer ${session?.accessToken}` },
-      })
+    ListingApi(session?.accessToken)
+      .fetch(path)
       .then((res) => res);
 
   function getListings() {
@@ -35,7 +33,7 @@ export default function Listings() {
       <NextSeo title="Your Listings" />
       <div className="space-x-2">
         <h2 className="inline-block m-6 text-primary-dark">Your Listings</h2>
-            <PrimaryButton text="+ New Listing" href="listings/new" />
+        <PrimaryButton text="+ New Listing" href="listings/new" />
       </div>
       <ListingPreviewGrid listings={listings?.data} />
     </div>

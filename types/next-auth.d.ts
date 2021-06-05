@@ -5,16 +5,21 @@ declare module "next-auth/jwt" {
     picture: string | null;
     sub: string;
     accessToken: string;
+    accessTokenExpires: number;
+    refreshToken: string;
     givenName: string;
     familyName: string;
   }
 }
 
 declare module "next-auth" {
-  interface User {
+  interface BackendJwt {
     access_token: string;
     refresh_token: string;
     success: string;
+  }
+
+  interface User extends BackendJwt {
     id: number;
     email: string;
     status: string;
