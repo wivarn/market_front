@@ -1,6 +1,7 @@
+import NextAuth, { BackendJwt } from "next-auth";
+
 import { AuthApi } from "services/backendApi/auth";
 import { JWT } from "next-auth/jwt";
-import NextAuth from "next-auth";
 import { ProfileApi } from "services/backendApi/profile";
 import Providers from "next-auth/providers";
 
@@ -44,6 +45,7 @@ async function refreshAccessToken(token: JWT) {
 export default NextAuth({
   providers: [
     Providers.Credentials({
+      id: "credentials",
       name: "Credentials",
       authorize: async (credentials: Credentials) => {
         try {
@@ -58,6 +60,18 @@ export default NextAuth({
             ).myProfile();
             return { ...response.data, ...profile.data };
           }
+        } catch (_) {
+          return null;
+        }
+      },
+    }),
+    Providers.Credentials({
+      id: "jwt",
+      name: "Jwt",
+      authorize: async (jwt: BackendJwt) => {
+        try {
+          const profile = await ProfileApi(jwt.access_token).myProfile();
+          return { ...jwt, ...profile.data };
         } catch (_) {
           return null;
         }
