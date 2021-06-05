@@ -7,6 +7,7 @@ import { Account } from "types/account";
 import { AuthApi } from "services/backendApi/auth";
 import FormContainer from "./container";
 import { SubmitButton } from "components/buttons";
+import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
 const createAccountSchema = Yup.object().shape({
@@ -48,13 +49,11 @@ export default function CreateAccountForm() {
             const response = await AuthApi().createAccount(account);
 
             if (response) {
+              toast(response.data.success);
               router.push("/");
             }
           } catch (error) {
-            actions.setFieldError(
-              "formError",
-              JSON.stringify(error.response.data)
-            );
+            toast(error.response.data.error);
           }
         }}
       >

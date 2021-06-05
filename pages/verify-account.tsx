@@ -1,6 +1,7 @@
 import { AuthApi } from "services/backendApi/auth";
 import { NextSeo } from "next-seo";
 import { signIn } from "next-auth/client";
+import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -20,11 +21,12 @@ export default function verifyAccount() {
             ...verifyResponse.data,
             redirect: false,
           });
-        })
-        .then(() => {
+          toast(verifyResponse.data.success);
           router.push("/");
         })
-        .catch(() => {});
+        .catch((error) => {
+          toast(error.response.data.error);
+        });
     }
   }, [router.isReady]);
   return (

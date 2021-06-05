@@ -12,7 +12,7 @@ interface Credentials {
   password: string;
 }
 
-const accessTokenAge = 29 * 1000; // 29 minutes, backend is configured for 30 minutes
+const accessTokenAge = 29 * 60 * 1000; // 29 minutes, backend is configured for 30 minutes
 
 async function refreshAccessToken(token: JWT) {
   try {
