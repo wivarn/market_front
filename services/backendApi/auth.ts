@@ -65,6 +65,18 @@ export const AuthApi = (accessToken?: string) => {
     });
   };
 
+  const unlockAccountRequest = async (email: string) => {
+    return await base.post("/auth/unlock-account-request", {
+      login: email,
+    });
+  };
+
+  const unlockAccount = async (key: string) => {
+    return await base.post("/auth/unlock-account", {
+      key: key,
+    });
+  };
+
   return {
     login,
     logout,
@@ -73,5 +85,7 @@ export const AuthApi = (accessToken?: string) => {
     verifyAccount,
     passwordResetRequest,
     resetPassword,
+    unlockAccountRequest,
+    unlockAccount,
   };
 };

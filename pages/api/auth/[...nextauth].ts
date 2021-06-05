@@ -60,8 +60,8 @@ export default NextAuth({
             ).myProfile();
             return { ...response.data, ...profile.data };
           }
-        } catch (_) {
-          return null;
+        } catch (error) {
+          throw new Error(error.response.data.error);
         }
       },
     }),
