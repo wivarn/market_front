@@ -22,7 +22,7 @@ const bodyContextClass = {
   dark: "text-accent-lightest",
 };
 
-const prgoressContextClass = {
+const progressContextClass = {
   success: "!bg-success-dark",
   error: "!bg-error-dark",
   info: "!bg-accent-dark",
@@ -58,7 +58,7 @@ export default function Toast() {
         bodyContextClass[options?.type || "default"] + " p-1.5"
       }
       progressClassName={(options) =>
-        prgoressContextClass[options?.type || "default"] +
+        progressContextClass[options?.type || "default"] +
         " Toastify__progress-bar Toastify__progress-bar--animated"
       }
       closeButton={closeButton}
