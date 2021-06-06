@@ -1,9 +1,9 @@
-const defaultTitle = "Skwirly";
+const defaultTitle = "Skwirl";
 const description = "The marketplace for modern collectors";
 
 const SEO = {
   defaultTitle,
-  titleTemplate: "Skwirly | %s",
+  titleTemplate: "Skwirl | %s",
   description,
 };
 
