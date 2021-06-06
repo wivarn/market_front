@@ -5,30 +5,30 @@ import { ToastContainer, ToastProps } from "react-toastify";
 import { HiX } from "react-icons/hi";
 
 const toastContextClass = {
-  success: "bg-success",
-  error: "bg-error",
-  info: "bg-accent",
-  warning: "bg-error-light",
-  default: "bg-primary",
-  dark: "bg-accent-darkest",
+  success: "bg-success-lightest border border-success",
+  error: "bg-error-lightest border border-error",
+  info: "bg-info-lightest border border-info",
+  warning: "bg-warning-lightest border border-warning",
+  default: "bg-primary-lightest border border-primary",
+  dark: "bg-accent-lightest border border-accent-darker",
 };
 
 const bodyContextClass = {
-  success: "text-success-lightest",
-  error: "text-error-lightest",
+  success: "text-accent-darkest",
+  error: "text-accent-darkest",
   info: "text-accent-darkest",
-  warning: "text-error-darkest",
-  default: "text-primary-lightest",
-  dark: "text-accent-lightest",
+  warning: "text-accent-darkest",
+  default: "text-accent-darkest",
+  dark: "text-accent-darkest",
 };
 
 const progressContextClass = {
-  success: "!bg-success-dark",
-  error: "!bg-error-dark",
-  info: "!bg-accent-dark",
-  warning: "!bg-error-dark",
-  default: "!bg-primary-dark",
-  dark: "!bg-accent-light",
+  success: "!bg-success",
+  error: "!bg-error",
+  info: "!bg-info",
+  warning: "!bg-warning",
+  default: "!bg-primary",
+  dark: "!bg-accent-darker",
 };
 
 const closeButton = (props: ToastProps) => (

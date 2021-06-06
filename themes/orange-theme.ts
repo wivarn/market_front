@@ -1,10 +1,5 @@
-module.exports = {
-  mode: "jit",
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
-  darkMode: false, // or 'media' or 'class'
-  theme: {
-    extend: {
-      fontFamily: {
+export default {
+  fontFamily: {
     sans: ["Roboto", "sans-serif"],
   },
   colors: {
@@ -70,12 +65,6 @@ module.exports = {
       dark: "#7A7E76",
       darker: "#464844",
       darkest: "#111211",
-    },
-  },
-      variants: {
-        extend: {},
-      },
-      plugins: [],
     },
   },
 };
