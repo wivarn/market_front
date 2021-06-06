@@ -16,7 +16,7 @@ export const PrimaryButton = (props: PropsWithHref) => {
       <a>
         <button
           type="button"
-          className="px-2 py-1 my-1 font-semibold border-2 rounded border-primary text-primary hover:border-primary-dark hover:text-primary-dark"
+          className="px-2 py-1 my-1 font-semibold border-2 rounded-md border-primary text-primary hover:border-primary-dark hover:text-primary-dark"
           disabled={props.disabled}
         >
           {props.text}

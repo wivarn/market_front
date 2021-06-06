@@ -1,11 +1,18 @@
 import {
   HiBookOpen,
+  HiCheckCircle,
+  HiExclamation,
+  HiInformationCircle,
   HiOutlineCurrencyDollar,
   HiOutlineShoppingCart,
   HiOutlineUserCircle,
   HiSearchCircle,
+  HiShieldCheck,
+  HiStar,
   HiTag,
   HiTrash,
+  HiX,
+  HiXCircle
 } from "react-icons/hi";
 
 import { GiSquirrel } from "react-icons/gi";
@@ -36,6 +43,34 @@ export const BookOpenIcon = () => {
 
 export const TrashIcon = () => {
   return <HiTrash className="icon" />;
+};
+
+export const SuccessIcon = () => {
+  return <HiCheckCircle className="icon" />;
+};
+
+export const WarningIcon = () => {
+  return <HiExclamation className="icon" />;
+};
+
+export const GradedIcon = () => {
+  return <HiShieldCheck className="icon" />;
+};
+
+export const StarIcon = () => {
+  return <HiStar className="icon" />;
+};
+
+export const ErrorIcon = () => {
+  return <HiXCircle className="icon" />;
+};
+
+export const XIcon = () => {
+  return <HiX className="icon" />;
+};
+
+export const InfoCircle = () => {
+  return <HiInformationCircle className="icon" />;
 };
 
 export const LargeUserCircleIcon = () => {

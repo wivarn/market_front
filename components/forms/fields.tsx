@@ -9,7 +9,7 @@ type TextFieldProps = FieldHookConfig<string> &
 export const TextField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-primary-dark">
+    <div className="my-2 text-accent-darkest">
       <label htmlFor={props.name}>{label}</label>
       <input className="px-2 py-1 border rounded-md border-accent" {...field} {...props} />
       {meta.touched && meta.error ? (
@@ -22,7 +22,7 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
 export const NumberField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-primary-dark">
+    <div className="my-2 text-accent-darkest">
       <label htmlFor={props.name}>{label}</label>
       <input
         type="number"
