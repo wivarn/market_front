@@ -5,7 +5,7 @@ import {
   HiOutlineUserCircle,
   HiSearchCircle,
   HiTag,
-  HiTrash
+  HiTrash,
 } from "react-icons/hi";
 
 import { GiSquirrel } from "react-icons/gi";
@@ -43,5 +43,5 @@ export const LargeUserCircleIcon = () => {
 };
 
 export const SquirrelIcon = () => {
-  return <GiSquirrel className="icon-large" />;
+  return <GiSquirrel className="icon-lg" />;
 };

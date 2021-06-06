@@ -9,8 +9,8 @@ interface Props {
 interface PropsWithHref extends Props {
   href: string;
 }
-        
-export const PrimaryButton = ( props : PropsWithHref ) => {
+
+export const PrimaryButton = (props: PropsWithHref) => {
   return (
     <Link href={props.href} passHref>
       <a>
@@ -31,6 +31,7 @@ export const SubmitButton = (props: Props) => {
     <button
       type="submit"
       className="px-2 py-1 my-1 font-semibold rounded bg-primary text-accent-lightest hover:bg-primary-light"
+      onClick={props.onClick}
       disabled={props.disabled}
     >
       {props.text}

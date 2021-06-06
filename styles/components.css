@@ -1,9 +1,13 @@
 @layer components {
+  .icon-sm {
+    @apply h-4 w-4;
+  }
+
   .icon {
     @apply h-8 w-8;
   }
 
-  .icon-large {
+  .icon-lg {
     @apply h-10 w-10;
   }
 }

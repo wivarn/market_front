@@ -1,5 +1,4 @@
 import "../styles/global.css";
-import "react-toastify/dist/ReactToastify.css";
 
 import { AppProps } from "next/app";
 import { DefaultSeo } from "next-seo";
@@ -10,7 +9,7 @@ import Layout from "components/layout";
 import { Provider } from "next-auth/client";
 import SEO from "next-seo-config";
 import { StrictMode } from "react";
-import { ToastContainer } from "react-toastify";
+import Toast from "components/toast";
 
 function Market({ Component, pageProps }: AppProps) {
   return (
@@ -24,17 +23,7 @@ function Market({ Component, pageProps }: AppProps) {
         <Layout>
           <Header />
           <Component {...pageProps} />
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
+          <Toast />
           <Footer />
         </Layout>
       </Provider>
