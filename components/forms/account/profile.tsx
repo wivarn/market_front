@@ -16,11 +16,11 @@ const profileSchema = Yup.object().shape({
   givenName: Yup.string()
     .min(1, "Must be 1 or more characters")
     .max(256, "Must be at most 256 characters")
-    .required("Required"),
+    .required("First name is required"),
   familyName: Yup.string()
     .min(1, "Must be 1 or more characters")
     .max(256, "Must be at most 256 characters")
-    .required("Required"),
+    .required("Last name is required"),
 });
 
 const emailLabel = () => {
@@ -31,7 +31,7 @@ const emailLabel = () => {
         <CheckCircleIcon />
       </span>
       <Link href="account/changeEmail">
-        <a className="text-primary">(edit)</a>
+        <a className="font-normal underline text-info">(edit)</a>
       </Link>
     </div>
   );
@@ -41,11 +41,11 @@ const phoneNumberLabel = () => {
   return (
     <div className="flex space-x-2">
       <span className="font-semibold">Phone Number</span>
-      <span className="text-error">
+      <span className="text-warning">
         <ExclamationCircleIcon />
       </span>
       <Link href="account/changePhoneNumber">
-        <a className="text-primary">(edit)</a>
+        <a className="font-normal underline text-info">(edit)</a>
       </Link>
     </div>
   );

@@ -16,7 +16,23 @@ export const PrimaryButton = (props: PropsWithHref) => {
       <a>
         <button
           type="button"
-          className="px-2 py-1 my-1 font-semibold border-2 rounded-md border-primary text-primary hover:border-primary-dark hover:text-primary-dark"
+          className="px-2 py-1 my-1 font-semibold rounded-md bg-primary text-secondary-lightest hover:bg-primary-dark"
+          disabled={props.disabled}
+        >
+          {props.text}
+        </button>
+      </a>
+    </Link>
+  );
+};
+
+export const PrimaryOutlineButton = (props: PropsWithHref) => {
+  return (
+    <Link href={props.href} passHref>
+      <a>
+        <button
+          type="button"
+          className="px-2 py-1 my-1 font-semibold border-2 rounded-md border-primary text-primary bg-primary-lightest hover:bg-primary-lighter"
           disabled={props.disabled}
         >
           {props.text}

@@ -10,7 +10,7 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
     <div className="my-2 text-accent-darkest">
-      <label htmlFor={props.name} className="block font-semibold">
+      <label htmlFor={props.name} className="block text-sm font-semibold">
         {label}
       </label>
       <input
@@ -19,7 +19,7 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
         {...props}
       />
       {meta.touched && meta.error ? (
-        <div className="italic text-error">{meta.error}</div>
+        <div className="text-error">{meta.error}</div>
       ) : null}
     </div>
   );
@@ -29,7 +29,7 @@ export const NumberField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
     <div className="my-2 text-accent-darkest">
-      <label htmlFor={props.name} className="block font-semibold">
+      <label htmlFor={props.name} className="block text-sm font-semibold">
         {label}
       </label>
       <input
@@ -39,7 +39,7 @@ export const NumberField = ({ label, ...props }: TextFieldProps) => {
         {...props}
       />
       {meta.touched && meta.error ? (
-        <div className="italic text-error">{meta.error}</div>
+        <div className="text-error">{meta.error}</div>
       ) : null}
     </div>
   );
@@ -49,7 +49,7 @@ export const ErrorField = (props: TextFieldProps) => {
   const [_, meta] = useField(props);
 
   if (meta.error) {
-    return <div className="italic text-error">{meta.error}</div>;
+    return <div className="text-error">{meta.error}</div>;
   }
   return <></>;
 };
