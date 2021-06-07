@@ -65,7 +65,7 @@ export default function LoginForm() {
             if (response?.error) {
               actions.setSubmitting(false);
               actions.setFieldValue("password", "", false);
-              toast(response.error);
+              toast.error(response.error);
               if (response.error.includes("locked")) {
                 setLocked(true);
               }

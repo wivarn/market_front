@@ -49,7 +49,7 @@ export default function ResetPasswordForm() {
                 ...response.data,
                 redirect: false,
               });
-              toast(response.data.success);
+              toast.success(response.data.success);
               router.push("/");
             })
             .catch((error) => {
@@ -57,7 +57,7 @@ export default function ResetPasswordForm() {
               const message = data["field-error"]
                 ? data["field-error"][1]
                 : data.error;
-              toast(message);
+              toast.error(message);
               actions.resetForm();
             });
         }}

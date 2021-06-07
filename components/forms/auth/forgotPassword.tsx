@@ -27,11 +27,11 @@ export default function ForgotPasswordForm() {
           AuthApi()
             .passwordResetRequest(values.email)
             .then((response) => {
-              toast(response.data.success);
+              toast.success(response.data.success);
               router.push("/");
             })
             .catch((error) => {
-              toast(error.response.data.error);
+              toast.error(error.response.data.error);
             });
         }}
       >
