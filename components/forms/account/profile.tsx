@@ -84,7 +84,7 @@ export default function ProfileForm() {
         onSubmit={async (values) => {
           ProfileApi(session?.accessToken)
             .update(values)
-            .then((_) => {
+            .then(() => {
               toast.success("Profile updated");
             });
         }}
