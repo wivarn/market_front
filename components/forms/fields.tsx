@@ -3,15 +3,21 @@ import { FieldHookConfig, useField } from "formik";
 
 type TextFieldProps = FieldHookConfig<string> &
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
-    label?: string;
+    label?: string | JSX.Element;
   };
 
 export const TextField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
     <div className="my-2 text-accent-darkest">
-      <label htmlFor={props.name}>{label}</label>
-      <input className="px-2 py-1 border rounded-md border-accent" {...field} {...props} />
+      <label htmlFor={props.name} className="block font-semibold">
+        {label}
+      </label>
+      <input
+        className="px-2 py-1 border rounded-md border-accent"
+        {...field}
+        {...props}
+      />
       {meta.touched && meta.error ? (
         <div className="italic text-error">{meta.error}</div>
       ) : null}
@@ -23,7 +29,9 @@ export const NumberField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
     <div className="my-2 text-accent-darkest">
-      <label htmlFor={props.name}>{label}</label>
+      <label htmlFor={props.name} className="block font-semibold">
+        {label}
+      </label>
       <input
         type="number"
         className="px-2 py-1 border rounded-md border-accent"

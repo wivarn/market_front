@@ -104,7 +104,6 @@ const ListingForm = (props: Listing) => {
         }}
         validationSchema={listingSchema}
         onSubmit={async (values: Listing, actions) => {
-          await console.log("clicked");
           const request = newListing
             ? ListingApi(session.accessToken).create(values)
             : ListingApi(session.accessToken).update(values);
@@ -126,30 +125,30 @@ const ListingForm = (props: Listing) => {
             <ErrorField name="formError" />
 
             <TextField
-              label="Title: "
+              label="Title"
               name="title"
               type="text"
               placeholder="title"
             />
 
             <TextField
-              label="Condition: "
+              label="Condition"
               name="condition"
               type="text"
               placeholder="condition"
             />
 
             <TextField
-              label="Description: "
+              label="Description"
               name="description"
               type="text"
               placeholder="description"
             />
 
-            <NumberField label="Price: " name="price" placeholder="0" />
+            <NumberField label="Price" name="price" placeholder="0" />
 
             <NumberField
-              label="Domestic Shipping: "
+              label="Domestic Shipping"
               name="domestic_shipping"
               placeholder="0"
             />

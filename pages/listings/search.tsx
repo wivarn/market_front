@@ -1,15 +1,9 @@
-import { ListingApi } from "services/backendApi/listing";
 import ListingPreviewGrid from "components/listing/previewGrid";
 import { NextSeo } from "next-seo";
 import useSWR from "swr";
 
-const fetcher = (path: string) =>
-  ListingApi()
-    .fetch(path)
-    .then((res) => res);
-
 function getListings() {
-  const { data, error } = useSWR("listings/search", fetcher);
+  const { data, error } = useSWR("listings/search");
 
   return {
     listings: data,

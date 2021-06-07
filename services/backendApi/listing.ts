@@ -2,13 +2,6 @@ import { Listing } from "../../types/listings";
 import { base } from "./base";
 
 export const ListingApi = (accessToken?: string) => {
-  const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
-  const fetch = async (path: string) => {
-    return base.get(path, {
-      headers: headers,
-    });
-  };
-
   const create = async (listing: Listing) => {
     return base.post(
       "listings",

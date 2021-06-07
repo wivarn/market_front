@@ -11,10 +11,6 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-// interface Values {
-//   key?: string | string[];
-// }
-
 const resetPasswordSchema = Yup.object().shape({
   password: Yup.string()
     .min(8, "Must be 8 or more characters")
@@ -30,18 +26,6 @@ export default function ResetPasswordForm() {
 
   useEffect(() => {
     if (!router.isReady) return;
-
-    // const { key } = router.query;
-
-    // if (key) {
-    //   AuthApi()
-    //     .verifyAccount(`${key}`)
-    //     .then((response) => {
-    //       console.log(response);
-    //       router.push("/");
-    //     })
-    //     .catch((_) => {});
-    // }
   }, [router.isReady]);
 
   const { key } = router.query;
@@ -65,7 +49,7 @@ export default function ResetPasswordForm() {
                 ...response.data,
                 redirect: false,
               });
-              toast(response.data.success);
+              toast.success(response.data.success);
               router.push("/");
             })
             .catch((error) => {
@@ -73,7 +57,7 @@ export default function ResetPasswordForm() {
               const message = data["field-error"]
                 ? data["field-error"][1]
                 : data.error;
-              toast(message);
+              toast.error(message);
               actions.resetForm();
             });
         }}

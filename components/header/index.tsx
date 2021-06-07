@@ -9,13 +9,31 @@ import { DropDown } from "./dropdown";
 import Head from "next/head";
 import { IconLink } from "./iconLink";
 import Link from "next/link";
+import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
 export default function Header() {
   const [session, loading] = useSession();
 
+  function getProfile() {
+    const { data, error } = useSWR(
+      session ? ["account/profile", session.accessToken] : null,
+      {
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false,
+      }
+    );
+
+    return {
+      profile: data,
+      isLoading: !error && !data,
+      isError: error,
+    };
+  }
+
+  const { profile, isLoading, isError } = getProfile();
+
   function renderNav() {
-    if (loading) return <div>Spinner</div>;
     return session ? <LoggedInNav /> : <LoggedOutNav />;
   }
 
@@ -28,6 +46,7 @@ export default function Header() {
   }
 
   function LoggedInNav() {
+    if (isLoading) return <div>Spinner</div>;
     return (
       <>
         <div className="grid items-center grid-flow-col space-x-10 justify-items-center auto-cols-max">
@@ -37,7 +56,7 @@ export default function Header() {
             text="Sell"
           />
           <IconLink href="/" icon={<ShoppingCartIcon />} text="Cart" />
-          <DropDown name={session?.user?.name}></DropDown>
+          <DropDown name={profile.data.given_name}></DropDown>
         </div>
       </>
     );

@@ -1,4 +1,3 @@
-import { ListingApi } from "services/backendApi/listing";
 import ListingDetails from "components/listing/details";
 import ListingForm from "components/forms/listing";
 import { NextSeo } from "next-seo";
@@ -6,17 +5,12 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
-const fetcher = (path: string) =>
-  ListingApi()
-    .fetch(path)
-    .then((res) => res);
-
 export default function ShowListing() {
   const router = useRouter();
   const { id } = router.query;
 
   function getListing() {
-    const { data, error } = useSWR(id ? `listings/${id}` : null, fetcher);
+    const { data, error } = useSWR(id ? `listings/${id}` : null);
 
     return {
       response: data,
@@ -30,7 +24,7 @@ export default function ShowListing() {
   if (isLoading || loading) return <div>Spinner</div>;
   if (isError) return <div>Error</div>;
 
-  const listing = response?.data;
+  const listing = response.data;
   const isSeller = session?.user?.id == listing.account_id;
 
   if (isSeller)

@@ -1,4 +1,3 @@
-import { ListingApi } from "services/backendApi/listing";
 import ListingPreviewGrid from "components/listing/previewGrid";
 import { NextSeo } from "next-seo";
 import { PrimaryButton } from "components/buttons";
@@ -8,13 +7,10 @@ import { useSession } from "next-auth/client";
 export default function Listings() {
   const [session, loading] = useSession();
 
-  const fetcher = (path: string) =>
-    ListingApi(session?.accessToken)
-      .fetch(path)
-      .then((res) => res);
-
   function getListings() {
-    const { data, error } = useSWR("/listings", fetcher);
+    const { data, error } = useSWR(
+      session ? ["listings", session.accessToken] : null
+    );
 
     return {
       listings: data,
@@ -35,7 +31,7 @@ export default function Listings() {
         <h2 className="inline-block m-6 text-accent-darkest">Your Listings</h2>
         <PrimaryButton text="+ New Listing" href="listings/new" />
       </div>
-      <ListingPreviewGrid listings={listings?.data} />
+      <ListingPreviewGrid listings={listings.data} />
     </div>
   );
 }
