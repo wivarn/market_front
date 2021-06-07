@@ -26,7 +26,7 @@ export default function ProfileForm() {
 
   function getProfile() {
     const { data, error } = useSWR(
-      session ? ["profile", session.accessToken] : null
+      session ? ["account/profile", session.accessToken] : null
     );
 
     return {

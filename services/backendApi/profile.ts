@@ -3,7 +3,7 @@ import { base } from "./base";
 
 export const ProfileApi = (accessToken?: string) => {
   const myProfile = async () => {
-    return base.get("profile", {
+    return base.get("account/profile", {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -12,7 +12,7 @@ export const ProfileApi = (accessToken?: string) => {
 
   const update = async (profile: Profile) => {
     return base.post(
-      "profile",
+      "account/profile",
       {
         given_name: profile.givenName,
         family_name: profile.familyName,
