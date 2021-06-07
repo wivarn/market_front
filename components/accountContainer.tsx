@@ -44,18 +44,18 @@ export default function AccountContainer({
           Address
         </LinkWrapper>
         <LinkWrapper
+          href="/account/payments"
+          tab="payments"
+          activeTab={activeTab}
+        >
+          Payments
+        </LinkWrapper>
+        <LinkWrapper
           href="/account/purchaseHistory"
           tab="purchaseHistory"
           activeTab={activeTab}
         >
           Purchase History
-        </LinkWrapper>
-        <LinkWrapper
-          href="/account/paymentInformation"
-          tab="paymentInformation"
-          activeTab={activeTab}
-        >
-          Payment Information
         </LinkWrapper>
       </div>
       {children}
