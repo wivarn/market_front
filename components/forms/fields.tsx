@@ -10,7 +10,9 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
     <div className="my-2 text-primary-dark">
-      <label htmlFor={props.name}>{label}</label>
+      <label htmlFor={props.name} className="block font-semibold">
+        {label}
+      </label>
       <input
         className="px-2 py-1 border rounded-md border-accent"
         {...field}
@@ -27,7 +29,9 @@ export const NumberField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
     <div className="my-2 text-primary-dark">
-      <label htmlFor={props.name}>{label}</label>
+      <label htmlFor={props.name} className="block font-semibold">
+        {label}
+      </label>
       <input
         type="number"
         className="px-2 py-1 border rounded-md border-accent"

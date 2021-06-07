@@ -92,8 +92,8 @@ export default function ProfileForm() {
       >
         {({ isSubmitting }) => (
           <Form>
-            <TextField label="First Name " name="givenName" type="text" />
-            <TextField label="Last Name " name="familyName" type="text" />
+            <TextField label="First Name" name="givenName" type="text" />
+            <TextField label="Last Name" name="familyName" type="text" />
 
             <TextField
               label={emailLabel()}

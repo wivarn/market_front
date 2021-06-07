@@ -80,25 +80,17 @@ export default function AddressForm() {
       >
         {({ isSubmitting }) => (
           <Form>
-            <TextField
-              label={<div>Address Line 1</div>}
-              name="street1"
-              type="text"
-            />
+            <TextField label="Address Line 1" name="street1" type="text" />
 
-            <TextField
-              label={<div>Address Line 2</div>}
-              name="street2"
-              type="text"
-            />
+            <TextField label="Address Line 2" name="street2" type="text" />
 
-            <TextField label={<div>City</div>} name="city" type="text" />
+            <TextField label="City" name="city" type="text" />
 
-            <TextField label={<div>State</div>} name="state" type="text" />
+            <TextField label="State" name="state" type="text" />
 
-            <TextField label={<div>Zip</div>} name="zip" type="text" />
+            <TextField label="Zip" name="zip" type="text" />
 
-            <TextField label={<div>Country</div>} name="country" type="text" />
+            <TextField label="Country" name="country" type="text" />
 
             <SubmitButton text="Update Address" disabled={isSubmitting} />
           </Form>
