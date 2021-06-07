@@ -10,7 +10,7 @@ const LinkWrapper = ({ href, tab, activeTab, ...props }: LinkProps) => {
   return (
     <Link href={href}>
       <a {...props}>
-        <p className={tab == activeTab ? "underline text-primary" : ""}>
+        <p className={tab == activeTab ? "border-b-2 border-primary text-primary" : ""}>
           {props.children}
         </p>
       </a>
@@ -28,7 +28,7 @@ export default function AccountContainer({
   return (
     <div className="p-4">
       <h2>Your Account</h2>
-      <div className="flex py-1 space-x-4 font-bold text-primary-dark">
+      <div className="flex p-4 space-x-4 font-semibold text-accent-darkest">
         <LinkWrapper
           href="/account/profile"
           tab="profile"

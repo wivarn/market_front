@@ -1,6 +1,6 @@
 import "react-toastify/dist/ReactToastify.min.css";
 
-import { ToastContainer, ToastProps } from "react-toastify";
+import { Slide, ToastContainer, ToastProps } from "react-toastify";
 
 import { HiX } from "react-icons/hi";
 
@@ -10,7 +10,7 @@ const toastContextClass = {
   info: "bg-info-lightest border-info",
   warning: "bg-warning-lightest border-warning",
   default: "bg-primary-lightest border-primary",
-  dark: "bg-accent-lightest border-accent-darker",
+  dark: "bg-accent-darker border-accent-lighter",
 };
 
 const bodyContextClass = {
@@ -19,7 +19,7 @@ const bodyContextClass = {
   info: "text-accent-darkest",
   warning: "text-accent-darkest",
   default: "text-accent-darkest",
-  dark: "text-accent-darkest",
+  dark: "text-accent-lighter",
 };
 
 const progressContextClass = {
@@ -28,7 +28,7 @@ const progressContextClass = {
   info: "!bg-info",
   warning: "!bg-warning",
   default: "!bg-primary",
-  dark: "!bg-accent-darker",
+  dark: "!bg-accent-lighter",
 };
 
 const closeButton = (props: ToastProps) => (
@@ -42,7 +42,8 @@ export default function Toast() {
   return (
     <ToastContainer
       position="top-right"
-      autoClose={120000}
+      transition={Slide}
+      autoClose={5000}
       hideProgressBar={false}
       newestOnTop={false}
       closeOnClick={false}
