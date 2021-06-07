@@ -104,7 +104,6 @@ const ListingForm = (props: Listing) => {
         }}
         validationSchema={listingSchema}
         onSubmit={async (values: Listing, actions) => {
-          await console.log("clicked");
           const request = newListing
             ? ListingApi(session.accessToken).create(values)
             : ListingApi(session.accessToken).update(values);

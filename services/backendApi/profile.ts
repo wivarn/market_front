@@ -1,3 +1,4 @@
+import { Profile } from "types/account";
 import { base } from "./base";
 
 export const ProfileApi = (accessToken?: string) => {
@@ -9,5 +10,18 @@ export const ProfileApi = (accessToken?: string) => {
     });
   };
 
-  return { myProfile };
+  const update = async (profile: Profile) => {
+    return base.post(
+      "profile",
+      {
+        given_name: profile.givenName,
+        family_name: profile.familyName,
+      },
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+  };
+
+  return { myProfile, update };
 };
