@@ -8,7 +8,7 @@ export default function profile() {
 
   function getProfile() {
     const { data, error } = useSWR(
-      session ? ["profile", session?.accessToken] : null
+      session ? ["profile", session.accessToken] : null
     );
 
     return {
@@ -28,7 +28,7 @@ export default function profile() {
       <NextSeo title="Profile" />
       <div className="p-4">
         <h2>Your Account</h2>
-        <p>{JSON.stringify(profile?.data)}</p>
+        <p>{JSON.stringify(profile.data)}</p>
       </div>
     </>
   );

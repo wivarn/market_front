@@ -24,7 +24,7 @@ export default function ShowListing() {
   if (isLoading || loading) return <div>Spinner</div>;
   if (isError) return <div>Error</div>;
 
-  const listing = response?.data;
+  const listing = response.data;
   const isSeller = session?.user?.id == listing.account_id;
 
   if (isSeller)
