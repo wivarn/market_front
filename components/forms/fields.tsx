@@ -9,7 +9,7 @@ type TextFieldProps = FieldHookConfig<string> &
 export const TextField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-primary-dark">
+    <div className="my-2 text-accent-darkest">
       <label htmlFor={props.name} className="block font-semibold">
         {label}
       </label>
@@ -28,7 +28,7 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
 export const NumberField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-primary-dark">
+    <div className="my-2 text-accent-darkest">
       <label htmlFor={props.name} className="block font-semibold">
         {label}
       </label>

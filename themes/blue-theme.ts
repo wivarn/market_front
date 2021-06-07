@@ -1,11 +1,6 @@
-module.exports = {
-  mode: "jit",
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
-  darkMode: false, // or 'media' or 'class'
-  theme: {
-    extend: {
-      fontFamily: {
-    sans: ["Roboto", "sans-serif"],
+export default {
+  fontFamily: {
+    sans: ["Poppins", "sans-serif"],
   },
   colors: {
     success: {
@@ -54,13 +49,13 @@ module.exports = {
       darkest: "#150704",
     },
     secondary: {
-      lightest: "#CDE3DB",
-      lighter: "#82B9A6",
-      light: "#368E71",
-      DEFAULT: "#04724D",
-      dark: "#035036",
-      darker: "#022E1F",
-      darkest: "#000B08",
+      lightest: "#FFFBF6",
+      lighter: "#FEF6E8",
+      light: "#FDF1D9",
+      DEFAULT: "#FDEDD0",
+      dark: "#B1A692",
+      darker: "#655F53",
+      darkest: "#191815",
     },
     accent: {
       lightest: "#EFF0EE",
@@ -70,12 +65,6 @@ module.exports = {
       dark: "#7A7E76",
       darker: "#464844",
       darkest: "#111211",
-    },
-  },
-      variants: {
-        extend: {},
-      },
-      plugins: [],
     },
   },
 };

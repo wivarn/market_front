@@ -10,9 +10,9 @@ interface Props {
 
 export const IconLink = (props: Props) => {
   const iconText = (
-    <a className="py-2 text-center rounded text-primary hover:text-primary-light">
+    <a className="py-2 text-center rounded text-accent-darker hover:text-primary">
       {props.icon}
-      <div className="text-sm font-semibold text-center">{props.text}</div>
+      <div className="text-sm font-medium text-center">{props.text}</div>
     </a>
   );
 

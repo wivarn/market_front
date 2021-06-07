@@ -21,8 +21,8 @@ export default function Listings() {
   return (
     <div>
       <NextSeo title="Search Results" />
-      <h2 className="m-6 text-primary-dark">Your search results</h2>
-      <ListingPreviewGrid listings={listings.data} />
+      <h2 className="m-6 text-accent-darkest">Your search results</h2>
+      <ListingPreviewGrid listings={listings?.data} />
     </div>
   );
 }

@@ -27,8 +27,8 @@ const LinkWrapper = forwardRef(
         <a
           ref={ref}
           className={classNames(
-            active ? "bg-primary text-accent-lightest" : "text-primary",
-            "block px-4 py-2 text-sm font-semibold"
+            active ? "bg-primary text-accent-lightest" : "text-accent-darkest",
+            "block px-4 py-2 text-sm font-medium rounded-md"
           )}
           {...props}
         >
@@ -82,7 +82,7 @@ export const DropDown = (props: Props) => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 mt-2 bg-white rounded-md shadow-md w-max ring-1 ring-primary focus:outline-none">
+            <Menu.Items className="absolute right-0 w-48 p-1 mt-2 bg-white rounded-md shadow-md ring-1 ring-accent-dark focus:outline-none">
               <div className="py-1">
                 <Menu.Item>
                   {({ active }) => (

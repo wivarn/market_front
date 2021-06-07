@@ -28,7 +28,7 @@ export default function Listings() {
     <div>
       <NextSeo title="Your Listings" />
       <div className="space-x-2">
-        <h2 className="inline-block m-6 text-primary-dark">Your Listings</h2>
+        <h2 className="inline-block m-6 text-accent-darkest">Your Listings</h2>
         <PrimaryButton text="+ New Listing" href="listings/new" />
       </div>
       <ListingPreviewGrid listings={listings.data} />
