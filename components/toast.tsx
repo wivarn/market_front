@@ -52,7 +52,7 @@ export default function Toast() {
       pauseOnHover
       toastClassName={(options) =>
         toastContextClass[options?.type || "default"] +
-        "border relative flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
+        " border relative flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
       }
       bodyClassName={(options) =>
         bodyContextClass[options?.type || "default"] + " p-1.5"
