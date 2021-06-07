@@ -43,7 +43,7 @@ export default function Toast() {
     <ToastContainer
       position="top-right"
       transition={Slide}
-      autoClose={120000}
+      autoClose={5000}
       hideProgressBar={false}
       newestOnTop={false}
       closeOnClick={false}
