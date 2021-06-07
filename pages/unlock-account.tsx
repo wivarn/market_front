@@ -16,10 +16,6 @@ export default function unlockAccount() {
       AuthApi()
         .unlockAccount(`${key}`)
         .then((response) => {
-          // signIn("jwt", {
-          //   ...response.data,
-          //   redirect: false,
-          // });
           toast(response.data.success);
           router.push("/");
         })

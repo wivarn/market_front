@@ -1,4 +1,4 @@
-import LoginForm from "components/forms/account/login";
+import LoginForm from "components/forms/auth/login";
 import { NextSeo } from "next-seo";
 
 export default function login() {
