@@ -1,7 +1,8 @@
-import ProfileForm from "components/forms/profile";
-import { useSession } from "next-auth/client";
+import AccountContainer from "components/accountContainer";
 import { NextSeo } from "next-seo";
+import ProfileForm from "components/forms/profile";
 import useSWR from "swr";
+import { useSession } from "next-auth/client";
 
 export default function profile() {
   const [session, loading] = useSession();
@@ -26,10 +27,9 @@ export default function profile() {
   return (
     <>
       <NextSeo title="Profile" />
-      <div className="p-4">
-        <h2>Your Account</h2>
+      <AccountContainer activeTab="profile">
         <p>{JSON.stringify(profile.data)}</p>
-      </div>
+      </AccountContainer>
     </>
   );
 }
