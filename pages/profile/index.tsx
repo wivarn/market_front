@@ -1,19 +1,15 @@
 import ProfileForm from "components/forms/profile";
 import { useSession } from "next-auth/client";
 import { NextSeo } from "next-seo";
-import { ProfileApi } from "services/backendApi/profile";
 import useSWR from "swr";
 
 export default function profile() {
   const [session, loading] = useSession();
 
-  const fetcher = () =>
-    ProfileApi(session?.accessToken)
-      .myProfile()
-      .then((res) => res);
-
   function getProfile() {
-    const { data, error } = useSWR("/", fetcher);
+    const { data, error } = useSWR(
+      session ? ["profile", session?.accessToken] : null
+    );
 
     return {
       profile: data,
