@@ -3,7 +3,7 @@ import { FieldHookConfig, useField } from "formik";
 
 type TextFieldProps = FieldHookConfig<string> &
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
-    label?: string;
+    label?: string | JSX.Element;
   };
 
 export const TextField = ({ label, ...props }: TextFieldProps) => {
@@ -11,7 +11,11 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
   return (
     <div className="my-2 text-primary-dark">
       <label htmlFor={props.name}>{label}</label>
-      <input className="px-2 py-1 border rounded-md border-accent" {...field} {...props} />
+      <input
+        className="px-2 py-1 border rounded-md border-accent"
+        {...field}
+        {...props}
+      />
       {meta.touched && meta.error ? (
         <div className="italic text-error">{meta.error}</div>
       ) : null}

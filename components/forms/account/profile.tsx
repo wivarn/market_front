@@ -1,8 +1,10 @@
 import * as Yup from "yup";
 
+import { CheckCircleIcon, ExclamationCircleIcon } from "components/icons";
 import { Form, Formik } from "formik";
 
 import FormContainer from "../container";
+import Link from "next/link";
 import { ProfileApi } from "services/backendApi/profile";
 import { SubmitButton } from "components/buttons";
 import { TextField } from "../fields";
@@ -20,6 +22,34 @@ const profileSchema = Yup.object().shape({
     .max(256, "Must be at most 256 characters")
     .required("Required"),
 });
+
+const emailLabel = () => {
+  return (
+    <div className="flex space-x-2">
+      <span className="font-semibold">Email</span>
+      <span className="text-success">
+        <CheckCircleIcon />
+      </span>
+      <Link href="account/changeEmail">
+        <a className="text-primary">(edit)</a>
+      </Link>
+    </div>
+  );
+};
+
+const phoneNumberLabel = () => {
+  return (
+    <div className="flex space-x-2">
+      <span className="font-semibold">Phone Number</span>
+      <span className="text-error">
+        <ExclamationCircleIcon />
+      </span>
+      <Link href="account/changePhoneNumber">
+        <a className="text-primary">(edit)</a>
+      </Link>
+    </div>
+  );
+};
 
 export default function ProfileForm() {
   const [session, loading] = useSession();
@@ -47,12 +77,14 @@ export default function ProfileForm() {
         initialValues={{
           givenName: profile.data.given_name,
           familyName: profile.data.family_name,
+          email: profile.data.email,
+          phoneNumber: profile.data.phone_number,
         }}
         validationSchema={profileSchema}
         onSubmit={async (values) => {
           ProfileApi(session?.accessToken)
             .update(values)
-            .then((response) => {
+            .then((_) => {
               toast.success("Profile updated");
             });
         }}
@@ -61,6 +93,19 @@ export default function ProfileForm() {
           <Form>
             <TextField label="First Name " name="givenName" type="text" />
             <TextField label="Last Name " name="familyName" type="text" />
+
+            <TextField
+              label={emailLabel()}
+              name="email"
+              type="text"
+              disabled={true}
+            />
+            <TextField
+              label={phoneNumberLabel()}
+              name="phoneNumber"
+              type="text"
+              disabled={true}
+            />
 
             <SubmitButton text="Update" disabled={isSubmitting} />
           </Form>

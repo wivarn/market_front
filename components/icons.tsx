@@ -1,5 +1,7 @@
 import {
   HiBookOpen,
+  HiCheckCircle,
+  HiExclamationCircle,
   HiOutlineCurrencyDollar,
   HiOutlineShoppingCart,
   HiOutlineUserCircle,
@@ -44,4 +46,12 @@ export const LargeUserCircleIcon = () => {
 
 export const SquirrelIcon = () => {
   return <GiSquirrel className="icon-lg" />;
+};
+
+export const CheckCircleIcon = () => {
+  return <HiCheckCircle className="icon-sm" />;
+};
+
+export const ExclamationCircleIcon = () => {
+  return <HiExclamationCircle className="icon-sm" />;
 };
