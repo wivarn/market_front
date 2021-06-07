@@ -5,12 +5,12 @@ import { ToastContainer, ToastProps } from "react-toastify";
 import { HiX } from "react-icons/hi";
 
 const toastContextClass = {
-  success: "bg-success-lightest border border-success",
-  error: "bg-error-lightest border border-error",
-  info: "bg-info-lightest border border-info",
-  warning: "bg-warning-lightest border border-warning",
-  default: "bg-primary-lightest border border-primary",
-  dark: "bg-accent-lightest border border-accent-darker",
+  success: "bg-success-lightest border-success",
+  error: "bg-error-lightest border-error",
+  info: "bg-info-lightest border-info",
+  warning: "bg-warning-lightest border-warning",
+  default: "bg-primary-lightest border-primary",
+  dark: "bg-accent-lightest border-accent-darker",
 };
 
 const bodyContextClass = {
@@ -52,7 +52,7 @@ export default function Toast() {
       pauseOnHover
       toastClassName={(options) =>
         toastContextClass[options?.type || "default"] +
-        " relative flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
+        "border relative flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
       }
       bodyClassName={(options) =>
         bodyContextClass[options?.type || "default"] + " p-1.5"
