@@ -2,6 +2,7 @@ import * as Yup from "yup";
 
 import { CheckCircleIcon, ExclamationCircleIcon } from "components/icons";
 import { Form, Formik } from "formik";
+import useSWR, { mutate } from "swr";
 
 import FormContainer from "../container";
 import Link from "next/link";
@@ -9,7 +10,6 @@ import { ProfileApi } from "services/backendApi/profile";
 import { SubmitButton } from "components/buttons";
 import { TextField } from "../fields";
 import { toast } from "react-toastify";
-import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
 const profileSchema = Yup.object().shape({
@@ -86,6 +86,7 @@ export default function ProfileForm() {
             .update(values)
             .then(() => {
               toast.success("Profile updated");
+              mutate(["account/profile", session?.accessToken]);
             });
         }}
       >
