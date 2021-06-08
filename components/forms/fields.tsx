@@ -5,14 +5,12 @@ import {
 } from "react";
 import { FieldHookConfig, useField } from "formik";
 
+import { anyObject } from "types/object";
+
 type TextFieldProps = FieldHookConfig<string> &
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
     label?: string | JSX.Element;
   };
-
-export type SelectOptions = {
-  [key: string]: any;
-};
 
 type SelectProps = FieldHookConfig<string> &
   DetailedHTMLProps<
@@ -20,7 +18,7 @@ type SelectProps = FieldHookConfig<string> &
     HTMLSelectElement
   > & {
     label?: string | JSX.Element;
-    options: SelectOptions;
+    options: anyObject;
   };
 
 export const TextField = ({ label, ...props }: TextFieldProps) => {

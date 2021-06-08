@@ -1,11 +1,13 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
-import { SelectBox, SelectOptions, TextField } from "../fields";
+import { SelectBox, TextField } from "../fields";
 
+import { Address } from "types/account";
 import { AddressApi } from "services/backendApi/address";
 import FormContainer from "../container";
 import { SubmitButton } from "components/buttons";
+import { anyObject } from "types/object";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
@@ -121,9 +123,9 @@ function stateSelect(country: string) {
   }
 
   if (!country) {
-    var options: SelectOptions = {};
+    var options: anyObject = {};
   } else {
-    var options: SelectOptions = country == "CAN" ? provinceList : stateList;
+    var options: anyObject = country == "CAN" ? provinceList : stateList;
   }
 
   return (
@@ -157,11 +159,13 @@ function zipField(country: string) {
   );
 }
 
-function zipLabel(country: string) {
-  if (!country) {
-    return "Zip/Postal Code";
-  }
-  return country == "CAN" ? "Postal Code" : "Zip Code";
+function trimValues(values: Address) {
+  values.street1 = values.street1.trim();
+  values.street2 = values.street2?.trim();
+  values.city = values.city.trim();
+  values.zip = values.zip.replace(/\s+/g, "");
+
+  return values;
 }
 
 export default function AddressForm() {
@@ -200,9 +204,12 @@ export default function AddressForm() {
         validationSchema={addressSchema}
         onSubmit={async (values) => {
           AddressApi(session?.accessToken)
-            .update(values)
+            .update(trimValues(values))
             .then(() => {
               toast.success("address updated");
+            })
+            .catch((error) => {
+              toast.error(JSON.stringify(error.response.data));
             });
         }}
       >
