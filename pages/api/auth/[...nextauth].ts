@@ -1,9 +1,11 @@
-import NextAuth, { BackendJwt } from "next-auth";
+import NextAuth, { User } from "next-auth";
 
 import { AuthApi } from "services/backendApi/auth";
 import { JWT } from "next-auth/jwt";
 import { ProfileApi } from "services/backendApi/profile";
 import Providers from "next-auth/providers";
+import { anyObject } from "types/object";
+import jwtDecode from "jwt-decode";
 
 process.env.NEXTAUTH_URL = process.env.NEXTAUTH_URL || process.env.VERCEL_URL;
 
@@ -53,13 +55,7 @@ export default NextAuth({
             credentials.login,
             credentials.password
           );
-
-          if (response) {
-            const profile = await ProfileApi(
-              response.data.access_token
-            ).myProfile();
-            return { ...response.data, ...profile.data };
-          }
+          return response.data;
         } catch (error) {
           throw new Error(error.response.data.error);
         }
@@ -68,13 +64,8 @@ export default NextAuth({
     Providers.Credentials({
       id: "jwt",
       name: "Jwt",
-      authorize: async (jwt: BackendJwt) => {
-        try {
-          const profile = await ProfileApi(jwt.access_token).myProfile();
-          return { ...jwt, ...profile.data };
-        } catch (_) {
-          return null;
-        }
+      authorize: async (jwt: User) => {
+        return jwt;
       },
     }),
   ],
@@ -87,8 +78,6 @@ export default NextAuth({
         token.accessToken = user.access_token;
         token.accessTokenExpires = Date.now() + accessTokenAge;
         token.refreshToken = user.refresh_token;
-        token.givenName = user.given_name;
-        token.picture = user.picture;
       }
 
       if (Date.now() < token.accessTokenExpires) {
@@ -99,8 +88,7 @@ export default NextAuth({
 
     async session(session, token: JWT) {
       session.accessToken = token.accessToken;
-      session.user.name = token.givenName;
-      session.user.id = token.sub;
+      session.accountId = jwtDecode<anyObject>(token.accessToken).account_id;
       return session;
     },
   },

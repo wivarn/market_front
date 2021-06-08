@@ -21,11 +21,11 @@ export default function verifyAccount() {
             ...response.data,
             redirect: false,
           });
-          toast(response.data.success);
+          toast.success(response.data.success);
           router.push("/");
         })
         .catch((error) => {
-          toast(error.response.data.error);
+          toast.error(error.response.data.error);
         });
     }
   }, [router.isReady]);

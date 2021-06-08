@@ -25,7 +25,7 @@ export default function ShowListing() {
   if (isError) return <div>Error</div>;
 
   const listing = response.data;
-  const isSeller = session?.user?.id == listing.account_id;
+  const isSeller = session?.accountId == listing.account_id;
 
   if (isSeller)
     return (
