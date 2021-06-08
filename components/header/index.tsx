@@ -13,7 +13,7 @@ import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
 export default function Header() {
-  const [session, loading] = useSession();
+  const [session, sessionLoading] = useSession();
 
   function getProfile() {
     const { data, error } = useSWR(
@@ -34,6 +34,7 @@ export default function Header() {
   const { profile, isLoading, isError } = getProfile();
 
   function renderNav() {
+    if (sessionLoading) return <div>Spinner</div>;
     return session ? <LoggedInNav /> : <LoggedOutNav />;
   }
 
