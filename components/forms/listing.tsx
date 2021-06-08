@@ -93,6 +93,7 @@ const ListingForm = (props: Listing) => {
       <h2>{newListing ? "Create" : "Update"} Listing</h2>
       <Formik
         initialValues={{
+          id: props.id,
           photos: props.photos,
           title: props.title,
           condition: props.condition,
