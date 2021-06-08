@@ -9,6 +9,7 @@ import { Listing } from "types/listings";
 import { ListingApi } from "services/backendApi/listing";
 import { TextField } from "./fields";
 import _ from "lodash";
+import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
@@ -77,6 +78,7 @@ const ListingForm = (props: Listing) => {
           await ListingApi(accessToken)
             .destroy(id)
             .then((_) => {
+              toast.error("Your listing has been deleted");
               router.push("/listings");
             })
             .catch((error) => {
@@ -110,6 +112,7 @@ const ListingForm = (props: Listing) => {
 
           request
             .then((_) => {
+              toast.success(newListing ? "New listing created!" : "Your listing has been updated");
               router.push("/listings");
             })
             .catch((error) => {
