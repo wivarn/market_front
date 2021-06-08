@@ -1,14 +1,19 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
+import { SelectBox, TextField } from "../fields";
 
 import { AddressApi } from "services/backendApi/address";
 import FormContainer from "../container";
 import { SubmitButton } from "components/buttons";
-import { TextField } from "../fields";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
+
+const countryList = {
+  CAN: "Canada",
+  USA: "United States of America",
+};
 
 const addressSchema = Yup.object().shape({
   street1: Yup.string()
@@ -80,17 +85,13 @@ export default function AddressForm() {
       >
         {({ isSubmitting }) => (
           <Form>
+            <SelectBox label="Country" name="country" options={countryList} />
+
             <TextField label="Address Line 1" name="street1" type="text" />
-
             <TextField label="Address Line 2" name="street2" type="text" />
-
             <TextField label="City" name="city" type="text" />
-
             <TextField label="State" name="state" type="text" />
-
             <TextField label="Zip" name="zip" type="text" />
-
-            <TextField label="Country" name="country" type="text" />
 
             <SubmitButton text="Update Address" disabled={isSubmitting} />
           </Form>
