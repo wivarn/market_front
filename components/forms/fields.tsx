@@ -10,7 +10,7 @@ type TextFieldProps = FieldHookConfig<string> &
     label?: string | JSX.Element;
   };
 
-type SelectOptions = {
+export type SelectOptions = {
   [key: string]: any;
 };
 
@@ -74,7 +74,12 @@ export const SelectBox = ({ label, options, ...props }: SelectProps) => {
         {...field}
         {...props}
       >
-        <option value="">Select Country</option>
+        {props.placeholder ? (
+          <option value="" disabled={true}>
+            {props.placeholder}
+          </option>
+        ) : null}
+
         {Object.entries(options).map(([value, text]) => {
           return (
             <option key={value} value={value}>
