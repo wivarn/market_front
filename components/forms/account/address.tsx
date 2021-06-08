@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import { Form, Formik } from "formik";
+import { Form, Formik, yupToFormErrors } from "formik";
 import { SelectBox, TextField } from "../fields";
 
 import { Address } from "types/account";
@@ -90,27 +90,36 @@ const stateList = {
 const addressSchema = Yup.object().shape({
   street1: Yup.string()
     .min(1, "Must be 1 or more characters")
-    .max(256, "Must be at most 256 characters")
+    .max(100, "Must be at most 100 characters")
     .required("Required"),
-  street2: Yup.string()
-    .min(1, "Must be 1 or more characters")
-    .max(256, "Must be at most 256 characters"),
+  street2: Yup.string().max(100, "Must be at most 100 characters"),
   city: Yup.string()
     .min(1, "Must be 1 or more characters")
-    .max(256, "Must be at most 256 characters")
+    .max(100, "Must be at most 100 characters")
     .required("Required"),
-  state: Yup.string()
-    .min(1, "Must be 1 or more characters")
-    .max(256, "Must be at most 256 characters")
+  state: Yup.mixed()
+    .when("country", {
+      is: "CAN",
+      then: Yup.mixed().oneOf(
+        Object.keys(provinceList),
+        "invalid Province/Territory"
+      ),
+      otherwise: Yup.mixed().oneOf(Object.keys(stateList), "invalid state"),
+    })
     .required("Required"),
-  zip: Yup.string()
-    .min(1, "Must be 1 or more characters")
-    .max(256, "Must be at most 256 characters")
+  zip: Yup.mixed()
+    .when("country", {
+      is: "CAN",
+      then: Yup.string()
+        .matches(/\b[A-Z]\d[A-Z]\s?\d[A-Z]\d\b/, "invalid postal code")
+        .min(6, "invalid postal code")
+        .max(7, "invalid postal code"),
+      otherwise: Yup.string()
+        .matches(/\b\d{5}\b/, "invalid zip code")
+        .length(5, "invalid zip code"),
+    })
     .required("Required"),
-  country: Yup.string()
-    .min(1, "Must be 1 or more characters")
-    .max(256, "Must be at most 256 characters")
-    .required("Required"),
+  country: Yup.mixed().oneOf(Object.keys(countryList), "invalid country"),
 });
 
 function stateSelect(country: string) {
