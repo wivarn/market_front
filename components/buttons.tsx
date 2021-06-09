@@ -32,38 +32,6 @@ export const SecondaryButton = (props: PropsWithHref) => {
       <a>
         <button
           type="button"
-          className="px-2 py-1 my-1 font-medium rounded-md bg-info text-secondary-lightest hover:bg-info-dark"
-          disabled={props.disabled}
-        >
-          {props.text}
-        </button>
-      </a>
-    </Link>
-  );
-};
-
-export const PrimaryOutlineButton = (props: PropsWithHref) => {
-  return (
-    <Link href={props.href} passHref>
-      <a>
-        <button
-          type="button"
-          className="px-2 py-1 my-1 font-semibold border-2 rounded-md border-primary text-primary bg-primary-lightest hover:bg-primary-lighter"
-          disabled={props.disabled}
-        >
-          {props.text}
-        </button>
-      </a>
-    </Link>
-  );
-};
-
-export const SecondaryOutlineButton = (props: PropsWithHref) => {
-  return (
-    <Link href={props.href} passHref>
-      <a>
-        <button
-          type="button"
           className="px-2 py-1 my-1 font-medium border-2 rounded-md border-info text-info bg-info-lightest hover:bg-info-lighter"
           disabled={props.disabled}
         >
@@ -79,6 +47,19 @@ export const SubmitButton = (props: Props) => {
     <button
       type="submit"
       className="px-2 py-1 my-1 font-medium rounded bg-primary text-accent-lightest hover:bg-primary-dark"
+      onClick={props.onClick}
+      disabled={props.disabled}
+    >
+      {props.text}
+    </button>
+  );
+};
+
+export const SubmitButtonWide = (props: Props) => {
+  return (
+    <button
+      type="submit"
+      className="w-full px-2 py-2 my-1 font-medium rounded bg-primary text-accent-lightest hover:bg-primary-dark"
       onClick={props.onClick}
       disabled={props.disabled}
     >
