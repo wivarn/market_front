@@ -5,6 +5,7 @@ import { Form, Formik } from "formik";
 import FormContainer from "../container";
 import Link from "next/link";
 import { SubmitButton } from "components/buttons";
+import { SecondaryOutlineButton } from "components/buttons";
 import { TextField } from "../fields";
 import { signIn } from "next-auth/client";
 import { toast } from "react-toastify";
@@ -50,6 +51,7 @@ export default function LoginForm() {
   return (
     <FormContainer>
       <h3>Login</h3>
+      <div className="py-2">
       <Formik
         initialValues={{
           email: "",
@@ -85,18 +87,18 @@ export default function LoginForm() {
 
             <Link href="/auth/forgotPassword">
               <a className="underline text-info">
-                <p>Forgot Password?</p>
+                <p className="py-2">Forgot Password?</p>
               </a>
             </Link>
             <SubmitButton text="Login" disabled={props.isSubmitting} />
           </Form>
         )}
       </Formik>
-      <Link href="/account/new">
-        <a>
-          <SubmitButton text="Create Account" />
-        </a>
-      </Link>
+      </div>
+      <div className="py-4 mt-4 border-t border-accent">
+        <h3 className="py-2 text-accent-darkest">Don't have an account? Sign up below</h3>
+            <SecondaryOutlineButton href="/account/new" text="Create Account" />
+      </div>
     </FormContainer>
   );
 }
