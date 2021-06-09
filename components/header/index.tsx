@@ -70,8 +70,8 @@ export default function Header() {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <header>
-        <nav className="flex flex-wrap items-center px-4 py-2">
+      <header className="bg-accent-dark">
+        <nav className="container flex flex-wrap items-center px-4 py-2 mx-auto max-w-screen-2xl">
           <Link href="/">
             <a className="p-2 text-primary">
               <h1 className="inline-flex">

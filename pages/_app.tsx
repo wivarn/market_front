@@ -24,10 +24,8 @@ function Market({ Component, pageProps }: AppProps) {
       <Provider session={pageProps.session}>
         <SWRConfig value={{ fetcher: fetcher }}>
           <Layout>
-            <Header />
             <Component {...pageProps} />
             <Toast />
-            <Footer />
           </Layout>
         </SWRConfig>
       </Provider>
