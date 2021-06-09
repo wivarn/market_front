@@ -84,7 +84,7 @@ export default function LoginForm() {
             <TextField name="password" type="password" placeholder="Password" />
 
             <Link href="/auth/forgotPassword">
-              <a className="underline text-primary">
+              <a className="underline text-info">
                 <p>Forgot Password?</p>
               </a>
             </Link>

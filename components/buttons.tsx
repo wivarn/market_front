@@ -59,7 +59,7 @@ export const DeleteButton = (props: Props) => {
   return (
     <button
       type="submit"
-      className="px-2 py-1 my-1 font-medium rounded-md bg-error text-accent-lightest hover:bg-error-dark"
+      className="px-2 py-1 my-1 font-medium border rounded-md border-error bg-error-lightest text-error hover:bg-error-lighter"
       onClick={props.onClick}
       disabled={props.disabled}
     >

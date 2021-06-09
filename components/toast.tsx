@@ -41,7 +41,7 @@ const closeButton = (props: ToastProps) => (
 export default function Toast() {
   return (
     <ToastContainer
-      position="top-right"
+      position="top-center"
       transition={Slide}
       autoClose={5000}
       hideProgressBar={false}
