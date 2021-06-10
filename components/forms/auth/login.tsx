@@ -19,7 +19,9 @@ interface Values {
 }
 
 const loginSchema = Yup.object().shape({
-  email: Yup.string().email("Please enter a valid email address").required("Email is required"),
+  email: Yup.string()
+    .email("Please enter a valid email address")
+    .required("Email is required"),
   password: Yup.string()
     .min(8, "Password must be 8 or more characters")
     .required("Password is required"),
@@ -49,67 +51,59 @@ export default function LoginForm() {
   }
 
   return (
-      <>
-        <h2 className="mt-8 text-center">Log in to your account</h2>
-        <FormContainer>
-          <div className="py-2">
-            <Formik
-              initialValues={{
-                email: "",
-                password: "",
-              }}
-              validationSchema={loginSchema}
-              onSubmit={async (values: Values, actions) => {
-                signIn("credentials", {
-                  login: values.email,
-                  password: values.password,
-                  redirect: false,
-                }).then((response) => {
-                  if (response?.error) {
-                    actions.setSubmitting(false);
-                    actions.setFieldValue("password", "", false);
-                    toast.error(response.error);
-                    if (response.error.includes("locked")) {
-                      setLocked(true);
-                    }
-                  } else {
-                    router.push("/");
+    <>
+      <h2 className="mt-8 text-center">Log in to your account</h2>
+      <FormContainer>
+        <div className="py-2">
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+            }}
+            validationSchema={loginSchema}
+            onSubmit={async (values: Values, actions) => {
+              signIn("credentials", {
+                login: values.email,
+                password: values.password,
+                redirect: false,
+              }).then((response) => {
+                if (response?.error) {
+                  actions.setSubmitting(false);
+                  actions.setFieldValue("password", "", false);
+                  toast.error(response.error);
+                  if (response.error.includes("locked")) {
+                    setLocked(true);
                   }
-                });
-              }}
-            >
-              {(props) => (
-                <Form>
-                  {renderLockedBanner()}
+                } else {
+                  router.push("/");
+                }
+              });
+            }}
+          >
+            {(props) => (
+              <Form>
+                {renderLockedBanner()}
 
-                  <TextField
-                    name="email"
-                    type="email"
-                    label="Email"
-                  />
+                <TextField name="email" type="email" label="Email" />
 
-                  <TextField
-                    name="password"
-                    type="password"
-                    label="Password"
-                  />
-                  <SubmitButtonWide text="Log in" disabled={props.isSubmitting} />
-                  <Link href="/auth/forgotPassword">
-                    <a className="underline text-info">
-                      <p className="py-2 text-sm">Forgot Password?</p>
-                    </a>
-                  </Link>
-                </Form>
-              )}
-            </Formik>
-          </div>
-          <div className="py-4 mt-4 border-t border-accent">
-            <p className="py-2 text-accent-darkest">
-              Don't have an account? Sign up!
-            </p>
-            <SecondaryButton href="/account/new" text="Create Account" />
-          </div>
-        </FormContainer>
-      </>
+                <TextField name="password" type="password" label="Password" />
+                <SubmitButtonWide text="Log in" disabled={props.isSubmitting} />
+                <Link href="/auth/forgotPassword">
+                  <a className="underline text-info">
+                    <p className="py-2 text-sm">Forgot Password?</p>
+                  </a>
+                </Link>
+              </Form>
+            )}
+          </Formik>
+        </div>
+        <div className="py-4 mt-4 border-t border-accent">
+          <p className="py-2 text-accent-darkest">
+            Don't have an account? Sign up!
+          </p>
+          <SecondaryButton href="/account/new" text="Create Account" />
+        </div>
+      </FormContainer>
+    </>
   );
 }

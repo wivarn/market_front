@@ -6,7 +6,7 @@ import { Form, Formik } from "formik";
 import { Account } from "types/account";
 import { AuthApi } from "services/backendApi/auth";
 import FormContainer from "../container";
-import {SecondaryButton} from "components/buttons"
+import { SecondaryButton } from "components/buttons";
 import { SubmitButtonWide } from "components/buttons";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -84,9 +84,7 @@ export default function CreateAccountForm() {
           </Formik>
         </div>
         <div className="py-4 mt-4 border-t border-accent">
-          <p className="py-2 text-accent-darkest">
-            Already have an account? 
-          </p>
+          <p className="py-2 text-accent-darkest">Already have an account?</p>
           <SecondaryButton href="/login" text="Back to log in" />
         </div>
       </FormContainer>

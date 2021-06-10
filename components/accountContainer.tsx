@@ -8,17 +8,17 @@ interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 
 const LinkWrapper = ({ href, tab, activeTab, ...props }: LinkProps) => {
   return (
-      <Link href={href}>
-        <a {...props}>
-          <p
-            className={
-              tab == activeTab ? "border-b-2 border-primary text-primary" : ""
-            }
-          >
-            {props.children}
-          </p>
-        </a>
-      </Link>
+    <Link href={href}>
+      <a {...props}>
+        <p
+          className={
+            tab == activeTab ? "border-b-2 border-primary text-primary" : ""
+          }
+        >
+          {props.children}
+        </p>
+      </a>
+    </Link>
   );
 };
 
