@@ -51,7 +51,7 @@ export default function LoginForm() {
   return (
     <>
       <div className="container max-w-lg mx-auto mt-8">
-        <h2 className="text-center">Login to your account</h2>
+        <h2 className="text-center">Log in to your account</h2>
         <FormContainer>
           <div className="py-2">
             <Formik
@@ -96,7 +96,7 @@ export default function LoginForm() {
                     placeholder="Enter your password"
                     className="w-full p-2 border rounded-md border-accent"
                   />
-                  <SubmitButtonWide text="Login" disabled={props.isSubmitting} />
+                  <SubmitButtonWide text="Log in" disabled={props.isSubmitting} />
                   <Link href="/auth/forgotPassword">
                     <a className="underline text-info">
                       <p className="py-2 text-sm">Forgot Password?</p>
