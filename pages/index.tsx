@@ -1,16 +1,18 @@
 import { NextSeo } from "next-seo";
+import { PrimaryButton } from "components/buttons";
 import { PromoCard } from "components/promoCards";
-import SearchForm from "components/forms/search";
 
 export default function Home() {
   return (
     <div>
       <NextSeo title="Home" />
-      <div className="w-full m-4 rounded-md h-36 bg-info">
-        <h2 className="p-4 text-accent-lightest">Find the next centerpiece for your collection</h2>
+      <div className="w-full px-8 py-2 my-8 align-middle rounded-md h-36 bg-gradient-to-r from-info via-info-dark to-info-darkest text-accent-lightest">
+        <p className="mt-4">The marketplace for modern collectors</p>
+        <h2>Find the next centerpiece for your collection</h2>
+        <PrimaryButton href="/#" text="Call to action"/> 
       </div>
       <div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
+        <div className="grid grid-cols-1 gap-2 my-8 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
           <PromoCard
             title="Follow us on SubscribeStar"
             text="Subscribe to us and recieve insight into our roadmap as well as buyer and seller perks. We even send our backers a collectible surprise pack each month!"

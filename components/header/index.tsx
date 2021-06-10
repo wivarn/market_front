@@ -77,7 +77,7 @@ export default function Header() {
             <a className="p-2 text-primary">
               <div className="inline-flex">
                 <SquirrelIcon />
-                <h1 className="px-4 py-1">Skwirl</h1>
+                <h1 className="px-2 py-1">Skwirl</h1>
                 <SearchForm />
               </div>
             </a>
