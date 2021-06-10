@@ -9,6 +9,7 @@ import { DropDown } from "./dropdown";
 import Head from "next/head";
 import { IconLink } from "./iconLink";
 import Link from "next/link";
+import SearchForm from "components/forms/search";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
@@ -73,12 +74,13 @@ export default function Header() {
         <nav className="container flex flex-wrap items-center px-4 py-2 mx-auto max-w-screen-2xl">
           <Link href="/">
             <a className="p-2 text-primary">
-              <h1 className="inline-flex">
+              <div className="inline-flex">
                 <SquirrelIcon />
-                Skwirl
-              </h1>
+                <h1 className="px-2 py-1">Skwirl</h1>
+              </div>
             </a>
           </Link>
+          <SearchForm />
           <div className="ml-auto">{renderNav()}</div>
         </nav>
       </header>

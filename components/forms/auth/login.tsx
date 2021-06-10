@@ -4,7 +4,8 @@ import { Form, Formik } from "formik";
 
 import FormContainer from "../container";
 import Link from "next/link";
-import { SubmitButton } from "components/buttons";
+import { SecondaryButton } from "components/buttons";
+import { SubmitButtonWide } from "components/buttons";
 import { TextField } from "../fields";
 import { signIn } from "next-auth/client";
 import { toast } from "react-toastify";
@@ -18,10 +19,12 @@ interface Values {
 }
 
 const loginSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
+  email: Yup.string()
+    .email("Please enter a valid email address")
+    .required("Email is required"),
   password: Yup.string()
-    .min(8, "Must be 8 or more characters")
-    .required("Required"),
+    .min(8, "Password must be 8 or more characters")
+    .required("Password is required"),
 });
 
 export default function LoginForm() {
@@ -48,55 +51,59 @@ export default function LoginForm() {
   }
 
   return (
-    <FormContainer>
-      <h3>Login</h3>
-      <Formik
-        initialValues={{
-          email: "",
-          password: "",
-        }}
-        validationSchema={loginSchema}
-        onSubmit={async (values: Values, actions) => {
-          signIn("credentials", {
-            login: values.email,
-            password: values.password,
-            redirect: false,
-          }).then((response) => {
-            if (response?.error) {
-              actions.setSubmitting(false);
-              actions.setFieldValue("password", "", false);
-              toast.error(response.error);
-              if (response.error.includes("locked")) {
-                setLocked(true);
-              }
-            } else {
-              router.push("/");
-            }
-          });
-        }}
-      >
-        {(props) => (
-          <Form>
-            {renderLockedBanner()}
+    <>
+      <h2 className="mt-8 text-center">Log in to your account</h2>
+      <FormContainer>
+        <div className="py-2">
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+            }}
+            validationSchema={loginSchema}
+            onSubmit={async (values: Values, actions) => {
+              signIn("credentials", {
+                login: values.email,
+                password: values.password,
+                redirect: false,
+              }).then((response) => {
+                if (response?.error) {
+                  actions.setSubmitting(false);
+                  actions.setFieldValue("password", "", false);
+                  toast.error(response.error);
+                  if (response.error.includes("locked")) {
+                    setLocked(true);
+                  }
+                } else {
+                  router.push("/");
+                }
+              });
+            }}
+          >
+            {(props) => (
+              <Form>
+                {renderLockedBanner()}
 
-            <TextField name="email" type="email" placeholder="Email" />
+                <TextField name="email" type="email" label="Email" />
 
-            <TextField name="password" type="password" placeholder="Password" />
-
-            <Link href="/auth/forgotPassword">
-              <a className="underline text-primary">
-                <p>Forgot Password?</p>
-              </a>
-            </Link>
-            <SubmitButton text="Login" disabled={props.isSubmitting} />
-          </Form>
-        )}
-      </Formik>
-      <Link href="/account/new">
-        <a>
-          <SubmitButton text="Create Account" />
-        </a>
-      </Link>
-    </FormContainer>
+                <TextField name="password" type="password" label="Password" />
+                <SubmitButtonWide text="Log in" disabled={props.isSubmitting} />
+                <Link href="/auth/forgotPassword">
+                  <a className="underline text-info">
+                    <p className="py-2 text-sm">Forgot Password?</p>
+                  </a>
+                </Link>
+              </Form>
+            )}
+          </Formik>
+        </div>
+        <div className="py-4 mt-4 border-t border-accent">
+          <p className="py-2 text-accent-darkest">
+            Don't have an account? Sign up!
+          </p>
+          <SecondaryButton href="/account/new" text="Create Account" />
+        </div>
+      </FormContainer>
+    </>
   );
 }
