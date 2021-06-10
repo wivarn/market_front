@@ -31,7 +31,7 @@ export default function Header() {
     };
   }
 
-  const { profile, isLoading, isError } = getProfile();
+  const { profile } = getProfile();
 
   function renderNav() {
     if (sessionLoading) return <div>Spinner</div>;
@@ -47,7 +47,6 @@ export default function Header() {
   }
 
   function LoggedInNav() {
-    if (isLoading) return <div>Spinner</div>;
     return (
       <>
         <div className="grid items-center grid-flow-col space-x-10 justify-items-center auto-cols-max">
@@ -57,7 +56,7 @@ export default function Header() {
             text="Sell"
           />
           <IconLink href="/" icon={<ShoppingCartIcon />} text="Cart" />
-          <DropDown name={profile.data.given_name}></DropDown>
+          <DropDown name={profile ? profile.data.given_name : "..."}></DropDown>
         </div>
       </>
     );
