@@ -1,7 +1,7 @@
 export interface BasicListing {
   title: string;
   price: string | number;
-  currency: string;
+  currency?: string;
   domestic_shipping: string | number;
   condition: string;
 }

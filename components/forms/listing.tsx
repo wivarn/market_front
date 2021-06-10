@@ -20,7 +20,6 @@ const listingSchema = Yup.object().shape({
     .max(256, "Must be at most 256 characters")
     .required("Required"),
   condition: Yup.string().required("Required"),
-  currency: Yup.string().required("Required"),
   description: Yup.string()
     .min(5, "Must be at least 5 characters")
     .required("Required"),
@@ -54,7 +53,6 @@ const newListingProps: Listing = {
   photos: randomPhotos,
   title: "",
   condition: "",
-  currency: "USD",
   description: "",
   price: 0,
   domestic_shipping: 0,
@@ -99,7 +97,6 @@ const ListingForm = (props: Listing) => {
           photos: props.photos,
           title: props.title,
           condition: props.condition,
-          currency: props.currency,
           description: props.description,
           price: props.price,
           domestic_shipping: props.domestic_shipping,
@@ -113,10 +110,15 @@ const ListingForm = (props: Listing) => {
 
           request
             .then((_) => {
-              toast.success(newListing ? "New listing created!" : "Your listing has been updated");
+              toast.success(
+                newListing
+                  ? "New listing created!"
+                  : "Your listing has been updated"
+              );
               router.push("/listings");
             })
             .catch((error) => {
+              toast.error(error.response.data);
               actions.setFieldError(
                 "formError",
                 JSON.stringify(error.response.data)
@@ -159,7 +161,7 @@ const ListingForm = (props: Listing) => {
 
             <SubmitButton
               text={(newListing ? "Save" : "Update") + " Listing"}
-              // disabled={isSubmitting}
+              disabled={isSubmitting}
             />
           </Form>
         )}
