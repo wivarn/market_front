@@ -1,13 +1,12 @@
 import * as Yup from "yup";
 
 import { DeleteButton, SubmitButton } from "components/buttons";
-import { ErrorField, NumberField } from "./fields";
 import { Form, Formik } from "formik";
+import { NumberField, TextField } from "./fields";
 
 import FormContainer from "./container";
 import { Listing } from "types/listings";
 import { ListingApi } from "services/backendApi/listing";
-import { TextField } from "./fields";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -24,12 +23,12 @@ const listingSchema = Yup.object().shape({
     .min(5, "Must be at least 5 characters")
     .required("Required"),
   price: Yup.number()
-    .positive()
-    .max(999999, "Must be at most 999999")
+    .min(0.25, "Must be at least 0.25")
+    .max(99999999.99, "Must be at most 99999999.99")
     .required("Required"),
   domestic_shipping: Yup.number()
     .min(0, "Must be at least 0")
-    .max(999999, "Must be at most 999999")
+    .max(99999999.99, "Must be at most 99999999.99")
     .required("Required"),
   status: Yup.string().required("Required"),
 });
@@ -118,18 +117,12 @@ const ListingForm = (props: Listing) => {
               router.push("/listings");
             })
             .catch((error) => {
-              toast.error(error.response.data);
-              actions.setFieldError(
-                "formError",
-                JSON.stringify(error.response.data)
-              );
+              toast.error(JSON.stringify(error.response.data));
             });
         }}
       >
         {({ isSubmitting }) => (
           <Form>
-            <ErrorField name="formError" />
-
             <TextField
               label="Title"
               name="title"
