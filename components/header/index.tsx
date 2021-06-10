@@ -32,7 +32,7 @@ export default function Header() {
     };
   }
 
-  const { profile, isLoading, isError } = getProfile();
+  const { profile } = getProfile();
 
   function renderNav() {
     if (sessionLoading) return <div>Spinner</div>;
@@ -48,7 +48,6 @@ export default function Header() {
   }
 
   function LoggedInNav() {
-    if (isLoading) return <div>Spinner</div>;
     return (
       <>
         <div className="grid items-center grid-flow-col space-x-10 justify-items-center auto-cols-max">
@@ -58,7 +57,7 @@ export default function Header() {
             text="Sell"
           />
           <IconLink href="/" icon={<ShoppingCartIcon />} text="Cart" />
-          <DropDown name={profile.data.given_name}></DropDown>
+          <DropDown name={profile ? profile.data.given_name : "..."}></DropDown>
         </div>
       </>
     );
@@ -72,7 +71,7 @@ export default function Header() {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <header>
-        <nav className="flex flex-wrap items-center px-4 py-2">
+        <nav className="container flex flex-wrap items-center px-4 py-2 mx-auto max-w-screen-2xl">
           <Link href="/">
             <a className="p-2 text-primary">
               <div className="inline-flex">

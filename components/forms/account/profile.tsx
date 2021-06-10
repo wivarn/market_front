@@ -2,15 +2,17 @@ import * as Yup from "yup";
 
 import { CheckCircleIcon, ExclamationCircleIcon } from "components/icons";
 import { Form, Formik } from "formik";
+import { SelectBox, TextField } from "../fields";
 import useSWR, { mutate } from "swr";
 
 import FormContainer from "../container";
 import Link from "next/link";
 import { ProfileApi } from "services/backendApi/profile";
 import { SubmitButton } from "components/buttons";
-import { TextField } from "../fields";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
+
+const currencyList = { USD: "USD", CAD: "CAD" };
 
 const profileSchema = Yup.object().shape({
   givenName: Yup.string()
@@ -21,6 +23,7 @@ const profileSchema = Yup.object().shape({
     .min(1, "Must be 1 or more characters")
     .max(256, "Must be at most 256 characters")
     .required("Last name is required"),
+  currency: Yup.mixed().oneOf(Object.keys(currencyList), "invalid currency"),
 });
 
 const emailLabel = () => {
@@ -77,6 +80,7 @@ export default function ProfileForm() {
         initialValues={{
           givenName: profile.data.given_name,
           familyName: profile.data.family_name,
+          currency: profile.data.currency,
           email: profile.data.email,
           phoneNumber: profile.data.phone_number,
         }}
@@ -94,6 +98,11 @@ export default function ProfileForm() {
           <Form>
             <TextField label="First Name" name="givenName" type="text" />
             <TextField label="Last Name" name="familyName" type="text" />
+            <SelectBox
+              label="Currency"
+              name="currency"
+              options={currencyList}
+            />
 
             <TextField
               label={emailLabel()}

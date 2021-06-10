@@ -141,7 +141,6 @@ function stateSelect(country: string) {
     <SelectBox
       label={label}
       name="state"
-      type="text"
       placeholder={placeholder}
       options={options}
       disabled={!country}
@@ -161,7 +160,6 @@ function zipField(country: string) {
     <TextField
       label={label}
       name="zip"
-      type="text"
       placeholder={placeholder}
       disabled={!country}
     />

@@ -6,16 +6,13 @@ export const ListingApi = (accessToken?: string) => {
     return base.post(
       "listings",
       {
-        listing: {
-          photos: listing.photos,
-          title: listing.title,
-          condition: listing.condition,
-          currency: listing.currency,
-          description: listing.description,
-          price: listing.price,
-          domestic_shipping: listing.domestic_shipping,
-          status: listing.status,
-        },
+        photos: listing.photos,
+        title: listing.title,
+        condition: listing.condition,
+        description: listing.description,
+        price: listing.price,
+        domestic_shipping: listing.domestic_shipping,
+        status: listing.status,
       },
       {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -27,16 +24,13 @@ export const ListingApi = (accessToken?: string) => {
     return base.post(
       `listings/${id}`,
       {
-        listing: {
-          photos: listing.photos,
-          title: listing.title,
-          condition: listing.condition,
-          currency: listing.currency,
-          description: listing.description,
-          price: listing.price,
-          domestic_shipping: listing.domestic_shipping,
-          status: listing.status,
-        },
+        photos: listing.photos,
+        title: listing.title,
+        condition: listing.condition,
+        description: listing.description,
+        price: listing.price,
+        domestic_shipping: listing.domestic_shipping,
+        status: listing.status,
       },
       {
         headers: { Authorization: `Bearer ${accessToken}` },

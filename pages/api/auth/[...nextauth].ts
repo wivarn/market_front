@@ -2,7 +2,6 @@ import NextAuth, { User } from "next-auth";
 
 import { AuthApi } from "services/backendApi/auth";
 import { JWT } from "next-auth/jwt";
-import { ProfileApi } from "services/backendApi/profile";
 import Providers from "next-auth/providers";
 import { anyObject } from "types/object";
 import jwtDecode from "jwt-decode";
