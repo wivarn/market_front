@@ -49,8 +49,8 @@ export default function LoginForm() {
   }
 
   return (
-      <div className="container max-w-lg mx-auto mt-8">
-        <h2 className="text-center">Log in to your account</h2>
+      <>
+        <h2 className="mt-8 text-center">Log in to your account</h2>
         <FormContainer>
           <div className="py-2">
             <Formik
@@ -110,6 +110,6 @@ export default function LoginForm() {
             <SecondaryButton href="/account/new" text="Create Account" />
           </div>
         </FormContainer>
-      </div>
+      </>
   );
 }

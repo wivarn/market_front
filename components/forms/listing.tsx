@@ -91,81 +91,87 @@ const ListingForm = (props: Listing) => {
   }
 
   return (
-    <FormContainer>
-      <h2>{newListing ? "Create" : "Update"} Listing</h2>
-      <Formik
-        initialValues={{
-          id: props.id,
-          photos: props.photos,
-          title: props.title,
-          condition: props.condition,
-          currency: props.currency,
-          description: props.description,
-          price: props.price,
-          domestic_shipping: props.domestic_shipping,
-          status: props.status,
-        }}
-        validationSchema={listingSchema}
-        onSubmit={async (values: Listing, actions) => {
-          const request = newListing
-            ? ListingApi(session.accessToken).create(values)
-            : ListingApi(session.accessToken).update(values);
+    <>
+      <h2 className="mt-8 text-center">{newListing ? "Create" : "Update"} a new listing</h2>
+      <FormContainer>
+        <Formik
+          initialValues={{
+            id: props.id,
+            photos: props.photos,
+            title: props.title,
+            condition: props.condition,
+            currency: props.currency,
+            description: props.description,
+            price: props.price,
+            domestic_shipping: props.domestic_shipping,
+            status: props.status,
+          }}
+          validationSchema={listingSchema}
+          onSubmit={async (values: Listing, actions) => {
+            const request = newListing
+              ? ListingApi(session.accessToken).create(values)
+              : ListingApi(session.accessToken).update(values);
 
-          request
-            .then((_) => {
-              toast.success(newListing ? "New listing created!" : "Your listing has been updated");
-              router.push("/listings");
-            })
-            .catch((error) => {
-              actions.setFieldError(
-                "formError",
-                JSON.stringify(error.response.data)
-              );
-            });
-        }}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <ErrorField name="formError" />
+            request
+              .then((_) => {
+                toast.success(
+                  newListing
+                    ? "New listing created!"
+                    : "Your listing has been updated"
+                );
+                router.push("/listings");
+              })
+              .catch((error) => {
+                actions.setFieldError(
+                  "formError",
+                  JSON.stringify(error.response.data)
+                );
+              });
+          }}
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              <ErrorField name="formError" />
 
-            <TextField
-              label="Title"
-              name="title"
-              type="text"
-              placeholder="title"
-            />
+              <TextField
+                label="Title"
+                name="title"
+                type="text"
+                placeholder="title"
+              />
 
-            <TextField
-              label="Condition"
-              name="condition"
-              type="text"
-              placeholder="condition"
-            />
+              <TextField
+                label="Condition"
+                name="condition"
+                type="text"
+                placeholder="condition"
+              />
 
-            <TextField
-              label="Description"
-              name="description"
-              type="text"
-              placeholder="description"
-            />
+              <TextField
+                label="Description"
+                name="description"
+                type="text"
+                placeholder="description"
+              />
 
-            <NumberField label="Price" name="price" placeholder="0" />
+              <NumberField label="Price" name="price" placeholder="0" />
 
-            <NumberField
-              label="Domestic Shipping"
-              name="domestic_shipping"
-              placeholder="0"
-            />
+              <NumberField
+                label="Domestic Shipping"
+                name="domestic_shipping"
+                placeholder="0"
+              />
 
-            <SubmitButton
-              text={(newListing ? "Save" : "Update") + " Listing"}
-              // disabled={isSubmitting}
-            />
-          </Form>
-        )}
-      </Formik>
-      {renderDeleteButton(props.id, session.accessToken)}
-    </FormContainer>
+              <SubmitButton
+                text={(newListing ? "Save" : "Update") + " Listing"}
+                // disabled={isSubmitting}
+              />
+            </Form>
+          )}
+        </Formik>
+        {renderDeleteButton(props.id, session.accessToken)}
+      </FormContainer>
+    </>
   );
 };
 
