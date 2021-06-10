@@ -1,10 +1,15 @@
+import { PrimaryButton, SubmitButton } from "components/buttons";
+
+import Image from "next/image";
 import { LargeUserCircleIcon } from "components/icons";
 import { Listing } from "types/listings";
 import ListingBasicInfo from "./basicInfo";
-import { SubmitButton } from "components/buttons";
-import Image from "next/image";
+import { useSession } from "next-auth/client";
 
 const ListingDetails = (props: Listing) => {
+  const [session] = useSession();
+  const isSeller = session?.accountId == props.accountId;
+
   return (
     <div className="">
       <div className="container p-4 mx-auto">
@@ -27,7 +32,14 @@ const ListingDetails = (props: Listing) => {
                 domestic_shipping={props.domestic_shipping}
                 condition={props.condition}
               />
-              <SubmitButton text="Add to Cart" disabled={true} />
+              {isSeller ? (
+                <PrimaryButton
+                  href={`/listings/${props.id}/edit`}
+                  text="Update"
+                />
+              ) : (
+                <SubmitButton text="Add to Cart" disabled={true} />
+              )}
             </div>
             <div className="pt-10">
               <LargeUserCircleIcon />

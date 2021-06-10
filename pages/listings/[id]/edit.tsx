@@ -1,9 +1,9 @@
-import ListingDetails from "components/listing/details";
+import ListingForm from "components/forms/listing";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-export default function ShowListing() {
+export default function EditListing() {
   const router = useRouter();
   const { id } = router.query;
 
@@ -22,13 +22,11 @@ export default function ShowListing() {
   if (isError) return <div>Error</div>;
 
   const listing = response.data;
-
   return (
     <>
-      <NextSeo title={listing.title} />
-      <ListingDetails
+      <NextSeo title="Update Listing" />
+      <ListingForm
         id={listing.id}
-        accountId={listing.account_id}
         photos={listing.photos}
         title={listing.title}
         price={listing.price}
@@ -36,7 +34,6 @@ export default function ShowListing() {
         domestic_shipping={listing.domestic_shipping}
         condition={listing.condition}
         description={listing.description}
-        sellerName={`${listing.given_name} ${listing.family_name}`}
       />
     </>
   );
