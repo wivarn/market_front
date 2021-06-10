@@ -49,7 +49,6 @@ export default function LoginForm() {
   }
 
   return (
-    <>
       <div className="container max-w-lg mx-auto mt-8">
         <h2 className="text-center">Log in to your account</h2>
         <FormContainer>
@@ -86,15 +85,13 @@ export default function LoginForm() {
                   <TextField
                     name="email"
                     type="email"
-                    placeholder="Enter your email address"
-                    className="w-full p-2 border rounded-md border-accent"
+                    label="Email"
                   />
 
                   <TextField
                     name="password"
                     type="password"
-                    placeholder="Enter your password"
-                    className="w-full p-2 border rounded-md border-accent"
+                    label="Password"
                   />
                   <SubmitButtonWide text="Log in" disabled={props.isSubmitting} />
                   <Link href="/auth/forgotPassword">
@@ -114,6 +111,5 @@ export default function LoginForm() {
           </div>
         </FormContainer>
       </div>
-    </>
   );
 }

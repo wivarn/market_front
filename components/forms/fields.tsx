@@ -29,7 +29,7 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
         {label}
       </label>
       <input
-        className="px-2 py-1 border rounded-md border-accent"
+        className="w-full px-2 py-1 border rounded-md border-accent"
         {...field}
         {...props}
       />
