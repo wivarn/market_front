@@ -6,7 +6,9 @@ export default function Home() {
   return (
     <div>
       <NextSeo title="Home" />
-      <SearchForm />
+      <div className="w-full m-4 rounded-md h-36 bg-info">
+        <h2 className="p-4 text-accent-lightest">Find the next centerpiece for your collection</h2>
+      </div>
       <div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
           <PromoCard

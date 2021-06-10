@@ -9,6 +9,7 @@ import { DropDown } from "./dropdown";
 import Head from "next/head";
 import { IconLink } from "./iconLink";
 import Link from "next/link";
+import SearchForm from "components/forms/search"
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
@@ -80,6 +81,9 @@ export default function Header() {
               </h1>
             </a>
           </Link>
+          <div className="container max-w-md mx-auto">
+            <SearchForm />
+          </div>
           <div className="ml-auto">{renderNav()}</div>
         </nav>
       </header>
