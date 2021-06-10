@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import { Formik, FormikHelpers } from "formik";
+import { Form, Formik, FormikHelpers } from "formik";
 
 import { SubmitButton } from "components/buttons";
 import { TextField } from "./fields";
@@ -22,7 +22,10 @@ export default function SearchForm() {
         query: "",
       }}
       validationSchema={querySchema}
-      onSubmit={(values: Values, { setSubmitting }: FormikHelpers<Values>) => {
+      onSubmit={(
+        values: Values, 
+        { setSubmitting }: FormikHelpers<Values>
+      ) => {
         router.push({
           pathname: "/listings/search",
           query: { query: values.query },
@@ -30,19 +33,21 @@ export default function SearchForm() {
       }}
     >
       {({ isSubmitting }) => (
-        <div className="grid items-center grid-cols-5 gap-4">
-          <div className="col-span-4">
-            <TextField
-              name="search"
-              type="text"
-              placeholder="Search for anything"
-              disabled={true}
-            />
+        <Form>
+          <div className="grid items-center grid-cols-5 gap-4">
+            <div className="col-span-4">
+              <TextField
+                name="search"
+                type="text"
+                placeholder="Search for anything"
+                disabled={true}
+              />
+            </div>
+            <span className="">
+              <SubmitButton text="Search" disabled={isSubmitting} />
+            </span>
           </div>
-          <span className="">
-            <SubmitButton text="Search" disabled={isSubmitting} />
-          </span>
-        </div>
+        </Form>
       )}
     </Formik>
   );

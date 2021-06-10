@@ -78,10 +78,10 @@ export default function Header() {
               <div className="inline-flex">
                 <SquirrelIcon />
                 <h1 className="px-2 py-1">Skwirl</h1>
-                <SearchForm />
               </div>
             </a>
           </Link>
+          <SearchForm />
           <div className="ml-auto">{renderNav()}</div>
         </nav>
       </header>
