@@ -75,15 +75,13 @@ export default function Header() {
         <nav className="flex flex-wrap items-center px-4 py-2">
           <Link href="/">
             <a className="p-2 text-primary">
-              <h1 className="inline-flex">
+              <div className="inline-flex">
                 <SquirrelIcon />
-                Skwirl
-              </h1>
+                <h1 className="px-4 py-1">Skwirl</h1>
+                <SearchForm />
+              </div>
             </a>
           </Link>
-          <div className="container max-w-md mx-auto">
-            <SearchForm />
-          </div>
           <div className="ml-auto">{renderNav()}</div>
         </nav>
       </header>

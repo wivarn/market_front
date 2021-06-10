@@ -8,13 +8,17 @@ interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 
 const LinkWrapper = ({ href, tab, activeTab, ...props }: LinkProps) => {
   return (
-    <Link href={href}>
-      <a {...props}>
-        <p className={tab == activeTab ? "border-b-2 border-primary text-primary" : ""}>
-          {props.children}
-        </p>
-      </a>
-    </Link>
+      <Link href={href}>
+        <a {...props}>
+          <p
+            className={
+              tab == activeTab ? "border-b-2 border-primary text-primary" : ""
+            }
+          >
+            {props.children}
+          </p>
+        </a>
+      </Link>
   );
 };
 
@@ -28,7 +32,7 @@ export default function AccountContainer({
   return (
     <div className="p-4">
       <h2>Your Account</h2>
-      <div className="flex p-4 space-x-4 font-semibold text-accent-darkest">
+      <div className="flex p-4 mb-8 space-x-8 font-semibold text-accent-darker">
         <LinkWrapper
           href="/account/profile"
           tab="profile"
