@@ -42,7 +42,7 @@ export default function Header() {
 
   function LoggedOutNav() {
     return (
-      <div className="pr-3">
+      <div className="inline-flex items-center">
         <IconLink href="/login" icon={<UserCircleIcon />} text="Log In" />
       </div>
     );
