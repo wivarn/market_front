@@ -87,13 +87,13 @@ export const DropDown = (props: Props) => {
           >
             <Menu.Items className="absolute right-0 z-50 w-screen mt-1 text-center bg-white md:text-left md:mt-2 md:w-48 md:shadow-md md:rounded-md md:px-2 ring-1 ring-accent focus:outline-none">
               <div className="py-2">
-              <Menu.Item>
-                {({ active }) => (
-                  <LinkWrapper href="/account/profile" active={active}>
-                    User Profile
-                  </LinkWrapper>
-                )}
-              </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <LinkWrapper href="/account/profile" active={active}>
+                      User Profile
+                    </LinkWrapper>
+                  )}
+                </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
                     <LinkWrapper href="/" active={active}>
@@ -108,17 +108,17 @@ export const DropDown = (props: Props) => {
                     </LinkWrapper>
                   )}
                 </Menu.Item>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <LinkWrapper
-                        href=""
-                        active={active}
-                        onClick={signOutAndRedirect}
-                      >
-                        Log Out
-                      </LinkWrapper>
-                    )}
-                  </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <LinkWrapper
+                      href=""
+                      active={active}
+                      onClick={signOutAndRedirect}
+                    >
+                      Log Out
+                    </LinkWrapper>
+                  )}
+                </Menu.Item>
               </div>
             </Menu.Items>
           </Transition>
