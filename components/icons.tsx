@@ -1,9 +1,11 @@
 import {
   HiBookOpen,
   HiCheckCircle,
+  HiChevronDown,
   HiExclamation,
-  HiInformationCircle,
   HiExclamationCircle,
+  HiInformationCircle,
+  HiMenu,
   HiOutlineCurrencyDollar,
   HiOutlineShoppingCart,
   HiOutlineUserCircle,
@@ -46,6 +48,10 @@ export const TrashIcon = () => {
   return <HiTrash className="icon" />;
 };
 
+export const MenuIcon = () => {
+  return <HiMenu className="icon" />;
+};
+
 export const SuccessIcon = () => {
   return <HiCheckCircle className="icon" />;
 };
@@ -72,6 +78,10 @@ export const XIcon = () => {
 
 export const InfoCircle = () => {
   return <HiInformationCircle className="icon" />;
+};
+
+export const ChevronDownIcon = () => {
+  return <HiChevronDown className="icon" />;
 };
 
 export const LargeUserCircleIcon = () => {
