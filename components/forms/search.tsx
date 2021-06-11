@@ -31,17 +31,15 @@ export default function SearchForm() {
     >
       {({ isSubmitting }) => (
         <Form>
-          <div className="grid items-center grid-cols-5 gap-4">
-            <div className="col-span-4">
+          <div className="flex flex-col items-center gap-2">
               <TextField
                 name="search"
                 type="text"
                 placeholder="Search for anything"
                 disabled={true}
               />
-            </div>
             <span className="">
-              <SubmitButton text="Search" disabled={isSubmitting} />
+              <SubmitButton text="Go" disabled={isSubmitting} />
             </span>
           </div>
         </Form>

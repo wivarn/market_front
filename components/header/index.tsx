@@ -50,7 +50,7 @@ export default function Header() {
   function LoggedInNav() {
     return (
       <>
-        <div className="grid items-center grid-flow-col space-x-10 justify-items-center auto-cols-max">
+        <div className="grid items-center grid-flow-col space-x-8 justify-items-center auto-cols-max">
           <IconLink
             href="/listings"
             icon={<CurrencyDollarIcon />}
@@ -70,13 +70,15 @@ export default function Header() {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <header className="border border-accent">
-        <nav className="container flex flex-wrap items-center px-4 mx-auto max-w-screen-2xl">
+      <header className="border border-accent-light">
+        <nav className="container flex items-center px-2 mx-auto max-w-screen-2xl">
           <Link href="/">
-            <a className="p-2 text-primary">
+            <a className="p-1 text-primary">
               <div className="inline-flex">
                 <SquirrelIcon />
+                <div className="hidden lg:visible">
                 <h1 className="px-2 py-1">Skwirl</h1>
+                </div>
               </div>
             </a>
           </Link>
