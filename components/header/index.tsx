@@ -73,7 +73,7 @@ export default function Header() {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <header className="border border-accent-light">
+      <header className="border-b border-accent-light">
         <nav className="container flex items-center px-2 mx-auto max-w-screen-2xl">
           <Link href="/">
             <a className="pr-1 text-primary">
