@@ -1,8 +1,9 @@
 import {
   CurrencyDollarIcon,
+  MenuIcon,
   ShoppingCartIcon,
   SquirrelIcon,
-  UserCircleIcon,
+  UserCircleIcon
 } from "components/icons";
 
 import { DropDown } from "./dropdown";
@@ -50,13 +51,16 @@ export default function Header() {
   function LoggedInNav() {
     return (
       <>
-        <div className="grid items-center grid-flow-col space-x-8 justify-items-center auto-cols-max">
+        <div className="items-center hidden space-x-8 md:inline-flex">
           <IconLink
             href="/listings"
             icon={<CurrencyDollarIcon />}
             text="Sell"
           />
           <IconLink href="/" icon={<ShoppingCartIcon />} text="Cart" />
+          <DropDown name={profile ? profile.data.given_name : "..."}></DropDown>
+        </div>
+        <div className="inline-flex items-center md:hidden">
           <DropDown name={profile ? profile.data.given_name : "..."}></DropDown>
         </div>
       </>
@@ -71,14 +75,12 @@ export default function Header() {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <header className="border border-accent-light">
-        <nav className="container flex items-center px-2 mx-auto max-w-screen-2xl">
+        <nav className="container flex items-center px-4 mx-auto max-w-screen-2xl">
           <Link href="/">
             <a className="p-1 text-primary">
               <div className="inline-flex">
                 <SquirrelIcon />
-                <div className="hidden lg:visible">
-                <h1 className="px-2 py-1">Skwirl</h1>
-                </div>
+                  <h1 className="hidden px-2 py-1 md:block">Skwirl</h1>
               </div>
             </a>
           </Link>
