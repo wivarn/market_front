@@ -31,7 +31,7 @@ export default function SearchForm() {
     >
       {({ isSubmitting }) => (
         <Form>
-          <div className="flex flex-col items-center gap-2">
+          <div className="inline-flex items-center gap-2">
               <TextField
                 name="search"
                 type="text"
