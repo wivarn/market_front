@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div>
       <NextSeo title="Home" />
-      <div className="w-full px-8 py-2 my-8 bg-gradient-to-r from-info via-info-dark to-info-darkest text-accent-lightest">
+      <div className="w-full px-8 py-2 my-8 rounded-md bg-gradient-to-r from-info via-info-dark to-info-darkest text-accent-lightest">
         <p className="mt-8">The marketplace for modern collectors</p>
         <h1>Find the next centerpiece for your collection</h1>
         <PrimaryButton href="#" text="Call to action" />
