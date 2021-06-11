@@ -1,11 +1,11 @@
 import { Fragment, LegacyRef, forwardRef } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import { MenuIcon, UserCircleIcon } from "components/icons";
 import { signOut, useSession } from "next-auth/client";
 
 import { AuthApi } from "services/backendApi/auth";
 import { IconLink } from "./iconLink";
 import Link from "next/link";
-import { UserCircleIcon } from "components/icons";
 import { useRouter } from "next/router";
 
 interface Props {
@@ -28,7 +28,7 @@ const LinkWrapper = forwardRef(
           ref={ref}
           className={classNames(
             active ? "bg-primary text-accent-lightest" : "text-accent-darkest",
-            "block px-4 py-2 text-sm font-medium rounded-md"
+            "block md:px-4 py-2 text-sm font-medium md:rounded-md"
           )}
           {...props}
         >
@@ -67,8 +67,11 @@ export const DropDown = (props: Props) => {
       {({ open }) => (
         <>
           <div>
-            <Menu.Button className="focus:outline-none">
+            <Menu.Button className="hidden py-2 md:block focus:outline-none">
               <IconLink icon={<UserCircleIcon />} text={props.name} />
+            </Menu.Button>
+            <Menu.Button className="py-2 md:hidden focus:outline-none">
+              <IconLink icon={<MenuIcon />} text="" />
             </Menu.Button>
           </div>
 
@@ -82,19 +85,26 @@ export const DropDown = (props: Props) => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 w-48 p-1 mt-2 bg-white rounded-md shadow-md ring-1 ring-accent-dark focus:outline-none">
-              <div className="py-1">
+            <Menu.Items className="absolute right-0 z-50 w-screen mt-1 text-center bg-white md:text-left md:mt-2 md:w-48 md:shadow-md md:rounded-md md:px-2 ring-1 ring-accent focus:outline-none">
+              <div className="py-2">
                 <Menu.Item>
                   {({ active }) => (
-                    <LinkWrapper href="/listings" active={active}>
-                      Your Listings
+                    <LinkWrapper href="/account/profile" active={active}>
+                      User Profile
                     </LinkWrapper>
                   )}
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <LinkWrapper href="/account/profile" active={active}>
-                      Profile
+                    <LinkWrapper href="/" active={active}>
+                      Your Cart
+                    </LinkWrapper>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <LinkWrapper href="/listings" active={active}>
+                      Your Listings
                     </LinkWrapper>
                   )}
                 </Menu.Item>

@@ -31,8 +31,8 @@ export default function SearchForm() {
     >
       {({ isSubmitting }) => (
         <Form>
-          <div className="grid items-center grid-cols-5 gap-4">
-            <div className="col-span-4">
+          <div className="inline-flex items-center gap-2">
+            <div className="max-w-xs">
               <TextField
                 name="search"
                 type="text"
@@ -41,7 +41,7 @@ export default function SearchForm() {
               />
             </div>
             <span className="">
-              <SubmitButton text="Search" disabled={isSubmitting} />
+              <SubmitButton text="Go" disabled={isSubmitting} />
             </span>
           </div>
         </Form>

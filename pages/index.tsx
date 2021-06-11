@@ -6,10 +6,11 @@ export default function Home() {
   return (
     <div>
       <NextSeo title="Home" />
-      <div className="w-full px-8 py-2 my-8 align-middle rounded-md h-36 bg-gradient-to-r from-info via-info-dark to-info-darkest text-accent-lightest">
-        <p className="mt-4">The marketplace for modern collectors</p>
-        <h2>Find the next centerpiece for your collection</h2>
+      <div className="w-full px-8 py-2 my-8 bg-gradient-to-r from-info via-info-dark to-info-darkest text-accent-lightest">
+        <p className="mt-8">The marketplace for modern collectors</p>
+        <h1>Find the next centerpiece for your collection</h1>
         <PrimaryButton href="#" text="Call to action" />
+        <div className="mb-8"></div>
       </div>
       <div>
         <div className="grid grid-cols-1 gap-2 my-8 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
