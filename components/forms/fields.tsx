@@ -21,18 +21,19 @@ type SelectProps = FieldHookConfig<string> &
     options: anyObject;
   };
 
+// Style variables for the fields
+const labelClass = "p-1 block text-xs font-medium text-accent-darker";
+const inputClass = "w-full p-2 border rounded-md border-accent";
+
+// General text field
 export const TextField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
     <div className="my-2 text-accent-darkest">
-      <label htmlFor={props.name} className="block text-sm font-semibold">
+      <label htmlFor={props.name} className={labelClass}>
         {label}
       </label>
-      <input
-        className="w-full px-2 py-1 border rounded-md border-accent"
-        {...field}
-        {...props}
-      />
+      <input className={inputClass} {...field} {...props} />
       {meta.touched && meta.error ? (
         <div className="text-error">{meta.error}</div>
       ) : null}
@@ -40,19 +41,31 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
   );
 };
 
+// Search field
+export const SearchField = ({ label, ...props }: TextFieldProps) => {
+  const [field, meta] = useField(props);
+  return (
+    <div className="my-2 text-accent-darkest">
+      <label htmlFor={props.name} className="">
+        {label}
+      </label>
+      <input className="px-2 py-1 border rounded-full border-accent w-72" {...field} {...props} />
+      {meta.touched && meta.error ? (
+        <div className="text-error">{meta.error}</div>
+      ) : null}
+    </div>
+  );
+};
+
+// Number field
 export const NumberField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
     <div className="my-2 text-accent-darkest">
-      <label htmlFor={props.name} className="block text-sm font-semibold">
+      <label htmlFor={props.name} className={labelClass}>
         {label}
       </label>
-      <input
-        type="number"
-        className="px-2 py-1 border rounded-md border-accent"
-        {...field}
-        {...props}
-      />
+      <input type="number" className={inputClass} {...field} {...props} />
       {meta.touched && meta.error ? (
         <div className="text-error">{meta.error}</div>
       ) : null}
@@ -60,18 +73,15 @@ export const NumberField = ({ label, ...props }: TextFieldProps) => {
   );
 };
 
+// Single field
 export const SelectBox = ({ label, options, ...props }: SelectProps) => {
   const [field, meta] = useField(props);
   return (
     <div className="my-2 text-accent-darkest">
-      <label htmlFor={props.name} className="block text-sm font-semibold">
+      <label htmlFor={props.name} className={labelClass}>
         {label}
       </label>
-      <select
-        className="px-2 py-1 border rounded-md border-accent"
-        {...field}
-        {...props}
-      >
+      <select className={inputClass} {...field} {...props}>
         {props.placeholder ? (
           <option value="" disabled={true}>
             {props.placeholder}
@@ -93,6 +103,7 @@ export const SelectBox = ({ label, options, ...props }: SelectProps) => {
   );
 };
 
+// Error messages
 export const ErrorField = (props: TextFieldProps) => {
   const [_, meta] = useField(props);
 
