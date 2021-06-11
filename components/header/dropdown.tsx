@@ -67,7 +67,7 @@ export const DropDown = (props: Props) => {
       {({ open }) => (
         <>
           <div>
-            <Menu.Button className="focus:outline-none">
+            <Menu.Button className="py-2 focus:outline-none">
               <IconLink icon={<UserCircleIcon />} text={props.name} />
             </Menu.Button>
           </div>
@@ -82,8 +82,15 @@ export const DropDown = (props: Props) => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 w-48 p-1 mt-2 bg-white rounded-md shadow-md ring-1 ring-accent-dark focus:outline-none">
+            <Menu.Items className="absolute right-0 z-50 w-48 p-1 mt-2 bg-white rounded-md shadow-md ring-1 ring-accent focus:outline-none">
               <div className="py-1">
+                <Menu.Item>
+                  {({ active }) => (
+                    <LinkWrapper href="/" active={active}>
+                      Your Cart
+                    </LinkWrapper>
+                  )}
+                </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
                     <LinkWrapper href="/listings" active={active}>
@@ -94,7 +101,7 @@ export const DropDown = (props: Props) => {
                 <Menu.Item>
                   {({ active }) => (
                     <LinkWrapper href="/account/profile" active={active}>
-                      Profile
+                      User Profile
                     </LinkWrapper>
                   )}
                 </Menu.Item>
