@@ -29,8 +29,6 @@ export default function ShowListing() {
       <ListingDetails
         id={listing.id}
         accountId={listing.account_id}
-        category={listing.category}
-        subcategory={listing.subcategory}
         photos={listing.photos}
         title={listing.title}
         price={listing.price}

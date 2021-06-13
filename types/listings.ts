@@ -7,8 +7,8 @@ export interface BasicListing {
 }
 
 export interface Listing extends BasicListing {
-  category: string;
-  subcategory: string;
+  category?: string;
+  subcategory?: string;
   accountId?: string;
   id?: string;
   photos: string[];
