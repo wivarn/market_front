@@ -179,7 +179,8 @@ const ListingForm = (props: Listing) => {
             <FormSection header="Category">
               <TextField name="category" type="text" hidden={true} />
 
-              <DropdownCombobox label="Category" items={categoryList} />
+              <TextField name="subCategory" type="text" hidden={true} />
+              {/* <DropdownCombobox label="Category" items={categoryList} /> */}
             </FormSection>
 
             <FormSection header="Details">

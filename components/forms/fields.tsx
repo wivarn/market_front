@@ -167,6 +167,7 @@ export const SelectBox = ({ label, options, ...props }: SelectProps) => {
 export const DropdownCombobox = ({ items, label }: ComboBoxProps) => {
   const [inputItems, setInputItems] = useState(items);
   const itemToString = (item: any) => (item ? item.text : "");
+  const getA11ySelectionMessage = () => "testing";
   const {
     isOpen,
     getToggleButtonProps,
@@ -186,6 +187,7 @@ export const DropdownCombobox = ({ items, label }: ComboBoxProps) => {
         )
       );
     },
+    getA11ySelectionMessage,
   });
   return (
     <div>
@@ -194,25 +196,20 @@ export const DropdownCombobox = ({ items, label }: ComboBoxProps) => {
       <div {...getComboboxProps()}>
         <input
           {...getInputProps()}
+          {...getToggleButtonProps()}
           className="px-2 py-1 border rounded-md w-72 border-accent"
         />
-        <button
-          type="button"
-          {...getToggleButtonProps()}
-          aria-label="toggle menu"
-        >
-          &#8595;
-        </button>
       </div>
-      <ul {...getMenuProps()}>
+      <ul {...getMenuProps()} className="border rounded-md w-max border-accent">
         {isOpen &&
           inputItems.map((item, index) => (
             <li
               key={`${item}${index}`}
               {...getItemProps({ item, index, disabled: item.disabled })}
               className={
-                `${index === highlightedIndex ? "bg-accent-light" : ""}` +
-                `${item.disabled ? "bg-accent-dark" : ""}`
+                "p-1 m-1 " +
+                `${index === highlightedIndex ? "bg-primary" : ""}` +
+                `${item.disabled ? "bg-primary-dark" : ""}`
               }
             >
               {item.text}
