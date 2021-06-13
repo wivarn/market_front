@@ -3,15 +3,17 @@ import * as Yup from "yup";
 import { DeleteButton, SubmitButton } from "components/buttons";
 import { Form, Formik } from "formik";
 import { LongTextField, NumberField, SelectBox, TextField } from "./fields";
-import _, { values } from "lodash";
 
 import FormSection from "./section";
 import { Listing } from "types/listings";
 import { ListingApi } from "services/backendApi/listing";
+import _ from "lodash";
 import { condition } from "constants/listings";
 import { toast } from "react-toastify";
+import { useCombobox } from "downshift";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
+import { useState } from "react";
 
 const listingSchema = Yup.object().shape({
   photos: Yup.array(Yup.string()).min(1).max(10),
@@ -63,6 +65,46 @@ const newListingProps: Listing = {
   status: "ACTIVE",
 };
 
+const categoryList = [
+  { value: "SPORTS_CARDS", text: "Sports Cards", disabled: true },
+  {
+    value: "BASEBALL",
+    text: "Sports Cards | Baseball",
+    parent: "SPORTS_CARDS",
+  },
+  {
+    value: "BASKETBALL",
+    text: "Sports Cards | Basketball",
+    parent: "SPORTS_CARDS",
+  },
+  {
+    value: "FOOTBALL",
+    text: "Sports Cards | Football",
+    parent: "SPORTS_CARDS",
+  },
+  { value: "HOCKEY", text: "Sports Cards | Hockey", parent: "SPORTS_CARDS" },
+  { value: "SOCCER", text: "Sports Cards | Soccer", parent: "SPORTS_CARDS" },
+  { value: "OTHER", text: "Sports Cards | Other", parent: "SPORTS_CARDS" },
+  { value: "TRADING_CARDS", text: "Trading Cards", disabled: true },
+  {
+    value: "MAGIC",
+    text: "Trading Cards | Magic The Gathering",
+    parent: "TRADING_CARDS",
+  },
+  {
+    value: "POKEMON",
+    text: "Trading Cards | Pokemon",
+    parent: "TRADING_CARDS",
+  },
+  {
+    value: "YUGIOH",
+    text: "Trading Cards | Yu-gi-oh!",
+    parent: "TRADING_CARDS",
+  },
+  { value: "OTHER", text: "Trading Cards | Other", parent: "TRADING_CARDS" },
+  { value: "OTHER", text: "Other Collectibles", parent: "OTHER" },
+];
+
 const ListingForm = (props: Listing) => {
   const router = useRouter();
   const [session] = useSession();
@@ -89,6 +131,66 @@ const ListingForm = (props: Listing) => {
             });
         }}
       />
+    );
+  }
+
+  function DropdownCombobox() {
+    const [inputItems, setInputItems] = useState(categoryList);
+    const itemToString = (item) => (item ? item.text : "");
+    const {
+      isOpen,
+      getToggleButtonProps,
+      getLabelProps,
+      getMenuProps,
+      getInputProps,
+      getComboboxProps,
+      highlightedIndex,
+      getItemProps,
+    } = useCombobox({
+      items: inputItems,
+      itemToString,
+      onInputValueChange: ({ inputValue }) => {
+        setInputItems(
+          categoryList.filter((item) =>
+            itemToString(item)
+              .toLowerCase()
+              .startsWith(inputValue?.toLowerCase())
+          )
+        );
+      },
+    });
+    return (
+      <div>
+        <label {...getLabelProps()}>Category</label>
+        <div {...getComboboxProps()}>
+          <input
+            {...getInputProps()}
+            className="px-2 py-1 border rounded-md w-72 border-accent"
+          />
+          <button
+            type="button"
+            {...getToggleButtonProps()}
+            aria-label="toggle menu"
+          >
+            &#8595;
+          </button>
+        </div>
+        <ul {...getMenuProps()}>
+          {isOpen &&
+            inputItems.map((item, index) => (
+              <li
+                key={`${item}${index}`}
+                {...getItemProps({ item, index, disabled: item.disabled })}
+                className={
+                  `${index === highlightedIndex ? "bg-accent-light" : ""}` +
+                  `${item.disabled ? "bg-accent-dark" : ""}`
+                }
+              >
+                {item.text}
+              </li>
+            ))}
+        </ul>
+      </div>
     );
   }
 
@@ -133,7 +235,8 @@ const ListingForm = (props: Listing) => {
             <FormSection header="Category">
               <TextField name="category" type="text" hidden={true} />
 
-              <TextField name="subcategory" type="text" hidden={true} />
+              {/* <TextField name="subcategory" type="text" hidden={true} /> */}
+              {DropdownCombobox()}
             </FormSection>
 
             <FormSection header="Details">
