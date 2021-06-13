@@ -5,7 +5,7 @@ import { Form, Formik } from "formik";
 import { LongTextField, NumberField, SelectBox, TextField } from "./fields";
 import _, { values } from "lodash";
 
-import FormContainer from "./container";
+import FormSection from "./section";
 import { Listing } from "types/listings";
 import { ListingApi } from "services/backendApi/listing";
 import { condition } from "constants/listings";
@@ -94,69 +94,71 @@ const ListingForm = (props: Listing) => {
 
   return (
     <>
-      <h2 className="mt-8 text-center">
-        {newListing ? "Create" : "Update"} a new listing
-      </h2>
-      <FormContainer>
-        <Formik
-          initialValues={{
-            id: props.id,
-            category: props.category,
-            subcategory: props.subcategory,
-            photos: props.photos,
-            title: props.title,
-            condition: props.condition,
-            description: props.description,
-            price: props.price,
-            domestic_shipping: props.domestic_shipping,
-            status: props.status,
-          }}
-          validationSchema={listingSchema}
-          onSubmit={async (values: Listing, actions) => {
-            const request = newListing
-              ? ListingApi(session.accessToken).create(values)
-              : ListingApi(session.accessToken).update(values);
+      <h2 className="mt-8">Enter the details of your listing</h2>
+      <Formik
+        initialValues={{
+          id: props.id,
+          category: props.category,
+          subcategory: props.subcategory,
+          photos: props.photos,
+          title: props.title,
+          condition: props.condition,
+          description: props.description,
+          price: props.price,
+          domestic_shipping: props.domestic_shipping,
+          status: props.status,
+        }}
+        validationSchema={listingSchema}
+        onSubmit={async (values: Listing, actions) => {
+          const request = newListing
+            ? ListingApi(session.accessToken).create(values)
+            : ListingApi(session.accessToken).update(values);
 
-            request
-              .then((_) => {
-                toast.success(
-                  newListing
-                    ? "New listing created!"
-                    : "Your listing has been updated"
-                );
-                router.push("/listings");
-              })
-              .catch((error) => {
-                toast.error(JSON.stringify(error.response.data));
-              });
-          }}
-        >
-          {(formik) => (
-            <Form>
+          request
+            .then((_) => {
+              toast.success(
+                newListing
+                  ? "New listing created!"
+                  : "Your listing has been updated"
+              );
+              router.push("/listings");
+            })
+            .catch((error) => {
+              toast.error(JSON.stringify(error.response.data));
+            });
+        }}
+      >
+        {(formik) => (
+          <Form>
+            <FormSection header="Category">
               <TextField name="category" type="text" hidden={true} />
 
               <TextField name="subcategory" type="text" hidden={true} />
+            </FormSection>
 
+            <FormSection header="Details">
               <TextField
                 label="Title"
                 name="title"
                 type="text"
                 placeholder="title"
               />
-
               <SelectBox
                 label="Condition"
                 name="condition"
                 options={condition}
               />
-
               <LongTextField
                 label="Description"
                 name="description"
                 type="text"
                 placeholder="description"
               />
+            </FormSection>
 
+            <FormSection header="Photos">stub</FormSection>
+
+            <FormSection header="Price and Shipping">
               <NumberField label="Price" name="price" placeholder="0" />
 
               <NumberField
@@ -164,29 +166,29 @@ const ListingForm = (props: Listing) => {
                 name="domestic_shipping"
                 placeholder="0"
               />
+            </FormSection>
 
+            <SubmitButton
+              text={(newListing ? "Publish" : "Update") + " Listing"}
+              disabled={formik.isSubmitting}
+              onClick={async () => {
+                formik.values.status = "ACTIVE";
+              }}
+            />
+
+            {newListing ? (
               <SubmitButton
-                text={(newListing ? "Publish" : "Update") + " Listing"}
+                text="Save Draft"
                 disabled={formik.isSubmitting}
                 onClick={async () => {
-                  formik.values.status = "ACTIVE";
+                  formik.values.status = "DRAFT";
                 }}
               />
-
-              {newListing ? (
-                <SubmitButton
-                  text="Save Draft"
-                  disabled={formik.isSubmitting}
-                  onClick={async () => {
-                    formik.values.status = "DRAFT";
-                  }}
-                />
-              ) : null}
-            </Form>
-          )}
-        </Formik>
-        {renderDeleteButton(props.id, session.accessToken)}
-      </FormContainer>
+            ) : null}
+          </Form>
+        )}
+      </Formik>
+      {renderDeleteButton(props.id, session.accessToken)}
     </>
   );
 };
