@@ -2,12 +2,13 @@ import * as Yup from "yup";
 
 import { DeleteButton, SubmitButton } from "components/buttons";
 import { Form, Formik } from "formik";
-import { NumberField, TextField } from "./fields";
+import { LongTextField, NumberField, SelectBox, TextField } from "./fields";
+import _, { values } from "lodash";
 
 import FormContainer from "./container";
 import { Listing } from "types/listings";
 import { ListingApi } from "services/backendApi/listing";
-import _ from "lodash";
+import { condition } from "constants/listings";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
@@ -18,7 +19,9 @@ const listingSchema = Yup.object().shape({
     .min(2, "Must be at least 2 characters")
     .max(256, "Must be at most 256 characters")
     .required("Required"),
-  condition: Yup.string().required("Required"),
+  condition: Yup.mixed()
+    .oneOf(Object.keys(condition), "invalid condtion")
+    .required("Required"),
   description: Yup.string()
     .min(5, "Must be at least 5 characters")
     .required("Required"),
@@ -49,13 +52,15 @@ const randomPhotos = _.sampleSize(
 );
 
 const newListingProps: Listing = {
+  category: "TRADING_CARDS",
+  subcategory: "MAGIC",
   photos: randomPhotos,
   title: "",
-  condition: "",
+  condition: "NEAR_MINT",
   description: "",
   price: 0,
   domestic_shipping: 0,
-  status: "draft",
+  status: "ACTIVE",
 };
 
 const ListingForm = (props: Listing) => {
@@ -96,6 +101,8 @@ const ListingForm = (props: Listing) => {
         <Formik
           initialValues={{
             id: props.id,
+            category: props.category,
+            subcategory: props.subcategory,
             photos: props.photos,
             title: props.title,
             condition: props.condition,
@@ -124,8 +131,12 @@ const ListingForm = (props: Listing) => {
               });
           }}
         >
-          {({ isSubmitting }) => (
+          {(formik) => (
             <Form>
+              <TextField name="category" type="text" hidden={true} />
+
+              <TextField name="subcategory" type="text" hidden={true} />
+
               <TextField
                 label="Title"
                 name="title"
@@ -133,14 +144,13 @@ const ListingForm = (props: Listing) => {
                 placeholder="title"
               />
 
-              <TextField
+              <SelectBox
                 label="Condition"
                 name="condition"
-                type="text"
-                placeholder="condition"
+                options={condition}
               />
 
-              <TextField
+              <LongTextField
                 label="Description"
                 name="description"
                 type="text"
@@ -156,9 +166,22 @@ const ListingForm = (props: Listing) => {
               />
 
               <SubmitButton
-                text={(newListing ? "Save" : "Update") + " Listing"}
-                disabled={isSubmitting}
+                text={(newListing ? "Publish" : "Update") + " Listing"}
+                disabled={formik.isSubmitting}
+                onClick={async () => {
+                  formik.values.status = "ACTIVE";
+                }}
               />
+
+              {newListing ? (
+                <SubmitButton
+                  text="Save Draft"
+                  disabled={formik.isSubmitting}
+                  onClick={async () => {
+                    formik.values.status = "DRAFT";
+                  }}
+                />
+              ) : null}
             </Form>
           )}
         </Formik>

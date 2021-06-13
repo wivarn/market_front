@@ -2,6 +2,7 @@ import {
   DetailedHTMLProps,
   InputHTMLAttributes,
   SelectHTMLAttributes,
+  TextareaHTMLAttributes,
 } from "react";
 import { FieldHookConfig, useField } from "formik";
 
@@ -9,6 +10,14 @@ import { anyObject } from "types/object";
 
 type TextFieldProps = FieldHookConfig<string> &
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
+    label?: string | JSX.Element;
+  };
+
+type LongTextFieldProps = FieldHookConfig<string> &
+  DetailedHTMLProps<
+    TextareaHTMLAttributes<HTMLTextAreaElement>,
+    HTMLTextAreaElement
+  > & {
     label?: string | JSX.Element;
   };
 
@@ -29,6 +38,25 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
         {label}
       </label>
       <input
+        className="w-full px-2 py-1 border rounded-md border-accent"
+        {...field}
+        {...props}
+      />
+      {meta.touched && meta.error ? (
+        <div className="text-error">{meta.error}</div>
+      ) : null}
+    </div>
+  );
+};
+
+export const LongTextField = ({ label, ...props }: LongTextFieldProps) => {
+  const [field, meta] = useField(props);
+  return (
+    <div className="my-2 text-accent-darkest">
+      <label htmlFor={props.name} className="block text-sm font-semibold">
+        {label}
+      </label>
+      <textarea
         className="w-full px-2 py-1 border rounded-md border-accent"
         {...field}
         {...props}

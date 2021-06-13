@@ -6,6 +6,8 @@ export const ListingApi = (accessToken?: string) => {
     return base.post(
       "listings",
       {
+        category: listing.category,
+        subcategory: listing.subcategory,
         photos: listing.photos,
         title: listing.title,
         condition: listing.condition,
@@ -24,6 +26,8 @@ export const ListingApi = (accessToken?: string) => {
     return base.post(
       `listings/${id}`,
       {
+        category: listing.category,
+        subcategory: listing.subcategory,
         photos: listing.photos,
         title: listing.title,
         condition: listing.condition,

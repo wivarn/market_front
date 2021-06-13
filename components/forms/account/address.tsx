@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import { Form, Formik, yupToFormErrors } from "formik";
+import { Form, Formik } from "formik";
 import { SelectBox, TextField } from "../fields";
 
 import { Address } from "types/account";
