@@ -40,7 +40,7 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
         </label>
       ) : null}
       <input
-        className="px-2 py-1 border rounded-md border-accent"
+        className="px-2 py-1 border rounded-md w-72 border-accent"
         {...field}
         {...props}
       />
@@ -82,7 +82,7 @@ export const LongTextField = ({ label, ...props }: LongTextFieldProps) => {
         </label>
       ) : null}
       <textarea
-        className="px-2 py-1 border rounded-md border-accent"
+        className="px-2 py-1 border rounded-md w-72 border-accent"
         {...field}
         {...props}
       />
@@ -104,7 +104,7 @@ export const NumberField = ({ label, ...props }: TextFieldProps) => {
       ) : null}
       <input
         type="number"
-        className="px-2 py-1 border rounded-md border-accent"
+        className="px-2 py-1 border rounded-md w-72 border-accent"
         {...field}
         {...props}
       />

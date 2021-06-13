@@ -93,8 +93,8 @@ const ListingForm = (props: Listing) => {
   }
 
   return (
-    <>
-      <h2 className="mt-8">Enter the details of your listing</h2>
+    <div className="p-4">
+      <h2>Enter the details of your listing</h2>
       <Formik
         initialValues={{
           id: props.id,
@@ -189,7 +189,7 @@ const ListingForm = (props: Listing) => {
         )}
       </Formik>
       {renderDeleteButton(props.id, session.accessToken)}
-    </>
+    </div>
   );
 };
 
