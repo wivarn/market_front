@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 
 import { AuthApi } from "services/backendApi/auth";
-import AuthFormContainer from "../container";
+import AuthFormContainer from "./container";
 import { SubmitButton } from "components/buttons";
 import { TextFieldFull } from "../fields";
 import { signIn } from "next-auth/client";

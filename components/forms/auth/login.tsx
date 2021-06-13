@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
 
-import AuthFormContainer from "../container";
+import AuthFormContainer from "./container";
 import Link from "next/link";
 import { SecondaryButton } from "components/buttons";
 import { SubmitButtonFull } from "components/buttons";
