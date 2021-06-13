@@ -155,13 +155,13 @@ const ListingForm = (props: Listing) => {
           status: props.status,
         }}
         validationSchema={listingSchema}
-        onSubmit={async (values: Listing, actions) => {
+        onSubmit={(values: Listing, actions) => {
           const request = newListing
             ? ListingApi(session.accessToken).create(values)
             : ListingApi(session.accessToken).update(values);
 
           request
-            .then((_) => {
+            .then(() => {
               toast.success(
                 newListing
                   ? "New listing created!"
@@ -171,6 +171,9 @@ const ListingForm = (props: Listing) => {
             })
             .catch((error) => {
               toast.error(JSON.stringify(error.response.data));
+            })
+            .finally(() => {
+              actions.setSubmitting(false);
             });
         }}
       >
