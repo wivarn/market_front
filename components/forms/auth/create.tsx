@@ -47,8 +47,8 @@ export default function CreateAccountForm() {
               passwordConfirmation: "",
             }}
             validationSchema={createAccountSchema}
-            onSubmit={async (account: Account) => {
-              await AuthApi()
+            onSubmit={(account: Account, actions) => {
+              AuthApi()
                 .createAccount(account)
                 .then((response) => {
                   toast.success(response.data.success);
@@ -56,6 +56,9 @@ export default function CreateAccountForm() {
                 })
                 .catch((error) => {
                   toast.error(error.response.data.error);
+                })
+                .finally(() => {
+                  actions.setSubmitting(false);
                 });
             }}
           >

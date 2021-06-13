@@ -85,12 +85,15 @@ export default function ProfileForm() {
           phoneNumber: profile.data.phone_number,
         }}
         validationSchema={profileSchema}
-        onSubmit={async (values) => {
+        onSubmit={(values, actions) => {
           ProfileApi(session?.accessToken)
             .update(values)
             .then(() => {
               toast.success("Profile updated");
               mutate(["account/profile", session?.accessToken]);
+            })
+            .finally(() => {
+              actions.setSubmitting(false);
             });
         }}
       >

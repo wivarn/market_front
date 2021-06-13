@@ -61,23 +61,27 @@ export default function LoginForm() {
               password: "",
             }}
             validationSchema={loginSchema}
-            onSubmit={async (values: Values, actions) => {
+            onSubmit={(values: Values, actions) => {
               signIn("credentials", {
                 login: values.email,
                 password: values.password,
                 redirect: false,
-              }).then((response) => {
-                if (response?.error) {
-                  actions.setSubmitting(false);
-                  actions.setFieldValue("password", "", false);
-                  toast.error(response.error);
-                  if (response.error.includes("locked")) {
-                    setLocked(true);
+              })
+                .then((response) => {
+                  if (response?.error) {
+                    actions.setSubmitting(false);
+                    actions.setFieldValue("password", "", false);
+                    toast.error(response.error);
+                    if (response.error.includes("locked")) {
+                      setLocked(true);
+                    }
+                  } else {
+                    router.push("/");
                   }
-                } else {
-                  router.push("/");
-                }
-              });
+                })
+                .finally(() => {
+                  actions.setSubmitting(false);
+                });
             }}
           >
             {(props) => (

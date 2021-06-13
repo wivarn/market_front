@@ -209,7 +209,7 @@ export default function AddressForm() {
           country: address.country || "",
         }}
         validationSchema={addressSchema}
-        onSubmit={async (values) => {
+        onSubmit={(values, actions) => {
           AddressApi(session?.accessToken)
             .update(trimValues(values))
             .then(() => {
@@ -217,6 +217,9 @@ export default function AddressForm() {
             })
             .catch((error) => {
               toast.error(JSON.stringify(error.response.data));
+            })
+            .finally(() => {
+              actions.setSubmitting(false);
             });
         }}
       >

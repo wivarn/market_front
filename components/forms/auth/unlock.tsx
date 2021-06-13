@@ -23,7 +23,7 @@ export default function UnlockAccountForm() {
           email: "",
         }}
         validationSchema={unlockAccountSchema}
-        onSubmit={async (values) => {
+        onSubmit={(values, actions) => {
           AuthApi()
             .unlockAccountRequest(values.email)
             .then((response) => {
@@ -32,6 +32,9 @@ export default function UnlockAccountForm() {
             })
             .catch((error) => {
               toast.error(error.response.data.error);
+            })
+            .finally(() => {
+              actions.setSubmitting(false);
             });
         }}
       >

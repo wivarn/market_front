@@ -23,7 +23,7 @@ export default function ForgotPasswordForm() {
           email: "",
         }}
         validationSchema={forgotPasswordSchema}
-        onSubmit={async (values) => {
+        onSubmit={(values, actions) => {
           AuthApi()
             .passwordResetRequest(values.email)
             .then((response) => {
@@ -32,6 +32,9 @@ export default function ForgotPasswordForm() {
             })
             .catch((error) => {
               toast.error(error.response.data.error);
+            })
+            .finally(() => {
+              actions.setSubmitting(false);
             });
         }}
       >
