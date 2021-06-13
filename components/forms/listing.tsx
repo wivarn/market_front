@@ -167,7 +167,7 @@ const ListingForm = (props: Listing) => {
                   ? "New listing created!"
                   : "Your listing has been updated"
               );
-              router.push("/listings");
+              router.push("/listings?status=active");
             })
             .catch((error) => {
               toast.error(JSON.stringify(error.response.data));
