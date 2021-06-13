@@ -1,37 +1,41 @@
 import ListingPreviewGrid from "components/listing/previewGrid";
+import ListingTabs from "components/listing/tabs";
 import { NextSeo } from "next-seo";
-import { PrimaryButton } from "components/buttons";
+import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
 export default function Listings() {
-  const [session, loading] = useSession();
+  const [session, loadingSession] = useSession();
+  const router = useRouter();
+  const { status } = router.query;
 
   function getListings() {
     const { data, error } = useSWR(
-      session ? ["listings", session.accessToken] : null
+      session && status
+        ? [`listings?status=${status}`, session.accessToken]
+        : null
     );
 
     return {
       listings: data,
-      isLoading: !error && !data,
+      loadingListings: !error && !data,
       isError: error,
     };
   }
 
-  const { listings, isLoading, isError } = getListings();
+  const { listings, loadingListings, isError } = getListings();
 
-  if (isLoading || loading) return <div>Spinner</div>;
-  if (isError) return <div>Error</div>;
+  function renderListings() {
+    if (loadingListings || loadingSession) return <div>Spinner</div>;
+    if (isError) return <div>Error</div>;
+    return <ListingPreviewGrid listings={listings.data} />;
+  }
 
   return (
     <div>
       <NextSeo title="Your Listings" />
-      <div className="space-x-2">
-        <h2 className="inline-block m-6 text-accent-darkest">Your Listings</h2>
-        <PrimaryButton text="+ New Listing" href="listings/new" />
-      </div>
-      <ListingPreviewGrid listings={listings.data} />
+      <ListingTabs activeTab={`${status}`}>{renderListings()}</ListingTabs>
     </div>
   );
 }

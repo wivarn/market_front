@@ -52,7 +52,7 @@ export default function Header() {
       <>
         <div className="items-center hidden space-x-8 md:inline-flex">
           <IconLink
-            href="/listings"
+            href="/listings?status=active"
             icon={<CurrencyDollarIcon />}
             text="Sell"
           />

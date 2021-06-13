@@ -103,7 +103,7 @@ export const DropDown = (props: Props) => {
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <LinkWrapper href="/listings" active={active}>
+                    <LinkWrapper href="/listings?status=active" active={active}>
                       Your Listings
                     </LinkWrapper>
                   )}
