@@ -58,8 +58,8 @@ const randomPhotos = _.sampleSize(
 );
 
 const newListingProps: Listing = {
-  category: "TRADING_CARDS",
-  subcategory: "MAGIC",
+  category: "",
+  subcategory: "",
   photos: randomPhotos,
   title: "",
   condition: "NEAR_MINT",
@@ -70,25 +70,23 @@ const newListingProps: Listing = {
 };
 
 const categoryList = [
+  { value: "SPORTS_CARDS", text: "Sports Cards" },
+  { value: "TRADING_CARDS", text: "Trading Cards" },
+  { value: "COLLECTIBLES", text: "Collectibles" },
+];
+
+const sportsCardList = [
+  { value: "BASEBALL", text: "Baseball" },
+  { value: "BASKETBALL", text: "Basketball" },
+  { value: "FOOTBALL", text: "Football" },
+  { value: "HOCKEY", text: "Hockey" },
+  { value: "SOCCER", text: "Soccer" },
+  { value: "OTHER", text: "Other" },
+];
+
+const subCategoryList = [
   { value: "SPORTS_CARDS", text: "Sports Cards", disabled: true },
-  {
-    value: "BASEBALL",
-    text: "Sports Cards | Baseball",
-    parent: "SPORTS_CARDS",
-  },
-  {
-    value: "BASKETBALL",
-    text: "Sports Cards | Basketball",
-    parent: "SPORTS_CARDS",
-  },
-  {
-    value: "FOOTBALL",
-    text: "Sports Cards | Football",
-    parent: "SPORTS_CARDS",
-  },
-  { value: "HOCKEY", text: "Sports Cards | Hockey", parent: "SPORTS_CARDS" },
-  { value: "SOCCER", text: "Sports Cards | Soccer", parent: "SPORTS_CARDS" },
-  { value: "OTHER", text: "Sports Cards | Other", parent: "SPORTS_CARDS" },
+
   { value: "TRADING_CARDS", text: "Trading Cards", disabled: true },
   {
     value: "MAGIC",
@@ -180,10 +178,13 @@ const ListingForm = (props: Listing) => {
         {(formik) => (
           <Form>
             <FormSection header="Category">
-              <TextField name="category" type="text" hidden={true} />
-
-              <TextField name="subCategory" type="text" hidden={true} />
-              {/* <DropdownCombobox label="Category" items={categoryList} /> */}
+              <DropdownCombobox
+                name="category"
+                label="Category"
+                items={categoryList}
+                formik={formik}
+                placeholder="Select a category"
+              />
             </FormSection>
 
             <FormSection header="Details">

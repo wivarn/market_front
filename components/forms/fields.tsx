@@ -5,7 +5,7 @@ import {
   TextareaHTMLAttributes,
   useState,
 } from "react";
-import { FieldHookConfig, useField } from "formik";
+import { FieldHookConfig, FormikProps, useField } from "formik";
 
 import { anyObject } from "types/object";
 import { useCombobox } from "downshift";
@@ -40,8 +40,11 @@ type ComboBoxOption = {
 };
 
 type ComboBoxProps = {
+  name: string;
   items: ComboBoxOption[];
   label?: string;
+  formik?: FormikProps<any>;
+  placeholder?: string;
 };
 
 export const TextField = ({ label, ...props }: TextFieldProps) => {
@@ -164,10 +167,17 @@ export const SelectBox = ({ label, options, ...props }: SelectProps) => {
   );
 };
 
-export const DropdownCombobox = ({ items, label }: ComboBoxProps) => {
+export const DropdownCombobox = ({
+  name,
+  items,
+  label,
+  formik,
+  placeholder,
+}: ComboBoxProps) => {
+  if (!formik) return <div>Spinner</div>;
+
   const [inputItems, setInputItems] = useState(items);
   const itemToString = (item: any) => (item ? item.text : "");
-  const getA11ySelectionMessage = () => "testing";
   const {
     isOpen,
     getToggleButtonProps,
@@ -187,20 +197,26 @@ export const DropdownCombobox = ({ items, label }: ComboBoxProps) => {
         )
       );
     },
-    getA11ySelectionMessage,
+    onSelectedItemChange: ({ selectedItem }) => {
+      formik.values[name] = selectedItem?.value;
+    },
   });
   return (
-    <div>
+    <div className="w-max">
       {label ? <label {...getLabelProps()}>{label}</label> : null}
 
       <div {...getComboboxProps()}>
         <input
-          {...getInputProps()}
           {...getToggleButtonProps()}
-          className="px-2 py-1 border rounded-md w-72 border-accent"
+          {...getInputProps()}
+          className="px-2 py-1 border rounded-md border-accent"
+          placeholder={placeholder}
         />
       </div>
-      <ul {...getMenuProps()} className="border rounded-md w-max border-accent">
+      <ul
+        {...getMenuProps()}
+        className={`${isOpen ? "border rounded-md border-accent " : ""}`}
+      >
         {isOpen &&
           inputItems.map((item, index) => (
             <li
