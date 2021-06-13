@@ -34,9 +34,11 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
     <div className="my-2 text-accent-darkest">
-      <label htmlFor={props.name} className="block text-sm font-semibold">
-        {label}
-      </label>
+      {label ? (
+        <label htmlFor={props.name} className="block text-sm font-semibold">
+          {label}
+        </label>
+      ) : null}
       <input
         className="w-full px-2 py-1 border rounded-md border-accent"
         {...field}
@@ -53,9 +55,11 @@ export const LongTextField = ({ label, ...props }: LongTextFieldProps) => {
   const [field, meta] = useField(props);
   return (
     <div className="my-2 text-accent-darkest">
-      <label htmlFor={props.name} className="block text-sm font-semibold">
-        {label}
-      </label>
+      {label ? (
+        <label htmlFor={props.name} className="block text-sm font-semibold">
+          {label}
+        </label>
+      ) : null}
       <textarea
         className="w-full px-2 py-1 border rounded-md border-accent"
         {...field}
@@ -72,9 +76,11 @@ export const NumberField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
     <div className="my-2 text-accent-darkest">
-      <label htmlFor={props.name} className="block text-sm font-semibold">
-        {label}
-      </label>
+      {label ? (
+        <label htmlFor={props.name} className="block text-sm font-semibold">
+          {label}
+        </label>
+      ) : null}
       <input
         type="number"
         className="px-2 py-1 border rounded-md border-accent"
@@ -92,9 +98,11 @@ export const SelectBox = ({ label, options, ...props }: SelectProps) => {
   const [field, meta] = useField(props);
   return (
     <div className="my-2 text-accent-darkest">
-      <label htmlFor={props.name} className="block text-sm font-semibold">
-        {label}
-      </label>
+      {label ? (
+        <label htmlFor={props.name} className="block text-sm font-semibold">
+          {label}
+        </label>
+      ) : null}
       <select
         className="px-2 py-1 border rounded-md border-accent"
         {...field}

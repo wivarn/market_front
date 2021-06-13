@@ -7,7 +7,7 @@ import { Account } from "types/account";
 import { AuthApi } from "services/backendApi/auth";
 import FormContainer from "../container";
 import { SecondaryButton } from "components/buttons";
-import { SubmitButtonWide } from "components/buttons";
+import { SubmitButtonFull } from "components/buttons";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
@@ -75,7 +75,7 @@ export default function CreateAccountForm() {
                   label="Password Confirmation"
                 />
 
-                <SubmitButtonWide
+                <SubmitButtonFull
                   text="Create Account"
                   disabled={isSubmitting}
                 />

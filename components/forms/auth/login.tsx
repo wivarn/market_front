@@ -5,7 +5,7 @@ import { Form, Formik } from "formik";
 import FormContainer from "../container";
 import Link from "next/link";
 import { SecondaryButton } from "components/buttons";
-import { SubmitButtonWide } from "components/buttons";
+import { SubmitButtonFull } from "components/buttons";
 import { TextField } from "../fields";
 import { signIn } from "next-auth/client";
 import { toast } from "react-toastify";
@@ -87,7 +87,7 @@ export default function LoginForm() {
                 <TextField name="email" type="email" label="Email" />
 
                 <TextField name="password" type="password" label="Password" />
-                <SubmitButtonWide text="Log in" disabled={props.isSubmitting} />
+                <SubmitButtonFull text="Log in" disabled={props.isSubmitting} />
                 <Link href="/auth/forgotPassword">
                   <a className="underline text-info">
                     <p className="py-2 text-sm">Forgot Password?</p>
