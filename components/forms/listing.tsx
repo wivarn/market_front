@@ -1,8 +1,14 @@
 import * as Yup from "yup";
 
 import { DeleteButton, SubmitButton } from "components/buttons";
+import {
+  DropdownCombobox,
+  LongTextField,
+  NumberField,
+  SelectBox,
+  TextField,
+} from "./fields";
 import { Form, Formik } from "formik";
-import { LongTextField, NumberField, SelectBox, TextField } from "./fields";
 
 import FormSection from "./section";
 import { Listing } from "types/listings";
@@ -10,10 +16,8 @@ import { ListingApi } from "services/backendApi/listing";
 import _ from "lodash";
 import { condition } from "constants/listings";
 import { toast } from "react-toastify";
-import { useCombobox } from "downshift";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
-import { useState } from "react";
 
 const listingSchema = Yup.object().shape({
   photos: Yup.array(Yup.string()).min(1).max(10),
@@ -134,66 +138,6 @@ const ListingForm = (props: Listing) => {
     );
   }
 
-  function DropdownCombobox() {
-    const [inputItems, setInputItems] = useState(categoryList);
-    const itemToString = (item) => (item ? item.text : "");
-    const {
-      isOpen,
-      getToggleButtonProps,
-      getLabelProps,
-      getMenuProps,
-      getInputProps,
-      getComboboxProps,
-      highlightedIndex,
-      getItemProps,
-    } = useCombobox({
-      items: inputItems,
-      itemToString,
-      onInputValueChange: ({ inputValue }) => {
-        setInputItems(
-          categoryList.filter((item) =>
-            itemToString(item)
-              .toLowerCase()
-              .startsWith(inputValue?.toLowerCase())
-          )
-        );
-      },
-    });
-    return (
-      <div>
-        <label {...getLabelProps()}>Category</label>
-        <div {...getComboboxProps()}>
-          <input
-            {...getInputProps()}
-            className="px-2 py-1 border rounded-md w-72 border-accent"
-          />
-          <button
-            type="button"
-            {...getToggleButtonProps()}
-            aria-label="toggle menu"
-          >
-            &#8595;
-          </button>
-        </div>
-        <ul {...getMenuProps()}>
-          {isOpen &&
-            inputItems.map((item, index) => (
-              <li
-                key={`${item}${index}`}
-                {...getItemProps({ item, index, disabled: item.disabled })}
-                className={
-                  `${index === highlightedIndex ? "bg-accent-light" : ""}` +
-                  `${item.disabled ? "bg-accent-dark" : ""}`
-                }
-              >
-                {item.text}
-              </li>
-            ))}
-        </ul>
-      </div>
-    );
-  }
-
   return (
     <div className="p-4">
       <h2>Enter the details of your listing</h2>
@@ -235,8 +179,7 @@ const ListingForm = (props: Listing) => {
             <FormSection header="Category">
               <TextField name="category" type="text" hidden={true} />
 
-              {/* <TextField name="subcategory" type="text" hidden={true} /> */}
-              {DropdownCombobox()}
+              <DropdownCombobox label="Category" items={categoryList} />
             </FormSection>
 
             <FormSection header="Details">

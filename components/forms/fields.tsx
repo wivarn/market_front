@@ -3,10 +3,12 @@ import {
   InputHTMLAttributes,
   SelectHTMLAttributes,
   TextareaHTMLAttributes,
+  useState,
 } from "react";
 import { FieldHookConfig, useField } from "formik";
 
 import { anyObject } from "types/object";
+import { useCombobox } from "downshift";
 
 type TextFieldProps = FieldHookConfig<string> &
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
@@ -29,6 +31,18 @@ type SelectProps = FieldHookConfig<string> &
     label?: string | JSX.Element;
     options: anyObject;
   };
+
+type ComboBoxOption = {
+  value: string;
+  text: string;
+  parent?: string;
+  disabled?: boolean;
+};
+
+type ComboBoxProps = {
+  items: ComboBoxOption[];
+  label?: string;
+};
 
 export const TextField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
@@ -146,6 +160,65 @@ export const SelectBox = ({ label, options, ...props }: SelectProps) => {
       {meta.touched && meta.error ? (
         <div className="text-error">{meta.error}</div>
       ) : null}
+    </div>
+  );
+};
+
+export const DropdownCombobox = ({ items, label }: ComboBoxProps) => {
+  const [inputItems, setInputItems] = useState(items);
+  const itemToString = (item: any) => (item ? item.text : "");
+  const {
+    isOpen,
+    getToggleButtonProps,
+    getLabelProps,
+    getMenuProps,
+    getInputProps,
+    getComboboxProps,
+    highlightedIndex,
+    getItemProps,
+  } = useCombobox({
+    items: inputItems,
+    itemToString,
+    onInputValueChange: ({ inputValue }) => {
+      setInputItems(
+        items.filter((item) =>
+          itemToString(item).toLowerCase().startsWith(inputValue?.toLowerCase())
+        )
+      );
+    },
+  });
+  return (
+    <div>
+      {label ? <label {...getLabelProps()}>{label}</label> : null}
+
+      <div {...getComboboxProps()}>
+        <input
+          {...getInputProps()}
+          className="px-2 py-1 border rounded-md w-72 border-accent"
+        />
+        <button
+          type="button"
+          {...getToggleButtonProps()}
+          aria-label="toggle menu"
+        >
+          &#8595;
+        </button>
+      </div>
+      <ul {...getMenuProps()}>
+        {isOpen &&
+          inputItems.map((item, index) => (
+            <li
+              key={`${item}${index}`}
+              {...getItemProps({ item, index, disabled: item.disabled })}
+              className={
+                `${index === highlightedIndex ? "bg-accent-light" : ""}` +
+                `${item.disabled ? "bg-accent-dark" : ""}`
+              }
+            >
+              {item.text}
+            </li>
+          ))}
+      </ul>
     </div>
   );
 };
