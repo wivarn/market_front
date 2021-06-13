@@ -1,4 +1,5 @@
 import {
+  HiArrowNarrowDown,
   HiBookOpen,
   HiCheckCircle,
   HiChevronDown,
@@ -15,7 +16,7 @@ import {
   HiTag,
   HiTrash,
   HiX,
-  HiXCircle
+  HiXCircle,
 } from "react-icons/hi";
 
 import { GiSquirrel } from "react-icons/gi";
@@ -74,6 +75,14 @@ export const ErrorIcon = () => {
 
 export const XIcon = () => {
   return <HiX className="icon" />;
+};
+
+export const SmallXIcon = () => {
+  return <HiX className="icon-sm" />;
+};
+
+export const SmallArrowNarrowDown = () => {
+  return <HiArrowNarrowDown className="icon-sm" />;
 };
 
 export const InfoCircle = () => {

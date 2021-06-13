@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { FieldHookConfig, FormikProps, useField } from "formik";
+import { SmallArrowNarrowDown, SmallXIcon } from "components/icons";
 
 import { anyObject } from "types/object";
 import { useCombobox } from "downshift";
@@ -32,7 +33,7 @@ type SelectProps = FieldHookConfig<string> &
     options: anyObject;
   };
 
-type ComboBoxOption = {
+export type ComboBoxOption = {
   value: string;
   text: string;
   parent?: string;
@@ -43,8 +44,9 @@ type ComboBoxProps = {
   name: string;
   items: ComboBoxOption[];
   label?: string;
-  formik?: FormikProps<any>;
+  formik: FormikProps<any>;
   placeholder?: string;
+  disabled?: boolean;
 };
 
 export const TextField = ({ label, ...props }: TextFieldProps) => {
@@ -173,11 +175,17 @@ export const DropdownCombobox = ({
   label,
   formik,
   placeholder,
+  disabled,
 }: ComboBoxProps) => {
-  if (!formik) return <div>Spinner</div>;
-
   const [inputItems, setInputItems] = useState(items);
   const itemToString = (item: any) => (item ? item.text : "");
+  const itemFilter = (inputValue: string | undefined) => {
+    setInputItems(
+      items.filter((item) =>
+        itemToString(item).toLowerCase().startsWith(inputValue?.toLowerCase())
+      )
+    );
+  };
   const {
     isOpen,
     getToggleButtonProps,
@@ -187,31 +195,46 @@ export const DropdownCombobox = ({
     getComboboxProps,
     highlightedIndex,
     getItemProps,
+    selectItem,
   } = useCombobox({
     items: inputItems,
     itemToString,
-    onInputValueChange: ({ inputValue }) => {
-      setInputItems(
-        items.filter((item) =>
-          itemToString(item).toLowerCase().startsWith(inputValue?.toLowerCase())
-        )
-      );
-    },
+    onInputValueChange: ({ inputValue }) => itemFilter(inputValue),
+    onIsOpenChange: ({ inputValue }) => itemFilter(inputValue),
     onSelectedItemChange: ({ selectedItem }) => {
-      formik.values[name] = selectedItem?.value;
+      formik.setFieldValue(name, selectedItem?.value);
     },
   });
   return (
     <div className="w-max">
+      <TextField name={name} />
+
       {label ? <label {...getLabelProps()}>{label}</label> : null}
 
-      <div {...getComboboxProps()}>
+      <div {...getComboboxProps()} className="block">
         <input
           {...getToggleButtonProps()}
           {...getInputProps()}
-          className="px-2 py-1 border rounded-md border-accent"
+          className="inline-block px-2 py-1 border rounded-md border-accent"
           placeholder={placeholder}
+          disabled={disabled}
         />
+        <span
+          onClick={() => {
+            selectItem({ value: "", text: "" });
+          }}
+          aria-label="clear selection"
+          className="inline-block"
+        >
+          <SmallXIcon />
+        </span>
+        <span
+          {...getToggleButtonProps({ disabled: disabled })}
+          aria-label="toggle menu"
+          className="inline-block"
+        >
+          <SmallArrowNarrowDown />
+        </span>
       </div>
       <ul
         {...getMenuProps()}

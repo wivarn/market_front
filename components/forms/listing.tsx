@@ -1,14 +1,15 @@
 import * as Yup from "yup";
 
-import { DeleteButton, SubmitButton } from "components/buttons";
 import {
+  ComboBoxOption,
   DropdownCombobox,
   LongTextField,
   NumberField,
   SelectBox,
   TextField,
 } from "./fields";
-import { Form, Formik } from "formik";
+import { DeleteButton, SubmitButton } from "components/buttons";
+import { Form, Formik, FormikProps } from "formik";
 
 import FormSection from "./section";
 import { Listing } from "types/listings";
@@ -71,7 +72,7 @@ const newListingProps: Listing = {
 
 const categoryList = [
   { value: "SPORTS_CARDS", text: "Sports Cards" },
-  { value: "TRADING_CARDS", text: "Trading Cards" },
+  { value: "TRADING_CARDS", text: "Trading Card Games" },
   { value: "COLLECTIBLES", text: "Collectibles" },
 ];
 
@@ -84,28 +85,58 @@ const sportsCardList = [
   { value: "OTHER", text: "Other" },
 ];
 
-const subCategoryList = [
-  { value: "SPORTS_CARDS", text: "Sports Cards", disabled: true },
-
-  { value: "TRADING_CARDS", text: "Trading Cards", disabled: true },
-  {
-    value: "MAGIC",
-    text: "Trading Cards | Magic The Gathering",
-    parent: "TRADING_CARDS",
-  },
-  {
-    value: "POKEMON",
-    text: "Trading Cards | Pokemon",
-    parent: "TRADING_CARDS",
-  },
-  {
-    value: "YUGIOH",
-    text: "Trading Cards | Yu-gi-oh!",
-    parent: "TRADING_CARDS",
-  },
-  { value: "OTHER", text: "Trading Cards | Other", parent: "TRADING_CARDS" },
-  { value: "OTHER", text: "Other Collectibles", parent: "OTHER" },
+const tradingCardList = [
+  { value: "CARDFIGHT_VANGUARD", text: "Cardfight Vanguard" },
+  { value: "DRAGON_BALL_SUPER", text: "Dragon Ball Super" },
+  { value: "FLESH_AND_BLOOD", text: "Flesh and Blood" },
+  { value: "MAGIC", text: "Magic The Gathering" },
+  { value: "POKEMON", text: "Pokemon" },
+  { value: "STAR_WARS_DESTINY", text: "Star Wars Destiny" },
+  { value: "YUGIOH", text: "Yu-gi-oh!" },
+  { value: "OTHER", text: "Other" },
 ];
+
+const collectibleList = [
+  { value: "ANTIQUES", text: "Antiques" },
+  { value: "ART", text: "Art" },
+  { value: "COINS", text: "Coins" },
+  { value: "COMIC", text: "Comic Books" },
+  { value: "STAMPS", text: "Stamps" },
+  { value: "TOYS", text: "Toys" },
+  { value: "WATCHES", text: "Watches" },
+  { value: "OTHER", text: "Other" },
+];
+
+function subCategoryCombobox(formik: FormikProps<any>) {
+  const category = formik.getFieldProps("category").value;
+  const placeholder = category
+    ? "Select a sub-category"
+    : "Select category first";
+
+  var items: ComboBoxOption[] = [];
+  switch (category) {
+    case "SPORTS_CARDS":
+      items = sportsCardList;
+      break;
+    case "TRADING_CARDS":
+      items = tradingCardList;
+      break;
+    case "COLLECTIBLES":
+      items = collectibleList;
+      break;
+  }
+
+  return (
+    <DropdownCombobox
+      label="Sub-Category"
+      name="subcategory"
+      items={items}
+      formik={formik}
+      placeholder={placeholder}
+      disabled={!category}
+    />
+  );
+}
 
 const ListingForm = (props: Listing) => {
   const router = useRouter();
@@ -184,6 +215,16 @@ const ListingForm = (props: Listing) => {
                 items={categoryList}
                 formik={formik}
                 placeholder="Select a category"
+              />
+
+              {subCategoryCombobox(formik)}
+
+              <TextField
+                label="Tags"
+                name="tags"
+                type="text"
+                placeholder="pending"
+                disabled={true}
               />
             </FormSection>
 
