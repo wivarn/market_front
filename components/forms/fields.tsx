@@ -40,6 +40,27 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
         </label>
       ) : null}
       <input
+        className="px-2 py-1 border rounded-md border-accent"
+        {...field}
+        {...props}
+      />
+      {meta.touched && meta.error ? (
+        <div className="text-error">{meta.error}</div>
+      ) : null}
+    </div>
+  );
+};
+
+export const TextFieldFull = ({ label, ...props }: TextFieldProps) => {
+  const [field, meta] = useField(props);
+  return (
+    <div className="my-2 text-accent-darkest">
+      {label ? (
+        <label htmlFor={props.name} className="block text-sm font-semibold">
+          {label}
+        </label>
+      ) : null}
+      <input
         className="w-full px-2 py-1 border rounded-md border-accent"
         {...field}
         {...props}
@@ -61,7 +82,7 @@ export const LongTextField = ({ label, ...props }: LongTextFieldProps) => {
         </label>
       ) : null}
       <textarea
-        className="w-full px-2 py-1 border rounded-md border-accent"
+        className="px-2 py-1 border rounded-md border-accent"
         {...field}
         {...props}
       />
@@ -127,13 +148,4 @@ export const SelectBox = ({ label, options, ...props }: SelectProps) => {
       ) : null}
     </div>
   );
-};
-
-export const ErrorField = (props: TextFieldProps) => {
-  const [_, meta] = useField(props);
-
-  if (meta.error) {
-    return <div className="text-error">{meta.error}</div>;
-  }
-  return <></>;
 };

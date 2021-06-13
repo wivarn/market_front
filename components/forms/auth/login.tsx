@@ -2,11 +2,11 @@ import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
 
-import FormContainer from "../container";
+import AuthFormContainer from "../container";
 import Link from "next/link";
 import { SecondaryButton } from "components/buttons";
 import { SubmitButtonFull } from "components/buttons";
-import { TextField } from "../fields";
+import { TextFieldFull } from "../fields";
 import { signIn } from "next-auth/client";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -53,7 +53,7 @@ export default function LoginForm() {
   return (
     <>
       <h2 className="mt-8 text-center">Log in to your account</h2>
-      <FormContainer>
+      <AuthFormContainer>
         <div className="py-2">
           <Formik
             initialValues={{
@@ -84,9 +84,13 @@ export default function LoginForm() {
               <Form>
                 {renderLockedBanner()}
 
-                <TextField name="email" type="email" label="Email" />
+                <TextFieldFull name="email" type="email" label="Email" />
 
-                <TextField name="password" type="password" label="Password" />
+                <TextFieldFull
+                  name="password"
+                  type="password"
+                  label="Password"
+                />
                 <SubmitButtonFull text="Log in" disabled={props.isSubmitting} />
                 <Link href="/auth/forgotPassword">
                   <a className="underline text-info">
@@ -103,7 +107,7 @@ export default function LoginForm() {
           </p>
           <SecondaryButton href="/account/new" text="Create Account" />
         </div>
-      </FormContainer>
+      </AuthFormContainer>
     </>
   );
 }

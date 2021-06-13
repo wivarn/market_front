@@ -1,13 +1,13 @@
 import * as Yup from "yup";
 
-import { ErrorField, TextField } from "../fields";
 import { Form, Formik } from "formik";
 
 import { Account } from "types/account";
 import { AuthApi } from "services/backendApi/auth";
-import FormContainer from "../container";
+import AuthFormContainer from "./container";
 import { SecondaryButton } from "components/buttons";
 import { SubmitButtonFull } from "components/buttons";
+import { TextFieldFull } from "../fields";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
@@ -36,7 +36,7 @@ export default function CreateAccountForm() {
   return (
     <div className="container max-w-lg mx-auto mt-8">
       <h2 className="text-center">Create a new account</h2>
-      <FormContainer>
+      <AuthFormContainer>
         <div className="py-2">
           <Formik
             initialValues={{
@@ -61,15 +61,25 @@ export default function CreateAccountForm() {
           >
             {({ isSubmitting }) => (
               <Form>
-                <ErrorField name="formError" />
+                <TextFieldFull name="email" type="email" label="Email" />
 
-                <TextField name="email" type="email" label="Email" />
+                <TextFieldFull
+                  name="givenName"
+                  type="text"
+                  label="First name"
+                />
+                <TextFieldFull
+                  name="familyName"
+                  type="text"
+                  label="Last name"
+                />
 
-                <TextField name="givenName" type="text" label="First name" />
-                <TextField name="familyName" type="text" label="Last name" />
-
-                <TextField name="password" type="password" label="Password" />
-                <TextField
+                <TextFieldFull
+                  name="password"
+                  type="password"
+                  label="Password"
+                />
+                <TextFieldFull
                   name="passwordConfirmation"
                   type="password"
                   label="Password Confirmation"
@@ -87,7 +97,7 @@ export default function CreateAccountForm() {
           <p className="py-2 text-accent-darkest">Already have an account?</p>
           <SecondaryButton href="/login" text="Back to log in" />
         </div>
-      </FormContainer>
+      </AuthFormContainer>
     </div>
   );
 }
