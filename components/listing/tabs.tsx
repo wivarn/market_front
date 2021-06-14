@@ -39,9 +39,9 @@ export default function ListingTabs({
           Your Listings
         </h2>
         <PrimaryButton text="New Listing" href="listings/new" />
-        <SecondaryButton text="Listing Template" href="listings/template" />
+        <SecondaryButton text="Update Template" href="listings/template" />
       </div>
-      <div className="flex justify-center mt-8 space-x-8">
+      <div className="flex justify-center mt-8 mb-8 space-x-8">
         <LinkWrapper
           href="/listings?status=active"
           tab="active"
