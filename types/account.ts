@@ -1,6 +1,7 @@
 export interface Profile {
   givenName: string;
   familyName: string;
+  currency: string;
 }
 
 export interface Account extends Profile {

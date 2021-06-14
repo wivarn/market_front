@@ -1,8 +1,8 @@
 import * as Yup from "yup";
 
 import { CheckCircleIcon, ExclamationCircleIcon } from "components/icons";
+import { DropdownCombobox, TextField } from "../fields";
 import { Form, Formik } from "formik";
-import { SelectBox, TextField } from "../fields";
 import useSWR, { mutate } from "swr";
 
 import FormContainer from "../container";
@@ -12,7 +12,10 @@ import { SubmitButton } from "components/buttons";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
 
-const currencyList = { USD: "USD", CAD: "CAD" };
+const currencyList = [
+  { value: "CAD", text: "CAD" },
+  { value: "USD", text: "USD" },
+];
 
 const profileSchema = Yup.object().shape({
   givenName: Yup.string()
@@ -23,7 +26,14 @@ const profileSchema = Yup.object().shape({
     .min(1, "Must be 1 or more characters")
     .max(256, "Must be at most 256 characters")
     .required("Last name is required"),
-  currency: Yup.mixed().oneOf(Object.keys(currencyList), "invalid currency"),
+  currency: Yup.mixed()
+    .oneOf(
+      currencyList.map((currency) => {
+        return currency.value;
+      }),
+      "invalid currency"
+    )
+    .required("Currency is required"),
 });
 
 const emailLabel = () => {
@@ -97,14 +107,15 @@ export default function ProfileForm() {
             });
         }}
       >
-        {({ isSubmitting }) => (
+        {(formik) => (
           <Form>
             <TextField label="First Name" name="givenName" type="text" />
             <TextField label="Last Name" name="familyName" type="text" />
-            <SelectBox
+            <DropdownCombobox
               label="Currency"
               name="currency"
-              options={currencyList}
+              items={currencyList}
+              formik={formik}
             />
 
             <TextField
@@ -120,7 +131,7 @@ export default function ProfileForm() {
               disabled={true}
             />
 
-            <SubmitButton text="Update" disabled={isSubmitting} />
+            <SubmitButton text="Update" disabled={formik.isSubmitting} />
           </Form>
         )}
       </Formik>

@@ -25,15 +25,6 @@ type LongTextFieldProps = FieldHookConfig<string> &
     label?: string | JSX.Element;
   };
 
-type SelectProps = FieldHookConfig<string> &
-  DetailedHTMLProps<
-    SelectHTMLAttributes<HTMLSelectElement>,
-    HTMLSelectElement
-  > & {
-    label?: string | JSX.Element;
-    options: anyObject;
-  };
-
 export type ComboBoxOption = {
   value: string;
   text: string;
@@ -137,41 +128,6 @@ export const NumberField = ({ label, ...props }: TextFieldProps) => {
   );
 };
 
-export const SelectBox = ({ label, options, ...props }: SelectProps) => {
-  const [field, meta] = useField(props);
-  return (
-    <div className="my-2 text-accent-darkest">
-      {label ? (
-        <label htmlFor={props.name} className="block text-sm font-semibold">
-          {label}
-        </label>
-      ) : null}
-      <select
-        className="px-2 py-1 border rounded-md border-accent"
-        {...field}
-        {...props}
-      >
-        {props.placeholder ? (
-          <option value="" disabled={true}>
-            {props.placeholder}
-          </option>
-        ) : null}
-
-        {Object.entries(options).map(([value, text]) => {
-          return (
-            <option key={value} value={value}>
-              {text}
-            </option>
-          );
-        })}
-      </select>
-      {meta.touched && meta.error ? (
-        <div className="text-error">{meta.error}</div>
-      ) : null}
-    </div>
-  );
-};
-
 export const DropdownCombobox = ({
   name,
   items,
@@ -206,6 +162,7 @@ export const DropdownCombobox = ({
   } = useCombobox({
     items: inputItems,
     itemToString,
+    initialInputValue: formik.values[name],
     onInputValueChange: ({ inputValue }) => itemFilter(inputValue),
     onIsOpenChange: ({ inputValue }) => itemFilter(inputValue),
     onSelectedItemChange: ({ selectedItem }) => {
@@ -218,8 +175,6 @@ export const DropdownCombobox = ({
 
   return (
     <div className="w-max">
-      <TextField name={name} hidden={true} />
-
       {label ? <label {...getLabelProps()}>{label}</label> : null}
 
       <div {...getComboboxProps()} className="block">
@@ -269,6 +224,7 @@ export const DropdownCombobox = ({
             </li>
           ))}
       </ul>
+      <TextField name={name} hidden={true} />
     </div>
   );
 };

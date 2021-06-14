@@ -8,6 +8,7 @@ export const ProfileApi = (accessToken?: string) => {
       {
         given_name: profile.givenName,
         family_name: profile.familyName,
+        currency: profile.currency,
       },
       {
         headers: { Authorization: `Bearer ${accessToken}` },

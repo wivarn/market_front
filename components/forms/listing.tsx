@@ -5,7 +5,6 @@ import {
   DropdownCombobox,
   LongTextField,
   NumberField,
-  SelectBox,
   TextField,
 } from "./fields";
 import { DeleteButton, SubmitButton } from "components/buttons";
@@ -111,7 +110,7 @@ const collectibleList = [
 const subcategoryRef = createRef<HTMLSpanElement>();
 
 function subCategoryCombobox(formik: FormikProps<any>) {
-  const category = formik.getFieldProps("category").value;
+  const category = formik.values.category;
   const placeholder = category
     ? "Select a sub-category"
     : "Select category first";
@@ -240,11 +239,11 @@ const ListingForm = (props: Listing) => {
                 type="text"
                 placeholder="title"
               />
-              <SelectBox
+              {/* <SelectBox
                 label="Condition"
                 name="condition"
                 options={condition}
-              />
+              /> */}
               <LongTextField
                 label="Description"
                 name="description"
