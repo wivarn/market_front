@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import { ComboBoxOption, DropdownCombobox, TextField } from "../fields";
+import { ComboBoxOption, DropdownCombobox, TextFieldFull } from "../fields";
 import { Form, Formik, FormikProps } from "formik";
 
 import { Address } from "types/account";
@@ -176,7 +176,7 @@ function zipField(country: string) {
   var label = country == "CAN" ? "Postal Code" : "Zip Code";
 
   return (
-    <TextField
+    <TextFieldFull
       label={label}
       name="zip"
       placeholder={placeholder}
@@ -255,9 +255,9 @@ export default function AddressForm() {
               childresetRef={stateRef}
             />
 
-            <TextField label="Address Line 1" name="street1" type="text" />
-            <TextField label="Address Line 2" name="street2" type="text" />
-            <TextField label="City" name="city" type="text" />
+            <TextFieldFull label="Address Line 1" name="street1" type="text" />
+            <TextFieldFull label="Address Line 2" name="street2" type="text" />
+            <TextFieldFull label="City" name="city" type="text" />
 
             {stateSelect(formik)}
             {zipField(formik.getFieldProps("country").value)}
