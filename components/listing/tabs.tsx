@@ -13,7 +13,9 @@ const LinkWrapper = ({ href, tab, activeTab, ...props }: LinkProps) => {
       <a {...props}>
         <p
           className={
-            tab == activeTab ? "border-b-2 border-primary text-primary" : ""
+            tab == activeTab
+              ? "pb-2 border-b-2 border-primary text-primary font-semibold"
+              : ""
           }
         >
           {props.children}
@@ -31,42 +33,42 @@ export default function ListingTabs({
   children: React.ReactNode;
 }) {
   return (
-    <div className="p-4">
-      <div className="space-x-2">
-        <h2 className="inline-block m-6 text-accent-darkest">
-          What would you like to sell?
+    <div className="mt-8 mb-8">
+      <div className="space-x-4 text-center">
+        <h2 className="inline-block text-accent-darkest">
+          Your Listings
         </h2>
         <PrimaryButton text="New Listing" href="listings/new" />
         <SecondaryButton text="Listing Template" href="listings/template" />
       </div>
-      <div className="flex p-4 mb-8 space-x-8 font-semibold text-accent-darker">
+      <div className="flex justify-center mt-8 space-x-8">
         <LinkWrapper
           href="/listings?status=active"
           tab="active"
           activeTab={activeTab}
         >
-          Active Listings
+          Active
         </LinkWrapper>
         <LinkWrapper
           href="/listings?status=sold"
           tab="sold"
           activeTab={activeTab}
         >
-          Sold Listings
+          Sold
         </LinkWrapper>
         <LinkWrapper
           href="/listings?status=draft"
           tab="draft"
           activeTab={activeTab}
         >
-          Draft Listings
+          Draft
         </LinkWrapper>
         <LinkWrapper
           href="/listings?status=removed"
           tab="removed"
           activeTab={activeTab}
         >
-          Removed Listings
+          Removed
         </LinkWrapper>
       </div>
       {children}
