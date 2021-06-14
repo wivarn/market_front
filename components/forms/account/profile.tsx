@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 import { CheckCircleIcon, ExclamationCircleIcon } from "components/icons";
-import { DropdownCombobox, TextField } from "../fields";
+import { DropdownCombobox, TextFieldFull } from "../fields";
 import { Form, Formik } from "formik";
 import useSWR, { mutate } from "swr";
 
@@ -109,8 +109,8 @@ export default function ProfileForm() {
       >
         {(formik) => (
           <Form>
-            <TextField label="First Name" name="givenName" type="text" />
-            <TextField label="Last Name" name="familyName" type="text" />
+            <TextFieldFull label="First Name" name="givenName" type="text" />
+            <TextFieldFull label="Last Name" name="familyName" type="text" />
             <DropdownCombobox
               label="Currency"
               name="currency"
@@ -118,13 +118,13 @@ export default function ProfileForm() {
               formik={formik}
             />
 
-            <TextField
+            <TextFieldFull
               label={emailLabel()}
               name="email"
               type="text"
               disabled={true}
             />
-            <TextField
+            <TextFieldFull
               label={phoneNumberLabel()}
               name="phoneNumber"
               type="text"
