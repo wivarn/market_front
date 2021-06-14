@@ -6,16 +6,21 @@ import {
   LongTextField,
   NumberField,
   TextField,
+  Toggle,
 } from "./fields";
 import { DeleteButton, SubmitButton } from "components/buttons";
 import { Form, Formik, FormikProps } from "formik";
+import {
+  conditionList,
+  gradingCompanyList,
+  gradingList,
+} from "constants/listings";
+import { createRef, useState } from "react";
 
 import FormSection from "./section";
 import { Listing } from "types/listings";
 import { ListingApi } from "services/backendApi/listing";
 import _ from "lodash";
-import { condition } from "constants/listings";
-import { createRef } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
@@ -26,11 +31,28 @@ const listingSchema = Yup.object().shape({
     .min(2, "Must be at least 2 characters")
     .max(256, "Must be at most 256 characters")
     .required("Required"),
+  grading_company: Yup.mixed().oneOf(
+    gradingCompanyList.map((gradingCompany) => {
+      return gradingCompany.value;
+    }),
+    "invalid grading company"
+  ),
   condition: Yup.mixed()
-    .oneOf(Object.keys(condition), "invalid condtion")
-    .required("Required"),
-  description: Yup.string()
-    .min(5, "Must be at least 5 characters")
+    .when("grading_company", {
+      is: "",
+      then: Yup.mixed().oneOf(
+        conditionList.map((condition) => {
+          return condition.value;
+        }),
+        "invalid condition"
+      ),
+      otherwise: Yup.mixed().oneOf(
+        gradingList.map((grading) => {
+          return grading.value;
+        }),
+        "invalid grading"
+      ),
+    })
     .required("Required"),
   price: Yup.number()
     .min(0.25, "Must be at least 0.25")
@@ -63,7 +85,7 @@ const newListingProps: Listing = {
   subcategory: "",
   photos: randomPhotos,
   title: "",
-  condition: "NEAR_MINT",
+  condition: "",
   description: "",
   price: 0,
   domestic_shipping: 0,
@@ -108,6 +130,8 @@ const collectibleList = [
 ];
 
 const subcategoryRef = createRef<HTMLSpanElement>();
+const gradingCompanyRef = createRef<HTMLSpanElement>();
+const conditionRef = createRef<HTMLSpanElement>();
 
 function subCategoryCombobox(formik: FormikProps<any>) {
   const category = formik.values.category;
@@ -144,10 +168,37 @@ function subCategoryCombobox(formik: FormikProps<any>) {
 const ListingForm = (props: Listing) => {
   const router = useRouter();
   const [session] = useSession();
+  const [graded, setGraded] = useState(false);
 
   const newListing = !props.id;
 
   if (!session) return <div>Spinner</div>;
+
+  function renderGrading(formik: FormikProps<any>) {
+    const label = graded ? "Grading" : "Condition";
+    const items = graded ? gradingList : conditionList;
+
+    return (
+      <>
+        <DropdownCombobox
+          label="Grading Company"
+          name="grading_company"
+          items={gradingCompanyList}
+          formik={formik}
+          resetRef={gradingCompanyRef}
+          hidden={!graded}
+        />
+
+        <DropdownCombobox
+          label={label}
+          name="condition"
+          items={items}
+          formik={formik}
+          resetRef={conditionRef}
+        />
+      </>
+    );
+  }
 
   function renderDeleteButton(id: string | undefined, accessToken: string) {
     if (!id || !accessToken) return null;
@@ -239,11 +290,17 @@ const ListingForm = (props: Listing) => {
                 type="text"
                 placeholder="title"
               />
-              {/* <SelectBox
-                label="Condition"
-                name="condition"
-                options={condition}
-              /> */}
+              <Toggle
+                enabled={graded}
+                setEnabled={setGraded}
+                label="Professionally Graded?"
+                description="Some helper text on what this means"
+                onClick={async () => {
+                  gradingCompanyRef?.current?.click();
+                  conditionRef?.current?.click();
+                }}
+              />
+              {renderGrading(formik)}
               <LongTextField
                 label="Description"
                 name="description"

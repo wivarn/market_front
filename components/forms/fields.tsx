@@ -1,15 +1,16 @@
 import {
   DetailedHTMLProps,
   InputHTMLAttributes,
-  SelectHTMLAttributes,
+  SetStateAction,
   TextareaHTMLAttributes,
   useState,
 } from "react";
 import { FieldHookConfig, FormikProps, useField } from "formik";
 import { SmallArrowNarrowDown, SmallXIcon } from "components/icons";
 
+import { Dispatch } from "react";
 import { RefObject } from "react";
-import { anyObject } from "types/object";
+import { Switch } from "@headlessui/react";
 import { useCombobox } from "downshift";
 
 type TextFieldProps = FieldHookConfig<string> &
@@ -41,6 +42,15 @@ type ComboBoxProps = {
   disabled?: boolean;
   resetRef?: RefObject<HTMLSpanElement>;
   childresetRef?: RefObject<HTMLSpanElement>;
+  hidden?: boolean;
+};
+
+type ToggleProps = {
+  enabled: boolean;
+  setEnabled: Dispatch<SetStateAction<boolean>>;
+  label?: string;
+  description?: string;
+  onClick?: () => Promise<void>;
 };
 
 export const TextField = ({ label, ...props }: TextFieldProps) => {
@@ -137,6 +147,7 @@ export const DropdownCombobox = ({
   disabled,
   resetRef,
   childresetRef,
+  hidden,
 }: ComboBoxProps) => {
   const [inputItems, setInputItems] = useState(items);
   const itemToString = (item: any) => (item ? item.text : "");
@@ -174,7 +185,7 @@ export const DropdownCombobox = ({
   });
 
   return (
-    <div className="w-max">
+    <div className="w-max" hidden={hidden}>
       {label ? <label {...getLabelProps()}>{label}</label> : null}
 
       <div {...getComboboxProps()} className="block">
@@ -228,3 +239,45 @@ export const DropdownCombobox = ({
     </div>
   );
 };
+
+export function Toggle({
+  enabled,
+  setEnabled,
+  label,
+  description,
+  onClick,
+}: ToggleProps) {
+  return (
+    <span onClick={onClick}>
+      <Switch.Group>
+        <div className="flex items-center">
+          <div className="mr-4">
+            {label ? (
+              <Switch.Label className="block">
+                <h3>{label}</h3>
+              </Switch.Label>
+            ) : null}
+            {description ? (
+              <Switch.Description className="block">
+                {description}
+              </Switch.Description>
+            ) : null}
+          </div>
+          <Switch
+            checked={enabled}
+            onChange={setEnabled}
+            className={`${
+              enabled ? "bg-primary" : "bg-primary-lighter"
+            } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary`}
+          >
+            <span
+              className={`${
+                enabled ? "translate-x-6" : "translate-x-1"
+              } inline-block w-4 h-4 transform bg-secondary rounded-full transition-transform`}
+            />
+          </Switch>
+        </div>
+      </Switch.Group>
+    </span>
+  );
+}
