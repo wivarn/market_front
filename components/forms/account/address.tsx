@@ -6,7 +6,7 @@ import { Form, Formik, FormikProps } from "formik";
 import { Address } from "types/account";
 import { AddressApi } from "services/backendApi/address";
 import FormContainer from "../container";
-import { SubmitButton } from "components/buttons";
+import { SubmitButtonFull } from "components/buttons";
 import { createRef } from "react";
 import { toast } from "react-toastify";
 import useSWR from "swr";
@@ -262,7 +262,7 @@ export default function AddressForm() {
             {stateSelect(formik)}
             {zipField(formik.getFieldProps("country").value)}
 
-            <SubmitButton
+            <SubmitButtonFull
               text="Update Address"
               disabled={formik.isSubmitting}
             />

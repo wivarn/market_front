@@ -8,7 +8,7 @@ import useSWR, { mutate } from "swr";
 import FormContainer from "../container";
 import Link from "next/link";
 import { ProfileApi } from "services/backendApi/profile";
-import { SubmitButton } from "components/buttons";
+import { SubmitButtonFull } from "components/buttons";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
 
@@ -131,7 +131,10 @@ export default function ProfileForm() {
               disabled={true}
             />
 
-            <SubmitButton text="Update" disabled={formik.isSubmitting} />
+            <SubmitButtonFull
+              text="Update Profile"
+              disabled={formik.isSubmitting}
+            />
           </Form>
         )}
       </Formik>

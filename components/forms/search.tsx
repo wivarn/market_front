@@ -2,8 +2,8 @@ import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
 
+import { SearchField } from "./fields";
 import { SubmitButton } from "components/buttons";
-import { TextField } from "./fields";
 import { useRouter } from "next/router";
 
 interface Values {
@@ -34,7 +34,7 @@ export default function SearchForm() {
         <Form>
           <div className="inline-flex items-center gap-2">
             <div className="max-w-xs">
-              <TextField
+              <SearchField
                 name="search"
                 type="text"
                 placeholder="Search for anything"

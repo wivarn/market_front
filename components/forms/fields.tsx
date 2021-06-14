@@ -26,6 +26,11 @@ type LongTextFieldProps = FieldHookConfig<string> &
     label?: string | JSX.Element;
   };
 
+// Style variables for the fields
+const labelClass = "p-1 block text-xs font-medium text-accent-darker";
+const inputClass = "w-full p-2 border rounded-md border-accent";
+
+// General text field
 export type ComboBoxOption = {
   value: string;
   text: string;
