@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PrimaryButton } from "components/buttons";
+import { PrimaryButton, SecondaryButton } from "components/buttons";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -36,8 +36,8 @@ export default function ListingTabs({
         <h2 className="inline-block m-6 text-accent-darkest">
           What would you like to sell?
         </h2>
-        <PrimaryButton text="+ New Listing" href="listings/new" />
-        <PrimaryButton text="Listing Template" href="listings/template" />
+        <PrimaryButton text="New Listing" href="listings/new" />
+        <SecondaryButton text="Listing Template" href="listings/template" />
       </div>
       <div className="flex p-4 mb-8 space-x-8 font-semibold text-accent-darker">
         <LinkWrapper
