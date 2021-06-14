@@ -251,7 +251,7 @@ export const DropdownCombobox = ({
       </div>
       <ul
         {...getMenuProps()}
-        className={`${isOpen ? "border rounded-md border-accent " : ""}`}
+        className={`${isOpen ? "border rounded-md border-accent mt-1" : ""}`}
       >
         {isOpen &&
           inputItems.map((item, index) => (
@@ -259,8 +259,8 @@ export const DropdownCombobox = ({
               key={`${item}${index}`}
               {...getItemProps({ item, index, disabled: item.disabled })}
               className={
-                "p-1 m-1 " +
-                `${index === highlightedIndex ? "bg-primary" : ""}` +
+                "p-2 m-1 " +
+                `${index === highlightedIndex ? "bg-accent-darker text-accent-lightest rounded-md" : ""}` +
                 `${item.disabled ? "bg-primary-dark" : ""}`
               }
             >
