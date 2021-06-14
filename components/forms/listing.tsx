@@ -108,7 +108,7 @@ const collectibleList = [
   { value: "OTHER", text: "Other" },
 ];
 
-const subcategoryRef = createRef<HTMLInputElement>();
+const subcategoryRef = createRef<HTMLSpanElement>();
 
 function subCategoryCombobox(formik: FormikProps<any>) {
   const category = formik.getFieldProps("category").value;
@@ -137,7 +137,7 @@ function subCategoryCombobox(formik: FormikProps<any>) {
       formik={formik}
       placeholder={placeholder}
       disabled={!category}
-      inputRef={subcategoryRef}
+      resetRef={subcategoryRef}
     />
   );
 }
@@ -219,7 +219,7 @@ const ListingForm = (props: Listing) => {
                 items={categoryList}
                 formik={formik}
                 placeholder="Select a category"
-                childInputRef={subcategoryRef}
+                childresetRef={subcategoryRef}
               />
 
               {subCategoryCombobox(formik)}

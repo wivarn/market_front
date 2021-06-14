@@ -48,8 +48,8 @@ type ComboBoxProps = {
   formik: FormikProps<any>;
   placeholder?: string;
   disabled?: boolean;
-  inputRef?: RefObject<HTMLInputElement>;
-  childInputRef?: RefObject<HTMLInputElement>;
+  resetRef?: RefObject<HTMLSpanElement>;
+  childresetRef?: RefObject<HTMLSpanElement>;
 };
 
 export const TextField = ({ label, ...props }: TextFieldProps) => {
@@ -179,7 +179,8 @@ export const DropdownCombobox = ({
   formik,
   placeholder,
   disabled,
-  inputRef,
+  resetRef,
+  childresetRef,
 }: ComboBoxProps) => {
   const [inputItems, setInputItems] = useState(items);
   const itemToString = (item: any) => (item ? item.text : "");
@@ -209,19 +210,22 @@ export const DropdownCombobox = ({
     onIsOpenChange: ({ inputValue }) => itemFilter(inputValue),
     onSelectedItemChange: ({ selectedItem }) => {
       formik.setFieldValue(name, selectedItem?.value);
+      if (childresetRef?.current) {
+        childresetRef.current.click();
+      }
     },
   });
 
   return (
     <div className="w-max">
-      <TextField name={name} />
+      <TextField name={name} hidden={true} />
 
       {label ? <label {...getLabelProps()}>{label}</label> : null}
 
       <div {...getComboboxProps()} className="block">
         <input
           {...getToggleButtonProps()}
-          {...getInputProps({ ref: inputRef })}
+          {...getInputProps()}
           className="inline-block px-2 py-1 border rounded-md border-accent"
           placeholder={placeholder}
           disabled={disabled}
@@ -234,6 +238,7 @@ export const DropdownCombobox = ({
           }}
           aria-label="clear selection"
           className="inline-block"
+          ref={resetRef}
         >
           <SmallXIcon />
         </span>
