@@ -16,6 +16,7 @@ import { Listing } from "types/listings";
 import { ListingApi } from "services/backendApi/listing";
 import _ from "lodash";
 import { condition } from "constants/listings";
+import { createRef } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
@@ -107,6 +108,8 @@ const collectibleList = [
   { value: "OTHER", text: "Other" },
 ];
 
+const subcategoryRef = createRef<HTMLInputElement>();
+
 function subCategoryCombobox(formik: FormikProps<any>) {
   const category = formik.getFieldProps("category").value;
   const placeholder = category
@@ -134,6 +137,7 @@ function subCategoryCombobox(formik: FormikProps<any>) {
       formik={formik}
       placeholder={placeholder}
       disabled={!category}
+      inputRef={subcategoryRef}
     />
   );
 }
@@ -215,6 +219,7 @@ const ListingForm = (props: Listing) => {
                 items={categoryList}
                 formik={formik}
                 placeholder="Select a category"
+                childInputRef={subcategoryRef}
               />
 
               {subCategoryCombobox(formik)}

@@ -8,6 +8,7 @@ import {
 import { FieldHookConfig, FormikProps, useField } from "formik";
 import { SmallArrowNarrowDown, SmallXIcon } from "components/icons";
 
+import { RefObject } from "react";
 import { anyObject } from "types/object";
 import { useCombobox } from "downshift";
 
@@ -47,6 +48,8 @@ type ComboBoxProps = {
   formik: FormikProps<any>;
   placeholder?: string;
   disabled?: boolean;
+  inputRef?: RefObject<HTMLInputElement>;
+  childInputRef?: RefObject<HTMLInputElement>;
 };
 
 export const TextField = ({ label, ...props }: TextFieldProps) => {
@@ -176,15 +179,18 @@ export const DropdownCombobox = ({
   formik,
   placeholder,
   disabled,
+  inputRef,
 }: ComboBoxProps) => {
   const [inputItems, setInputItems] = useState(items);
   const itemToString = (item: any) => (item ? item.text : "");
   const itemFilter = (inputValue: string | undefined) => {
-    setInputItems(
-      items.filter((item) =>
-        itemToString(item).toLowerCase().startsWith(inputValue?.toLowerCase())
-      )
-    );
+    if (!disabled) {
+      setInputItems(
+        items.filter((item) =>
+          itemToString(item).toLowerCase().startsWith(inputValue?.toLowerCase())
+        )
+      );
+    }
   };
   const {
     isOpen,
@@ -205,6 +211,7 @@ export const DropdownCombobox = ({
       formik.setFieldValue(name, selectedItem?.value);
     },
   });
+
   return (
     <div className="w-max">
       <TextField name={name} />
@@ -214,14 +221,16 @@ export const DropdownCombobox = ({
       <div {...getComboboxProps()} className="block">
         <input
           {...getToggleButtonProps()}
-          {...getInputProps()}
+          {...getInputProps({ ref: inputRef })}
           className="inline-block px-2 py-1 border rounded-md border-accent"
           placeholder={placeholder}
           disabled={disabled}
         />
         <span
           onClick={() => {
-            selectItem({ value: "", text: "" });
+            if (!disabled) {
+              selectItem({ value: "", text: "" });
+            }
           }}
           aria-label="clear selection"
           className="inline-block"
