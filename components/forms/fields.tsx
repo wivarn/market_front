@@ -28,7 +28,8 @@ type LongTextFieldProps = FieldHookConfig<string> &
 
 // Style variables for the fields
 const labelClass = "p-1 block text-xs font-medium text-accent-darker";
-const inputClass = "w-full p-2 border rounded-md border-accent";
+const inputClassFull = "w-full p-2 border rounded-md border-accent";
+const inputClass = "p-2 border rounded-md w-72 border-accent";
 
 // General text field
 export type ComboBoxOption = {
@@ -63,12 +64,12 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
   return (
     <div className="my-2 text-accent-darkest">
       {label ? (
-        <label htmlFor={props.name} className="block text-sm font-semibold">
+        <label htmlFor={props.name} className={labelClass}>
           {label}
         </label>
       ) : null}
       <input
-        className="px-2 py-1 border rounded-md w-72 border-accent"
+        className={inputClass}
         {...field}
         {...props}
       />
@@ -84,12 +85,12 @@ export const TextFieldFull = ({ label, ...props }: TextFieldProps) => {
   return (
     <div className="my-2 text-accent-darkest">
       {label ? (
-        <label htmlFor={props.name} className="block text-sm font-semibold">
+        <label htmlFor={props.name} className={labelClass}>
           {label}
         </label>
       ) : null}
       <input
-        className="w-full px-2 py-1 border rounded-md border-accent"
+        className={inputClassFull}
         {...field}
         {...props}
       />
@@ -105,12 +106,33 @@ export const LongTextField = ({ label, ...props }: LongTextFieldProps) => {
   return (
     <div className="my-2 text-accent-darkest">
       {label ? (
-        <label htmlFor={props.name} className="block text-sm font-semibold">
+        <label htmlFor={props.name} className={labelClass}>
           {label}
         </label>
       ) : null}
       <textarea
-        className="px-2 py-1 border rounded-md w-72 border-accent"
+        className="px-2 py-1 border rounded-md w- border-accent"
+        {...field}
+        {...props}
+      />
+      {meta.touched && meta.error ? (
+        <div className="text-error">{meta.error}</div>
+      ) : null}
+    </div>
+  );
+};
+
+export const SearchField = ({ label, ...props }: TextFieldProps) => {
+  const [field, meta] = useField(props);
+  return (
+    <div className="my-2 text-accent-darkest">
+      {label ? (
+        <label htmlFor={props.name} className={labelClass}>
+          {label}
+        </label>
+      ) : null}
+      <input
+        className={"px-2 py-1 border rounded-full w-72 border-accent"}
         {...field}
         {...props}
       />
@@ -126,13 +148,13 @@ export const NumberField = ({ label, ...props }: TextFieldProps) => {
   return (
     <div className="my-2 text-accent-darkest">
       {label ? (
-        <label htmlFor={props.name} className="block text-sm font-semibold">
+        <label htmlFor={props.name} className={labelClass}>
           {label}
         </label>
       ) : null}
       <input
         type="number"
-        className="px-2 py-1 border rounded-md w-72 border-accent"
+        className={inputClass}
         {...field}
         {...props}
       />
@@ -193,13 +215,17 @@ export const DropdownCombobox = ({
 
   return (
     <div className="w-max" hidden={hidden}>
-      {label ? <label {...getLabelProps()}>{label}</label> : null}
+      {label ? (
+        <label className={labelClass} {...getLabelProps()}>
+          {label}
+        </label>
+      ) : null}
 
       <div {...getComboboxProps()} className="block">
         <input
           {...getToggleButtonProps()}
           {...getInputProps()}
-          className="inline-block px-2 py-1 border rounded-md border-accent"
+          className={inputClass}
           placeholder={placeholder}
           disabled={disabled}
         />
