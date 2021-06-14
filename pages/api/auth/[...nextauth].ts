@@ -3,7 +3,6 @@ import NextAuth, { User } from "next-auth";
 import { AuthApi } from "services/backendApi/auth";
 import { JWT } from "next-auth/jwt";
 import Providers from "next-auth/providers";
-import { anyObject } from "types/object";
 import jwtDecode from "jwt-decode";
 
 process.env.NEXTAUTH_URL = process.env.NEXTAUTH_URL || process.env.VERCEL_URL;
@@ -87,7 +86,7 @@ export default NextAuth({
 
     async session(session, token: JWT) {
       session.accessToken = token.accessToken;
-      session.accountId = jwtDecode<anyObject>(token.accessToken).account_id;
+      session.accountId = jwtDecode<any>(token.accessToken).account_id;
       return session;
     },
   },

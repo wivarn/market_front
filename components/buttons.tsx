@@ -55,7 +55,7 @@ export const SubmitButton = (props: Props) => {
   );
 };
 
-export const SubmitButtonWide = (props: Props) => {
+export const SubmitButtonFull = (props: Props) => {
   return (
     <button
       type="submit"

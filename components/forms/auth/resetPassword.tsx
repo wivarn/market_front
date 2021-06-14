@@ -3,9 +3,9 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 
 import { AuthApi } from "services/backendApi/auth";
-import FormContainer from "../container";
+import AuthFormContainer from "./container";
 import { SubmitButton } from "components/buttons";
-import { TextField } from "../fields";
+import { TextFieldFull } from "../fields";
 import { signIn } from "next-auth/client";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
@@ -32,7 +32,7 @@ export default function ResetPasswordForm() {
   if (!key) return <div>Spinner</div>;
 
   return (
-    <FormContainer>
+    <AuthFormContainer>
       <h3>Reset Password</h3>
       <Formik
         initialValues={{ password: "", passwordConfirmation: "" }}
@@ -64,8 +64,12 @@ export default function ResetPasswordForm() {
       >
         {(props) => (
           <Form>
-            <TextField name="password" type="password" placeholder="Password" />
-            <TextField
+            <TextFieldFull
+              name="password"
+              type="password"
+              placeholder="Password"
+            />
+            <TextFieldFull
               name="passwordConfirmation"
               type="password"
               placeholder="Password Confirmation"
@@ -75,6 +79,6 @@ export default function ResetPasswordForm() {
           </Form>
         )}
       </Formik>
-    </FormContainer>
+    </AuthFormContainer>
   );
 }

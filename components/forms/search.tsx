@@ -22,11 +22,12 @@ export default function SearchForm() {
         query: "",
       }}
       validationSchema={querySchema}
-      onSubmit={(values: Values) => {
+      onSubmit={(values: Values, actions) => {
         router.push({
           pathname: "/listings/search",
           query: { query: values.query },
         });
+        actions.setSubmitting(false);
       }}
     >
       {({ isSubmitting }) => (

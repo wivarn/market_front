@@ -1,91 +1,91 @@
 import * as Yup from "yup";
 
-import { Form, Formik, yupToFormErrors } from "formik";
-import { SelectBox, TextField } from "../fields";
+import { ComboBoxOption, DropdownCombobox, TextField } from "../fields";
+import { Form, Formik, FormikProps } from "formik";
 
 import { Address } from "types/account";
 import { AddressApi } from "services/backendApi/address";
 import FormContainer from "../container";
-import { SubmitButtonWide } from "components/buttons";
-import { anyObject } from "types/object";
+import { SubmitButtonFull } from "components/buttons";
+import { createRef } from "react";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
-const countryList = {
-  CAN: "Canada",
-  USA: "United States of America",
-};
+const countryList = [
+  { value: "CAN", text: "Canada" },
+  { value: "USA", text: "United States of America" },
+];
 
-const provinceList = {
-  AB: "Alberta",
-  BC: "British Columbia",
-  MB: "Manitoba",
-  NB: "New Brunswick",
-  NL: "Newfoundland and Labrador",
-  NT: "Northwest Territories",
-  NS: "Nova Scotia",
-  NU: "Nunavut",
-  ON: "Ontario",
-  PE: "Prince Edward Island",
-  QC: "Quebec",
-  SK: "Saskatchewan",
-  YT: "Yukon",
-};
+const provinceList = [
+  { value: "AB", text: "Alberta" },
+  { value: "BC", text: "British Columbia" },
+  { value: "MB", text: "Manitoba" },
+  { value: "NB", text: "New Brunswick" },
+  { value: "NL", text: "Newfoundland and Labrador" },
+  { value: "NT", text: "Northwest Territories" },
+  { value: "NS", text: "Nova Scotia" },
+  { value: "NU", text: "Nunavut" },
+  { value: "ON", text: "Ontario" },
+  { value: "PE", text: "Prince Edward Island" },
+  { value: "QC", text: "Quebec" },
+  { value: "SK", text: "Saskatchewan" },
+  { value: "YT", text: "Yukon" },
+];
 
-const stateList = {
-  AL: "Alabama",
-  AK: "Alaska",
-  AZ: "Arizona",
-  AR: "Arkansas",
-  CA: "California",
-  CO: "Colorado",
-  CT: "Connecticut",
-  DE: "Delaware",
-  DC: "District Of Columbia",
-  FL: "Florida",
-  GA: "Georgia",
-  HI: "Hawaii",
-  ID: "Idaho",
-  IL: "Illinois",
-  IN: "Indiana",
-  IA: "Iowa",
-  KS: "Kansas",
-  KY: "Kentucky",
-  LA: "Louisiana",
-  ME: "Maine",
-  MD: "Maryland",
-  MA: "Massachusetts",
-  MI: "Michigan",
-  MN: "Minnesota",
-  MS: "Mississippi",
-  MO: "Missouri",
-  MT: "Montana",
-  NE: "Nebraska",
-  NV: "Nevada",
-  NH: "New Hampshire",
-  NJ: "New Jersey",
-  NM: "New Mexico",
-  NY: "New York",
-  NC: "North Carolina",
-  ND: "North Dakota",
-  OH: "Ohio",
-  OK: "Oklahoma",
-  OR: "Oregon",
-  PA: "Pennsylvania",
-  RI: "Rhode Island",
-  SC: "South Carolina",
-  SD: "South Dakota",
-  TN: "Tennessee",
-  TX: "Texas",
-  UT: "Utah",
-  VT: "Vermont",
-  VA: "Virginia",
-  WA: "Washington",
-  WV: "West Virginia",
-  WI: "Wisconsin",
-  WY: "Wyoming",
-};
+const stateList = [
+  { value: "AL", text: "Alabama" },
+  { value: "AK", text: "Alaska" },
+  { value: "AZ", text: "Arizona" },
+  { value: "AR", text: "Arkansas" },
+  { value: "CA", text: "California" },
+  { value: "CO", text: "Colorado" },
+  { value: "CT", text: "Connecticut" },
+  { value: "DE", text: "Delaware" },
+  { value: "DC", text: "District Of Columbia" },
+  { value: "FL", text: "Florida" },
+  { value: "GA", text: "Georgia" },
+  { value: "HI", text: "Hawaii" },
+  { value: "ID", text: "Idaho" },
+  { value: "IL", text: "Illinois" },
+  { value: "IN", text: "Indiana" },
+  { value: "IA", text: "Iowa" },
+  { value: "KS", text: "Kansas" },
+  { value: "KY", text: "Kentucky" },
+  { value: "LA", text: "Louisiana" },
+  { value: "ME", text: "Maine" },
+  { value: "MD", text: "Maryland" },
+  { value: "MA", text: "Massachusetts" },
+  { value: "MI", text: "Michigan" },
+  { value: "MN", text: "Minnesota" },
+  { value: "MS", text: "Mississippi" },
+  { value: "MO", text: "Missouri" },
+  { value: "MT", text: "Montana" },
+  { value: "NE", text: "Nebraska" },
+  { value: "NV", text: "Nevada" },
+  { value: "NH", text: "New Hampshire" },
+  { value: "NJ", text: "New Jersey" },
+  { value: "NM", text: "New Mexico" },
+  { value: "NY", text: "New York" },
+  { value: "NC", text: "North Carolina" },
+  { value: "ND", text: "North Dakota" },
+  { value: "OH", text: "Ohio" },
+  { value: "OK", text: "Oklahoma" },
+  { value: "OR", text: "Oregon" },
+  { value: "PA", text: "Pennsylvania" },
+  { value: "RI", text: "Rhode Island" },
+  { value: "SC", text: "South Carolina" },
+  { value: "SD", text: "South Dakota" },
+  { value: "TN", text: "Tennessee" },
+  { value: "TX", text: "Texas" },
+  { value: "UT", text: "Utah" },
+  { value: "VT", text: "Vermont" },
+  { value: "VA", text: "Virginia" },
+  { value: "WA", text: "Washington" },
+  { value: "WV", text: "West Virginia" },
+  { value: "WI", text: "Wisconsin" },
+  { value: "WY", text: "Wyoming" },
+];
 
 const addressSchema = Yup.object().shape({
   street1: Yup.string()
@@ -101,10 +101,17 @@ const addressSchema = Yup.object().shape({
     .when("country", {
       is: "CAN",
       then: Yup.mixed().oneOf(
-        Object.keys(provinceList),
+        provinceList.map((province) => {
+          return province.value;
+        }),
         "invalid Province/Territory"
       ),
-      otherwise: Yup.mixed().oneOf(Object.keys(stateList), "invalid state"),
+      otherwise: Yup.mixed().oneOf(
+        stateList.map((state) => {
+          return state.value;
+        }),
+        "invalid state"
+      ),
     })
     .required("Required"),
   zip: Yup.mixed()
@@ -119,10 +126,20 @@ const addressSchema = Yup.object().shape({
         .length(5, "invalid zip code"),
     })
     .required("Required"),
-  country: Yup.mixed().oneOf(Object.keys(countryList), "invalid country"),
+  country: Yup.mixed()
+    .oneOf(
+      countryList.map((country) => {
+        return country.value;
+      }),
+      "invalid country"
+    )
+    .required("Required"),
 });
 
-function stateSelect(country: string) {
+const stateRef = createRef<HTMLSpanElement>();
+
+function stateSelect(formik: FormikProps<any>) {
+  const country = formik.values.country;
   const placeholder = country ? "" : "Select country first";
 
   if (!country) {
@@ -132,18 +149,20 @@ function stateSelect(country: string) {
   }
 
   if (!country) {
-    var options: anyObject = {};
+    var items: ComboBoxOption[] = [];
   } else {
-    var options: anyObject = country == "CAN" ? provinceList : stateList;
+    var items: ComboBoxOption[] = country == "CAN" ? provinceList : stateList;
   }
 
   return (
-    <SelectBox
+    <DropdownCombobox
       label={label}
       name="state"
       placeholder={placeholder}
-      options={options}
+      items={items}
+      formik={formik}
       disabled={!country}
+      resetRef={stateRef}
     />
   );
 }
@@ -209,7 +228,7 @@ export default function AddressForm() {
           country: address.country || "",
         }}
         validationSchema={addressSchema}
-        onSubmit={async (values) => {
+        onSubmit={(values, actions) => {
           AddressApi(session?.accessToken)
             .update(trimValues(values))
             .then(() => {
@@ -217,28 +236,33 @@ export default function AddressForm() {
             })
             .catch((error) => {
               toast.error(JSON.stringify(error.response.data));
+            })
+            .finally(() => {
+              actions.setSubmitting(false);
             });
         }}
       >
         {(formik) => (
           <Form>
-            <SelectBox
+            <DropdownCombobox
               label="Country"
               name="country"
               placeholder={
                 formik.getFieldProps("country").value ? "" : "Select country"
               }
-              options={countryList}
+              items={countryList}
+              formik={formik}
+              childresetRef={stateRef}
             />
 
             <TextField label="Address Line 1" name="street1" type="text" />
             <TextField label="Address Line 2" name="street2" type="text" />
             <TextField label="City" name="city" type="text" />
 
-            {stateSelect(formik.getFieldProps("country").value)}
+            {stateSelect(formik)}
             {zipField(formik.getFieldProps("country").value)}
 
-            <SubmitButtonWide
+            <SubmitButtonFull
               text="Update Address"
               disabled={formik.isSubmitting}
             />

@@ -3,9 +3,9 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 
 import { AuthApi } from "services/backendApi/auth";
-import FormContainer from "../container";
+import AuthFormContainer from "./container";
 import { SubmitButton } from "components/buttons";
-import { TextField } from "../fields";
+import { TextFieldFull } from "../fields";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
@@ -16,14 +16,14 @@ const unlockAccountSchema = Yup.object().shape({
 export default function UnlockAccountForm() {
   const router = useRouter();
   return (
-    <FormContainer>
+    <AuthFormContainer>
       <h3>Unlock Account Request</h3>
       <Formik
         initialValues={{
           email: "",
         }}
         validationSchema={unlockAccountSchema}
-        onSubmit={async (values) => {
+        onSubmit={(values, actions) => {
           AuthApi()
             .unlockAccountRequest(values.email)
             .then((response) => {
@@ -32,17 +32,20 @@ export default function UnlockAccountForm() {
             })
             .catch((error) => {
               toast.error(error.response.data.error);
+            })
+            .finally(() => {
+              actions.setSubmitting(false);
             });
         }}
       >
         {({ isSubmitting }) => (
           <Form>
-            <TextField name="email" type="email" placeholder="Email" />
+            <TextFieldFull name="email" type="email" placeholder="Email" />
 
             <SubmitButton text="Send Unlock Reset" disabled={isSubmitting} />
           </Form>
         )}
       </Formik>
-    </FormContainer>
+    </AuthFormContainer>
   );
 }
