@@ -27,7 +27,7 @@ type LongTextFieldProps = FieldHookConfig<string> &
   };
 
 // Style variables for the fields
-const labelClass = "p-1 block text-xs font-medium text-accent-darker";
+const labelClass = "p-1 block text-sm font-medium text-accent-darker";
 const inputClassFull = "w-full p-2 border rounded-md border-accent";
 const inputClass = "p-2 border rounded-md w-72 border-accent";
 
@@ -111,7 +111,7 @@ export const LongTextField = ({ label, ...props }: LongTextFieldProps) => {
         </label>
       ) : null}
       <textarea
-        className="px-2 py-1 border rounded-md w- border-accent"
+        className={inputClass}
         {...field}
         {...props}
       />
