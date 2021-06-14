@@ -132,7 +132,7 @@ export const SearchField = ({ label, ...props }: TextFieldProps) => {
         </label>
       ) : null}
       <input
-        className={"px-2 py-1 border rounded-full w-72 border-accent"}
+        className="w-64 px-2 py-1 border rounded-full border-accent"
         {...field}
         {...props}
       />
