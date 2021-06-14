@@ -175,7 +175,9 @@ export const DropdownCombobox = ({
     itemToString,
     initialInputValue: formik.values[name],
     onInputValueChange: ({ inputValue }) => itemFilter(inputValue),
-    onIsOpenChange: ({ inputValue }) => itemFilter(inputValue),
+    onIsOpenChange: () => {
+      setInputItems(items);
+    },
     onSelectedItemChange: ({ selectedItem }) => {
       formik.setFieldValue(name, selectedItem?.value);
       if (childresetRef?.current) {
