@@ -1,9 +1,9 @@
 @layer components {
   .icon-xs {
-    @apply h-2 w-2;
+    @apply h-4 w-4;
   }
   .icon-sm {
-    @apply h-4 w-4;
+    @apply h-6 w-6;
   }
 
   .icon {

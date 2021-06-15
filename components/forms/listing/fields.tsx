@@ -6,10 +6,7 @@ import {
   useState,
 } from "react";
 import { FieldHookConfig, FormikProps, useField } from "formik";
-import {
-  SmChevronDownIcon,
-  SmXIcon,
-} from "components/icons";
+import { SmChevronDownIcon, SmXIcon } from "components/icons";
 
 import { Dispatch } from "react";
 import { RefObject } from "react";
@@ -19,6 +16,8 @@ import { useCombobox } from "downshift";
 type TextFieldProps = FieldHookConfig<string> &
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
     label?: string | JSX.Element;
+    description?: string;
+    currency?: string;
   };
 
 type LongTextFieldProps = FieldHookConfig<string> &
@@ -27,16 +26,17 @@ type LongTextFieldProps = FieldHookConfig<string> &
     HTMLTextAreaElement
   > & {
     label?: string | JSX.Element;
+    description?: string;
   };
 
 // Style variables for the fields
-const labelClass = "p-1 block text-sm font-medium text-accent-darker";
-const descriptionClass = "p-1 block text-sm font-normal text-accent-dark";
-const inputClassFull = "w-full p-2 border rounded-md border-accent";
-const inputClass = "p-2 border rounded-md w-72 border-accent";
+const labelClass = "p-1 text-base font-medium text-accent-darker";
+const descriptionClass = "mr-4 block text-xs font-normal text-accent-dark";
+const inputClassFull = "relative w-full p-2 border rounded-md border-accent";
+const inputClass = "relative p-2 border rounded-md w-96 border-accent";
+const fieldClass = "items-center my-2 py-2 grid-cols-1 mx-auto space-y-4 lg:grid-cols-3 md:grid-cols-2 grid w-full"
 
-// General text field
-export type ComboBoxOption = {
+export type ListingComboBoxOption = {
   value: string;
   text: string;
   parent?: string;
@@ -45,8 +45,9 @@ export type ComboBoxOption = {
 
 type ComboBoxProps = {
   name: string;
-  items: ComboBoxOption[];
+  items: ListingComboBoxOption[];
   label?: string;
+  description?: string;
   formik: FormikProps<any>;
   placeholder?: string;
   disabled?: boolean;
@@ -63,99 +64,72 @@ type ToggleProps = {
   onClick?: () => Promise<void>;
 };
 
-export const TextField = ({ label, ...props }: TextFieldProps) => {
+export const ListingTextField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-accent-darkest">
+    <div className={fieldClass}>
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
+          <span className={descriptionClass}>{props.description}</span>
         </label>
       ) : null}
-      <input className={inputClass} {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className="text-error">{meta.error}</div>
-      ) : null}
-    </div>
-  );
-};
-
-export const TextFieldFull = ({ label, ...props }: TextFieldProps) => {
-  const [field, meta] = useField(props);
-  return (
-    <div className="my-2 text-accent-darkest">
-      {label ? (
-        <label htmlFor={props.name} className={labelClass}>
-          {label}
-        </label>
-      ) : null}
+      <div className="col-span-2">
       <input className={inputClassFull} {...field} {...props} />
       {meta.touched && meta.error ? (
         <div className="text-error">{meta.error}</div>
       ) : null}
+      </div>
+
     </div>
   );
 };
 
-export const LongTextField = ({ label, ...props }: LongTextFieldProps) => {
+
+export const ListingLongTextField = ({ label, ...props }: LongTextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-accent-darkest">
+    <div className={fieldClass}>
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
+          <span className={descriptionClass}>{props.description}</span>
         </label>
       ) : null}
-      <textarea className={inputClass} {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className="text-error">{meta.error}</div>
-      ) : null}
+      <div className="col-span-2">
+        <textarea className={inputClassFull} {...field} {...props} />
+        {meta.touched && meta.error ? (
+          <div className="text-error">{meta.error}</div>
+        ) : null}
+      </div>
     </div>
   );
 };
 
-export const SearchField = ({ label, ...props }: TextFieldProps) => {
+export const ListingNumberField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-accent-darkest">
+    <div className={fieldClass}>
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
+          <span className={descriptionClass}>{props.description}</span>
         </label>
       ) : null}
-      <input
-        className="w-64 px-2 py-1 border rounded-full border-accent"
-        {...field}
-        {...props}
-      />
-      {meta.touched && meta.error ? (
-        <div className="text-error">{meta.error}</div>
-      ) : null}
+        <input type="number" className={inputClassFull} {...field} {...props} />
+        <span className="p-2">{props.currency}</span>
+        {meta.touched && meta.error ? (
+          <div className="text-error">{meta.error}</div>
+        ) : null}
     </div>
   );
 };
 
-export const NumberField = ({ label, ...props }: TextFieldProps) => {
-  const [field, meta] = useField(props);
-  return (
-    <div className="my-2 text-accent-darkest">
-      {label ? (
-        <label htmlFor={props.name} className={labelClass}>
-          {label}
-        </label>
-      ) : null}
-      <input type="number" className={inputClass} {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className="text-error">{meta.error}</div>
-      ) : null}
-    </div>
-  );
-};
-
-export const DropdownCombobox = ({
+export const ListingDropdownCombobox = ({
   name,
   items,
   label,
+  description,
   formik,
   placeholder,
   disabled,
@@ -201,21 +175,21 @@ export const DropdownCombobox = ({
   });
 
   return (
-    <div className="w-max" hidden={hidden}>
+    <div className={fieldClass} hidden={hidden}>
       {label ? (
         <label className={labelClass} {...getLabelProps()}>
           {label}
+          <span className={descriptionClass}>{description}</span>
         </label>
       ) : null}
 
-      <div {...getComboboxProps()} className="relative block">
+      <div {...getComboboxProps()} className="relative">
         <input
           {...getToggleButtonProps()}
           {...getInputProps()}
-          className={inputClass}
+          className={inputClassFull}
           placeholder={placeholder}
           disabled={disabled}
-          tabIndex="0"
         />
         <span
           onClick={() => {
@@ -236,36 +210,40 @@ export const DropdownCombobox = ({
         >
           <SmChevronDownIcon />
         </span>
+        <ul
+          {...getMenuProps()}
+          className={`${
+            isOpen
+              ? "absolute w-full border z-50 bg-white rounded-md border-accent mt-1"
+              : ""
+          }`}
+        >
+          {isOpen &&
+            inputItems.map((item, index) => (
+              <li
+                key={`${item}${index}`}
+                {...getItemProps({ item, index, disabled: item.disabled })}
+                className={
+                  "p-2 m-1 " +
+                  `${
+                    index === highlightedIndex
+                      ? "bg-accent-darker text-accent-lightest rounded-md"
+                      : ""
+                  }` +
+                  `${item.disabled ? "bg-primary-dark" : ""}`
+                }
+              >
+                {item.text}
+              </li>
+            ))}
+        </ul>
       </div>
-      <ul
-        {...getMenuProps()}
-        className={`${isOpen ? "border rounded-md border-accent mt-1" : ""}`}
-      >
-        {isOpen &&
-          inputItems.map((item, index) => (
-            <li
-              key={`${item}${index}`}
-              {...getItemProps({ item, index, disabled: item.disabled })}
-              className={
-                "p-2 m-1 " +
-                `${
-                  index === highlightedIndex
-                    ? "bg-accent-darker text-accent-lightest rounded-md"
-                    : ""
-                }` +
-                `${item.disabled ? "bg-primary-dark" : ""}`
-              }
-            >
-              {item.text}
-            </li>
-          ))}
-      </ul>
-      <TextField name={name} hidden={true} />
+      <ListingTextField name={name} hidden={true} />
     </div>
   );
 };
 
-export function Toggle({
+export function ListingToggle({
   enabled,
   setEnabled,
   label,
@@ -275,32 +253,34 @@ export function Toggle({
   return (
     <span onClick={onClick}>
       <Switch.Group>
-        <div className="flex items-center">
-          <div className="mr-4">
+        <div className={fieldClass}>
+          <div className="">
             {label ? (
               <Switch.Label className={labelClass}>
-                <p>{label}</p>
+              {label}
               </Switch.Label>
             ) : null}
             {description ? (
               <Switch.Description className={descriptionClass}>
-                {description}
+              {description}
               </Switch.Description>
             ) : null}
           </div>
-          <Switch
-            checked={enabled}
-            onChange={setEnabled}
-            className={`${
-              enabled ? "bg-success" : "bg-success-lighter"
-            } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-success`}
-          >
-            <span
+          <div className="">
+            <Switch
+              checked={enabled}
+              onChange={setEnabled}
               className={`${
-                enabled ? "translate-x-6" : "translate-x-1"
-              } inline-block w-4 h-4 transform bg-secondary rounded-full transition-transform`}
-            />
-          </Switch>
+                enabled ? "bg-success" : "bg-success-lighter"
+              } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-success`}
+            >
+              <span
+                className={`${
+                  enabled ? "translate-x-6" : "translate-x-1"
+                } inline-block w-4 h-4 transform bg-accent-lightest rounded-full transition-transform`}
+              />
+            </Switch>
+          </div>
         </div>
       </Switch.Group>
     </span>

@@ -1,7 +1,7 @@
 import { PrimaryButton, SubmitButton } from "components/buttons";
 
 import Image from "next/image";
-import { LargeUserCircleIcon } from "components/icons";
+import { LgUserCircleIcon } from "components/icons";
 import { Listing } from "types/listings";
 import ListingBasicInfo from "./basicInfo";
 import { useSession } from "next-auth/client";
@@ -42,7 +42,7 @@ const ListingDetails = (props: Listing) => {
               )}
             </div>
             <div className="pt-10">
-              <LargeUserCircleIcon />
+              <LgUserCircleIcon />
               <span className="float-right">
                 <h2>{props.sellerName}</h2>
                 <div className="text-sm text-accent">Location</div>

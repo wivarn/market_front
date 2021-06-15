@@ -32,7 +32,7 @@ export const SecondaryButton = (props: PropsWithHref) => {
       <a>
         <button
           type="button"
-          className="px-2 py-1 my-1 font-medium border-2 rounded-md border-info text-info bg-info-lightest hover:bg-info-lighter"
+          className="px-2 py-1 my-1 font-medium border rounded-md border-info text-info bg-info-lightest hover:bg-info-lighter"
           disabled={props.disabled}
         >
           {props.text}
@@ -46,7 +46,20 @@ export const SubmitButton = (props: Props) => {
   return (
     <button
       type="submit"
-      className="px-2 py-1 my-1 font-medium rounded bg-primary text-accent-lightest hover:bg-primary-dark"
+      className="px-2 py-1 my-1 font-medium rounded-md bg-primary text-accent-lightest hover:bg-primary-dark"
+      onClick={props.onClick}
+      disabled={props.disabled}
+    >
+      {props.text}
+    </button>
+  );
+};
+
+export const SecondarySubmitButton = (props: Props) => {
+  return (
+    <button
+      type="submit"
+      className="px-2 py-1 my-1 font-medium border rounded-md border-info bg-info-lightest text-info hover:bg-info-lighter"
       onClick={props.onClick}
       disabled={props.disabled}
     >
@@ -59,7 +72,7 @@ export const SubmitButtonFull = (props: Props) => {
   return (
     <button
       type="submit"
-      className="w-full px-2 py-2 my-1 font-medium rounded bg-primary text-accent-lightest hover:bg-primary-dark"
+      className="w-full px-2 py-2 my-1 font-medium rounded-md bg-primary text-accent-lightest hover:bg-primary-dark"
       onClick={props.onClick}
       disabled={props.disabled}
     >
