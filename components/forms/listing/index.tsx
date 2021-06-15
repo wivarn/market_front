@@ -246,7 +246,7 @@ const ListingForm = (props: Listing) => {
   if (!session) return <div>Spinner</div>;
 
   return (
-    <div className="max-w-6xl p-4 mx-auto">
+    <div className="max-w-6xl p-4 mx-auto mt-4">
       <h3>Enter the details for your listing</h3>
       <Formik
         initialValues={{
