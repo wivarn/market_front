@@ -6,7 +6,10 @@ import {
   useState,
 } from "react";
 import { FieldHookConfig, FormikProps, useField } from "formik";
-import { SmallArrowNarrowDown, SmallXIcon } from "components/icons";
+import {
+  SmChevronDownIcon,
+  SmXIcon,
+} from "components/icons";
 
 import { Dispatch } from "react";
 import { RefObject } from "react";
@@ -222,7 +225,7 @@ export const DropdownCombobox = ({
         </label>
       ) : null}
 
-      <div {...getComboboxProps()} className="block">
+      <div {...getComboboxProps()} className="relative block">
         <input
           {...getToggleButtonProps()}
           {...getInputProps()}
@@ -237,17 +240,17 @@ export const DropdownCombobox = ({
             }
           }}
           aria-label="clear selection"
-          className="inline-block"
+          className="absolute inline-block right-8 bottom-3 text-accent-darker"
           ref={resetRef}
         >
-          <SmallXIcon />
+          <SmXIcon />
         </span>
         <span
           {...getToggleButtonProps({ disabled: disabled })}
           aria-label="toggle menu"
-          className="inline-block"
+          className="absolute inline-block right-2 bottom-2 text-accent-darker"
         >
-          <SmallArrowNarrowDown />
+          <SmChevronDownIcon />
         </span>
       </div>
       <ul
@@ -261,7 +264,11 @@ export const DropdownCombobox = ({
               {...getItemProps({ item, index, disabled: item.disabled })}
               className={
                 "p-2 m-1 " +
-                `${index === highlightedIndex ? "bg-accent-darker text-accent-lightest rounded-md" : ""}` +
+                `${
+                  index === highlightedIndex
+                    ? "bg-accent-darker text-accent-lightest rounded-md"
+                    : ""
+                }` +
                 `${item.disabled ? "bg-primary-dark" : ""}`
               }
             >

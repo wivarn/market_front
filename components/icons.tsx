@@ -86,11 +86,11 @@ export const XIcon = () => {
   return <HiX className="icon" />;
 };
 
-export const SmallXIcon = () => {
-  return <HiX className="icon-sm" />;
+export const SmXIcon = () => {
+  return <HiX className="icon-xs" />;
 };
 
-export const SmallArrowNarrowDown = () => {
+export const SmArrowNarrowDown = () => {
   return <HiArrowNarrowDown className="icon-sm" />;
 };
 
@@ -98,22 +98,22 @@ export const InfoCircle = () => {
   return <HiInformationCircle className="icon" />;
 };
 
-export const ChevronDownIcon = () => {
-  return <HiChevronDown className="icon" />;
+export const SmChevronDownIcon = () => {
+  return <HiChevronDown className="icon-sm" />;
 };
 
-export const LargeUserCircleIcon = () => {
+export const LgUserCircleIcon = () => {
   return <HiOutlineUserCircle className="float-left icon-2xl" />;
 };
 
-export const SquirrelIcon = () => {
+export const LgSquirrelIcon = () => {
   return <GiSquirrel className="icon-lg" />;
 };
 
-export const CheckCircleIcon = () => {
+export const SmCheckCircleIcon = () => {
   return <HiCheckCircle className="icon-sm" />;
 };
 
-export const ExclamationCircleIcon = () => {
+export const SmExclamationCircleIcon = () => {
   return <HiExclamationCircle className="icon-sm" />;
 };

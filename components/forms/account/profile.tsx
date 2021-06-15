@@ -1,8 +1,8 @@
 import * as Yup from "yup";
 
-import { CheckCircleIcon, ExclamationCircleIcon } from "components/icons";
 import { DropdownCombobox, TextFieldFull } from "../fields";
 import { Form, Formik } from "formik";
+import { SmCheckCircleIcon, SmExclamationCircleIcon } from "components/icons";
 import useSWR, { mutate } from "swr";
 
 import FormContainer from "../container";
@@ -41,7 +41,7 @@ const emailLabel = () => {
     <div className="flex space-x-2">
       <span className="font-semibold">Email</span>
       <span className="text-success">
-        <CheckCircleIcon />
+        <SmCheckCircleIcon />
       </span>
       <Link href="account/changeEmail">
         <a className="font-normal underline text-info">(edit)</a>
@@ -55,7 +55,7 @@ const phoneNumberLabel = () => {
     <div className="flex space-x-2">
       <span className="font-semibold">Phone Number</span>
       <span className="text-warning">
-        <ExclamationCircleIcon />
+        <SmExclamationCircleIcon />
       </span>
       <Link href="account/changePhoneNumber">
         <a className="font-normal underline text-info">(edit)</a>

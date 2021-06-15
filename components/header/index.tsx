@@ -1,7 +1,7 @@
 import {
   CurrencyDollarIcon,
+  LgSquirrelIcon,
   ShoppingCartIcon,
-  SquirrelIcon,
   UserCircleIcon,
 } from "components/icons";
 
@@ -78,7 +78,7 @@ export default function Header() {
           <Link href="/">
             <a className="pr-1 text-primary">
               <div className="inline-flex">
-                <SquirrelIcon />
+                <LgSquirrelIcon />
                 <h2 className="hidden px-2 py-1 md:block">Skwirl</h2>
               </div>
             </a>
