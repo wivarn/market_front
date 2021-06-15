@@ -68,11 +68,7 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
           {label}
         </label>
       ) : null}
-      <input
-        className={inputClass}
-        {...field}
-        {...props}
-      />
+      <input className={inputClass} {...field} {...props} />
       {meta.touched && meta.error ? (
         <div className="text-error">{meta.error}</div>
       ) : null}
@@ -89,11 +85,7 @@ export const TextFieldFull = ({ label, ...props }: TextFieldProps) => {
           {label}
         </label>
       ) : null}
-      <input
-        className={inputClassFull}
-        {...field}
-        {...props}
-      />
+      <input className={inputClassFull} {...field} {...props} />
       {meta.touched && meta.error ? (
         <div className="text-error">{meta.error}</div>
       ) : null}
@@ -110,11 +102,7 @@ export const LongTextField = ({ label, ...props }: LongTextFieldProps) => {
           {label}
         </label>
       ) : null}
-      <textarea
-        className={inputClass}
-        {...field}
-        {...props}
-      />
+      <textarea className={inputClass} {...field} {...props} />
       {meta.touched && meta.error ? (
         <div className="text-error">{meta.error}</div>
       ) : null}
@@ -152,12 +140,7 @@ export const NumberField = ({ label, ...props }: TextFieldProps) => {
           {label}
         </label>
       ) : null}
-      <input
-        type="number"
-        className={inputClass}
-        {...field}
-        {...props}
-      />
+      <input type="number" className={inputClass} {...field} {...props} />
       {meta.touched && meta.error ? (
         <div className="text-error">{meta.error}</div>
       ) : null}
@@ -228,6 +211,7 @@ export const DropdownCombobox = ({
           className={inputClass}
           placeholder={placeholder}
           disabled={disabled}
+          tabIndex="0"
         />
         <span
           onClick={() => {
@@ -260,7 +244,11 @@ export const DropdownCombobox = ({
               {...getItemProps({ item, index, disabled: item.disabled })}
               className={
                 "p-2 m-1 " +
-                `${index === highlightedIndex ? "bg-accent-darker text-accent-lightest rounded-md" : ""}` +
+                `${
+                  index === highlightedIndex
+                    ? "bg-accent-darker text-accent-lightest rounded-md"
+                    : ""
+                }` +
                 `${item.disabled ? "bg-primary-dark" : ""}`
               }
             >
