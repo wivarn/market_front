@@ -28,6 +28,7 @@ type LongTextFieldProps = FieldHookConfig<string> &
 
 // Style variables for the fields
 const labelClass = "p-1 block text-sm font-medium text-accent-darker";
+const descriptionClass = "p-1 block text-sm font-normal text-accent-dark";
 const inputClassFull = "w-full p-2 border rounded-md border-accent";
 const inputClass = "p-2 border rounded-md w-72 border-accent";
 
@@ -286,12 +287,12 @@ export function Toggle({
         <div className="flex items-center">
           <div className="mr-4">
             {label ? (
-              <Switch.Label className="block">
-                <h3>{label}</h3>
+              <Switch.Label className={labelClass}>
+                <p>{label}</p>
               </Switch.Label>
             ) : null}
             {description ? (
-              <Switch.Description className="block">
+              <Switch.Description className={descriptionClass}>
                 {description}
               </Switch.Description>
             ) : null}
@@ -300,8 +301,8 @@ export function Toggle({
             checked={enabled}
             onChange={setEnabled}
             className={`${
-              enabled ? "bg-primary" : "bg-primary-lighter"
-            } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary`}
+              enabled ? "bg-success" : "bg-success-lighter"
+            } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-success`}
           >
             <span
               className={`${

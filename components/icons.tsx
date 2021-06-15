@@ -98,7 +98,7 @@ export const LargeUserCircleIcon = () => {
 };
 
 export const SquirrelIcon = () => {
-  return <GiSquirrel className="icon" />;
+  return <GiSquirrel className="icon-lg" />;
 };
 
 export const CheckCircleIcon = () => {
