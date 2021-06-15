@@ -39,12 +39,12 @@ const profileSchema = Yup.object().shape({
 const emailLabel = () => {
   return (
     <div className="flex space-x-2">
-      <span className="font-semibold">Email</span>
+      <span className="font-medium">Email</span>
       <span className="text-success">
         <SmCheckCircleIcon />
       </span>
       <Link href="account/changeEmail">
-        <a className="font-normal underline text-info">(edit)</a>
+        <a className="font-normal underline text-info">edit</a>
       </Link>
     </div>
   );
@@ -53,12 +53,12 @@ const emailLabel = () => {
 const phoneNumberLabel = () => {
   return (
     <div className="flex space-x-2">
-      <span className="font-semibold">Phone Number</span>
+      <span className="font-medium">Phone Number</span>
       <span className="text-warning">
         <SmExclamationCircleIcon />
       </span>
       <Link href="account/changePhoneNumber">
-        <a className="font-normal underline text-info">(edit)</a>
+        <a className="font-normal underline text-info">edit</a>
       </Link>
     </div>
   );

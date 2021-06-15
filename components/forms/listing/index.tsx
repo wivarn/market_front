@@ -1,15 +1,15 @@
 import * as Yup from "yup";
 
-import {
-  ComboBoxOption,
-  DropdownCombobox,
-  LongTextField,
-  NumberField,
-  TextField,
-  Toggle,
-} from "./fields";
 import { DeleteButton, SecondarySubmitButton, SubmitButton } from "components/buttons";
 import { Form, Formik, FormikProps } from "formik";
+import {
+  ListingComboBoxOption,
+  ListingDropdownCombobox,
+  ListingLongTextField,
+  ListingNumberField,
+  ListingTextField,
+  ListingToggle,
+} from "../listing/fields";
 import {
   conditionList,
   gradingCompanyList,
