@@ -141,7 +141,7 @@ function subCategoryCombobox(formik: FormikProps<any>) {
     ? "Select a sub-category"
     : "Select category first";
 
-  var items: ComboBoxOption[] = [];
+  var items: ListingComboBoxOption[] = [];
   switch (category) {
     case "SPORTS_CARDS":
       items = sportsCardList;
@@ -155,7 +155,7 @@ function subCategoryCombobox(formik: FormikProps<any>) {
   }
 
   return (
-    <DropdownCombobox
+    <ListingDropdownCombobox
       label="Sub-Category"
       name="subcategory"
       items={items}
@@ -182,7 +182,7 @@ const ListingForm = (props: Listing) => {
 
     return (
       <>
-        <DropdownCombobox
+        <ListingDropdownCombobox
           label="Grading Company"
           name="grading_company"
           items={gradingCompanyList}
@@ -191,7 +191,7 @@ const ListingForm = (props: Listing) => {
           hidden={!graded}
         />
 
-        <DropdownCombobox
+        <ListingDropdownCombobox
           label={label}
           name="condition"
           items={items}
@@ -224,7 +224,7 @@ const ListingForm = (props: Listing) => {
   }
 
   return (
-    <div className="m-4">
+    <div className="max-w-6xl p-4 mx-auto">
       <h3>Enter the details for your listing</h3>
       <Formik
         initialValues={{
@@ -265,7 +265,7 @@ const ListingForm = (props: Listing) => {
         {(formik) => (
           <Form>
             <FormSection header="Category">
-              <DropdownCombobox
+              <ListingDropdownCombobox
                 name="category"
                 label="Category"
                 items={categoryList}
@@ -276,7 +276,7 @@ const ListingForm = (props: Listing) => {
 
               {subCategoryCombobox(formik)}
 
-              <TextField
+              <ListingTextField
                 label="Tags"
                 name="tags"
                 type="text"
@@ -286,13 +286,13 @@ const ListingForm = (props: Listing) => {
             </FormSection>
 
             <FormSection header="Details">
-              <TextField
+              <ListingTextField
                 label="Title"
                 name="title"
                 type="text"
                 placeholder="title"
               />
-              <LongTextField
+              <ListingLongTextField
                 label="Description"
                 name="description"
                 type="text"
@@ -301,7 +301,7 @@ const ListingForm = (props: Listing) => {
             </FormSection>
 
             <FormSection header="Condition">
-              <Toggle
+              <ListingToggle
                 enabled={graded}
                 setEnabled={setGraded}
                 label="Professionally Graded?"
@@ -317,9 +317,9 @@ const ListingForm = (props: Listing) => {
             <FormSection header="Photos">stub</FormSection>
 
             <FormSection header="Price and Shipping">
-              <NumberField label="Price" name="price" placeholder="0" />
+              <ListingNumberField label="Price" name="price" placeholder="0" />
 
-              <NumberField
+              <ListingNumberField
                 label="Domestic Shipping"
                 name="domestic_shipping"
                 placeholder="0"

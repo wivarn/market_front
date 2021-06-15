@@ -27,10 +27,11 @@ type LongTextFieldProps = FieldHookConfig<string> &
   };
 
 // Style variables for the fields
-const labelClass = "p-1 block text-sm font-medium text-accent-darker";
-const descriptionClass = "p-1 block text-sm font-normal text-accent-dark";
+const labelClass = "p-1 text-sm font-medium text-accent-darker";
+const descriptionClass = "block text-sm font-normal text-accent-dark";
 const inputClassFull = "w-full p-2 border rounded-md border-accent";
-const inputClass = "p-2 border rounded-md w-72 border-accent";
+const inputClass = "p-2 border rounded-md w-full border-accent";
+const fieldClass = "my-2 space-x-8 space-y-4 lg:grid-cols-3 md:grid-cols-2 md:grid w-full"
 
 export type ListingComboBoxOption = {
   value: string;
@@ -62,16 +63,20 @@ type ToggleProps = {
 export const ListingTextField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-accent-darkest">
+    <div className={fieldClass}>
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
+          <span className={descriptionClass}>This is helper text for this item</span>
         </label>
       ) : null}
-      <input className={inputClass} {...field} {...props} />
+      <div className="col-span-2">
+      <input className={inputClassFull} {...field} {...props} />
       {meta.touched && meta.error ? (
         <div className="text-error">{meta.error}</div>
       ) : null}
+      </div>
+
     </div>
   );
 };
@@ -80,16 +85,18 @@ export const ListingTextField = ({ label, ...props }: TextFieldProps) => {
 export const ListingLongTextField = ({ label, ...props }: LongTextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-accent-darkest">
+    <div className={fieldClass}>
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
         </label>
       ) : null}
-      <textarea className={inputClass} {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className="text-error">{meta.error}</div>
-      ) : null}
+      <div className="col-span-2">
+        <textarea className={inputClass} {...field} {...props} />
+        {meta.touched && meta.error ? (
+          <div className="text-error">{meta.error}</div>
+        ) : null}
+      </div>
     </div>
   );
 };
@@ -97,16 +104,21 @@ export const ListingLongTextField = ({ label, ...props }: LongTextFieldProps) =>
 export const ListingNumberField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-accent-darkest">
+    <div className={fieldClass}>
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
+          <span className={descriptionClass}>
+            This is helper text that needs to be replaced
+          </span>
         </label>
       ) : null}
-      <input type="number" className={inputClass} {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className="text-error">{meta.error}</div>
-      ) : null}
+      <div className="col-span-2">
+        <input type="number" className={inputClassFull} {...field} {...props} />
+        {meta.touched && meta.error ? (
+          <div className="text-error">{meta.error}</div>
+        ) : null}
+      </div>
     </div>
   );
 };
@@ -160,14 +172,18 @@ export const ListingDropdownCombobox = ({
   });
 
   return (
-    <div className="w-max" hidden={hidden}>
+    <div
+      className={fieldClass}
+      hidden={hidden}
+    >
       {label ? (
-        <label className={labelClass} {...getLabelProps()}>
-          {label}
-        </label>
+          <label className={labelClass} {...getLabelProps()}>
+            {label}
+            <span className={descriptionClass}>This is helper text for this item</span>
+          </label>
       ) : null}
 
-      <div {...getComboboxProps()} className="relative block">
+      <div {...getComboboxProps()} className="relative col-span-2">
         <input
           {...getToggleButtonProps()}
           {...getInputProps()}
@@ -233,7 +249,7 @@ export function ListingToggle({
   return (
     <span onClick={onClick}>
       <Switch.Group>
-        <div className="flex items-center">
+        <div className={fieldClass}>
           <div className="mr-4">
             {label ? (
               <Switch.Label className={labelClass}>
@@ -246,19 +262,21 @@ export function ListingToggle({
               </Switch.Description>
             ) : null}
           </div>
-          <Switch
-            checked={enabled}
-            onChange={setEnabled}
-            className={`${
-              enabled ? "bg-success" : "bg-success-lighter"
-            } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-success`}
-          >
-            <span
+          <div className="col-span-2">
+            <Switch
+              checked={enabled}
+              onChange={setEnabled}
               className={`${
-                enabled ? "translate-x-6" : "translate-x-1"
-              } inline-block w-4 h-4 transform bg-secondary rounded-full transition-transform`}
-            />
-          </Switch>
+                enabled ? "bg-success" : "bg-success-lighter"
+              } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-success`}
+            >
+              <span
+                className={`${
+                  enabled ? "translate-x-6" : "translate-x-1"
+                } inline-block w-4 h-4 transform bg-secondary rounded-full transition-transform`}
+              />
+            </Switch>
+          </div>
         </div>
       </Switch.Group>
     </span>
