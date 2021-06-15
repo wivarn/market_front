@@ -40,9 +40,6 @@ export default function SearchForm() {
                 placeholder="Search for anything"
               />
             </div>
-            <span className="">
-              <SubmitButton text="Go" disabled={isSubmitting} />
-            </span>
           </div>
         </Form>
       )}
