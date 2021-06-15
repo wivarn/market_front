@@ -16,6 +16,8 @@ import { useCombobox } from "downshift";
 type TextFieldProps = FieldHookConfig<string> &
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
     label?: string | JSX.Element;
+    description?: string;
+    currency?: string;
   };
 
 type LongTextFieldProps = FieldHookConfig<string> &
@@ -24,14 +26,15 @@ type LongTextFieldProps = FieldHookConfig<string> &
     HTMLTextAreaElement
   > & {
     label?: string | JSX.Element;
+    description?: string;
   };
 
 // Style variables for the fields
-const labelClass = "p-1 text-sm font-medium text-accent-darker";
-const descriptionClass = "px-1 block text-sm font-normal text-accent-dark";
+const labelClass = "p-1 text-base font-medium text-accent-darker";
+const descriptionClass = "px-1 mr-4 block text-xs font-normal text-accent-dark";
 const inputClassFull = "relative w-full p-2 border rounded-md border-accent";
 const inputClass = "relative p-2 border rounded-md w-96 border-accent";
-const fieldClass = "my-2 grid-cols-1 space-x-8 mx-auto space-y-4 lg:grid-cols-3 md:grid-cols-2 grid w-full"
+const fieldClass = "items-center my-2 mx-4 py-2 px-4 grid-cols-1 mx-auto space-y-4 lg:grid-cols-3 md:grid-cols-2 grid w-full"
 
 export type ListingComboBoxOption = {
   value: string;
@@ -44,6 +47,7 @@ type ComboBoxProps = {
   name: string;
   items: ListingComboBoxOption[];
   label?: string;
+  description?: string;
   formik: FormikProps<any>;
   placeholder?: string;
   disabled?: boolean;
@@ -67,7 +71,7 @@ export const ListingTextField = ({ label, ...props }: TextFieldProps) => {
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
-          <span className={descriptionClass}>This is helper text for this item</span>
+          <span className={descriptionClass}>{props.description}</span>
         </label>
       ) : null}
       <div className="col-span-2">
@@ -89,6 +93,7 @@ export const ListingLongTextField = ({ label, ...props }: LongTextFieldProps) =>
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
+          <span className={descriptionClass}>{props.description}</span>
         </label>
       ) : null}
       <div className="col-span-2">
@@ -108,17 +113,14 @@ export const ListingNumberField = ({ label, ...props }: TextFieldProps) => {
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
-          <span className={descriptionClass}>
-            This is helper text that needs to be replaced
-          </span>
+          <span className={descriptionClass}>{props.description}</span>
         </label>
       ) : null}
-      <div className="col-span-2">
         <input type="number" className={inputClassFull} {...field} {...props} />
+        <span className="justify-items-center">{props.currency}</span>
         {meta.touched && meta.error ? (
           <div className="text-error">{meta.error}</div>
         ) : null}
-      </div>
     </div>
   );
 };
@@ -127,6 +129,7 @@ export const ListingDropdownCombobox = ({
   name,
   items,
   label,
+  description,
   formik,
   placeholder,
   disabled,
@@ -176,13 +179,11 @@ export const ListingDropdownCombobox = ({
       {label ? (
         <label className={labelClass} {...getLabelProps()}>
           {label}
-          <span className={descriptionClass}>
-            This is helper text for this item
-          </span>
+          <span className={descriptionClass}>{description}</span>
         </label>
       ) : null}
 
-      <div {...getComboboxProps()} className="relative col-span-2">
+      <div {...getComboboxProps()} className="relative">
         <input
           {...getToggleButtonProps()}
           {...getInputProps()}
@@ -212,7 +213,9 @@ export const ListingDropdownCombobox = ({
         <ul
           {...getMenuProps()}
           className={`${
-            isOpen ? "absolute w-full border z-50 bg-white rounded-md border-accent mt-1" : ""
+            isOpen
+              ? "absolute w-full border z-50 bg-white rounded-md border-accent mt-1"
+              : ""
           }`}
         >
           {isOpen &&
@@ -251,15 +254,15 @@ export function ListingToggle({
     <span onClick={onClick}>
       <Switch.Group>
         <div className={fieldClass}>
-          <div className="mr-4">
+          <div className="">
             {label ? (
               <Switch.Label className={labelClass}>
-                <p>{label}</p>
+              {label}
               </Switch.Label>
             ) : null}
             {description ? (
               <Switch.Description className={descriptionClass}>
-                {description}
+              {description}
               </Switch.Description>
             ) : null}
           </div>
@@ -269,12 +272,12 @@ export function ListingToggle({
               onChange={setEnabled}
               className={`${
                 enabled ? "bg-success" : "bg-success-lighter"
-              } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-success`}
+              } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-success`}
             >
               <span
                 className={`${
                   enabled ? "translate-x-6" : "translate-x-1"
-                } inline-block w-4 h-4 transform bg-secondary rounded-full transition-transform`}
+                } inline-block w-4 h-4 transform bg-accent-lightest rounded-full transition-transform`}
               />
             </Switch>
           </div>

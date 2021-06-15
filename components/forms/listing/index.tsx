@@ -27,8 +27,8 @@ import { ListingApi } from "services/backendApi/listing";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/client";
 import useSWR from "swr";
+import { useSession } from "next-auth/client";
 
 //Listing Schema
 const listingSchema = Yup.object().shape({
@@ -162,6 +162,7 @@ function subCategoryCombobox(formik: FormikProps<any>) {
   return (
     <ListingDropdownCombobox
       label="Sub-Category"
+      description="The sub-category will make it easy for other users to browse and find your listing."
       name="subcategory"
       items={items}
       formik={formik}
@@ -199,6 +200,7 @@ const ListingForm = (props: Listing) => {
       <>
         <ListingDropdownCombobox
           label="Grading Company"
+          description="Enter the company who graded the item. If not listed choose 'other'."
           name="grading_company"
           items={gradingCompanyList}
           formik={formik}
@@ -209,6 +211,7 @@ const ListingForm = (props: Listing) => {
         <ListingDropdownCombobox
           label={label}
           name="condition"
+          description="Enter the condition for the item. See our grading guide for more information."
           items={items}
           formik={formik}
           resetRef={conditionRef}
@@ -287,6 +290,7 @@ const ListingForm = (props: Listing) => {
               <ListingDropdownCombobox
                 name="category"
                 label="Category"
+                description="Selecting a category will allow us to tailor the listing form for your needs."
                 items={categoryList}
                 formik={formik}
                 placeholder="Select a category"
@@ -298,6 +302,7 @@ const ListingForm = (props: Listing) => {
               <ListingTextField
                 label="Tags"
                 name="tags"
+                description="You can use tags to add any additional filter criteria to your listing."
                 type="text"
                 placeholder="pending"
                 disabled={true}
@@ -307,6 +312,7 @@ const ListingForm = (props: Listing) => {
             <FormSection header="Details">
               <ListingTextField
                 label="Title"
+                description="Title is the main search field for the listing. Try using the format of 'Set' + 'Card Name' + 'Attributes'."
                 name="title"
                 type="text"
                 placeholder="title"
@@ -314,6 +320,7 @@ const ListingForm = (props: Listing) => {
               <ListingLongTextField
                 label="Description"
                 name="description"
+                description="Use the description to provide any detail about your listing that you want buyers to know about."
                 type="text"
                 placeholder="description"
               />
@@ -324,7 +331,7 @@ const ListingForm = (props: Listing) => {
                 enabled={graded}
                 setEnabled={setGraded}
                 label="Professionally Graded?"
-                description="Some helper text on what this means"
+                description="If turned on then you will need to provide the grading company and grading score."
                 onClick={async () => {
                   gradingCompanyRef?.current?.click();
                   conditionRef?.current?.click();
@@ -336,15 +343,21 @@ const ListingForm = (props: Listing) => {
             <FormSection header="Photos">stub</FormSection>
 
             <FormSection header="Price and Shipping">
-              <ListingNumberField label="Price" name="price" placeholder="0" />
-              <span>{profile?.data?.currency}</span>
+              <ListingNumberField
+                label="Price"
+                name="price"
+                description="Enter the price. Lower prices will increase your chances of making a sale."
+                placeholder="0"
+                currency={profile?.data?.currency}
+              />
 
               <ListingNumberField
                 label="Domestic Shipping"
                 name="domestic_shipping"
+                description="Enter the price for domestic shipping."
                 placeholder="0"
+                currency={profile?.data?.currency}
               />
-              <span>{profile?.data?.currency}</span>
             </FormSection>
             <div className="space-x-2">
               <SubmitButton
