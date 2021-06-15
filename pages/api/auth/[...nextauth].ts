@@ -12,7 +12,7 @@ interface Credentials {
   password: string;
 }
 
-const accessTokenAge = 29 * 60 * 1000; // 29 minutes, backend is configured for 30 minutes
+const accessTokenAge = 25 * 5 * 1000; // 25 minutes, backend is configured for 30 minutes
 
 async function refreshAccessToken(token: JWT) {
   try {
@@ -33,7 +33,7 @@ async function refreshAccessToken(token: JWT) {
       refreshToken: refreshedTokens.refresh_token,
     };
   } catch (error) {
-    console.log(error);
+    console.log(error.response.data);
 
     return {
       ...token,
@@ -87,6 +87,7 @@ export default NextAuth({
     async session(session, token: JWT) {
       session.accessToken = token.accessToken;
       session.accountId = jwtDecode<any>(token.accessToken).account_id;
+      session.error = token.error;
       return session;
     },
   },

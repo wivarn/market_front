@@ -2,9 +2,7 @@ import "../styles/global.css";
 
 import { AppProps } from "next/app";
 import { DefaultSeo } from "next-seo";
-import Footer from "components/footer";
 import Head from "next/head";
-import Header from "components/header";
 import Layout from "components/layout";
 import { Provider } from "next-auth/client";
 import SEO from "next-seo-config";
