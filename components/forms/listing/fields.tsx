@@ -117,7 +117,7 @@ export const ListingNumberField = ({ label, ...props }: TextFieldProps) => {
         </label>
       ) : null}
         <input type="number" className={inputClassFull} {...field} {...props} />
-        <span className="justify-items-center">{props.currency}</span>
+        <span className="p-2">{props.currency}</span>
         {meta.touched && meta.error ? (
           <div className="text-error">{meta.error}</div>
         ) : null}
