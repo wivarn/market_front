@@ -41,7 +41,7 @@ export default function Header() {
 
   function LoggedOutNav() {
     return (
-      <div className="inline-flex items-center">
+      <div className="inline-flex items-center justify-items-center">
         <IconLink href="/login" icon={<UserCircleIcon />} text="Log In" />
       </div>
     );
@@ -50,17 +50,17 @@ export default function Header() {
   function LoggedInNav() {
     return (
       <>
-        <div className="items-center hidden space-x-8 md:inline-flex">
+        <div className="items-center hidden mr-8 space-x-4 justify-items-center md:inline-flex">
           <IconLink
             href="/listings?status=active"
             icon={<CurrencyDollarIcon />}
             text="Sell"
           />
           <IconLink href="/" icon={<ShoppingCartIcon />} text="Cart" />
-          <DropDown name={profile ? profile.data.given_name : "..."}></DropDown>
+          <DropDown name="Account"></DropDown>
         </div>
         <div className="inline-flex items-center md:hidden">
-          <DropDown name={profile ? profile.data.given_name : "..."}></DropDown>
+          <DropDown name="Account"></DropDown>
         </div>
       </>
     );
@@ -79,7 +79,7 @@ export default function Header() {
             <a className="pr-1 text-primary">
               <div className="inline-flex">
                 <SquirrelIcon />
-                <h1 className="hidden px-2 py-1 md:block">Skwirl</h1>
+                <h2 className="hidden px-2 py-1 md:block">Skwirl</h2>
               </div>
             </a>
           </Link>

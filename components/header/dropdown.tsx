@@ -1,6 +1,6 @@
 import { Fragment, LegacyRef, forwardRef } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { MenuIcon, UserCircleIcon } from "components/icons";
+import { MenuIcon, UserChevronIcon, UserCircleIcon } from "components/icons";
 import { signOut, useSession } from "next-auth/client";
 
 import { AuthApi } from "services/backendApi/auth";
@@ -68,7 +68,7 @@ export const DropDown = (props: Props) => {
         <>
           <div>
             <Menu.Button className="hidden py-2 md:block focus:outline-none">
-              <IconLink icon={<UserCircleIcon />} text={props.name} />
+              <IconLink icon={<UserChevronIcon />} text={props.name} />
             </Menu.Button>
             <Menu.Button className="py-2 md:hidden focus:outline-none">
               <IconLink icon={<MenuIcon />} text="" />

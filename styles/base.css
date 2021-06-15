@@ -8,6 +8,9 @@
   h3 {
     @apply text-2xl font-semibold;
   }
+  h4 {
+    @apply text-xl font-medium;
+  }
   p {
     @apply text-base;
   }

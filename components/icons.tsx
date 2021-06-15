@@ -21,6 +21,15 @@ import {
 
 import { GiSquirrel } from "react-icons/gi";
 
+export const UserChevronIcon = () => {
+  return (
+    <div className="relative block">
+      <HiOutlineUserCircle className="icon" />
+      <HiChevronDown className="absolute bottom-0 -right-5 icon-sm" />
+    </div>
+  );
+};
+
 export const CurrencyDollarIcon = () => {
   return <HiOutlineCurrencyDollar className="icon" />;
 };

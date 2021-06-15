@@ -8,7 +8,7 @@ import {
   TextField,
   Toggle,
 } from "./fields";
-import { DeleteButton, SubmitButton } from "components/buttons";
+import { DeleteButton, SecondarySubmitButton, SubmitButton } from "components/buttons";
 import { Form, Formik, FormikProps } from "formik";
 import {
   conditionList,
@@ -25,17 +25,18 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
+//Listing Schema
 const listingSchema = Yup.object().shape({
   photos: Yup.array(Yup.string()).min(1).max(10),
   title: Yup.string()
-    .min(2, "Must be at least 2 characters")
-    .max(256, "Must be at most 256 characters")
-    .required("Required"),
+    .min(2, "Title must be more than 2 characters")
+    .max(256, "Title must be less than 256 characters")
+    .required("Title is required"),
   grading_company: Yup.mixed().oneOf(
     gradingCompanyList.map((gradingCompany) => {
       return gradingCompany.value;
     }),
-    "invalid grading company"
+    "This is not a valid grading company"
   ),
   condition: Yup.mixed()
     .when("grading_company", {
@@ -44,24 +45,24 @@ const listingSchema = Yup.object().shape({
         conditionList.map((condition) => {
           return condition.value;
         }),
-        "invalid condition"
+        "This is not a valid condition"
       ),
       otherwise: Yup.mixed().oneOf(
         gradingList.map((grading) => {
           return grading.value;
         }),
-        "invalid grading"
+        "This is not a valid grading"
       ),
     })
-    .required("Required"),
+    .required("Condition is required"),
   price: Yup.number()
-    .min(0.25, "Must be at least 0.25")
-    .max(99999999.99, "Must be at most 99999999.99")
-    .required("Required"),
+    .min(0.25, "Price must more than 0.25")
+    .max(99999999.99, "Price must be less than 99999999.99")
+    .required("Price is required"),
   domestic_shipping: Yup.number()
-    .min(0, "Must be at least 0")
-    .max(99999999.99, "Must be at most 99999999.99")
-    .required("Required"),
+    .min(0, "Shipping can't be less than 0")
+    .max(99999999.99, "Shipping must be less than 99999999.99")
+    .required("Shipping price is required"),
   status: Yup.string().required("Required"),
 });
 
@@ -80,6 +81,7 @@ const randomPhotos = _.sampleSize(
   Math.floor(Math.random() * stubPhotos.length)
 );
 
+// Defaults for new listing
 const newListingProps: Listing = {
   category: "",
   subcategory: "",
@@ -222,8 +224,8 @@ const ListingForm = (props: Listing) => {
   }
 
   return (
-    <div className="p-4">
-      <h2>Enter the details of your listing</h2>
+    <div className="m-4">
+      <h3>Enter the details for your listing</h3>
       <Formik
         initialValues={{
           id: props.id,
@@ -290,6 +292,15 @@ const ListingForm = (props: Listing) => {
                 type="text"
                 placeholder="title"
               />
+              <LongTextField
+                label="Description"
+                name="description"
+                type="text"
+                placeholder="description"
+              />
+            </FormSection>
+
+            <FormSection header="Condition">
               <Toggle
                 enabled={graded}
                 setEnabled={setGraded}
@@ -301,12 +312,6 @@ const ListingForm = (props: Listing) => {
                 }}
               />
               {renderGrading(formik)}
-              <LongTextField
-                label="Description"
-                name="description"
-                type="text"
-                placeholder="description"
-              />
             </FormSection>
 
             <FormSection header="Photos">stub</FormSection>
@@ -320,24 +325,25 @@ const ListingForm = (props: Listing) => {
                 placeholder="0"
               />
             </FormSection>
-
-            <SubmitButton
-              text={(newListing ? "Publish" : "Update") + " Listing"}
-              disabled={formik.isSubmitting}
-              onClick={async () => {
-                formik.values.status = "ACTIVE";
-              }}
-            />
-
-            {newListing ? (
+            <div className="space-x-2">
               <SubmitButton
-                text="Save Draft"
+                text={(newListing ? "Publish" : "Update") + " Listing"}
                 disabled={formik.isSubmitting}
                 onClick={async () => {
-                  formik.values.status = "DRAFT";
+                  formik.values.status = "ACTIVE";
                 }}
               />
-            ) : null}
+
+              {newListing ? (
+                <SecondarySubmitButton
+                  text="Save Draft"
+                  disabled={formik.isSubmitting}
+                  onClick={async () => {
+                    formik.values.status = "DRAFT";
+                  }}
+                />
+              ) : null}
+            </div>
           </Form>
         )}
       </Formik>
