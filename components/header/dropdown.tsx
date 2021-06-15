@@ -90,21 +90,21 @@ export const DropDown = (props: Props) => {
                 <Menu.Item>
                   {({ active }) => (
                     <LinkWrapper href="/account/profile" active={active}>
-                      User Profile
+                      Profile
                     </LinkWrapper>
                   )}
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
                     <LinkWrapper href="/" active={active}>
-                      Your Cart
+                      Cart
                     </LinkWrapper>
                   )}
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
                     <LinkWrapper href="/listings?status=active" active={active}>
-                      Your Listings
+                      Selling
                     </LinkWrapper>
                   )}
                 </Menu.Item>
