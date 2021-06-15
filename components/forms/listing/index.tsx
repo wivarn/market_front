@@ -1,6 +1,10 @@
 import * as Yup from "yup";
 
-import { DeleteButton, SecondarySubmitButton, SubmitButton } from "components/buttons";
+import {
+  DeleteButton,
+  SecondarySubmitButton,
+  SubmitButton,
+} from "components/buttons";
 import { Form, Formik, FormikProps } from "formik";
 import {
   ListingComboBoxOption,
@@ -24,6 +28,7 @@ import _ from "lodash";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
+import useSWR from "swr";
 
 //Listing Schema
 const listingSchema = Yup.object().shape({
@@ -174,7 +179,17 @@ const ListingForm = (props: Listing) => {
 
   const newListing = !props.id;
 
-  if (!session) return <div>Spinner</div>;
+  function getProfile() {
+    const { data, error } = useSWR(
+      session ? ["account/profile", session.accessToken] : null
+    );
+
+    return {
+      profile: data,
+      isLoading: !error && !data,
+      isError: error,
+    };
+  }
 
   function renderGrading(formik: FormikProps<any>) {
     const label = graded ? "Grading" : "Condition";
@@ -222,6 +237,10 @@ const ListingForm = (props: Listing) => {
       />
     );
   }
+
+  const { profile, isLoading, isError } = getProfile();
+
+  if (!session) return <div>Spinner</div>;
 
   return (
     <div className="max-w-6xl p-4 mx-auto">
@@ -318,12 +337,14 @@ const ListingForm = (props: Listing) => {
 
             <FormSection header="Price and Shipping">
               <ListingNumberField label="Price" name="price" placeholder="0" />
+              <span>{profile?.data?.currency}</span>
 
               <ListingNumberField
                 label="Domestic Shipping"
                 name="domestic_shipping"
                 placeholder="0"
               />
+              <span>{profile?.data?.currency}</span>
             </FormSection>
             <div className="space-x-2">
               <SubmitButton
