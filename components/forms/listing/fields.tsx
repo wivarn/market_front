@@ -28,10 +28,10 @@ type LongTextFieldProps = FieldHookConfig<string> &
 
 // Style variables for the fields
 const labelClass = "p-1 text-sm font-medium text-accent-darker";
-const descriptionClass = "block text-sm font-normal text-accent-dark";
-const inputClassFull = "w-full p-2 border rounded-md border-accent";
-const inputClass = "p-2 border rounded-md w-full border-accent";
-const fieldClass = "my-2 space-x-8 space-y-4 lg:grid-cols-3 md:grid-cols-2 md:grid w-full"
+const descriptionClass = "px-1 block text-sm font-normal text-accent-dark";
+const inputClassFull = "relative w-full p-2 border rounded-md border-accent";
+const inputClass = "relative p-2 border rounded-md w-96 border-accent";
+const fieldClass = "my-2 grid-cols-1 space-x-8 mx-auto space-y-4 lg:grid-cols-3 md:grid-cols-2 grid w-full"
 
 export type ListingComboBoxOption = {
   value: string;
@@ -92,7 +92,7 @@ export const ListingLongTextField = ({ label, ...props }: LongTextFieldProps) =>
         </label>
       ) : null}
       <div className="col-span-2">
-        <textarea className={inputClass} {...field} {...props} />
+        <textarea className={inputClassFull} {...field} {...props} />
         {meta.touched && meta.error ? (
           <div className="text-error">{meta.error}</div>
         ) : null}
@@ -172,22 +172,21 @@ export const ListingDropdownCombobox = ({
   });
 
   return (
-    <div
-      className={fieldClass}
-      hidden={hidden}
-    >
+    <div className={fieldClass} hidden={hidden}>
       {label ? (
-          <label className={labelClass} {...getLabelProps()}>
-            {label}
-            <span className={descriptionClass}>This is helper text for this item</span>
-          </label>
+        <label className={labelClass} {...getLabelProps()}>
+          {label}
+          <span className={descriptionClass}>
+            This is helper text for this item
+          </span>
+        </label>
       ) : null}
 
       <div {...getComboboxProps()} className="relative col-span-2">
         <input
           {...getToggleButtonProps()}
           {...getInputProps()}
-          className={inputClass}
+          className={inputClassFull}
           placeholder={placeholder}
           disabled={disabled}
         />
@@ -210,30 +209,32 @@ export const ListingDropdownCombobox = ({
         >
           <SmChevronDownIcon />
         </span>
+        <ul
+          {...getMenuProps()}
+          className={`${
+            isOpen ? "absolute w-full border z-50 bg-white rounded-md border-accent mt-1" : ""
+          }`}
+        >
+          {isOpen &&
+            inputItems.map((item, index) => (
+              <li
+                key={`${item}${index}`}
+                {...getItemProps({ item, index, disabled: item.disabled })}
+                className={
+                  "p-2 m-1 " +
+                  `${
+                    index === highlightedIndex
+                      ? "bg-accent-darker text-accent-lightest rounded-md"
+                      : ""
+                  }` +
+                  `${item.disabled ? "bg-primary-dark" : ""}`
+                }
+              >
+                {item.text}
+              </li>
+            ))}
+        </ul>
       </div>
-      <ul
-        {...getMenuProps()}
-        className={`${isOpen ? "border rounded-md border-accent mt-1" : ""}`}
-      >
-        {isOpen &&
-          inputItems.map((item, index) => (
-            <li
-              key={`${item}${index}`}
-              {...getItemProps({ item, index, disabled: item.disabled })}
-              className={
-                "p-2 m-1 " +
-                `${
-                  index === highlightedIndex
-                    ? "bg-accent-darker text-accent-lightest rounded-md"
-                    : ""
-                }` +
-                `${item.disabled ? "bg-primary-dark" : ""}`
-              }
-            >
-              {item.text}
-            </li>
-          ))}
-      </ul>
       <ListingTextField name={name} hidden={true} />
     </div>
   );
