@@ -68,10 +68,10 @@ export const DropDown = (props: Props) => {
         <>
           <div>
             <Menu.Button className="hidden py-2 md:block focus:outline-none">
-              <IconLink icon={<UserChevronIcon />} text={props.name} />
+              <IconLink icon={<UserChevronIcon />} />
             </Menu.Button>
             <Menu.Button className="py-2 md:hidden focus:outline-none">
-              <IconLink icon={<MenuIcon />} text="" />
+              <IconLink icon={<MenuIcon />} />
             </Menu.Button>
           </div>
 
@@ -85,7 +85,7 @@ export const DropDown = (props: Props) => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 z-50 w-screen mt-1 text-center bg-white md:text-left md:mt-2 md:w-48 md:shadow-md md:rounded-md md:px-2 ring-1 ring-accent focus:outline-none">
+            <Menu.Items className="absolute z-50 w-screen text-center bg-white -right-2 md:text-left md:mt-2 md:w-48 md:shadow-md md:rounded-md md:px-2 ring-1 ring-accent focus:outline-none">
               <div className="py-2">
                 <Menu.Item>
                   {({ active }) => (
