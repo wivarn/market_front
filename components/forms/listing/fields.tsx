@@ -31,10 +31,10 @@ type LongTextFieldProps = FieldHookConfig<string> &
 
 // Style variables for the fields
 const labelClass = "p-1 text-base font-medium text-accent-darker";
-const descriptionClass = "px-1 mr-4 block text-xs font-normal text-accent-dark";
+const descriptionClass = "mr-4 block text-xs font-normal text-accent-dark";
 const inputClassFull = "relative w-full p-2 border rounded-md border-accent";
 const inputClass = "relative p-2 border rounded-md w-96 border-accent";
-const fieldClass = "items-center my-2 mx-4 py-2 px-4 grid-cols-1 mx-auto space-y-4 lg:grid-cols-3 md:grid-cols-2 grid w-full"
+const fieldClass = "items-center my-2 py-2 grid-cols-1 mx-auto space-y-4 lg:grid-cols-3 md:grid-cols-2 grid w-full"
 
 export type ListingComboBoxOption = {
   value: string;
@@ -266,7 +266,7 @@ export function ListingToggle({
               </Switch.Description>
             ) : null}
           </div>
-          <div className="col-span-2">
+          <div className="">
             <Switch
               checked={enabled}
               onChange={setEnabled}
