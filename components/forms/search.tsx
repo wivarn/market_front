@@ -25,7 +25,7 @@ export default function SearchForm() {
       onSubmit={(values: Values, actions) => {
         router.push({
           pathname: "/listings/search",
-          query: { query: values.query },
+          query: { title: values.query },
         });
         actions.setSubmitting(false);
       }}
@@ -35,10 +35,9 @@ export default function SearchForm() {
           <div className="inline-flex items-center gap-2">
             <div className="max-w-xs">
               <SearchField
-                name="search"
+                name="query"
                 type="text"
                 placeholder="Search for anything"
-                disabled={true}
               />
             </div>
             <span className="">
