@@ -11,10 +11,23 @@ import { IconLink } from "./iconLink";
 import Link from "next/link";
 import SearchForm from "components/forms/search";
 import useSWR from "swr";
-import { useSession } from "next-auth/client";
+import { signOut, useSession } from "next-auth/client";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function Header() {
   const [session, sessionLoading] = useSession();
+  const router = useRouter();
+
+  // Might not be the best place to put this. Maybe we should have this in the layout or _app
+  // page instead. It has be somewhere global or at least anywhere that could have a session.
+  useEffect(() => {
+    if (session?.error === "RefreshAccessTokenError") {
+      signOut({ redirect: false, callbackUrl: "/" }).then(async () => {
+        router.push("/");
+      });
+    }
+  }, [session]);
 
   function getProfile() {
     const { data, error } = useSWR(
