@@ -30,10 +30,10 @@ type LongTextFieldProps = FieldHookConfig<string> &
   };
 
 // Style variables for the fields
-const labelClass = "p-1 text-base font-medium text-accent-darker";
-const descriptionClass = "mr-4 block text-sm font-normal text-accent-dark";
+const labelClass = "text-base font-medium text-accent-darker";
+const descriptionClass = "md:block hidden text-sm font-normal text-accent-dark";
 const inputClassFull = "relative w-full p-2 border rounded-md border-accent";
-const fieldClass = "items-center my-2 grid-cols-1 mx-auto space-y-4 lg:grid-cols-3 md:grid-cols-2 grid w-full"
+const fieldClass = "py-2 gap-x-4 items-center grid-cols-1 mx-auto lg:grid-cols-3 md:grid-cols-2 grid w-full"
 
 export type ListingComboBoxOption = {
   value: string;
@@ -255,7 +255,7 @@ export function ListingToggle({
     <span onClick={onClick}>
       <Switch.Group>
         <div className={fieldClass}>
-          <div className="">
+          <div className="justify-items">
             {label ? (
               <Switch.Label className={labelClass}>
               {label}
