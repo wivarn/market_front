@@ -155,6 +155,7 @@ export const DropdownCombobox = ({
   name,
   items,
   label,
+  description,
   formik,
   placeholder,
   disabled,
@@ -200,21 +201,21 @@ export const DropdownCombobox = ({
   });
 
   return (
-    <div className="w-max" hidden={hidden}>
+    <div className="w-full" hidden={hidden}>
       {label ? (
         <label className={labelClass} {...getLabelProps()}>
           {label}
+          <span className={descriptionClass}>{description}</span>
         </label>
       ) : null}
 
-      <div {...getComboboxProps()} className="relative block">
+      <div {...getComboboxProps()} className="relative">
         <input
           {...getToggleButtonProps()}
           {...getInputProps()}
           className={inputClassFull}
           placeholder={placeholder}
           disabled={disabled}
-          tabIndex="0"
         />
         <span
           onClick={() => {
@@ -235,30 +236,34 @@ export const DropdownCombobox = ({
         >
           <SmChevronDownIcon />
         </span>
+        <ul
+          {...getMenuProps()}
+          className={`${
+            isOpen
+              ? "absolute w-full border z-50 bg-white rounded-md border-accent mt-1"
+              : ""
+          }`}
+        >
+          {isOpen &&
+            inputItems.map((item, index) => (
+              <li
+                key={`${item}${index}`}
+                {...getItemProps({ item, index, disabled: item.disabled })}
+                className={
+                  "p-2 m-1 " +
+                  `${
+                    index === highlightedIndex
+                      ? "bg-accent-darker text-accent-lightest rounded-md"
+                      : ""
+                  }` +
+                  `${item.disabled ? "bg-primary-dark" : ""}`
+                }
+              >
+                {item.text}
+              </li>
+            ))}
+        </ul>
       </div>
-      <ul
-        {...getMenuProps()}
-        className={`${isOpen ? "border rounded-md border-accent mt-1" : ""}`}
-      >
-        {isOpen &&
-          inputItems.map((item, index) => (
-            <li
-              key={`${item}${index}`}
-              {...getItemProps({ item, index, disabled: item.disabled })}
-              className={
-                "p-2 m-1 " +
-                `${
-                  index === highlightedIndex
-                    ? "bg-accent-darker text-accent-lightest rounded-md"
-                    : ""
-                }` +
-                `${item.disabled ? "bg-primary-dark" : ""}`
-              }
-            >
-              {item.text}
-            </li>
-          ))}
-      </ul>
       <TextField name={name} hidden={true} />
     </div>
   );
