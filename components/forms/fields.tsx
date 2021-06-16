@@ -35,7 +35,6 @@ const descriptionClass = "p-1 block text-sm font-normal text-accent-dark";
 const inputClassFull = "w-full p-2 border rounded-md border-accent";
 const inputClass = "p-2 border rounded-md w-72 border-accent";
 
-// General text field
 export type ComboBoxOption = {
   value: string;
   text: string;
@@ -66,7 +65,7 @@ type ToggleProps = {
 export const TextField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-accent-darkest">
+    <div className="my-2">
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
@@ -83,7 +82,7 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
 export const TextFieldFull = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-accent-darkest">
+    <div className="my-2">
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
@@ -100,7 +99,7 @@ export const TextFieldFull = ({ label, ...props }: TextFieldProps) => {
 export const LongTextField = ({ label, ...props }: LongTextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-accent-darkest">
+    <div className="my-2">
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
@@ -117,14 +116,14 @@ export const LongTextField = ({ label, ...props }: LongTextFieldProps) => {
 export const SearchField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-accent-darkest">
+    <div className="my-2">
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
         </label>
       ) : null}
       <input
-        className="w-64 px-2 py-1 border rounded-full border-accent"
+        className="px-2 py-1 border rounded-full w-72 border-accent"
         {...field}
         {...props}
       />
@@ -212,7 +211,7 @@ export const DropdownCombobox = ({
         <input
           {...getToggleButtonProps()}
           {...getInputProps()}
-          className={inputClass}
+          className={inputClassFull}
           placeholder={placeholder}
           disabled={disabled}
           tabIndex="0"
