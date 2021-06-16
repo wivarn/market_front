@@ -255,7 +255,7 @@ export function ListingToggle({
     <span onClick={onClick}>
       <Switch.Group>
         <div className={fieldClass}>
-          <div className="justify-items">
+          <div className="">
             {label ? (
               <Switch.Label className={labelClass}>
               {label}
