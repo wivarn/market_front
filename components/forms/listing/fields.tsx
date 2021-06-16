@@ -191,6 +191,7 @@ export const ListingDropdownCombobox = ({
           className={inputClassFull}
           placeholder={placeholder}
           disabled={disabled}
+          tabIndex="0"
         />
         <span
           onClick={() => {

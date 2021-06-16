@@ -6,10 +6,7 @@ import {
   useState,
 } from "react";
 import { FieldHookConfig, FormikProps, useField } from "formik";
-import {
-  SmChevronDownIcon,
-  SmXIcon,
-} from "components/icons";
+import { SmChevronDownIcon, SmXIcon } from "components/icons";
 
 import { Dispatch } from "react";
 import { RefObject } from "react";
@@ -204,7 +201,6 @@ export const DropdownCombobox = ({
       {label ? (
         <label className={labelClass} {...getLabelProps()}>
           {label}
-          <span className={descriptionClass}>{description}</span>
         </label>
       ) : null}
 
@@ -215,6 +211,7 @@ export const DropdownCombobox = ({
           className={inputClassFull}
           placeholder={placeholder}
           disabled={disabled}
+          tabIndex="0"
         />
         <span
           onClick={() => {
