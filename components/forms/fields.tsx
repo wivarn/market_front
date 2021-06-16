@@ -155,7 +155,6 @@ export const DropdownCombobox = ({
   name,
   items,
   label,
-  description,
   formik,
   placeholder,
   disabled,
