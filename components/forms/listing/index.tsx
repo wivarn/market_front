@@ -146,7 +146,7 @@ function subCategoryCombobox(formik: FormikProps<any>) {
     ? "Select a sub-category"
     : "Select category first";
 
-  var items: ListingComboBoxOption[] = [];
+  let items: ListingComboBoxOption[] = [];
   switch (category) {
     case "SPORTS_CARDS":
       items = sportsCardList;

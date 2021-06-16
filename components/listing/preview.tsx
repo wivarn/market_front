@@ -10,13 +10,13 @@ const ListingPreview = (props: Listing) => {
         <Link href={`/listings/${props.id}`}>
           <a>
             <div className="border rounded-lg border-accent-dark hover:shadow-lg">
-                <Image
-                  src={props.photos[0]}
-                  alt={props.title}
-                  height={400}
-                  width={300}
-                  className="rounded-t-md bg-accent-dark"
-                />
+              <Image
+                src={props.photos[0]}
+                alt={props.title}
+                height={400}
+                width={300}
+                className="rounded-t-md bg-accent-dark"
+              />
               <div className="p-2 border-t border-accent-dark">
                 <ListingBasicInfo
                   title={props.title}

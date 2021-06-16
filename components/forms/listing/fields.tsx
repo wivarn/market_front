@@ -33,7 +33,8 @@ type LongTextFieldProps = FieldHookConfig<string> &
 const labelClass = "text-base font-medium text-accent-darker";
 const descriptionClass = "md:block hidden text-sm font-normal text-accent-dark";
 const inputClassFull = "relative w-full p-2 border rounded-md border-accent";
-const fieldClass = "py-2 gap-x-4 items-center grid-cols-1 mx-auto lg:grid-cols-3 md:grid-cols-2 grid w-full"
+const fieldClass =
+  "py-2 gap-x-4 items-center grid-cols-1 mx-auto lg:grid-cols-3 md:grid-cols-2 grid w-full";
 
 export type ListingComboBoxOption = {
   value: string;
@@ -74,18 +75,19 @@ export const ListingTextField = ({ label, ...props }: TextFieldProps) => {
         </label>
       ) : null}
       <div className="col-span-2">
-      <input className={inputClassFull} {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className="text-error">{meta.error}</div>
-      ) : null}
+        <input className={inputClassFull} {...field} {...props} />
+        {meta.touched && meta.error ? (
+          <div className="text-error">{meta.error}</div>
+        ) : null}
       </div>
-
     </div>
   );
 };
 
-
-export const ListingLongTextField = ({ label, ...props }: LongTextFieldProps) => {
+export const ListingLongTextField = ({
+  label,
+  ...props
+}: LongTextFieldProps) => {
   const [field, meta] = useField(props);
   return (
     <div className={fieldClass}>
@@ -117,7 +119,9 @@ export const ListingNumberField = ({ label, ...props }: TextFieldProps) => {
       ) : null}
       <div className="relative">
         <input type="number" className={inputClassFull} {...field} {...props} />
-        <span className="absolute top-0 right-0 p-2 border border-accent-darker text-accent-lightest rounded-r-md bg-accent-darker">{props.currency}</span>
+        <span className="absolute top-0 right-0 p-2 border border-accent-darker text-accent-lightest rounded-r-md bg-accent-darker">
+          {props.currency}
+        </span>
       </div>
       {meta.touched && meta.error ? (
         <div className="text-error">{meta.error}</div>
@@ -258,13 +262,11 @@ export function ListingToggle({
         <div className={fieldClass}>
           <div className="">
             {label ? (
-              <Switch.Label className={labelClass}>
-              {label}
-              </Switch.Label>
+              <Switch.Label className={labelClass}>{label}</Switch.Label>
             ) : null}
             {description ? (
               <Switch.Description className={descriptionClass}>
-              {description}
+                {description}
               </Switch.Description>
             ) : null}
           </div>
