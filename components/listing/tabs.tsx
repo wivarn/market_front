@@ -56,15 +56,17 @@ export default function ListingTabs({
   const noAddress = !addresses.data.length;
 
   return (
-    <div className="mt-8 mb-8">
-      <div className="space-x-4 text-center">
-        <h2 className="inline-block text-accent-darkest">Your Listings</h2>
+    <div className="p-2">
+      <div className="relative py-4 text-center border-b border-accent">
+        <h3 className="inline-block text-accent-darkest">Your Listings</h3>
+        <span className="absolute right-0 space-x-4">
         <PrimaryButton
           text="New Listing"
           href="listings/new"
           disabled={noAddress}
         />
         <SecondaryButton text="Update Template" href="listings/template" />
+        </span>
       </div>
       <div className="flex justify-center mt-8 mb-8 space-x-8">
         <LinkWrapper
