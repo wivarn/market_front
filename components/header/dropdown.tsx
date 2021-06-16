@@ -68,10 +68,10 @@ export const DropDown = (props: Props) => {
         <>
           <div>
             <Menu.Button className="hidden py-2 md:block focus:outline-none">
-              <IconLink icon={<UserChevronIcon />} />
+              <IconLink icon={<UserChevronIcon />} tooltip="Account" />
             </Menu.Button>
             <Menu.Button className="py-2 md:hidden focus:outline-none">
-              <IconLink icon={<MenuIcon />} />
+              <IconLink icon={<MenuIcon />} tooltip="Menu" />
             </Menu.Button>
           </div>
 

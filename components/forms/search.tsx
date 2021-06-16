@@ -3,7 +3,6 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 
 import { SearchField } from "./fields";
-import { SubmitButton } from "components/buttons";
 import { useRouter } from "next/router";
 
 interface Values {
