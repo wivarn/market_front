@@ -59,14 +59,14 @@ export default function ListingTabs({
     <div className="p-2">
       <div className="relative py-4 text-center border-b border-accent">
         <h3 className="inline-block text-accent-darkest">Your Listings</h3>
-        <span className="absolute right-0 space-x-4">
+        <div className="top-0 right-0 space-x-4 md:block md:absolute">
         <PrimaryButton
           text="New Listing"
           href="listings/new"
           disabled={noAddress}
         />
         <SecondaryButton text="Update Template" href="listings/template" />
-        </span>
+        </div>
       </div>
       <div className="flex justify-center mt-8 mb-8 space-x-8">
         <LinkWrapper
