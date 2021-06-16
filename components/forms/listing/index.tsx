@@ -30,47 +30,6 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
-//Listing Schema
-const listingSchema = Yup.object().shape({
-  photos: Yup.array(Yup.string()).min(1).max(10),
-  title: Yup.string()
-    .min(2, "Title must be more than 2 characters")
-    .max(256, "Title must be less than 256 characters")
-    .required("Title is required"),
-  grading_company: Yup.mixed().oneOf(
-    gradingCompanyList.map((gradingCompany) => {
-      return gradingCompany.value;
-    }),
-    "This is not a valid grading company"
-  ),
-  condition: Yup.mixed()
-    .when("grading_company", {
-      is: "",
-      then: Yup.mixed().oneOf(
-        conditionList.map((condition) => {
-          return condition.value;
-        }),
-        "This is not a valid condition"
-      ),
-      otherwise: Yup.mixed().oneOf(
-        gradingList.map((grading) => {
-          return grading.value;
-        }),
-        "This is not a valid grading"
-      ),
-    })
-    .required("Condition is required"),
-  price: Yup.number()
-    .min(0.25, "Price must more than 0.25")
-    .max(99999999.99, "Price must be less than 99999999.99")
-    .required("Price is required"),
-  domestic_shipping: Yup.number()
-    .min(0, "Shipping can't be less than 0")
-    .max(99999999.99, "Shipping must be less than 99999999.99")
-    .required("Shipping price is required"),
-  status: Yup.string().required("Required"),
-});
-
 // Stub photos while waiting for S3 integration
 const stubPhotos = [
   "/images/picture-1.jpg",
@@ -136,6 +95,79 @@ const collectibleList = [
   { value: "OTHER", text: "Other" },
 ];
 
+const listingSchema = Yup.object().shape({
+  category: Yup.mixed()
+    .oneOf(
+      categoryList.map((category) => {
+        return category.value;
+      })
+    )
+    .required("Category is required"),
+  subCategory: Yup.mixed()
+    .when("category", {
+      is: "SPORTS_CARDS",
+      then: Yup.mixed().oneOf(
+        sportsCardList.map((sports_card) => {
+          return sports_card.value;
+        })
+      ),
+    })
+    .when("category", {
+      is: "TRADING_CARDS",
+      then: Yup.mixed().oneOf(
+        tradingCardList.map((trading_card) => {
+          return trading_card.value;
+        })
+      ),
+    })
+    .when("category", {
+      is: "COLLECTIBLES",
+      then: Yup.mixed().oneOf(
+        collectibleList.map((collectible) => {
+          return collectible.value;
+        })
+      ),
+    })
+    .required("Sub-category is required"),
+  photos: Yup.array(Yup.string()).min(1).max(10),
+  title: Yup.string()
+    .min(2, "Title must be more than 2 characters")
+    .max(256, "Title must be less than 256 characters")
+    .required("Title is required"),
+  grading_company: Yup.mixed().oneOf(
+    gradingCompanyList.map((gradingCompany) => {
+      return gradingCompany.value;
+    }),
+    "This is not a valid grading company"
+  ),
+  condition: Yup.mixed()
+    .when("grading_company", {
+      is: "",
+      then: Yup.mixed().oneOf(
+        conditionList.map((condition) => {
+          return condition.value;
+        }),
+        "This is not a valid condition"
+      ),
+      otherwise: Yup.mixed().oneOf(
+        gradingList.map((grading) => {
+          return grading.value;
+        }),
+        "This is not a valid grading"
+      ),
+    })
+    .required("Condition is required"),
+  price: Yup.number()
+    .min(0.25, "Price must more than 0.25")
+    .max(99999999.99, "Price must be less than 99999999.99")
+    .required("Price is required"),
+  domestic_shipping: Yup.number()
+    .min(0, "Shipping can't be less than 0")
+    .max(99999999.99, "Shipping must be less than 99999999.99")
+    .required("Shipping price is required"),
+  status: Yup.string().required("Required"),
+});
+
 const subcategoryRef = createRef<HTMLSpanElement>();
 const gradingCompanyRef = createRef<HTMLSpanElement>();
 const conditionRef = createRef<HTMLSpanElement>();
@@ -173,7 +205,7 @@ function subCategoryCombobox(formik: FormikProps<any>) {
   );
 }
 
-const ListingForm = (props: Listing) => {
+const ListingForm = (props: Listing): JSX.Element => {
   const router = useRouter();
   const [session] = useSession();
   const [graded, setGraded] = useState(false);
@@ -228,7 +260,7 @@ const ListingForm = (props: Listing) => {
         onClick={async () => {
           await ListingApi(accessToken)
             .destroy(id)
-            .then((_) => {
+            .then(() => {
               toast.error("Your listing has been deleted");
               router.push("/listings");
             })
@@ -241,7 +273,7 @@ const ListingForm = (props: Listing) => {
     );
   }
 
-  const { profile, isLoading, isError } = getProfile();
+  const { profile } = getProfile();
 
   if (!session) return <div>Spinner</div>;
 

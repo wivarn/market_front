@@ -64,7 +64,10 @@ type ToggleProps = {
   onClick?: () => Promise<void>;
 };
 
-export const ListingTextField = ({ label, ...props }: TextFieldProps) => {
+export const ListingTextField = ({
+  label,
+  ...props
+}: TextFieldProps): JSX.Element => {
   const [field, meta] = useField(props);
   return (
     <div className={fieldClass}>
@@ -87,7 +90,7 @@ export const ListingTextField = ({ label, ...props }: TextFieldProps) => {
 export const ListingLongTextField = ({
   label,
   ...props
-}: LongTextFieldProps) => {
+}: LongTextFieldProps): JSX.Element => {
   const [field, meta] = useField(props);
   return (
     <div className={fieldClass}>
@@ -107,7 +110,10 @@ export const ListingLongTextField = ({
   );
 };
 
-export const ListingNumberField = ({ label, ...props }: TextFieldProps) => {
+export const ListingNumberField = ({
+  label,
+  ...props
+}: TextFieldProps): JSX.Element => {
   const [field, meta] = useField(props);
   return (
     <div className={fieldClass}>
@@ -141,7 +147,7 @@ export const ListingDropdownCombobox = ({
   resetRef,
   childresetRef,
   hidden,
-}: ComboBoxProps) => {
+}: ComboBoxProps): JSX.Element => {
   const [inputItems, setInputItems] = useState(items);
   const itemToString = (item: any) => (item ? item.text : "");
   const itemFilter = (inputValue: string | undefined) => {
@@ -180,7 +186,7 @@ export const ListingDropdownCombobox = ({
   });
 
   return (
-    <div className={fieldClass} hidden={hidden}>
+    <div className={`${hidden ? "hidden" : null} ${fieldClass}`}>
       {label ? (
         <label className={labelClass} {...getLabelProps()}>
           {label}
@@ -255,7 +261,7 @@ export function ListingToggle({
   label,
   description,
   onClick,
-}: ToggleProps) {
+}: ToggleProps): JSX.Element {
   return (
     <span onClick={onClick}>
       <Switch.Group>
