@@ -1,8 +1,7 @@
 import React, { ReactNode } from "react";
 
-import { ToolTip } from "components/tooltip"
-
 import Link from "next/link";
+import { ToolTip } from "components/tooltip";
 
 interface Props {
   href?: string;
@@ -21,7 +20,7 @@ export const IconLink = (props: Props) => {
         </div>
       </a>
     </div>
-
+  );
   if (!props.href) {
     return iconText;
   }
