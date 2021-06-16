@@ -5,19 +5,19 @@ import ListingBasicInfo from "./basicInfo";
 
 const ListingPreview = (props: Listing) => {
   return (
-    <div className="justify-center">
-      <div className="px-3 py-6">
+    <div className="mt-4">
+      <div className="">
         <Link href={`/listings/${props.id}`}>
           <a>
-            <div className="border rounded-lg border-accent-dark hover:shadow-lg">
-                <Image
+            <div className="flex flex-wrap border rounded-md w-80 hover:shadow-xl">
+              <div className="image">
+                <img
                   src={props.photos[0]}
                   alt={props.title}
-                  height={400}
-                  width={300}
-                  className="rounded-t-md bg-accent-dark"
+                  className="rounded-t-md"
                 />
-              <div className="p-2 border-t border-accent-dark">
+                </div>
+              <div className="px-2 py-1 w-96">
                 <ListingBasicInfo
                   title={props.title}
                   price={props.price}
