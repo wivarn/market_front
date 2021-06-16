@@ -115,11 +115,13 @@ export const ListingNumberField = ({ label, ...props }: TextFieldProps) => {
           <span className={descriptionClass}>{props.description}</span>
         </label>
       ) : null}
+      <div className="relative">
         <input type="number" className={inputClassFull} {...field} {...props} />
-        <span className="p-2">{props.currency}</span>
-        {meta.touched && meta.error ? (
-          <div className="text-error">{meta.error}</div>
-        ) : null}
+        <span className="absolute top-0 right-0 p-2 border border-accent-darker text-accent-lightest rounded-r-md bg-accent-darker">{props.currency}</span>
+      </div>
+      {meta.touched && meta.error ? (
+        <div className="text-error">{meta.error}</div>
+      ) : null}
     </div>
   );
 };
