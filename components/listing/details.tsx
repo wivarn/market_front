@@ -3,7 +3,7 @@ import { PrimaryButton, SubmitButton } from "components/buttons";
 import Image from "next/image";
 import { LgUserCircleIcon } from "components/icons";
 import { Listing } from "types/listings";
-import ListingBasicInfo from "./basicInfo";
+import ListingDetailInfo from "./detailInfo";
 import { useSession } from "next-auth/client";
 
 const ListingDetails = (props: Listing) => {
@@ -25,7 +25,7 @@ const ListingDetails = (props: Listing) => {
           </div>
           <div className="flex-initial pl-10">
             <div className="pt-10">
-              <ListingBasicInfo
+              <ListingDetailInfo
                 title={props.title}
                 price={props.price}
                 currency={props.currency}
