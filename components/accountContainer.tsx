@@ -12,7 +12,9 @@ const LinkWrapper = ({ href, tab, activeTab, ...props }: LinkProps) => {
       <a {...props}>
         <p
           className={
-            tab == activeTab ? "pb-2 border-b-2 border-primary text-primary font-semibold" : ""
+            tab == activeTab
+              ? "pb-2 border-b-2 border-primary text-primary font-semibold"
+              : ""
           }
         >
           {props.children}
