@@ -6,10 +6,7 @@ import {
   useState,
 } from "react";
 import { FieldHookConfig, FormikProps, useField } from "formik";
-import {
-  SmChevronDownIcon,
-  SmXIcon,
-} from "components/icons";
+import { SmChevronDownIcon, SmXIcon } from "components/icons";
 
 import { Dispatch } from "react";
 import { RefObject } from "react";
@@ -35,7 +32,6 @@ const descriptionClass = "p-1 block text-sm font-normal text-accent-dark";
 const inputClassFull = "w-full p-2 border rounded-md border-accent";
 const inputClass = "p-2 border rounded-md w-72 border-accent";
 
-// General text field
 export type ComboBoxOption = {
   value: string;
   text: string;
@@ -66,7 +62,7 @@ type ToggleProps = {
 export const TextField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-accent-darkest">
+    <div className="my-2">
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
@@ -83,7 +79,7 @@ export const TextField = ({ label, ...props }: TextFieldProps) => {
 export const TextFieldFull = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-accent-darkest">
+    <div className="my-2">
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
@@ -100,7 +96,7 @@ export const TextFieldFull = ({ label, ...props }: TextFieldProps) => {
 export const LongTextField = ({ label, ...props }: LongTextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-accent-darkest">
+    <div className="my-2">
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
@@ -117,14 +113,14 @@ export const LongTextField = ({ label, ...props }: LongTextFieldProps) => {
 export const SearchField = ({ label, ...props }: TextFieldProps) => {
   const [field, meta] = useField(props);
   return (
-    <div className="my-2 text-accent-darkest">
+    <div className="my-2">
       {label ? (
         <label htmlFor={props.name} className={labelClass}>
           {label}
         </label>
       ) : null}
       <input
-        className="w-64 px-2 py-1 border rounded-full border-accent"
+        className="px-2 py-1 border rounded-full w-72 border-accent"
         {...field}
         {...props}
       />
@@ -201,18 +197,18 @@ export const DropdownCombobox = ({
   });
 
   return (
-    <div className="w-max" hidden={hidden}>
+    <div className="w-full" hidden={hidden}>
       {label ? (
         <label className={labelClass} {...getLabelProps()}>
           {label}
         </label>
       ) : null}
 
-      <div {...getComboboxProps()} className="relative block">
+      <div {...getComboboxProps()} className="relative">
         <input
           {...getToggleButtonProps()}
           {...getInputProps()}
-          className={inputClass}
+          className={inputClassFull}
           placeholder={placeholder}
           disabled={disabled}
           tabIndex="0"
@@ -236,30 +232,34 @@ export const DropdownCombobox = ({
         >
           <SmChevronDownIcon />
         </span>
+        <ul
+          {...getMenuProps()}
+          className={`${
+            isOpen
+              ? "absolute w-full border z-50 bg-white rounded-md border-accent mt-1"
+              : ""
+          }`}
+        >
+          {isOpen &&
+            inputItems.map((item, index) => (
+              <li
+                key={`${item}${index}`}
+                {...getItemProps({ item, index, disabled: item.disabled })}
+                className={
+                  "p-2 m-1 " +
+                  `${
+                    index === highlightedIndex
+                      ? "bg-accent-darker text-accent-lightest rounded-md"
+                      : ""
+                  }` +
+                  `${item.disabled ? "bg-primary-dark" : ""}`
+                }
+              >
+                {item.text}
+              </li>
+            ))}
+        </ul>
       </div>
-      <ul
-        {...getMenuProps()}
-        className={`${isOpen ? "border rounded-md border-accent mt-1" : ""}`}
-      >
-        {isOpen &&
-          inputItems.map((item, index) => (
-            <li
-              key={`${item}${index}`}
-              {...getItemProps({ item, index, disabled: item.disabled })}
-              className={
-                "p-2 m-1 " +
-                `${
-                  index === highlightedIndex
-                    ? "bg-accent-darker text-accent-lightest rounded-md"
-                    : ""
-                }` +
-                `${item.disabled ? "bg-primary-dark" : ""}`
-              }
-            >
-              {item.text}
-            </li>
-          ))}
-      </ul>
       <TextField name={name} hidden={true} />
     </div>
   );
