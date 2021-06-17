@@ -3,7 +3,7 @@ import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-export default function EditListing() {
+export default function EditListing(): JSX.Element {
   const router = useRouter();
   const { id } = router.query;
 
@@ -27,13 +27,17 @@ export default function EditListing() {
       <NextSeo title="Update Listing" />
       <ListingForm
         id={listing.id}
-        photos={listing.photos}
-        title={listing.title}
-        price={listing.price}
         currency={listing.currency}
-        domestic_shipping={listing.domestic_shipping}
-        condition={listing.condition}
+        category={listing.category}
+        subcategory={listing.subcategory}
+        title={listing.title}
         description={listing.description}
+        grading_company={listing.grading_company}
+        condition={listing.condition}
+        photos={listing.photos}
+        price={listing.price}
+        domestic_shipping={listing.domestic_shipping}
+        international_shipping={listing.international_shipping}
       />
     </>
   );

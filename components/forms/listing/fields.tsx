@@ -17,7 +17,6 @@ type TextFieldProps = FieldHookConfig<string> &
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
     label?: string | JSX.Element;
     description?: string;
-    currency?: string;
   };
 
 type LongTextFieldProps = FieldHookConfig<string> &
@@ -28,6 +27,10 @@ type LongTextFieldProps = FieldHookConfig<string> &
     label?: string | JSX.Element;
     description?: string;
   };
+
+type PriceFieldProps = TextFieldProps & {
+  currency?: string;
+};
 
 // Style variables for the fields
 const labelClass = "text-base font-medium text-accent-darker";
@@ -50,11 +53,9 @@ type ComboBoxProps = TextFieldProps & {
   childresetRef?: RefObject<HTMLSpanElement>;
 };
 
-type ToggleProps = {
+type ToggleProps = TextFieldProps & {
   enabled: boolean;
   setEnabled: Dispatch<SetStateAction<boolean>>;
-  label?: string;
-  description?: string;
   onClick?: () => Promise<void>;
 };
 
@@ -107,7 +108,7 @@ export const ListingLongTextField = ({
 export const ListingNumberField = ({
   label,
   ...props
-}: TextFieldProps): JSX.Element => {
+}: PriceFieldProps): JSX.Element => {
   const [field, meta] = useField(props);
   return (
     <div className={fieldClass}>
@@ -205,7 +206,7 @@ export const ListingDropdownCombobox = ({
             // TODO: Find a way to do this without setTimeout
             setTimeout(() => {
               fieldHelpers.setTouched(true);
-            }, 85);
+            }, 100);
           }}
         />
         <input {...field} {...props} className={inputClassFull} hidden />
@@ -270,9 +271,13 @@ export function ListingToggle({
   label,
   description,
   onClick,
+  ...props
 }: ToggleProps): JSX.Element {
+  const [field] = useField(props);
+
   return (
     <span onClick={onClick}>
+      <input {...field} {...props} type="checkbox" hidden />
       <Switch.Group>
         <div className={fieldClass}>
           <div>
@@ -292,7 +297,7 @@ export function ListingToggle({
               type="button"
               className={`${
                 enabled ? "bg-success" : "bg-success-lighter"
-              } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-success`}
+              } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-success focus:ring-2 focus:ring-offset-2`}
             >
               <span
                 className={`${

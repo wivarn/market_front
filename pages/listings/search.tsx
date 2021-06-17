@@ -4,7 +4,7 @@ import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-export default function Listings() {
+export default function Listings(): JSX.Element {
   const router = useRouter();
 
   function getListings() {
