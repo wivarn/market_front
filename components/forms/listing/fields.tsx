@@ -204,7 +204,7 @@ export const ListingDropdownCombobox = ({
             // TODO: Find a way to do this without setTimeout
             setTimeout(() => {
               fieldHelpers.setTouched(true);
-            }, 85);
+            }, 100);
           }}
         />
         <input {...field} {...props} className={inputClassFull} hidden />

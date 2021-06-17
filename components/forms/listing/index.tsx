@@ -103,7 +103,7 @@ const listingSchema = Yup.object().shape({
       })
     )
     .required("Category is required"),
-  subCategory: Yup.mixed()
+  subcategory: Yup.mixed()
     .when("category", {
       is: "SPORTS_CARDS",
       then: Yup.mixed().oneOf(
@@ -134,12 +134,14 @@ const listingSchema = Yup.object().shape({
     .min(2, "Title must be more than 2 characters")
     .max(256, "Title must be less than 256 characters")
     .required("Title is required"),
-  grading_company: Yup.mixed().oneOf(
-    gradingCompanyList.map((gradingCompany) => {
-      return gradingCompany.value;
-    }),
-    "This is not a valid grading company"
-  ),
+  grading_company: Yup.mixed()
+    .oneOf(
+      gradingCompanyList.map((gradingCompany) => {
+        return gradingCompany.value;
+      }),
+      "This is not a valid grading company"
+    )
+    .required(),
   condition: Yup.mixed()
     .when("grading_company", {
       is: "",
@@ -284,6 +286,7 @@ const ListingForm = (props: Listing): JSX.Element => {
           subcategory: props.subcategory,
           photos: props.photos,
           title: props.title,
+          grading_company: props.grading_company,
           condition: props.condition,
           description: props.description,
           price: props.price,

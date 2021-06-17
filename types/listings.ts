@@ -3,7 +3,7 @@ export interface BasicListing {
   price: string | number;
   currency?: string;
   domestic_shipping: string | number;
-  condition: string;
+  condition: string | number;
 }
 
 export interface Listing extends BasicListing {
@@ -11,6 +11,7 @@ export interface Listing extends BasicListing {
   subcategory?: string;
   accountId?: string;
   id?: string;
+  grading_company?: string;
   photos: string[];
   description?: string;
   sellerName?: string;
