@@ -15,7 +15,7 @@ const ListingPreview = (props: Listing) => {
                   alt={props.title}
                   className="rounded-t-md"
                 />
-                </div>
+              </div>
               <div className="px-2 py-1 w-96">
                 <ListingBasicInfo
                   title={props.title}
