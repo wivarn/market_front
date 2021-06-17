@@ -57,8 +57,8 @@ export default function ListingTabs({
 
   return (
     <div className="p-2">
-      <div className="relative py-4 text-center border-b border-accent">
-        <h3 className="inline-block text-accent-darkest">Your Listings</h3>
+      <div className="relative py-2 text-center border-b border-accent">
+        <h3 className="inline-block p-2 text-accent-darkest">Your Listings</h3>
         <div className="top-0 right-0 space-x-4 md:block md:absolute">
         <PrimaryButton
           text="New Listing"
@@ -68,7 +68,7 @@ export default function ListingTabs({
         <SecondaryButton text="Update Template" href="listings/template" />
         </div>
       </div>
-      <div className="flex justify-center mt-8 mb-8 space-x-8">
+      <div className="flex justify-center mt-4 mb-2 space-x-8">
         <LinkWrapper
           href="/listings?status=active"
           tab="active"

@@ -1,8 +1,8 @@
 export const CardContainer = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="relative max-w-2xl mx-auto mt-8 mb-8">
-      <div className="absolute inset-0 -mr-2 transform skew-y-0 rounded-md shadow-lg bg-gradient-to-r from-primary via-secondary to-info rotate-2"></div>
-      <div className="relative px-4 py-2 m-2 rounded-md shadow-lg bg-secondary-lighter">
+      <div className="absolute inset-0 -mr-2 transform skew-y-0 shadow-lg rounded-xl bg-gradient-to-r from-primary via-secondary to-info rotate-1"></div>
+      <div className="relative px-4 py-2 m-2 rounded-md shadow-lg bg-secondary-light">
         {children}
       </div>
     </div>
@@ -12,8 +12,8 @@ export const CardContainer = ({ children }: { children: React.ReactNode }) => {
 export const CardContainerXL = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="relative max-w-6xl mx-auto mt-8 mb-8">
-      <div className="absolute inset-0 -mr-2 transform skew-y-0 rounded-md shadow-lg bg-gradient-to-r from-primary via-secondary to-info rotate-2"></div>
-      <div className="relative px-4 py-2 m-2 rounded-md shadow-lg bg-secondary-lighter">
+      <div className="absolute inset-0 -mr-2 transform skew-y-0 shadow-lg rounded-xl bg-gradient-to-r from-primary via-secondary to-info rotate-1"></div>
+      <div className="relative px-4 py-2 m-2 rounded-md shadow-lg bg-secondary-light">
         {children}
       </div>
     </div>
@@ -26,9 +26,9 @@ export const CardContainerFull = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className="relative max-w-full mx-auto mt-8 mb-8">
-      <div className="absolute inset-0 -mr-2 transform skew-y-0 rounded-md shadow-lg bg-gradient-to-r from-primary via-secondary to-info rotate-2"></div>
-      <div className="relative px-4 py-2 m-2 rounded-md shadow-lg bg-secondary-lighter">
+    <div className="relative max-w-full mx-auto mb-4">
+      <div className="absolute inset-0 -mr-1 transform skew-y-0 shadow-lg rounded-xl bg-gradient-to-r from-primary via-secondary to-info rotate-1"></div>
+      <div className="relative px-4 py-2 m-2 rounded-md shadow-lg bg-secondary-light">
         {children}
       </div>
     </div>
