@@ -167,10 +167,19 @@ export const ListingDropdownCombobox = ({
       setInputItems(items);
     },
     onSelectedItemChange: ({ selectedItem }) => {
-      fieldHelpers.setValue(`${selectedItem?.value}`);
-      fieldHelpers.setTouched(true);
+      if (selectedItem) {
+        fieldHelpers.setValue(`${selectedItem?.value}`);
+      }
       if (childresetRef?.current) {
         childresetRef.current.click();
+      }
+    },
+    onStateChange: ({ type, selectedItem }) => {
+      if (
+        selectedItem &&
+        (type == "__item_click__" || type == "__input_keydown_enter__")
+      ) {
+        fieldHelpers.setValue(`${selectedItem?.value}`);
       }
     },
   });
@@ -192,7 +201,10 @@ export const ListingDropdownCombobox = ({
           className={inputClassFull}
           tabIndex="0"
           onBlur={() => {
-            fieldHelpers.setTouched(true);
+            // TODO: Find a way to do this without setTimeout
+            setTimeout(() => {
+              fieldHelpers.setTouched(true);
+            }, 100);
           }}
         />
         <input {...field} {...props} className={inputClassFull} hidden />
@@ -215,9 +227,7 @@ export const ListingDropdownCombobox = ({
         >
           <SmChevronDownIcon />
         </span>
-        {meta.touched && meta.error ? (
-          <div className="text-error">{meta.error}</div>
-        ) : null}
+
         <ul
           {...getMenuProps()}
           className={`${
@@ -246,6 +256,9 @@ export const ListingDropdownCombobox = ({
             ))}
         </ul>
       </div>
+      {meta.touched && meta.error ? (
+        <div className="text-error">{meta.error}</div>
+      ) : null}
     </div>
   );
 };
