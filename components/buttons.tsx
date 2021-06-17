@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ToolTip } from "components/tooltip";
 
 interface Props {
   disabled?: boolean;
@@ -21,7 +20,6 @@ export const PrimaryButton = (props: PropsWithHref) => {
         disabled={props.disabled}
       >
         {props.text}
-        <ToolTip text={props.tooltip} />
       </button>
     );
   }
