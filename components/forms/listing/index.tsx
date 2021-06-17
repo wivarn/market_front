@@ -29,6 +29,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
+import {CardContainerXL} from "components/cardContainer";
 
 // Stub photos while waiting for S3 integration
 const stubPhotos = [
@@ -276,7 +277,9 @@ const ListingForm = (props: Listing): JSX.Element => {
 
   return (
     <div className="max-w-6xl p-4 mx-auto mt-4">
-      <h3>Enter the details for your listing</h3>
+      <CardContainerXL>
+        <div className="p-2">
+          <h3 className="p-4 text-center border-accent">Enter the details for your listing</h3>
       <Formik
         initialValues={{
           id: props.id,
@@ -410,6 +413,8 @@ const ListingForm = (props: Listing): JSX.Element => {
         )}
       </Formik>
       {renderDeleteButton(props.id, session.accessToken)}
+               </div>
+      </CardContainerXL>
     </div>
   );
 };

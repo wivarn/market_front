@@ -33,6 +33,7 @@ type LongTextFieldProps = FieldHookConfig<string> &
 const labelClass = "text-base font-medium text-accent-darker";
 const descriptionClass = "md:block hidden text-sm font-normal text-accent-dark";
 const inputClassFull = "relative w-full p-2 border rounded-md border-accent";
+
 const fieldClass =
   "py-2 gap-x-4 items-center grid-cols-1 mx-auto lg:grid-cols-3 md:grid-cols-2 grid w-full";
 

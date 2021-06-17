@@ -1,3 +1,4 @@
+import { CardContainerFull } from "components/cardContainer";
 import ListingPreviewGrid from "components/listing/previewGrid";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
@@ -24,10 +25,12 @@ export default function Listings() {
   if (isError) return <div>Error</div>;
 
   return (
-    <div>
+    <div className="my-4">
+      <CardContainerFull>
       <NextSeo title="Search Results" />
-      <h2 className="m-6 text-accent-darkest">Your search results</h2>
+      <h3 className="py-2 text-center border-b border-accent">Your search results</h3>
       <ListingPreviewGrid listings={listings?.data} />
+      </CardContainerFull>
     </div>
   );
 }

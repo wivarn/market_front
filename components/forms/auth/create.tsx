@@ -34,9 +34,11 @@ export default function CreateAccountForm() {
   const router = useRouter();
 
   return (
-    <div className="container max-w-lg mx-auto mt-8">
-      <h2 className="text-center">Create a new account</h2>
+    <div className="my-8">
       <AuthFormContainer>
+        <h3 className="py-4 text-center border-b border-accent">
+          Create a new account
+        </h3>
         <div className="py-2">
           <Formik
             initialValues={{

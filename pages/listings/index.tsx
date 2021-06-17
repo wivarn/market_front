@@ -1,3 +1,4 @@
+import { CardContainerFull } from "components/cardContainer";
 import ListingPreviewGrid from "components/listing/previewGrid";
 import ListingTabs from "components/listing/tabs";
 import { NextSeo } from "next-seo";
@@ -33,9 +34,11 @@ export default function Listings() {
   }
 
   return (
-    <div>
+    <div className="my-4">
+      <CardContainerFull>
       <NextSeo title="Your Listings" />
       <ListingTabs activeTab={`${status}`}>{renderListings()}</ListingTabs>
+      </CardContainerFull>
     </div>
   );
 }
