@@ -11,7 +11,7 @@ import { StrictMode } from "react";
 import Toast from "components/toast";
 import { fetcher } from "services/backendApi/fetcher";
 
-function Market({ Component, pageProps }: AppProps) {
+function Market({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <StrictMode>
       <Head>

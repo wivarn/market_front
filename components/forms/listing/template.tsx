@@ -1,10 +1,5 @@
 import * as Yup from "yup";
 
-import {
-  DeleteButton,
-  SecondarySubmitButton,
-  SubmitButton,
-} from "components/buttons";
 import { Form, Formik, FormikProps } from "formik";
 import {
   ListingComboBoxOption,
@@ -13,7 +8,7 @@ import {
   ListingNumberField,
   ListingTextField,
   ListingToggle,
-} from "../listing/fields";
+} from "./fields";
 import {
   categoryList,
   collectibleList,
@@ -26,49 +21,20 @@ import {
 import { createRef, useState } from "react";
 
 import FormSection from "./section";
-import { Listing } from "types/listings";
-import { ListingApi } from "services/backendApi/listing";
-import _ from "lodash";
+import { ListingTemplate } from "types/listings";
+import { ListingTemplateApi } from "services/backendApi/listingTemplate";
+import { SubmitButton } from "components/buttons";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
-// Stub photos while waiting for S3 integration
-const stubPhotos = [
-  "/images/picture-1.jpg",
-  "/images/picture-2.jpg",
-  "/images/picture-3.jpg",
-  "/images/picture-4.jpg",
-  "/images/picture-5.jpg",
-];
-
-// Pick random photo from library
-const randomPhotos = () =>
-  _.sampleSize(stubPhotos, Math.floor(Math.random() * stubPhotos.length));
-
-// Defaults for new listing
-const newListingProps: Listing = {
-  category: "",
-  subcategory: "",
-  photos: randomPhotos(),
-  title: "",
-  condition: "",
-  description: "",
-  price: 0,
-  domestic_shipping: 0,
-  international_shipping: 0,
-  status: "ACTIVE",
-};
-
 const listingSchema = Yup.object().shape({
-  category: Yup.mixed()
-    .oneOf(
-      categoryList.map((category) => {
-        return category.value;
-      })
-    )
-    .required("Category is required"),
+  category: Yup.mixed().oneOf(
+    categoryList.map((category) => {
+      return category.value;
+    })
+  ),
   subcategory: Yup.mixed()
     .when("category", {
       is: "SPORTS_CARDS",
@@ -93,53 +59,43 @@ const listingSchema = Yup.object().shape({
           return collectible.value;
         })
       ),
-    })
-    .required("Sub-category is required"),
-  photos: Yup.array(Yup.string()).min(1).max(10),
+    }),
   title: Yup.string()
     .min(2, "Title must be more than 2 characters")
-    .max(256, "Title must be less than 256 characters")
-    .required("Title is required"),
+    .max(256, "Title must be less than 256 characters"),
   grading_company: Yup.mixed().when("graded", {
     is: true,
-    then: Yup.mixed()
-      .oneOf(
-        gradingCompanyList.map((gradingCompany) => {
-          return gradingCompany.value;
-        }),
-        "This is not a valid grading company"
-      )
-      .required(),
+    then: Yup.mixed().oneOf(
+      gradingCompanyList.map((gradingCompany) => {
+        return gradingCompany.value;
+      }),
+      "This is not a valid grading company"
+    ),
   }),
-  condition: Yup.mixed()
-    .when("grading_company", {
-      is: "",
-      then: Yup.mixed().oneOf(
-        conditionList.map((condition) => {
-          return condition.value;
-        }),
-        "This is not a valid condition"
-      ),
-      otherwise: Yup.mixed().oneOf(
-        gradingList.map((grading) => {
-          return grading.value;
-        }),
-        "This is not a valid grading"
-      ),
-    })
-    .required("Condition is required"),
+  condition: Yup.mixed().when("grading_company", {
+    is: "",
+    then: Yup.mixed().oneOf(
+      conditionList.map((condition) => {
+        return condition.value;
+      }),
+      "This is not a valid condition"
+    ),
+    otherwise: Yup.mixed().oneOf(
+      gradingList.map((grading) => {
+        return grading.value;
+      }),
+      "This is not a valid grading"
+    ),
+  }),
   price: Yup.number()
     .min(0.25, "Price must more than 0.25")
-    .max(99999999.99, "Price must be less than 99999999.99")
-    .required("Price is required"),
+    .max(99999999.99, "Price must be less than 99999999.99"),
   domestic_shipping: Yup.number()
     .min(0, "Shipping can't be less than 0")
-    .max(99999999.99, "Shipping must be less than 99999999.99")
-    .required("Shipping price is required"),
+    .max(99999999.99, "Shipping must be less than 99999999.99"),
   international_shipping: Yup.number()
     .min(0, "Shipping can't be less than 0")
     .max(99999999.99, "Shipping must be less than 99999999.99"),
-  status: Yup.string().required("Required"),
 });
 
 const subcategoryRef = createRef<HTMLSpanElement>();
@@ -178,12 +134,10 @@ function subCategoryCombobox(formik: FormikProps<any>) {
   );
 }
 
-const ListingForm = (props: Listing): JSX.Element => {
-  const router = useRouter();
+const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
   const [session] = useSession();
   const [graded, setGraded] = useState(false);
-
-  const newListing = !props.id;
+  const router = useRouter();
 
   function getProfile() {
     const { data, error } = useSWR(
@@ -223,40 +177,17 @@ const ListingForm = (props: Listing): JSX.Element => {
     );
   }
 
-  function renderDeleteButton(id: string | undefined, accessToken: string) {
-    if (!id || !accessToken) return null;
-    return (
-      <DeleteButton
-        text="Delete"
-        onClick={async () => {
-          await ListingApi(accessToken)
-            .destroy(id)
-            .then(() => {
-              toast.error("Your listing has been deleted");
-              router.push("/listings");
-            })
-            .catch((error) => {
-              console.log(error);
-              alert(error.response.data.error);
-            });
-        }}
-      />
-    );
-  }
-
   const { profile } = getProfile();
 
   if (!session) return <div>Spinner</div>;
 
   return (
     <div className="max-w-6xl p-4 mx-auto mt-4">
-      <h3>Enter the details for your listing</h3>
+      <h3>Enter the details for your listing template</h3>
       <Formik
         initialValues={{
-          id: props.id,
           category: props.category,
           subcategory: props.subcategory,
-          photos: props.photos,
           title: props.title,
           graded: false,
           grading_company: props.grading_company,
@@ -264,22 +195,13 @@ const ListingForm = (props: Listing): JSX.Element => {
           description: props.description,
           price: props.price,
           domestic_shipping: props.domestic_shipping,
-          international_shipping: props.international_shipping,
-          status: props.status,
         }}
         validationSchema={listingSchema}
-        onSubmit={(values: Listing, actions) => {
-          const request = newListing
-            ? ListingApi(session.accessToken).create(values)
-            : ListingApi(session.accessToken).update(values);
-
-          request
+        onSubmit={(values: ListingTemplate, actions) => {
+          ListingTemplateApi(session.accessToken)
+            .update(values)
             .then(() => {
-              toast.success(
-                newListing
-                  ? "New listing created!"
-                  : "Your listing has been updated"
-              );
+              toast.success("Your listing template has been updated");
               router.push("/listings?status=active");
             })
             .catch((error) => {
@@ -346,8 +268,6 @@ const ListingForm = (props: Listing): JSX.Element => {
               {renderGrading()}
             </FormSection>
 
-            <FormSection header="Photos">stub</FormSection>
-
             <FormSection header="Price and Shipping">
               <ListingNumberField
                 label="Price"
@@ -375,31 +295,15 @@ const ListingForm = (props: Listing): JSX.Element => {
             </FormSection>
             <div className="space-x-2">
               <SubmitButton
-                text={(newListing ? "Publish" : "Update") + " Listing"}
+                text="Update template"
                 disabled={formik.isSubmitting}
-                onClick={async () => {
-                  formik.values.status = "ACTIVE";
-                }}
               />
-
-              {newListing ? (
-                <SecondarySubmitButton
-                  text="Save Draft"
-                  disabled={formik.isSubmitting}
-                  onClick={async () => {
-                    formik.values.status = "DRAFT";
-                  }}
-                />
-              ) : null}
             </div>
           </Form>
         )}
       </Formik>
-      {renderDeleteButton(props.id, session.accessToken)}
     </div>
   );
 };
 
-ListingForm.defaultProps = newListingProps;
-
-export default ListingForm;
+export default ListingTemplateForm;
