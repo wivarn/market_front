@@ -28,6 +28,7 @@ export const CardContainerFull = ({
   return (
     <div className="max-w-full px-2 mx-auto mb-4">
       <div className="relative px-4 py-2 m-2 rounded-md shadow-lg bg-secondary-light">
+        
         {children}
       </div>
     </div>
