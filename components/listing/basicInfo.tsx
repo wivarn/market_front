@@ -1,6 +1,6 @@
 import { BasicListing } from "types/listings";
 
-const ListingBasicInfo = (props: BasicListing) => {
+const ListingBasicInfo = (props: BasicListing): JSX.Element => {
   return (
     <div className="mt-1 mb-1">
       <div className="border-b h-14">
