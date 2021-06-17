@@ -193,7 +193,19 @@ const ListingForm = (props: Listing): JSX.Element => {
     return {
       profile: data,
       isLoading: !error && !data,
-      isError: error,
+      profileError: error,
+    };
+  }
+
+  function getListingTemplate() {
+    const { data, error } = useSWR(
+      session ? ["account/listing_template", session.accessToken] : null
+    );
+
+    return {
+      template: data,
+      loadingTemplate: !error && !data,
+      templateError: error,
     };
   }
 
@@ -244,7 +256,8 @@ const ListingForm = (props: Listing): JSX.Element => {
     );
   }
 
-  const { profile } = getProfile();
+  const profile = getProfile().profile.data;
+  const template = getListingTemplate().template.data;
 
   if (!session) return <div>Spinner</div>;
 
@@ -266,6 +279,7 @@ const ListingForm = (props: Listing): JSX.Element => {
           domestic_shipping: props.domestic_shipping,
           international_shipping: props.international_shipping,
           status: props.status,
+          ...template,
         }}
         validationSchema={listingSchema}
         onSubmit={(values: Listing, actions) => {
@@ -354,7 +368,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                 name="price"
                 description="Enter the price. Lower prices will increase your chances of making a sale."
                 placeholder="0"
-                currency={profile?.data?.currency}
+                currency={profile.currency}
               />
 
               <ListingNumberField
@@ -362,7 +376,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                 name="domestic_shipping"
                 description="Enter the price for domestic shipping."
                 placeholder="0"
-                currency={profile?.data?.currency}
+                currency={profile.currency}
               />
 
               <ListingNumberField
@@ -370,7 +384,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                 name="international_shipping"
                 description="Enter the price for international shipping."
                 placeholder="0"
-                currency={profile?.data?.currency}
+                currency={profile.currency}
               />
             </FormSection>
             <div className="space-x-2">
