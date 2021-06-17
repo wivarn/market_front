@@ -3,7 +3,7 @@ import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-export default function ShowListing() {
+export default function ShowListing(): JSX.Element {
   const router = useRouter();
   const { id } = router.query;
 
@@ -34,6 +34,7 @@ export default function ShowListing() {
         price={listing.price}
         currency={listing.currency}
         domestic_shipping={listing.domestic_shipping}
+        international_shipping={listing.international_shipping}
         condition={listing.condition}
         description={listing.description}
         sellerName={`${listing.given_name} ${listing.family_name}`}

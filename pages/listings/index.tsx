@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
-export default function Listings() {
+export default function Listings(): JSX.Element {
   const [session, loadingSession] = useSession();
   const router = useRouter();
   const { status } = router.query;
