@@ -5,7 +5,7 @@ import {
   TextareaHTMLAttributes,
   useState,
 } from "react";
-import { FieldHookConfig, FormikProps, useField } from "formik";
+import { FieldHookConfig, useField } from "formik";
 import { SmChevronDownIcon, SmXIcon } from "components/icons";
 
 import { Dispatch } from "react";
@@ -33,26 +33,21 @@ type LongTextFieldProps = FieldHookConfig<string> &
 const labelClass = "text-base font-medium text-accent-darker";
 const descriptionClass = "md:block hidden text-sm font-normal text-accent-dark";
 const inputClassFull = "relative w-full p-2 border rounded-md border-accent";
-const fieldClass = "py-2 gap-x-4 items-center grid-cols-1 mx-auto lg:grid-cols-3 md:grid-cols-2 grid w-full"
+
+const fieldClass =
+  "py-2 gap-x-4 items-center grid-cols-1 mx-auto lg:grid-cols-3 md:grid-cols-2 grid w-full";
 
 export type ListingComboBoxOption = {
   value: string;
   text: string;
-  parent?: string;
   disabled?: boolean;
 };
 
-type ComboBoxProps = {
-  name: string;
+type ComboBoxProps = TextFieldProps & {
   items: ListingComboBoxOption[];
-  label?: string;
   description?: string;
-  formik: FormikProps<any>;
-  placeholder?: string;
-  disabled?: boolean;
   resetRef?: RefObject<HTMLSpanElement>;
   childresetRef?: RefObject<HTMLSpanElement>;
-  hidden?: boolean;
 };
 
 type ToggleProps = {
@@ -63,7 +58,10 @@ type ToggleProps = {
   onClick?: () => Promise<void>;
 };
 
-export const ListingTextField = ({ label, ...props }: TextFieldProps) => {
+export const ListingTextField = ({
+  label,
+  ...props
+}: TextFieldProps): JSX.Element => {
   const [field, meta] = useField(props);
   return (
     <div className={fieldClass}>
@@ -74,18 +72,19 @@ export const ListingTextField = ({ label, ...props }: TextFieldProps) => {
         </label>
       ) : null}
       <div className="col-span-2">
-      <input className={inputClassFull} {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className="text-error">{meta.error}</div>
-      ) : null}
+        <input className={inputClassFull} {...field} {...props} />
+        {meta.touched && meta.error ? (
+          <div className="text-error">{meta.error}</div>
+        ) : null}
       </div>
-
     </div>
   );
 };
 
-
-export const ListingLongTextField = ({ label, ...props }: LongTextFieldProps) => {
+export const ListingLongTextField = ({
+  label,
+  ...props
+}: LongTextFieldProps): JSX.Element => {
   const [field, meta] = useField(props);
   return (
     <div className={fieldClass}>
@@ -105,7 +104,10 @@ export const ListingLongTextField = ({ label, ...props }: LongTextFieldProps) =>
   );
 };
 
-export const ListingNumberField = ({ label, ...props }: TextFieldProps) => {
+export const ListingNumberField = ({
+  label,
+  ...props
+}: TextFieldProps): JSX.Element => {
   const [field, meta] = useField(props);
   return (
     <div className={fieldClass}>
@@ -117,7 +119,9 @@ export const ListingNumberField = ({ label, ...props }: TextFieldProps) => {
       ) : null}
       <div className="relative">
         <input type="number" className={inputClassFull} {...field} {...props} />
-        <span className="absolute top-0 right-0 p-2 border border-accent-darker text-accent-lightest rounded-r-md bg-accent-darker">{props.currency}</span>
+        <span className="absolute top-0 right-0 p-2 border border-accent-darker text-accent-lightest rounded-r-md bg-accent-darker">
+          {props.currency}
+        </span>
       </div>
       {meta.touched && meta.error ? (
         <div className="text-error">{meta.error}</div>
@@ -127,21 +131,18 @@ export const ListingNumberField = ({ label, ...props }: TextFieldProps) => {
 };
 
 export const ListingDropdownCombobox = ({
-  name,
   items,
   label,
   description,
-  formik,
-  placeholder,
-  disabled,
   resetRef,
   childresetRef,
-  hidden,
-}: ComboBoxProps) => {
+  ...props
+}: ComboBoxProps): JSX.Element => {
+  const [field, meta, fieldHelpers] = useField(props);
   const [inputItems, setInputItems] = useState(items);
   const itemToString = (item: any) => (item ? item.text : "");
   const itemFilter = (inputValue: string | undefined) => {
-    if (!disabled) {
+    if (!props.disabled) {
       setInputItems(
         items.filter((item) =>
           itemToString(item).toLowerCase().startsWith(inputValue?.toLowerCase())
@@ -162,21 +163,30 @@ export const ListingDropdownCombobox = ({
   } = useCombobox({
     items: inputItems,
     itemToString,
-    initialInputValue: formik.values[name],
     onInputValueChange: ({ inputValue }) => itemFilter(inputValue),
     onIsOpenChange: () => {
       setInputItems(items);
     },
     onSelectedItemChange: ({ selectedItem }) => {
-      formik.setFieldValue(name, selectedItem?.value);
+      if (selectedItem) {
+        fieldHelpers.setValue(`${selectedItem?.value}`);
+      }
       if (childresetRef?.current) {
         childresetRef.current.click();
+      }
+    },
+    onStateChange: ({ type, selectedItem }) => {
+      if (
+        selectedItem &&
+        (type == "__item_click__" || type == "__input_keydown_enter__")
+      ) {
+        fieldHelpers.setValue(`${selectedItem?.value}`);
       }
     },
   });
 
   return (
-    <div className={fieldClass} hidden={hidden}>
+    <div className={`${props.hidden ? "hidden" : null} ${fieldClass}`}>
       {label ? (
         <label className={labelClass} {...getLabelProps()}>
           {label}
@@ -186,16 +196,22 @@ export const ListingDropdownCombobox = ({
 
       <div {...getComboboxProps()} className="relative">
         <input
+          {...props}
           {...getToggleButtonProps()}
           {...getInputProps()}
           className={inputClassFull}
-          placeholder={placeholder}
-          disabled={disabled}
           tabIndex="0"
+          onBlur={() => {
+            // TODO: Find a way to do this without setTimeout
+            setTimeout(() => {
+              fieldHelpers.setTouched(true);
+            }, 85);
+          }}
         />
+        <input {...field} {...props} className={inputClassFull} hidden />
         <span
           onClick={() => {
-            if (!disabled) {
+            if (!props.disabled) {
               selectItem({ value: "", text: "" });
             }
           }}
@@ -206,12 +222,13 @@ export const ListingDropdownCombobox = ({
           <SmXIcon />
         </span>
         <span
-          {...getToggleButtonProps({ disabled: disabled })}
+          {...getToggleButtonProps({ disabled: props.disabled })}
           aria-label="toggle menu"
           className="absolute inline-block right-2 bottom-2 text-accent-darker"
         >
           <SmChevronDownIcon />
         </span>
+
         <ul
           {...getMenuProps()}
           className={`${
@@ -240,7 +257,9 @@ export const ListingDropdownCombobox = ({
             ))}
         </ul>
       </div>
-      <ListingTextField name={name} hidden={true} />
+      {meta.touched && meta.error ? (
+        <div className="text-error">{meta.error}</div>
+      ) : null}
     </div>
   );
 };
@@ -251,27 +270,26 @@ export function ListingToggle({
   label,
   description,
   onClick,
-}: ToggleProps) {
+}: ToggleProps): JSX.Element {
   return (
     <span onClick={onClick}>
       <Switch.Group>
         <div className={fieldClass}>
-          <div className="">
+          <div>
             {label ? (
-              <Switch.Label className={labelClass}>
-              {label}
-              </Switch.Label>
+              <Switch.Label className={labelClass}>{label}</Switch.Label>
             ) : null}
             {description ? (
               <Switch.Description className={descriptionClass}>
-              {description}
+                {description}
               </Switch.Description>
             ) : null}
           </div>
-          <div className="">
+          <div>
             <Switch
               checked={enabled}
               onChange={setEnabled}
+              type="button"
               className={`${
                 enabled ? "bg-success" : "bg-success-lighter"
               } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-success`}

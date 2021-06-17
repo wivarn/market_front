@@ -14,13 +14,12 @@ export const IconLink = (props: Props) => {
     <div className="relative flex flex-col items-center group">
       <a className="p-2 rounded-full text-secondary-lightest hover:text-info-lighter group-hover:bg-info-lightest group-hover:text-info-darker">
         {props.icon}
-          <ToolTip text={props.tooltip} />
+        <ToolTip text={props.tooltip} />
       </a>
     </div>
   );
   if (props.href) {
     return <Link href={props.href}>{iconText}</Link>;
-    
   }
   return iconText;
 };

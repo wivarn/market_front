@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import { ComboBoxOption, DropdownCombobox, TextFieldFull } from "../fields";
+import { DropdownCombobox, TextFieldFull } from "../fields";
 import { Form, Formik, FormikProps } from "formik";
 
 import { Address } from "types/account";
@@ -142,17 +142,15 @@ function stateSelect(formik: FormikProps<any>) {
   const country = formik.values.country;
   const placeholder = country ? "" : "Select country first";
 
-  if (!country) {
-    var label = "Province/State";
-  } else {
-    var label = country == "CAN" ? "Province/Territory" : "State";
-  }
+  const label = (() => {
+    if (!country) return "Province/State";
+    return country == "CAN" ? "Province/Territory" : "State";
+  })();
 
-  if (!country) {
-    var items: ComboBoxOption[] = [];
-  } else {
-    var items: ComboBoxOption[] = country == "CAN" ? provinceList : stateList;
-  }
+  const items = (() => {
+    if (!country) return [];
+    return country == "CAN" ? provinceList : stateList;
+  })();
 
   return (
     <DropdownCombobox
@@ -170,10 +168,10 @@ function stateSelect(formik: FormikProps<any>) {
 function zipField(country: string) {
   const placeholder = country ? "" : "Select country first";
 
-  if (!country) {
-    var label = "Zip/Postal Code";
-  }
-  var label = country == "CAN" ? "Postal Code" : "Zip Code";
+  const label = (() => {
+    if (!country) return "Zip/Postal Code";
+    return country == "CAN" ? "Postal Code" : "Zip Code";
+  })();
 
   return (
     <TextFieldFull

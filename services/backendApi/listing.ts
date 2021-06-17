@@ -1,7 +1,14 @@
+import { AxiosResponse } from "axios";
 import { Listing } from "../../types/listings";
 import { base } from "./base";
 
-export const ListingApi = (accessToken?: string) => {
+export const ListingApi = (
+  accessToken?: string
+): {
+  create: (listing: Listing) => Promise<AxiosResponse<any>>;
+  update: ({ id, ...listing }: Listing) => Promise<AxiosResponse<any>>;
+  destroy: (id: string) => Promise<AxiosResponse<any>>;
+} => {
   const create = async (listing: Listing) => {
     return base.post(
       "listings",
@@ -48,5 +55,5 @@ export const ListingApi = (accessToken?: string) => {
     });
   };
 
-  return { fetch, create, update, destroy };
+  return { create, update, destroy };
 };
