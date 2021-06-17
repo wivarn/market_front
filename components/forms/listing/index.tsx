@@ -256,10 +256,10 @@ const ListingForm = (props: Listing): JSX.Element => {
     );
   }
 
-  const profile = getProfile().profile.data;
-  const template = getListingTemplate().template.data;
+  const profile = getProfile().profile?.data;
+  const template = getListingTemplate().template?.data;
 
-  if (!session) return <div>Spinner</div>;
+  if (!session || !template) return <div>Spinner</div>;
 
   return (
     <div className="max-w-6xl p-4 mx-auto mt-4">
@@ -368,7 +368,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                 name="price"
                 description="Enter the price. Lower prices will increase your chances of making a sale."
                 placeholder="0"
-                currency={profile.currency}
+                currency={profile?.currency}
               />
 
               <ListingNumberField
@@ -376,7 +376,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                 name="domestic_shipping"
                 description="Enter the price for domestic shipping."
                 placeholder="0"
-                currency={profile.currency}
+                currency={profile?.currency}
               />
 
               <ListingNumberField
@@ -384,7 +384,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                 name="international_shipping"
                 description="Enter the price for international shipping."
                 placeholder="0"
-                currency={profile.currency}
+                currency={profile?.currency}
               />
             </FormSection>
             <div className="space-x-2">

@@ -30,11 +30,13 @@ import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
 const listingSchema = Yup.object().shape({
-  category: Yup.mixed().oneOf(
-    categoryList.map((category) => {
-      return category.value;
-    })
-  ),
+  category: Yup.mixed()
+    .oneOf(
+      categoryList.map((category) => {
+        return category.value;
+      })
+    )
+    .nullable(),
   subcategory: Yup.mixed()
     .when("category", {
       is: "SPORTS_CARDS",
@@ -59,43 +61,52 @@ const listingSchema = Yup.object().shape({
           return collectible.value;
         })
       ),
-    }),
+    })
+    .nullable(),
   title: Yup.string()
     .min(2, "Title must be more than 2 characters")
-    .max(256, "Title must be less than 256 characters"),
-  grading_company: Yup.mixed().when("graded", {
-    is: true,
-    then: Yup.mixed().oneOf(
-      gradingCompanyList.map((gradingCompany) => {
-        return gradingCompany.value;
-      }),
-      "This is not a valid grading company"
-    ),
-  }),
-  condition: Yup.mixed().when("grading_company", {
-    is: "",
-    then: Yup.mixed().oneOf(
-      conditionList.map((condition) => {
-        return condition.value;
-      }),
-      "This is not a valid condition"
-    ),
-    otherwise: Yup.mixed().oneOf(
-      gradingList.map((grading) => {
-        return grading.value;
-      }),
-      "This is not a valid grading"
-    ),
-  }),
+    .max(256, "Title must be less than 256 characters")
+    .nullable(),
+  grading_company: Yup.mixed()
+    .when("graded", {
+      is: true,
+      then: Yup.mixed().oneOf(
+        gradingCompanyList.map((gradingCompany) => {
+          return gradingCompany.value;
+        }),
+        "This is not a valid grading company"
+      ),
+    })
+    .nullable(),
+  condition: Yup.mixed()
+    .when("grading_company", {
+      is: "",
+      then: Yup.mixed().oneOf(
+        conditionList.map((condition) => {
+          return condition.value;
+        }),
+        "This is not a valid condition"
+      ),
+      otherwise: Yup.mixed().oneOf(
+        gradingList.map((grading) => {
+          return grading.value;
+        }),
+        "This is not a valid grading"
+      ),
+    })
+    .nullable(),
   price: Yup.number()
     .min(0.25, "Price must more than 0.25")
-    .max(99999999.99, "Price must be less than 99999999.99"),
+    .max(99999999.99, "Price must be less than 99999999.99")
+    .nullable(),
   domestic_shipping: Yup.number()
     .min(0, "Shipping can't be less than 0")
-    .max(99999999.99, "Shipping must be less than 99999999.99"),
+    .max(99999999.99, "Shipping must be less than 99999999.99")
+    .nullable(),
   international_shipping: Yup.number()
     .min(0, "Shipping can't be less than 0")
-    .max(99999999.99, "Shipping must be less than 99999999.99"),
+    .max(99999999.99, "Shipping must be less than 99999999.99")
+    .nullable(),
 });
 
 const subcategoryRef = createRef<HTMLSpanElement>();
@@ -186,15 +197,16 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
       <h3>Enter the details for your listing template</h3>
       <Formik
         initialValues={{
-          category: props.category,
-          subcategory: props.subcategory,
-          title: props.title,
+          category: props.category || "",
+          subcategory: props.subcategory || "",
+          title: props.title || "",
           graded: false,
-          grading_company: props.grading_company,
-          condition: props.condition,
-          description: props.description,
-          price: props.price,
-          domestic_shipping: props.domestic_shipping,
+          grading_company: props.grading_company || "",
+          condition: props.condition || "2",
+          description: props.description || "",
+          price: props.price || 0.25,
+          domestic_shipping: props.domestic_shipping || 0,
+          international_shipping: props.international_shipping || 0,
         }}
         validationSchema={listingSchema}
         onSubmit={(values: ListingTemplate, actions) => {
