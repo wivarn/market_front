@@ -53,6 +53,7 @@ const newListingProps: Listing = {
   description: "",
   price: 0,
   domestic_shipping: 0,
+  international_shipping: 0,
   status: "ACTIVE",
 };
 
@@ -168,6 +169,9 @@ const listingSchema = Yup.object().shape({
     .min(0, "Shipping can't be less than 0")
     .max(99999999.99, "Shipping must be less than 99999999.99")
     .required("Shipping price is required"),
+  international_shipping: Yup.number()
+    .min(0, "Shipping can't be less than 0")
+    .max(99999999.99, "Shipping must be less than 99999999.99"),
   status: Yup.string().required("Required"),
 });
 
@@ -293,6 +297,7 @@ const ListingForm = (props: Listing): JSX.Element => {
           description: props.description,
           price: props.price,
           domestic_shipping: props.domestic_shipping,
+          international_shipping: props.international_shipping,
           status: props.status,
         }}
         validationSchema={listingSchema}
@@ -389,6 +394,14 @@ const ListingForm = (props: Listing): JSX.Element => {
                 label="Domestic Shipping"
                 name="domestic_shipping"
                 description="Enter the price for domestic shipping."
+                placeholder="0"
+                currency={profile?.data?.currency}
+              />
+
+              <ListingNumberField
+                label="International Shipping"
+                name="international_shipping"
+                description="Enter the price for international shipping."
                 placeholder="0"
                 currency={profile?.data?.currency}
               />

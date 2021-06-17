@@ -22,6 +22,7 @@ export const ListingApi = (
         description: listing.description,
         price: listing.price,
         domestic_shipping: listing.domestic_shipping,
+        international_shipping: listing.international_shipping,
         status: listing.status,
       },
       {
@@ -43,6 +44,7 @@ export const ListingApi = (
         description: listing.description,
         price: listing.price,
         domestic_shipping: listing.domestic_shipping,
+        international_shipping: listing.international_shipping,
         status: listing.status,
       },
       {

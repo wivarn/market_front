@@ -1,7 +1,7 @@
 import ListingForm from "components/forms/listing";
 import { NextSeo } from "next-seo";
 
-export default function NewListing() {
+export default function NewListing(): JSX.Element {
   return (
     <>
       <NextSeo title="Create Listing" />
