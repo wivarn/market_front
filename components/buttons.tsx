@@ -41,6 +41,18 @@ export const PrimaryButton = (props: PropsWithHref) => {
 };
 
 export const SecondaryButton = (props: PropsWithHref) => {
+  if (props.disabled) {
+    return (
+      <button
+        type="reset"
+        className="px-2 py-1 my-1 font-medium border rounded-md border-info text-info bg-info-lighter"
+        disabled={props.disabled}
+      >
+        {props.text}
+        <ToolTip text={props.tooltip} />
+      </button>
+    );
+  }
   return (
     <Link href={props.href} passHref>
       <a>
@@ -62,7 +74,6 @@ export const SubmitButton = (props: Props) => {
       <button
         type="submit"
         className="px-2 py-1 my-1 font-medium rounded-md bg-primary-light text-accent-lightest"
-        onClick={props.onClick}
         disabled={props.disabled}
       >
         {props.text}
@@ -83,6 +94,18 @@ export const SubmitButton = (props: Props) => {
 };
 
 export const SecondarySubmitButton = (props: Props) => {
+  if (props.disabled) {
+    return (
+      <button
+        type="submit"
+        className="px-2 py-1 my-1 font-medium border rounded-md border-info bg-info-lighter text-info"
+        disabled={props.disabled}
+      >
+        {props.text}
+        <ToolTip text={props.tooltip} />
+      </button>
+    );
+  }
   return (
     <button
       type="submit"
@@ -96,6 +119,18 @@ export const SecondarySubmitButton = (props: Props) => {
 };
 
 export const SubmitButtonFull = (props: Props) => {
+  if (props.disabled) {
+    return (
+      <button
+        type="submit"
+        className="px-2 py-1 my-1 font-medium rounded-md bg-primary-light text-accent-lightest"
+        disabled={props.disabled}
+      >
+        {props.text}
+        <ToolTip text={props.tooltip} />
+      </button>
+    );
+  }
   return (
     <button
       type="submit"
@@ -109,6 +144,18 @@ export const SubmitButtonFull = (props: Props) => {
 };
 
 export const DeleteButton = (props: Props) => {
+  if (props.disabled) {
+    return (
+      <button
+        type="submit"
+        className="px-2 py-1 my-1 font-medium border rounded-md border-error bg-error-lighter text-error"
+        disabled={props.disabled}
+      >
+        {props.text}
+        <ToolTip text={props.tooltip} />
+      </button>
+    );
+  }
   return (
     <button
       type="submit"
