@@ -40,16 +40,14 @@ const stubPhotos = [
 ];
 
 // Pick random photo from library
-const randomPhotos = _.sampleSize(
-  stubPhotos,
-  Math.floor(Math.random() * stubPhotos.length)
-);
+const randomPhotos = () =>
+  _.sampleSize(stubPhotos, Math.floor(Math.random() * stubPhotos.length));
 
 // Defaults for new listing
 const newListingProps: Listing = {
   category: "",
   subcategory: "",
-  photos: randomPhotos,
+  photos: randomPhotos(),
   title: "",
   condition: "",
   description: "",
