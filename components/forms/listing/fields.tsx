@@ -296,7 +296,7 @@ export function ListingToggle({
               type="button"
               className={`${
                 enabled ? "bg-success" : "bg-success-lighter"
-              } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-success`}
+              } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-success focus:ring-2 focus:ring-offset-2`}
             >
               <span
                 className={`${

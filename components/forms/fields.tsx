@@ -271,7 +271,7 @@ export function Toggle({
   label,
   description,
   onClick,
-}: ToggleProps) {
+}: ToggleProps): JSX.Element {
   return (
     <span onClick={onClick}>
       <Switch.Group>
