@@ -34,7 +34,7 @@ export default function Listings() {
   }
 
   return (
-    <div className="my-16">
+    <div className="my-8">
       <CardContainerFull>
       <NextSeo title="Your Listings" />
       <ListingTabs activeTab={`${status}`}>{renderListings()}</ListingTabs>
