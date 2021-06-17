@@ -65,7 +65,7 @@ export default function ListingTabs({
             text="New Listing"
             href="listings/new"
             disabled={noAddress}
-            tooltip="You have to supply an address to sell"
+            tooltip="Update your address to create listings"
           />
           <SecondaryButton text="Update Template" href="listings/template" />
         </div>
