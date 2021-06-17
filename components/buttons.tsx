@@ -47,7 +47,6 @@ export const SecondaryButton = (props: PropsWithHref) => {
         disabled={props.disabled}
       >
         {props.text}
-        <ToolTip text={props.tooltip} />
       </button>
     );
   }
@@ -75,7 +74,6 @@ export const SubmitButton = (props: Props) => {
         disabled={props.disabled}
       >
         {props.text}
-        <ToolTip text={props.tooltip} />
       </button>
     );
   }
@@ -100,7 +98,6 @@ export const SecondarySubmitButton = (props: Props) => {
         disabled={props.disabled}
       >
         {props.text}
-        <ToolTip text={props.tooltip} />
       </button>
     );
   }
@@ -125,7 +122,6 @@ export const SubmitButtonFull = (props: Props) => {
         disabled={props.disabled}
       >
         {props.text}
-        <ToolTip text={props.tooltip} />
       </button>
     );
   }
@@ -150,7 +146,6 @@ export const DeleteButton = (props: Props) => {
         disabled={props.disabled}
       >
         {props.text}
-        <ToolTip text={props.tooltip} />
       </button>
     );
   }
