@@ -85,8 +85,8 @@ export const DropDown = (props: Props) => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute z-50 w-screen text-center bg-info-darker -right-4 md:text-left md:mt-2 md:w-48 md:shadow-md md:rounded-md md:px-2 ring-1 ring-info-darker focus:outline-none">
-              <div className="divide-info-lightest">
+            <Menu.Items className="absolute z-50 w-screen text-center bg-info-darker -right-2 md:text-left md:mt-2 md:w-48 md:shadow-md md:rounded-md md:px-2 ring-1 ring-info-darker focus:outline-none">
+              <div className="py-2 divide-info-lightest">
                 <Menu.Item>
                   {({ active }) => (
                     <LinkWrapper href="/account/profile" active={active}>

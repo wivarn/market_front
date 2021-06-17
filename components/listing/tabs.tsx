@@ -56,7 +56,7 @@ export default function ListingTabs({
   const noAddress = !addresses.data.length;
 
   return (
-    <div className="p-2">
+    <div>
       <div className="relative py-2 text-center border-b border-accent">
         <h3 className="inline-block p-2 text-accent-darkest">Your Listings</h3>
         <div className="top-0 right-0 space-x-4 md:block md:absolute">

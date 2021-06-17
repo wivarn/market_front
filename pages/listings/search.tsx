@@ -25,10 +25,10 @@ export default function Listings() {
   if (isError) return <div>Error</div>;
 
   return (
-    <div className="my-16">
+    <div className="my-4">
       <CardContainerFull>
       <NextSeo title="Search Results" />
-      <h3 className="py-4 text-center">Your search results</h3>
+      <h3 className="py-2 text-center border-b border-accent">Your search results</h3>
       <ListingPreviewGrid listings={listings?.data} />
       </CardContainerFull>
     </div>
