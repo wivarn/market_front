@@ -99,7 +99,7 @@ export default function ProfileForm() {
           ProfileApi(session?.accessToken)
             .update(values)
             .then(() => {
-              toast.success("Profile updated");
+              toast.success("Your profile has been updated");
               mutate(["account/profile", session?.accessToken]);
             })
             .finally(() => {
