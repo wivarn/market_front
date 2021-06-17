@@ -132,14 +132,17 @@ const listingSchema = Yup.object().shape({
     .min(2, "Title must be more than 2 characters")
     .max(256, "Title must be less than 256 characters")
     .required("Title is required"),
-  grading_company: Yup.mixed()
-    .oneOf(
-      gradingCompanyList.map((gradingCompany) => {
-        return gradingCompany.value;
-      }),
-      "This is not a valid grading company"
-    )
-    .required(),
+  grading_company: Yup.mixed().when("graded", {
+    is: true,
+    then: Yup.mixed()
+      .oneOf(
+        gradingCompanyList.map((gradingCompany) => {
+          return gradingCompany.value;
+        }),
+        "This is not a valid grading company"
+      )
+      .required(),
+  }),
   condition: Yup.mixed()
     .when("grading_company", {
       is: "",
@@ -284,6 +287,7 @@ const ListingForm = (props: Listing): JSX.Element => {
           subcategory: props.subcategory,
           photos: props.photos,
           title: props.title,
+          graded: false,
           grading_company: props.grading_company,
           condition: props.condition,
           description: props.description,
@@ -325,7 +329,6 @@ const ListingForm = (props: Listing): JSX.Element => {
                 placeholder="Select a category"
                 childresetRef={subcategoryRef}
               />
-
               {subCategoryCombobox(formik)}
 
               <ListingTextField
@@ -357,13 +360,15 @@ const ListingForm = (props: Listing): JSX.Element => {
 
             <FormSection header="Condition">
               <ListingToggle
+                name="graded"
                 enabled={graded}
                 setEnabled={setGraded}
                 label="Professionally Graded?"
                 description="If turned on then you will need to provide the grading company and grading score."
                 onClick={async () => {
-                  gradingCompanyRef?.current?.click();
-                  conditionRef?.current?.click();
+                  gradingCompanyRef.current?.click();
+                  conditionRef.current?.click();
+                  formik.setFieldValue("graded", !graded);
                 }}
               />
               {renderGrading()}
