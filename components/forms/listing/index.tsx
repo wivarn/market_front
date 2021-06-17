@@ -197,7 +197,6 @@ function subCategoryCombobox(formik: FormikProps<any>) {
       description="The sub-category will make it easy for other users to browse and find your listing."
       name="subcategory"
       items={items}
-      formik={formik}
       placeholder={placeholder}
       disabled={!category}
       resetRef={subcategoryRef}
@@ -224,7 +223,7 @@ const ListingForm = (props: Listing): JSX.Element => {
     };
   }
 
-  function renderGrading(formik: FormikProps<any>) {
+  function renderGrading() {
     const label = graded ? "Grading" : "Condition";
     const items = graded ? gradingList : conditionList;
 
@@ -235,7 +234,6 @@ const ListingForm = (props: Listing): JSX.Element => {
           description="Enter the company who graded the item. If not listed choose 'other'."
           name="grading_company"
           items={gradingCompanyList}
-          formik={formik}
           resetRef={gradingCompanyRef}
           hidden={!graded}
         />
@@ -245,7 +243,6 @@ const ListingForm = (props: Listing): JSX.Element => {
           name="condition"
           description="Enter the condition for the item. See our grading guide for more information."
           items={items}
-          formik={formik}
           resetRef={conditionRef}
         />
       </>
@@ -324,7 +321,6 @@ const ListingForm = (props: Listing): JSX.Element => {
                 label="Category"
                 description="Selecting a category will allow us to tailor the listing form for your needs."
                 items={categoryList}
-                formik={formik}
                 placeholder="Select a category"
                 childresetRef={subcategoryRef}
               />
@@ -369,7 +365,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                   conditionRef?.current?.click();
                 }}
               />
-              {renderGrading(formik)}
+              {renderGrading()}
             </FormSection>
 
             <FormSection header="Photos">stub</FormSection>

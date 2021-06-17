@@ -5,7 +5,7 @@ import {
   TextareaHTMLAttributes,
   useState,
 } from "react";
-import { FieldHookConfig, FormikProps, useField } from "formik";
+import { FieldHookConfig, useField } from "formik";
 import { SmChevronDownIcon, SmXIcon } from "components/icons";
 
 import { Dispatch } from "react";
@@ -39,21 +39,14 @@ const fieldClass =
 export type ListingComboBoxOption = {
   value: string;
   text: string;
-  parent?: string;
   disabled?: boolean;
 };
 
-type ComboBoxProps = {
-  name: string;
+type ComboBoxProps = TextFieldProps & {
   items: ListingComboBoxOption[];
-  label?: string;
   description?: string;
-  formik: FormikProps<any>;
-  placeholder?: string;
-  disabled?: boolean;
   resetRef?: RefObject<HTMLSpanElement>;
   childresetRef?: RefObject<HTMLSpanElement>;
-  hidden?: boolean;
 };
 
 type ToggleProps = {
@@ -137,21 +130,18 @@ export const ListingNumberField = ({
 };
 
 export const ListingDropdownCombobox = ({
-  name,
   items,
   label,
   description,
-  formik,
-  placeholder,
-  disabled,
   resetRef,
   childresetRef,
-  hidden,
+  ...props
 }: ComboBoxProps): JSX.Element => {
+  const [field, meta, fieldHelpers] = useField(props);
   const [inputItems, setInputItems] = useState(items);
   const itemToString = (item: any) => (item ? item.text : "");
   const itemFilter = (inputValue: string | undefined) => {
-    if (!disabled) {
+    if (!props.disabled) {
       setInputItems(
         items.filter((item) =>
           itemToString(item).toLowerCase().startsWith(inputValue?.toLowerCase())
@@ -172,13 +162,13 @@ export const ListingDropdownCombobox = ({
   } = useCombobox({
     items: inputItems,
     itemToString,
-    initialInputValue: formik.values[name],
     onInputValueChange: ({ inputValue }) => itemFilter(inputValue),
     onIsOpenChange: () => {
       setInputItems(items);
     },
     onSelectedItemChange: ({ selectedItem }) => {
-      formik.setFieldValue(name, selectedItem?.value);
+      fieldHelpers.setValue(`${selectedItem?.value}`);
+      fieldHelpers.setTouched(true);
       if (childresetRef?.current) {
         childresetRef.current.click();
       }
@@ -186,7 +176,7 @@ export const ListingDropdownCombobox = ({
   });
 
   return (
-    <div className={`${hidden ? "hidden" : null} ${fieldClass}`}>
+    <div className={`${props.hidden ? "hidden" : null} ${fieldClass}`}>
       {label ? (
         <label className={labelClass} {...getLabelProps()}>
           {label}
@@ -196,16 +186,19 @@ export const ListingDropdownCombobox = ({
 
       <div {...getComboboxProps()} className="relative">
         <input
+          {...props}
           {...getToggleButtonProps()}
           {...getInputProps()}
           className={inputClassFull}
-          placeholder={placeholder}
-          disabled={disabled}
           tabIndex="0"
+          onBlur={() => {
+            fieldHelpers.setTouched(true);
+          }}
         />
+        <input {...field} {...props} className={inputClassFull} hidden />
         <span
           onClick={() => {
-            if (!disabled) {
+            if (!props.disabled) {
               selectItem({ value: "", text: "" });
             }
           }}
@@ -216,12 +209,15 @@ export const ListingDropdownCombobox = ({
           <SmXIcon />
         </span>
         <span
-          {...getToggleButtonProps({ disabled: disabled })}
+          {...getToggleButtonProps({ disabled: props.disabled })}
           aria-label="toggle menu"
           className="absolute inline-block right-2 bottom-2 text-accent-darker"
         >
           <SmChevronDownIcon />
         </span>
+        {meta.touched && meta.error ? (
+          <div className="text-error">{meta.error}</div>
+        ) : null}
         <ul
           {...getMenuProps()}
           className={`${
@@ -250,7 +246,6 @@ export const ListingDropdownCombobox = ({
             ))}
         </ul>
       </div>
-      <ListingTextField name={name} hidden={true} />
     </div>
   );
 };
