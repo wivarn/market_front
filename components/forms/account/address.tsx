@@ -230,7 +230,7 @@ export default function AddressForm() {
           AddressApi(session?.accessToken)
             .update(trimValues(values))
             .then(() => {
-              toast.success("address updated");
+              toast.success("Your address has been updated");
             })
             .catch((error) => {
               toast.error(JSON.stringify(error.response.data));
