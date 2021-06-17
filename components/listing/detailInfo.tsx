@@ -1,6 +1,6 @@
-import { Listing } from "types/listings";
+import { BasicListing } from "types/listings";
 
-const ListingDetailInfo = (props: Listing) => {
+const ListingDetailInfo = (props: BasicListing) => {
   return (
     <div>
       <label className="font-medium text-accent-darker">{props.title}</label>
