@@ -274,7 +274,7 @@ export function ListingToggle({
     <span onClick={onClick}>
       <Switch.Group>
         <div className={fieldClass}>
-          <div className="">
+          <div>
             {label ? (
               <Switch.Label className={labelClass}>{label}</Switch.Label>
             ) : null}
@@ -284,10 +284,11 @@ export function ListingToggle({
               </Switch.Description>
             ) : null}
           </div>
-          <div className="">
+          <div>
             <Switch
               checked={enabled}
               onChange={setEnabled}
+              type="button"
               className={`${
                 enabled ? "bg-success" : "bg-success-lighter"
               } relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-success`}
