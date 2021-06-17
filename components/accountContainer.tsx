@@ -1,5 +1,5 @@
+import { CardContainer } from "./cardContainer";
 import Link from "next/link";
-import {CardContainer} from "./cardContainer";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -35,7 +35,9 @@ export default function AccountContainer({
   return (
     <div className="my-8 ">
       <CardContainer>
-        <h3 className="py-4 text-center border-b border-accent">Your Profile</h3>
+        <h3 className="py-4 text-center border-b border-accent">
+          Your Profile
+        </h3>
         <div className="space-x-8 font-medium text-accent-darker">
           <div className="flex justify-center mt-8 space-x-8">
             <LinkWrapper
