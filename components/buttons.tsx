@@ -15,7 +15,7 @@ export const PrimaryButton = (props: PropsWithHref) => {
   if (props.disabled) {
     return (
       <button
-        type="reset"
+        type="submit"
         className="px-2 py-1 my-1 font-medium rounded-md bg-primary-light text-secondary-lightest"
         disabled={props.disabled}
       >
@@ -42,7 +42,7 @@ export const SecondaryButton = (props: PropsWithHref) => {
   if (props.disabled) {
     return (
       <button
-        type="reset"
+        type="submit"
         className="px-2 py-1 my-1 font-medium border rounded-md border-info text-info bg-info-lighter"
         disabled={props.disabled}
       >
