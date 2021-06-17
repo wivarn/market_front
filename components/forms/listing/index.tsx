@@ -263,10 +263,10 @@ const ListingForm = (props: Listing): JSX.Element => {
   if (!session || !template) return <div>Spinner</div>;
 
   return (
-    <div className="max-w-6xl p-4 mx-auto mt-4">
+    <div className="p-4">
       <CardContainer6xl>
         <div className="p-2">
-          <h3 className="p-4 text-center border-accent">
+          <h3 className="p-2 text-center">
             Enter the details for your listing
           </h3>
           <Formik

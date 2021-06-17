@@ -10,7 +10,7 @@ interface PropsWithHref extends Props {
   href: string;
 }
 
-export const PrimaryButton = (props: PropsWithHref) => {
+export const PrimaryButton = (props: PropsWithHref): JSX.Element => {
   return (
     <Link href={props.href} passHref>
       <button
@@ -24,7 +24,7 @@ export const PrimaryButton = (props: PropsWithHref) => {
   );
 };
 
-export const SecondaryButton = (props: PropsWithHref) => {
+export const SecondaryButton = (props: PropsWithHref): JSX.Element => {
   return (
     <Link href={props.href} passHref>
       <button
@@ -38,7 +38,7 @@ export const SecondaryButton = (props: PropsWithHref) => {
   );
 };
 
-export const SubmitButton = (props: Props) => {
+export const SubmitButton = (props: Props): JSX.Element => {
   return (
     <button
       type="submit"
@@ -51,7 +51,7 @@ export const SubmitButton = (props: Props) => {
   );
 };
 
-export const SecondarySubmitButton = (props: Props) => {
+export const SecondarySubmitButton = (props: Props): JSX.Element => {
   return (
     <button
       type="submit"
@@ -64,7 +64,7 @@ export const SecondarySubmitButton = (props: Props) => {
   );
 };
 
-export const SubmitButtonFull = (props: Props) => {
+export const SubmitButtonFull = (props: Props): JSX.Element => {
   return (
     <button
       type="submit"
@@ -77,7 +77,7 @@ export const SubmitButtonFull = (props: Props) => {
   );
 };
 
-export const DeleteButton = (props: Props) => {
+export const DeleteButton = (props: Props): JSX.Element => {
   return (
     <button
       type="submit"
