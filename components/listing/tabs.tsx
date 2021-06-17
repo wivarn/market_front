@@ -1,7 +1,8 @@
-import Link from "next/link";
 import { PrimaryButton, SecondaryButton } from "components/buttons";
-import { useSession } from "next-auth/client";
+
+import Link from "next/link";
 import useSWR from "swr";
+import { useSession } from "next-auth/client";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -60,12 +61,13 @@ export default function ListingTabs({
       <div className="relative py-2 text-center border-b border-accent">
         <h3 className="inline-block p-2 text-accent-darkest">Your Listings</h3>
         <div className="top-0 right-0 space-x-4 md:block md:absolute">
-        <PrimaryButton
-          text="New Listing"
-          href="listings/new"
-          disabled={noAddress}
-        />
-        <SecondaryButton text="Update Template" href="listings/template" />
+          <PrimaryButton
+            text="New Listing"
+            href="listings/new"
+            disabled={noAddress}
+            tooltip="You have to supply an address to sell"
+          />
+          <SecondaryButton text="Update Template" href="listings/template" />
         </div>
       </div>
       <div className="flex justify-center mt-4 mb-2 space-x-8">

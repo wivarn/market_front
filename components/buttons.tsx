@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { ToolTip } from "components/tooltip";
 
 interface Props {
   disabled?: boolean;
   text: string;
   onClick?: () => Promise<void>;
+  tooltip?: string;
 }
 
 interface PropsWithHref extends Props {
@@ -11,6 +13,18 @@ interface PropsWithHref extends Props {
 }
 
 export const PrimaryButton = (props: PropsWithHref) => {
+  if (props.disabled) {
+    return (
+      <button
+        type="reset"
+        className="px-2 py-1 my-1 font-medium rounded-md bg-primary-light text-secondary-lightest"
+        disabled={props.disabled}
+      >
+        {props.text}
+        <ToolTip text={props.tooltip} />
+      </button>
+    );
+  }
   return (
     <Link href={props.href} passHref>
       <a>
@@ -43,6 +57,19 @@ export const SecondaryButton = (props: PropsWithHref) => {
 };
 
 export const SubmitButton = (props: Props) => {
+  if (props.disabled) {
+    return (
+      <button
+        type="submit"
+        className="px-2 py-1 my-1 font-medium rounded-md bg-primary-light text-accent-lightest"
+        onClick={props.onClick}
+        disabled={props.disabled}
+      >
+        {props.text}
+        <ToolTip text={props.tooltip} />
+      </button>
+    );
+  }
   return (
     <button
       type="submit"
