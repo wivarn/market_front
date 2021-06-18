@@ -1,3 +1,4 @@
+import { CardContainerFull } from "components/cardContainer";
 import ListingDetails from "components/listing/details";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
@@ -26,19 +27,21 @@ export default function ShowListing(): JSX.Element {
   return (
     <>
       <NextSeo title={listing.title} />
-      <ListingDetails
-        id={listing.id}
-        accountId={listing.account_id}
-        photos={listing.photos}
-        title={listing.title}
-        price={listing.price}
-        currency={listing.currency}
-        domestic_shipping={listing.domestic_shipping}
-        international_shipping={listing.international_shipping}
-        condition={listing.condition}
-        description={listing.description}
-        sellerName={`${listing.given_name} ${listing.family_name}`}
-      />
+      <CardContainerFull>
+        <ListingDetails
+          id={listing.id}
+          accountId={listing.account_id}
+          photos={listing.photos}
+          title={listing.title}
+          price={listing.price}
+          currency={listing.currency}
+          domestic_shipping={listing.domestic_shipping}
+          international_shipping={listing.international_shipping}
+          condition={listing.condition}
+          description={listing.description}
+          sellerName={`${listing.given_name} ${listing.family_name}`}
+        />
+      </CardContainerFull>
     </>
   );
 }

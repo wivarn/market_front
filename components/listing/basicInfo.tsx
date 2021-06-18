@@ -14,7 +14,7 @@ const ListingBasicInfo = (props: BasicListing): JSX.Element => {
           })}{" "}
         </span>
         <span className="text-xs text-accent-dark">{props.currency}</span>
-        <div className="float-right font-bold float text-success">
+        <div className="float-right font-bold text-success">
           {props.condition}
         </div>
       </div>

@@ -6,7 +6,7 @@ import { Listing } from "types/listings";
 import ListingDetailInfo from "./detailInfo";
 import { useSession } from "next-auth/client";
 
-const ListingDetails = (props: Listing) => {
+const ListingDetails = (props: Listing): JSX.Element => {
   const [session] = useSession();
   const isSeller = session?.accountId == props.accountId;
 
@@ -18,8 +18,8 @@ const ListingDetails = (props: Listing) => {
             <Image
               src={props.photos[0]}
               alt={props.title}
-              height={400}
-              width={300}
+              height={800}
+              width={600}
               className="rounded-md"
             />
           </div>
