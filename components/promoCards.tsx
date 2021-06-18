@@ -8,7 +8,7 @@ interface Props {
 }
 
 // Card container
-export const PromoCard = (props: Props) => {
+export const PromoCard = (props: Props): JSX.Element => {
   return (
     <div className="flex w-10/12 rounded-b-lg shadow-md hover:shadow-xl">
       <a href={props.href} target="_blank" rel="noreferrer">

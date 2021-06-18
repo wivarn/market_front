@@ -1,10 +1,14 @@
 import { BasicListing } from "types/listings";
+import { ProfilePageJsonLd } from "next-seo";
 
 const ListingBasicInfo = (props: BasicListing): JSX.Element => {
+  let shortTitle = props.title;
+  if (props.title.length > 64)
+    shortTitle = props.title.substring(0, 60) + " ...";
   return (
     <div className="mt-1 mb-1">
       <div className="border-b h-14">
-        <label className="font-medium text-accent-darker">{props.title}</label>
+        <label className="font-medium text-accent-darker">{shortTitle}</label>
       </div>
       <div className="mt-1">
         <span className="font-semibold text-accent-darker">
