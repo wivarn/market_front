@@ -2,13 +2,15 @@ import { NextSeo } from "next-seo";
 import { PrimaryButton } from "components/buttons";
 import { PromoCard } from "components/promoCards";
 
-export default function Home() {
+export default function Home(): JSX.Element {
   return (
     <div>
       <NextSeo title="Home" />
       <div className="w-full px-8 py-2 my-8 rounded-md bg-gradient-to-r from-info via-info-dark to-info-darkest text-accent-lightest">
         <p className="mt-8">The marketplace for modern collectors</p>
-        <h1 className="text-accent-lightest">Find the next centerpiece for your collection</h1>
+        <h1 className="text-accent-lightest">
+          Find the next centerpiece for your collection
+        </h1>
         <PrimaryButton href="#" text="Call to action" />
         <div className="mb-8"></div>
       </div>
