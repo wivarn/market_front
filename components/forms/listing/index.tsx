@@ -25,7 +25,7 @@ import {
 } from "constants/listings";
 import { createRef, useState } from "react";
 
-import { CardContainerXL } from "components/cardContainer";
+import { CardContainer6xl } from "components/cardContainer";
 import FormSection from "./section";
 import { Listing } from "types/listings";
 import { ListingApi } from "services/backendApi/listing";
@@ -263,10 +263,10 @@ const ListingForm = (props: Listing): JSX.Element => {
   if (!session || !template) return <div>Spinner</div>;
 
   return (
-    <div className="max-w-6xl p-4 mx-auto mt-4">
-      <CardContainerXL>
+    <div className="p-4">
+      <CardContainer6xl>
         <div className="p-2">
-          <h3 className="p-4 text-center border-accent">
+          <h3 className="p-2 text-center">
             Enter the details for your listing
           </h3>
           <Formik
@@ -416,7 +416,7 @@ const ListingForm = (props: Listing): JSX.Element => {
           </Formik>
           {renderDeleteButton(props.id, session.accessToken)}
         </div>
-      </CardContainerXL>
+      </CardContainer6xl>
     </div>
   );
 };

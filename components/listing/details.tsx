@@ -1,45 +1,39 @@
-import { PrimaryButton, SubmitButton } from "components/buttons";
+import { SecondaryButton, SubmitButton } from "components/buttons";
 
 import Image from "next/image";
 import { LgUserCircleIcon } from "components/icons";
 import { Listing } from "types/listings";
-import ListingDetailInfo from "./detailInfo";
 import { useSession } from "next-auth/client";
 
-const ListingDetails = (props: Listing) => {
+const ListingDetails = (props: Listing): JSX.Element => {
   const [session] = useSession();
   const isSeller = session?.accountId == props.accountId;
 
   return (
     <div className="">
-      <div className="container p-4 mx-auto">
-        <div className="flex space-x-4">
-          <div className="flex-initial">
-            <Image
-              src={props.photos[0]}
-              alt={props.title}
-              height={400}
-              width={300}
-              className="rounded-md"
-            />
-          </div>
-          <div className="flex-initial pl-10">
-            <div className="pt-10">
-              <ListingDetailInfo
-                title={props.title}
-                price={props.price}
-                currency={props.currency}
-                domestic_shipping={props.domestic_shipping}
-                condition={props.condition}
-              />
-              {isSeller ? (
-                <PrimaryButton
-                  href={`/listings/${props.id}/edit`}
-                  text="Update"
-                />
-              ) : (
-                <SubmitButton text="Add to Cart" disabled={true} />
-              )}
+      <div className="container relative p-4 mx-auto">
+        <div className="absolute right-0">
+          <SecondaryButton
+            href={`/listings/${props.id}/edit`}
+            text="Update Listing"
+            hidden={!isSeller}
+          />
+        </div>
+        <h3 className="flex-initial p-2 mb-4 text-center border-b border-accent">
+          {props.title}
+        </h3>
+        <div className="lg:flex lg:flex-inital">
+          <Image
+            src={props.photos[0]}
+            alt={props.title}
+            height={800}
+            width={600}
+            className="rounded-md"
+          />
+
+          <div className="lg:flex-initial lg:pl-8">
+            <div>
+              <SubmitButton text="Add to Cart" disabled={true} />
             </div>
             <div className="pt-10">
               <LgUserCircleIcon />

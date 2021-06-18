@@ -1,4 +1,4 @@
-import { CardContainer } from "./cardContainer";
+import { CardContainer2xl } from "./cardContainer";
 import Link from "next/link";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -31,10 +31,10 @@ export default function AccountContainer({
 }: {
   activeTab: string;
   children: React.ReactNode;
-}) {
+}): JSX.Element {
   return (
     <div className="my-8 ">
-      <CardContainer>
+      <CardContainer2xl>
         <h3 className="py-4 text-center border-b border-accent">
           Your Profile
         </h3>
@@ -71,7 +71,7 @@ export default function AccountContainer({
           </div>
         </div>
         {children}
-      </CardContainer>
+      </CardContainer2xl>
     </div>
   );
 }

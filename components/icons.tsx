@@ -3,6 +3,8 @@ import {
   HiBookOpen,
   HiCheckCircle,
   HiChevronDown,
+  HiChevronLeft,
+  HiChevronRight,
   HiExclamation,
   HiExclamationCircle,
   HiInformationCircle,
@@ -32,6 +34,14 @@ export const UserChevronIcon = (): JSX.Element => {
 
 export const CurrencyDollarIcon = (): JSX.Element => {
   return <HiOutlineCurrencyDollar className="icon" />;
+};
+
+export const ChevronRightIcon = (): JSX.Element => {
+  return <HiChevronRight className="icon" />;
+};
+
+export const ChevronLeftIcon = (): JSX.Element => {
+  return <HiChevronLeft className="icon" />;
 };
 
 export const ShoppingCartIcon = (): JSX.Element => {

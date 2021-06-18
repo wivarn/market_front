@@ -1,6 +1,6 @@
 import { BasicListing } from "types/listings";
 
-const ListingBasicInfo = (props: BasicListing) => {
+const ListingBasicInfo = (props: BasicListing): JSX.Element => {
   return (
     <div className="mt-1 mb-1">
       <div className="border-b h-14">
@@ -14,7 +14,7 @@ const ListingBasicInfo = (props: BasicListing) => {
           })}{" "}
         </span>
         <span className="text-xs text-accent-dark">{props.currency}</span>
-        <div className="float-right font-bold float text-success">
+        <div className="float-right font-bold text-success">
           {props.condition}
         </div>
       </div>
