@@ -46,7 +46,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const DropDown = (props: Props) => {
+export const DropDown = (): JSX.Element => {
   const [session] = useSession();
   const router = useRouter();
 
