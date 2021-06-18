@@ -13,7 +13,6 @@ import Link from "next/link";
 import SearchForm from "components/forms/search";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import useSWR from "swr";
 
 export default function Header(): JSX.Element {
   const [session, sessionLoading] = useSession();
@@ -28,24 +27,6 @@ export default function Header(): JSX.Element {
       });
     }
   }, [session]);
-
-  function getProfile() {
-    const { data, error } = useSWR(
-      session ? ["account/profile", session.accessToken] : null,
-      {
-        revalidateOnFocus: false,
-        revalidateOnReconnect: false,
-      }
-    );
-
-    return {
-      profile: data,
-      isLoading: !error && !data,
-      isError: error,
-    };
-  }
-
-  const { profile } = getProfile();
 
   function renderNav() {
     if (sessionLoading) return <div>Spinner</div>;
@@ -70,10 +51,10 @@ export default function Header(): JSX.Element {
             tooltip="Sell"
           />
           <IconLink href="/" icon={<ShoppingCartIcon />} tooltip="Cart" />
-          <DropDown name="Account"></DropDown>
+          <DropDown />
         </div>
         <div className="inline-flex items-center md:hidden">
-          <DropDown name="Account"></DropDown>
+          <DropDown />
         </div>
       </>
     );

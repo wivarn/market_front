@@ -8,10 +8,6 @@ import { IconLink } from "./iconLink";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-interface Props {
-  name?: string;
-}
-
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
   active: boolean;
@@ -46,7 +42,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export const DropDown = (props: Props) => {
+export const DropDown = (): JSX.Element => {
   const [session] = useSession();
   const router = useRouter();
 
