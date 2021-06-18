@@ -48,20 +48,6 @@ const stubPhotos = [
 const randomPhotos = () =>
   _.sampleSize(stubPhotos, Math.floor(Math.random() * stubPhotos.length));
 
-// Defaults for new listing
-const newListingProps: Listing = {
-  category: "",
-  subcategory: "",
-  photos: randomPhotos(),
-  title: "",
-  condition: "",
-  description: "",
-  price: 0,
-  domestic_shipping: 0,
-  international_shipping: 0,
-  status: "ACTIVE",
-};
-
 const listingSchema = Yup.object().shape({
   category: Yup.mixed()
     .oneOf(
@@ -186,30 +172,6 @@ const ListingForm = (props: Listing): JSX.Element => {
 
   const newListing = !props.id;
 
-  function getProfile() {
-    const { data, error } = useSWR(
-      session ? ["account/profile", session.accessToken] : null
-    );
-
-    return {
-      profile: data,
-      isLoading: !error && !data,
-      profileError: error,
-    };
-  }
-
-  function getListingTemplate() {
-    const { data, error } = useSWR(
-      session ? ["account/listing_template", session.accessToken] : null
-    );
-
-    return {
-      template: data,
-      loadingTemplate: !error && !data,
-      templateError: error,
-    };
-  }
-
   function renderGrading() {
     const label = graded ? "Grading" : "Condition";
     const items = graded ? gradingList : conditionList;
@@ -257,10 +219,50 @@ const ListingForm = (props: Listing): JSX.Element => {
     );
   }
 
+  function getProfile() {
+    const { data, error } = useSWR(
+      session ? ["account/profile", session.accessToken] : null
+    );
+
+    return {
+      profile: data,
+      isLoading: !error && !data,
+      profileError: error,
+    };
+  }
+
+  function getListingTemplate() {
+    const { data, error } = useSWR(
+      session ? ["account/listing_template", session.accessToken] : null
+    );
+
+    return {
+      template: data,
+      loadingTemplate: !error && !data,
+      templateError: error,
+    };
+  }
+
   const profile = getProfile().profile?.data;
   const template = getListingTemplate().template?.data;
 
   if (!session || !template) return <div>Spinner</div>;
+
+  const initialValues = newListing
+    ? {
+        category: "",
+        subcategory: "",
+        photos: randomPhotos(),
+        title: "",
+        condition: "",
+        description: "",
+        price: 0,
+        domestic_shipping: 0,
+        international_shipping: 0,
+        status: "ACTIVE",
+        ...template,
+      }
+    : props;
 
   return (
     <div className="p-4">
@@ -270,22 +272,7 @@ const ListingForm = (props: Listing): JSX.Element => {
             Enter the details for your listing
           </h3>
           <Formik
-            initialValues={{
-              id: props.id,
-              category: props.category,
-              subcategory: props.subcategory,
-              photos: props.photos,
-              title: props.title,
-              graded: false,
-              grading_company: props.grading_company,
-              condition: props.condition,
-              description: props.description,
-              price: props.price,
-              domestic_shipping: props.domestic_shipping,
-              international_shipping: props.international_shipping,
-              status: props.status,
-              ...template,
-            }}
+            initialValues={initialValues}
             validationSchema={listingSchema}
             onSubmit={(values: Listing, actions) => {
               const request = newListing
@@ -420,7 +407,5 @@ const ListingForm = (props: Listing): JSX.Element => {
     </div>
   );
 };
-
-ListingForm.defaultProps = newListingProps;
 
 export default ListingForm;

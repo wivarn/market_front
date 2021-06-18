@@ -64,7 +64,7 @@ const phoneNumberLabel = () => {
   );
 };
 
-export default function ProfileForm() {
+export default function ProfileForm(): JSX.Element {
   const [session, loading] = useSession();
 
   function getProfile() {

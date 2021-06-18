@@ -19,6 +19,7 @@ import {
   tradingCardList,
 } from "constants/listings";
 import { createRef, useState } from "react";
+import useSWR, { mutate } from "swr";
 
 import FormSection from "./section";
 import { ListingTemplate } from "types/listings";
@@ -26,7 +27,6 @@ import { ListingTemplateApi } from "services/backendApi/listingTemplate";
 import { SubmitButton } from "components/buttons";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
 const listingSchema = Yup.object().shape({
@@ -213,6 +213,7 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
           ListingTemplateApi(session.accessToken)
             .update(values)
             .then(() => {
+              mutate(["account/listing_template", session?.accessToken]);
               toast.success("Your listing template has been updated");
               router.push("/listings?status=active");
             })
