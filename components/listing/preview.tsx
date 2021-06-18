@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Listing } from "types/listings";
 import ListingBasicInfo from "./basicInfo";
 
-const ListingPreview = (props: Listing) => {
+const ListingPreview = (props: Listing): JSX.Element => {
   return (
     <div className="mt-4">
       <div>

@@ -61,7 +61,9 @@ const ListingDetails = (props: Listing): JSX.Element => {
                 <div className="text-sm text-success">User Rating</div>
               </span>
               <div className="my-4 border"></div>
-              <div className="my-2">{props.description}</div>
+              <div className="my-2 whitespace-pre-wrap">
+                {props.description}
+              </div>
             </div>
           </InfoCard>
         </div>
