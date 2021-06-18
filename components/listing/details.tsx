@@ -13,7 +13,7 @@ const ListingDetails = (props: Listing): JSX.Element => {
   return (
     <div className="container relative p-4 mx-auto">
       <div className="">
-        <h3 className="flex-initial p-2 my-4 text-center border-b border-accent">
+        <h3 className="flex-initial p-2 mb-4 text-center border-b border-accent">
           {props.title}
         </h3>
         <div className="md:grid md:grid-auto-cols">
