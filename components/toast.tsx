@@ -38,7 +38,7 @@ const closeButton = (props: ToastProps) => (
   ></HiX>
 );
 
-export default function Toast() {
+export default function Toast(): JSX.Element {
   return (
     <ToastContainer
       position="top-center"

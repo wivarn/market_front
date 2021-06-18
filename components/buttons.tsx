@@ -56,6 +56,21 @@ export const SecondaryButton = (props: PropsWithHref): JSX.Element => {
   );
 };
 
+export const SecondaryButtonFull = (props: PropsWithHref): JSX.Element => {
+  return (
+    <Link href={props.href} passHref>
+      <button
+        type="button"
+        className="w-full px-2 py-1 my-1 font-medium border rounded-md border-info text-info bg-info-lightest disabled:bg-info-lighter hover:bg-info-lighter"
+        disabled={props.disabled}
+        hidden={props.hidden}
+      >
+        {props.text}
+      </button>
+    </Link>
+  );
+};
+
 export const SubmitButton = (props: Props): JSX.Element => {
   return (
     <button

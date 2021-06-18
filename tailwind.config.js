@@ -7,6 +7,12 @@ module.exports = {
       fontFamily: {
         sans: ["Poppins", "sans-serif"],
       },
+      width: {
+        600: "600px",
+      },
+      height: {
+        600: "600px",
+      },
       colors: {
         success: {
           lightest: "#E6F1ED",
