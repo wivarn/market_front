@@ -8,10 +8,6 @@ import { IconLink } from "./iconLink";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-interface Props {
-  name?: string;
-}
-
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
   active: boolean;
