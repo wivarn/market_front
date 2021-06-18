@@ -8,8 +8,14 @@ export default function Listings(): JSX.Element {
   const router = useRouter();
 
   function getListings() {
+    const query = Object.entries(router.query)
+      .map((q) => {
+        return q[0] + "=" + q[1];
+      })
+      .join("&");
+    console.log(query);
     const { data, error } = useSWR(
-      router.isReady ? `listings/search?title=${router.query.title}` : null
+      router.isReady ? `listings/search?${query}` : null
     );
 
     return {

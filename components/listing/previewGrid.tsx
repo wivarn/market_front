@@ -5,7 +5,7 @@ interface Listings {
   listings: Listing[];
 }
 
-const ListingPreviewGrid = (props: Listings) => {
+const ListingPreviewGrid = (props: Listings): JSX.Element => {
   return (
     <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
       {props.listings.map((listing: Listing) => {
