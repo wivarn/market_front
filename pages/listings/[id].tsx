@@ -1,4 +1,4 @@
-import { CardContainerFull } from "components/cardContainer";
+import { CardContainer6xl } from "components/cardContainer";
 import ListingDetails from "components/listing/details";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
@@ -27,7 +27,7 @@ export default function ShowListing(): JSX.Element {
   return (
     <>
       <NextSeo title={listing.title} />
-      <CardContainerFull>
+      <CardContainer6xl>
         <ListingDetails
           id={listing.id}
           accountId={listing.account_id}
@@ -41,7 +41,7 @@ export default function ShowListing(): JSX.Element {
           description={listing.description}
           sellerName={`${listing.given_name} ${listing.family_name}`}
         />
-      </CardContainerFull>
+      </CardContainer6xl>
     </>
   );
 }

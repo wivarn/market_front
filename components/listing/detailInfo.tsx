@@ -2,7 +2,7 @@ import { Listing } from "types/listings";
 
 const ListingDetailInfo = (props: Listing): JSX.Element => {
   return (
-    <div className="p-2">
+    <div className="">
       <h4 className="flex-wraps">{props.title}</h4>
       <div>
         <div className="text-xl font-bold uppercase text-success">
