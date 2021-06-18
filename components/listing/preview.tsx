@@ -19,7 +19,7 @@ const ListingPreview = (props: Listing) => {
                   className="rounded-t-md"
                 />
               </div>
-              <div className="px-2 py-1 w-96">
+              <div className="w-full px-2 py-1">
                 <ListingBasicInfo
                   title={props.title}
                   price={props.price}
