@@ -51,7 +51,6 @@ export default function SearchSort(): JSX.Element {
                           selected ? "font-medium" : "font-normal"
                         } block truncate`}
                         onClick={() => {
-                          console.log("clicked");
                           router.push({
                             pathname: "/listings/search",
                             query: { ...router.query, ...{ sort: option.id } },
