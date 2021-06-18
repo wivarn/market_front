@@ -1,5 +1,4 @@
 import { BasicListing } from "types/listings";
-import { ProfilePageJsonLd } from "next-seo";
 
 const ListingBasicInfo = (props: BasicListing): JSX.Element => {
   let shortTitle = props.title;
