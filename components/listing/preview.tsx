@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Listing } from "types/listings";
 import ListingBasicInfo from "./basicInfo";
@@ -9,10 +10,12 @@ const ListingPreview = (props: Listing) => {
         <Link href={`/listings/${props.id}`}>
           <a>
             <div className="flex flex-wrap bg-white rounded-md shadow-md w-80 hover:shadow-xl">
-              <div className="image">
-                <img
+              <div className="container relative w-80 h-80">
+                <Image
                   src={props.photos[0]}
                   alt={props.title}
+                  layout="fill"
+                  objectFit="cover"
                   className="rounded-t-md"
                 />
               </div>

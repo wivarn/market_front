@@ -15,7 +15,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-export default function Header() {
+export default function Header(): JSX.Element {
   const [session, sessionLoading] = useSession();
   const router = useRouter();
 
@@ -92,7 +92,9 @@ export default function Header() {
             <a className="pr-1 text-accent-lightest">
               <div className="inline-flex">
                 <LgSquirrelIcon />
-                <h2 className="hidden px-2 py-1 md:block">Skwirl</h2>
+                <h2 className="hidden px-2 py-1 text-accent-lightest md:block">
+                  Skwirl
+                </h2>
               </div>
             </a>
           </Link>
