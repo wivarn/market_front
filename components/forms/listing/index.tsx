@@ -96,7 +96,7 @@ const listingSchema = Yup.object().shape({
         }),
         "This is not a valid grading company"
       )
-      .required(),
+      .required("Grading company is required"),
   }),
   condition: Yup.mixed()
     .when("grading_company", {
