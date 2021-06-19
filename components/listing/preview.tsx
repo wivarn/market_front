@@ -25,6 +25,8 @@ const ListingPreview = (props: Listing): JSX.Element => {
                   price={props.price}
                   currency={props.currency}
                   domestic_shipping={props.domestic_shipping}
+                  international_shipping={props.international_shipping}
+                  grading_company={props.grading_company}
                   condition={props.condition}
                 />
               </div>

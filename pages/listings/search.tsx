@@ -15,7 +15,6 @@ export default function Listings(): JSX.Element {
         return q[0] + "=" + q[1];
       })
       .join("&");
-    console.log(query);
     const { data, error } = useSWR(
       router.isReady ? `listings/search?${query}` : null
     );

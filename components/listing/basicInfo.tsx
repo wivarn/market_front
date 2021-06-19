@@ -1,4 +1,5 @@
 import { BasicListing } from "types/listings";
+import { ConditionPill } from "./condition";
 
 const ListingBasicInfo = (props: BasicListing): JSX.Element => {
   return (
@@ -8,7 +9,7 @@ const ListingBasicInfo = (props: BasicListing): JSX.Element => {
           {props.title}
         </p>
       </div>
-      <div className="mt-1">
+      <div className="relative mt-1">
         <span className="font-semibold text-accent-darker">
           {Number(props.price).toLocaleString("en", {
             style: "currency",
@@ -16,9 +17,12 @@ const ListingBasicInfo = (props: BasicListing): JSX.Element => {
           })}{" "}
         </span>
         <span className="text-xs text-accent-dark">{props.currency}</span>
-        <div className="float-right font-bold text-success">
-          {props.condition}
-        </div>
+        <span className="absolute inset-y-0 right-0">
+          <ConditionPill
+            grading_company={props.grading_company}
+            condition={props.condition}
+          />
+        </span>
       </div>
       <div className="text-xs leading-none text-accent-dark">
         +

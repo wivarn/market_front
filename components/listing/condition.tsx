@@ -1,12 +1,28 @@
-export interface Props {
-  grading_company: string;
+import {
+  conditionList,
+  gradingCompanyList,
+  gradingList,
+} from "constants/listings";
+
+interface Props {
+  grading_company: string | undefined;
   condition: string | number;
 }
 
-export function ConditionPill(props: Props): JSX.Element {
+export function ConditionPill({
+  grading_company,
+  condition,
+}: Props): JSX.Element {
+  const conditionString = grading_company?.length
+    ? `${
+        gradingCompanyList.find((company) => company.value == grading_company)
+          ?.text
+      } ${gradingList.find((grading) => grading.value == condition)?.text}`
+    : conditionList.find((con) => con.value == condition)?.text;
+
   return (
-    <div className="w-32 p-2 text-center border rounded-full text-success border-success bg-success-lightest">
-      {props.grading_company} {props.condition}
-    </div>
+    <span className="px-2 text-center border rounded-full w-max text-success border-success bg-success-lightest">
+      {conditionString}
+    </span>
   );
 }

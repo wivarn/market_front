@@ -18,6 +18,8 @@ const ListingPreviewGrid = (props: Listings): JSX.Element => {
             price={listing.price}
             currency={listing.currency}
             domestic_shipping={listing.domestic_shipping}
+            international_shipping={listing.international_shipping}
+            grading_company={listing.grading_company}
             condition={listing.condition}
           />
         );

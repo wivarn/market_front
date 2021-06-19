@@ -4,6 +4,7 @@ export interface BasicListing {
   currency?: string;
   domestic_shipping: string | number;
   international_shipping?: string | number;
+  grading_company?: string;
   condition: string | number;
 }
 
@@ -12,7 +13,6 @@ export interface Listing extends BasicListing {
   subcategory?: string;
   accountId?: string;
   id?: string;
-  grading_company?: string;
   photos: string[];
   description?: string;
   sellerName?: string;
