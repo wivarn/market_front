@@ -15,7 +15,7 @@ import { useCombobox } from "downshift";
 
 type TextFieldProps = FieldHookConfig<string> &
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
-    label?: string;
+    label?: string | JSX.Element;
     description?: string;
     className?: string;
     labelClassName?: string;

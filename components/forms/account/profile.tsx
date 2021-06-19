@@ -115,7 +115,6 @@ export default function ProfileForm(): JSX.Element {
               label="Currency"
               name="currency"
               items={currencyList}
-              formik={formik}
             />
 
             <TextFieldFull

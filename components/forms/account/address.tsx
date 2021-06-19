@@ -158,7 +158,6 @@ function stateSelect(formik: FormikProps<any>) {
       name="state"
       placeholder={placeholder}
       items={items}
-      formik={formik}
       disabled={!country}
       resetRef={stateRef}
     />
@@ -192,7 +191,7 @@ function trimValues(values: Address) {
   return values;
 }
 
-export default function AddressForm() {
+export default function AddressForm(): JSX.Element {
   const [session, loading] = useSession();
 
   function getAddresses() {
@@ -249,7 +248,6 @@ export default function AddressForm() {
                 formik.getFieldProps("country").value ? "" : "Select country"
               }
               items={countryList}
-              formik={formik}
               childresetRef={stateRef}
             />
 
