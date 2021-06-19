@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
 
-import { SearchField } from "./fields";
+import { SearchField } from "../fields";
 import { useRouter } from "next/router";
 
 interface Values {
@@ -13,7 +13,7 @@ const querySchema = Yup.object().shape({
   query: Yup.string(),
 });
 
-export default function SearchForm() {
+export default function SearchForm(): JSX.Element {
   const router = useRouter();
   return (
     <Formik
@@ -29,7 +29,7 @@ export default function SearchForm() {
         actions.setSubmitting(false);
       }}
     >
-      {({ isSubmitting }) => (
+      {() => (
         <Form>
           <div className="inline-flex items-center gap-1">
             <div className="max-w-xs">
