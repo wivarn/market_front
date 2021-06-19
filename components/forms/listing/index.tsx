@@ -248,21 +248,7 @@ const ListingForm = (props: Listing): JSX.Element => {
 
   if (!session || !template) return <div>Spinner</div>;
 
-  const initialValues = newListing
-    ? {
-        category: "",
-        subcategory: "",
-        photos: randomPhotos(),
-        title: "",
-        condition: "",
-        description: "",
-        price: 0,
-        domestic_shipping: 0,
-        international_shipping: 0,
-        status: "ACTIVE",
-        ...template,
-      }
-    : props;
+  const initialValues = newListing ? { ...props, ...template } : props;
 
   return (
     <div className="p-4">
@@ -406,6 +392,19 @@ const ListingForm = (props: Listing): JSX.Element => {
       </CardContainer6xl>
     </div>
   );
+};
+
+ListingForm.defaultProps = {
+  category: "",
+  subcategory: "",
+  photos: randomPhotos(),
+  title: "",
+  condition: "",
+  description: "",
+  price: 0,
+  domestic_shipping: 0,
+  international_shipping: 0,
+  status: "ACTIVE",
 };
 
 export default ListingForm;
