@@ -246,6 +246,7 @@ export const _DropdownCombobox = ({
       );
     }
   };
+
   const {
     isOpen,
     closeMenu,
@@ -261,6 +262,7 @@ export const _DropdownCombobox = ({
     items: inputItems,
     itemToString,
     onInputValueChange: ({ inputValue }) => itemFilter(inputValue),
+    initialSelectedItem: items.find((item) => item.value == field.value),
     onIsOpenChange: () => {
       setInputItems(items);
     },
@@ -305,7 +307,6 @@ export const _DropdownCombobox = ({
           onBlur={() => {
             closeMenu();
             !isOpen && fieldHelpers.setTouched(true);
-            // selectItem(items[highlightedIndex]);
           }}
         />
         <input {...field} {...props} hidden />

@@ -168,7 +168,7 @@ function subCategoryCombobox(formik: FormikProps<any>) {
 const ListingForm = (props: Listing): JSX.Element => {
   const router = useRouter();
   const [session] = useSession();
-  const [graded, setGraded] = useState(false);
+  const [graded, setGraded] = useState(!!props.grading_company);
 
   const newListing = !props.id;
 
@@ -178,14 +178,15 @@ const ListingForm = (props: Listing): JSX.Element => {
 
     return (
       <>
-        <ListingDropdownCombobox
-          label="Grading Company"
-          description="Enter the company who graded the item. If not listed choose 'other'."
-          name="grading_company"
-          items={gradingCompanyList}
-          resetRef={gradingCompanyRef}
-          hidden={!graded}
-        />
+        {graded ? (
+          <ListingDropdownCombobox
+            label="Grading Company"
+            description="Enter the company who graded the item. If not listed choose 'other'."
+            name="grading_company"
+            items={gradingCompanyList}
+            resetRef={gradingCompanyRef}
+          />
+        ) : null}
 
         <ListingDropdownCombobox
           label={label}
@@ -370,7 +371,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                     text={(newListing ? "Publish" : "Update") + " Listing"}
                     disabled={formik.isSubmitting}
                     onClick={async () => {
-                      formik.values.status = "ACTIVE";
+                      formik.setFieldValue("status", "ACTIVE");
                     }}
                   />
 
@@ -379,7 +380,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                       text="Save Draft"
                       disabled={formik.isSubmitting}
                       onClick={async () => {
-                        formik.values.status = "DRAFT";
+                        formik.setFieldValue("status", "DRAFT");
                       }}
                     />
                   ) : null}
