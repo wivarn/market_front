@@ -14,7 +14,7 @@ export const gradingCompanyList = [
   { value: "MNT", text: "MNT" },
   { value: "PSA", text: "PSA" },
   { value: "SGC", text: "SGC" },
-  { value: "OTHER", text: "OTHER" },
+  { value: "OTHER", text: "Other" },
 ];
 
 export const gradingList = [
