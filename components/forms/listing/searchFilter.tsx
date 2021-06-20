@@ -1,3 +1,5 @@
+import * as Yup from "yup";
+
 import { Form, Formik, FormikProps } from "formik";
 import {
   ListingComboBoxOption,
@@ -19,6 +21,83 @@ import { createRef, useState } from "react";
 import FormContainer from "../container";
 import { NumberField } from "../fields";
 import { useRouter } from "next/router";
+
+const filterSchema = Yup.object().shape({
+  gt: Yup.number().positive("Min price must be positive"),
+  lt: Yup.number()
+    .when("gt", (gt, schema) => {
+      return gt
+        ? schema.moreThan(gt, "Max price must be higer than min price")
+        : schema.positive("Max price must be positive");
+    })
+    .max(99999999.99, "Max price must be less than 99999999.99"),
+  category: Yup.mixed().oneOf(
+    categoryList
+      .map((category) => {
+        return category.value;
+      })
+      .concat("")
+  ),
+  subcategory: Yup.mixed()
+    .when("category", {
+      is: "SPORTS_CARDS",
+      then: Yup.mixed().oneOf(
+        sportsCardList
+          .map((sports_card) => {
+            return sports_card.value;
+          })
+          .concat("")
+      ),
+    })
+    .when("category", {
+      is: "TRADING_CARDS",
+      then: Yup.mixed().oneOf(
+        tradingCardList
+          .map((trading_card) => {
+            return trading_card.value;
+          })
+          .concat("")
+      ),
+    })
+    .when("category", {
+      is: "COLLECTIBLES",
+      then: Yup.mixed().oneOf(
+        collectibleList
+          .map((collectible) => {
+            return collectible.value;
+          })
+          .concat("")
+      ),
+    }),
+  grading_company: Yup.mixed().when("graded", {
+    is: true,
+    then: Yup.mixed().oneOf(
+      gradingCompanyList.map((gradingCompany) => {
+        return gradingCompany.value;
+      }),
+      "This is not a valid grading company"
+    ),
+  }),
+  condition: Yup.mixed().when("grading_company", {
+    is: "",
+    then: Yup.mixed().oneOf(
+      conditionList
+        .map((condition) => {
+          return condition.value;
+        })
+        .concat(""),
+      "This is not a valid condition"
+    ),
+    otherwise: Yup.mixed().oneOf(
+      gradingList
+        .map((grading) => {
+          return grading.value;
+        })
+        .concat(""),
+      "This is not a valid grading"
+    ),
+  }),
+});
 
 const subcategoryRef = createRef<HTMLSpanElement>();
 const gradingCompanyRef = createRef<HTMLSpanElement>();
@@ -91,15 +170,15 @@ export default function SearchFilter(): JSX.Element {
 
       <Formik
         initialValues={{
-          gt: null,
-          lt: null,
-          category: null,
-          subcategory: null,
-          graded: null,
-          grading_comany: null,
-          condition: null,
+          gt: "",
+          lt: "",
+          category: "",
+          subcategory: "",
+          graded: "",
+          grading_comany: "",
+          condition: "",
         }}
-        // validationSchema={profileSchema}
+        validationSchema={filterSchema}
         onSubmit={(values, actions) => {
           router.push({
             pathname: "/listings/search",
@@ -111,8 +190,8 @@ export default function SearchFilter(): JSX.Element {
         {(formik) => (
           <Form>
             <label>Price</label>
-            <NumberField name="gt" placeholder="Low" />
-            <NumberField name="lt" placeholder="High" />
+            <NumberField name="gt" placeholder="Min" />
+            <NumberField name="lt" placeholder="Max" />
 
             <ListingDropdownCombobox
               name="category"

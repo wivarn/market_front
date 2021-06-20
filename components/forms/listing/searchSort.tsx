@@ -44,7 +44,7 @@ export default function SearchSort(): JSX.Element {
                   }
                   value={option}
                 >
-                  {({ selected, active }) => (
+                  {({ selected }) => (
                     <>
                       <span
                         className={`${
