@@ -175,7 +175,7 @@ export default function SearchFilter(): JSX.Element {
     );
   }
 
-  const initialValues: filterValues = {
+  const blankValues: filterValues = {
     gt: "",
     lt: "",
     category: "",
@@ -184,6 +184,7 @@ export default function SearchFilter(): JSX.Element {
     grading_comany: "",
     condition: "",
   };
+  const initialValues = blankValues;
 
   if (router.pathname == "/listings/search") {
     const params = new URLSearchParams(router.asPath.split("?")[1]);
@@ -236,7 +237,13 @@ export default function SearchFilter(): JSX.Element {
             {renderGrading()}
 
             <SubmitButton text="Apply" disabled={formik.isSubmitting} />
-            <ResetButton text="Clear" />
+            <ResetButton
+              text="Clear"
+              onClick={async () => {
+                router.push("/listings/search");
+                formik.resetForm({ values: blankValues });
+              }}
+            />
           </Form>
         )}
       </Formik>
