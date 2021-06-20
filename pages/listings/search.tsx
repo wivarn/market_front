@@ -20,13 +20,13 @@ export default function Listings(): JSX.Element {
     );
 
     return {
-      listings: data,
+      response: data,
       isLoading: !error && !data,
       isError: error,
     };
   }
 
-  const { listings, isLoading, isError } = getListings();
+  const { response, isLoading, isError } = getListings();
 
   if (isLoading) return <div>Spinner</div>;
   if (isError) return <div>Error</div>;
@@ -40,7 +40,7 @@ export default function Listings(): JSX.Element {
         <h3 className="py-2 text-center border-b border-accent">
           Your search results
         </h3>
-        <ListingPreviewGrid listings={listings?.data} />
+        <ListingPreviewGrid listings={response.data.listings} />
       </CardContainerFull>
     </div>
   );

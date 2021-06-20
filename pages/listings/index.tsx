@@ -19,18 +19,18 @@ export default function Listings(): JSX.Element {
     );
 
     return {
-      listings: data,
+      response: data,
       loadingListings: !error && !data,
       isError: error,
     };
   }
 
-  const { listings, loadingListings, isError } = getListings();
+  const { response, loadingListings, isError } = getListings();
 
   function renderListings() {
     if (loadingListings || loadingSession) return <div>Spinner</div>;
     if (isError) return <div>Error</div>;
-    return <ListingPreviewGrid listings={listings.data} />;
+    return <ListingPreviewGrid listings={response.data.listings} />;
   }
 
   return (
