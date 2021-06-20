@@ -15,8 +15,17 @@ const sortOptions = [
 ];
 
 export default function SearchSort(): JSX.Element {
-  const [selected, setSelected] = useState(sortOptions[0]);
   const router = useRouter();
+
+  let initialSelected = sortOptions[0];
+  if (router.pathname == "/listings/search") {
+    const params = new URLSearchParams(router.asPath.split("?")[1]);
+    initialSelected =
+      sortOptions.find((option) => option.id == params.get("sort")) ||
+      sortOptions[0];
+  }
+
+  const [selected, setSelected] = useState(initialSelected);
 
   return (
     <div className="">
@@ -59,16 +68,6 @@ export default function SearchSort(): JSX.Element {
                       >
                         {option.text}
                       </span>
-                      {/* {selected ? (
-                        <span
-                          className={`${
-                            active ? "text-amber-600" : "text-amber-600"
-                          }
-                                absolute inset-y-0 left-0 flex items-center pl-3`}
-                        >
-                          <CheckIcon className="w-5 h-5" aria-hidden="true" />
-                        </span>
-                      ) : null} */}
                     </>
                   )}
                 </Listbox.Option>
