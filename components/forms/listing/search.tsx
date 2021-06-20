@@ -16,9 +16,11 @@ const querySchema = Yup.object().shape({
 export default function SearchForm(): JSX.Element {
   const router = useRouter();
 
-  if (!router.isReady) return <div>Spinner</div>;
-
-  const title = `${router.query.title}`;
+  let title = "";
+  if (router.pathname == "/listings/search") {
+    const params = new URLSearchParams(router.asPath.split("?")[1]);
+    title = `${params.get("title")}`;
+  }
 
   return (
     <Formik
