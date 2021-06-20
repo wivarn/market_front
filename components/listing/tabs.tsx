@@ -34,8 +34,8 @@ export default function ListingTabs({
 }: {
   activeTab: string;
   children: React.ReactNode;
-}) {
-  const [session, loadingSession] = useSession();
+}): JSX.Element {
+  const [session] = useSession();
 
   function getAddresses() {
     const { data, error } = useSWR(

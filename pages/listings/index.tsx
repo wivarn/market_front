@@ -9,12 +9,14 @@ import { useSession } from "next-auth/client";
 export default function Listings(): JSX.Element {
   const [session, loadingSession] = useSession();
   const router = useRouter();
-  const { status } = router.query;
+  const { status, page } = router.query;
 
   function getListings() {
+    const pageQuery = page ? `&page=${page}` : "";
+
     const { data, error } = useSWR(
       session && status
-        ? [`listings?status=${status}`, session.accessToken]
+        ? [`listings?status=${status}${pageQuery}`, session.accessToken]
         : null
     );
 
@@ -30,7 +32,13 @@ export default function Listings(): JSX.Element {
   function renderListings() {
     if (loadingListings || loadingSession) return <div>Spinner</div>;
     if (isError) return <div>Error</div>;
-    return <ListingPreviewGrid listings={response.data.listings} />;
+    return (
+      <ListingPreviewGrid
+        listings={response.data.listings}
+        totalPages={response.data.total_pages}
+        initialPage={Number(page)}
+      />
+    );
   }
 
   return (

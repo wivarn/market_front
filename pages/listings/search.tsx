@@ -40,7 +40,11 @@ export default function Listings(): JSX.Element {
         <h3 className="py-2 text-center border-b border-accent">
           Your search results
         </h3>
-        <ListingPreviewGrid listings={response.data.listings} />
+        <ListingPreviewGrid
+          listings={response.data.listings}
+          totalPages={response.data.total_pages}
+          initialPage={Number(router.query.page)}
+        />
       </CardContainerFull>
     </div>
   );
