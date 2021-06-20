@@ -18,12 +18,10 @@ export default function SearchSort(): JSX.Element {
   const router = useRouter();
 
   let initialSelected = sortOptions[0];
-  if (router.pathname == "/listings/search") {
-    const params = new URLSearchParams(router.asPath.split("?")[1]);
-    initialSelected =
-      sortOptions.find((option) => option.id == params.get("sort")) ||
-      sortOptions[0];
-  }
+  const params = new URLSearchParams(router.asPath.split("?")[1]);
+  initialSelected =
+    sortOptions.find((option) => option.id == params.get("sort")) ||
+    sortOptions[0];
 
   const [selected, setSelected] = useState(initialSelected);
 

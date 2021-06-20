@@ -19,7 +19,7 @@ export default function SearchForm(): JSX.Element {
   let title = "";
   if (router.pathname == "/listings/search") {
     const params = new URLSearchParams(router.asPath.split("?")[1]);
-    title = `${params.get("title")}`;
+    title = params.has("title") ? `${params.get("title")}` : "";
   }
 
   return (
