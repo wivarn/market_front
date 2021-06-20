@@ -24,18 +24,18 @@ import { useRouter } from "next/router";
 
 interface filterValues {
   [index: string]: string;
-  gt: string;
-  lt: string;
+  min_price: string;
+  max_price: string;
   category: string;
   subcategory: string;
   graded: string;
-  grading_comany: string;
-  condition: string;
+  grading_company: string;
+  min_condition: string;
 }
 
 const filterSchema = Yup.object().shape({
-  gt: Yup.number().positive("Min price must be positive"),
-  lt: Yup.number()
+  min_price: Yup.number().positive("Min price must be positive"),
+  max_price: Yup.number()
     .when("gt", (gt, schema) => {
       return gt
         ? schema.moreThan(gt, "Max price must be higer than min price")
@@ -89,7 +89,7 @@ const filterSchema = Yup.object().shape({
       "This is not a valid grading company"
     ),
   }),
-  condition: Yup.mixed().when("grading_company", {
+  min_condition: Yup.mixed().when("grading_company", {
     is: "",
     then: Yup.mixed().oneOf(
       conditionList
@@ -147,10 +147,12 @@ function subCategoryCombobox(formik: FormikProps<any>) {
 
 export default function SearchFilter(): JSX.Element {
   const router = useRouter();
-  const [graded, setGraded] = useState(false);
+  const [graded, setGraded] = useState(
+    new URLSearchParams(router.asPath.split("?")[1]).get("graded") == "true"
+  );
 
   function renderGrading() {
-    const label = graded ? "Grading" : "Condition";
+    const label = graded ? "Minimum Grading" : "Minimum Condition";
     const items = graded ? gradingList : conditionList;
 
     return (
@@ -167,7 +169,7 @@ export default function SearchFilter(): JSX.Element {
 
         <ListingDropdownCombobox
           label={label}
-          name="condition"
+          name="min_condition"
           items={items}
           resetRef={conditionRef}
         />
@@ -176,13 +178,13 @@ export default function SearchFilter(): JSX.Element {
   }
 
   const initialValues: filterValues = {
-    gt: "",
-    lt: "",
+    min_price: "",
+    max_price: "",
     category: "",
     subcategory: "",
     graded: "",
-    grading_comany: "",
-    condition: "",
+    grading_company: "",
+    min_condition: "",
   };
 
   const params = new URLSearchParams(router.asPath.split("?")[1]);
@@ -199,6 +201,7 @@ export default function SearchFilter(): JSX.Element {
         enableReinitialize={true}
         validationSchema={filterSchema}
         onSubmit={(values, actions) => {
+          console.log(values);
           router.push({
             pathname: "/listings/search",
             query: { ...router.query, ...values },
@@ -209,8 +212,8 @@ export default function SearchFilter(): JSX.Element {
         {(formik) => (
           <Form>
             <label>Price</label>
-            <NumberField name="gt" placeholder="Min" />
-            <NumberField name="lt" placeholder="Max" />
+            <NumberField name="min_price" placeholder="Min" />
+            <NumberField name="max_price" placeholder="Max" />
 
             <ListingDropdownCombobox
               name="category"
