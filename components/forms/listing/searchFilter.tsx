@@ -22,6 +22,17 @@ import FormContainer from "../container";
 import { NumberField } from "../fields";
 import { useRouter } from "next/router";
 
+interface filterValues {
+  [index: string]: string;
+  gt: string;
+  lt: string;
+  category: string;
+  subcategory: string;
+  graded: string;
+  grading_comany: string;
+  condition: string;
+}
+
 const filterSchema = Yup.object().shape({
   gt: Yup.number().positive("Min price must be positive"),
   lt: Yup.number()
@@ -144,13 +155,15 @@ export default function SearchFilter(): JSX.Element {
 
     return (
       <>
-        <ListingDropdownCombobox
-          label="Graded by"
-          name="grading_company"
-          items={gradingCompanyList}
-          resetRef={gradingCompanyRef}
-          hidden={!graded}
-        />
+        {graded ? (
+          <ListingDropdownCombobox
+            label="Graded by"
+            name="grading_company"
+            items={gradingCompanyList}
+            resetRef={gradingCompanyRef}
+            hidden={!graded}
+          />
+        ) : null}
 
         <ListingDropdownCombobox
           label={label}
@@ -162,22 +175,29 @@ export default function SearchFilter(): JSX.Element {
     );
   }
 
-  if (!router.isReady) return <div>Spinner</div>;
+  const initialValues: filterValues = {
+    gt: "",
+    lt: "",
+    category: "",
+    subcategory: "",
+    graded: "",
+    grading_comany: "",
+    condition: "",
+  };
+
+  if (router.pathname == "/listings/search") {
+    const params = new URLSearchParams(router.asPath.split("?")[1]);
+    for (const key in initialValues) {
+      initialValues[key] = params.get(key) || "";
+    }
+  }
 
   return (
     <FormContainer>
       <h4>Select Filters</h4>
 
       <Formik
-        initialValues={{
-          gt: "",
-          lt: "",
-          category: "",
-          subcategory: "",
-          graded: "",
-          grading_comany: "",
-          condition: "",
-        }}
+        initialValues={initialValues}
         validationSchema={filterSchema}
         onSubmit={(values, actions) => {
           router.push({
