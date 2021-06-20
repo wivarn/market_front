@@ -21,6 +21,7 @@ type TextFieldProps = FieldHookConfig<string> &
     labelClassName?: string;
     descriptionClassName?: string;
     inputClassName?: string;
+    hideError?: boolean;
   };
 
 type TextAreaProps = FieldHookConfig<string> &
@@ -169,6 +170,7 @@ export const _TextField = ({
   labelClassName,
   descriptionClassName,
   inputClassName,
+  hideError,
   ...props
 }: TextFieldProps): JSX.Element => {
   const [field, meta] = useField(props);
@@ -184,7 +186,7 @@ export const _TextField = ({
       ) : null}
       <div className="col-span-2">
         <input className={inputClassName} {...field} {...props} />
-        {meta.touched && meta.error ? (
+        {!hideError && meta.touched && meta.error ? (
           <div className="text-error">{meta.error}</div>
         ) : null}
       </div>

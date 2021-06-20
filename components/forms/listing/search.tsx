@@ -6,25 +6,28 @@ import { SearchField } from "../fields";
 import { useRouter } from "next/router";
 
 interface Values {
-  query: string;
+  title: string;
 }
 
 const querySchema = Yup.object().shape({
-  query: Yup.string(),
+  title: Yup.string().required(),
 });
 
 export default function SearchForm(): JSX.Element {
   const router = useRouter();
+
+  if (!router.isReady) return <div>Spinner</div>;
+
+  const title = `${router.query.title}`;
+
   return (
     <Formik
-      initialValues={{
-        query: "",
-      }}
+      initialValues={{ title: title }}
       validationSchema={querySchema}
       onSubmit={(values: Values, actions) => {
         router.push({
           pathname: "/listings/search",
-          query: { title: values.query },
+          query: { title: values.title },
         });
         actions.setSubmitting(false);
       }}
@@ -34,9 +37,10 @@ export default function SearchForm(): JSX.Element {
           <div className="inline-flex items-center gap-1">
             <div className="max-w-xs">
               <SearchField
-                name="query"
+                name="title"
                 type="text"
                 placeholder="Search for anything"
+                hideError={true}
               />
             </div>
           </div>
