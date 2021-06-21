@@ -15,7 +15,7 @@ export function Spinner(props: Props): JSX.Element {
 
 export function SpinnerPage(props: Props): JSX.Element {
   return (
-    <div className="flex justify-center h-screen m-auto">
+    <div className="flex justify-center m-auto h-96">
       <div className="flex items-center p-2 animate-pulse">
         <LgSpinnerIcon />
         <span className="px-2 text-2xl text-accent-darker">{props.text}</span>
