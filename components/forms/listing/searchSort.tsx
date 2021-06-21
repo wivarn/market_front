@@ -26,12 +26,12 @@ export default function SearchSort(): JSX.Element {
   const [selected, setSelected] = useState(initialSelected);
 
   return (
-    <div className="">
+    <div className="w-72">
       <Listbox value={selected} onChange={setSelected}>
-        <div className="relative mt-1">
-          <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
+        <div className="relative my-2">
+          <Listbox.Button className="relative w-full py-2 pl-3 text-sm text-left bg-white border rounded-md cursor-default md:text-base border-accent">
             <span className="block truncate">{selected.text}</span>
-            <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+            <span className="absolute inset-y-0 right-0 flex items-center pr-2">
               <SmChevronDownIcon />
             </span>
           </Listbox.Button>
@@ -41,13 +41,17 @@ export default function SearchSort(): JSX.Element {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute z-50 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute z-10 w-full px-2 py-1 mt-1 overflow-auto text-sm bg-white border rounded-md shadow-lg md:text-base max-h-72 border-accent">
               {sortOptions.map((option, optionId) => (
                 <Listbox.Option
                   key={optionId}
                   className={({ active }) =>
-                    `${active ? "text-amber-900 bg-amber-100" : "text-gray-900"}
-                          cursor-default select-none relative py-2 pl-10 pr-4`
+                    `${
+                      active
+                        ? "text-accent-lightest bg-info-darker rounded-md font-medium"
+                        : "text-info-darker"
+                    }
+                          cursor-default select-none relative py-2 px-2`
                   }
                   value={option}
                 >

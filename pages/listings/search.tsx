@@ -34,12 +34,14 @@ export default function Listings(): JSX.Element {
   return (
     <div className="my-4">
       <NextSeo title="Search Results" />
-      <SearchFilter />
-      <SearchSort />
       <CardContainerFull>
         <h3 className="py-2 text-center border-b border-accent">
           Your search results
         </h3>
+        <div className="flex justify-between px-4 py-2 border-b border-accent">
+          <SearchFilter />
+          <SearchSort />
+        </div>
         <ListingPreviewGrid
           listings={response.data.listings}
           totalPages={response.data.total_pages}

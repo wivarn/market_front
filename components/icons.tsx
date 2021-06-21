@@ -1,12 +1,14 @@
 import {
   HiArrowNarrowDown,
   HiBookOpen,
+  HiCheck,
   HiCheckCircle,
   HiChevronDown,
   HiChevronLeft,
   HiChevronRight,
   HiExclamation,
   HiExclamationCircle,
+  HiFilter,
   HiInformationCircle,
   HiMenu,
   HiOutlineCurrencyDollar,
@@ -34,6 +36,14 @@ export const UserChevronIcon = (): JSX.Element => {
 
 export const CurrencyDollarIcon = (): JSX.Element => {
   return <HiOutlineCurrencyDollar className="icon" />;
+};
+
+export const SmCheckIcon = (): JSX.Element => {
+  return <HiCheck className="icon-sm" />;
+};
+
+export const FilterIcon = (): JSX.Element => {
+  return <HiFilter className="icon" />;
 };
 
 export const ChevronRightIcon = (): JSX.Element => {
