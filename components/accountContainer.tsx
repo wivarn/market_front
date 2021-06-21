@@ -33,13 +33,13 @@ export default function AccountContainer({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <div className="my-8 ">
+    <div className="my-4">
       <CardContainer2xl>
         <h3 className="py-4 text-center border-b border-accent">
           Your Profile
         </h3>
-        <div className="space-x-8 font-medium text-accent-darker">
-          <div className="flex justify-center mt-8 space-x-8">
+        <div className="space-x-2 font-medium text-accent-darker">
+          <div className="flex justify-center mt-8 space-x-4 md:space-x-8">
             <LinkWrapper
               href="/account/profile"
               tab="profile"
