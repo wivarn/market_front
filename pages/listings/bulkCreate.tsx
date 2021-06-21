@@ -35,11 +35,23 @@ export default function BulkCreateListings(): JSX.Element {
     reader.onload = () => {
       Papa.parse(`${reader.result}`, {
         header: true,
-        dynamicTyping: true,
-        worker: true,
+        // dynamicTyping: true,
+        // worker: true,
         skipEmptyLines: "greedy",
         complete: (results) => {
           setListings(results);
+        },
+        transform: (value, field) => {
+          if (field == "condition") {
+            return Number(value).toFixed(1);
+          }
+          if (field == "grading") {
+            return value.toLocaleLowerCase() == "true" ? true : false;
+          }
+          if (value == "") {
+            return null;
+          }
+          return value;
         },
       });
     };
@@ -74,21 +86,19 @@ export default function BulkCreateListings(): JSX.Element {
           {listings.data.map((listing, lIndex) => {
             return (
               <tr key={lIndex}>
-                {Object.values(listing).map((value, vIndex) => {
-                  const compactListing: { [index: string]: string } = {};
-                  for (const key in listing) {
-                    if (listing[key] != null) {
-                      compactListing[key] = listing[key];
-                    }
+                {Object.keys(listing).map((key, vIndex) => {
+                  let error = [];
+                  try {
+                    lSchema.validateSyncAt(key, listing);
+                  } catch (validationError) {
+                    error = validationError.errors;
                   }
-                  console.log(compactListing);
-                  lSchema.validate(compactListing).catch((errors) => {
-                    console.log(errors.path);
-                    console.log(errors.errors);
-                  });
                   return (
-                    <td key={lIndex + vIndex} className="border border-primary">
-                      {value ? `${value}` : ""}
+                    <td key={vIndex} className="border border-primary">
+                      {listing[key] ? `${listing[key]}` : ""}
+                      {error.length ? (
+                        <p className="text-error">{`${error}`}</p>
+                      ) : null}
                     </td>
                   );
                 })}

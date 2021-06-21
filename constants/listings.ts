@@ -119,6 +119,8 @@ export const listingSchema: ObjectShape = {
     .min(2, "Title must be more than 2 characters")
     .max(256, "Title must be less than 256 characters")
     .required("Title is required"),
+  description: Yup.string().nullable(),
+  grading: Yup.boolean(),
   grading_company: Yup.mixed().when("graded", {
     is: true,
     then: Yup.mixed()
@@ -131,20 +133,21 @@ export const listingSchema: ObjectShape = {
       .required("Grading company is required"),
   }),
   condition: Yup.mixed()
-    .when("grading_company", {
-      is: "",
-      then: Yup.mixed().oneOf(
-        conditionList.map((condition) => {
-          return condition.value;
-        }),
-        "This is not a valid condition"
-      ),
-      otherwise: Yup.mixed().oneOf(
+    .when("grading_company", (grading_company, schema) => {
+      if (grading_company == null || grading_company == undefined) {
+        return schema.oneOf(
+          conditionList.map((condition) => {
+            return condition.value;
+          }),
+          "This is not a valid condition"
+        );
+      }
+      return schema.oneOf(
         gradingList.map((grading) => {
           return grading.value;
         }),
         "This is not a valid grading"
-      ),
+      );
     })
     .required("Condition is required"),
   price: Yup.number()
@@ -157,6 +160,7 @@ export const listingSchema: ObjectShape = {
     .required("Shipping price is required"),
   international_shipping: Yup.number()
     .min(0, "Shipping can't be less than 0")
-    .max(99999999.99, "Shipping must be less than 99999999.99"),
+    .max(99999999.99, "Shipping must be less than 99999999.99")
+    .nullable(),
   status: Yup.string().required("Required"),
 };
