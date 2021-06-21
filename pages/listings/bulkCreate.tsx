@@ -15,7 +15,10 @@ import { useState } from "react";
 
 delete listingSchema.photos;
 delete listingSchema.status;
-const lSchema = Yup.object().shape(listingSchema);
+const headerSchema = Yup.array().of(
+  Yup.mixed().oneOf(Object.keys(listingSchema))
+);
+const bodySchema = Yup.object().shape(listingSchema);
 
 export default function BulkCreateListings(): JSX.Element {
   const [session] = useSession();
@@ -72,15 +75,27 @@ export default function BulkCreateListings(): JSX.Element {
   };
 
   function renderTable() {
-    if (!listings.meta.fields?.length) return null;
+    const headers = listings.meta.fields;
+    if (!headers?.length) return null;
+
     return (
       <table>
         <thead>
           <tr>
-            {listings.meta.fields.map((field, index) => {
+            {headers.map((field, index) => {
+              let invalidHeader = false;
+              try {
+                headerSchema.validateSyncAt(`[${index}]`, headers);
+              } catch (validationError) {
+                invalidHeader = true;
+                listings.data = [];
+              }
               return (
                 <th key={index} className="border border-primary">
                   {field}
+                  {invalidHeader ? (
+                    <p className="text-error">Invalid field</p>
+                  ) : null}
                 </th>
               );
             })}
@@ -91,17 +106,17 @@ export default function BulkCreateListings(): JSX.Element {
             return (
               <tr key={lIndex}>
                 {Object.keys(listing).map((key, vIndex) => {
-                  let error = [];
+                  let errors = [];
                   try {
-                    lSchema.validateSyncAt(key, listing);
+                    bodySchema.validateSyncAt(key, listing);
                   } catch (validationError) {
-                    error = validationError.errors;
+                    errors = validationError.errors;
                   }
                   return (
                     <td key={vIndex} className="border border-primary">
                       {listing[key] ? `${listing[key]}` : ""}
-                      {error.length ? (
-                        <p className="text-error">{`${error}`}</p>
+                      {errors.length ? (
+                        <p className="text-error">{`${errors}`}</p>
                       ) : null}
                     </td>
                   );
