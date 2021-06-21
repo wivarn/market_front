@@ -192,12 +192,12 @@ export default function SearchFilter(): JSX.Element {
   return (
     <Disclosure>
       {() => (
-        <>
+        <div className="relative">
           <Disclosure.Button className="mt-3">
             <IconButton icon={<FilterIcon />} />
           </Disclosure.Button>
           <Disclosure.Panel>
-            <div className="absolute z-10 p-2 px-4 border rounded-lg bg-accent-lightest border-accent-light">
+            <div className="absolute z-10 p-2 px-4 border rounded-lg top-12 bg-accent-lightest border-accent-light">
               <Formik
                 initialValues={initialValues}
                 enableReinitialize={true}
@@ -267,7 +267,7 @@ export default function SearchFilter(): JSX.Element {
               </Formik>
             </div>
           </Disclosure.Panel>
-        </>
+        </div>
       )}
     </Disclosure>
   );
