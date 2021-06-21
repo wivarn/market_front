@@ -39,6 +39,10 @@ export const SpinnerIcon = (): JSX.Element => {
   return <CgSpinner className="icon animate-spin" />;
 };
 
+export const LgSpinnerIcon = (): JSX.Element => {
+  return <CgSpinner className="icon-lg animate-spin" />;
+};
+
 export const CurrencyDollarIcon = (): JSX.Element => {
   return <HiOutlineCurrencyDollar className="icon" />;
 };

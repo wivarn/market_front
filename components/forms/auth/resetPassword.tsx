@@ -4,6 +4,7 @@ import { Form, Formik } from "formik";
 
 import { AuthApi } from "services/backendApi/auth";
 import AuthFormContainer from "./container";
+import { SpinnerPage } from "components/spinner";
 import { SubmitButton } from "components/buttons";
 import { TextFieldFull } from "../fields";
 import { signIn } from "next-auth/client";
@@ -29,7 +30,7 @@ export default function ResetPasswordForm() {
   }, [router.isReady]);
 
   const { key } = router.query;
-  if (!key) return <div>Spinner</div>;
+  if (!key) return <SpinnerPage text="Loading..." />;
 
   return (
     <AuthFormContainer>

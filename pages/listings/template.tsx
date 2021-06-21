@@ -1,5 +1,6 @@
 import ListingTemplateForm from "components/forms/listing/template";
 import { NextSeo } from "next-seo";
+import { SpinnerPage } from "components/spinner";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
@@ -20,7 +21,7 @@ export default function NewListing(): JSX.Element {
 
   const { response, loadingTemplate, isError } = getListingTemplate();
 
-  if (loadingTemplate) return <div>Spinner</div>;
+  if (loadingTemplate) return <SpinnerPage text="Loading..." />;
   if (isError) return <div>Error</div>;
 
   const template = response.data;
