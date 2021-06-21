@@ -24,7 +24,7 @@ import useSWR, { mutate } from "swr";
 import FormSection from "./section";
 import { ListingTemplate } from "types/listings";
 import { ListingTemplateApi } from "services/backendApi/listingTemplate";
-import { SpinnerPage } from "components/spinner";
+import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -203,7 +203,7 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
 
   const { profile } = getProfile();
 
-  if (!session) return <SpinnerPage text="Loading..." />;
+  if (!session) return <SpinnerLg text="Loading..." />;
 
   return (
     <div className="max-w-6xl p-4 mx-auto mt-4">

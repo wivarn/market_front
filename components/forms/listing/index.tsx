@@ -30,7 +30,7 @@ import { CardContainer6xl } from "components/cardContainer";
 import FormSection from "./section";
 import { Listing } from "types/listings";
 import { ListingApi } from "services/backendApi/listing";
-import { SpinnerPage } from "components/spinner";
+import { SpinnerLg } from "components/spinner";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -171,7 +171,7 @@ const ListingForm = (props: Listing): JSX.Element => {
   const profile = getProfile().profile?.data;
   const template = getListingTemplate().template?.data;
 
-  if (!session || !template) return <SpinnerPage text="Loading..." />;
+  if (!session || !template) return <SpinnerLg text="Loading..." />;
 
   const initialValues = newListing ? { ...props, ...template } : props;
 

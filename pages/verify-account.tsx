@@ -1,6 +1,6 @@
 import { AuthApi } from "services/backendApi/auth";
 import { NextSeo } from "next-seo";
-import { SpinnerPage } from "components/spinner";
+import { SpinnerLg } from "components/spinner";
 import { signIn } from "next-auth/client";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
@@ -33,7 +33,7 @@ export default function verifyAccount(): JSX.Element {
   return (
     <>
       <NextSeo title="Verify Account" />
-      <SpinnerPage text="Loading..." />
+      <SpinnerLg text="Loading..." />
     </>
   );
 }

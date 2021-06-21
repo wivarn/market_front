@@ -1,7 +1,7 @@
 import { CardContainer6xl } from "components/cardContainer";
 import ListingDetails from "components/listing/details";
 import { NextSeo } from "next-seo";
-import { SpinnerPage } from "components/spinner";
+import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
@@ -20,7 +20,7 @@ export default function ShowListing(): JSX.Element {
   }
 
   const { response, isLoading, isError } = getListing();
-  if (isLoading) return <SpinnerPage text="Loading..." />;
+  if (isLoading) return <SpinnerLg text="Loading..." />;
   if (isError) return <div>Error</div>;
 
   const listing = response.data;

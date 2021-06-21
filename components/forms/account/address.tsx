@@ -6,7 +6,7 @@ import { Form, Formik, FormikProps } from "formik";
 import { Address } from "types/account";
 import { AddressApi } from "services/backendApi/address";
 import FormContainer from "../container";
-import { SpinnerPage } from "components/spinner";
+import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
 import { createRef } from "react";
 import { toast } from "react-toastify";
@@ -211,7 +211,7 @@ export default function AddressForm(): JSX.Element {
 
   const { addresses, isLoading, isError } = getAddresses();
 
-  if (isLoading || loading) return <SpinnerPage text="Loading..." />;
+  if (isLoading || loading) return <SpinnerLg text="Loading..." />;
   if (isError) return <div>Error</div>;
 
   const address = addresses.data[0] || {};
