@@ -2,18 +2,24 @@ import * as Yup from "yup";
 
 import Dropzone, { FileRejection } from "react-dropzone";
 
+import { ListingApi } from "services/backendApi/listing";
 import { NextSeo } from "next-seo";
 import Papa from "papaparse";
 import { ParseResult } from "papaparse";
+import { SubmitButton } from "components/buttons";
 import { listingSchema } from "constants/listings";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/client";
 import { useState } from "react";
 
 delete listingSchema.photos;
 delete listingSchema.status;
 const lSchema = Yup.object().shape(listingSchema);
-// const headerSchema = Yup.array().ensure().cast(["category", "subcategory", "title", "grading_company", ""]);
 
 export default function BulkCreateListings(): JSX.Element {
+  const [session] = useSession();
+  const router = useRouter();
   const [listings, setListings] = useState<ParseResult<any>>({
     data: [],
     errors: [],
@@ -35,8 +41,6 @@ export default function BulkCreateListings(): JSX.Element {
     reader.onload = () => {
       Papa.parse(`${reader.result}`, {
         header: true,
-        // dynamicTyping: true,
-        // worker: true,
         skipEmptyLines: "greedy",
         complete: (results) => {
           setListings(results);
@@ -110,6 +114,17 @@ export default function BulkCreateListings(): JSX.Element {
     );
   }
 
+  async function bulkCreate() {
+    ListingApi(session?.accessToken)
+      .bulkCreate(listings.data)
+      .then(() => {
+        toast.success("New listings created");
+        router.push("/listings?status=draft");
+      });
+  }
+
+  if (!session) return <div>Spinner</div>;
+
   return (
     <>
       <NextSeo title="Bulk Create Listing" />
@@ -128,6 +143,7 @@ export default function BulkCreateListings(): JSX.Element {
           </div>
         )}
       </Dropzone>
+      <SubmitButton text="Bulk Create" onClick={bulkCreate} />
       {renderTable()}
     </>
   );

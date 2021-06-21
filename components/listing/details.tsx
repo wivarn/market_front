@@ -18,7 +18,9 @@ const ListingDetails = (props: Listing): JSX.Element => {
         </h3>
         <div className="md:grid md:grid-auto-cols">
           <div>
-            <ImageSlider src={props.photos[0]} alt={props.title} />
+            {props.photos.length ? (
+              <ImageSlider src={props.photos[0]} alt={props.title} />
+            ) : null}
           </div>
           <InfoCard>
             <h4 className="pb-2 mb-4 text-center border-b ">

@@ -6,6 +6,7 @@ export const ListingApi = (
   accessToken?: string
 ): {
   create: (listing: Listing) => Promise<AxiosResponse<any>>;
+  bulkCreate: (listings: Listing[]) => Promise<AxiosResponse<any>>;
   update: ({ id, ...listing }: Listing) => Promise<AxiosResponse<any>>;
   destroy: (id: string) => Promise<AxiosResponse<any>>;
 } => {
@@ -25,6 +26,16 @@ export const ListingApi = (
         international_shipping: listing.international_shipping,
         status: listing.status,
       },
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+  };
+
+  const bulkCreate = async (listings: Listing[]) => {
+    return base.post(
+      "listings/bulk_create",
+      { listings: listings },
       {
         headers: { Authorization: `Bearer ${accessToken}` },
       }
@@ -59,5 +70,5 @@ export const ListingApi = (
     });
   };
 
-  return { create, update, destroy };
+  return { create, bulkCreate, update, destroy };
 };

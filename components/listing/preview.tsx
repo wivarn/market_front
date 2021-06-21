@@ -11,13 +11,15 @@ const ListingPreview = (props: Listing): JSX.Element => {
           <a>
             <div className="flex flex-wrap bg-white rounded-md shadow-md w-80 hover:shadow-xl">
               <div className="container relative w-80 h-80">
-                <Image
-                  src={props.photos[0]}
-                  alt={props.title}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-t-md"
-                />
+                {props.photos.length ? (
+                  <Image
+                    src={props.photos[0]}
+                    alt={props.title}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-t-md"
+                  />
+                ) : null}
               </div>
               <div className="w-full px-2 py-1">
                 <ListingBasicInfo
