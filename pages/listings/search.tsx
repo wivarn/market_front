@@ -3,6 +3,7 @@ import ListingPreviewGrid from "components/listing/previewGrid";
 import { NextSeo } from "next-seo";
 import SearchFilter from "components/forms/listing/searchFilter";
 import SearchSort from "components/forms/listing/searchSort";
+import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
@@ -28,7 +29,7 @@ export default function Listings(): JSX.Element {
 
   const { response, isLoading, isError } = getListings();
 
-  if (isLoading) return <div>Spinner</div>;
+  if (isLoading) return <SpinnerLg text="Loading..." />;
   if (isError) return <div>Error</div>;
 
   return (
@@ -38,7 +39,7 @@ export default function Listings(): JSX.Element {
         <h3 className="py-2 text-center border-b border-accent">
           Your search results
         </h3>
-        <div className="flex justify-between px-4 py-2 border-b border-accent">
+        <div className="flex justify-between px-4 py-2">
           <SearchFilter />
           <SearchSort />
         </div>

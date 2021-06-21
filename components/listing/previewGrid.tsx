@@ -41,8 +41,8 @@ const ListingPreviewGrid = ({
         pageCount={totalPages}
         pageRangeDisplayed={3}
         marginPagesDisplayed={1}
-        containerClassName="flex flex-row space-x-12 w-max mx-auto justify-center"
-        activeClassName="underline font-bold"
+        containerClassName="flex flex-row space-x-10 w-max mx-auto justify-center py-2"
+        activeClassName="text-primary underline font-semibold"
         onPageChange={({ selected }) => {
           router.push({
             pathname: router.pathname,

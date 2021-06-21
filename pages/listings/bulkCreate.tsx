@@ -6,6 +6,7 @@ import { ListingApi } from "services/backendApi/listing";
 import { NextSeo } from "next-seo";
 import Papa from "papaparse";
 import { ParseResult } from "papaparse";
+import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
 import { listingSchema } from "constants/listings";
 import { toast } from "react-toastify";
@@ -138,7 +139,7 @@ export default function BulkCreateListings(): JSX.Element {
       });
   }
 
-  if (!session) return <div>Spinner</div>;
+  if (!session) return <SpinnerLg text="Loading..." />;
 
   return (
     <>

@@ -11,6 +11,7 @@ import Head from "next/head";
 import { IconLink } from "./iconLink";
 import Link from "next/link";
 import SearchForm from "components/forms/listing/search";
+import { Spinner } from "components/spinner";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -29,7 +30,7 @@ export default function Header(): JSX.Element {
   }, [session]);
 
   function renderNav() {
-    if (sessionLoading) return <div>Spinner</div>;
+    if (sessionLoading) return <Spinner />;
     return session ? <LoggedInNav /> : <LoggedOutNav />;
   }
 

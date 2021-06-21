@@ -23,6 +23,7 @@ import {
   HiXCircle,
 } from "react-icons/hi";
 
+import { CgSpinner } from "react-icons/cg";
 import { GiSquirrel } from "react-icons/gi";
 
 export const UserChevronIcon = (): JSX.Element => {
@@ -32,6 +33,14 @@ export const UserChevronIcon = (): JSX.Element => {
       <HiChevronDown className="absolute bottom-0 -right-5 icon-sm" />
     </div>
   );
+};
+
+export const SpinnerIcon = (): JSX.Element => {
+  return <CgSpinner className="icon animate-spin" />;
+};
+
+export const LgSpinnerIcon = (): JSX.Element => {
+  return <CgSpinner className="icon-lg animate-spin" />;
 };
 
 export const CurrencyDollarIcon = (): JSX.Element => {

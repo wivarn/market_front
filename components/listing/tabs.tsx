@@ -1,6 +1,7 @@
 import { PrimaryButton, SecondaryButton } from "components/buttons";
 
 import Link from "next/link";
+import { SpinnerLg } from "components/spinner";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
@@ -51,7 +52,7 @@ export default function ListingTabs({
 
   const { addresses, isLoading, isError } = getAddresses();
 
-  if (isLoading) return <div>Spinner</div>;
+  if (isLoading) return <SpinnerLg text="Loading..." />;
   if (isError) return <div>Error</div>;
 
   const noAddress = !addresses.data.length;

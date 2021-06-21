@@ -8,6 +8,7 @@ import useSWR, { mutate } from "swr";
 import FormContainer from "../container";
 import Link from "next/link";
 import { ProfileApi } from "services/backendApi/profile";
+import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
@@ -83,7 +84,7 @@ export default function ProfileForm(): JSX.Element {
 
   const { profile, isLoading, isError } = getProfile();
 
-  if (isLoading || loading) return <div>Spinner</div>;
+  if (isLoading || loading) return <SpinnerLg text="Loading..." />;
   if (isError) return <div>Error</div>;
 
   return (

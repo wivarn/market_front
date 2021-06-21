@@ -307,7 +307,6 @@ export const _DropdownCombobox = ({
       {label ? (
         <label className={labelClassName} {...getLabelProps()}>
           {label}
-          <span className={descriptionClassName}>{description}</span>
         </label>
       ) : null}
 

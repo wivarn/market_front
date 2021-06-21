@@ -2,6 +2,7 @@ import { CardContainerFull } from "components/cardContainer";
 import ListingPreviewGrid from "components/listing/previewGrid";
 import ListingTabs from "components/listing/tabs";
 import { NextSeo } from "next-seo";
+import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
@@ -32,7 +33,8 @@ export default function Listings(): JSX.Element {
   const { response, loadingListings, isError } = getListings();
 
   function renderListings() {
-    if (loadingListings || loadingSession) return <div>Spinner</div>;
+    if (loadingListings || loadingSession)
+      return <SpinnerLg text="Loading..." />;
     if (isError) return <div>Error</div>;
     return (
       <ListingPreviewGrid
