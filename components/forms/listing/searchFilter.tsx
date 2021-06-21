@@ -16,7 +16,6 @@ import { createRef, useState } from "react";
 
 import { Disclosure } from "@headlessui/react";
 import { FilterIcon } from "components/icons";
-import FilterPanel from "./filterPanel";
 import { IconButton } from "./iconButton";
 import { NumberField } from "../fields";
 import { useRouter } from "next/router";
@@ -191,87 +190,85 @@ export default function SearchFilter(): JSX.Element {
   }
 
   return (
-    <div className="">
-      <Disclosure>
-        {({ open }) => (
-          <>
-            <Disclosure.Button className="mt-3">
-              <IconButton icon={<FilterIcon />} />
-            </Disclosure.Button>
-            <Disclosure.Panel>
-              <FilterPanel>
-                <Formik
-                  initialValues={initialValues}
-                  enableReinitialize={true}
-                  validationSchema={filterSchema}
-                  onSubmit={(values, actions) => {
-                    router.push({
-                      pathname: "/listings/search",
-                      query: { ...router.query, ...values },
-                    });
-                    actions.setSubmitting(false);
-                  }}
-                >
-                  {(formik) => (
-                    <Form>
-                      <div className="space-y-1">
-                        <h4 className="p-2 text-center border-b">
-                          Select Filters
-                        </h4>
+    <Disclosure>
+      {() => (
+        <>
+          <Disclosure.Button className="mt-3">
+            <IconButton icon={<FilterIcon />} />
+          </Disclosure.Button>
+          <Disclosure.Panel>
+            <div className="absolute z-10 p-2 px-4 border rounded-lg bg-accent-lightest border-accent-light">
+              <Formik
+                initialValues={initialValues}
+                enableReinitialize={true}
+                validationSchema={filterSchema}
+                onSubmit={(values, actions) => {
+                  router.push({
+                    pathname: "/listings/search",
+                    query: { ...router.query, ...values },
+                  });
+                  actions.setSubmitting(false);
+                }}
+              >
+                {(formik) => (
+                  <Form>
+                    <div className="space-y-1">
+                      <h4 className="p-2 text-center border-b">
+                        Select Filters
+                      </h4>
 
-                        <NumberField
-                          name="min_price"
-                          label="Min Price"
-                          placeholder="Min"
-                        />
-                        <NumberField
-                          name="max_price"
-                          label="Max Price"
-                          placeholder="Max"
-                        />
+                      <NumberField
+                        name="min_price"
+                        label="Min Price"
+                        placeholder="Min"
+                      />
+                      <NumberField
+                        name="max_price"
+                        label="Max Price"
+                        placeholder="Max"
+                      />
 
-                        <DropdownCombobox
-                          name="category"
-                          label="Category"
-                          items={categoryList}
-                          placeholder="Select a category"
-                          childresetRef={subcategoryRef}
-                        />
-                        {subCategoryCombobox(formik)}
+                      <DropdownCombobox
+                        name="category"
+                        label="Category"
+                        items={categoryList}
+                        placeholder="Select a category"
+                        childresetRef={subcategoryRef}
+                      />
+                      {subCategoryCombobox(formik)}
 
-                        <Toggle
-                          name="graded"
-                          label="Graded?"
-                          enabled={graded}
-                          setEnabled={setGraded}
+                      <Toggle
+                        name="graded"
+                        label="Graded?"
+                        enabled={graded}
+                        setEnabled={setGraded}
+                        onClick={async () => {
+                          gradingCompanyRef.current?.click();
+                          conditionRef.current?.click();
+                          formik.setFieldValue("graded", !graded);
+                        }}
+                      />
+                      {renderGrading()}
+                      <div className="py-2 space-x-2">
+                        <SubmitButton
+                          text="Apply"
+                          disabled={formik.isSubmitting}
+                        />
+                        <ResetButton
+                          text="Clear"
                           onClick={async () => {
-                            gradingCompanyRef.current?.click();
-                            conditionRef.current?.click();
-                            formik.setFieldValue("graded", !graded);
+                            router.push("/listings/search");
                           }}
                         />
-                        {renderGrading()}
-                        <div className="py-2 space-x-2">
-                          <SubmitButton
-                            text="Apply"
-                            disabled={formik.isSubmitting}
-                          />
-                          <ResetButton
-                            text="Clear"
-                            onClick={async () => {
-                              router.push("/listings/search");
-                            }}
-                          />
-                        </div>
                       </div>
-                    </Form>
-                  )}
-                </Formik>
-              </FilterPanel>
-            </Disclosure.Panel>
-          </>
-        )}
-      </Disclosure>
-    </div>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+            </div>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
   );
 }
