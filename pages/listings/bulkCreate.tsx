@@ -1,6 +1,7 @@
-import { CSVReader, readString } from "react-papaparse";
+import Dropzone, { FileRejection } from "react-dropzone";
 
 import { NextSeo } from "next-seo";
+import Papa from "papaparse";
 import { ParseResult } from "papaparse";
 import { useState } from "react";
 
@@ -17,12 +18,14 @@ export default function BulkCreateListings(): JSX.Element {
       truncated: false,
     },
   });
+  const [error, setError] = useState("");
 
-  const onDrop = (_: ParseResult<any>[], file: any) => {
+  const onDropAccepted = (files: File[]) => {
+    setError("");
     const reader = new FileReader();
-    reader.readAsText(file);
+    reader.readAsText(files[0]);
     reader.onload = () => {
-      readString(`${reader.result}`, {
+      Papa.parse(`${reader.result}`, {
         header: true,
         dynamicTyping: true,
         worker: true,
@@ -32,6 +35,16 @@ export default function BulkCreateListings(): JSX.Element {
         },
       });
     };
+  };
+
+  const onDropRejected = (files: FileRejection[]) => {
+    setError(
+      files[0].errors
+        .map((error) => {
+          return error.message;
+        })
+        .join(", ")
+    );
   };
 
   function renderTable() {
@@ -63,9 +76,21 @@ export default function BulkCreateListings(): JSX.Element {
   return (
     <>
       <NextSeo title="Bulk Create Listing" />
-      <CSVReader onDrop={onDrop}>
-        <span>Drop CSV file here or click to upload.</span>
-      </CSVReader>
+      <Dropzone
+        accept="text/csv, .csv"
+        onDropAccepted={(files) => onDropAccepted(files)}
+        onDropRejected={(files) => onDropRejected(files)}
+        maxFiles={1}
+        multiple={false}
+      >
+        {({ getRootProps, getInputProps }) => (
+          <div {...getRootProps()} className="h-48 bg-secondary">
+            <input {...getInputProps()} />
+            <p>Drag and drop csv file, or click to select file</p>
+            {error.length ? <div className="text-error">{error}</div> : null}
+          </div>
+        )}
+      </Dropzone>
       {renderTable()}
     </>
   );
