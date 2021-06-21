@@ -12,7 +12,10 @@ interface Props {
 export const IconLink = (props: Props): JSX.Element => {
   const iconText = (
     <div className="relative flex flex-col items-center group">
-      <a className="p-1 rounded-full text-secondary-lightest group-hover:bg-info-lightest group-hover:text-info-darker">
+      <a
+        href={props.href}
+        className="p-1 rounded-full text-secondary-lightest group-hover:bg-info-lightest group-hover:text-info-darker"
+      >
         {props.icon}
       </a>
       <ToolTipBelow text={props.tooltip} />
