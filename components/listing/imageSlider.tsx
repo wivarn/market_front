@@ -9,8 +9,8 @@ export interface Props {
 
 export function ImageSlider(props: Props): JSX.Element {
   return (
-    <div>
-      <div className="container relative flex flex-initial mx-auto md:w-600 md:h-600 w-96 h-96">
+    <div className="container relative">
+      <div className="flex flex-grow mx-auto w-600 h-600">
         <div className="">
           <Image
             src={props.src}
