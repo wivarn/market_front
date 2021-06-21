@@ -33,7 +33,8 @@ export default function Listings(): JSX.Element {
   const { response, loadingListings, isError } = getListings();
 
   function renderListings() {
-    if (loadingListings || loadingSession) return <SpinnerPage text="Loading..." />;
+    if (loadingListings || loadingSession)
+      return <SpinnerPage text="Loading..." />;
     if (isError) return <div>Error</div>;
     return (
       <ListingPreviewGrid
