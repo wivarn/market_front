@@ -5,7 +5,7 @@ import {
 } from "constants/listings";
 
 interface Props {
-  grading_company: string | undefined;
+  grading_company: string | undefined | null;
   condition: string | number;
 }
 
