@@ -156,7 +156,7 @@ export default function BulkCreateListings(): JSX.Element {
                 return (
                   <th
                     key={index}
-                    className="p-2 text-sm font-medium text-accent-lightest bg-info-darker"
+                    className="p-2 text-sm font-medium border text-accent-lightest bg-info border-info-darker"
                   >
                     {field}
                     {invalidHeader ? (
@@ -170,7 +170,10 @@ export default function BulkCreateListings(): JSX.Element {
           <tbody>
             {listings.data.map((listing, lIndex) => {
               return (
-                <tr key={lIndex}>
+                <tr
+                  key={lIndex}
+                  className="odd:bg-accent-lightest even:bg-accent-lighter"
+                >
                   {Object.keys(listing).map((key, vIndex) => {
                     let errors = [];
                     try {
@@ -181,7 +184,7 @@ export default function BulkCreateListings(): JSX.Element {
                     return (
                       <td
                         key={vIndex}
-                        className="p-2 text-sm bg-white border border-info-darker"
+                        className="p-2 text-sm border border-info-darker"
                       >
                         {listing[key] ? `${listing[key]}` : ""}
                         {errors.length ? (
@@ -250,8 +253,6 @@ export default function BulkCreateListings(): JSX.Element {
           </p>
           <SubmitButton text="Save all as draft" onClick={bulkCreate} />
         </div>
-
-        {renderListingTemplate()}
         {renderTable()}
       </CardContainerFull>
     </>
