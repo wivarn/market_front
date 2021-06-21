@@ -2,6 +2,7 @@ import * as Yup from "yup";
 
 import Dropzone, { FileRejection } from "react-dropzone";
 
+import { CardContainerFull } from "components/cardContainer";
 import { ListingApi } from "services/backendApi/listing";
 import { NextSeo } from "next-seo";
 import Papa from "papaparse";
@@ -144,23 +145,25 @@ export default function BulkCreateListings(): JSX.Element {
   return (
     <>
       <NextSeo title="Bulk Create Listing" />
-      <Dropzone
-        accept="text/csv, .csv"
-        onDropAccepted={(files) => onDropAccepted(files)}
-        onDropRejected={(files) => onDropRejected(files)}
-        maxFiles={1}
-        multiple={false}
-      >
-        {({ getRootProps, getInputProps }) => (
-          <div {...getRootProps()} className="h-48 bg-secondary">
-            <input {...getInputProps()} />
-            <p>Drag and drop csv file, or click to select file</p>
-            {error.length ? <div className="text-error">{error}</div> : null}
-          </div>
-        )}
-      </Dropzone>
-      <SubmitButton text="Bulk Create" onClick={bulkCreate} />
-      {renderTable()}
+      <CardContainerFull>
+        <Dropzone
+          accept="text/csv, .csv"
+          onDropAccepted={(files) => onDropAccepted(files)}
+          onDropRejected={(files) => onDropRejected(files)}
+          maxFiles={1}
+          multiple={false}
+        >
+          {({ getRootProps, getInputProps }) => (
+            <div {...getRootProps()} className="h-48 bg-secondary">
+              <input {...getInputProps()} />
+              <p>Drag and drop csv file, or click to select file</p>
+              {error.length ? <div className="text-error">{error}</div> : null}
+            </div>
+          )}
+        </Dropzone>
+        <SubmitButton text="Bulk Create" onClick={bulkCreate} />
+        {renderTable()}
+      </CardContainerFull>
     </>
   );
 }

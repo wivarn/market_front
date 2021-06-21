@@ -18,7 +18,7 @@ const ListingPreview = (props: Listing): JSX.Element => {
                     layout="fill"
                     objectFit="cover"
                     placeholder="blur"
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFfSURBVHgBDY7LTuJQAEBP22uhLVpoGYQZF5MMk0kmsxhiYowf4NKFf+UP+Bm60I0uTUzUhAXEiIrv+ObValsLFa49+5NzlLX1DWlbWYpGwmc0JH7vkiQjJsmQYBRz0DjnIxwgXMemOpth8f8vnvYOeIg9TGbodJqIXJ4jUiYT1L/fJBVjDKeH/CwLaiur1BbKnHyfx7R0qkXBj2kFoYoMilCQqS3nfvNy1sWayrH8Z4R/5zNjeqgFF7VUKmLbNvghRAEOA4xCAcfQ0NJ309DRSBB23kEGHa6PG1R0lcd2m0F/SL5sIuOQyO/h+31UMaUjsianJ8+0Nptsb9VxTZv2zi5h+MHN7RXem48aBO9IoSOzUCm65OUr0+4s1YUlrDQNCnEyRnR7A9RhH3F5zJ0o8JbEdJp1otY+svaPsaKkQg4lDkL5cNHi9f4CTdNJPiMyloPXe5GB59Go1ylV5vgCEoaUs5iMbFwAAAAASUVORK5CYII="
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFlSURBVHgBFY/JbtNQAEWP/Z7t4LR26jgDEdCyoBSJYc2uAjYg2MEn8Et8CkhILFgwFJDYVJTSCAmJtE4ztU0d+8XDq3uluzvS0TGev3qtm57g2mqKVJpzNSTLl2RLRVL9x/6SpUowXbfO/Q3By2ePeHiloGdKtlSXYDZkw5hzOa1LzBurOb40sT6/Yavo83S7zePee0b+Jp5T0PEsGjWBNIVEGyXWdRv/xQN+fmgTdu7yJN/lUHnUbAfqJbIbNlnzc9JBSOpDSx1Qv9mgkQQcT01qliBLK7DduoowIr4fRtyzTvg9gNkfl0anWQVFpIkmXsRIzwtwSsW7PRjsrfB1HrF9u8vOpz7rtzTHozOysoqZzCYkWYEQ0F5pUueUwPfZXO/h2hLDNMgLjRyOJ8zL/2TTIwZhizTPGP3bZxodEN4RlBocx8bY/bKjv318Sxz/xagUiZpjOy6LONHD8YJf/THBWsAFu1mYYHGmVmwAAAAASUVORK5CYII="
                     className="rounded-t-md"
                   />
                 ) : null}
