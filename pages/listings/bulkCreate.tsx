@@ -78,7 +78,7 @@ export default function BulkCreateListings(): JSX.Element {
             return value.toLocaleLowerCase() == "true" ? true : false;
           }
           if (value == "") {
-            return null;
+            return listingTemplate[field] || null;
           }
           return value;
         },
