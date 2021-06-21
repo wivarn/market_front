@@ -12,12 +12,14 @@ export default function Listings(): JSX.Element {
   const { status, page } = router.query;
 
   function getListings() {
-    const pageQuery = page ? `&page=${page}` : "";
+    const query = Object.entries(router.query)
+      .map((q) => {
+        return q[0] + "=" + q[1];
+      })
+      .join("&");
 
     const { data, error } = useSWR(
-      session && status
-        ? [`listings?status=${status}${pageQuery}`, session.accessToken]
-        : null
+      session && status ? [`listings?${query}`, session.accessToken] : null
     );
 
     return {
