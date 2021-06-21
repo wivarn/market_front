@@ -177,7 +177,7 @@ export const _TextField = ({
   return (
     <div className={className}>
       {label ? (
-        <label htmlFor={props.name} className={labelClassName}>
+        <label htmlFor={props.id} className={labelClassName}>
           {label}
           {description ? (
             <span className={descriptionClassName}>{description}</span>
@@ -207,7 +207,7 @@ export const _TextArea = ({
   return (
     <div className={className}>
       {label ? (
-        <label htmlFor={props.name} className={labelClassName}>
+        <label htmlFor={props.id} className={labelClassName}>
           {label}
           {description ? (
             <span className={descriptionClassName}>{description}</span>

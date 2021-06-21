@@ -13,7 +13,7 @@ const forgotPasswordSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
 });
 
-export default function ForgotPasswordForm() {
+export default function ForgotPasswordForm(): JSX.Element {
   const router = useRouter();
   return (
     <AuthFormContainer>
@@ -40,7 +40,12 @@ export default function ForgotPasswordForm() {
       >
         {({ isSubmitting }) => (
           <Form>
-            <TextFieldFull name="email" type="email" placeholder="Email" />
+            <TextFieldFull
+              name="email"
+              id="password-reset-email"
+              type="email"
+              placeholder="Email"
+            />
 
             <SubmitButton text="Send Password Reset" disabled={isSubmitting} />
           </Form>

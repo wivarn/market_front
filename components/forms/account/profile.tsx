@@ -36,6 +36,8 @@ const profileSchema = Yup.object().shape({
     .required("Currency is required"),
 });
 
+const idPrefix = "profile-form-";
+
 const emailLabel = () => {
   return (
     <div className="flex space-x-2">
@@ -109,8 +111,16 @@ export default function ProfileForm(): JSX.Element {
       >
         {(formik) => (
           <Form>
-            <TextFieldFull label="First Name" name="givenName" type="text" />
-            <TextFieldFull label="Last Name" name="familyName" type="text" />
+            <TextFieldFull
+              label="First Name"
+              name="givenName"
+              id={`${idPrefix}givenName`}
+            />
+            <TextFieldFull
+              label="Last Name"
+              name="familyName"
+              id={`${idPrefix}familyName`}
+            />
             <DropdownCombobox
               label="Currency"
               name="currency"
@@ -120,13 +130,13 @@ export default function ProfileForm(): JSX.Element {
             <TextFieldFull
               label={emailLabel()}
               name="email"
-              type="text"
+              id={`${idPrefix}email`}
               disabled={true}
             />
             <TextFieldFull
               label={phoneNumberLabel()}
               name="phoneNumber"
-              type="text"
+              id={`${idPrefix}phoneNumber`}
               disabled={true}
             />
 

@@ -27,7 +27,9 @@ const loginSchema = Yup.object().shape({
     .required("Password is required"),
 });
 
-export default function LoginForm() {
+const idPrefix = "login-form-";
+
+export default function LoginForm(): JSX.Element {
   const [locked, setLocked] = useState(false);
   const router = useRouter();
 
@@ -90,10 +92,16 @@ export default function LoginForm() {
               <Form>
                 {renderLockedBanner()}
 
-                <TextFieldFull name="email" type="email" label="Email" />
+                <TextFieldFull
+                  name="email"
+                  id={`${idPrefix}email`}
+                  type="email"
+                  label="Email"
+                />
 
                 <TextFieldFull
                   name="password"
+                  id={`${idPrefix}password`}
                   type="password"
                   label="Password"
                 />

@@ -30,7 +30,9 @@ const createAccountSchema = Yup.object().shape({
   ),
 });
 
-export default function CreateAccountForm() {
+const idPrefix = "create-account-";
+
+export default function CreateAccountForm(): JSX.Element {
   const router = useRouter();
 
   return (
@@ -66,26 +68,33 @@ export default function CreateAccountForm() {
           >
             {({ isSubmitting }) => (
               <Form>
-                <TextFieldFull name="email" type="email" label="Email" />
+                <TextFieldFull
+                  name="email"
+                  id={`${idPrefix}email`}
+                  type="email"
+                  label="Email"
+                />
 
                 <TextFieldFull
                   name="givenName"
-                  type="text"
+                  id={`${idPrefix}givenName`}
                   label="First name"
                 />
                 <TextFieldFull
                   name="familyName"
-                  type="text"
+                  id={`${idPrefix}familyName`}
                   label="Last name"
                 />
 
                 <TextFieldFull
                   name="password"
+                  id={`${idPrefix}password`}
                   type="password"
                   label="Password"
                 />
                 <TextFieldFull
                   name="passwordConfirmation"
+                  id={`${idPrefix}passwordConfirmation`}
                   type="password"
                   label="Password Confirmation"
                 />

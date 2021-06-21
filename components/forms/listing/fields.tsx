@@ -101,7 +101,7 @@ export const ListingNumberField = ({
   return (
     <div className={className}>
       {label ? (
-        <label htmlFor={props.name} className={labelClassName}>
+        <label htmlFor={props.id} className={labelClassName}>
           {label}
           <span className={descriptionClassName}>{props.description}</span>
         </label>

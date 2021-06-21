@@ -137,6 +137,7 @@ const addressSchema = Yup.object().shape({
 });
 
 const stateRef = createRef<HTMLSpanElement>();
+const idPrefix = "listing-form-";
 
 function stateSelect(formik: FormikProps<any>) {
   const country = formik.values.country;
@@ -176,6 +177,7 @@ function zipField(country: string) {
     <TextFieldFull
       label={label}
       name="zip"
+      id={`${idPrefix}zip`}
       placeholder={placeholder}
       disabled={!country}
     />
@@ -251,9 +253,17 @@ export default function AddressForm(): JSX.Element {
               childresetRef={stateRef}
             />
 
-            <TextFieldFull label="Address Line 1" name="street1" type="text" />
-            <TextFieldFull label="Address Line 2" name="street2" type="text" />
-            <TextFieldFull label="City" name="city" type="text" />
+            <TextFieldFull
+              label="Address Line 1"
+              name="street1"
+              id={`${idPrefix}street1`}
+            />
+            <TextFieldFull
+              label="Address Line 2"
+              name="street2"
+              id={`${idPrefix}street2`}
+            />
+            <TextFieldFull label="City" name="city" id={`${idPrefix}city`} />
 
             {stateSelect(formik)}
             {zipField(formik.getFieldProps("country").value)}

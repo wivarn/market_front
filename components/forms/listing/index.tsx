@@ -132,6 +132,7 @@ const listingSchema = Yup.object().shape({
 const subcategoryRef = createRef<HTMLSpanElement>();
 const gradingCompanyRef = createRef<HTMLSpanElement>();
 const conditionRef = createRef<HTMLSpanElement>();
+const idPrefix = "listing-form-";
 
 function subCategoryCombobox(formik: FormikProps<any>) {
   const category = formik.values.category;
@@ -299,6 +300,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                   <ListingTextField
                     label="Tags"
                     name="tags"
+                    id={`${idPrefix}tags`}
                     description="You can use tags to add any additional filter criteria to your listing."
                     type="text"
                     placeholder="pending"
@@ -311,12 +313,14 @@ const ListingForm = (props: Listing): JSX.Element => {
                     label="Title"
                     description="Title is the main search field for the listing. Try using the format of 'Set' + 'Card Name' + 'Attributes'."
                     name="title"
+                    id={`${idPrefix}title`}
                     type="text"
                     placeholder="title"
                   />
                   <ListingLongTextField
                     label="Description"
                     name="description"
+                    id={`${idPrefix}description`}
                     description="Use the description to provide any detail about your listing that you want buyers to know about."
                     type="text"
                     placeholder="description"
@@ -345,6 +349,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                   <ListingNumberField
                     label="Price"
                     name="price"
+                    id={`${idPrefix}price`}
                     description="Enter the price. Lower prices will increase your chances of making a sale."
                     placeholder="0"
                     currency={profile?.currency}
@@ -353,6 +358,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                   <ListingNumberField
                     label="Domestic Shipping"
                     name="domestic_shipping"
+                    id={`${idPrefix}domestic_shipping`}
                     description="Enter the price for domestic shipping."
                     placeholder="0"
                     currency={profile?.currency}
@@ -361,6 +367,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                   <ListingNumberField
                     label="International Shipping"
                     name="international_shipping"
+                    id={`${idPrefix}international_shipping`}
                     description="Enter the price for international shipping."
                     placeholder="0"
                     currency={profile?.currency}
