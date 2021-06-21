@@ -1,11 +1,7 @@
 import * as Yup from "yup";
 
+import { ComboBoxOption, DropdownCombobox, Toggle } from "../fields";
 import { Form, Formik, FormikProps } from "formik";
-import {
-  ListingComboBoxOption,
-  ListingDropdownCombobox,
-  ListingToggle,
-} from "./fields";
 import { ResetButton, SubmitButton } from "components/buttons";
 import {
   categoryList,
@@ -18,7 +14,10 @@ import {
 } from "constants/listings";
 import { createRef, useState } from "react";
 
-import FormContainer from "../container";
+import { Disclosure } from "@headlessui/react";
+import { FilterIcon } from "components/icons";
+import FilterPanel from "./filterPanel";
+import { IconButton } from "./iconButton";
 import { NumberField } from "../fields";
 import { useRouter } from "next/router";
 
@@ -120,7 +119,7 @@ function subCategoryCombobox(formik: FormikProps<any>) {
     ? "Select a sub-category"
     : "Select category first";
 
-  let items: ListingComboBoxOption[] = [];
+  let items: ComboBoxOption[] = [];
   switch (category) {
     case "SPORTS_CARDS":
       items = sportsCardList;
@@ -134,8 +133,7 @@ function subCategoryCombobox(formik: FormikProps<any>) {
   }
 
   return (
-    <ListingDropdownCombobox
-      label="Sub-Category"
+    <DropdownCombobox
       name="subcategory"
       items={items}
       placeholder={placeholder}
@@ -152,27 +150,34 @@ export default function SearchFilter(): JSX.Element {
   );
 
   function renderGrading() {
-    const label = graded ? "Minimum Grading" : "Minimum Condition";
+    const label = graded ? "Grading or better" : "Condition or better";
     const items = graded ? gradingList : conditionList;
 
     return (
       <>
         {graded ? (
-          <ListingDropdownCombobox
-            label="Graded by"
-            name="grading_company"
-            items={gradingCompanyList}
-            resetRef={gradingCompanyRef}
-            hidden={!graded}
-          />
+          <div className="py-2">
+            <label className="text-sm font-medium text-accent-darker">
+              Graded by
+            </label>
+            <DropdownCombobox
+              name="grading_company"
+              items={gradingCompanyList}
+              resetRef={gradingCompanyRef}
+              hidden={!graded}
+            />
+          </div>
         ) : null}
-
-        <ListingDropdownCombobox
-          label={label}
-          name="min_condition"
-          items={items}
-          resetRef={conditionRef}
-        />
+        <div className="py-2">
+          <label className="text-sm font-medium text-accent-darker">
+            {label}
+          </label>
+          <DropdownCombobox
+            name="min_condition"
+            items={items}
+            resetRef={conditionRef}
+          />
+        </div>
       </>
     );
   }
@@ -193,59 +198,92 @@ export default function SearchFilter(): JSX.Element {
   }
 
   return (
-    <FormContainer>
-      <h4>Select Filters</h4>
+    <div className="">
+      <Disclosure>
+        {({ open }) => (
+          <>
+            <Disclosure.Button className="mt-3">
+              <IconButton icon={<FilterIcon />} />
+            </Disclosure.Button>
+            <Disclosure.Panel>
+              <FilterPanel>
+                <Formik
+                  initialValues={initialValues}
+                  enableReinitialize={true}
+                  validationSchema={filterSchema}
+                  onSubmit={(values, actions) => {
+                    router.push({
+                      pathname: "/listings/search",
+                      query: { ...router.query, ...values },
+                    });
+                    actions.setSubmitting(false);
+                  }}
+                >
+                  {(formik) => (
+                    <Form>
+                      <h4 className="p-2 text-center border-b">
+                        Select Filters
+                      </h4>
+                      <div className="py-2">
+                        <label className="text-sm font-medium text-accent-darker">
+                          Price
+                        </label>
 
-      <Formik
-        initialValues={initialValues}
-        enableReinitialize={true}
-        validationSchema={filterSchema}
-        onSubmit={(values, actions) => {
-          router.push({
-            pathname: "/listings/search",
-            query: { ...router.query, ...values },
-          });
-          actions.setSubmitting(false);
-        }}
-      >
-        {(formik) => (
-          <Form>
-            <label>Price</label>
-            <NumberField name="min_price" placeholder="Min" />
-            <NumberField name="max_price" placeholder="Max" />
+                        <NumberField name="min_price" placeholder="Min" />
+                        <div className="p-1"></div>
+                        <NumberField name="max_price" placeholder="Max" />
+                      </div>
+                      <div className="py-2">
+                        <label className="text-sm font-medium text-accent-darker">
+                          Category
+                        </label>
 
-            <ListingDropdownCombobox
-              name="category"
-              label="Category"
-              items={categoryList}
-              placeholder="Select a category"
-              childresetRef={subcategoryRef}
-            />
-            {subCategoryCombobox(formik)}
+                        <DropdownCombobox
+                          name="category"
+                          items={categoryList}
+                          placeholder="Select a category"
+                          childresetRef={subcategoryRef}
+                        />
+                        <div className="p-1"></div>
+                        {subCategoryCombobox(formik)}
+                      </div>
+                      <div className="py-2">
+                        <label className="text-sm font-medium text-accent-darker">
+                          Graded?
+                        </label>
 
-            <ListingToggle
-              name="graded"
-              enabled={graded}
-              setEnabled={setGraded}
-              label="Graded?"
-              onClick={async () => {
-                gradingCompanyRef.current?.click();
-                conditionRef.current?.click();
-                formik.setFieldValue("graded", !graded);
-              }}
-            />
-            {renderGrading()}
-
-            <SubmitButton text="Apply" disabled={formik.isSubmitting} />
-            <ResetButton
-              text="Clear"
-              onClick={async () => {
-                router.push("/listings/search");
-              }}
-            />
-          </Form>
+                        <Toggle
+                          name="graded"
+                          enabled={graded}
+                          setEnabled={setGraded}
+                          onClick={async () => {
+                            gradingCompanyRef.current?.click();
+                            conditionRef.current?.click();
+                            formik.setFieldValue("graded", !graded);
+                          }}
+                        />
+                      </div>
+                      {renderGrading()}
+                      <div className="py-2 space-x-2">
+                        <SubmitButton
+                          text="Apply"
+                          disabled={formik.isSubmitting}
+                        />
+                        <ResetButton
+                          text="Clear"
+                          onClick={async () => {
+                            router.push("/listings/search");
+                          }}
+                        />
+                      </div>
+                    </Form>
+                  )}
+                </Formik>
+              </FilterPanel>
+            </Disclosure.Panel>
+          </>
         )}
-      </Formik>
-    </FormContainer>
+      </Disclosure>
+    </div>
   );
 }
