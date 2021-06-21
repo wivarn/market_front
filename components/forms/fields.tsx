@@ -63,7 +63,7 @@ type ToggleProps = TextFieldProps & {
 
 export const TextField = ({ label, ...props }: TextFieldProps): JSX.Element => {
   return (
-    <_TextField
+    <_InputField
       label={label}
       labelClassName={labelClassName}
       inputClassName={inputClassName}
@@ -77,7 +77,7 @@ export const TextFieldFull = ({
   ...props
 }: TextFieldProps): JSX.Element => {
   return (
-    <_TextField
+    <_InputField
       label={label}
       labelClassName={labelClassName}
       inputClassName={fullInputClassName}
@@ -102,7 +102,7 @@ export const SearchField = ({
   ...props
 }: TextFieldProps): JSX.Element => {
   return (
-    <_TextField
+    <_InputField
       label={label}
       labelClassName={labelClassName}
       inputClassName="px-2 py-1 border rounded-full w-72 border-accent"
@@ -163,7 +163,19 @@ export function Toggle({
   );
 }
 
-export const _TextField = ({
+export const FileField = ({ label, ...props }: TextFieldProps): JSX.Element => {
+  return (
+    <_InputField
+      label={label}
+      labelClassName={labelClassName}
+      inputClassName={inputClassName}
+      type="file"
+      {...props}
+    />
+  );
+};
+
+export const _InputField = ({
   label,
   description,
   className,

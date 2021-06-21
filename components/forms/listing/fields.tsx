@@ -5,7 +5,7 @@ import {
   TextareaHTMLAttributes,
 } from "react";
 import { FieldHookConfig, useField } from "formik";
-import { _DropdownCombobox, _TextArea, _TextField, _Toggle } from "../fields";
+import { _DropdownCombobox, _InputField, _TextArea, _Toggle } from "../fields";
 
 import { Dispatch } from "react";
 import { RefObject } from "react";
@@ -63,7 +63,7 @@ export const ListingTextField = ({
   ...props
 }: TextFieldProps): JSX.Element => {
   return (
-    <_TextField
+    <_InputField
       label={label}
       description={description}
       className={className}
