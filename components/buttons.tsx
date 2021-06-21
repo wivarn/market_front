@@ -131,7 +131,7 @@ export const ResetButton = (props: Props): JSX.Element => {
   return (
     <button
       type="reset"
-      className="px-2 py-1 my-1 font-medium border rounded-md border-error bg-error-lightest text-error hover:bg-error-lighter disabled:bg-error-lighter"
+      className="px-2 py-1 my-1 font-medium underline text-info disabled:text-accent"
       onClick={props.onClick}
       disabled={props.disabled}
     >
