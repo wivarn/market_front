@@ -37,14 +37,14 @@ type TextAreaProps = FieldHookConfig<string> &
     inputClassName?: string;
   };
 
-export type ListingComboBoxOption = {
+export type ComboBoxOption = {
   value: string;
   text: string;
   disabled?: boolean;
 };
 
 type ComboBoxProps = TextFieldProps & {
-  items: ListingComboBoxOption[];
+  items: ComboBoxOption[];
   resetRef?: RefObject<HTMLSpanElement>;
   childresetRef?: RefObject<HTMLSpanElement>;
 };
