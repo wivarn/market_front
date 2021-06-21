@@ -6,10 +6,8 @@ interface Props {
 
 export const IconButton = (props: Props): JSX.Element => {
   return (
-    <div className="relative flex flex-col items-center group">
-      <a className="rounded-full text-primary group-hover:text-primary-darker">
-        {props.icon}
-      </a>
+    <div className="relative flex flex-col items-center rounded-full group text-primary group-hover:text-primary-darker">
+      {props.icon}
     </div>
   );
 };
