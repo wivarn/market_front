@@ -5,7 +5,7 @@ const Container = ({
 }): JSX.Element => {
   return (
     <div className="relative">
-      <div className="absolute inset-0 -mr-2 transform skew-y-0 shadow-lg rounded-xl bg-gradient-to-r from-primary via-secondary to-info rotate-1"></div>
+      <div className="absolute inset-0 shadow-lg rounded-xl bg-gradient-to-r from-primary via-secondary to-info"></div>
       <div className="relative px-4 py-2 m-2 shadow-lg rounded-xl bg-secondary-light">
         {children}
       </div>
