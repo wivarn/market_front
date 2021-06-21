@@ -38,7 +38,7 @@ export default function Listings(): JSX.Element {
         <h3 className="py-2 text-center border-b border-accent">
           Your search results
         </h3>
-        <div className="flex justify-between px-4 py-2 border-b border-accent">
+        <div className="flex justify-between px-4 py-2">
           <SearchFilter />
           <SearchSort />
         </div>
