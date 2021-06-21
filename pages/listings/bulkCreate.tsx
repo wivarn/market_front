@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 import { useState } from "react";
+import useSWR from "swr";
 
 delete listingSchema.photos;
 delete listingSchema.status;
@@ -38,6 +39,25 @@ export default function BulkCreateListings(): JSX.Element {
     },
   });
   const [error, setError] = useState("");
+
+  function getListingTemplate() {
+    const { data, error } = useSWR(
+      session ? ["account/listing_template", session.accessToken] : null
+    );
+
+    return {
+      response: data,
+      loadingTemplate: !error && !data,
+      isError: error,
+    };
+  }
+
+  const { response, loadingTemplate, isError } = getListingTemplate();
+
+  if (loadingTemplate) return <SpinnerLg text="Loading..." />;
+  if (isError) return <div>Error</div>;
+
+  const listingTemplate = response.data;
 
   const onDropAccepted = (files: File[]) => {
     setError("");
@@ -75,6 +95,39 @@ export default function BulkCreateListings(): JSX.Element {
         .join(", ")
     );
   };
+
+  function renderListingTemplate() {
+    const headers = Object.keys(listingSchema);
+    return (
+      <div>
+        <h3>Your listing template</h3>
+        <table>
+          <thead>
+            <tr>
+              {headers.map((header, index) => {
+                return (
+                  <th key={index} className="border border-primary">
+                    {header}
+                  </th>
+                );
+              })}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {headers.map((header, index) => {
+                return (
+                  <td key={index} className="border border-primary">
+                    {listingTemplate[header]}
+                  </td>
+                );
+              })}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  }
 
   function renderTable() {
     const headers = listings.meta.fields;
@@ -162,6 +215,7 @@ export default function BulkCreateListings(): JSX.Element {
           )}
         </Dropzone>
         <SubmitButton text="Bulk Create" onClick={bulkCreate} />
+        {renderListingTemplate()}
         {renderTable()}
       </CardContainerFull>
     </>
