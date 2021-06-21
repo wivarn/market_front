@@ -315,11 +315,11 @@ const ListingForm = (props: Listing): JSX.Element => {
                       }}
                     />
                   ) : null}
+                  {renderDeleteButton(props.id, session.accessToken)}
                 </div>
               </Form>
             )}
           </Formik>
-          {renderDeleteButton(props.id, session.accessToken)}
         </div>
       </CardContainer6xl>
     </div>
