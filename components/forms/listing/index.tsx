@@ -185,6 +185,7 @@ const ListingForm = (props: Listing): JSX.Element => {
             initialValues={initialValues}
             validationSchema={schema}
             onSubmit={(values: Listing, actions) => {
+              console.log(values);
               const request = newListing
                 ? ListingApi(session.accessToken).create(values)
                 : ListingApi(session.accessToken).update(values);
@@ -329,11 +330,12 @@ ListingForm.defaultProps = {
   subcategory: "",
   photos: randomPhotos(),
   title: "",
+  grading_company: null,
   condition: "",
   description: "",
   price: 0,
   domestic_shipping: 0,
-  international_shipping: 0,
+  international_shipping: null,
   status: "ACTIVE",
 };
 

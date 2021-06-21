@@ -30,36 +30,42 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
 const listingSchema = Yup.object().shape({
-  category: Yup.mixed()
-    .oneOf(
-      categoryList.map((category) => {
+  category: Yup.mixed().oneOf(
+    categoryList
+      .map((category): string | null => {
         return category.value;
       })
-    )
-    .nullable(),
+      .concat(null)
+  ),
   subcategory: Yup.mixed()
     .when("category", {
       is: "SPORTS_CARDS",
       then: Yup.mixed().oneOf(
-        sportsCardList.map((sports_card) => {
-          return sports_card.value;
-        })
+        sportsCardList
+          .map((sports_card): string | null => {
+            return sports_card.value;
+          })
+          .concat(null)
       ),
     })
     .when("category", {
       is: "TRADING_CARDS",
       then: Yup.mixed().oneOf(
-        tradingCardList.map((trading_card) => {
-          return trading_card.value;
-        })
+        tradingCardList
+          .map((trading_card): string | null => {
+            return trading_card.value;
+          })
+          .concat(null)
       ),
     })
     .when("category", {
       is: "COLLECTIBLES",
       then: Yup.mixed().oneOf(
-        collectibleList.map((collectible) => {
-          return collectible.value;
-        })
+        collectibleList
+          .map((collectible): string | null => {
+            return collectible.value;
+          })
+          .concat(null)
       ),
     })
     .nullable(),
@@ -71,9 +77,11 @@ const listingSchema = Yup.object().shape({
     .when("graded", {
       is: true,
       then: Yup.mixed().oneOf(
-        gradingCompanyList.map((gradingCompany) => {
-          return gradingCompany.value;
-        }),
+        gradingCompanyList
+          .map((gradingCompany): string | null => {
+            return gradingCompany.value;
+          })
+          .concat(null),
         "This is not a valid grading company"
       ),
     })
@@ -82,15 +90,19 @@ const listingSchema = Yup.object().shape({
     .when("grading_company", {
       is: "",
       then: Yup.mixed().oneOf(
-        conditionList.map((condition) => {
-          return condition.value;
-        }),
+        conditionList
+          .map((condition): string | null => {
+            return condition.value;
+          })
+          .concat(null),
         "This is not a valid condition"
       ),
       otherwise: Yup.mixed().oneOf(
-        gradingList.map((grading) => {
-          return grading.value;
-        }),
+        gradingList
+          .map((grading): string | null => {
+            return grading.value;
+          })
+          .concat(null),
         "This is not a valid grading"
       ),
     })
@@ -197,19 +209,20 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
       <h3>Enter the details for your listing template</h3>
       <Formik
         initialValues={{
-          category: props.category || "",
-          subcategory: props.subcategory || "",
-          title: props.title || "",
+          category: props.category || null,
+          subcategory: props.subcategory || null,
+          title: props.title || null,
           graded: false,
-          grading_company: props.grading_company || "",
-          condition: props.condition || "2",
-          description: props.description || "",
-          price: props.price || 0.25,
-          domestic_shipping: props.domestic_shipping || 0,
-          international_shipping: props.international_shipping || 0,
+          grading_company: props.grading_company || null,
+          condition: props.condition || null,
+          description: props.description || null,
+          price: props.price || null,
+          domestic_shipping: props.domestic_shipping || null,
+          international_shipping: props.international_shipping || null,
         }}
         validationSchema={listingSchema}
         onSubmit={(values: ListingTemplate, actions) => {
+          console.log(values);
           ListingTemplateApi(session.accessToken)
             .update(values)
             .then(() => {

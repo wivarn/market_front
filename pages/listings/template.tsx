@@ -24,6 +24,7 @@ export default function NewListing(): JSX.Element {
   if (isError) return <div>Error</div>;
 
   const template = response.data;
+  console.log(template);
 
   return (
     <>

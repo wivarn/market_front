@@ -1,9 +1,17 @@
+import * as Yup from "yup";
+
 import Dropzone, { FileRejection } from "react-dropzone";
 
 import { NextSeo } from "next-seo";
 import Papa from "papaparse";
 import { ParseResult } from "papaparse";
+import { listingSchema } from "constants/listings";
 import { useState } from "react";
+
+delete listingSchema.photos;
+delete listingSchema.status;
+const lSchema = Yup.object().shape(listingSchema);
+// const headerSchema = Yup.array().ensure().cast(["category", "subcategory", "title", "grading_company", ""]);
 
 export default function BulkCreateListings(): JSX.Element {
   const [listings, setListings] = useState<ParseResult<any>>({
@@ -54,7 +62,11 @@ export default function BulkCreateListings(): JSX.Element {
         <thead>
           <tr>
             {listings.meta.fields.map((field, index) => {
-              return <th key={index}>{field}</th>;
+              return (
+                <th key={index} className="border border-primary">
+                  {field}
+                </th>
+              );
             })}
           </tr>
         </thead>
@@ -63,7 +75,22 @@ export default function BulkCreateListings(): JSX.Element {
             return (
               <tr key={lIndex}>
                 {Object.values(listing).map((value, vIndex) => {
-                  return <td key={lIndex + vIndex}>{`${value}`}</td>;
+                  const compactListing: { [index: string]: string } = {};
+                  for (const key in listing) {
+                    if (listing[key] != null) {
+                      compactListing[key] = listing[key];
+                    }
+                  }
+                  console.log(compactListing);
+                  lSchema.validate(compactListing).catch((errors) => {
+                    console.log(errors.path);
+                    console.log(errors.errors);
+                  });
+                  return (
+                    <td key={lIndex + vIndex} className="border border-primary">
+                      {value ? `${value}` : ""}
+                    </td>
+                  );
                 })}
               </tr>
             );
