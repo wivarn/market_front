@@ -20,7 +20,9 @@ export function SpinnerLg(props: Props): JSX.Element {
     <div className="flex justify-center m-auto h-96">
       <div className="flex items-center p-2 animate-pulse">
         <LgSpinnerIcon />
-        <span className="px-2 text-2xl text-accent-darker">{props.text}</span>
+        {props.text ? (
+          <span className="px-2 text-2xl text-accent-darker">{props.text}</span>
+        ) : null}
       </div>
     </div>
   );
