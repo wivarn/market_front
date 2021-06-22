@@ -11,7 +11,7 @@ const ListingDetails = (props: Listing): JSX.Element => {
   const isSeller = session?.accountId == props.accountId;
 
   return (
-    <div className="container relative p-4 mx-auto">
+    <div className="container relative p-2 mx-auto">
       <div className="">
         <h3 className="flex-initial p-2 mb-4 text-center border-b border-accent">
           {props.title}

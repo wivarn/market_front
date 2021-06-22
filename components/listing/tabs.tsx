@@ -67,7 +67,7 @@ export default function ListingTabs({
             href="listings/new"
             disabled={noAddress}
           />
-          <SecondaryButton text="Bulk Create" href="listings/bulkCreate" />
+          <SecondaryButton text="Bulk Add" href="listings/bulkCreate" />
           <SecondaryButton text="Update Template" href="listings/template" />
         </div>
       </div>

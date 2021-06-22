@@ -30,7 +30,12 @@ export default function Header(): JSX.Element {
   }, [session]);
 
   function renderNav() {
-    if (sessionLoading) return <Spinner />;
+    if (sessionLoading)
+      return (
+        <div className="text-accent-lightest">
+          <Spinner />
+        </div>
+      );
     return session ? <LoggedInNav /> : <LoggedOutNav />;
   }
 
