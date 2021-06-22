@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { DropdownCombobox, TextFieldFull } from "../fields";
 import { Form, Formik, FormikProps } from "formik";
 import { countryList, provinceList, stateList } from "constants/address";
+import useSWR, { mutate } from "swr";
 
 import { Address } from "types/account";
 import { AddressApi } from "services/backendApi/address";
@@ -11,7 +12,6 @@ import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
 import { createRef } from "react";
 import { toast } from "react-toastify";
-import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
 const addressSchema = Yup.object().shape({
@@ -159,6 +159,7 @@ export default function AddressForm(): JSX.Element {
             .update(trimValues(values))
             .then(() => {
               toast.success("Your address has been updated");
+              mutate(["account/address", session?.accessToken]);
             })
             .catch((error) => {
               toast.error(JSON.stringify(error.response.data));

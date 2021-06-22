@@ -255,9 +255,9 @@ export default function SearchFilter(): JSX.Element {
 
                       <DropdownCombobox
                         label="Country"
-                        name="country"
+                        name="shipping_country"
                         placeholder={
-                          formik.getFieldProps("country").value
+                          formik.getFieldProps("shipping_country").value
                             ? ""
                             : "Select country"
                         }
