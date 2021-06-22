@@ -67,6 +67,14 @@ export const ChevronLeftIcon = (): JSX.Element => {
   return <HiChevronLeft className="icon" />;
 };
 
+export const SmChevronRightIcon = (): JSX.Element => {
+  return <HiChevronRight className="icon-sm" />;
+};
+
+export const SmChevronLeftIcon = (): JSX.Element => {
+  return <HiChevronLeft className="icon-sm" />;
+};
+
 export const ShoppingCartIcon = (): JSX.Element => {
   return <HiOutlineShoppingCart className="icon" />;
 };
