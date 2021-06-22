@@ -63,7 +63,7 @@ export default function SearchSort(): JSX.Element {
                         } block truncate`}
                         onClick={() => {
                           router.push({
-                            pathname: "/listings/search",
+                            pathname: router.pathname,
                             query: { ...router.query, ...{ sort: option.id } },
                           });
                         }}

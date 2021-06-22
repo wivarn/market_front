@@ -207,7 +207,7 @@ export default function SearchFilter(): JSX.Element {
                 validationSchema={filterSchema}
                 onSubmit={(values, actions) => {
                   router.push({
-                    pathname: "/listings/search",
+                    pathname: router.pathname,
                     query: { ...router.query, ...values },
                   });
                   actions.setSubmitting(false);

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { SpinnerLg } from "components/spinner";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
+import SearchFilter from "components/forms/listing/searchFilter";
+import SearchSort from "components/forms/listing/searchSort";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -70,6 +72,10 @@ export default function ListingTabs({
           <SecondaryButton text="Bulk Add" href="listings/bulkCreate" />
           <SecondaryButton text="Update Template" href="listings/template" />
         </div>
+      </div>
+      <div className="flex justify-between px-4 py-2">
+        <SearchFilter />
+        <SearchSort />
       </div>
       <div className="flex justify-center mt-4 mb-2 space-x-8">
         <LinkWrapper
