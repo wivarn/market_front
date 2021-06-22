@@ -9,6 +9,7 @@ import Papa from "papaparse";
 import { ParseResult } from "papaparse";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
+import { UploadIcon } from "components/icons";
 import { listingSchema } from "constants/listings";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -231,9 +232,10 @@ export default function BulkCreateListings(): JSX.Element {
               </h4>
               <div
                 {...getRootProps()}
-                className="flex justify-center h-48 p-2 m-4 border-2 border-dashed rounded-md bg-accent-lightest border-accent-dark"
+                className="flex items-center justify-center h-48 p-2 m-4 border-2 border-dashed rounded-md bg-accent-lightest border-accent-dark"
               >
                 <input {...getInputProps()} />
+                <UploadIcon />
                 <p className="flex items-center text-center">
                   Drag and drop a csv file, or click to a select file to upload.
                 </p>
@@ -248,8 +250,7 @@ export default function BulkCreateListings(): JSX.Element {
           <p className="mb-2">
             Upload a csv with your listings and preview it in the table below.
             Once you are happy with the input click save to create your bulk
-            listings in draft state. Don't forget to add photos before
-            publishing!
+            listings in draft state.
           </p>
           <SubmitButton text="Save all as draft" onClick={bulkCreate} />
         </div>

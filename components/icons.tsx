@@ -6,6 +6,7 @@ import {
   HiChevronDown,
   HiChevronLeft,
   HiChevronRight,
+  HiCloudUpload,
   HiExclamation,
   HiExclamationCircle,
   HiFilter,
@@ -43,6 +44,9 @@ export const LgSpinnerIcon = (): JSX.Element => {
   return <CgSpinner className="icon-lg animate-spin" />;
 };
 
+export const UploadIcon = (): JSX.Element => {
+  return <HiCloudUpload className="icon-lg" />;
+};
 export const CurrencyDollarIcon = (): JSX.Element => {
   return <HiOutlineCurrencyDollar className="icon" />;
 };
