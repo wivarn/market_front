@@ -19,6 +19,7 @@ import { FilterIcon } from "components/icons";
 import { IconButton } from "./iconButton";
 import { NumberField } from "../fields";
 import { useRouter } from "next/router";
+import { countryList } from "constants/address";
 
 interface filterValues {
   [index: string]: string;
@@ -29,6 +30,7 @@ interface filterValues {
   graded: string;
   grading_company: string;
   min_condition: string;
+  shipping_country: string;
 }
 
 const filterSchema = Yup.object().shape({
@@ -182,6 +184,7 @@ export default function SearchFilter(): JSX.Element {
     graded: "",
     grading_company: "",
     min_condition: "",
+    shipping_country: "",
   };
 
   const params = new URLSearchParams(router.asPath.split("?")[1]);
@@ -249,6 +252,17 @@ export default function SearchFilter(): JSX.Element {
                         }}
                       />
                       {renderGrading()}
+
+                      <DropdownCombobox
+                        label="Country"
+                        name="country"
+                        placeholder={
+                          formik.getFieldProps("country").value
+                            ? ""
+                            : "Select country"
+                        }
+                        items={countryList}
+                      />
                       <div className="py-2 space-x-2">
                         <SubmitButton
                           text="Apply"

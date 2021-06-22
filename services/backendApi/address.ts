@@ -1,7 +1,19 @@
 import { Address } from "types/account";
+import { AxiosResponse } from "axios";
 import { base } from "./base";
 
-export const AddressApi = (accessToken?: string) => {
+export const AddressApi = (
+  accessToken?: string
+): {
+  get: () => Promise<AxiosResponse<any>>;
+  update: (address: Address) => Promise<AxiosResponse<any>>;
+} => {
+  const get = async () => {
+    return base.get("account/address", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  };
+
   const update = async (address: Address) => {
     return base.post(
       "account/address",
@@ -19,5 +31,5 @@ export const AddressApi = (accessToken?: string) => {
     );
   };
 
-  return { update };
+  return { get, update };
 };

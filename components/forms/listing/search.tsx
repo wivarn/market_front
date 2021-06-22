@@ -4,6 +4,8 @@ import { Form, Formik } from "formik";
 
 import { SearchField } from "../fields";
 import { useRouter } from "next/router";
+import { AddressApi } from "services/backendApi/address";
+import { useSession } from "next-auth/client";
 
 interface Values {
   title: string;
@@ -15,6 +17,7 @@ const querySchema = Yup.object().shape({
 
 export default function SearchForm(): JSX.Element {
   const router = useRouter();
+  const [session] = useSession();
 
   let title = "";
   if (router.pathname == "/listings/search") {
@@ -27,11 +30,26 @@ export default function SearchForm(): JSX.Element {
       initialValues={{ title: title }}
       validationSchema={querySchema}
       onSubmit={(values: Values, actions) => {
-        router.push({
-          pathname: "/listings/search",
-          query: { title: values.title },
-        });
-        actions.setSubmitting(false);
+        if (session) {
+          AddressApi(session?.accessToken)
+            .get()
+            .then((response) => {
+              const country = response.data.length
+                ? response.data[0].country
+                : "USA";
+              router.push({
+                pathname: "/listings/search",
+                query: { title: values.title, shipping_country: country },
+              });
+              actions.setSubmitting(false);
+            });
+        } else {
+          router.push({
+            pathname: "/listings/search",
+            query: { title: values.title, shipping_country: "USA" },
+          });
+          actions.setSubmitting(false);
+        }
       }}
     >
       {() => (
