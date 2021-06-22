@@ -37,14 +37,14 @@ type TextAreaProps = FieldHookConfig<string> &
     inputClassName?: string;
   };
 
-export type ComboBoxOption = {
+export type ListingComboBoxOption = {
   value: string;
   text: string;
   disabled?: boolean;
 };
 
 type ComboBoxProps = TextFieldProps & {
-  items: ComboBoxOption[];
+  items: ListingComboBoxOption[];
   resetRef?: RefObject<HTMLSpanElement>;
   childresetRef?: RefObject<HTMLSpanElement>;
 };
@@ -307,6 +307,11 @@ export const _DropdownCombobox = ({
       {label ? (
         <label className={labelClassName} {...getLabelProps()}>
           {label}
+          {description ? (
+            <span className={descriptionClassName} {...getLabelProps()}>
+              {description}
+            </span>
+          ) : null}
         </label>
       ) : null}
 

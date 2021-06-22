@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import { ComboBoxOption, DropdownCombobox, Toggle } from "../fields";
+import { DropdownCombobox, ListingComboBoxOption, Toggle } from "../fields";
 import { Form, Formik, FormikProps } from "formik";
 import { ResetButton, SubmitButton } from "components/buttons";
 import {
@@ -120,7 +120,7 @@ function subCategoryCombobox(formik: FormikProps<any>) {
     ? "Select a sub-category"
     : "Select category first";
 
-  let items: ComboBoxOption[] = [];
+  let items: ListingComboBoxOption[] = [];
   switch (category) {
     case "SPORTS_CARDS":
       items = sportsCardList;

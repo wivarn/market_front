@@ -1,5 +1,6 @@
 import { SecondaryButtonFull, SubmitButtonFull } from "components/buttons";
 
+import { ConditionPill } from "./condition";
 import { ImageSlider } from "components/listing/imageSlider";
 import { InfoCard } from "./infoCard";
 import { LgUserCircleIcon } from "components/icons";
@@ -32,7 +33,13 @@ const ListingDetails = (props: Listing): JSX.Element => {
                 currency: "usd",
               })}{" "}
             </span>
-            <span className="text-md text-accent-dark">{props.currency}</span>
+            <span className="text-md text-accent-darker">{props.currency}</span>
+            <span className="ml-4">
+              <ConditionPill
+                grading_company={props.grading_company}
+                condition={props.condition}
+              />
+            </span>
             <div className="text-sm leading-none text-accent-dark">
               +
               {Number(props.domestic_shipping).toLocaleString("en", {
@@ -41,9 +48,7 @@ const ListingDetails = (props: Listing): JSX.Element => {
               })}{" "}
               Shipping
             </div>
-            <div className="my-2 font-medium">
-              Condition: {props.grading_company} {props.condition}
-            </div>
+            <div className="my-2 font-medium"></div>
             <div>
               <SubmitButtonFull
                 text="Add to Cart"
@@ -63,16 +68,14 @@ const ListingDetails = (props: Listing): JSX.Element => {
                 <div className="text-sm text-success">User Rating</div>
               </span>
               <div className="my-4 border"></div>
-              <div className="my-2 whitespace-pre-wrap">
-                {props.description}
-              </div>
+              <div className="my-2 ">{props.description}</div>
             </div>
           </InfoCard>
         </div>
       </div>
 
       <InfoCard>
-        <h3 className="pb-2 text-center border-b">Recent Seller Reviews</h3>
+        <h4 className="pb-2 text-center border-b">Recent Seller Reviews</h4>
         <div className="pt-4">
           <p>review 1</p>
           <p>review 2</p>
