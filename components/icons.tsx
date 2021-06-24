@@ -1,4 +1,10 @@
 import {
+  FaFacebookSquare,
+  FaInstagramSquare,
+  FaRedditSquare,
+  FaYoutubeSquare,
+} from "react-icons/fa";
+import {
   HiArrowNarrowDown,
   HiBookOpen,
   HiCheck,
@@ -157,4 +163,22 @@ export const SmCheckCircleIcon = (): JSX.Element => {
 
 export const SmExclamationCircleIcon = (): JSX.Element => {
   return <HiExclamationCircle className="icon-sm" />;
+};
+
+// Social media icons
+
+export const SmFacebookIcon = (): JSX.Element => {
+  return <FaFacebookSquare className="icon-sm" />;
+};
+
+export const SmYoutubeIcon = (): JSX.Element => {
+  return <FaYoutubeSquare className="icon-sm" />;
+};
+
+export const SmInstagramIcon = (): JSX.Element => {
+  return <FaInstagramSquare className="icon-sm" />;
+};
+
+export const SmRedditIcon = (): JSX.Element => {
+  return <FaRedditSquare className="icon-sm" />;
 };

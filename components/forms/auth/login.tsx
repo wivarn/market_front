@@ -91,26 +91,30 @@ export default function LoginForm(): JSX.Element {
             {(props) => (
               <Form>
                 {renderLockedBanner()}
+                <div className="my-2 space-y-4">
+                  <TextFieldFull
+                    name="email"
+                    id={`${idPrefix}email`}
+                    type="email"
+                    label="Email"
+                  />
 
-                <TextFieldFull
-                  name="email"
-                  id={`${idPrefix}email`}
-                  type="email"
-                  label="Email"
-                />
-
-                <TextFieldFull
-                  name="password"
-                  id={`${idPrefix}password`}
-                  type="password"
-                  label="Password"
-                />
-                <SubmitButtonFull text="Log in" disabled={props.isSubmitting} />
-                <Link href="/auth/forgotPassword">
-                  <a className="underline text-info">
-                    <p className="py-2 text-sm">Forgot Password?</p>
-                  </a>
-                </Link>
+                  <TextFieldFull
+                    name="password"
+                    id={`${idPrefix}password`}
+                    type="password"
+                    label="Password"
+                  />
+                  <SubmitButtonFull
+                    text="Log in"
+                    disabled={props.isSubmitting}
+                  />
+                  <Link href="/auth/forgotPassword">
+                    <a className="underline text-info">
+                      <p className="py-2 text-sm">Forgot Password?</p>
+                    </a>
+                  </Link>
+                </div>
               </Form>
             )}
           </Formik>

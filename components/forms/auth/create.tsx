@@ -68,41 +68,43 @@ export default function CreateAccountForm(): JSX.Element {
           >
             {({ isSubmitting }) => (
               <Form>
-                <TextFieldFull
-                  name="email"
-                  id={`${idPrefix}email`}
-                  type="email"
-                  label="Email"
-                />
+                <div className="my-2 space-y-4">
+                  <TextFieldFull
+                    name="email"
+                    id={`${idPrefix}email`}
+                    type="email"
+                    label="Email"
+                  />
 
-                <TextFieldFull
-                  name="givenName"
-                  id={`${idPrefix}givenName`}
-                  label="First name"
-                />
-                <TextFieldFull
-                  name="familyName"
-                  id={`${idPrefix}familyName`}
-                  label="Last name"
-                />
+                  <TextFieldFull
+                    name="givenName"
+                    id={`${idPrefix}givenName`}
+                    label="First name"
+                  />
+                  <TextFieldFull
+                    name="familyName"
+                    id={`${idPrefix}familyName`}
+                    label="Last name"
+                  />
 
-                <TextFieldFull
-                  name="password"
-                  id={`${idPrefix}password`}
-                  type="password"
-                  label="Password"
-                />
-                <TextFieldFull
-                  name="passwordConfirmation"
-                  id={`${idPrefix}passwordConfirmation`}
-                  type="password"
-                  label="Password Confirmation"
-                />
+                  <TextFieldFull
+                    name="password"
+                    id={`${idPrefix}password`}
+                    type="password"
+                    label="Password"
+                  />
+                  <TextFieldFull
+                    name="passwordConfirmation"
+                    id={`${idPrefix}passwordConfirmation`}
+                    type="password"
+                    label="Password Confirmation"
+                  />
 
-                <SubmitButtonFull
-                  text="Create Account"
-                  disabled={isSubmitting}
-                />
+                  <SubmitButtonFull
+                    text="Create Account"
+                    disabled={isSubmitting}
+                  />
+                </div>
               </Form>
             )}
           </Formik>
