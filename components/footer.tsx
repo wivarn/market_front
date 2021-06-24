@@ -10,11 +10,11 @@ import Link from "next/link";
 
 export default function Footer(): JSX.Element {
   return (
-    <footer className="py-16 text-center border-t border-b bg-accent-lightest">
+    <footer className="py-8 text-center border-t border-b bg-accent-lightest">
       <div className="text-2xl font-semibold text-primary">
         Skwirl
         <nav>
-          <ul className="flex flex-row justify-center mt-8 space-x-8 text-xl font-medium text-accent-darker">
+          <ul className="flex flex-row justify-center mt-4 space-x-8 text-xl font-medium text-accent-darker">
             <li>
               <Link href="/">
                 <a>Home</a>
@@ -37,13 +37,13 @@ export default function Footer(): JSX.Element {
             </li>
           </ul>
         </nav>
-        <div className="flex justify-center mt-8 space-x-4">
+        <div className="flex justify-center mt-4 space-x-4">
           <IconButtonLink url="/" icon={<SmYoutubeIcon />} />
           <IconButtonLink url="/" icon={<SmFacebookIcon />} />
           <IconButtonLink url="/" icon={<SmRedditIcon />} />
           <IconButtonLink url="/" icon={<SmInstagramIcon />} />
         </div>
-        <div className="mt-8 text-sm">
+        <div className="mt-4 text-sm">
           <div className="font-normal text-accent-dark">
             © Copyright {new Date().getFullYear()} Skwirl.
           </div>

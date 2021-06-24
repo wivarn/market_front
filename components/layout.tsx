@@ -7,10 +7,10 @@ export default function Layout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <div className="h-full">
+    <body className="flex flex-col h-screen">
       <Header />
-      <main className="container mx-auto max-w-screen-2xl">{children}</main>
+      <main className="container flex-grow mx-auto max-w-screen-2xl">{children}</main>
       <Footer />
-    </div>
+    </body>
   );
 }
