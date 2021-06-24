@@ -210,16 +210,16 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
       <h3>Enter the details for your listing template</h3>
       <Formik
         initialValues={{
-          category: props.category || null,
-          subcategory: props.subcategory || null,
-          title: props.title || null,
+          category: props.category || undefined,
+          subcategory: props.subcategory || undefined,
+          title: props.title || undefined,
           graded: false,
-          grading_company: props.grading_company || null,
-          condition: props.condition || null,
-          description: props.description || null,
-          price: props.price || null,
-          domestic_shipping: props.domestic_shipping || null,
-          international_shipping: props.international_shipping || null,
+          grading_company: props.grading_company || undefined,
+          condition: props.condition || undefined,
+          description: props.description || undefined,
+          price: props.price || undefined,
+          domestic_shipping: props.domestic_shipping || undefined,
+          international_shipping: props.international_shipping || undefined,
         }}
         validationSchema={listingSchema}
         onSubmit={(values: ListingTemplate, actions) => {
