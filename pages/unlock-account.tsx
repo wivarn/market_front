@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-export default function unlockAccount() {
+export default function unlockAccount(): JSX.Element {
   const router = useRouter();
 
   useEffect(() => {

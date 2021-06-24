@@ -22,7 +22,7 @@ const resetPasswordSchema = Yup.object().shape({
   ),
 });
 
-export default function ResetPasswordForm() {
+export default function ResetPasswordForm(): JSX.Element {
   const router = useRouter();
 
   useEffect(() => {

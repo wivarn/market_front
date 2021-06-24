@@ -9,7 +9,9 @@ export default function Layout({
   return (
     <body className="flex flex-col h-screen">
       <Header />
-      <main className="container flex-grow mx-auto max-w-screen-2xl">{children}</main>
+      <main className="container flex-grow mx-auto max-w-screen-2xl">
+        {children}
+      </main>
       <Footer />
     </body>
   );

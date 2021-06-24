@@ -13,7 +13,7 @@ const unlockAccountSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
 });
 
-export default function UnlockAccountForm() {
+export default function UnlockAccountForm(): JSX.Element {
   const router = useRouter();
   return (
     <AuthFormContainer>
