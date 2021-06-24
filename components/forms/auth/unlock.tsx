@@ -17,35 +17,44 @@ export default function UnlockAccountForm(): JSX.Element {
   const router = useRouter();
   return (
     <AuthFormContainer>
-      <h3>Unlock Account Request</h3>
-      <Formik
-        initialValues={{
-          email: "",
-        }}
-        validationSchema={unlockAccountSchema}
-        onSubmit={(values, actions) => {
-          AuthApi()
-            .unlockAccountRequest(values.email)
-            .then((response) => {
-              toast.success(response.data.success);
-              router.push("/");
-            })
-            .catch((error) => {
-              toast.error(error.response.data.error);
-            })
-            .finally(() => {
-              actions.setSubmitting(false);
-            });
-        }}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <TextFieldFull name="email" type="email" placeholder="Email" />
+      <h3 className="py-4 text-center border-b border-accent">
+        Unlock Account Request
+      </h3>
+      <div className="py-2">
+        <Formik
+          initialValues={{
+            email: "",
+          }}
+          validationSchema={unlockAccountSchema}
+          onSubmit={(values, actions) => {
+            AuthApi()
+              .unlockAccountRequest(values.email)
+              .then((response) => {
+                toast.success(response.data.success);
+                router.push("/");
+              })
+              .catch((error) => {
+                toast.error(error.response.data.error);
+              })
+              .finally(() => {
+                actions.setSubmitting(false);
+              });
+          }}
+        >
+          {({ isSubmitting }) => (
+            <div className="my-2 space-y-4">
+              <Form>
+                <TextFieldFull name="email" type="email" placeholder="Email" />
 
-            <SubmitButton text="Send Unlock Reset" disabled={isSubmitting} />
-          </Form>
-        )}
-      </Formik>
+                <SubmitButton
+                  text="Send Unlock Reset"
+                  disabled={isSubmitting}
+                />
+              </Form>
+            </div>
+          )}
+        </Formik>
+      </div>
     </AuthFormContainer>
   );
 }

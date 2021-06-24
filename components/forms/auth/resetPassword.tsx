@@ -34,52 +34,61 @@ export default function ResetPasswordForm(): JSX.Element {
 
   return (
     <AuthFormContainer>
-      <h3>Reset Password</h3>
-      <Formik
-        initialValues={{ password: "", passwordConfirmation: "" }}
-        validationSchema={resetPasswordSchema}
-        onSubmit={(values, actions) => {
-          AuthApi()
-            .resetPassword(
-              `${key}`,
-              values.password,
-              values.passwordConfirmation
-            )
-            .then((response) => {
-              signIn("jwt", {
-                ...response.data,
-                redirect: false,
+      <h3 className="py-4 text-center border-b border-accent">
+        Reset Password
+      </h3>
+      <div className="py-2">
+        <Formik
+          initialValues={{ password: "", passwordConfirmation: "" }}
+          validationSchema={resetPasswordSchema}
+          onSubmit={(values, actions) => {
+            AuthApi()
+              .resetPassword(
+                `${key}`,
+                values.password,
+                values.passwordConfirmation
+              )
+              .then((response) => {
+                signIn("jwt", {
+                  ...response.data,
+                  redirect: false,
+                });
+                toast.success(response.data.success);
+                router.push("/");
+              })
+              .catch((error) => {
+                const data = error.response.data;
+                const message = data["field-error"]
+                  ? data["field-error"][1]
+                  : data.error;
+                toast.error(message);
+                actions.resetForm();
               });
-              toast.success(response.data.success);
-              router.push("/");
-            })
-            .catch((error) => {
-              const data = error.response.data;
-              const message = data["field-error"]
-                ? data["field-error"][1]
-                : data.error;
-              toast.error(message);
-              actions.resetForm();
-            });
-        }}
-      >
-        {(props) => (
-          <Form>
-            <TextFieldFull
-              name="password"
-              type="password"
-              placeholder="Password"
-            />
-            <TextFieldFull
-              name="passwordConfirmation"
-              type="password"
-              placeholder="Password Confirmation"
-            />
+          }}
+        >
+          {(props) => (
+            <div className="my-2 space-y-4">
+              <Form>
+                <TextFieldFull
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                />
+                <TextFieldFull
+                  name="passwordConfirmation"
+                  type="password"
+                  placeholder="Password Confirmation"
+                />
 
-            <SubmitButton text="Reset Password" disabled={props.isSubmitting} />
-          </Form>
-        )}
-      </Formik>
+                <SubmitButton
+                  text="Reset Password"
+                  disabled={props.isSubmitting}
+                />
+              </Form>
+            </div>
+          )}
+        </Formik>
+      </div>
     </AuthFormContainer>
   );
 }
