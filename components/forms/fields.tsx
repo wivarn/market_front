@@ -291,11 +291,15 @@ export const _DropdownCombobox = ({
     onStateChange: ({ type, selectedItem }) => {
       if (
         selectedItem &&
-        (type == "__item_click__" || type == "__input_keydown_enter__")
+        (type == useCombobox.stateChangeTypes.ItemClick ||
+          useCombobox.stateChangeTypes.InputKeyDownEnter)
       ) {
         fieldHelpers.setValue(`${selectedItem.value}`);
       }
-      if (type == "__input_blur__" || type == "__function_close_menu__") {
+      if (
+        type == useCombobox.stateChangeTypes.InputBlur ||
+        type == useCombobox.stateChangeTypes.FunctionCloseMenu
+      ) {
         selectItem(items[highlightedIndex]);
         fieldHelpers.setTouched(true);
       }

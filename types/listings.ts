@@ -20,14 +20,15 @@ export interface Listing extends BasicListing {
 }
 
 export interface ListingTemplate {
-  category?: string | null;
-  subcategory?: string | null;
+  [key: string]: string | number | undefined | boolean;
+  category?: string;
+  subcategory?: string;
   accountId?: string;
-  title?: string | null;
-  description?: string | null;
-  grading_company?: string | null;
-  condition?: string | number | null;
-  price?: string | number | null;
-  domestic_shipping?: string | number | null;
-  international_shipping?: string | number | null;
+  title?: string;
+  description?: string;
+  grading_company?: string;
+  condition?: string | number;
+  price?: string | number;
+  domestic_shipping?: string | number;
+  international_shipping?: string | number;
 }

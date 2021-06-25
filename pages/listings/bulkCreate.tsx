@@ -97,45 +97,6 @@ export default function BulkCreateListings(): JSX.Element {
     );
   };
 
-  function renderListingTemplate() {
-    const headers = Object.keys(listingSchema);
-    return (
-      <div className="mx-auto my-4 overflow-x-auto">
-        <h4 className="py-2 text-center">Listing Template</h4>
-        <table>
-          <thead>
-            <tr>
-              {headers.map((header, index) => {
-                return (
-                  <th
-                    key={index}
-                    className="p-2 text-sm font-medium text-accent-lightest bg-info-darker"
-                  >
-                    {header}
-                  </th>
-                );
-              })}
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              {headers.map((header, index) => {
-                return (
-                  <td
-                    key={index}
-                    className="p-2 text-sm border border-info-darker"
-                  >
-                    {listingTemplate[header]}
-                  </td>
-                );
-              })}
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    );
-  }
-
   function renderTable() {
     const headers = listings.meta.fields;
     if (!headers?.length) return null;

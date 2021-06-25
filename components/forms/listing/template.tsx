@@ -210,20 +210,24 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
       <h3>Enter the details for your listing template</h3>
       <Formik
         initialValues={{
-          category: props.category || null,
-          subcategory: props.subcategory || null,
-          title: props.title || null,
+          category: props.category || "",
+          subcategory: props.subcategory || "",
+          title: props.title || "",
           graded: false,
-          grading_company: props.grading_company || null,
-          condition: props.condition || null,
-          description: props.description || null,
-          price: props.price || null,
-          domestic_shipping: props.domestic_shipping || null,
-          international_shipping: props.international_shipping || null,
+          grading_company: props.grading_company || "",
+          condition: props.condition || "",
+          description: props.description || "",
+          price: props.price || "",
+          domestic_shipping: props.domestic_shipping || "",
+          international_shipping: props.international_shipping || "",
         }}
         validationSchema={listingSchema}
         onSubmit={(values: ListingTemplate, actions) => {
-          console.log(values);
+          Object.keys(values).forEach((key) => {
+            if (values[key] == "") {
+              values[key] = undefined;
+            }
+          });
           ListingTemplateApi(session.accessToken)
             .update(values)
             .then(() => {
