@@ -1,13 +1,13 @@
 import React, { ReactNode } from "react";
 
-type ISectionProps = {
+type Props = {
   title?: string;
   description?: string;
   yPadding?: string;
   children: ReactNode;
 };
 
-const PageSection = (props: ISectionProps): JSX.Element => (
+const PageSection = (props: Props): JSX.Element => (
   <div
     className={`max-w-screen-lg mx-auto px-3 ${
       props.yPadding ? props.yPadding : "py-16"

@@ -1,10 +1,10 @@
 import React from "react";
 
-type ILogoProps = {
+type Props = {
   xl?: boolean;
 };
 
-const Logo = (props: ILogoProps): JSX.Element => {
+const Logo = (props: Props): JSX.Element => {
   const size = props.xl ? "44" : "32";
   const fontStyle = props.xl
     ? "font-semibold text-3xl"
