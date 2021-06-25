@@ -20,14 +20,18 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
         <link rel="icon" href="/favicon.ico" key="favicon" />
       </Head>
       <DefaultSeo {...SEO} />
-      <Provider session={pageProps.session}>
-        <SWRConfig value={{ fetcher: fetcher }}>
-          <Layout>
-            <Component {...pageProps} />
-            <Toast />
-          </Layout>
-        </SWRConfig>
-      </Provider>
+      {process.env.NEXT_PUBLIC_FEATURE_LAUNCHED != "true" ? (
+        <Component {...pageProps} />
+      ) : (
+        <Provider session={pageProps.session}>
+          <SWRConfig value={{ fetcher: fetcher }}>
+            <Layout>
+              <Component {...pageProps} />
+              <Toast />
+            </Layout>
+          </SWRConfig>
+        </Provider>
+      )}
     </StrictMode>
   );
 }
