@@ -19,7 +19,9 @@ const FeatureRow = (props: IFeatureRowProps): JSX.Element => {
         <h3 className="text-3xl font-semibold text-accent-darker">
           {props.title}
         </h3>
-        <div className="mt-6 text-xl leading-9">{props.description}</div>
+        <div className="mt-6 text-xl leading-9 text-accent-dark">
+          {props.description}
+        </div>
       </div>
 
       <div className="w-full p-6 sm:w-1/2">

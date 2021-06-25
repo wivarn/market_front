@@ -91,6 +91,24 @@ export default function about(): JSX.Element {
             reverse
           />
         </PageSection>
+        <PageSection>
+          <div className="flex flex-col p-4 text-center rounded-md sm:text-left sm:flex-row sm:items-center sm:justify-between sm:p-12 bg-primary-100">
+            <div className="text-2xl font-semibold">
+              <div className="text-accent-darker">
+                We are looking for top notch sellers to help us get going.
+              </div>
+              <div className="text-accent-dark">Apply for early access.</div>
+            </div>
+
+            <div className="mt-3 whitespace-no-wrap sm:mt-0 sm:ml-2">
+              <Link href="/">
+                <a>
+                  <PrimaryButton href="" text="Apply now" />
+                </a>
+              </Link>
+            </div>
+          </div>
+        </PageSection>
       </div>
     </>
   );

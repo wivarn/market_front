@@ -11,6 +11,21 @@ interface PropsWithHref extends Props {
   href: string;
 }
 
+export const CTAButton = (props: PropsWithHref): JSX.Element => {
+  return (
+    <Link href={props.href} passHref>
+      <button
+        type="submit"
+        className="p-2 text-2xl font-medium rounded-md text-accent-lightest bg-info disabled:bg-info-light hover:bg-info-dark"
+        disabled={props.disabled}
+        hidden={props.hidden}
+      >
+        {props.text}
+      </button>
+    </Link>
+  );
+};
+
 export const PrimaryButton = (props: PropsWithHref): JSX.Element => {
   return (
     <Link href={props.href} passHref>
