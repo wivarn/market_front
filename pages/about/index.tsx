@@ -23,12 +23,12 @@ export default function about(): JSX.Element {
             <nav>
               <ul className="flex items-center space-x-8 text-xl font-medium text-accent-darker">
                 <li>
-                  <Link href="">
+                  <Link href="/about/team">
                     <a className="font-medium hover:text-primary">About Us</a>
                   </Link>
                 </li>
                 <li>
-                  <Link href="">
+                  <Link href="/contact">
                     <a className="font-medium hover:text-primary">Contact</a>
                   </Link>
                 </li>
