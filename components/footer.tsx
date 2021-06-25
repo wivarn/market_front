@@ -7,12 +7,13 @@ import {
 
 import { IconButtonLink } from "./iconButton";
 import Link from "next/link";
+import { Logo } from "./logo";
 
 export default function Footer(): JSX.Element {
   return (
     <footer className="py-8 text-center border-t border-b bg-accent-lightest">
       <div className="text-2xl font-semibold text-primary">
-        Skwirl
+        <Logo xl={true} />
         <nav>
           <ul className="flex flex-row justify-center mt-4 space-x-8 text-xl font-medium text-accent-darker">
             <li>
@@ -23,11 +24,6 @@ export default function Footer(): JSX.Element {
             <li>
               <Link href="/">
                 <a>About</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/">
-                <a>Help</a>
               </Link>
             </li>
             <li>
