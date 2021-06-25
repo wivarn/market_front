@@ -1,5 +1,5 @@
-import About from "components/about";
+import Teaser from "components/teaser";
 
-export default function about(): JSX.Element {
-  return <About />;
+export default function teaser(): JSX.Element {
+  return <Teaser />;
 }
