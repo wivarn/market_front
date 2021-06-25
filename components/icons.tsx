@@ -3,6 +3,7 @@ import {
   FaInstagramSquare,
   FaRedditSquare,
   FaYoutubeSquare,
+  FaTwitterSquare,
 } from "react-icons/fa";
 import {
   HiArrowNarrowDown,
@@ -166,6 +167,10 @@ export const SmExclamationCircleIcon = (): JSX.Element => {
 };
 
 // Social media icons
+
+export const SmTwitterIcon = (): JSX.Element => {
+  return <FaTwitterSquare className="icon-sm" />;
+};
 
 export const SmFacebookIcon = (): JSX.Element => {
   return <FaFacebookSquare className="icon-sm" />;

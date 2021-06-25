@@ -3,6 +3,7 @@ import {
   SmInstagramIcon,
   SmRedditIcon,
   SmYoutubeIcon,
+  SmTwitterIcon,
 } from "./icons";
 
 import { IconButtonLink } from "./iconButton";
@@ -15,29 +16,50 @@ export default function Footer(): JSX.Element {
       <div className="text-2xl font-semibold text-primary">
         <Logo xl={true} />
         <nav>
-          <ul className="flex flex-row justify-center mt-4 space-x-8 text-xl font-medium text-accent-darker">
+          <ul className="flex flex-row justify-center mt-4 space-x-8 text-lg font-medium text-accent-darker">
             <li>
-              <Link href="/">
-                <a>Home</a>
+              <Link href="/about">
+                <a className="hover:text-primary">Home</a>
               </Link>
             </li>
             <li>
-              <Link href="/about">
-                <a>About</a>
+              <Link href="/about/team">
+                <a className="hover:text-primary">About</a>
               </Link>
             </li>
             <li>
               <Link href="/contact">
-                <a>Contact</a>
+                <a className="hover:text-primary">Contact</a>
               </Link>
             </li>
           </ul>
         </nav>
         <div className="flex justify-center mt-4 space-x-4">
-          <IconButtonLink url="/" icon={<SmYoutubeIcon />} />
-          <IconButtonLink url="/" icon={<SmFacebookIcon />} />
-          <IconButtonLink url="/" icon={<SmRedditIcon />} />
-          <IconButtonLink url="/" icon={<SmInstagramIcon />} />
+          <IconButtonLink
+            url="https://www.youtube.com/channel/UCDe_aLZv7CoKLxiZxAPbDJg"
+            icon={<SmYoutubeIcon />}
+            target="_blank"
+          />
+          <IconButtonLink
+            url="https://www.facebook.com/Skwirl-110235447975935"
+            icon={<SmFacebookIcon />}
+            target="_blank"
+          />
+          <IconButtonLink
+            url="https://www.reddit.com/r/Skwirl/new/"
+            icon={<SmRedditIcon />}
+            target="_blank"
+          />
+          <IconButtonLink
+            url="https://www.instagram.com/skwirlapp/?hl=en"
+            icon={<SmInstagramIcon />}
+            target="_blank"
+          />
+          <IconButtonLink
+            url="https://twitter.com/Skwirl7"
+            icon={<SmTwitterIcon />}
+            target="_blank"
+          />
         </div>
         <div className="mt-4 text-sm">
           <div className="font-normal text-accent-dark">

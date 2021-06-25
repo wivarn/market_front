@@ -11,6 +11,7 @@ interface ButtonProps {
 interface LinkProps {
   icon: ReactNode;
   url: string;
+  target?: string;
 }
 
 export const IconButton = (props: ButtonProps): JSX.Element => {
@@ -29,7 +30,7 @@ export const IconButtonLink = (props: LinkProps): JSX.Element => {
     <div className="group">
       <div className="text-accent-dark hover:text-accent-darker">
         <Link href={props.url}>
-          <a>{props.icon}</a>
+          <a target={props.target}>{props.icon}</a>
         </Link>
       </div>
     </div>
