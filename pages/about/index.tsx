@@ -1,9 +1,9 @@
+import { CTAButton } from "components/buttons";
 import { FeatureRow } from "components/featureRow";
 import Link from "next/link";
 import { Logo } from "components/logo";
 import { NextSeo } from "next-seo";
 import { PageSection } from "components/section";
-import { PrimaryButton } from "components/buttons";
 
 export default function about(): JSX.Element {
   return (
@@ -52,7 +52,7 @@ export default function about(): JSX.Element {
             </div>
             <Link href="">
               <a>
-                <PrimaryButton href="" text="Subscribe for updates" />
+                <CTAButton href="" text="Subscribe for updates" />
               </a>
             </Link>
           </header>
@@ -103,7 +103,7 @@ export default function about(): JSX.Element {
             <div className="mt-3 whitespace-no-wrap sm:mt-0 sm:ml-2">
               <Link href="/">
                 <a>
-                  <PrimaryButton href="" text="Apply now" />
+                  <CTAButton href="" text="Apply now" />
                 </a>
               </Link>
             </div>
