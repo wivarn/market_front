@@ -72,22 +72,22 @@ export default function about(): JSX.Element {
           />
           <FeatureRow
             title="Innovative Trust System"
-            description="Trust is built by making connections and building relationships. We help make those connections with peers around the world so that you don't have to."
+            description="Trust is built by making connections and building relationships. We help make that possible with a unique trust system."
             image="/promo/trust.svg"
-            imageAlt="Second feature alt text"
+            imageAlt="Trust system"
             reverse
           />
           <FeatureRow
             title="Built by collectors"
-            description="We share your passion and understand your needs. We will work with the community to build the best possible platform for collectors around the world."
+            description="We share your passion and understand your needs because we are also collectors."
             image="/promo/innovation.svg"
-            imageAlt="Third feature alt text"
+            imageAlt="Built by collectors"
           />
           <FeatureRow
             title="More than a marketplace"
-            description="Engage with other collectors, show off your prized items and subscribe to a feed that is tailored to your interests."
+            description="Admire other collections, show off your prized items and subscribe to a feed that is tailored to your interests."
             image="/promo/more.svg"
-            imageAlt="Third feature alt text"
+            imageAlt="Marketplace"
             reverse
           />
         </PageSection>

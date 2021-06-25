@@ -21,7 +21,9 @@ const PageSection = (props: ISectionProps): JSX.Element => (
           </h2>
         )}
         {props.description && (
-          <div className="mt-4 text-xl md:px-20">{props.description}</div>
+          <div className="mt-4 text-lg text-accent-dark md:px-20">
+            {props.description}
+          </div>
         )}
       </div>
     )}
