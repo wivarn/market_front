@@ -1,8 +1,11 @@
 import { NextSeo } from "next-seo";
 import { PrimaryButton } from "components/buttons";
 import { PromoCard } from "components/promoCards";
+import Teaser from "components/landing/teaser";
 
 export default function Home(): JSX.Element {
+  if (process.env.NEXT_PUBLIC_FEATURE_LAUNCHED != "true") return <Teaser />;
+
   return (
     <div>
       <NextSeo title="Home" />
