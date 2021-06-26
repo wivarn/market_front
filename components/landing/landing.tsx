@@ -1,9 +1,9 @@
 import { CTAButton } from "components/buttons";
-import { FeatureRow } from "components/featureRow";
+import { FeatureRow } from "components/landing/featureRow";
 import Link from "next/link";
 import { Logo } from "components/logo";
 import { NextSeo } from "next-seo";
-import { PageSection } from "components/section";
+import { PageSection } from "components/landing/section";
 
 export default function Landing(): JSX.Element {
   return (

@@ -7,12 +7,7 @@ export default function About(): JSX.Element {
       <div className="flex h-screen bg-cover bg-teaser bg-opacity-10">
         <div className="m-auto text-center">
           <NextSeo title="Launching 2021" />
-          <Image
-            src="/promo/launch.svg"
-            alt="launch"
-            height={300}
-            width={300}
-          />
+          <Image src="/skwirl-logo.png" alt="launch" height={300} width={300} />
           <div className="">
             <div className="text-6xl font-semibold text-secondary">
               skwirl
