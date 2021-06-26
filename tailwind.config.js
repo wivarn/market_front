@@ -4,6 +4,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      backgroundImage: {
+        teaser: "url('/assets/teaser-background.svg')",
+      },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],
       },
