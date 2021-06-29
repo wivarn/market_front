@@ -3,7 +3,6 @@ import { Listing } from "types/listings";
 import { NextSeo } from "next-seo";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
-import { toast } from "react-toastify";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
@@ -25,8 +24,8 @@ export default function Cart(): JSX.Element {
   async function checkout() {
     CartApi(session?.accessToken)
       .checkout()
-      .then(() => {
-        toast.success("success");
+      .then(async (response) => {
+        window.location.assign(response.data.url);
       });
   }
 

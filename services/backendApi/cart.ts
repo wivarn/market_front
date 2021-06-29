@@ -21,7 +21,7 @@ export const CartApi = (
 
   const checkout = async () => {
     return base.post(
-      "cart/add_item",
+      "cart/checkout",
       {},
       {
         headers: { Authorization: `Bearer ${accessToken}` },
