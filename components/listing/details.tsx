@@ -1,15 +1,47 @@
 import { SecondaryButtonFull, SubmitButtonFull } from "components/buttons";
 
+import { CartApi } from "services/backendApi/cart";
 import { ConditionPill } from "./condition";
 import { ImageSlider } from "components/listing/imageSlider";
 import { InfoCard } from "./infoCard";
 import { LgUserCircleIcon } from "components/icons";
 import { Listing } from "types/listings";
+import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
 
 const ListingDetails = (props: Listing): JSX.Element => {
   const [session] = useSession();
   const isSeller = session?.accountId == props.accountId;
+
+  async function addItem() {
+    CartApi(session?.accessToken)
+      .addItem(`${props.id}`)
+      .then(() => {
+        toast.success("Item added to cart");
+      })
+      .catch((error) => {
+        toast.error(JSON.stringify(error.response.data));
+      });
+  }
+
+  function renderButton() {
+    if (isSeller) {
+      return (
+        <SecondaryButtonFull
+          href={`/listings/${props.id}/edit`}
+          text="Update Listing"
+        />
+      );
+    } else {
+      return (
+        <SubmitButtonFull
+          text="Add to Cart"
+          disabled={!session}
+          onClick={addItem}
+        />
+      );
+    }
+  }
 
   return (
     <div className="container relative p-2 mx-auto">
@@ -24,9 +56,7 @@ const ListingDetails = (props: Listing): JSX.Element => {
             ) : null}
           </div>
           <InfoCard>
-            <h4 className="pb-2 mb-4 text-center border-b ">
-              Item Information
-            </h4>
+            <h4 className="pb-2 mb-4 text-center border-b">Item Information</h4>
             <span className="text-2xl font-semibold text-accent-darker">
               {Number(props.price).toLocaleString("en", {
                 style: "currency",
@@ -48,18 +78,8 @@ const ListingDetails = (props: Listing): JSX.Element => {
               })}{" "}
               Shipping
             </div>
-            <div className="my-2 font-semibold"></div>
             <div>
-              <SubmitButtonFull
-                text="Add to Cart"
-                disabled={isSeller}
-                hidden={isSeller}
-              />
-              <SecondaryButtonFull
-                href={`/listings/${props.id}/edit`}
-                text="Update Listing"
-                hidden={!isSeller}
-              />
+              {renderButton()}
               <div className="my-4 border"></div>
               <LgUserCircleIcon />
               <span className="">
