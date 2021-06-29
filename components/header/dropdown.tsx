@@ -95,7 +95,7 @@ export const DropDown = (): JSX.Element => {
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <LinkWrapper href="/" active={active}>
+                    <LinkWrapper href="/cart" active={active}>
                       Cart
                     </LinkWrapper>
                   )}

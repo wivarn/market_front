@@ -56,7 +56,7 @@ export default function Header(): JSX.Element {
             icon={<CurrencyDollarIcon />}
             tooltip="Sell"
           />
-          <IconLink href="/" icon={<ShoppingCartIcon />} tooltip="Cart" />
+          <IconLink href="/cart" icon={<ShoppingCartIcon />} tooltip="Cart" />
           <DropDown />
         </div>
         <div className="inline-flex items-center md:hidden">
