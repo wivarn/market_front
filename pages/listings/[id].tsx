@@ -38,6 +38,7 @@ export default function ShowListing(): JSX.Element {
           currency={listing.currency}
           domestic_shipping={listing.domestic_shipping}
           international_shipping={listing.international_shipping}
+          grading_company={listing.grading_company}
           condition={listing.condition}
           description={listing.description}
           sellerName={`${listing.given_name} ${listing.family_name}`}
