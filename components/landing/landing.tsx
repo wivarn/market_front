@@ -78,13 +78,13 @@ export default function Landing(): JSX.Element {
                 <div className="mt-4 mb-8 text-2xl font-light text-accent-darker">
                   Launching in Fall 2021.
                 </div>
-                <Link href="">
-                  <a>
-                    <CTAButton href="" text="Stay in the know" />
-                  </a>
-                </Link>
+                <CTAButton href="" text="Stay in the know" />
               </div>
-              <img src="/assets/hero-cards.svg" alt="Card Hero" />
+              <img
+                src="/assets/hero-cards.svg"
+                alt="Card Hero"
+                className="mt-8"
+              />
             </header>
           </div>
         </PageSection>
