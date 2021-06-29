@@ -11,7 +11,7 @@ module.exports = {
         below: "url('/assets/sub-hero.png')",
       },
       fontFamily: {
-        sans: ["Poppins", "sans-serif"],
+        sans: ["Nunito", "sans-serif"],
       },
       width: {
         600: "600px",
