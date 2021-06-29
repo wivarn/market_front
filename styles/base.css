@@ -9,10 +9,10 @@
     @apply text-info-darker text-2xl font-semibold;
   }
   h4 {
-    @apply text-info-darker text-xl font-medium;
+    @apply text-info-darker text-xl font-semibold;
   }
   h5 {
-    @apply text-info-darker text-lg font-medium;
+    @apply text-info-darker text-lg font-semibold;
   }
   p {
     @apply text-base;
