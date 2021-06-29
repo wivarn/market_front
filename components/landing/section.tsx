@@ -9,7 +9,7 @@ type Props = {
 
 const PageSection = (props: Props): JSX.Element => (
   <div
-    className={`max-w-screen-xl mx-auto px-3 ${
+    className={`max-w-screen-xl mx-auto px-8 ${
       props.yPadding ? props.yPadding : "py-16"
     }`}
   >
