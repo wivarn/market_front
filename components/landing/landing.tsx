@@ -1,4 +1,5 @@
 import { CTAButton } from "components/buttons";
+import { FeatureColumn } from "components/landing/featureColumn";
 import { FeatureRow } from "components/landing/featureRow";
 import Footer from "components/footer";
 import Link from "next/link";
@@ -10,8 +11,8 @@ export default function Landing(): JSX.Element {
   return (
     <>
       <NextSeo title="Landing" />
-      <div className="bg-cover bg-landing ">
-        <PageSection yPadding="py-6">
+      <div className="bg-secondary">
+        <PageSection yPadding="py-2">
           <div className="flex flex-wrap items-center justify-between">
             <div>
               <Link href="">
@@ -22,52 +23,76 @@ export default function Landing(): JSX.Element {
             </div>
 
             <nav>
-              <ul className="flex items-center space-x-8 text-xl font-medium text-secondary">
+              <ul className="flex items-center space-x-8 text-xl font-semibold text-info-darker">
                 <li>
                   <Link href="/about/team">
-                    <a className="font-medium hover:text-secondary-lighter">
-                      Membership
-                    </a>
+                    <a className="hover:text-primary">Blog</a>
                   </Link>
                 </li>
                 <li>
                   <Link href="/contact">
-                    <a className="font-medium hover:text-secondary-lighter">
-                      Contact
-                    </a>
+                    <a className="hover:text-primary">Contact</a>
                   </Link>
                 </li>
               </ul>
             </nav>
           </div>
         </PageSection>
-        <PageSection yPadding="pt-20 pb-32">
-          <header className="text-center">
-            <h1 className="text-6xl font-semibold whitespace-pre-line text-secondary leading-hero">
-              {
-                <>
-                  {"The "}{" "}
-                  <span className="text-secondary">social marketplace</span>{" "}
-                  {" for\n"}
-                  <span className="text-primary">modern collectors</span>
-                </>
-              }
-            </h1>
-            <div className="mt-4 mb-16 text-2xl font-light text-info-lightest">
-              Launching in Fall 2021.
-            </div>
-            <Link href="">
-              <a>
-                <CTAButton href="" text="Stay in the know" />
-              </a>
-            </Link>
-          </header>
+        <PageSection yPadding="pt-10 pb-20">
+          <div>
+            <header className="items-center text-center lg:text-left justify-items-center lg:flex">
+              <div className="py-4">
+                <h1 className="text-5xl font-extrabold whitespace-pre-line lg:text-6xl xl:text-7xl text-accent-darkest leading-hero">
+                  {
+                    <>
+                      {"The "}{" "}
+                      <span className="text-info">social marketplace</span>{" "}
+                      {" for\n"}
+                      <span className="text-primary">modern collectors</span>
+                    </>
+                  }
+                </h1>
+                <div className="mt-4 mb-8 text-2xl font-light text-accent-darker">
+                  Launching in Fall 2021.
+                </div>
+                <Link href="#">
+                  <a>
+                    <CTAButton href="" text="Stay in the know" />
+                  </a>
+                </Link>
+              </div>
+              <img src="/assets/hero-cards.svg" alt="Card Hero" />
+            </header>
+          </div>
         </PageSection>
       </div>
-
+      <div className=" bg-info-darker">
+        <PageSection yPadding="pb-16">
+          <div className="md:flex md:justify-between">
+            <FeatureColumn
+              title="Buy"
+              description="Add that missing piece to your collection"
+              image="/promo/buy.png"
+              imageAlt="Buy trading cards online"
+            />
+            <FeatureColumn
+              title="Sell"
+              description="Profit from the collectibles you don’t want"
+              image="/promo/sell.png"
+              imageAlt="Sell trading cards online"
+            />
+            <FeatureColumn
+              title="Admire"
+              description="Show off your most prized possessions"
+              image="/promo/admire.png"
+              imageAlt="Admire collections"
+            />
+          </div>
+        </PageSection>
+      </div>
       <div>
         <PageSection
-          title="Buy, sell, be admired"
+          title="Why skwirl is the place to be"
           description="Add the missing piece to your collection, sell the items you don't need and be admired for your most prized possessions."
         >
           <FeatureRow
@@ -97,7 +122,7 @@ export default function Landing(): JSX.Element {
             reverse
           />
         </PageSection>
-        <div className="bg-cover bg-subscribe">
+        <div className="bg-info-darker">
           <PageSection>
             <div className="flex flex-col p-4 text-center rounded-md sm:text-left sm:flex-row sm:items-center sm:justify-between sm:p-12 bg-primary-100">
               <div className="text-2xl font-semibold">

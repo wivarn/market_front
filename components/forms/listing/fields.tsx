@@ -30,7 +30,7 @@ type PriceFieldProps = TextFieldProps & {
 };
 
 // Style variables for the fields
-const labelClassName = "text-base font-medium text-accent-darker";
+const labelClassName = "text-base font-semibold text-accent-darker";
 const descriptionClassName =
   "md:block hidden text-sm font-normal text-accent-dark";
 const fullInputClassName =

@@ -50,7 +50,7 @@ type ComboBoxProps = TextFieldProps & {
 };
 
 // Style variables for the fields
-const labelClassName = "p-1 block text-sm font-medium text-accent-darker";
+const labelClassName = "p-1 block text-sm font-semibold text-accent-darker";
 const descriptionClassName = "p-1 block text-sm font-normal text-accent-dark";
 const fullInputClassName = "w-full p-2 border rounded-md border-accent";
 const inputClassName = "p-2 border rounded-md w-72 border-accent";

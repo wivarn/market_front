@@ -48,7 +48,7 @@ export default function SearchSort(): JSX.Element {
                   className={({ active }) =>
                     `${
                       active
-                        ? "text-accent-lightest bg-info-darker rounded-md font-medium"
+                        ? "text-accent-lightest bg-info-darker rounded-md font-semibold"
                         : "text-info-darker"
                     }
                           cursor-default select-none relative py-2 px-2`
@@ -59,7 +59,7 @@ export default function SearchSort(): JSX.Element {
                     <>
                       <span
                         className={`${
-                          selected ? "font-medium" : "font-normal"
+                          selected ? "font-semibold" : "font-normal"
                         } block truncate`}
                         onClick={() => {
                           router.push({

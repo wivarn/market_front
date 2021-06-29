@@ -5,7 +5,7 @@ const ListingBasicInfo = (props: BasicListing): JSX.Element => {
   return (
     <div className="mt-1 mb-1">
       <div className="border-b h-14">
-        <p className="h-full font-medium truncate text-accent-darker">
+        <p className="h-full font-semibold truncate text-accent-darker">
           {props.title}
         </p>
       </div>

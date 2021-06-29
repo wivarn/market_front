@@ -16,7 +16,7 @@ export const CTAButton = (props: PropsWithHref): JSX.Element => {
     <Link href={props.href} passHref>
       <button
         type="submit"
-        className="p-2 text-xl font-medium rounded-md text-accent-lightest bg-primary disabled:bg-primary-light hover:bg-primary-dark"
+        className="p-2 text-2xl font-semibold rounded-md text-accent-lightest bg-primary disabled:bg-primary-light hover:bg-primary-dark"
         disabled={props.disabled}
         hidden={props.hidden}
       >
@@ -31,7 +31,7 @@ export const PrimaryButton = (props: PropsWithHref): JSX.Element => {
     <Link href={props.href} passHref>
       <button
         type="submit"
-        className="px-2 py-1 my-1 font-medium rounded-md text-accent-lightest bg-primary disabled:bg-primary-light hover:bg-primary-dark"
+        className="px-2 py-1 my-1 font-semibold rounded-md text-accent-lightest bg-primary disabled:bg-primary-light hover:bg-primary-dark"
         disabled={props.disabled}
         hidden={props.hidden}
       >
@@ -46,7 +46,7 @@ export const PrimaryButtonFull = (props: PropsWithHref): JSX.Element => {
     <Link href={props.href} passHref>
       <button
         type="submit"
-        className="w-full px-2 py-1 my-1 font-medium rounded-md text-accent-lightest bg-primary disabled:bg-primary-light hover:bg-primary-dark"
+        className="w-full px-2 py-1 my-1 font-semibold rounded-md text-accent-lightest bg-primary disabled:bg-primary-light hover:bg-primary-dark"
         disabled={props.disabled}
         hidden={props.hidden}
       >
@@ -61,7 +61,7 @@ export const SecondaryButton = (props: PropsWithHref): JSX.Element => {
     <Link href={props.href} passHref>
       <button
         type="button"
-        className="px-2 py-1 my-1 font-medium border rounded-md border-info text-info bg-info-lightest disabled:bg-info-lighter hover:bg-info-lighter"
+        className="px-2 py-1 my-1 font-semibold border rounded-md border-info text-info bg-info-lightest disabled:bg-info-lighter hover:bg-info-lighter"
         disabled={props.disabled}
         hidden={props.hidden}
       >
@@ -76,7 +76,7 @@ export const SecondaryButtonFull = (props: PropsWithHref): JSX.Element => {
     <Link href={props.href} passHref>
       <button
         type="button"
-        className="w-full px-2 py-1 my-1 font-medium border rounded-md border-info text-info bg-info-lightest disabled:bg-info-lighter hover:bg-info-lighter"
+        className="w-full px-2 py-1 my-1 font-semibold border rounded-md border-info text-info bg-info-lightest disabled:bg-info-lighter hover:bg-info-lighter"
         disabled={props.disabled}
         hidden={props.hidden}
       >
@@ -90,7 +90,7 @@ export const SubmitButton = (props: Props): JSX.Element => {
   return (
     <button
       type="submit"
-      className="px-2 py-1 my-1 font-medium rounded-md bg-primary text-accent-lightest hover:bg-primary-dark disabled:bg-primary-light"
+      className="px-2 py-1 my-1 font-semibold rounded-md bg-primary text-accent-lightest hover:bg-primary-dark disabled:bg-primary-light"
       onClick={props.onClick}
       disabled={props.disabled}
       hidden={props.hidden}
@@ -104,7 +104,7 @@ export const SecondarySubmitButton = (props: Props): JSX.Element => {
   return (
     <button
       type="submit"
-      className="px-2 py-1 my-1 font-medium border rounded-md border-info bg-info-lightest text-info hover:bg-info-lighter disabled:bg-info-lighter"
+      className="px-2 py-1 my-1 font-semibold border rounded-md border-info bg-info-lightest text-info hover:bg-info-lighter disabled:bg-info-lighter"
       onClick={props.onClick}
       disabled={props.disabled}
       hidden={props.hidden}
@@ -118,7 +118,7 @@ export const SubmitButtonFull = (props: Props): JSX.Element => {
   return (
     <button
       type="submit"
-      className="w-full px-2 py-2 my-1 font-medium rounded-md bg-primary text-accent-lightest hover:bg-primary-dark disabled:bg-primary-light"
+      className="w-full px-2 py-2 my-1 font-semibold rounded-md bg-primary text-accent-lightest hover:bg-primary-dark disabled:bg-primary-light"
       onClick={props.onClick}
       disabled={props.disabled}
       hidden={props.hidden}
@@ -132,7 +132,7 @@ export const DeleteButton = (props: Props): JSX.Element => {
   return (
     <button
       type="submit"
-      className="px-2 py-1 my-1 font-medium border rounded-md border-error bg-error-lightest text-error hover:bg-error-lighter disabled:bg-error-lighter"
+      className="px-2 py-1 my-1 font-semibold border rounded-md border-error bg-error-lightest text-error hover:bg-error-lighter disabled:bg-error-lighter"
       onClick={props.onClick}
       disabled={props.disabled}
       hidden={props.hidden}
@@ -146,7 +146,7 @@ export const ResetButton = (props: Props): JSX.Element => {
   return (
     <button
       type="reset"
-      className="px-2 py-1 my-1 font-medium underline text-info disabled:text-accent"
+      className="px-2 py-1 my-1 font-semibold underline text-info disabled:text-accent"
       onClick={props.onClick}
       disabled={props.disabled}
     >

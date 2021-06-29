@@ -118,7 +118,7 @@ export default function BulkCreateListings(): JSX.Element {
                 return (
                   <th
                     key={index}
-                    className="p-2 text-sm font-medium border text-accent-lightest bg-info border-info-darker"
+                    className="p-2 text-sm font-semibold border text-accent-lightest bg-info border-info-darker"
                   >
                     {field}
                     {invalidHeader ? (
