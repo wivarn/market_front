@@ -1,7 +1,7 @@
 import { CTAButton } from "components/buttons";
 import { FeatureColumn } from "components/landing/featureColumn";
 import { FeatureRow } from "components/landing/featureRow";
-import Footer from "components/footer";
+import LandingFooter from "components/landing/footer";
 import Link from "next/link";
 import { Logo } from "components/logo";
 import { NextSeo } from "next-seo";
@@ -40,9 +40,9 @@ export default function Landing(): JSX.Element {
         </PageSection>
         <PageSection yPadding="pt-10 pb-20">
           <div>
-            <header className="items-center text-center lg:text-left justify-items-center lg:flex">
+            <header className="items-center grid-cols-1 mx-auto text-center lg:flex lg:text-left">
               <div className="py-4">
-                <h1 className="text-5xl font-extrabold whitespace-pre-line lg:text-6xl xl:text-7xl text-accent-darkest leading-hero">
+                <h1 className="text-4xl font-extrabold whitespace-pre-line lg:text-6xl xl:text-7xl text-accent-darkest leading-hero">
                   {
                     <>
                       {"The "}{" "}
@@ -77,7 +77,7 @@ export default function Landing(): JSX.Element {
             />
             <FeatureColumn
               title="Sell"
-              description="Profit from the collectibles you don’t want"
+              description="Profit from the collectibles you no longer need"
               image="/promo/sell.png"
               imageAlt="Sell trading cards online"
             />
@@ -91,32 +91,29 @@ export default function Landing(): JSX.Element {
         </PageSection>
       </div>
       <div>
-        <PageSection
-          title="Why skwirl is the place to be"
-          description="Add the missing piece to your collection, sell the items you don't need and be admired for your most prized possessions."
-        >
+        <PageSection title="Why you'll love skwirl">
           <FeatureRow
             title="Lower seller fees"
-            description="Keep more of your profits, so that you can expand your collection faster."
+            description="Our fee is more than 50% cheaper than our comptetitors. Keep more of your profits, so that you can expand your collection faster."
             image="/promo/money.svg"
             imageAlt="Low Selling Fees"
           />
           <FeatureRow
             title="Innovative Trust System"
-            description="We help build trust with other collectors so that you can buy with confidence."
+            description="The trust system is broken on other marketplace apps. We build trust through a network of relationships with other collectors so that you can buy and sell with confidence."
             image="/promo/trust.svg"
             imageAlt="Trust system"
             reverse
           />
           <FeatureRow
             title="Built by collectors"
-            description="We share your passion for collecting and understand your needs."
+            description="We are also collectors. We share your passion and understand your needs. We will work with you to build the best collectible marketplace together. "
             image="/promo/innovation.svg"
             imageAlt="Built by collectors"
           />
           <FeatureRow
-            title="More than a marketplace"
-            description="Admire collections, show off your prized items and subscribe to a feed."
+            title="More than just a marketplace"
+            description="We believe that collecting is deeper than transactions. That's why we built social features so that you can admire other collections, show off your prized possessions and subscribe to a feed that's tailored to your interests."
             image="/promo/more.svg"
             imageAlt="Marketplace"
             reverse
@@ -125,24 +122,24 @@ export default function Landing(): JSX.Element {
         <div className="bg-info-darker">
           <PageSection>
             <div className="flex flex-col p-4 text-center rounded-md sm:text-left sm:flex-row sm:items-center sm:justify-between sm:p-12 bg-primary-100">
-              <div className="text-2xl font-semibold">
+              <div className="text-3xl font-semibold">
                 <div className="text-secondary">
                   We are looking for other collectors who share our vision.
                 </div>
-                <div className="text-primary">Subscribe for early access.</div>
+                <div className="text-primary">Sign up for early access.</div>
               </div>
 
               <div className="mt-3 whitespace-no-wrap sm:mt-0 sm:ml-2">
                 <Link href="/">
                   <a>
-                    <CTAButton href="" text="Subscribe now" />
+                    <CTAButton href="" text="Sign up now" />
                   </a>
                 </Link>
               </div>
             </div>
           </PageSection>
         </div>
-        <Footer />
+        <LandingFooter />
       </div>
     </>
   );
