@@ -42,7 +42,7 @@ const idPrefix = "profile-form-";
 const emailLabel = () => {
   return (
     <div className="flex space-x-2">
-      <span className="font-medium">Email</span>
+      <span className="font-semibold">Email</span>
       <span className="text-success">
         <SmCheckCircleIcon />
       </span>
@@ -56,7 +56,7 @@ const emailLabel = () => {
 const phoneNumberLabel = () => {
   return (
     <div className="flex space-x-2">
-      <span className="font-medium">Phone Number</span>
+      <span className="font-semibold">Phone Number</span>
       <span className="text-warning">
         <SmExclamationCircleIcon />
       </span>

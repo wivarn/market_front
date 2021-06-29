@@ -6,9 +6,7 @@ type Props = {
 
 const Logo = (props: Props): JSX.Element => {
   const size = props.xl ? "44" : "32";
-  const fontStyle = props.xl
-    ? "font-semibold text-3xl"
-    : "font-semibold text-xl";
+  const fontStyle = props.xl ? "font-bold text-4xl" : "font-bold text-2xl";
 
   return (
     <span className={`text-primary inline-flex items-center ${fontStyle}`}>
@@ -34,7 +32,7 @@ const Logo = (props: Props): JSX.Element => {
           </clipPath>
         </defs>
       </svg>
-      Skwirl
+      skwirl
     </span>
   );
 };

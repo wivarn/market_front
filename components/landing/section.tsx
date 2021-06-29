@@ -9,7 +9,7 @@ type Props = {
 
 const PageSection = (props: Props): JSX.Element => (
   <div
-    className={`max-w-screen-lg mx-auto px-3 ${
+    className={`max-w-screen-xl mx-auto px-3 ${
       props.yPadding ? props.yPadding : "py-16"
     }`}
   >
@@ -21,7 +21,7 @@ const PageSection = (props: Props): JSX.Element => (
           </h2>
         )}
         {props.description && (
-          <div className="mt-4 text-xl text-accent-dark md:px-20">
+          <div className="mt-4 text-2xl text-accent-dark md:px-20">
             {props.description}
           </div>
         )}

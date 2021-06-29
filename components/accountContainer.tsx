@@ -38,7 +38,7 @@ export default function AccountContainer({
         <h3 className="py-4 text-center border-b border-accent">
           Your Profile
         </h3>
-        <div className="font-medium text-accent-darker">
+        <div className="font-semibold text-accent-darker">
           <div className="flex justify-center mt-8 space-x-4 md:space-x-8">
             <LinkWrapper
               href="/account/profile"

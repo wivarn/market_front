@@ -48,7 +48,7 @@ const ListingDetails = (props: Listing): JSX.Element => {
               })}{" "}
               Shipping
             </div>
-            <div className="my-2 font-medium"></div>
+            <div className="my-2 font-semibold"></div>
             <div>
               <SubmitButtonFull
                 text="Add to Cart"

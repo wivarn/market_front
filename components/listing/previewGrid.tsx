@@ -47,7 +47,7 @@ const ListingPreviewGrid = ({
         nextClassName=" bg-primary text-accent-lightest rounded-full"
         pageRangeDisplayed={2}
         marginPagesDisplayed={1}
-        containerClassName="items-center flex font-medium flex-row lg:space-x-8 space-x-4 w-max mx-auto justify-center py-2"
+        containerClassName="items-center flex font-semibold flex-row lg:space-x-8 space-x-4 w-max mx-auto justify-center py-2"
         activeClassName="text-primary border-b-2 border-primary font-bold"
         onPageChange={({ selected }) => {
           router.push({

@@ -6,9 +6,12 @@ module.exports = {
     extend: {
       backgroundImage: {
         teaser: "url('/assets/teaser-background.svg')",
+        landing: "url('/assets/hero.png')",
+        subscribe: "url('/assets/subscribe.png')",
+        below: "url('/assets/sub-hero.png')",
       },
       fontFamily: {
-        sans: ["Poppins", "sans-serif"],
+        sans: ["Nunito", "sans-serif"],
       },
       width: {
         600: "600px",

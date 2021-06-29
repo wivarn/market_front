@@ -26,7 +26,7 @@ const LinkWrapper = forwardRef(
             active
               ? "bg-info-darker text-accent-lightest"
               : "text-accent-darker",
-            "block md:px-4 py-2 text-sm font-medium md:rounded-md"
+            "block md:px-4 py-2 text-sm font-semibold md:rounded-md"
           )}
           {...props}
         >

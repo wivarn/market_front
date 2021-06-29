@@ -1,10 +1,10 @@
 import { NextSeo } from "next-seo";
 import { PrimaryButton } from "components/buttons";
 import { PromoCard } from "components/promoCards";
-import Teaser from "components/landing/teaser";
+import Landing from "components/landing/landing";
 
 export default function Home(): JSX.Element {
-  if (process.env.NEXT_PUBLIC_FEATURE_LAUNCHED != "true") return <Teaser />;
+  if (process.env.NEXT_PUBLIC_FEATURE_LAUNCHED != "true") return <Landing />;
 
   return (
     <div>
