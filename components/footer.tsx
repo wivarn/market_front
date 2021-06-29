@@ -18,7 +18,7 @@ export default function Footer(): JSX.Element {
         <nav>
           <ul className="flex flex-row justify-center mt-4 space-x-8 text-lg font-semibold text-accent-darker">
             <li>
-              <Link href="/about">
+              <Link href="/">
                 <a className="hover:text-primary">Home</a>
               </Link>
             </li>
