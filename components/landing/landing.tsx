@@ -1,6 +1,13 @@
+import {
+  SmFacebookIcon,
+  SmInstagramIcon,
+  SmTwitterIcon,
+} from "components/icons";
+
 import { CTAButton } from "components/buttons";
 import { FeatureColumn } from "components/landing/featureColumn";
 import { FeatureRow } from "components/landing/featureRow";
+import { IconButtonLink } from "components/iconButton";
 import LandingFooter from "components/landing/footer";
 import Link from "next/link";
 import { Logo } from "components/logo";
@@ -11,7 +18,7 @@ export default function Landing(): JSX.Element {
   return (
     <>
       <NextSeo title="Landing" />
-      <div className="bg-secondary">
+      <div className="bg-cover bg-heroshiny">
         <PageSection yPadding="py-2">
           <div className="flex flex-wrap items-center justify-between">
             <div>
@@ -23,16 +30,32 @@ export default function Landing(): JSX.Element {
             </div>
 
             <nav>
-              <ul className="flex items-center space-x-8 text-xl font-semibold text-info-darker">
+              <ul className="flex items-center space-x-4 text-xl font-semibold text-info-darker">
                 <li>
                   <Link href="">
                     <a className="hover:text-primary">Blog</a>
                   </Link>
                 </li>
                 <li>
-                  <Link href="">
-                    <a className="hover:text-primary">Contact</a>
-                  </Link>
+                  <IconButtonLink
+                    url="https://www.facebook.com/Skwirl-110235447975935"
+                    icon={<SmFacebookIcon />}
+                    target="_blank"
+                  />
+                </li>
+                <li>
+                  <IconButtonLink
+                    url="https://www.instagram.com/skwirlapp"
+                    icon={<SmInstagramIcon />}
+                    target="_blank"
+                  />
+                </li>
+                <li>
+                  <IconButtonLink
+                    url="https://twitter.com/Skwirl7"
+                    icon={<SmTwitterIcon />}
+                    target="_blank"
+                  />
                 </li>
               </ul>
             </nav>
@@ -71,49 +94,49 @@ export default function Landing(): JSX.Element {
           <div className="md:flex md:justify-between">
             <FeatureColumn
               title="Buy"
-              description="Add that missing piece to your collection"
+              description="Find the missing piece to your collection"
               image="/promo/buy.png"
               imageAlt="Buy trading cards online"
             />
             <FeatureColumn
               title="Sell"
-              description="Profit from the collectibles you no longer need"
+              description="Profit from the items you no longer need"
               image="/promo/sell.png"
               imageAlt="Sell trading cards online"
             />
             <FeatureColumn
               title="Admire"
-              description="Show off your most prized possessions"
+              description="Be admired for your most prized possessions"
               image="/promo/admire.png"
               imageAlt="Admire collections"
             />
           </div>
         </PageSection>
       </div>
-      <div>
+      <div className="bg-cover bg-secshiny">
         <PageSection title="Why you'll love skwirl">
           <FeatureRow
             title="Lower seller fees"
-            description="Our fee is more than 50% cheaper than our comptetitors. Keep more of your profits, so that you can expand your collection faster."
+            description="Our fees are straightforward, with no hidden surprises and more than 50% cheaper than eBay. Keep more of your profits, so you can expand your collection faster."
             image="/promo/money.svg"
             imageAlt="Low Selling Fees"
           />
           <FeatureRow
             title="Innovative Trust System"
-            description="The trust system is broken on other marketplace apps. We build trust through a network of relationships with other collectors so that you can buy and sell with confidence."
+            description="Real trust cannot rely on just user reviews. Trust is built through a network of connections and relationships with other collectors. We do that for you, so you can buy and sell with confidence."
             image="/promo/trust.svg"
             imageAlt="Trust system"
             reverse
           />
           <FeatureRow
             title="Built by collectors"
-            description="We are also collectors. We share your passion and understand your needs. We will work with you to build the best collectible marketplace together. "
+            description="We are collectors too. We share your passion and understand your needs. We will work with you to build the best collectible marketplace together."
             image="/promo/innovation.svg"
             imageAlt="Built by collectors"
           />
           <FeatureRow
             title="More than just a marketplace"
-            description="We believe that collecting is deeper than transactions. That's why we built social features so that you can admire other collections, show off your prized possessions and subscribe to a feed that's tailored to your interests."
+            description="We believe that collecting is deeper than transactions. That's why we're building social features so you can admire your favourite collectors, show off your prized possessions and subscribe to a feed that's tailored to your interests."
             image="/promo/more.svg"
             imageAlt="Marketplace"
             reverse
@@ -124,17 +147,19 @@ export default function Landing(): JSX.Element {
             <div className="flex flex-col p-4 text-center rounded-md sm:text-left sm:flex-row sm:items-center sm:justify-between sm:p-12 bg-primary-100">
               <div className="text-3xl font-semibold">
                 <div className="text-secondary">
-                  We are looking for other collectors who share our vision.
+                  We are a small team, looking for collectors who share our
+                  vision.
                 </div>
-                <div className="text-primary">Sign up for early access.</div>
+                <div className="text-primary">
+                  Support us to gain early access.
+                </div>
               </div>
 
               <div className="mt-3 whitespace-no-wrap sm:mt-0 sm:ml-2">
-                <Link href="/">
-                  <a>
-                    <CTAButton href="" text="Sign up now" />
-                  </a>
-                </Link>
+                <CTAButton
+                  href="https://www.buymeacoffee.com/skwirl"
+                  text="Support us now"
+                />
               </div>
             </div>
           </PageSection>

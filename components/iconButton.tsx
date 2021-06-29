@@ -28,7 +28,7 @@ export const IconButton = (props: ButtonProps): JSX.Element => {
 export const IconButtonLink = (props: LinkProps): JSX.Element => {
   return (
     <div className="group">
-      <div className="text-accent-dark hover:text-accent-darker">
+      <div className="text-info-darker hover:text-primary">
         <Link href={props.url}>
           <a target={props.target}>{props.icon}</a>
         </Link>

@@ -5,10 +5,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        teaser: "url('/assets/teaser-background.svg')",
-        landing: "url('/assets/hero.png')",
-        subscribe: "url('/assets/subscribe.png')",
-        below: "url('/assets/sub-hero.png')",
+        secshiny: "url('/assets/secShiny.svg')",
+        heroshiny: "url('/assets/heroShiny.svg')",
       },
       fontFamily: {
         sans: ["Nunito", "sans-serif"],
