@@ -25,12 +25,12 @@ export default function Landing(): JSX.Element {
             <nav>
               <ul className="flex items-center space-x-8 text-xl font-semibold text-info-darker">
                 <li>
-                  <Link href="/about/team">
+                  <Link href="">
                     <a className="hover:text-primary">Blog</a>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact">
+                  <Link href="">
                     <a className="hover:text-primary">Contact</a>
                   </Link>
                 </li>
@@ -55,7 +55,7 @@ export default function Landing(): JSX.Element {
                 <div className="mt-4 mb-8 text-2xl font-light text-accent-darker">
                   Launching in Fall 2021.
                 </div>
-                <Link href="#">
+                <Link href="">
                   <a>
                     <CTAButton href="" text="Stay in the know" />
                   </a>
