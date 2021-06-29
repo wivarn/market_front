@@ -179,9 +179,6 @@ const ListingForm = (props: Listing): JSX.Element => {
       initialValues[key] = "";
     }
   });
-  // console.log(props);
-  // console.log(template);
-  // console.log(initialValues);
 
   return (
     <div className="p-4">
@@ -194,7 +191,6 @@ const ListingForm = (props: Listing): JSX.Element => {
             initialValues={initialValues}
             validationSchema={schema}
             onSubmit={(values: Listing, actions) => {
-              console.log(values);
               const request = newListing
                 ? ListingApi(session.accessToken).create(values)
                 : ListingApi(session.accessToken).update(values);

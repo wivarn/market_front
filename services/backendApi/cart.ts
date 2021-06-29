@@ -5,6 +5,7 @@ export const CartApi = (
   accessToken?: string
 ): {
   addItem: (listingId: number | string) => Promise<AxiosResponse<any>>;
+  checkout: () => Promise<AxiosResponse<any>>;
 } => {
   const addItem = async (listingId: number | string) => {
     return base.post(
@@ -18,5 +19,15 @@ export const CartApi = (
     );
   };
 
-  return { addItem };
+  const checkout = async () => {
+    return base.post(
+      "cart/add_item",
+      {},
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+  };
+
+  return { addItem, checkout };
 };
