@@ -23,7 +23,7 @@ export default function Footer(): JSX.Element {
               </Link>
             </li>
             <li>
-              <Link href="/about/team">
+              <Link href="/about">
                 <a className="hover:text-primary">About</a>
               </Link>
             </li>

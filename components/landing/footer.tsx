@@ -1,10 +1,4 @@
-import {
-  SmFacebookIcon,
-  SmInstagramIcon,
-  SmRedditIcon,
-  SmTwitterIcon,
-  SmYoutubeIcon,
-} from "../icons";
+import { SmFacebookIcon, SmInstagramIcon, SmTwitterIcon } from "../icons";
 
 import { IconButtonLink } from "../iconButton";
 import Link from "next/link";
@@ -12,46 +6,22 @@ import { Logo } from "../logo";
 
 export default function LandingFooter(): JSX.Element {
   return (
-    <footer className="py-8 text-center bg-secondary">
+    <footer className="py-8 text-center bg-cover bg-heroshiny">
       <div className="text-2xl font-semibold text-primary">
         <Logo xl={true} />
-        <nav>
-          <ul className="flex flex-row justify-center mt-4 space-x-8 text-lg font-semibold text-accent-darker">
-            <li>
-              <Link href="/">
-                <a className="hover:text-primary">Home</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/about/team">
-                <a className="hover:text-primary">About</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact">
-                <a className="hover:text-primary">Contact</a>
-              </Link>
-            </li>
-          </ul>
-        </nav>
-        <div className="flex justify-center mt-4 space-x-4">
-          <IconButtonLink
-            url="https://www.youtube.com/channel/UCDe_aLZv7CoKLxiZxAPbDJg"
-            icon={<SmYoutubeIcon />}
-            target="_blank"
-          />
+        <div className="flex items-center justify-center mt-4 space-x-4">
+          <Link href="/about/team">
+            <a className="text-lg font-semibold hover:text-primary text-info-darker">
+              Blog
+            </a>
+          </Link>
           <IconButtonLink
             url="https://www.facebook.com/Skwirl-110235447975935"
             icon={<SmFacebookIcon />}
             target="_blank"
           />
           <IconButtonLink
-            url="https://www.reddit.com/r/Skwirl/new/"
-            icon={<SmRedditIcon />}
-            target="_blank"
-          />
-          <IconButtonLink
-            url="https://www.instagram.com/skwirlapp/?hl=en"
+            url="https://www.instagram.com/skwirlapp"
             icon={<SmInstagramIcon />}
             target="_blank"
           />
