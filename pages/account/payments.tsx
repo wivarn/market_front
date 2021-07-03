@@ -17,16 +17,17 @@ export default function profile(): JSX.Element {
     return {
       response: data,
       isLoading: !error && !data,
-      isError: error,
+      error: error,
     };
   }
 
-  const { response, isLoading, isError } = getPayment();
+  const { response, isLoading, error } = getPayment();
 
   if (isLoading || loading) return <SpinnerLg text="Loading..." />;
-  if (isError) return <div>Error</div>;
+  // TODO: render an error message about existing stripe connection being disconnected
+  // if (error) return <div>Error</div>;
 
-  const stripeAccount = response.data;
+  const stripeAccount = error ? {} : response.data;
 
   function renderConnectButton() {
     if (stripeAccount.charges_enabled) {
@@ -41,9 +42,11 @@ export default function profile(): JSX.Element {
         });
     }
 
-    return (
-      <SubmitButton text="Connect with Stripe" onClick={redirectToStripe} />
-    );
+    const buttonText = stripeAccount.id
+      ? "Finish Connecting with Stripe"
+      : "Connect with Stripe";
+
+    return <SubmitButton text={buttonText} onClick={redirectToStripe} />;
   }
 
   return (

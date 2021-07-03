@@ -113,6 +113,7 @@ const _Button = (props: BaseButtonProps): JSX.Element => {
       className={`px-2 py-1 my-1 font-semibold rounded-md disabled:cursor-not-allowed ${props.buttonClassName}`}
       disabled={props.disabled}
       hidden={props.hidden}
+      onClick={props.onClick}
     >
       {props.text}
     </button>
