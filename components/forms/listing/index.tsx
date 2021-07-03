@@ -123,24 +123,62 @@ const ListingForm = (props: Listing): JSX.Element => {
     );
   }
 
-  function renderDeleteButton(id: string | undefined, accessToken: string) {
-    if (!id || !accessToken) return null;
+  function renderButtons(formik: FormikProps<any>, id: string | undefined) {
+    console.log(formik.values.status);
+    const draft = newListing || formik.values.status === "DRAFT";
+
+    function renderPublishButton(formik: FormikProps<any>) {
+      return (
+        <SubmitButton
+          text={(draft ? "Publish" : "Update") + " Listing"}
+          disabled={formik.isSubmitting}
+          onClick={async () => {
+            formik.setFieldValue("status", "ACTIVE");
+          }}
+        />
+      );
+    }
+
+    function renderDraftButton(formik: FormikProps<any>) {
+      if (!draft) return null;
+      return (
+        <SecondarySubmitButton
+          text={(newListing ? "Save" : "Update") + " Draft"}
+          disabled={formik.isSubmitting}
+          onClick={async () => {
+            formik.setFieldValue("status", "DRAFT");
+          }}
+        />
+      );
+    }
+
+    function renderDeleteButton(id: string | undefined) {
+      if (!id) return null;
+      return (
+        <DeleteButton
+          text="Delete"
+          onClick={async () => {
+            await ListingApi(session?.accessToken)
+              .destroy(id)
+              .then(() => {
+                toast.error("Your listing has been deleted");
+                router.push("/listings");
+              })
+              .catch((error) => {
+                console.log(error);
+                alert(error.response.data.error);
+              });
+          }}
+        />
+      );
+    }
+
     return (
-      <DeleteButton
-        text="Delete"
-        onClick={async () => {
-          await ListingApi(accessToken)
-            .destroy(id)
-            .then(() => {
-              toast.error("Your listing has been deleted");
-              router.push("/listings");
-            })
-            .catch((error) => {
-              console.log(error);
-              alert(error.response.data.error);
-            });
-        }}
-      />
+      <div className="space-x-2">
+        {renderPublishButton(formik)}
+        {renderDraftButton(formik)}
+        {renderDeleteButton(id)}
+      </div>
     );
   }
 
@@ -302,26 +340,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                     currency={profile?.currency}
                   />
                 </FormSection>
-                <div className="space-x-2">
-                  <SubmitButton
-                    text={(newListing ? "Publish" : "Update") + " Listing"}
-                    disabled={formik.isSubmitting}
-                    onClick={async () => {
-                      formik.setFieldValue("status", "ACTIVE");
-                    }}
-                  />
-
-                  {newListing ? (
-                    <SecondarySubmitButton
-                      text="Save Draft"
-                      disabled={formik.isSubmitting}
-                      onClick={async () => {
-                        formik.setFieldValue("status", "DRAFT");
-                      }}
-                    />
-                  ) : null}
-                  {renderDeleteButton(props.id, session.accessToken)}
-                </div>
+                {renderButtons(formik, props.id)}
               </Form>
             )}
           </Formik>

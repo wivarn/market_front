@@ -28,6 +28,7 @@ export default function EditListing(): JSX.Element {
       <NextSeo title="Update Listing" />
       <ListingForm
         id={listing.id}
+        status={listing.status}
         currency={listing.currency}
         category={listing.category}
         subcategory={listing.subcategory}
