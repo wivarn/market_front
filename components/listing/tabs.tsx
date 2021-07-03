@@ -1,11 +1,11 @@
 import { PrimaryButton, SecondaryButton } from "components/buttons";
 
 import Link from "next/link";
+import SearchFilter from "components/forms/listing/searchFilter";
+import SearchSort from "components/forms/listing/searchSort";
 import { SpinnerLg } from "components/spinner";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
-import SearchFilter from "components/forms/listing/searchFilter";
-import SearchSort from "components/forms/listing/searchSort";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -47,17 +47,33 @@ export default function ListingTabs({
 
     return {
       addresses: data,
-      isLoading: !error && !data,
-      isError: error,
+      addressesLoading: !error && !data,
+      addressesError: error,
     };
   }
 
-  const { addresses, isLoading, isError } = getAddresses();
+  function getPayment() {
+    const { data, error } = useSWR(
+      session ? ["account/payments", session.accessToken] : null
+    );
 
-  if (isLoading) return <SpinnerLg text="Loading..." />;
-  if (isError) return <div>Error</div>;
+    return {
+      payment: data,
+      paymentLoading: !error && !data,
+      paymentError: error,
+    };
+  }
 
-  const noAddress = !addresses.data.length;
+  const { addresses, addressesLoading, addressesError } = getAddresses();
+  const { payment, paymentLoading, paymentError } = getPayment();
+
+  if (addressesLoading || paymentLoading)
+    return <SpinnerLg text="Loading..." />;
+  if (addressesError || paymentError) return <div>Error</div>;
+
+  const disableListings = !(
+    addresses.data.length && payment.data.charges_enabled
+  );
 
   return (
     <div>
@@ -67,10 +83,18 @@ export default function ListingTabs({
           <PrimaryButton
             text="New Listing"
             href="listings/new"
-            disabled={noAddress}
+            disabled={disableListings}
           />
-          <SecondaryButton text="Bulk Add" href="listings/bulkCreate" />
-          <SecondaryButton text="Update Template" href="listings/template" />
+          <SecondaryButton
+            text="Bulk Add"
+            href="listings/bulkCreate"
+            disabled={disableListings}
+          />
+          <SecondaryButton
+            text="Update Template"
+            href="listings/template"
+            disabled={disableListings}
+          />
         </div>
       </div>
       <div className="flex justify-between px-4 py-2">
