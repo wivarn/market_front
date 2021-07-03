@@ -22,7 +22,7 @@ export default function Header(): JSX.Element {
   // Might not be the best place to put this. Maybe we should have this in the layout or _app
   // page instead. It has be somewhere global or at least anywhere that could have a session.
   useEffect(() => {
-    if (session?.error === "RefreshAccessTokenError") {
+    if (session?.error) {
       signOut({ redirect: false, callbackUrl: "/" }).then(async () => {
         router.push("/");
       });
