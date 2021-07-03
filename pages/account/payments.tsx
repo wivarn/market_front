@@ -26,11 +26,11 @@ export default function profile(): JSX.Element {
   if (isLoading || loading) return <SpinnerLg text="Loading..." />;
   if (isError) return <div>Error</div>;
 
-  const payment = response.data;
+  const stripeAccount = response.data;
 
   function renderConnectButton() {
-    if (payment?.stripe_account) {
-      return <span>Stripe account: {payment.stripe_account}</span>;
+    if (stripeAccount.charges_enabled) {
+      return <span>Stripe account: {JSON.stringify(stripeAccount)}</span>;
     }
 
     async function redirectToStripe() {
