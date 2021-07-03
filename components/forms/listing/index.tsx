@@ -173,12 +173,13 @@ const ListingForm = (props: Listing): JSX.Element => {
 
   if (!session || !template) return <SpinnerLg text="Loading..." />;
 
-  const initialValues = newListing ? { ...props, ...template } : props;
-  Object.keys(initialValues).forEach((key) => {
-    if (initialValues[key] == null) {
-      initialValues[key] = "";
+  for (const key in template) {
+    if (template[key] === null || template[key] === undefined) {
+      delete template[key];
     }
-  });
+  }
+
+  const initialValues = newListing ? { ...props, ...template } : props;
 
   return (
     <div className="p-4">
@@ -338,8 +339,8 @@ ListingForm.defaultProps = {
   grading_company: "",
   condition: "",
   description: "",
-  price: 0,
-  domestic_shipping: 0,
+  price: "",
+  domestic_shipping: "",
   international_shipping: undefined,
   status: "ACTIVE",
 };

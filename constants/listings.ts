@@ -87,7 +87,11 @@ export const listingSchema: ObjectShape = {
         return category.value;
       })
     )
-    .required("Category is required"),
+    .when("status", (status, schema) => {
+      return status != "DRAFT"
+        ? schema.required("Category is required")
+        : schema;
+    }),
   subcategory: Yup.mixed()
     .when("category", {
       is: "SPORTS_CARDS",
@@ -113,8 +117,16 @@ export const listingSchema: ObjectShape = {
         })
       ),
     })
-    .required("Sub-category is required"),
-  photos: Yup.array(Yup.string()).min(1).max(10),
+    .when("status", (status, schema) => {
+      return status != "DRAFT"
+        ? schema.required("Sub-category is required")
+        : schema;
+    }),
+  photos: Yup.array(Yup.string())
+    .max(10)
+    .when("status", (status, schema) => {
+      return status != "DRAFT" ? schema.min(1) : schema;
+    }),
   title: Yup.string()
     .min(2, "Title must be more than 2 characters")
     .max(256, "Title must be less than 256 characters")
@@ -149,15 +161,26 @@ export const listingSchema: ObjectShape = {
         "This is not a valid grading"
       );
     })
-    .required("Condition is required"),
+    .when("status", (status, schema) => {
+      return status != "DRAFT"
+        ? schema.required("Condition is required")
+        : schema;
+    }),
   price: Yup.number()
-    .min(0.25, "Price must more than 0.25")
+    .min(1, "Price must more than 1.00")
     .max(99999999.99, "Price must be less than 99999999.99")
-    .required("Price is required"),
+    .when("status", (status, schema) => {
+      return status != "DRAFT" ? schema.required("Price is required") : schema;
+    }),
   domestic_shipping: Yup.number()
     .min(0, "Shipping can't be less than 0")
     .max(99999999.99, "Shipping must be less than 99999999.99")
-    .required("Shipping price is required"),
+    .when("status", (status, schema) => {
+      return status != "DRAFT"
+        ? schema.required("Shipping price is required")
+        : schema;
+    }),
+
   international_shipping: Yup.number()
     .min(0, "Shipping can't be less than 0")
     .max(99999999.99, "Shipping must be less than 99999999.99")
