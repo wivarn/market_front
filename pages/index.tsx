@@ -2,6 +2,7 @@ import { NextSeo } from "next-seo";
 import { PrimaryButton } from "components/buttons";
 import { PromoCard } from "components/promoCards";
 import Landing from "components/landing/landing";
+import PageContainer from "components/pageContainer";
 
 export default function Home(): JSX.Element {
   if (process.env.NEXT_PUBLIC_FEATURE_LAUNCHED != "true") return <Landing />;
@@ -10,15 +11,19 @@ export default function Home(): JSX.Element {
     <div>
       <NextSeo title="Home" />
       <div className="w-full px-8 py-2 my-8 rounded-md bg-gradient-to-r from-info via-info-dark to-info-darkest text-accent-lightest">
-        <p className="mt-8">The marketplace for modern collectors</p>
-        <h1 className="text-accent-lightest">
-          Find the next centerpiece for your collection
-        </h1>
-        <PrimaryButton href="#" text="Call to action" />
-        <div className="mb-8"></div>
+        <PageContainer>
+          <h4 className="mt-8 text-white">
+            The marketplace for modern collectors
+          </h4>
+          <h1 className="text-6xl font-bold text-white">
+            Find the next centerpiece for your collection
+          </h1>
+          <PrimaryButton href="#" text="Sign up now" />
+          <div className="mb-8"></div>
+        </PageContainer>
       </div>
-      <div>
-        <div className="grid grid-cols-1 gap-2 my-8 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
+      <PageContainer>
+        <div className="grid grid-cols-1 gap-1 my-8 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
           <PromoCard
             title="Follow us on SubscribeStar"
             text="Subscribe to us and recieve insight into our roadmap as well as buyer and seller perks. We even send our backers a collectible surprise pack each month!"
@@ -38,7 +43,7 @@ export default function Home(): JSX.Element {
             href="#"
           />
         </div>
-      </div>
+      </PageContainer>
     </div>
   );
 }

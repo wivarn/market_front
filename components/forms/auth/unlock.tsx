@@ -42,16 +42,20 @@ export default function UnlockAccountForm(): JSX.Element {
           }}
         >
           {({ isSubmitting }) => (
-            <div className="my-2 space-y-4">
-              <Form>
-                <TextFieldFull name="email" type="email" placeholder="Email" />
-
+            <Form>
+              <div className="my-2 space-y-4">
+                <TextFieldFull
+                  name="email"
+                  label="Email"
+                  type="email"
+                  placeholder="Email"
+                />
                 <SubmitButton
                   text="Send Unlock Reset"
                   disabled={isSubmitting}
                 />
-              </Form>
-            </div>
+              </div>
+            </Form>
           )}
         </Formik>
       </div>

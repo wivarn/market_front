@@ -1,6 +1,6 @@
-import { CardContainerFull } from "components/cardContainer";
 import ListingPreviewGrid from "components/listing/previewGrid";
 import { NextSeo } from "next-seo";
+import PageContainer from "components/pageContainer";
 import SearchFilter from "components/forms/listing/searchFilter";
 import SearchSort from "components/forms/listing/searchSort";
 import { SpinnerLg } from "components/spinner";
@@ -35,7 +35,7 @@ export default function Listings(): JSX.Element {
   return (
     <div className="my-4">
       <NextSeo title="Search Results" />
-      <CardContainerFull>
+      <PageContainer yPadding="py-4">
         <h3 className="py-2 text-center border-b border-accent">
           Your search results
         </h3>
@@ -48,7 +48,7 @@ export default function Listings(): JSX.Element {
           totalPages={response.data.total_pages}
           initialPage={Number(router.query.page)}
         />
-      </CardContainerFull>
+      </PageContainer>
     </div>
   );
 }

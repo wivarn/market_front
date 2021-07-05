@@ -6,7 +6,7 @@ export default function profile(): JSX.Element {
     <>
       <NextSeo title="Purchase History" />
       <AccountContainer activeTab="purchaseHistory">
-        Comming soon
+        Coming soon
       </AccountContainer>
     </>
   );
