@@ -14,6 +14,7 @@ import SearchForm from "components/forms/listing/search";
 import { Spinner } from "components/spinner";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import PageContainer from "components/pageContainer";
 
 export default function Header(): JSX.Element {
   const [session, sessionLoading] = useSession();
@@ -74,20 +75,22 @@ export default function Header(): JSX.Element {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <header className="bg-info-darker">
-        <nav className="container flex items-center px-2 mx-auto max-w-screen-2xl">
-          <Link href="/">
-            <a className="pr-1 text-accent-lightest">
-              <div className="inline-flex">
-                <LgSquirrelIcon />
-                <h2 className="hidden px-2 py-1 text-accent-lightest md:block">
-                  Skwirl
-                </h2>
-              </div>
-            </a>
-          </Link>
-          <SearchForm />
-          <div className="ml-auto">{renderNav()}</div>
-        </nav>
+        <PageContainer yPadding="py-1">
+          <nav className="container flex items-center px-2 mx-auto max-w-screen-2xl">
+            <Link href="/">
+              <a className="pr-1 text-accent-lightest">
+                <div className="inline-flex">
+                  <LgSquirrelIcon />
+                  <h2 className="hidden px-2 py-1 text-accent-lightest md:block">
+                    Skwirl
+                  </h2>
+                </div>
+              </a>
+            </Link>
+            <SearchForm />
+            <div className="ml-auto">{renderNav()}</div>
+          </nav>
+        </PageContainer>
       </header>
     </div>
   );

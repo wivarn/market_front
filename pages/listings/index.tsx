@@ -1,7 +1,7 @@
-import { CardContainerFull } from "components/cardContainer";
 import ListingPreviewGrid from "components/listing/previewGrid";
 import ListingTabs from "components/listing/tabs";
 import { NextSeo } from "next-seo";
+import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -47,10 +47,10 @@ export default function Listings(): JSX.Element {
 
   return (
     <div className="my-4">
-      <CardContainerFull>
+      <PageContainer yPadding="py-4">
         <NextSeo title="Your Listings" />
         <ListingTabs activeTab={`${status}`}>{renderListings()}</ListingTabs>
-      </CardContainerFull>
+      </PageContainer>
     </div>
   );
 }
