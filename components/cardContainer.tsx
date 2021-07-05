@@ -6,7 +6,7 @@ const Container = ({
   return (
     <div className="relative">
       <div className="absolute shadow-lg top-4 -inset-1 rounded-xl bg-gradient-to-r from-primary via-info-darker to-info"></div>
-      <div className="relative px-2 py-2 m-1 shadow-lg rounded-xl bg-secondary-light">
+      <div className="relative px-4 py-2 m-1 shadow-lg rounded-xl bg-secondary-light">
         {children}
       </div>
     </div>
