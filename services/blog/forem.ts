@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from "axios";
 import { convertMarkdownToHtml, sanitizeMarkdown } from "./markdown";
 
 const username = "wivarn";
-const blogURL = (process.env.NEXTAUTH_URL || process.env.VERCEL_URL) + "/blog/";
+const blogURL = `${process.env.NEXT_PUBLIC_BASE_URL}/blog/`;
 
 // Takes a URL and returns the relative slug to your website
 export const convertCanonicalURLToRelative = (canonical: string): string => {
