@@ -23,9 +23,7 @@ const LinkWrapper = forwardRef(
         <a
           ref={ref}
           className={classNames(
-            active
-              ? "bg-accent-darker text-white"
-              : "text-accent-darker",
+            active ? "bg-accent-darker text-white" : "text-accent-darker",
             "block md:px-4 py-2 text-sm font-semibold md:rounded-md"
           )}
           {...props}

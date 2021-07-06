@@ -1,6 +1,5 @@
 import * as Yup from "yup";
 
-import { CardContainer6xl, CardContainerFull } from "components/cardContainer";
 import { Form, Formik, FormikProps } from "formik";
 import {
   ListingComboBoxOption,
@@ -22,6 +21,7 @@ import {
 import { createRef, useState } from "react";
 import useSWR, { mutate } from "swr";
 
+import { CardContainer6xl } from "components/cardContainer";
 import FormSection from "./section";
 import { ListingTemplate } from "types/listings";
 import { ListingTemplateApi } from "services/backendApi/listingTemplate";
