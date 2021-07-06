@@ -14,7 +14,7 @@ export const IconLink = (props: Props): JSX.Element => {
     <div className="relative flex flex-col items-center group">
       <a
         href={props.href}
-        className="p-1 rounded-full text-secondary-lightest group-hover:bg-info-lightest group-hover:text-info-darker"
+        className="p-1 rounded-full text-accent-darker group-hover:text-primary"
       >
         {props.icon}
       </a>

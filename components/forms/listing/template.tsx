@@ -21,6 +21,7 @@ import {
 import { createRef, useState } from "react";
 import useSWR, { mutate } from "swr";
 
+import { CardContainer6xl } from "components/cardContainer";
 import FormSection from "./section";
 import { ListingTemplate } from "types/listings";
 import { ListingTemplateApi } from "services/backendApi/listingTemplate";
@@ -206,133 +207,139 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
   if (!session) return <SpinnerLg text="Loading..." />;
 
   return (
-    <div className="max-w-6xl p-4 mx-auto mt-4">
-      <h3>Enter the details for your listing template</h3>
-      <Formik
-        initialValues={{
-          category: props.category || "",
-          subcategory: props.subcategory || "",
-          title: props.title || "",
-          graded: false,
-          grading_company: props.grading_company || "",
-          condition: props.condition || "",
-          description: props.description || "",
-          price: props.price || "",
-          domestic_shipping: props.domestic_shipping || "",
-          international_shipping: props.international_shipping || "",
-        }}
-        validationSchema={listingSchema}
-        onSubmit={(values: ListingTemplate, actions) => {
-          Object.keys(values).forEach((key) => {
-            if (values[key] == "") {
-              values[key] = undefined;
-            }
-          });
-          ListingTemplateApi(session.accessToken)
-            .update(values)
-            .then(() => {
-              mutate(["account/listing_template", session?.accessToken]);
-              toast.success("Your listing template has been updated");
-              router.push("/listings?status=active");
-            })
-            .catch((error) => {
-              toast.error(JSON.stringify(error.response.data));
-            })
-            .finally(() => {
-              actions.setSubmitting(false);
-            });
-        }}
-      >
-        {(formik) => (
-          <Form>
-            <FormSection header="Category">
-              <ListingDropdownCombobox
-                name="category"
-                label="Category"
-                description="Selecting a category will allow us to tailor the listing form for your needs."
-                items={categoryList}
-                placeholder="Select a category"
-                childresetRef={subcategoryRef}
-              />
-              {subCategoryCombobox(formik)}
+    <div className="p-4">
+      <CardContainer6xl>
+        <div className="p-2">
+          <h3 className="p-2 text-center">
+            Enter the details for your listing template
+          </h3>
+          <Formik
+            initialValues={{
+              category: props.category || "",
+              subcategory: props.subcategory || "",
+              title: props.title || "",
+              graded: false,
+              grading_company: props.grading_company || "",
+              condition: props.condition || "",
+              description: props.description || "",
+              price: props.price || "",
+              domestic_shipping: props.domestic_shipping || "",
+              international_shipping: props.international_shipping || "",
+            }}
+            validationSchema={listingSchema}
+            onSubmit={(values: ListingTemplate, actions) => {
+              Object.keys(values).forEach((key) => {
+                if (values[key] == "") {
+                  values[key] = undefined;
+                }
+              });
+              ListingTemplateApi(session.accessToken)
+                .update(values)
+                .then(() => {
+                  mutate(["account/listing_template", session?.accessToken]);
+                  toast.success("Your listing template has been updated");
+                  router.push("/listings?status=active");
+                })
+                .catch((error) => {
+                  toast.error(JSON.stringify(error.response.data));
+                })
+                .finally(() => {
+                  actions.setSubmitting(false);
+                });
+            }}
+          >
+            {(formik) => (
+              <Form>
+                <FormSection header="Category">
+                  <ListingDropdownCombobox
+                    name="category"
+                    label="Category"
+                    description="Selecting a category will allow us to tailor the listing form for your needs."
+                    items={categoryList}
+                    placeholder="Select a category"
+                    childresetRef={subcategoryRef}
+                  />
+                  {subCategoryCombobox(formik)}
 
-              <ListingTextField
-                label="Tags"
-                name="tags"
-                description="You can use tags to add any additional filter criteria to your listing."
-                type="text"
-                placeholder="pending"
-                disabled={true}
-              />
-            </FormSection>
+                  <ListingTextField
+                    label="Tags"
+                    name="tags"
+                    description="You can use tags to add any additional filter criteria to your listing."
+                    type="text"
+                    placeholder="pending"
+                    disabled={true}
+                  />
+                </FormSection>
 
-            <FormSection header="Details">
-              <ListingTextField
-                label="Title"
-                description="Title is the main search field for the listing. Try using the format of 'Set' + 'Card Name' + 'Attributes'."
-                name="title"
-                type="text"
-                placeholder="title"
-              />
-              <ListingLongTextField
-                label="Description"
-                name="description"
-                description="Use the description to provide any detail about your listing that you want buyers to know about."
-                type="text"
-                placeholder="description"
-              />
-            </FormSection>
+                <FormSection header="Details">
+                  <ListingTextField
+                    label="Title"
+                    description="Title is the main search field for the listing. Try using the format of 'Set' + 'Card Name' + 'Attributes'."
+                    name="title"
+                    type="text"
+                    placeholder="title"
+                  />
+                  <ListingLongTextField
+                    label="Description"
+                    name="description"
+                    description="Use the description to provide any detail about your listing that you want buyers to know about."
+                    type="text"
+                    placeholder="description"
+                  />
+                </FormSection>
 
-            <FormSection header="Condition">
-              <ListingToggle
-                name="graded"
-                enabled={graded}
-                setEnabled={setGraded}
-                label="Professionally Graded?"
-                description="If turned on then you will need to provide the grading company and grading score."
-                onClick={async () => {
-                  gradingCompanyRef.current?.click();
-                  conditionRef.current?.click();
-                  formik.setFieldValue("graded", !graded);
-                }}
-              />
-              {renderGrading()}
-            </FormSection>
+                <FormSection header="Condition">
+                  <ListingToggle
+                    name="graded"
+                    enabled={graded}
+                    setEnabled={setGraded}
+                    label="Professionally Graded?"
+                    description="If turned on then you will need to provide the grading company and grading score."
+                    onClick={async () => {
+                      gradingCompanyRef.current?.click();
+                      conditionRef.current?.click();
+                      formik.setFieldValue("graded", !graded);
+                    }}
+                  />
+                  {renderGrading()}
+                </FormSection>
 
-            <FormSection header="Price and Shipping">
-              <ListingNumberField
-                label="Price"
-                name="price"
-                description="Enter the price. Lower prices will increase your chances of making a sale."
-                placeholder="0"
-                currency={profile?.data?.currency}
-              />
+                <FormSection header="Price and Shipping">
+                  <ListingNumberField
+                    label="Price"
+                    name="price"
+                    description="Enter the price. Lower prices will increase your chances of making a sale."
+                    placeholder="0"
+                    currency={profile?.data?.currency}
+                  />
 
-              <ListingNumberField
-                label="Domestic Shipping"
-                name="domestic_shipping"
-                description="Enter the price for domestic shipping."
-                placeholder="0"
-                currency={profile?.data?.currency}
-              />
+                  <ListingNumberField
+                    label="Domestic Shipping"
+                    name="domestic_shipping"
+                    description="Enter the price for domestic shipping."
+                    placeholder="0"
+                    currency={profile?.data?.currency}
+                  />
 
-              <ListingNumberField
-                label="International Shipping"
-                name="international_shipping"
-                description="Enter the price for international shipping."
-                placeholder="0"
-                currency={profile?.data?.currency}
-              />
-            </FormSection>
-            <div className="space-x-2">
-              <SubmitButton
-                text="Update template"
-                disabled={formik.isSubmitting}
-              />
-            </div>
-          </Form>
-        )}
-      </Formik>
+                  <ListingNumberField
+                    label="International Shipping"
+                    name="international_shipping"
+                    description="Enter the price for international shipping."
+                    placeholder="0"
+                    currency={profile?.data?.currency}
+                  />
+                </FormSection>
+                <div className="space-x-2">
+                  <SubmitButton
+                    text="Update template"
+                    disabled={formik.isSubmitting}
+                  />
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </CardContainer6xl>
     </div>
   );
 };

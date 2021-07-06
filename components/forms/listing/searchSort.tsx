@@ -48,8 +48,8 @@ export default function SearchSort(): JSX.Element {
                   className={({ active }) =>
                     `${
                       active
-                        ? "text-accent-lightest bg-info-darker rounded-md font-semibold"
-                        : "text-info-darker"
+                        ? "text-accent-lightest bg-accent-darker rounded-md font-semibold"
+                        : "text-accent-darker"
                     }
                           cursor-default select-none relative py-2 px-2`
                   }

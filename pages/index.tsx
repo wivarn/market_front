@@ -1,8 +1,8 @@
+import Landing from "components/landing/landing";
 import { NextSeo } from "next-seo";
+import PageContainer from "components/pageContainer";
 import { PrimaryButton } from "components/buttons";
 import { PromoCard } from "components/promoCards";
-import Landing from "components/landing/landing";
-import PageContainer from "components/pageContainer";
 
 export default function Home(): JSX.Element {
   if (process.env.NEXT_PUBLIC_FEATURE_LAUNCHED != "true") return <Landing />;
@@ -10,7 +10,7 @@ export default function Home(): JSX.Element {
   return (
     <div>
       <NextSeo title="Home" />
-      <div className="w-full px-8 py-2 my-8 rounded-md bg-gradient-to-r from-info via-info-dark to-info-darkest text-accent-lightest">
+      <div className="w-full px-8 py-2 my-8 bg-gradient-to-r from-info via-info-dark to-info-darkest text-accent-lightest">
         <PageContainer>
           <h4 className="mt-8 text-white">
             The marketplace for modern collectors

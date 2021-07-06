@@ -2,8 +2,8 @@ import {
   FaFacebookSquare,
   FaInstagramSquare,
   FaRedditSquare,
-  FaYoutubeSquare,
   FaTwitterSquare,
+  FaYoutubeSquare,
 } from "react-icons/fa";
 import {
   HiArrowNarrowDown,
@@ -32,7 +32,7 @@ import {
 } from "react-icons/hi";
 
 import { CgSpinner } from "react-icons/cg";
-import { GiSquirrel } from "react-icons/gi";
+import Image from "next/image";
 
 export const UserChevronIcon = (): JSX.Element => {
   return (
@@ -40,6 +40,18 @@ export const UserChevronIcon = (): JSX.Element => {
       <HiOutlineUserCircle className="icon" />
       <HiChevronDown className="absolute bottom-0 -right-5 icon-sm" />
     </div>
+  );
+};
+
+export const SkwirlIcon = (): JSX.Element => {
+  return (
+    <Image src="/skwirl-logo.png" alt="skwirl logo" width={32} height={32} />
+  );
+};
+
+export const MdSkwirlIcon = (): JSX.Element => {
+  return (
+    <Image src="/skwirl-logo.png" alt="skwirl logo" width={44} height={44} />
   );
 };
 
@@ -152,10 +164,6 @@ export const SmChevronDownIcon = (): JSX.Element => {
 
 export const LgUserCircleIcon = (): JSX.Element => {
   return <HiOutlineUserCircle className="float-left icon-2xl" />;
-};
-
-export const LgSquirrelIcon = (): JSX.Element => {
-  return <GiSquirrel className="icon-lg" />;
 };
 
 export const SmCheckCircleIcon = (): JSX.Element => {

@@ -32,6 +32,11 @@ export default function Footer(): JSX.Element {
                 <a className="hover:text-primary">Contact</a>
               </Link>
             </li>
+            <li>
+              <Link href="/help">
+                <a className="hover:text-primary">Help</a>
+              </Link>
+            </li>
           </ul>
         </nav>
         <div className="flex justify-center mt-4 space-x-4">

@@ -1,18 +1,18 @@
 @layer base {
   h1 {
-    @apply text-info-darker font-semibold text-4xl;
+    @apply text-accent-darker font-semibold text-4xl;
   }
   h2 {
-    @apply text-info-darker text-3xl font-semibold;
+    @apply text-accent-darker text-3xl font-semibold;
   }
   h3 {
-    @apply text-info-darker text-2xl font-semibold;
+    @apply text-accent-darker text-2xl font-semibold;
   }
   h4 {
-    @apply text-info-darker text-xl font-semibold;
+    @apply text-accent-darker text-xl font-semibold;
   }
   h5 {
-    @apply text-info-darker text-lg font-semibold;
+    @apply text-accent-darker text-lg font-semibold;
   }
   p {
     @apply text-base;
