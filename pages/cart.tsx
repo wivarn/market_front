@@ -1,6 +1,7 @@
 import { CartApi } from "services/backendApi/cart";
 import { Listing } from "types/listings";
 import { NextSeo } from "next-seo";
+import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
 import useSWR from "swr";
@@ -38,11 +39,13 @@ export default function Cart(): JSX.Element {
   return (
     <>
       <NextSeo title="Cart" />
-      <h2>{cart.length} items in cart</h2>
-      {cart.map((listing: Listing) => {
-        return <div key={listing.id}>{listing.title}</div>;
-      })}
-      <SubmitButton text="Checkout" onClick={checkout} />
+      <PageContainer>
+        <h2>{cart.length} items in cart</h2>
+        {cart.map((listing: Listing) => {
+          return <div key={listing.id}>{listing.title}</div>;
+        })}
+        <SubmitButton text="Checkout" onClick={checkout} />
+      </PageContainer>
     </>
   );
 }

@@ -1,6 +1,5 @@
 import {
   CurrencyDollarIcon,
-  LgSquirrelIcon,
   ShoppingCartIcon,
   UserCircleIcon,
 } from "components/icons";
@@ -10,11 +9,12 @@ import { DropDown } from "./dropdown";
 import Head from "next/head";
 import { IconLink } from "./iconLink";
 import Link from "next/link";
+import { MdSkwirlIcon } from "components/icons";
+import PageContainer from "components/pageContainer";
 import SearchForm from "components/forms/listing/search";
 import { Spinner } from "components/spinner";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import PageContainer from "components/pageContainer";
 
 export default function Header(): JSX.Element {
   const [session, sessionLoading] = useSession();
@@ -31,12 +31,7 @@ export default function Header(): JSX.Element {
   }, [session]);
 
   function renderNav() {
-    if (sessionLoading)
-      return (
-        <div className="text-accent-lightest">
-          <Spinner />
-        </div>
-      );
+    if (sessionLoading) return <Spinner />;
     return session ? <LoggedInNav /> : <LoggedOutNav />;
   }
 
@@ -74,17 +69,17 @@ export default function Header(): JSX.Element {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <header className="bg-info-darker">
+      <header>
         <PageContainer yPadding="py-1">
           <nav className="container flex items-center px-2 mx-auto max-w-screen-2xl">
             <Link href="/">
-              <a className="pr-1 text-accent-lightest">
-                <div className="inline-flex">
-                  <LgSquirrelIcon />
-                  <h2 className="hidden px-2 py-1 text-accent-lightest md:block">
-                    Skwirl
-                  </h2>
-                </div>
+              <a className="pr-1">
+                <span className="inline-flex">
+                  <MdSkwirlIcon />
+                  <h1 className="hidden px-2 mt-1 font-bold text-primary md:block">
+                    skwirl
+                  </h1>
+                </span>
               </a>
             </Link>
             <SearchForm />

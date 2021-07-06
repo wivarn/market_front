@@ -2,9 +2,10 @@ import * as Yup from "yup";
 
 import Dropzone, { FileRejection } from "react-dropzone";
 
-import { CardContainerFull } from "components/cardContainer";
+import { CardContainer6xl } from "components/cardContainer";
 import { ListingApi } from "services/backendApi/listing";
 import { NextSeo } from "next-seo";
+import PageContainer from "components/pageContainer";
 import Papa from "papaparse";
 import { ParseResult } from "papaparse";
 import { SpinnerLg } from "components/spinner";
@@ -178,45 +179,48 @@ export default function BulkCreateListings(): JSX.Element {
   return (
     <>
       <NextSeo title="Bulk Create Listing" />
-      <CardContainerFull>
-        <Dropzone
-          accept="text/csv, .csv"
-          onDropAccepted={(files) => onDropAccepted(files)}
-          onDropRejected={(files) => onDropRejected(files)}
-          maxFiles={1}
-          multiple={false}
-        >
-          {({ getRootProps, getInputProps }) => (
-            <>
-              <h4 className="py-2 text-center border-b border-accent">
-                Bulk upload your listings
-              </h4>
-              <div
-                {...getRootProps()}
-                className="flex items-center justify-center h-48 p-2 m-4 border-2 border-dashed rounded-md bg-accent-lightest border-accent-dark"
-              >
-                <input {...getInputProps()} />
-                <UploadIcon />
-                <p className="flex items-center text-center">
-                  Drag and drop a csv file, or click to a select file to upload.
-                </p>
-                {error.length ? (
-                  <div className="text-error">{error}</div>
-                ) : null}
-              </div>
-            </>
-          )}
-        </Dropzone>
-        <div className="px-4 py-2 border-b border-accent">
-          <p className="mb-2">
-            Upload a csv with your listings and preview it in the table below.
-            Once you are happy with the input click save to create your bulk
-            listings in draft state.
-          </p>
-          <SubmitButton text="Save all as draft" onClick={bulkCreate} />
-        </div>
-        {renderTable()}
-      </CardContainerFull>
+      <PageContainer>
+        <CardContainer6xl>
+          <Dropzone
+            accept="text/csv, .csv"
+            onDropAccepted={(files) => onDropAccepted(files)}
+            onDropRejected={(files) => onDropRejected(files)}
+            maxFiles={1}
+            multiple={false}
+          >
+            {({ getRootProps, getInputProps }) => (
+              <>
+                <h4 className="py-2 text-center border-b border-accent">
+                  Bulk upload your listings
+                </h4>
+                <div
+                  {...getRootProps()}
+                  className="flex items-center justify-center h-48 p-2 m-4 border-2 border-dashed rounded-md bg-accent-lightest border-accent-dark"
+                >
+                  <input {...getInputProps()} />
+                  <UploadIcon />
+                  <p className="flex items-center text-center">
+                    Drag and drop a csv file, or click to a select file to
+                    upload.
+                  </p>
+                  {error.length ? (
+                    <div className="text-error">{error}</div>
+                  ) : null}
+                </div>
+              </>
+            )}
+          </Dropzone>
+          <div className="px-4 py-2">
+            <p className="mb-2">
+              Upload a csv with your listings and preview it in the table below.
+              Once you are happy with the input click save to create your bulk
+              listings in draft state.
+            </p>
+            <SubmitButton text="Save all as draft" onClick={bulkCreate} />
+          </div>
+        </CardContainer6xl>
+        <div className="grid grid-cols-1 mx-auto">{renderTable()}</div>
+      </PageContainer>
     </>
   );
 }

@@ -17,7 +17,7 @@ interface LinkProps {
 export const IconButton = (props: ButtonProps): JSX.Element => {
   return (
     <div className="group">
-      <div className="relative flex flex-col items-center rounded-full group text-info group-hover:text-info-dark">
+      <div className="relative flex flex-col items-center rounded-full group text-accent-darker group-hover:text-primary">
         {props.icon}
       </div>
       <ToolTipAbove text={props.tooltip} />
@@ -28,7 +28,7 @@ export const IconButton = (props: ButtonProps): JSX.Element => {
 export const IconButtonLink = (props: LinkProps): JSX.Element => {
   return (
     <div className="group">
-      <div className="text-info-darker hover:text-primary">
+      <div className="text-accent-darker hover:text-primary">
         <Link href={props.url}>
           <a target={props.target}>{props.icon}</a>
         </Link>
