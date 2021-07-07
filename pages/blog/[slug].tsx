@@ -17,26 +17,31 @@ interface Params extends ParsedUrlQuery {
   slug: string;
 }
 
-const ArticlePage = ({ article, publishedDate }: Props): JSX.Element => (
-  <>
-    {article.coverImage && (
-      <img
-        src={article.coverImage}
-        alt={`Cover for ${article.title}`}
-        className="h-40 mx-auto md:mt-6 lg:mt-10 xl:mt-14 sm:h-48 md:h-52 lg:h-64 xl:h-68 2xl:h-80"
-      />
-    )}
-    <p className="w-full my-4 italic leading-relaxed text-center text-gray-600">
-      {publishedDate}
-    </p>
-    <section className="flex flex-col items-center w-full mt-6 font-light leading-relaxed">
-      <article
-        className="w-full prose dark:prose-dark lg:prose-lg md:w-5/6 xl:w-9/12"
-        dangerouslySetInnerHTML={{ __html: article.html }}
-      />
-    </section>
-  </>
-);
+export default function ArticlePage({
+  article,
+  publishedDate,
+}: Props): JSX.Element {
+  return (
+    <>
+      {article.coverImage && (
+        <img
+          src={article.coverImage}
+          alt={`Cover for ${article.title}`}
+          className="h-40 mx-auto md:mt-6 lg:mt-10 xl:mt-14 sm:h-48 md:h-52 lg:h-64 xl:h-68 2xl:h-80"
+        />
+      )}
+      <p className="w-full my-4 italic leading-relaxed text-center text-gray-600">
+        {publishedDate}
+      </p>
+      <section className="flex flex-col items-center w-full mt-6 font-light leading-relaxed">
+        <article
+          className="w-full prose dark:prose-dark lg:prose-lg md:w-5/6 xl:w-9/12"
+          dangerouslySetInnerHTML={{ __html: article.html }}
+        />
+      </section>
+    </>
+  );
+}
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { slug } = context.params as Params;
@@ -48,7 +53,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const cache = JSON.parse(cacheContents);
 
   // Fetch the article from the cache
-  const article: Article = await getArticleFromCache(cache, slug);
+  const article: Article = getArticleFromCache(cache, slug);
 
   const publishedDate = article.publishedAt;
 
@@ -76,5 +81,3 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // { fallback: false } means other routes should 404.
   return { paths, fallback: false };
 };
-
-export default ArticlePage;
