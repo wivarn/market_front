@@ -76,7 +76,7 @@ export default function Header(): JSX.Element {
               <a className="pr-1">
                 <span className="inline-flex">
                   <MdSkwirlIcon />
-                  <h1 className="hidden px-2 mt-1 font-bold text-primary md:block">
+                  <h1 className="hidden px-2 mt-2 font-bold text-primary md:block">
                     skwirl
                   </h1>
                 </span>

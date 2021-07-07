@@ -50,9 +50,7 @@ export const SkwirlIcon = (): JSX.Element => {
 };
 
 export const MdSkwirlIcon = (): JSX.Element => {
-  return (
-    <Image src="/skwirl-logo.png" alt="skwirl logo" width={44} height={44} />
-  );
+  return <Image src="/skwirl.svg" alt="skwirl logo" width={48} height={48} />;
 };
 
 export const SpinnerIcon = (): JSX.Element => {

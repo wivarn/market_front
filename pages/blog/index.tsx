@@ -1,6 +1,8 @@
 import { Article } from "../../types/forem";
 import { GetStaticProps } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import PageContainer from "components/pageContainer";
 import { getAllArticles } from "services/blog/forem";
 
 interface Props {
@@ -12,6 +14,7 @@ export default function BlogIndex({ articles }: Props): JSX.Element {
     <>
       {articles.map(({ title, description, publishedAt, tags, canonical }) => (
         <div key={title}>
+        <PageContainer>
           <Link href={canonical}>
             <a>
               <h1>{title}</h1>

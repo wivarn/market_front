@@ -112,39 +112,41 @@ export default function ProfileForm(): JSX.Element {
       >
         {(formik) => (
           <Form>
-            <TextFieldFull
-              label="First Name"
-              name="givenName"
-              id={`${idPrefix}givenName`}
-            />
-            <TextFieldFull
-              label="Last Name"
-              name="familyName"
-              id={`${idPrefix}familyName`}
-            />
-            <DropdownCombobox
-              label="Currency"
-              name="currency"
-              items={currencyList}
-            />
+            <div className="my-2 space-y-2">
+              <TextFieldFull
+                label="First Name"
+                name="givenName"
+                id={`${idPrefix}givenName`}
+              />
+              <TextFieldFull
+                label="Last Name"
+                name="familyName"
+                id={`${idPrefix}familyName`}
+              />
+              <DropdownCombobox
+                label="Currency"
+                name="currency"
+                items={currencyList}
+              />
 
-            <TextFieldFull
-              label={emailLabel()}
-              name="email"
-              id={`${idPrefix}email`}
-              disabled={true}
-            />
-            <TextFieldFull
-              label={phoneNumberLabel()}
-              name="phoneNumber"
-              id={`${idPrefix}phoneNumber`}
-              disabled={true}
-            />
+              <TextFieldFull
+                label={emailLabel()}
+                name="email"
+                id={`${idPrefix}email`}
+                disabled={true}
+              />
+              <TextFieldFull
+                label={phoneNumberLabel()}
+                name="phoneNumber"
+                id={`${idPrefix}phoneNumber`}
+                disabled={true}
+              />
 
-            <SubmitButtonFull
-              text="Update Profile"
-              disabled={formik.isSubmitting}
-            />
+              <SubmitButtonFull
+                text="Update Profile"
+                disabled={formik.isSubmitting}
+              />
+            </div>
           </Form>
         )}
       </Formik>

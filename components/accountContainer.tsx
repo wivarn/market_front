@@ -14,7 +14,7 @@ const LinkWrapper = ({ href, tab, activeTab, ...props }: LinkProps) => {
         <p
           className={
             tab == activeTab
-              ? "pb-2 border-b-2 border-primary text-primary font-semibold"
+              ? "pb-2 border-b-2 border-primary text-primary font-bold"
               : ""
           }
         >
@@ -35,11 +35,11 @@ export default function AccountContainer({
   return (
     <div className="my-4">
       <CardContainer2xl>
-        <h3 className="py-4 text-center border-b border-accent">
+        <h3 className="py-2 text-center border-b border-accent">
           Your Profile
         </h3>
         <div className="font-semibold text-accent-darker">
-          <div className="flex justify-center mt-8 space-x-4 md:space-x-8">
+          <div className="flex justify-center mt-4 space-x-4 md:space-x-8">
             <LinkWrapper
               href="/account/profile"
               tab="profile"

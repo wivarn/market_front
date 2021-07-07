@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { getAllArticles, getArticleFromCache } from "../../services/blog/forem";
 
 import { Article } from "../../types/forem";
+import PageContainer from "components/pageContainer";
 import { ParsedUrlQuery } from "querystring";
 import fs from "fs";
 import path from "path";
@@ -23,6 +24,7 @@ export default function ArticlePage({
 }: Props): JSX.Element {
   return (
     <>
+    <PageContainer>
       {article.coverImage && (
         <img
           src={article.coverImage}
@@ -39,6 +41,7 @@ export default function ArticlePage({
           dangerouslySetInnerHTML={{ __html: article.html }}
         />
       </section>
+        </PageContainer>
     </>
   );
 }
