@@ -24,7 +24,7 @@ export const convertMarkdownToHtml = (markdown: string): string => {
     .use(parse)
     .use(gfm)
     .use(remarkHtml)
-    .processSync(strip(content)).contents;
+    .processSync(content).contents;
 
-  return String(html);
+  return strip(String(html));
 };
