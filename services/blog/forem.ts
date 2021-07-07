@@ -1,8 +1,13 @@
 import { Article, CachedArticle } from "../../types/forem";
-import axios, { AxiosResponse } from "axios";
 import { convertMarkdownToHtml, sanitizeMarkdown } from "./markdown";
 
-const username = "wivarn";
+import axios from "axios";
+
+const usernames = ["wivarn", "kleverrobot"];
+const foremApiBasePaths = [
+  "https://dev.to/api/",
+  "https://the.community.club/api/",
+];
 const blogURL = `${process.env.NEXT_PUBLIC_BASE_URL}/blog/`;
 
 // Takes a URL and returns the relative slug to your website
@@ -13,8 +18,8 @@ export const convertCanonicalURLToRelative = (canonical: string): string => {
 // Takes the data for an article returned by the Dev.to API and:
 // * Parses it into the Article interface
 // * Converts the full canonical URL into a relative slug to be used in getStaticPaths
-// * Converts the supplied markdown into HTML (it does a little sanitising as Dev.to allows markdown headers (##) with out a trailing space
-const convertDevtoResponseToArticle = (data: any): Article => {
+// * Converts and sanitaizes the supplied markdown into HTML
+const convertResponseToArticle = (data: any): Article => {
   const slug = convertCanonicalURLToRelative(data.canonical_url);
   const markdown = sanitizeMarkdown(data.body_markdown);
   const html = convertMarkdownToHtml(markdown);
@@ -24,9 +29,7 @@ const convertDevtoResponseToArticle = (data: any): Article => {
     title: data.title,
     description: data.description,
     publishedAt: data.published_at,
-    devToSlug: data.slug,
-    devToPath: data.path,
-    devToURL: data.url,
+    url: data.url,
     commentsCount: data.comments_count,
     publicReactionsCount: data.public_reactions_count,
     positiveReactionsCount: data.positive_reactions_count,
@@ -41,37 +44,38 @@ const convertDevtoResponseToArticle = (data: any): Article => {
   return article;
 };
 
-const blogFilter = (article: Article) => article.canonical.startsWith(blogURL);
+const blogFilter = (article: any) => article.canonical_url.startsWith(blogURL);
 
-// Get all users articles from Dev.to
-// Use the authenticated Dev.to article route to get the article markdown included
+const getArticleIds = async (username: string, basePath: string) => {
+  return await axios
+    .get(`${basePath}articles/latest`, {
+      params: { username: username, per_page: 1000 },
+    })
+    .then((response) => {
+      const articles = response.data.filter(blogFilter);
+      return articles.map((article: any) => article.id);
+    })
+    .catch((error) => {
+      console.log(error.response);
+      return [];
+    });
+};
+
 export const getAllArticles = async (): Promise<Article[]> => {
-  const { data }: AxiosResponse = await axios.get(
-    `https://dev.to/api/articles/me`,
-    {
-      params: { username, per_page: 1000 },
-      headers: { "api-key": process.env.DEVTO_APIKEY },
+  const articles: Article[] = [];
+  for (const username of usernames) {
+    for (const basePath of foremApiBasePaths) {
+      for (const id of await getArticleIds(username, basePath)) {
+        axios.get(`${basePath}/articles/${id}`).then((response) => {
+          articles.push(convertResponseToArticle(response.data));
+        });
+      }
     }
-  );
-  const articles: Article[] = data.map(convertDevtoResponseToArticle);
+  }
+
   return articles;
 };
 
-// Get all articles from Dev.to meant for the blog page
-export const getAllBlogArticles = async (): Promise<Article[]> => {
-  const articles = await getAllArticles();
-  return articles.filter(blogFilter);
-};
-
-// Get my latest published article meant for the blog (and portfolio) pages
-// export const getLatestBlogAndPortfolioArticle = async () => {
-//   const articles = await getAllArticles();
-//   const [latestBlog] = articles.filter(blogFilter);
-//   const [latestPortfolio] = articles.filter(portfolioFilter); // ignore this! It's meant for another page (see the wallis.dev GitHub repository for more information)
-//   return [latestBlog, latestPortfolio];
-// };
-
-// Gets an article from Dev.to using the ID that was saved to the cache earlier
 export const getArticleFromCache = (
   cache: CachedArticle[],
   slug: string

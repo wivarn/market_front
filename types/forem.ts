@@ -3,9 +3,7 @@ export interface Article {
   title: string;
   description: string;
   publishedAt: string;
-  devToSlug: string;
-  devToPath: string;
-  devToURL: string;
+  url: string;
   commentsCount: number;
   publicReactionsCount: number;
   positiveReactionsCount: number;
