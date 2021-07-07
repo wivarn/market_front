@@ -171,35 +171,37 @@ export default function AddressForm(): JSX.Element {
       >
         {(formik) => (
           <Form>
-            <DropdownCombobox
-              label="Country"
-              name="country"
-              placeholder={
-                formik.getFieldProps("country").value ? "" : "Select country"
-              }
-              items={countryList}
-              childresetRef={stateRef}
-            />
+            <div className="my-2 space-y-2">
+              <DropdownCombobox
+                label="Country"
+                name="country"
+                placeholder={
+                  formik.getFieldProps("country").value ? "" : "Select country"
+                }
+                items={countryList}
+                childresetRef={stateRef}
+              />
 
-            <TextFieldFull
-              label="Address Line 1"
-              name="street1"
-              id={`${idPrefix}street1`}
-            />
-            <TextFieldFull
-              label="Address Line 2"
-              name="street2"
-              id={`${idPrefix}street2`}
-            />
-            <TextFieldFull label="City" name="city" id={`${idPrefix}city`} />
+              <TextFieldFull
+                label="Address Line 1"
+                name="street1"
+                id={`${idPrefix}street1`}
+              />
+              <TextFieldFull
+                label="Address Line 2"
+                name="street2"
+                id={`${idPrefix}street2`}
+              />
+              <TextFieldFull label="City" name="city" id={`${idPrefix}city`} />
 
-            {stateSelect(formik)}
-            {zipField(formik.getFieldProps("country").value)}
+              {stateSelect(formik)}
+              {zipField(formik.getFieldProps("country").value)}
 
-            <SubmitButtonFull
-              text="Update Address"
-              disabled={formik.isSubmitting}
-            />
+              <SubmitButtonFull
+                text="Update Address"
+                disabled={formik.isSubmitting}
+              />
+            </div>
           </Form>
         )}
       </Formik>
