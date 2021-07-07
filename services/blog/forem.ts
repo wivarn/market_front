@@ -66,14 +66,15 @@ export const getAllArticles = async (): Promise<Article[]> => {
   for (const username of usernames) {
     for (const basePath of foremApiBasePaths) {
       for (const id of await getArticleIds(username, basePath)) {
-        axios.get(`${basePath}/articles/${id}`).then((response) => {
+        await axios.get(`${basePath}/articles/${id}`).then((response) => {
           articles.push(convertResponseToArticle(response.data));
         });
       }
     }
   }
-
-  return articles;
+  return articles.sort((a, b) =>
+    new Date(b.publishedAt) > new Date(a.publishedAt) ? 1 : -1
+  );
 };
 
 export const getArticleFromCache = (
