@@ -1,6 +1,5 @@
 import { Article } from "../../types/forem";
 import { GetStaticProps } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import PageContainer from "components/pageContainer";
 import { getAllArticles } from "services/blog/forem";
@@ -12,19 +11,23 @@ interface Props {
 export default function BlogIndex({ articles }: Props): JSX.Element {
   return (
     <>
-      {articles.map(({ title, description, publishedAt, tags, canonical }) => (
-        <div key={title}>
-        <PageContainer>
-          <Link href={canonical}>
-            <a>
-              <h1>{title}</h1>
-            </a>
-          </Link>
-          <h2>{description}</h2>
-          <p>{publishedAt}</p>
-          <p>{tags}</p>
-        </div>
-      ))}
+      <PageContainer>
+        <h1 className="p-4 text-center">Our Blog</h1>
+        {articles.map(
+          ({ title, description, publishedAt, tags, canonical }) => (
+            <div className="px-8 py-8" key={title}>
+              <Link href={canonical}>
+                <a>
+                  <h2>{title}</h2>
+                </a>
+              </Link>
+              <h4>{description}</h4>
+              <p className="text-accent-dark">{publishedAt}</p>
+              <p>{tags}</p>
+            </div>
+          )
+        )}
+      </PageContainer>
     </>
   );
 }

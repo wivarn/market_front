@@ -16,10 +16,15 @@ export default function Footer(): JSX.Element {
       <div className="text-2xl font-semibold text-primary">
         <Logo xl={true} />
         <nav>
-          <ul className="flex flex-row justify-center mt-4 space-x-8 text-lg font-semibold text-accent-darker">
+          <ul className="flex flex-col justify-center mt-4 space-y-2 text-lg font-semibold md:space-y-0 md:space-x-4 md:flex-row text-accent-darker">
             <li>
               <Link href="/">
                 <a className="hover:text-primary">Home</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog">
+                <a className="hover:text-primary">Blog</a>
               </Link>
             </li>
             <li>
