@@ -12,18 +12,40 @@ export default function BlogIndex({ articles }: Props): JSX.Element {
   return (
     <>
       <PageContainer>
-        <h1 className="p-4 text-center">Our Blog</h1>
+        <h2 className="p-4 text-center">Blog</h2>
         {articles.map(
-          ({ title, description, publishedAt, tags, canonical }) => (
-            <div className="px-8 py-8" key={title}>
-              <Link href={canonical}>
-                <a>
-                  <h2>{title}</h2>
-                </a>
-              </Link>
-              <h4>{description}</h4>
-              <p className="text-accent-dark">{publishedAt}</p>
-              <p>{tags}</p>
+          ({
+            title,
+            description,
+            author,
+            profileImage,
+            readableDate,
+            coverImage,
+            canonical,
+          }) => (
+            <div className="py-4" key={title}>
+              <div className="max-w-4xl mx-auto border rounded-md hover:shadow-md">
+                <Link href={canonical}>
+                  <a>
+                    <img
+                      src={coverImage}
+                      className="object-cover w-full rounded-t-md"
+                    />
+                    <div className="p-4">
+                      <h3>{title}</h3>
+                      <p className="line-clamp-2 text-accent-darker">
+                        {description}
+                      </p>
+
+                      <div className="inline-flex items-center mt-4 space-x-4">
+                        <img src={profileImage} className="h-10 rounded-full" />
+                        <p className="text-accent-dark">{author}</p>
+                        <p className="text-accent-dark">{readableDate}</p>
+                      </div>
+                    </div>
+                  </a>
+                </Link>
+              </div>
             </div>
           )
         )}

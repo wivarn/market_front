@@ -18,30 +18,37 @@ interface Params extends ParsedUrlQuery {
   slug: string;
 }
 
-export default function ArticlePage({
-  article,
-  publishedDate,
-}: Props): JSX.Element {
+export default function ArticlePage({ article }: Props): JSX.Element {
   return (
     <>
       <PageContainer>
-        {article.coverImage && (
-          <img
-            src={article.coverImage}
-            alt={`Cover for ${article.title}`}
-            className="w-3/4 mx-auto mt-8 rounded-md md:w-5/6 xl:w-9/12"
-          />
-        )}
-        <h2 className="mt-4 text-center">{article.title}</h2>
-        <p className="w-full my-2 italic leading-relaxed text-center text-gray-600">
-          {publishedDate}
-        </p>
-        <section className="flex flex-col items-center w-full mt-6 font-light leading-relaxed">
-          <article
-            className="w-3/4 prose dark:prose-dark lg:prose-lg md:w-5/6 xl:w-9/12"
-            dangerouslySetInnerHTML={{ __html: article.html }}
-          />
-        </section>
+        <article className="max-w-4xl p-4 mx-auto mt-8">
+          {article.coverImage && (
+            <img
+              src={article.coverImage}
+              alt={`Cover for ${article.title}`}
+              className="w-full rounded-md"
+            />
+          )}
+          <h2 className="mt-4 headline">{article.title}</h2>
+          <div className="flex items-center my-4 space-x-4 leading-relaxed byline text-accent-dark">
+            <img
+              src={article.profileImage}
+              alt={article.author}
+              className="h-12 rounded-full"
+            />
+            <address className="text-xl author">{article.author}</address>
+            <time className="text-xl pubdate" dateTime={article.publishedAt}>
+              {article.readableDate}
+            </time>
+          </div>
+          <section className="flex flex-col mt-6 font-light leading-relaxed">
+            <div
+              className="prose article-content prose-blue lg:prose-lg max-w-none"
+              dangerouslySetInnerHTML={{ __html: article.html }}
+            />
+          </section>
+        </article>
       </PageContainer>
     </>
   );
