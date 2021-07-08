@@ -65,7 +65,7 @@ export default function Header(): JSX.Element {
   return (
     <div>
       <Head>
-        <title>Skwirl</title>
+        <title>skwirl</title>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
@@ -76,9 +76,9 @@ export default function Header(): JSX.Element {
               <a className="pr-1">
                 <span className="inline-flex">
                   <MdSkwirlIcon />
-                  <h1 className="hidden px-2 mt-2 font-bold text-primary md:block">
+                  <h2 className="hidden px-2 mt-2 font-bold text-primary md:block">
                     skwirl
-                  </h1>
+                  </h2>
                 </span>
               </a>
             </Link>

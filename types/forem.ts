@@ -3,6 +3,9 @@ export interface Article {
   title: string;
   description: string;
   publishedAt: string;
+  readableDate: string;
+  author: string;
+  profileImage: string;
   url: string;
   commentsCount: number;
   publicReactionsCount: number;
