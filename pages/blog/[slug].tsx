@@ -9,16 +9,11 @@ import path from "path";
 
 const cacheFile = ".forem.json";
 
-interface Props {
-  article: Article;
-  publishedDate: string;
-}
-
 interface Params extends ParsedUrlQuery {
   slug: string;
 }
 
-export default function ArticlePage({ article }: Props): JSX.Element {
+export default function ArticlePage(article: Article): JSX.Element {
   return (
     <>
       <PageContainer>
@@ -66,9 +61,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   // Fetch the article from the cache
   const article: Article = getArticleFromCache(cache, slug);
 
-  const publishedDate = article.publishedAt;
-
-  return { props: { article, publishedDate } };
+  return { props: article };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
