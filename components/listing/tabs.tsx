@@ -1,5 +1,5 @@
 import { PrimaryButton, SecondaryButton } from "components/buttons";
-
+import { OverflowButton } from "components/listing/overflowButton";
 import Link from "next/link";
 import SearchFilter from "components/forms/listing/searchFilter";
 import SearchSort from "components/forms/listing/searchSort";
@@ -77,25 +77,14 @@ export default function ListingTabs({
 
   return (
     <div>
-      <div className="relative py-2 text-center border-b border-accent">
-        <h3 className="inline-block p-2 text-accent-darkest">Your Listings</h3>
-        <div className="top-0 right-0 space-x-4 md:block md:absolute">
-          <PrimaryButton
-            text="New Listing"
-            href="listings/new"
-            disabled={disableListings}
-          />
-          <SecondaryButton
-            text="Bulk Add"
-            href="listings/bulkCreate"
-            disabled={disableListings}
-          />
-          <SecondaryButton
-            text="Update Template"
-            href="listings/template"
-            disabled={disableListings}
-          />
-        </div>
+      <div className="flex items-center justify-center py-2 space-x-2 border-b border-accent">
+        <h3 className="text-accent-darkest">Your Listings</h3>
+        <PrimaryButton
+          text="New Listing"
+          href="listings/new"
+          disabled={disableListings}
+        />
+        <OverflowButton disabled={disableListings} />
       </div>
       <div className="flex justify-between px-4 py-2">
         <SearchFilter />

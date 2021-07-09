@@ -15,6 +15,7 @@ import {
   HiChevronLeft,
   HiChevronRight,
   HiCloudUpload,
+  HiDotsVertical,
   HiExclamation,
   HiExclamationCircle,
   HiFilter,
@@ -100,6 +101,10 @@ export const ChevronLeftIcon = (): JSX.Element => {
 
 export const SmChevronRightIcon = (): JSX.Element => {
   return <HiChevronRight className="icon-sm" />;
+};
+
+export const SmOverflowIcon = (): JSX.Element => {
+  return <HiDotsVertical className="icon-sm" />;
 };
 
 export const SmChevronLeftIcon = (): JSX.Element => {
