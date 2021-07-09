@@ -21,11 +21,11 @@ export default function BlogIndex({ articles }: Props): JSX.Element {
             profileImage,
             readableDate,
             coverImage,
-            canonical,
+            slug,
           }) => (
             <div className="py-4" key={title}>
               <div className="max-w-4xl mx-auto border rounded-md hover:shadow-md">
-                <Link href={canonical}>
+                <Link href={`/blog/${slug}`}>
                   <a>
                     <img
                       src={coverImage}

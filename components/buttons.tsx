@@ -101,6 +101,7 @@ export const ResetButton = (props: Props): JSX.Element => {
     <_Button
       {...props}
       type="reset"
+      onClick={props.onClick}
       buttonClassName="underline text-info disabled:text-accent"
     />
   );

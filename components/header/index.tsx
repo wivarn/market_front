@@ -37,7 +37,7 @@ export default function Header(): JSX.Element {
 
   function LoggedOutNav() {
     return (
-      <div className="inline-flex items-center justify-items-center">
+      <div className="items-center justify-items-right">
         <IconLink href="/login" icon={<UserCircleIcon />} tooltip="Log In" />
       </div>
     );
@@ -71,9 +71,9 @@ export default function Header(): JSX.Element {
       </Head>
       <header>
         <PageContainer yPadding="py-1">
-          <nav className="container flex items-center px-2 mx-auto max-w-screen-2xl">
+          <nav className="flex items-center px-2">
             <Link href="/">
-              <a className="pr-1">
+              <a>
                 <span className="inline-flex">
                   <MdSkwirlIcon />
                   <h2 className="hidden px-2 mt-2 font-bold text-primary md:block">
@@ -82,7 +82,9 @@ export default function Header(): JSX.Element {
                 </span>
               </a>
             </Link>
-            <SearchForm />
+            <span className="w-full px-2 mx-auto">
+              <SearchForm />
+            </span>
             <div className="ml-auto">{renderNav()}</div>
           </nav>
         </PageContainer>

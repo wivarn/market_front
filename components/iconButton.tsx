@@ -5,7 +5,8 @@ import { ToolTipAbove } from "components/tooltip";
 
 interface ButtonProps {
   icon: ReactNode;
-  tooltip: string;
+  disabled?: boolean;
+  tooltip?: string;
 }
 
 interface LinkProps {
@@ -17,10 +18,13 @@ interface LinkProps {
 export const IconButton = (props: ButtonProps): JSX.Element => {
   return (
     <div className="group">
-      <div className="relative flex flex-col items-center rounded-full group text-accent-darker group-hover:text-primary">
+      <button
+        className="relative items-center p-1 border rounded-md disabled:cursor-not-allowed disabled:opacity-50 border-accent group-hover:border-primary text-accent-darker group-hover:text-primary"
+        disabled={props.disabled}
+      >
         {props.icon}
-      </div>
-      <ToolTipAbove text={props.tooltip} />
+      </button>
+      {props.tooltip ? <ToolTipAbove text={props.tooltip} /> : null}
     </div>
   );
 };

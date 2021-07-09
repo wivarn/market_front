@@ -6,6 +6,7 @@ import {
   FaYoutubeSquare,
 } from "react-icons/fa";
 import {
+  HiArrowCircleLeft,
   HiArrowNarrowDown,
   HiBookOpen,
   HiCheck,
@@ -14,6 +15,7 @@ import {
   HiChevronLeft,
   HiChevronRight,
   HiCloudUpload,
+  HiDotsVertical,
   HiExclamation,
   HiExclamationCircle,
   HiFilter,
@@ -50,7 +52,15 @@ export const SkwirlIcon = (): JSX.Element => {
 };
 
 export const MdSkwirlIcon = (): JSX.Element => {
-  return <Image src="/skwirl.svg" alt="skwirl logo" width={48} height={48} />;
+  return (
+    <Image
+      src="/skwirl.svg"
+      alt="skwirl logo"
+      width={48}
+      height={48}
+      layout="fixed"
+    />
+  );
 };
 
 export const SpinnerIcon = (): JSX.Element => {
@@ -64,6 +74,11 @@ export const LgSpinnerIcon = (): JSX.Element => {
 export const UploadIcon = (): JSX.Element => {
   return <HiCloudUpload className="icon-lg" />;
 };
+
+export const SmBackArrowIcon = (): JSX.Element => {
+  return <HiArrowCircleLeft className="icon-sm" />;
+};
+
 export const CurrencyDollarIcon = (): JSX.Element => {
   return <HiOutlineCurrencyDollar className="icon" />;
 };
@@ -86,6 +101,10 @@ export const ChevronLeftIcon = (): JSX.Element => {
 
 export const SmChevronRightIcon = (): JSX.Element => {
   return <HiChevronRight className="icon-sm" />;
+};
+
+export const SmOverflowIcon = (): JSX.Element => {
+  return <HiDotsVertical className="icon-sm" />;
 };
 
 export const SmChevronLeftIcon = (): JSX.Element => {
