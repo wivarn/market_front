@@ -270,7 +270,9 @@ export default function SearchFilter(): JSX.Element {
                         />
                         <ResetButton
                           text="Clear"
-                          onClick={formik.handleReset}
+                          onClick={async () => {
+                            formik.handleReset;
+                          }}
                         />
                       </div>
                     </div>
