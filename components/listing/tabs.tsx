@@ -1,4 +1,4 @@
-import { PrimaryButton, SecondaryButton } from "components/buttons";
+import { PrimaryButton } from "components/buttons";
 import { OverflowButton } from "components/listing/overflowButton";
 import Link from "next/link";
 import SearchFilter from "components/forms/listing/searchFilter";

@@ -83,7 +83,7 @@ export default function Header(): JSX.Element {
               </a>
             </Link>
             <span className="w-full px-2 mx-auto">
-            <SearchForm />
+              <SearchForm />
             </span>
             <div className="ml-auto">{renderNav()}</div>
           </nav>
