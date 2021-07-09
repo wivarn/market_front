@@ -117,7 +117,7 @@ export default function Landing(): JSX.Element {
         <PageSection title="Why you'll love skwirl">
           <FeatureRow
             title="Lower seller fees"
-            description="Our fees are straightforward, with no hidden surprises and more than 50% cheaper than eBay. Keep more of your profits, so you can expand your collection faster."
+            description="We have a 5% seller fee (*plus payment fee from Stripe). That's it. No hidden surprises and unlimited free listings. Keep more of your profits, so you can expand your collection faster."
             image="/promo/money.svg"
             imageAlt="Low Selling Fees"
           />
@@ -136,7 +136,7 @@ export default function Landing(): JSX.Element {
           />
           <FeatureRow
             title="More than just a marketplace"
-            description="We believe that collecting is deeper than transactions. That's why we're building social features so you can admire your favourite collectors, show off your prized possessions and subscribe to a feed that's tailored to your interests."
+            description="We believe that collecting is deeper than online transactions. That's why we're integrating social features so you can admire your favourite collectors, show off your prized possessions and subscribe to a feed that's tailored to your interests."
             image="/promo/more.svg"
             imageAlt="Marketplace"
             reverse

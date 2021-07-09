@@ -20,7 +20,7 @@ export const PromoCard = (props: Props): JSX.Element => {
           className="overflow-hidden rounded-t-lg"
         />
         <div className="p-4">
-          <h3 className="my-2 text-lg font-semibold uppercase text-accent-darkest">
+          <h3 className="my-2 text-xl font-semibold text-accent-darkest">
             {props.title}
           </h3>
           <p className="text-justify">{props.text}</p>
