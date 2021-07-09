@@ -271,7 +271,13 @@ export default function SearchFilter(): JSX.Element {
                         <ResetButton
                           text="Clear"
                           onClick={async () => {
-                            formik.handleReset;
+                            for (const filter in formik.values) {
+                              delete router.query[filter];
+                            }
+                            router.push({
+                              pathname: router.pathname,
+                              query: { ...router.query, page: 0 },
+                            });
                           }}
                         />
                       </div>
