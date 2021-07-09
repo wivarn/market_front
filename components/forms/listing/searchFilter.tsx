@@ -200,7 +200,7 @@ export default function SearchFilter(): JSX.Element {
             <IconButton icon={<FilterIcon />} tooltip="Filter" />
           </Disclosure.Button>
           <Disclosure.Panel>
-            <div className="absolute z-10 p-2 px-4 border rounded-lg top-12 bg-accent-lightest border-accent-light">
+            <div className="absolute z-10 p-2 px-4 border rounded-lg top-14 bg-accent-lightest border-accent-light">
               <Formik
                 initialValues={initialValues}
                 enableReinitialize={true}
@@ -270,9 +270,7 @@ export default function SearchFilter(): JSX.Element {
                         />
                         <ResetButton
                           text="Clear"
-                          onClick={async () => {
-                            router.push("/listings/search");
-                          }}
+                          onClick={formik.handleReset}
                         />
                       </div>
                     </div>
