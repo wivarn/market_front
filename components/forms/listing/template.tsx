@@ -21,6 +21,7 @@ import {
 import { createRef, useState } from "react";
 import useSWR, { mutate } from "swr";
 
+import { BackButton } from "components/buttons";
 import { CardContainer6xl } from "components/cardContainer";
 import FormSection from "./section";
 import { ListingTemplate } from "types/listings";
@@ -207,8 +208,11 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
   if (!session) return <SpinnerLg text="Loading..." />;
 
   return (
-    <div className="p-4">
+    <div className="relative p-4">
       <CardContainer6xl>
+        <div className="absolute -top-8">
+          <BackButton text="Back to listings" href="/listings" />
+        </div>
         <div className="p-2">
           <h3 className="p-2 text-center">
             Enter the details for your listing template

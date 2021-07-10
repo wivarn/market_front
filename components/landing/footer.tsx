@@ -2,21 +2,21 @@ import { SmFacebookIcon, SmInstagramIcon, SmTwitterIcon } from "../icons";
 
 import { IconButtonLink } from "../iconButton";
 import Link from "next/link";
-import { Logo } from "../logo";
+import { LogoXl } from "../logo";
 
 export default function LandingFooter(): JSX.Element {
   return (
     <footer className="py-8 text-center bg-cover bg-heroshiny">
       <div className="text-2xl font-semibold text-primary">
-        <Logo xl={true} />
+        <LogoXl colour="text-primary" />
         <div className="flex items-center justify-center mt-4 space-x-4">
-          <Link href="/about/team">
+          <Link href="/blog">
             <a className="text-lg font-semibold hover:text-primary text-info-darker">
-              Blog
+              blog
             </a>
           </Link>
           <IconButtonLink
-            url="https://www.facebook.com/Skwirl-110235447975935"
+            url="https://www.facebook.com/skwirl.io"
             icon={<SmFacebookIcon />}
             target="_blank"
           />

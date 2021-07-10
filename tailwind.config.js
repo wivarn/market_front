@@ -10,6 +10,9 @@ module.exports = {
     extend: {
       backgroundImage: {
         secshiny: "url('/assets/secShiny.svg')",
+        bloghead: "url('/assets/blog-banner.png')",
+        blogbg: "url('/assets/blog-bg.svg')",
+        blog: "url('/assets/blog-index-bg.svg')",
         heroshiny: "url('/assets/heroShiny.svg')",
       },
       fontFamily: {

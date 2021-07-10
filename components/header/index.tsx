@@ -74,9 +74,9 @@ export default function Header(): JSX.Element {
           <nav className="flex items-center px-2">
             <Link href="/">
               <a>
-                <span className="inline-flex">
+                <span className="inline-flex fill-current text-primary">
                   <MdSkwirlIcon />
-                  <h2 className="hidden px-2 mt-2 font-bold text-primary md:block">
+                  <h2 className="hidden px-2 mt-2 font-bold md:block">
                     skwirl
                   </h2>
                 </span>
