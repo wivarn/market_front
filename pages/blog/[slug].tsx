@@ -46,7 +46,9 @@ export default function ArticlePage(article: Article): JSX.Element {
                 alt={article.author}
                 className="float-left mr-4 rounded-full h-14"
               />
-              <div className="text-xl font-bold author text-accent-darker">{article.author}</div>
+              <div className="text-xl font-bold author text-accent-darker">
+                {article.author}
+              </div>
               <time className="text-xl pubdate" dateTime={article.publishedAt}>
                 {article.readableDate}
               </time>
