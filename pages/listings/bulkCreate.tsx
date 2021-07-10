@@ -2,6 +2,7 @@ import * as Yup from "yup";
 
 import Dropzone, { FileRejection } from "react-dropzone";
 
+import { BackButton } from "components/buttons";
 import { CardContainer6xl } from "components/cardContainer";
 import { ListingApi } from "services/backendApi/listing";
 import { NextSeo } from "next-seo";
@@ -181,6 +182,9 @@ export default function BulkCreateListings(): JSX.Element {
       <NextSeo title="Bulk Create Listing" />
       <PageContainer>
         <CardContainer6xl>
+          <div className="absolute -top-8">
+            <BackButton text="Back to listings" href="/listings" />
+          </div>
           <Dropzone
             accept="text/csv, .csv"
             onDropAccepted={(files) => onDropAccepted(files)}
