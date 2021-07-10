@@ -2,6 +2,8 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { getAllArticles, getArticleFromCache } from "../../services/blog/forem";
 
 import { Article } from "../../types/forem";
+import Link from "next/link";
+import { Logo } from "components/logo";
 import PageContainer from "components/pageContainer";
 import { ParsedUrlQuery } from "querystring";
 import fs from "fs";
@@ -16,35 +18,48 @@ interface Params extends ParsedUrlQuery {
 export default function ArticlePage(article: Article): JSX.Element {
   return (
     <>
-      <PageContainer>
-        <article className="max-w-4xl p-4 mx-auto mt-8">
-          {article.coverImage && (
-            <img
-              src={article.coverImage}
-              alt={`Cover for ${article.title}`}
-              className="w-full rounded-md"
-            />
-          )}
-          <h2 className="mt-4 headline">{article.title}</h2>
-          <div className="flex items-center my-4 space-x-4 leading-relaxed byline text-accent-dark">
-            <img
-              src={article.profileImage}
-              alt={article.author}
-              className="h-12 rounded-full"
-            />
-            <address className="text-xl author">{article.author}</address>
-            <time className="text-xl pubdate" dateTime={article.publishedAt}>
-              {article.readableDate}
-            </time>
-          </div>
-          <section className="flex flex-col mt-6 font-light leading-relaxed">
-            <div
-              className="prose article-content prose-blue lg:prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: article.html }}
-            />
-          </section>
-        </article>
-      </PageContainer>
+      <div className="h-16 bg-cover bg-bloghead">
+        <div className="flex items-center p-4 space-x-4 text-xl font-semibold text-white">
+          <Logo light />
+          <Link href="/" passHref>
+            <a className="hover:underline">Home</a>
+          </Link>
+          <Link href="/blog" passHref>
+            <a className="hover:underline">Blog</a>
+          </Link>
+        </div>
+      </div>
+      <div className="bg-cover bg-blogbg">
+        <PageContainer>
+          <article className="max-w-4xl p-4 mx-auto mt-8 bg-white">
+            {article.coverImage && (
+              <img
+                src={article.coverImage}
+                alt={`Cover for ${article.title}`}
+                className="w-full rounded-md"
+              />
+            )}
+            <h2 className="mt-4 headline">{article.title}</h2>
+            <div className="items-center my-4 leading-relaxed byline text-accent-dark">
+              <img
+                src={article.profileImage}
+                alt={article.author}
+                className="float-left mr-4 rounded-full h-14"
+              />
+              <div className="text-xl font-bold author text-accent-darker">{article.author}</div>
+              <time className="text-xl pubdate" dateTime={article.publishedAt}>
+                {article.readableDate}
+              </time>
+            </div>
+            <section className="flex flex-col mt-6 font-light leading-relaxed">
+              <div
+                className="prose article-content prose-blue lg:prose-lg max-w-none"
+                dangerouslySetInnerHTML={{ __html: article.html }}
+              />
+            </section>
+          </article>
+        </PageContainer>
+      </div>
     </>
   );
 }

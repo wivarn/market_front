@@ -117,7 +117,7 @@ export default function Landing(): JSX.Element {
         <PageSection title="Why you'll love skwirl">
           <FeatureRow
             title="Lower seller fees"
-            description="We have a 5% seller fee (*plus payment fee from Stripe). That's it. No hidden surprises and unlimited free listings. Keep more of your profits, so you can expand your collection faster."
+            description="Our 5% seller fee is more than 50% cheaper than everyone else. No hidden surprises and unlimited free listings. Keep more of your profits, so you can expand your collection faster."
             image="/promo/money.svg"
             imageAlt="Low Selling Fees"
           />
