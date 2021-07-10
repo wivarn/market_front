@@ -1,7 +1,7 @@
 import { Article } from "../../types/forem";
 import { GetStaticProps } from "next";
 import Link from "next/link";
-import { Logo } from "components/logo";
+import { LogoXl } from "components/logo";
 import PageContainer from "components/pageContainer";
 import { getAllArticles } from "services/blog/forem";
 
@@ -13,18 +13,20 @@ export default function BlogIndex({ articles }: Props): JSX.Element {
   return (
     <>
       <div className="grid bg-cover h-96 bg-bloghead">
-        <div className="relative">
-          <Link href="/" passHref>
-            <a className="absolute p-4 text-xl font-semibold text-white hover:underline">
-              Home
-            </a>
-          </Link>
-        </div>
+        <PageContainer>
+          <div className="relative">
+            <Link href="/" passHref>
+              <a className="absolute text-xl font-semibold text-white hover:text-primary">
+                Home
+              </a>
+            </Link>
+          </div>
 
-        <div className="grid h-32 px-16 mx-auto align-middle rounded-md">
-          <Logo light xl />
-          <h2 className="text-center text-white">Blog</h2>
-        </div>
+          <div className="grid justify-center mx-auto mt-24 rounded-md">
+            <LogoXl colour="text-white" />
+            <h2 className="text-center text-white">blog</h2>
+          </div>
+        </PageContainer>
       </div>
       <div className="bg-cover bg-blog">
         <PageContainer>

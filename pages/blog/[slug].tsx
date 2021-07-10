@@ -20,12 +20,12 @@ export default function ArticlePage(article: Article): JSX.Element {
     <>
       <div className="h-16 bg-cover bg-bloghead">
         <div className="flex items-center p-4 space-x-4 text-xl font-semibold text-white">
-          <Logo light />
-          <Link href="/" passHref>
-            <a className="hover:underline">Home</a>
+          <Logo colour="text-white" />
+          <Link href="/">
+            <a className="hover:text-primary">Home</a>
           </Link>
-          <Link href="/blog" passHref>
-            <a className="hover:underline">Blog</a>
+          <Link href="/blog">
+            <a className="hover:text-primary">Blog</a>
           </Link>
         </div>
       </div>

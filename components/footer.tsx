@@ -14,7 +14,7 @@ export default function Footer(): JSX.Element {
   return (
     <footer className="py-8 text-center border-t border-b bg-accent-lightest">
       <div className="text-2xl font-semibold text-primary">
-        <Logo xl={true} />
+        <Logo colour="text-primary" />
         <nav>
           <ul className="flex flex-col justify-center mt-4 space-y-2 text-lg font-semibold md:space-y-0 md:space-x-4 md:flex-row text-accent-darker">
             <li>

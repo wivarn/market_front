@@ -24,7 +24,7 @@ export default function Landing(): JSX.Element {
             <div>
               <Link href="">
                 <a>
-                  <Logo xl={true} />
+                  <Logo colour="text-primary" />
                 </a>
               </Link>
             </div>
@@ -33,7 +33,7 @@ export default function Landing(): JSX.Element {
               <ul className="flex items-center space-x-4 text-xl font-semibold text-info-darker">
                 <li>
                   <Link href="/blog">
-                    <a className="hover:text-primary">Blog</a>
+                    <a className="hover:text-primary">blog</a>
                   </Link>
                 </li>
                 <li>
