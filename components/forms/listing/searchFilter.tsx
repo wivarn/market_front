@@ -196,7 +196,7 @@ export default function SearchFilter(): JSX.Element {
     <Disclosure>
       {() => (
         <div className="relative">
-          <Disclosure.Button className="mt-3">
+          <Disclosure.Button className="mt-1">
             <IconButton icon={<FilterIcon />} tooltip="Filter" />
           </Disclosure.Button>
           <Disclosure.Panel>

@@ -38,7 +38,7 @@ export default function Landing(): JSX.Element {
                 </li>
                 <li>
                   <IconButtonLink
-                    url="https://www.facebook.com/Skwirl-110235447975935"
+                    url="https://www.facebook.com/skwirl.io"
                     icon={<SmFacebookIcon />}
                     target="_blank"
                   />
@@ -63,7 +63,7 @@ export default function Landing(): JSX.Element {
         </PageSection>
         <PageSection yPadding="pt-10 pb-20">
           <div>
-            <header className="items-center grid-cols-1 mx-auto text-center lg:flex lg:text-left">
+            <header className="grid text-center lg:justify-items-start justify-items-center lg:items-center lg:flex lg:text-left">
               <div className="py-4">
                 <h1 className="text-4xl font-extrabold whitespace-pre-line lg:text-6xl xl:text-7xl text-accent-darkest leading-hero">
                   {
@@ -78,12 +78,12 @@ export default function Landing(): JSX.Element {
                 <div className="mt-4 mb-8 text-2xl font-light text-accent-darker">
                   Launching in Fall 2021.
                 </div>
-                <CTAButton href="" text="Stay in the know" />
+                <CTAButton href="#" text="Stay in the know" />
               </div>
               <img
                 src="/assets/hero-cards.svg"
                 alt="Card Hero"
-                className="mt-8"
+                className="mt-8 lg:float-right"
               />
             </header>
           </div>
@@ -144,22 +144,24 @@ export default function Landing(): JSX.Element {
         </PageSection>
         <div className="bg-info-darker">
           <PageSection>
-            <div className="flex flex-col p-4 text-center rounded-md sm:text-left sm:flex-row sm:items-center sm:justify-between sm:p-12 bg-primary-100">
-              <div className="text-3xl font-semibold">
+            <div className="grid p-4 text-center rounded-md justify-items-center sm:p-12 bg-primary-100">
+              <div className="text-2xl font-semibold md:text-3xl">
                 <div className="text-secondary">
                   We are a small team, looking for collectors who share our
                   vision.
                 </div>
-                <div className="text-primary">
-                  Support us to gain early access.
+                <div className="py-4 text-primary">
+                  Become a member or buy us a beer.
                 </div>
               </div>
 
-              <div className="mt-3 whitespace-no-wrap sm:mt-0 sm:ml-2">
-                <CTAButton
-                  href="https://www.buymeacoffee.com/skwirl"
-                  text="Support us now"
-                />
+              <div className="mt-3 whitespace-no-wrap">
+                <a href="https://www.buymeacoffee.com/skwirl">
+                  <img src="https://img.buymeacoffee.com/button-api/?text=Buy us a beer&emoji=🍺&slug=skwirl&button_colour=d44927&font_colour=ffffff&font_family=Lato&outline_colour=ffffff&coffee_colour=FFDD00" />
+                </a>
+              </div>
+              <div>
+                <h3></h3>
               </div>
             </div>
           </PageSection>

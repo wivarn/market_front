@@ -29,7 +29,7 @@ export default function SearchSort(): JSX.Element {
     <div className="w-72">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative my-2">
-          <Listbox.Button className="relative w-full py-2 pl-3 text-sm text-left bg-white border rounded-md cursor-default md:text-base border-accent">
+          <Listbox.Button className="relative w-64 py-2 pl-3 text-sm text-left bg-white border rounded-md cursor-default sm:w-full md:text-base border-accent">
             <span className="block truncate">{selected.text}</span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2">
               <SmChevronDownIcon />
