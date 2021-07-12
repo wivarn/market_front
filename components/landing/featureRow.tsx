@@ -15,7 +15,7 @@ const FeatureRow = (props: IFeatureRowProps): JSX.Element => {
     <div
       className={`${props.reverse ? "flex-row-reverse" : null} ${featureClass}`}
     >
-      <div className="w-full text-center  sm:w-1/2 sm:px-6">
+      <div className="w-full text-center sm:w-1/2 sm:px-6">
         <h3 className="text-2xl font-semibold md:text-3xl text-accent-darker">
           {props.title}
         </h3>

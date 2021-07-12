@@ -8,7 +8,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const mailChimpSchema = Yup.object().shape({
-  email: Yup.string().email("Enter a valid email address"),
+  email: Yup.string()
+    .email("Enter a valid email address")
+    .required("Email is required to subscribe"),
 });
 
 export default function MailChimpForm(): JSX.Element {
