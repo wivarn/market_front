@@ -26,8 +26,12 @@ export default function MailChimpForm(): JSX.Element {
           .then(() => {
             toast.success("You have been subscribed");
           })
-          .catch(() => {
-            toast.error("Subscription failed");
+          .catch((error) => {
+            if (error.response.data.title === "Member Exists") {
+              toast.error(`${values.email} is already subscribed`);
+            } else {
+              toast.error("Subscription failed");
+            }
             actions.resetForm();
           })
           .finally(() => {
