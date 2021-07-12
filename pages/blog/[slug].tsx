@@ -3,8 +3,6 @@ import { getAllArticles, getArticleFromCache } from "../../services/blog/forem";
 
 import { Article } from "../../types/forem";
 import LandingHeader from "components/landing/header";
-import Link from "next/link";
-import { Logo } from "components/logo";
 import PageContainer from "components/pageContainer";
 import { ParsedUrlQuery } from "querystring";
 import fs from "fs";

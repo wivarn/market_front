@@ -2,7 +2,6 @@ import { Article } from "../../types/forem";
 import { GetStaticProps } from "next";
 import LandingHeader from "components/landing/header";
 import Link from "next/link";
-import { LogoXl } from "components/logo";
 import PageContainer from "components/pageContainer";
 import { getAllArticles } from "services/blog/forem";
 
