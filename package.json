@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.2.0",
+    "@mailchimp/mailchimp_marketing": "^3.0.53",
     "@stripe/react-stripe-js": "^1.4.1",
     "@stripe/stripe-js": "^1.15.1",
     "@tailwindcss/line-clamp": "^0.2.1",
@@ -32,14 +33,14 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
+    "@tailwindcss/line-clamp": "^0.2.1",
+    "@tailwindcss/typography": "^0.4.1",
     "@types/papaparse": "^5.2.5",
     "@types/react": "^17.0.3",
     "@types/react-paginate": "^7.1.0",
     "@types/strip-comments": "^2.0.1",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
-    "@tailwindcss/line-clamp": "^0.2.1",
-    "@tailwindcss/typography": "^0.4.1",
     "autoprefixer": "^10.2.5",
     "eslint": "^7.28.0",
     "eslint-config-next": "^11.0.0",

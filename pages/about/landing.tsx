@@ -1,4 +1,4 @@
-import Landing from "components/landing/landing";
+import Landing from "components/landing";
 
 export default function landing(): JSX.Element {
   return <Landing />;
