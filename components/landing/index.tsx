@@ -104,7 +104,10 @@ export default function Landing(): JSX.Element {
               <div className="text-2xl text-white lg:text-4xl">
                 Join the conversation
               </div>
-              <SecondaryButton text="Chat with us on Discord" />
+              <SecondaryButton
+                text="Chat with us on Discord"
+                href="https://discord.gg/WHvDqHC2SC"
+              />
             </div>
           </PageSection>
         </div>
