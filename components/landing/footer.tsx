@@ -9,7 +9,12 @@ export default function LandingFooter(): JSX.Element {
     <footer className="py-8 text-center bg-cover bg-heroshiny">
       <div className="text-2xl font-semibold text-primary">
         <LogoXl colour="text-primary" />
-        <div className="flex items-center justify-center mt-4 space-x-4">
+        <div className="flex items-center justify-center mt-4 space-x-2 md:space-x-4">
+          <Link href="/">
+            <a className="text-lg font-semibold hover:text-primary text-info-darker">
+              home
+            </a>
+          </Link>
           <Link href="/blog">
             <a className="text-lg font-semibold hover:text-primary text-info-darker">
               blog

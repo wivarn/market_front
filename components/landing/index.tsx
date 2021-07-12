@@ -1,72 +1,23 @@
-import {
-  SmFacebookIcon,
-  SmInstagramIcon,
-  SmTwitterIcon,
-} from "components/icons";
-
-import { CTAButton } from "components/buttons";
 import { FeatureColumn } from "components/landing/featureColumn";
 import { FeatureRow } from "components/landing/featureRow";
-import { IconButtonLink } from "components/iconButton";
 import LandingFooter from "components/landing/footer";
-import Link from "next/link";
-import { Logo } from "components/logo";
+import LandingHeader from "components/landing/header";
 import MailChimpForm from "components/forms/mailChimp";
 import { NextSeo } from "next-seo";
 import { PageSection } from "components/landing/section";
+import { SmDiscordIcon } from "components/icons";
 
 export default function Landing(): JSX.Element {
   return (
     <>
       <NextSeo title="Landing" />
       <div className="bg-cover bg-heroshiny">
-        <PageSection yPadding="py-2">
-          <div className="flex flex-wrap items-center justify-between">
-            <div>
-              <Link href="/">
-                <a>
-                  <Logo colour="text-primary" />
-                </a>
-              </Link>
-            </div>
-
-            <nav>
-              <ul className="flex items-center space-x-4 text-xl font-semibold text-info-darker">
-                <li>
-                  <Link href="/blog">
-                    <a className="hover:text-primary">blog</a>
-                  </Link>
-                </li>
-                <li>
-                  <IconButtonLink
-                    url="https://www.facebook.com/skwirl.io"
-                    icon={<SmFacebookIcon />}
-                    target="_blank"
-                  />
-                </li>
-                <li>
-                  <IconButtonLink
-                    url="https://www.instagram.com/skwirlapp"
-                    icon={<SmInstagramIcon />}
-                    target="_blank"
-                  />
-                </li>
-                <li>
-                  <IconButtonLink
-                    url="https://twitter.com/Skwirl7"
-                    icon={<SmTwitterIcon />}
-                    target="_blank"
-                  />
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </PageSection>
+        <LandingHeader />
         <PageSection yPadding="pt-10 pb-20">
           <div>
             <header className="grid text-center lg:justify-items-start justify-items-center lg:items-center lg:flex lg:text-left">
               <div className="py-4">
-                <h1 className="text-4xl font-extrabold whitespace-pre-line lg:text-6xl xl:text-7xl text-accent-darkest leading-hero">
+                <h1 className="text-4xl font-extrabold lg:text-6xl xl:text-7xl text-accent-darkest">
                   {
                     <>
                       {"The "}{" "}
@@ -76,15 +27,29 @@ export default function Landing(): JSX.Element {
                     </>
                   }
                 </h1>
-                <div className="mt-4 mb-8 text-2xl font-light text-accent-darker">
+                <div className="mt-4 mb-8 text-xl font-light lg:text-2xl text-accent-darker">
                   Launching in Fall 2021.
                 </div>
                 <MailChimpForm />
+                <div className="mt-4 mb-8 text-lg font-light text-accent-darker">
+                  Chat with us on{" "}
+                  <span className="inline-flex">
+                    <a
+                      href="https://discord.gg/WHvDqHC2SC"
+                      rel="noreferrer"
+                      target="_blank"
+                      className="inline-flex underline text-info hover:text-primary"
+                    >
+                      Discord
+                    </a>
+                  </span>
+                  .
+                </div>
               </div>
               <img
                 src="/assets/hero-cards.svg"
                 alt="Card Hero"
-                className="mt-8 lg:float-right"
+                className="px-4 mt-16 lg:float-right"
               />
             </header>
           </div>
@@ -152,7 +117,7 @@ export default function Landing(): JSX.Element {
                   vision.
                 </div>
                 <div className="py-4 text-primary">
-                  Become a member or buy us a beer.
+                  Support us by becoming a member or buying us a beer.
                 </div>
               </div>
 
