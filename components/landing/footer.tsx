@@ -10,11 +10,6 @@ export default function LandingFooter(): JSX.Element {
       <div className="text-2xl font-semibold text-primary">
         <LogoXl colour="text-primary" />
         <div className="flex items-center justify-center mt-4 space-x-4">
-          <Link href="/">
-            <a className="text-lg font-semibold hover:text-primary text-info-darker">
-              home
-            </a>
-          </Link>
           <Link href="/blog">
             <a className="text-lg font-semibold hover:text-primary text-info-darker">
               blog

@@ -21,11 +21,6 @@ export default function LandingHeader(): JSX.Element {
           <nav>
             <ul className="flex items-center space-x-4 text-lg font-semibold text-info-darker">
               <li>
-                <Link href="/">
-                  <a className="hover:text-primary">home</a>
-                </Link>
-              </li>
-              <li>
                 <Link href="/blog">
                   <a className="hover:text-primary">blog</a>
                 </Link>
