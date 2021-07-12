@@ -1,3 +1,4 @@
+import { DiscordIcon } from "components/icons";
 import { FeatureColumn } from "components/landing/featureColumn";
 import { FeatureRow } from "components/landing/featureRow";
 import LandingFooter from "components/landing/footer";
@@ -5,7 +6,7 @@ import LandingHeader from "components/landing/header";
 import MailChimpForm from "components/forms/mailChimp";
 import { NextSeo } from "next-seo";
 import { PageSection } from "components/landing/section";
-import { SmDiscordIcon } from "components/icons";
+import { SecondaryButton } from "components/buttons";
 
 export default function Landing(): JSX.Element {
   return (
@@ -31,20 +32,6 @@ export default function Landing(): JSX.Element {
                   Launching in Fall 2021.
                 </div>
                 <MailChimpForm />
-                <div className="mt-4 mb-8 text-lg font-light text-accent-darker">
-                  Chat with us on{" "}
-                  <span className="inline-flex">
-                    <a
-                      href="https://discord.gg/WHvDqHC2SC"
-                      rel="noreferrer"
-                      target="_blank"
-                      className="inline-flex underline text-info hover:text-primary"
-                    >
-                      Discord
-                    </a>
-                  </span>
-                  .
-                </div>
               </div>
               <img
                 src="/assets/hero-cards.svg"
@@ -108,6 +95,19 @@ export default function Landing(): JSX.Element {
             reverse
           />
         </PageSection>
+        <div className="bg-primary">
+          <PageSection>
+            <div className="grid justify-center space-y-2 justify-items-center">
+              <div className="text-white">
+                <DiscordIcon />
+              </div>
+              <div className="text-2xl text-white lg:text-4xl">
+                Join the conversation
+              </div>
+              <SecondaryButton text="Chat with us on Discord" />
+            </div>
+          </PageSection>
+        </div>
         <div className="bg-info-darker">
           <PageSection>
             <div className="grid p-4 text-center rounded-md justify-items-center sm:p-12 bg-primary-100">
@@ -117,17 +117,18 @@ export default function Landing(): JSX.Element {
                   vision.
                 </div>
                 <div className="py-4 text-primary">
-                  Support us by becoming a member or buying us a beer.
+                  Support us by becoming a member or...
                 </div>
               </div>
 
               <div className="mt-3 whitespace-no-wrap">
-                <a href="https://www.buymeacoffee.com/skwirl">
+                <a
+                  href="https://www.buymeacoffee.com/skwirl"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img src="https://img.buymeacoffee.com/button-api/?text=Buy us a beer&emoji=🍺&slug=skwirl&button_colour=d44927&font_colour=ffffff&font_family=Lato&outline_colour=ffffff&coffee_colour=FFDD00" />
                 </a>
-              </div>
-              <div>
-                <h3></h3>
               </div>
             </div>
           </PageSection>
