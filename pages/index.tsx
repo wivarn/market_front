@@ -1,4 +1,4 @@
-import Landing from "components/landing/landing";
+import Landing from "components/landing";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { PrimaryButton } from "components/buttons";

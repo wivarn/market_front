@@ -63,6 +63,9 @@ export default function ResetPasswordForm(): JSX.Element {
                   : data.error;
                 toast.error(message);
                 actions.resetForm();
+              })
+              .finally(() => {
+                actions.setSubmitting(false);
               });
           }}
         >

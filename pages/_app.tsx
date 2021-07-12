@@ -21,7 +21,10 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
       </Head>
       <DefaultSeo {...SEO} />
       {process.env.NEXT_PUBLIC_FEATURE_LAUNCHED != "true" ? (
-        <Component {...pageProps} />
+        <>
+          <Component {...pageProps} />
+          <Toast />
+        </>
       ) : (
         <Provider session={pageProps.session}>
           <SWRConfig value={{ fetcher: fetcher }}>

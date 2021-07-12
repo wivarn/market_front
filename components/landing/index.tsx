@@ -11,6 +11,7 @@ import { IconButtonLink } from "components/iconButton";
 import LandingFooter from "components/landing/footer";
 import Link from "next/link";
 import { Logo } from "components/logo";
+import MailChimpForm from "components/forms/mailChimp";
 import { NextSeo } from "next-seo";
 import { PageSection } from "components/landing/section";
 
@@ -22,7 +23,7 @@ export default function Landing(): JSX.Element {
         <PageSection yPadding="py-2">
           <div className="flex flex-wrap items-center justify-between">
             <div>
-              <Link href="">
+              <Link href="/">
                 <a>
                   <Logo colour="text-primary" />
                 </a>
@@ -78,7 +79,7 @@ export default function Landing(): JSX.Element {
                 <div className="mt-4 mb-8 text-2xl font-light text-accent-darker">
                   Launching in Fall 2021.
                 </div>
-                <CTAButton href="#" text="Stay in the know" />
+                <MailChimpForm />
               </div>
               <img
                 src="/assets/hero-cards.svg"

@@ -20,7 +20,7 @@ export const BackButton = (props: Props): JSX.Element => {
       className="flex space-x-1 font-semibold underline text-info hover:text-primary"
       type="button"
     >
-      <SmBackArrowIcon /> <span>{props.text}</span>
+      <SmBackArrowIcon /> <div>{props.text}</div>
     </button>
   );
   if (props.href) {
@@ -131,7 +131,7 @@ const _Button = (props: BaseButtonProps): JSX.Element => {
   const button = (
     <button
       type={props.type ? props.type : "submit"}
-      className={`px-2 py-1 my-1 font-semibold rounded-md disabled:cursor-not-allowed ${props.buttonClassName}`}
+      className={`flex px-2 py-1 my-1 font-semibold rounded-md disabled:cursor-not-allowed ${props.buttonClassName}`}
       disabled={props.disabled}
       hidden={props.hidden}
       onClick={props.onClick}
