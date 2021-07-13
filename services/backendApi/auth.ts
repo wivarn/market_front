@@ -1,7 +1,24 @@
 import { Account } from "types/account";
+import { AxiosResponse } from "axios";
 import { base } from "./base";
 
-export const AuthApi = (accessToken?: string) => {
+export const AuthApi = (
+  accessToken?: string
+): {
+  login: (login: string, password: string) => Promise<AxiosResponse<any>>;
+  logout: () => Promise<AxiosResponse<any>>;
+  createAccount: (account: Account) => Promise<AxiosResponse<any>>;
+  refreshToken: (refreshToken: string) => Promise<AxiosResponse<any>>;
+  verifyAccount: (key: string) => Promise<AxiosResponse<any>>;
+  passwordResetRequest: (email: string) => Promise<AxiosResponse<any>>;
+  resetPassword: (
+    key: string,
+    password: string,
+    passwordConfirmation: string
+  ) => Promise<AxiosResponse<any>>;
+  unlockAccountRequest: (email: string) => Promise<AxiosResponse<any>>;
+  unlockAccount: (key: string) => Promise<AxiosResponse<any>>;
+} => {
   const login = async (login: string, password: string) => {
     return await base.post("auth/login", {
       login: login,
