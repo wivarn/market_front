@@ -2,7 +2,7 @@ import { SmFacebookIcon, SmInstagramIcon, SmTwitterIcon } from "../icons";
 
 import { IconButtonLink } from "../iconButton";
 import Link from "next/link";
-import { Logo } from "../logo";
+import { LogoXl } from "../logo";
 import { PageSection } from "components/landing/section";
 
 export default function LandingHeader(): JSX.Element {
@@ -12,13 +12,13 @@ export default function LandingHeader(): JSX.Element {
         <div>
           <Link href="/">
             <a>
-              <Logo colour="text-primary" />
+              <LogoXl colour="text-primary" />
             </a>
           </Link>
         </div>
 
         <nav>
-          <ul className="flex items-center space-x-4 text-lg font-semibold text-info-darker">
+          <ul className="flex items-center space-x-4 text-xl font-semibold text-info-darker">
             <li>
               <Link href="/blog">
                 <a className="hover:text-primary">blog</a>

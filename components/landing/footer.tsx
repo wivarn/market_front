@@ -6,7 +6,7 @@ import { LogoXl } from "../logo";
 
 export default function LandingFooter(): JSX.Element {
   return (
-    <footer className="py-8 text-center bg-cover bg-heroshiny">
+    <footer className="py-8 text-center bg-secondary-light">
       <div className="text-2xl font-semibold text-primary">
         <LogoXl colour="text-primary" />
         <div className="flex items-center justify-center mt-4 space-x-4">
