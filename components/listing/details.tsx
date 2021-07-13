@@ -15,7 +15,7 @@ const ListingDetails = (props: Listing): JSX.Element => {
 
   async function addItem() {
     CartApi(session?.accessToken)
-      .addItem(`${props.id}`)
+      .addItem(`${props.accountId}`, `${props.id}`)
       .then(() => {
         toast.success("Item added to cart");
       })

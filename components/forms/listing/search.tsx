@@ -34,9 +34,7 @@ export default function SearchForm(): JSX.Element {
           AddressApi(session?.accessToken)
             .get()
             .then((response) => {
-              const country = response.data.length
-                ? response.data[0].country
-                : "USA";
+              const country = response.data ? response.data.country : "USA";
               router.push({
                 pathname: "/listings/search",
                 query: { title: values.title, shipping_country: country },

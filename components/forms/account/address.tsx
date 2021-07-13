@@ -140,25 +140,25 @@ export default function AddressForm(): JSX.Element {
   const [session, loading] = useSession();
   const router = useRouter();
 
-  function getAddresses() {
+  function getAddress() {
     const { data, error } = useSWR(
       session ? ["account/address", session.accessToken] : null
     );
 
     return {
-      addresses: data,
+      addressResponse: data,
       isLoading: !error && !data,
       isError: error,
     };
   }
 
-  const { addresses, isLoading, isError } = getAddresses();
+  const { addressResponse, isLoading, isError } = getAddress();
 
   if (isLoading || loading) return <SpinnerLg text="Loading..." />;
   if (isError) return <div>Error</div>;
 
-  const address = addresses.data[0] || {};
-  const noAddress = Object.keys(address).length === 0;
+  const address = addressResponse.data;
+  const noAddress = !Object.keys(address).length;
 
   return (
     <FormContainer>
