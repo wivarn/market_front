@@ -6,6 +6,7 @@ import SearchSort from "components/forms/listing/searchSort";
 import { SpinnerLg } from "components/spinner";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
+import { ToolTipBelow } from "components/tooltip";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -79,12 +80,15 @@ export default function ListingTabs({
     <div>
       <div className="flex items-center justify-center py-2 space-x-2 border-b border-accent">
         <h3 className="text-accent-darkest">Your Listings</h3>
-        <PrimaryButton
-          text="New Listing"
-          href="listings/new"
-          disabled={disableListings}
-        />
-        <OverflowButton disabled={disableListings} />
+        <span className="relative flex items-center space-x-2 group">
+          <PrimaryButton
+            text="New Listing"
+            href="listings/new"
+            disabled={disableListings}
+          />
+          <OverflowButton disabled={disableListings} />
+          <ToolTipBelow text="You must set your address and connect a Stripe account to create listings" />
+        </span>
       </div>
       <div className="flex justify-between px-4 py-2">
         <SearchFilter />

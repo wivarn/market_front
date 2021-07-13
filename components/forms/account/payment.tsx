@@ -33,7 +33,7 @@ const currencyLabel = () => {
   return (
     <div className="flex space-x-2">
       <span className="font-semibold">Listing Currency</span>
-      <span className="relative flex flex-col items-center group text-primary">
+      <span className="relative group text-primary">
         <SmInfoCircle />
         <ToolTipBelow
           text={`Your listing currency doesn't need to match your country.
