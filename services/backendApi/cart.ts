@@ -4,12 +4,12 @@ import { base } from "./base";
 export const CartApi = (
   accessToken?: string
 ): {
-  addItem: (listingId: number | string) => Promise<AxiosResponse<any>>;
-  checkout: () => Promise<AxiosResponse<any>>;
+  addItem: (sellerId: string, listingId: string) => Promise<AxiosResponse<any>>;
+  checkout: (sellerId: string) => Promise<AxiosResponse<any>>;
 } => {
-  const addItem = async (listingId: number | string) => {
+  const addItem = async (sellerId: string, listingId: string) => {
     return base.post(
-      "cart/add_item",
+      `carts/${sellerId}/add_item`,
       {
         listing_id: listingId,
       },
@@ -19,9 +19,9 @@ export const CartApi = (
     );
   };
 
-  const checkout = async () => {
+  const checkout = async (sellerId: string) => {
     return base.post(
-      "cart/checkout",
+      `carts/${sellerId}/checkout`,
       {},
       {
         headers: { Authorization: `Bearer ${accessToken}` },

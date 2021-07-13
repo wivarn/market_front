@@ -32,3 +32,22 @@ export interface ListingTemplate {
   domestic_shipping?: string | number;
   international_shipping?: string | number;
 }
+
+export interface ICartListing {
+  id: string;
+  photos: string[];
+  title: string;
+  currency: string;
+  price: string;
+  shipping_country: string;
+  domestic_shipping: string;
+  international_shipping?: string;
+}
+
+export interface ICart {
+  seller_id: string;
+  given_name: string;
+  family_name: string;
+  total: number;
+  listings: ICartListing[];
+}

@@ -41,15 +41,15 @@ export default function ListingTabs({
 }): JSX.Element {
   const [session] = useSession();
 
-  function getAddresses() {
+  function getAddress() {
     const { data, error } = useSWR(
       session ? ["account/address", session.accessToken] : null
     );
 
     return {
-      addresses: data,
-      addressesLoading: !error && !data,
-      addressesError: error,
+      addressResponse: data,
+      addressLoading: !error && !data,
+      addressError: error,
     };
   }
 
@@ -65,16 +65,16 @@ export default function ListingTabs({
     };
   }
 
-  const { addresses, addressesLoading, addressesError } = getAddresses();
+  const { addressResponse, addressLoading, addressError } = getAddress();
   const { payment, paymentLoading, paymentError } = getPayment();
 
-  if (addressesLoading || paymentLoading)
-    return <SpinnerLg text="Loading..." />;
-  if (addressesError || paymentError) return <div>Error</div>;
+  if (addressLoading || paymentLoading) return <SpinnerLg text="Loading..." />;
+  if (addressError || paymentError) return <div>Error</div>;
 
-  const disableListings = !(
-    addresses.data.length && payment.data.charges_enabled
-  );
+  const address = addressResponse?.data;
+  const addressSet = addressLoading ? false : Object.keys(address).length;
+
+  const disableListings = !(addressSet && payment.data.charges_enabled);
 
   return (
     <div>
