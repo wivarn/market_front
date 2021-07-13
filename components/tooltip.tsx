@@ -8,7 +8,7 @@ export function ToolTipBelow(props: Props): JSX.Element {
       <span className="z-20 px-1 py-1 text-sm font-semibold text-center text-white rounded-full whitespace-nowrap bg-accent-darker">
         {props.text}
       </span>
-      <div className="w-3 h-3 mx-auto -mt-12 rotate-45 bg-accent-darker"></div>
+      <div className="w-3 h-3 mx-auto -mt-12 rotate-45 bg-accent-darker" />
     </div>
   );
 }
@@ -19,7 +19,7 @@ export function ToolTipAbove(props: Props): JSX.Element {
       <span className="z-20 px-1 py-1 text-sm font-semibold text-center text-white rounded-full whitespace-nowrap bg-accent-darker">
         {props.text}
       </span>
-      <div className="w-3 h-3 mx-auto -mt-2 rotate-45 bg-accent-darker"></div>
+      <div className="w-3 h-3 mx-auto -mt-2 rotate-45 bg-accent-darker" />
     </div>
   );
 }

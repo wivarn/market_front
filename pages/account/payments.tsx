@@ -1,6 +1,7 @@
 import AccountContainer from "components/accountContainer";
 import { NextSeo } from "next-seo";
 import { PaymentApi } from "services/backendApi/payment";
+import PaymentForm from "components/forms/account/payment";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
 import useSWR from "swr";
@@ -53,6 +54,7 @@ export default function profile(): JSX.Element {
     <>
       <NextSeo title="Payments" />
       <AccountContainer activeTab="payments">
+        <PaymentForm />
         {renderConnectButton()}
       </AccountContainer>
     </>

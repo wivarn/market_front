@@ -1,6 +1,6 @@
 export interface Profile {
-  givenName: string;
-  familyName: string;
+  givenName?: string;
+  familyName?: string;
   currency?: string;
 }
 

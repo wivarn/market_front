@@ -13,6 +13,8 @@ import { SubmitButtonFull } from "components/buttons";
 import { createRef } from "react";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const addressSchema = Yup.object().shape({
   street1: Yup.string()
@@ -62,6 +64,20 @@ const addressSchema = Yup.object().shape({
     )
     .required("Required"),
 });
+
+function renderAddressWarning() {
+  return (
+    <div>
+      <p>You must have your address set in order to purchase or sell</p>
+      <Link href="#">
+        <a>click here to find out why</a>
+      </Link>
+      <Link href="#">
+        <a>click here to learn how we protect your data</a>
+      </Link>
+    </div>
+  );
+}
 
 const stateRef = createRef<HTMLSpanElement>();
 const idPrefix = "listing-form-";
@@ -122,6 +138,7 @@ function trimValues(values: Address) {
 
 export default function AddressForm(): JSX.Element {
   const [session, loading] = useSession();
+  const router = useRouter();
 
   function getAddresses() {
     const { data, error } = useSWR(
@@ -141,9 +158,11 @@ export default function AddressForm(): JSX.Element {
   if (isError) return <div>Error</div>;
 
   const address = addresses.data[0] || {};
+  const noAddress = Object.keys(address).length === 0;
 
   return (
     <FormContainer>
+      {noAddress ? renderAddressWarning() : null}
       <Formik
         initialValues={{
           street1: address.street1 || "",
@@ -160,6 +179,9 @@ export default function AddressForm(): JSX.Element {
             .then(() => {
               toast.success("Your address has been updated");
               mutate(["account/address", session?.accessToken]);
+              if (noAddress) {
+                router.push("/account/payments");
+              }
             })
             .catch((error) => {
               toast.error(JSON.stringify(error.response.data));
