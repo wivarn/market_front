@@ -1,8 +1,9 @@
-import { SmOverflowIcon } from "components/icons";
-import { Menu, Transition } from "@headlessui/react";
 import { Fragment, LegacyRef, forwardRef } from "react";
+import { Menu, Transition } from "@headlessui/react";
+
 import { IconButton } from "components/iconButton";
 import Link from "next/link";
+import { SmOverflowIcon } from "components/icons";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -24,7 +25,7 @@ const LinkWrapper = forwardRef(
           ref={ref}
           className={classNames(
             active ? "bg-accent-darker text-white" : "text-accent-darker",
-            "block md:px-4 py-2 text-sm font-semibold md:rounded-md"
+            "block px-4 py-2 text-sm font-semibold rounded-md"
           )}
           {...props}
         >
@@ -65,7 +66,7 @@ export const OverflowButton = (props: Props): JSX.Element => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute z-50 w-48 px-2 text-left bg-white rounded-md shadow-md ring-1 ring-accent focus:outline-none">
+            <Menu.Items className="absolute right-0 z-50 w-48 px-2 text-left bg-white rounded-md shadow-md md:left-0 ring-1 ring-accent focus:outline-none">
               <div className="py-2">
                 <Menu.Item>
                   {({ active }) => (

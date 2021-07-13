@@ -1,72 +1,24 @@
-import {
-  SmFacebookIcon,
-  SmInstagramIcon,
-  SmTwitterIcon,
-} from "components/icons";
-
-import { CTAButton } from "components/buttons";
+import { DiscordIcon } from "components/icons";
 import { FeatureColumn } from "components/landing/featureColumn";
 import { FeatureRow } from "components/landing/featureRow";
-import { IconButtonLink } from "components/iconButton";
 import LandingFooter from "components/landing/footer";
-import Link from "next/link";
-import { Logo } from "components/logo";
+import LandingHeader from "components/landing/header";
 import MailChimpForm from "components/forms/mailChimp";
 import { NextSeo } from "next-seo";
 import { PageSection } from "components/landing/section";
+import { SecondaryButton } from "components/buttons";
 
 export default function Landing(): JSX.Element {
   return (
     <>
       <NextSeo title="Landing" />
       <div className="bg-cover bg-heroshiny">
-        <PageSection yPadding="py-2">
-          <div className="flex flex-wrap items-center justify-between">
-            <div>
-              <Link href="/">
-                <a>
-                  <Logo colour="text-primary" />
-                </a>
-              </Link>
-            </div>
-
-            <nav>
-              <ul className="flex items-center space-x-4 text-xl font-semibold text-info-darker">
-                <li>
-                  <Link href="/blog">
-                    <a className="hover:text-primary">blog</a>
-                  </Link>
-                </li>
-                <li>
-                  <IconButtonLink
-                    url="https://www.facebook.com/Skwirl-110235447975935"
-                    icon={<SmFacebookIcon />}
-                    target="_blank"
-                  />
-                </li>
-                <li>
-                  <IconButtonLink
-                    url="https://www.instagram.com/skwirlapp"
-                    icon={<SmInstagramIcon />}
-                    target="_blank"
-                  />
-                </li>
-                <li>
-                  <IconButtonLink
-                    url="https://twitter.com/Skwirl7"
-                    icon={<SmTwitterIcon />}
-                    target="_blank"
-                  />
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </PageSection>
+        <LandingHeader />
         <PageSection yPadding="pt-10 pb-20">
           <div>
-            <header className="items-center grid-cols-1 mx-auto text-center lg:flex lg:text-left">
+            <header className="grid text-center lg:justify-items-start justify-items-center lg:items-center lg:flex lg:text-left">
               <div className="py-4">
-                <h1 className="text-4xl font-extrabold whitespace-pre-line lg:text-6xl xl:text-7xl text-accent-darkest leading-hero">
+                <h1 className="text-4xl font-extrabold lg:text-6xl xl:text-7xl text-accent-darkest">
                   {
                     <>
                       {"The "}{" "}
@@ -76,7 +28,7 @@ export default function Landing(): JSX.Element {
                     </>
                   }
                 </h1>
-                <div className="mt-4 mb-8 text-2xl font-light text-accent-darker">
+                <div className="mt-4 mb-8 text-xl font-light lg:text-2xl text-accent-darker">
                   Launching in Fall 2021.
                 </div>
                 <MailChimpForm />
@@ -84,7 +36,7 @@ export default function Landing(): JSX.Element {
               <img
                 src="/assets/hero-cards.svg"
                 alt="Card Hero"
-                className="mt-8"
+                className="px-4 mt-16 lg:float-right"
               />
             </header>
           </div>
@@ -143,24 +95,43 @@ export default function Landing(): JSX.Element {
             reverse
           />
         </PageSection>
+        <div className="bg-primary">
+          <PageSection>
+            <div className="grid justify-center space-y-2 justify-items-center">
+              <div className="text-white">
+                <DiscordIcon />
+              </div>
+              <div className="text-2xl text-white lg:text-4xl">
+                Join the conversation
+              </div>
+              <SecondaryButton
+                text="Chat with us on Discord"
+                href="https://discord.gg/WHvDqHC2SC"
+              />
+            </div>
+          </PageSection>
+        </div>
         <div className="bg-info-darker">
           <PageSection>
-            <div className="flex flex-col p-4 text-center rounded-md sm:text-left sm:flex-row sm:items-center sm:justify-between sm:p-12 bg-primary-100">
-              <div className="text-3xl font-semibold">
+            <div className="grid p-4 text-center rounded-md justify-items-center sm:p-12 bg-primary-100">
+              <div className="text-2xl font-semibold md:text-3xl">
                 <div className="text-secondary">
                   We are a small team, looking for collectors who share our
                   vision.
                 </div>
-                <div className="text-primary">
-                  Support us to gain early access.
+                <div className="py-4 text-primary">
+                  Support us by becoming a member or...
                 </div>
               </div>
 
-              <div className="mt-3 whitespace-no-wrap sm:mt-0 sm:ml-2">
-                <CTAButton
+              <div className="mt-3 whitespace-no-wrap">
+                <a
                   href="https://www.buymeacoffee.com/skwirl"
-                  text="Support us now"
-                />
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src="https://img.buymeacoffee.com/button-api/?text=Buy us a beer&emoji=🍺&slug=skwirl&button_colour=d44927&font_colour=ffffff&font_family=Lato&outline_colour=ffffff&coffee_colour=FFDD00" />
+                </a>
               </div>
             </div>
           </PageSection>

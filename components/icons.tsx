@@ -1,4 +1,5 @@
 import {
+  FaDiscord,
   FaFacebookSquare,
   FaInstagramSquare,
   FaRedditSquare,
@@ -192,6 +193,10 @@ export const SmExclamationCircleIcon = (): JSX.Element => {
 };
 
 // Social media icons
+
+export const DiscordIcon = (): JSX.Element => {
+  return <FaDiscord className="icon" />;
+};
 
 export const SmTwitterIcon = (): JSX.Element => {
   return <FaTwitterSquare className="icon-sm" />;

@@ -8,7 +8,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const mailChimpSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
+  email: Yup.string()
+    .email("Enter a valid email address")
+    .required("Email is required to subscribe"),
 });
 
 export default function MailChimpForm(): JSX.Element {
@@ -28,7 +30,7 @@ export default function MailChimpForm(): JSX.Element {
           })
           .catch((error) => {
             if (error.response.data.title === "Member Exists") {
-              toast.error(`${values.email} is already subscribed`);
+              toast.warn(`${values.email} has already subscribed`);
             } else {
               toast.error("Subscription failed");
             }
@@ -41,15 +43,18 @@ export default function MailChimpForm(): JSX.Element {
     >
       {({ isSubmitting }) => (
         <Form>
-          <span className="mx-2 space-x-4">
+          <span className="grid space-y-4 justify-items-center lg:justify-items-start">
             <TextField
               name="email"
               id="subscribe-mailchimp"
               type="email"
-              placeholder="Email"
+              placeholder="Enter your email"
             />
 
-            <SubmitButton text="Subscribe to updates" disabled={isSubmitting} />
+            <SubmitButton
+              text="Subscribe for updates"
+              disabled={isSubmitting}
+            />
           </span>
         </Form>
       )}

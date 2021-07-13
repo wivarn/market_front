@@ -2,8 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { getAllArticles, getArticleFromCache } from "../../services/blog/forem";
 
 import { Article } from "../../types/forem";
-import Link from "next/link";
-import { Logo } from "components/logo";
+import LandingHeader from "components/landing/header";
 import PageContainer from "components/pageContainer";
 import { ParsedUrlQuery } from "querystring";
 import fs from "fs";
@@ -18,17 +17,7 @@ interface Params extends ParsedUrlQuery {
 export default function ArticlePage(article: Article): JSX.Element {
   return (
     <>
-      <div className="h-16 bg-cover bg-bloghead">
-        <div className="flex items-center p-4 space-x-4 text-xl font-semibold text-white">
-          <Logo colour="text-white" />
-          <Link href="/">
-            <a className="hover:text-primary">Home</a>
-          </Link>
-          <Link href="/blog">
-            <a className="hover:text-primary">Blog</a>
-          </Link>
-        </div>
-      </div>
+      <LandingHeader />
       <div className="bg-cover bg-blogbg">
         <PageContainer>
           <article className="max-w-4xl p-4 mx-auto mt-8 bg-white">

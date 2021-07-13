@@ -16,7 +16,7 @@ const PageSection = (props: Props): JSX.Element => (
     {(props.title || props.description) && (
       <div className="mb-12 text-center">
         {props.title && (
-          <h2 className="text-4xl font-semibold text-accent-darker">
+          <h2 className="text-3xl font-semibold md:text-4xl text-accent-darker">
             {props.title}
           </h2>
         )}
