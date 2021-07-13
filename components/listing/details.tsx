@@ -8,10 +8,26 @@ import { LgUserCircleIcon } from "components/icons";
 import { Listing } from "types/listings";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
+import useSWR from "swr";
 
 const ListingDetails = (props: Listing): JSX.Element => {
   const [session] = useSession();
   const isSeller = session?.accountId == props.accountId;
+
+  function getAddress() {
+    const { data, error } = useSWR(
+      session ? ["account/address", session.accessToken] : null
+    );
+
+    return {
+      addressResponse: data,
+      addressLoading: !error && !data,
+    };
+  }
+
+  const { addressResponse, addressLoading } = getAddress();
+  const address = addressResponse?.data;
+  const noAddress = addressLoading ? true : !Object.keys(address).length;
 
   async function addItem() {
     CartApi(session?.accessToken)
@@ -36,7 +52,7 @@ const ListingDetails = (props: Listing): JSX.Element => {
       return (
         <SubmitButtonFull
           text="Add to Cart"
-          disabled={!session}
+          disabled={!session || noAddress}
           onClick={addItem}
         />
       );

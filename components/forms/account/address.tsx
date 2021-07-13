@@ -137,7 +137,7 @@ function trimValues(values: Address) {
 }
 
 export default function AddressForm(): JSX.Element {
-  const [session, loading] = useSession();
+  const [session, sessionLoading] = useSession();
   const router = useRouter();
 
   function getAddress() {
@@ -154,7 +154,7 @@ export default function AddressForm(): JSX.Element {
 
   const { addressResponse, isLoading, isError } = getAddress();
 
-  if (isLoading || loading) return <SpinnerLg text="Loading..." />;
+  if (isLoading || sessionLoading) return <SpinnerLg text="Loading..." />;
   if (isError) return <div>Error</div>;
 
   const address = addressResponse.data;
