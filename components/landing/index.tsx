@@ -11,7 +11,7 @@ import { SecondaryButton } from "components/buttons";
 export default function Landing(): JSX.Element {
   return (
     <>
-      <NextSeo title="Landing" />
+      <NextSeo title="Home" />
       <div className="bg-cover bg-heroshiny">
         <LandingHeader />
         <PageSection yPadding="pt-10 pb-20">
@@ -42,7 +42,7 @@ export default function Landing(): JSX.Element {
           </div>
         </PageSection>
       </div>
-      <div className=" bg-info-darker">
+      <div className="bg-info-darker">
         <PageSection yPadding="pb-16">
           <div className="md:flex md:justify-between">
             <FeatureColumn

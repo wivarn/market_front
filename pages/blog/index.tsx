@@ -1,7 +1,9 @@
 import { Article } from "../../types/forem";
 import { GetStaticProps } from "next";
+import LandingFooter from "components/landing/footer";
 import LandingHeader from "components/landing/header";
 import Link from "next/link";
+import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { getAllArticles } from "services/blog/forem";
 
@@ -12,6 +14,7 @@ interface Props {
 export default function BlogIndex({ articles }: Props): JSX.Element {
   return (
     <>
+      <NextSeo title="Blog" />
       <LandingHeader />
       <div className="grid items-center bg-cover h-96 bg-bloghead">
         <PageContainer>
@@ -64,6 +67,7 @@ export default function BlogIndex({ articles }: Props): JSX.Element {
             )
           )}
         </PageContainer>
+        <LandingFooter />
       </div>
     </>
   );

@@ -2,7 +2,9 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { getAllArticles, getArticleFromCache } from "../../services/blog/forem";
 
 import { Article } from "../../types/forem";
+import LandingFooter from "components/landing/footer";
 import LandingHeader from "components/landing/header";
+import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { ParsedUrlQuery } from "querystring";
 import fs from "fs";
@@ -17,10 +19,11 @@ interface Params extends ParsedUrlQuery {
 export default function ArticlePage(article: Article): JSX.Element {
   return (
     <>
+      <NextSeo title={article.title} />
       <LandingHeader />
       <div className="bg-cover bg-blogbg">
         <PageContainer>
-          <article className="max-w-4xl p-4 mx-auto mt-8 bg-white">
+          <article className="max-w-4xl p-4 mx-auto mt-8 bg-white rounded-md">
             {article.coverImage && (
               <img
                 src={article.coverImage}
@@ -50,6 +53,7 @@ export default function ArticlePage(article: Article): JSX.Element {
             </section>
           </article>
         </PageContainer>
+        <LandingFooter />
       </div>
     </>
   );
