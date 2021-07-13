@@ -88,8 +88,8 @@ export const SmCheckIcon = (): JSX.Element => {
   return <HiCheck className="icon-sm" />;
 };
 
-export const FilterIcon = (): JSX.Element => {
-  return <HiFilter className="icon" />;
+export const SmFilterIcon = (): JSX.Element => {
+  return <HiFilter className="icon-sm" />;
 };
 
 export const ChevronRightIcon = (): JSX.Element => {

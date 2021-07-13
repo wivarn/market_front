@@ -15,8 +15,7 @@ import {
 import { createRef, useState } from "react";
 
 import { Disclosure } from "@headlessui/react";
-import { FilterIcon } from "components/icons";
-import { IconButton } from "../../iconButton";
+import { SmFilterIcon } from "components/icons";
 import { NumberField } from "../fields";
 import { countryList } from "constants/address";
 import { useRouter } from "next/router";
@@ -196,8 +195,8 @@ export default function SearchFilter(): JSX.Element {
     <Disclosure>
       {() => (
         <div className="relative">
-          <Disclosure.Button className="mt-1">
-            <IconButton icon={<FilterIcon />} tooltip="Filter" />
+          <Disclosure.Button className="inline-flex items-center gap-2 px-2 py-1 mt-2 text-lg border rounded-md border-accent hover:text-primary">
+            <SmFilterIcon /> Filter
           </Disclosure.Button>
           <Disclosure.Panel>
             <div className="absolute z-10 p-2 px-4 border rounded-lg top-14 bg-accent-lightest border-accent-light">
@@ -263,7 +262,7 @@ export default function SearchFilter(): JSX.Element {
                         }
                         items={countryList}
                       />
-                      <div className="py-2 space-x-2">
+                      <div className="inline-flex py-2 space-x-2">
                         <SubmitButton
                           text="Apply"
                           disabled={formik.isSubmitting}
