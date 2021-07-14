@@ -23,7 +23,7 @@ export default function BlogIndex({ articles }: Props): JSX.Element {
           </div>
         </PageContainer>
       </div>
-      <div className="bg-cover bg-blog">
+      <div>
         <PageContainer>
           {articles.map(
             ({

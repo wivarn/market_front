@@ -51,10 +51,7 @@ export default function MailChimpForm(): JSX.Element {
               placeholder="Enter your email"
             />
 
-            <SubmitButton
-              text="Subscribe for updates"
-              disabled={isSubmitting}
-            />
+            <SubmitButton text="Subscribe now" disabled={isSubmitting} />
           </span>
         </Form>
       )}

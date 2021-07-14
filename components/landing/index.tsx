@@ -12,7 +12,7 @@ export default function Landing(): JSX.Element {
   return (
     <>
       <NextSeo title="Home" />
-      <div className="bg-cover bg-heroshiny">
+      <div>
         <LandingHeader />
         <PageSection yPadding="pt-10 pb-20">
           <div>
@@ -31,6 +31,10 @@ export default function Landing(): JSX.Element {
                 <div className="mt-4 mb-8 text-xl font-light lg:text-2xl text-accent-darker">
                   Launching in Fall 2021.
                 </div>
+                <h3 className="py-2">
+                  Subscribe for early access, a chance to win free cards and
+                  more!
+                </h3>
                 <MailChimpForm />
               </div>
               <img
@@ -66,7 +70,7 @@ export default function Landing(): JSX.Element {
           </div>
         </PageSection>
       </div>
-      <div className="bg-cover bg-secshiny">
+      <div>
         <PageSection title="Why you'll love skwirl">
           <FeatureRow
             title="Lower seller fees"

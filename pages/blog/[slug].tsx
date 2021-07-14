@@ -24,7 +24,7 @@ export default function ArticlePage(article: Article): JSX.Element {
         <meta property="og:image" content={article.coverImage} />
       </Head>
       <LandingHeader />
-      <div className="bg-cover bg-blogbg">
+      <div>
         <PageContainer>
           <article className="max-w-4xl p-4 mx-auto mt-8 bg-white rounded-md">
             <img
