@@ -69,7 +69,7 @@ export const getAllArticles = async (): Promise<Article[]> => {
   for (const username of usernames) {
     for (const basePath of foremApiBasePaths) {
       for (const id of await getArticleIds(username, basePath)) {
-        await axios.get(`${basePath}/articles/${id}`).then((response) => {
+        await axios.get(`${basePath}//articles/${id}`).then((response) => {
           articles.push(convertResponseToArticle(response.data));
         });
       }
