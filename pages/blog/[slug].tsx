@@ -4,7 +4,7 @@ import { getAllArticles, getArticleFromCache } from "../../services/blog/forem";
 import { Article } from "../../types/forem";
 import LandingFooter from "components/landing/footer";
 import LandingHeader from "components/landing/header";
-import { NextSeo } from "next-seo";
+import Head from "next/head";
 import PageContainer from "components/pageContainer";
 import { ParsedUrlQuery } from "querystring";
 import fs from "fs";
@@ -19,7 +19,10 @@ interface Params extends ParsedUrlQuery {
 export default function ArticlePage(article: Article): JSX.Element {
   return (
     <>
-      <NextSeo title={article.title} />
+      <Head>
+        <title>{article.title} | Skwirl</title>
+        <meta property="og:image" content={article.coverImage} />
+      </Head>
       <LandingHeader />
       <div className="bg-cover bg-blogbg">
         <PageContainer>
@@ -27,7 +30,7 @@ export default function ArticlePage(article: Article): JSX.Element {
             {article.coverImage && (
               <img
                 src={article.coverImage}
-                alt={`Cover for ${article.title}`}
+                alt={article.title}
                 className="w-full rounded-md"
               />
             )}
