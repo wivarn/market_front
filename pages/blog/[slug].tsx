@@ -27,13 +27,11 @@ export default function ArticlePage(article: Article): JSX.Element {
       <div className="bg-cover bg-blogbg">
         <PageContainer>
           <article className="max-w-4xl p-4 mx-auto mt-8 bg-white rounded-md">
-            {article.coverImage && (
-              <img
-                src={article.coverImage}
-                alt={article.title}
-                className="w-full rounded-md"
-              />
-            )}
+            <img
+              src={article.coverImage}
+              alt={article.title}
+              className="w-full rounded-md"
+            />
             <h2 className="mt-4 headline">{article.title}</h2>
             <div className="items-center my-4 leading-relaxed byline text-accent-dark">
               <img
