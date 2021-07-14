@@ -76,7 +76,10 @@ export const getAllArticles = async (): Promise<Article[]> => {
     }
   }
   return articles.sort((a, b) =>
-    new Date(b.publishedAt) > new Date(a.publishedAt) ? 1 : -1
+    (b.tags.includes("pinned") || !a.tags.includes("pinned")) &&
+    new Date(b.publishedAt) > new Date(a.publishedAt)
+      ? 1
+      : -1
   );
 };
 
