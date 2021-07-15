@@ -105,6 +105,7 @@ export default function ListingTabs({
               place="top"
               multiline
               effect="solid"
+              disable={!disableListings}
             >
               <div>
                 You need to set your address and
