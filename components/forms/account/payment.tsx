@@ -11,7 +11,7 @@ import { SubmitButtonFull } from "components/buttons";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
 import { SmInfoCircle } from "components/icons";
-import { ToolTipBelow } from "components/tooltip";
+import { ToolTipAbove } from "components/tooltip";
 
 const currencyList = [
   { value: "CAD", text: "CAD" },
@@ -31,15 +31,11 @@ const paymentSchema = Yup.object().shape({
 
 const currencyLabel = () => {
   return (
-    <div className="flex space-x-2">
+    <div className="flex items-center space-x-2">
       <span className="font-semibold">Listing Currency</span>
-      <span className="relative group text-primary">
+      <span className="relative group">
         <SmInfoCircle />
-        <ToolTipBelow
-          text={`Your listing currency doesn't need to match your country.
-          Updating your currnecy will not update your existing listings.
-          Doesn't affect your search results`}
-        />
+        <ToolTipAbove text={`This sets the currency of new listings.`} />
       </span>
     </div>
   );

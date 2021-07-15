@@ -21,12 +21,12 @@ export default function LandingFooter(): JSX.Element {
             target="_blank"
           />
           <IconButtonLink
-            url="https://www.instagram.com/skwirlapp"
+            url="https://www.instagram.com/skwirl.io"
             icon={<SmInstagramIcon />}
             target="_blank"
           />
           <IconButtonLink
-            url="https://twitter.com/Skwirl7"
+            url="https://twitter.com/skwirl_io"
             icon={<SmTwitterIcon />}
             target="_blank"
           />
