@@ -90,17 +90,17 @@ export default function ListingTabs({
       <div className="flex items-center justify-center py-2 space-x-2 border-b border-accent">
         <h3 className="text-accent-darkest">Your Listings</h3>
         <span className="relative flex items-center space-x-2 group">
-          <div data-tip data-for="overflowTip">
+          <div data-tip data-for="overflow">
             <PrimaryButton
               text="New Listing"
               href="listings/new"
               disabled={disableListings}
             />
           </div>
-          <div data-tip data-for="overflowTip" className="text-center">
+          <div data-tip data-for="overflow" className="text-center">
             <OverflowButton disabled={disableListings} />
             <ReactTooltip
-              id="overflowTip"
+              id="overflow"
               type="dark"
               place="top"
               multiline={true}
