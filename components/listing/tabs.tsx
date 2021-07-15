@@ -53,9 +53,9 @@ export default function ListingTabs({
     };
   }
 
-  function getPayment() {
+  function getPayment(addressSet: boolean) {
     const { data, error } = useSWR(
-      session ? ["account/payments", session.accessToken] : null
+      session && addressSet ? ["account/payments", session.accessToken] : null
     );
 
     return {
@@ -66,15 +66,23 @@ export default function ListingTabs({
   }
 
   const { addressResponse, addressLoading, addressError } = getAddress();
-  const { payment, paymentLoading, paymentError } = getPayment();
-
-  if (addressLoading || paymentLoading) return <SpinnerLg text="Loading..." />;
-  if (addressError || paymentError) return <div>Error</div>;
 
   const address = addressResponse?.data;
-  const addressSet = addressLoading ? false : Object.keys(address).length;
+  const addressSet = addressLoading ? false : !!Object.keys(address).length;
 
-  const disableListings = !(addressSet && payment.data.charges_enabled);
+  const { payment, paymentLoading, paymentError } = getPayment(addressSet);
+
+  if (addressLoading) return <SpinnerLg text="Loading..." />;
+  if (addressError) return <div>Error</div>;
+
+  let disableListings = true;
+  if (addressSet) {
+    if (paymentLoading) return <SpinnerLg text="Loading..." />;
+    if (paymentError) return <div>Error</div>;
+    disableListings = !payment.data.charges_enabled;
+  } else {
+    disableListings = true;
+  }
 
   return (
     <div>
