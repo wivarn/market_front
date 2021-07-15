@@ -103,10 +103,14 @@ export default function ListingTabs({
               id="overflowTip"
               type="dark"
               place="top"
+              multiline
               effect="solid"
             >
-              <div>You need to set your address and</div>
-              <div>payment settings to create listings.</div>
+              <div>
+                You need to set your address and
+                <br />
+                payment settings to create listings.
+              </div>
             </ReactTooltip>
           </div>
         </span>
