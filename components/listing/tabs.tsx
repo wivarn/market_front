@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { OverflowButton } from "components/listing/overflowButton";
 import { PrimaryButton } from "components/buttons";
+import React from "react";
+import ReactTooltip from "react-tooltip";
 import SearchFilter from "components/forms/listing/searchFilter";
 import SearchSort from "components/forms/listing/searchSort";
 import { SpinnerLg } from "components/spinner";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
-import { ToolTipBelow } from "components/tooltip";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -89,13 +90,25 @@ export default function ListingTabs({
       <div className="flex items-center justify-center py-2 space-x-2 border-b border-accent">
         <h3 className="text-accent-darkest">Your Listings</h3>
         <span className="relative flex items-center space-x-2 group">
-          <PrimaryButton
-            text="New Listing"
-            href="listings/new"
-            disabled={disableListings}
-          />
-          <OverflowButton disabled={disableListings} />
-          <ToolTipBelow text="You must set your address and connect a Stripe account to create listings" />
+          <div data-tip data-for="overflowTip">
+            <PrimaryButton
+              text="New Listing"
+              href="listings/new"
+              disabled={disableListings}
+            />
+          </div>
+          <div data-tip data-for="overflowTip" className="text-center">
+            <OverflowButton disabled={disableListings} />
+            <ReactTooltip
+              id="overflowTip"
+              type="dark"
+              place="top"
+              effect="solid"
+            >
+              <div>You need to set your address and</div>
+              <div>payment settings to create listings.</div>
+            </ReactTooltip>
+          </div>
         </span>
       </div>
       <div className="flex justify-between px-4 py-2">

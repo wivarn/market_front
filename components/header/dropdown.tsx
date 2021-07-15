@@ -6,6 +6,7 @@ import { signOut, useSession } from "next-auth/client";
 import { AuthApi } from "services/backendApi/auth";
 import { IconLink } from "./iconLink";
 import Link from "next/link";
+import ReactTooltip from "react-tooltip";
 import { useRouter } from "next/router";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -65,10 +66,31 @@ export const DropDown = (): JSX.Element => {
         <>
           <div>
             <Menu.Button className="hidden py-2 md:block focus:outline-none">
-              <IconLink icon={<UserChevronIcon />} tooltip="Account" />
+              <div data-tip data-for="account">
+                <IconLink icon={<UserChevronIcon />} />
+
+                <ReactTooltip
+                  id="account"
+                  type="dark"
+                  place="bottom"
+                  effect="solid"
+                >
+                  Accout
+                </ReactTooltip>
+              </div>
             </Menu.Button>
             <Menu.Button className="py-2 md:hidden focus:outline-none">
-              <IconLink icon={<MenuIcon />} tooltip="Menu" />
+              <div data-tip data-for="menu">
+                <IconLink icon={<MenuIcon />} />
+                <ReactTooltip
+                  id="menu"
+                  type="dark"
+                  place="bottom"
+                  effect="solid"
+                >
+                  Menu
+                </ReactTooltip>
+              </div>
             </Menu.Button>
           </div>
 
@@ -101,7 +123,7 @@ export const DropDown = (): JSX.Element => {
                 <Menu.Item>
                   {({ active }) => (
                     <LinkWrapper href="/listings?status=active" active={active}>
-                      Selling
+                      Sell
                     </LinkWrapper>
                   )}
                 </Menu.Item>
