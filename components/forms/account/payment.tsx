@@ -1,18 +1,17 @@
 import * as Yup from "yup";
 
-import { DropdownCombobox } from "../fields";
 import { Form, Formik } from "formik";
 import useSWR, { mutate } from "swr";
-import Link from "next/link";
+
+import { DropdownCombobox } from "../fields";
 import FormContainer from "../container";
-import { ProfileApi } from "services/backendApi/profile";
 import InfoMessage from "components/message";
+import Link from "next/link";
+import { ProfileApi } from "services/backendApi/profile";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
-import { SmInfoCircle } from "components/icons";
-import { ToolTipAbove } from "components/tooltip";
 
 const currencyList = [
   { value: "CAD", text: "CAD" },
@@ -29,18 +28,6 @@ const paymentSchema = Yup.object().shape({
     )
     .required("Currency is required"),
 });
-
-const currencyLabel = () => {
-  return (
-    <div className="flex items-center space-x-2">
-      <span className="font-semibold">Listing Currency</span>
-      <span className="relative group">
-        <SmInfoCircle />
-        <ToolTipAbove text={`This sets the currency of new listings.`} />
-      </span>
-    </div>
-  );
-};
 
 export default function PaymentForm(): JSX.Element {
   const [session, loading] = useSession();
@@ -86,10 +73,11 @@ export default function PaymentForm(): JSX.Element {
             <div className="my-2 space-y-2">
               <InfoMessage>
                 <span>
-                  Listing currency will set the currency for new listings. If you change it current listings will not be affected.{" "}
-                    <Link href="#">
-                      <a className="underline text-info">Learn more.</a>
-                    </Link>
+                  Listing currency will set the currency for new listings. If
+                  you change it current listings will not be affected.{" "}
+                  <Link href="#">
+                    <a className="underline text-info">Learn more.</a>
+                  </Link>
                 </span>
               </InfoMessage>
               <DropdownCombobox
