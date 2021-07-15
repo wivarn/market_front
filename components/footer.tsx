@@ -51,22 +51,22 @@ export default function Footer(): JSX.Element {
             target="_blank"
           />
           <IconButtonLink
-            url="https://www.facebook.com/Skwirl-110235447975935"
+            url="https://www.facebook.com/skwirl.io"
             icon={<SmFacebookIcon />}
             target="_blank"
           />
           <IconButtonLink
-            url="https://www.reddit.com/r/Skwirl/new/"
+            url="https://www.reddit.com/r/Skwirl"
             icon={<SmRedditIcon />}
             target="_blank"
           />
           <IconButtonLink
-            url="https://www.instagram.com/skwirlapp/?hl=en"
+            url="https://www.instagram.com/skwirl.io"
             icon={<SmInstagramIcon />}
             target="_blank"
           />
           <IconButtonLink
-            url="https://twitter.com/Skwirl7"
+            url="https://twitter.com/skwirl_io"
             icon={<SmTwitterIcon />}
             target="_blank"
           />
