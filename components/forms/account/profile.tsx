@@ -8,6 +8,7 @@ import useSWR, { mutate } from "swr";
 import FormContainer from "../container";
 import Link from "next/link";
 import { ProfileApi } from "services/backendApi/profile";
+import ReactTooltip from "react-tooltip";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
 import { toast } from "react-toastify";
@@ -41,10 +42,19 @@ const idPrefix = "profile-form-";
 
 const emailLabel = () => {
   return (
-    <div className="flex space-x-2">
+    <div className="flex items-center space-x-2">
       <span className="font-semibold">Email</span>
-      <span className="text-success">
+      <span data-tip data-for="email" className="text-success">
         <SmCheckCircleIcon />
+        <ReactTooltip
+          id="email"
+          type="dark"
+          wrapper="span"
+          place="top"
+          effect="solid"
+        >
+          Your email is verified
+        </ReactTooltip>
       </span>
       <Link href="account/changeEmail">
         <a className="font-normal underline text-info">edit</a>
@@ -55,10 +65,22 @@ const emailLabel = () => {
 
 const phoneNumberLabel = () => {
   return (
-    <div className="flex space-x-2">
+    <div className="flex items-center space-x-2">
       <span className="font-semibold">Phone Number</span>
-      <span className="text-warning">
+      <span data-tip data-for="phone" className="text-warning">
         <SmExclamationCircleIcon />
+        <ReactTooltip
+          id="phone"
+          type="dark"
+          wrapper="span"
+          place="top"
+          effect="solid"
+          multiline={true}
+        >
+          You have not verified
+          <br />
+          your phone number
+        </ReactTooltip>
       </span>
       <Link href="account/changePhoneNumber">
         <a className="font-normal underline text-info">edit</a>
