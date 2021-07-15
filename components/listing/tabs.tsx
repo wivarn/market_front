@@ -103,7 +103,7 @@ export default function ListingTabs({
               id="overflowTip"
               type="dark"
               place="top"
-              multiline
+              multiline={true}
               effect="solid"
               disable={!disableListings}
             >
