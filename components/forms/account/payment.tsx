@@ -3,9 +3,10 @@ import * as Yup from "yup";
 import { DropdownCombobox } from "../fields";
 import { Form, Formik } from "formik";
 import useSWR, { mutate } from "swr";
-
+import Link from "next/link";
 import FormContainer from "../container";
 import { ProfileApi } from "services/backendApi/profile";
+import InfoMessage from "components/message";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
 import { toast } from "react-toastify";
@@ -83,8 +84,16 @@ export default function PaymentForm(): JSX.Element {
         {(formik) => (
           <Form>
             <div className="my-2 space-y-2">
+              <InfoMessage>
+                <span>
+                  Listing currency will set the currency for new listings. If you change it current listings will not be affected.{" "}
+                    <Link href="#">
+                      <a className="underline text-info">Learn more.</a>
+                    </Link>
+                </span>
+              </InfoMessage>
               <DropdownCombobox
-                label={currencyLabel()}
+                label="Listing Currency"
                 name="currency"
                 items={currencyList}
               />
