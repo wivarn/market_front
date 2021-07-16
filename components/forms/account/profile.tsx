@@ -63,32 +63,6 @@ const emailLabel = () => {
   );
 };
 
-const phoneNumberLabel = () => {
-  return (
-    <div className="flex items-center space-x-2">
-      <span className="font-semibold">Phone Number</span>
-      <span data-tip data-for="phone" className="text-warning">
-        <SmExclamationCircleIcon />
-        <ReactTooltip
-          id="phone"
-          type="dark"
-          wrapper="span"
-          place="top"
-          effect="solid"
-          multiline={true}
-        >
-          You have not verified
-          <br />
-          your phone number
-        </ReactTooltip>
-      </span>
-      <Link href="account/changePhoneNumber">
-        <a className="font-normal underline text-info">edit</a>
-      </Link>
-    </div>
-  );
-};
-
 export default function ProfileForm(): JSX.Element {
   const [session, loading] = useSession();
 
@@ -158,7 +132,7 @@ export default function ProfileForm(): JSX.Element {
                 disabled={true}
               />
               <TextFieldFull
-                label={phoneNumberLabel()}
+                label="Phone Number (optional)"
                 name="phoneNumber"
                 id={`${idPrefix}phoneNumber`}
                 disabled={true}
