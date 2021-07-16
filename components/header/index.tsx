@@ -11,6 +11,7 @@ import { IconLink } from "./iconLink";
 import Link from "next/link";
 import { MdSkwirlIcon } from "components/icons";
 import PageContainer from "components/pageContainer";
+import ReactTooltip from "react-tooltip";
 import SearchForm from "components/forms/listing/search";
 import { Spinner } from "components/spinner";
 import { useEffect } from "react";
@@ -37,8 +38,15 @@ export default function Header(): JSX.Element {
 
   function LoggedOutNav() {
     return (
-      <div className="items-center justify-items-right">
-        <IconLink href="/login" icon={<UserCircleIcon />} tooltip="Log In" />
+      <div
+        data-tip
+        data-for="login"
+        className="items-center justify-items-right"
+      >
+        <IconLink href="/login" icon={<UserCircleIcon />} />
+        <ReactTooltip id="login" type="dark" place="bottom" effect="solid">
+          Login
+        </ReactTooltip>
       </div>
     );
   }
@@ -47,12 +55,21 @@ export default function Header(): JSX.Element {
     return (
       <>
         <div className="items-center hidden mr-8 space-x-4 justify-items-center md:inline-flex">
-          <IconLink
-            href="/listings?status=active"
-            icon={<CurrencyDollarIcon />}
-            tooltip="Sell"
-          />
-          <IconLink href="/cart" icon={<ShoppingCartIcon />} tooltip="Cart" />
+          <div data-tip data-for="sell">
+            <IconLink
+              href="/listings?status=active"
+              icon={<CurrencyDollarIcon />}
+            />
+            <ReactTooltip id="sell" type="dark" place="bottom" effect="solid">
+              Sell
+            </ReactTooltip>
+          </div>
+          <div data-tip data-for="cart">
+            <IconLink href="/cart" icon={<ShoppingCartIcon />} />
+            <ReactTooltip id="cart" type="dark" place="bottom" effect="solid">
+              Cart
+            </ReactTooltip>
+          </div>
           <DropDown />
         </div>
         <div className="inline-flex items-center md:hidden">

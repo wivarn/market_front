@@ -1,12 +1,10 @@
 import React, { ReactNode } from "react";
 
 import Link from "next/link";
-import { ToolTipBelow } from "components/tooltip";
 
 interface Props {
   href?: string;
   icon: ReactNode;
-  tooltip: string;
 }
 
 export const IconLink = (props: Props): JSX.Element => {
@@ -18,7 +16,6 @@ export const IconLink = (props: Props): JSX.Element => {
       >
         {props.icon}
       </a>
-      <ToolTipBelow text={props.tooltip} />
     </div>
   );
   if (props.href) {
