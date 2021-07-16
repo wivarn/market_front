@@ -6,6 +6,7 @@ import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
+import { GenericErrorMessage } from "components/message";
 
 export default function Listings(): JSX.Element {
   const [session, loadingSession] = useSession();
@@ -35,7 +36,7 @@ export default function Listings(): JSX.Element {
   function renderListings() {
     if (loadingListings || loadingSession)
       return <SpinnerLg text="Loading..." />;
-    if (isError) return <div>Error</div>;
+    if (isError) return <GenericErrorMessage></GenericErrorMessage>;
     return (
       <ListingPreviewGrid
         listings={response.data.listings}

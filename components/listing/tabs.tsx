@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { OverflowButton } from "components/listing/overflowButton";
 import { PrimaryButton } from "components/buttons";
+import { GenericErrorMessage } from "components/message";
 import React from "react";
 import ReactTooltip from "react-tooltip";
 import SearchFilter from "components/forms/listing/searchFilter";
@@ -74,12 +75,12 @@ export default function ListingTabs({
   const { payment, paymentLoading, paymentError } = getPayment(addressSet);
 
   if (addressLoading) return <SpinnerLg text="Loading..." />;
-  if (addressError) return <div>Error</div>;
+  if (addressError) return <GenericErrorMessage></GenericErrorMessage>;
 
   let disableListings = true;
   if (addressSet) {
     if (paymentLoading) return <SpinnerLg text="Loading..." />;
-    if (paymentError) return <div>Error</div>;
+    if (paymentError) return <GenericErrorMessage></GenericErrorMessage>;
     disableListings = !payment.data.charges_enabled;
   } else {
     disableListings = true;

@@ -160,6 +160,10 @@ export const ErrorIcon = (): JSX.Element => {
   return <HiXCircle className="icon" />;
 };
 
+export const SmErrorIcon = (): JSX.Element => {
+  return <HiXCircle className="icon-sm" />;
+};
+
 export const XIcon = (): JSX.Element => {
   return <HiX className="icon" />;
 };

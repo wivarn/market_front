@@ -6,6 +6,7 @@ import SearchSort from "components/forms/listing/searchSort";
 import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { GenericErrorMessage } from "components/message";
 
 export default function Listings(): JSX.Element {
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function Listings(): JSX.Element {
   const { response, isLoading, isError } = getListings();
 
   if (isLoading) return <SpinnerLg text="Loading..." />;
-  if (isError) return <div>Error</div>;
+  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
 
   return (
     <div className="my-4">

@@ -8,6 +8,7 @@ import { SubmitButton } from "components/buttons";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 import Image from "next/image";
+import { GenericErrorMessage } from "components/message";
 
 export default function Cart(): JSX.Element {
   const [session, sessionLoading] = useSession();
@@ -49,7 +50,7 @@ export default function Cart(): JSX.Element {
 
   if (sessionLoading || loadingCart || addressLoading)
     return <SpinnerLg text="Loading..." />;
-  if (cartError || addressError) return <div>Error</div>;
+  if (cartError || addressError) return <GenericErrorMessage></GenericErrorMessage>;
   const carts = cartResponse.data;
   const address = addressResponse.data;
 
