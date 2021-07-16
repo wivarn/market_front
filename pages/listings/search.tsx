@@ -1,3 +1,4 @@
+import { GenericErrorMessage } from "components/message";
 import ListingPreviewGrid from "components/listing/previewGrid";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
@@ -6,10 +7,10 @@ import SearchSort from "components/forms/listing/searchSort";
 import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { GenericErrorMessage } from "components/message";
 
 export default function Listings(): JSX.Element {
   const router = useRouter();
+  const { page } = router.query;
 
   function getListings() {
     const query = Object.entries(router.query)
@@ -23,15 +24,26 @@ export default function Listings(): JSX.Element {
 
     return {
       response: data,
-      isLoading: !error && !data,
+      loadingListings: !error && !data,
       isError: error,
     };
   }
 
-  const { response, isLoading, isError } = getListings();
+  const { response, loadingListings, isError } = getListings();
 
-  if (isLoading) return <SpinnerLg text="Loading..." />;
-  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
+  function renderListings() {
+    if (loadingListings) return <SpinnerLg text="Loading..." />;
+    if (isError) return <GenericErrorMessage></GenericErrorMessage>;
+    if (!response.data.total_pages) return <div>no listings</div>;
+
+    return (
+      <ListingPreviewGrid
+        listings={response.data.listings}
+        totalPages={response.data.total_pages}
+        initialPage={Number(page)}
+      />
+    );
+  }
 
   return (
     <div className="my-4">
@@ -44,11 +56,7 @@ export default function Listings(): JSX.Element {
           <SearchFilter />
           <SearchSort />
         </div>
-        <ListingPreviewGrid
-          listings={response.data.listings}
-          totalPages={response.data.total_pages}
-          initialPage={Number(router.query.page)}
-        />
+        {renderListings()}
       </PageContainer>
     </div>
   );

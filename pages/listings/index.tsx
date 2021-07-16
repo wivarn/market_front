@@ -1,3 +1,4 @@
+import { GenericErrorMessage } from "components/message";
 import ListingPreviewGrid from "components/listing/previewGrid";
 import ListingTabs from "components/listing/tabs";
 import { NextSeo } from "next-seo";
@@ -6,7 +7,6 @@ import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
-import { GenericErrorMessage } from "components/message";
 
 export default function Listings(): JSX.Element {
   const [session, loadingSession] = useSession();
@@ -37,6 +37,8 @@ export default function Listings(): JSX.Element {
     if (loadingListings || loadingSession)
       return <SpinnerLg text="Loading..." />;
     if (isError) return <GenericErrorMessage></GenericErrorMessage>;
+    if (!response.data.total_pages) return <div>no listings</div>;
+
     return (
       <ListingPreviewGrid
         listings={response.data.listings}

@@ -7,6 +7,7 @@ import ReactTooltip from "react-tooltip";
 import SearchFilter from "components/forms/listing/searchFilter";
 import SearchSort from "components/forms/listing/searchSort";
 import { SpinnerLg } from "components/spinner";
+import { ToolTipBelow } from "components/tooltip";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
@@ -70,7 +71,8 @@ export default function ListingTabs({
   const { addressResponse, addressLoading, addressError } = getAddress();
 
   const address = addressResponse?.data;
-  const addressSet = addressLoading ? false : !!Object.keys(address).length;
+  const addressSet =
+    addressLoading || addressError ? false : !!Object.keys(address).length;
 
   const { payment, paymentLoading, paymentError } = getPayment(addressSet);
 
