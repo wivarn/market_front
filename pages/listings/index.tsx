@@ -1,4 +1,5 @@
-import { GenericErrorMessage } from "components/message";
+import { GenericErrorMessage, BlankMessage } from "components/message";
+import { PrimaryButton } from "components/buttons";
 import ListingPreviewGrid from "components/listing/previewGrid";
 import ListingTabs from "components/listing/tabs";
 import { NextSeo } from "next-seo";
@@ -37,7 +38,13 @@ export default function Listings(): JSX.Element {
     if (loadingListings || loadingSession)
       return <SpinnerLg text="Loading..." />;
     if (isError) return <GenericErrorMessage></GenericErrorMessage>;
-    if (!response.data.total_pages) return <div>no listings</div>;
+    if (!response.data.total_pages)
+      return (
+        <BlankMessage>
+          <div className="p-2">You have no {status} listings.</div>
+          <PrimaryButton text="Create New Listing" />
+        </BlankMessage>
+      );
 
     return (
       <ListingPreviewGrid

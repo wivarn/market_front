@@ -1,6 +1,8 @@
 import React, { ReactNode } from "react";
+
+import Image from "next/image";
 import Link from "next/link";
-import { SmInfoCircle, SmErrorIcon } from "components/icons";
+import { SmInfoCircle } from "components/icons";
 
 type Props = {
   children: ReactNode;
@@ -19,18 +21,29 @@ export function InfoMessage(props: Props): JSX.Element {
 
 export function GenericErrorMessage(): JSX.Element {
   return (
-    <div className="container w-screen h-full">
-      <div className="flex max-w-2xl p-2 mx-auto border rounded-md border-error bg-error-lightest">
-        <div className="mr-2 ">
-          <SmErrorIcon />
+    <div className="container mt-8">
+      <div className="grid items-center max-w-xl p-4 mx-auto rounded-md ">
+        <Image src="/assets/error.svg" height={400} width={400} />
+        <div className="mt-4 text-lg text-center">
+          <span>
+            Well that's embarrassing! It looks like something went wrong. Please
+            try again, or{" "}
+            <Link href="#">
+              <a className="underline text-info">contact support.</a>
+            </Link>
+          </span>
         </div>
-        <span>
-          Well that's embarrassing! It looks like something went wrong. Please
-          try again, or{" "}
-          <Link href="#">
-            <a className="underline text-info">contact support.</a>
-          </Link>
-        </span>
+      </div>
+    </div>
+  );
+}
+
+export function BlankMessage(props: Props): JSX.Element {
+  return (
+    <div className="container mt-8">
+      <div className="grid items-center max-w-xl p-4 mx-auto rounded-md ">
+        <Image src="/assets/create.svg" height={400} width={400} />
+        <div className="mt-4 text-lg text-center">{props.children}</div>
       </div>
     </div>
   );
