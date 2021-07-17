@@ -1,5 +1,4 @@
 import AccountContainer from "components/accountContainer";
-import { GenericErrorMessage } from "components/message";
 import { NextSeo } from "next-seo";
 import { PaymentApi } from "services/backendApi/payment";
 import PaymentForm from "components/forms/account/payment";
@@ -19,11 +18,11 @@ export default function profile(): JSX.Element {
     return {
       response: data,
       isLoading: !error && !data,
-      isError: error,
+      error: error,
     };
   }
 
-  const { response, isLoading } = getPayment();
+  const { response, isLoading, error } = getPayment();
 
   if (isLoading || loading) return <SpinnerLg text="Loading..." />;
   // TODO: render an error message about existing stripe connection being disconnected
