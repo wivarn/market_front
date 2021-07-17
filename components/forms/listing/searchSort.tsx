@@ -26,9 +26,9 @@ export default function SearchSort(): JSX.Element {
   const [selected, setSelected] = useState(initialSelected);
 
   return (
-    <div>
+    <div className="relative md:w-72">
       <Listbox value={selected} onChange={setSelected}>
-        <div className="my-2">
+        <div>
           <Listbox.Button className="relative p-2 text-left bg-white border rounded-md md:w-72 border-accent">
             <span className="hidden truncate md:block">{selected.text}</span>
             <span className="absolute inset-y-0 right-0 items-center hidden pr-2 md:flex">
@@ -44,7 +44,7 @@ export default function SearchSort(): JSX.Element {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute inset-0 z-10 px-2 py-1 mt-1 text-sm bg-white border rounded-md shadow-lg md:w-full md:text-base max-h-72 border-accent">
+            <Listbox.Options className="absolute right-0 z-10 px-2 py-1 my-2 text-sm bg-white border rounded-md shadow-lg md:left-0 md:w-full md:text-base max-h-72 border-accent">
               {sortOptions.map((option, optionId) => (
                 <Listbox.Option
                   key={optionId}
