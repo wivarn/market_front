@@ -124,8 +124,7 @@ const ListingForm = (props: Listing): JSX.Element => {
   }
 
   function renderButtons(formik: FormikProps<any>, id: string | undefined) {
-    console.log(formik.values.status);
-    const draft = newListing || formik.values.status === "DRAFT";
+    const draft = newListing || formik.values.state === "draft";
 
     function renderPublishButton(formik: FormikProps<any>) {
       return (
@@ -133,7 +132,7 @@ const ListingForm = (props: Listing): JSX.Element => {
           text={(draft ? "Publish" : "Update") + " Listing"}
           disabled={formik.isSubmitting}
           onClick={async () => {
-            formik.setFieldValue("status", "ACTIVE");
+            formik.setFieldValue("state", "active");
           }}
         />
       );
@@ -146,7 +145,7 @@ const ListingForm = (props: Listing): JSX.Element => {
           text={(newListing ? "Save" : "Update") + " Draft"}
           disabled={formik.isSubmitting}
           onClick={async () => {
-            formik.setFieldValue("status", "DRAFT");
+            formik.setFieldValue("state", "draft");
           }}
         />
       );
@@ -241,7 +240,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                       ? "New listing created!"
                       : "Your listing has been updated"
                   );
-                  router.push("/listings?status=active");
+                  router.push("/listings?state=active");
                 })
                 .catch((error) => {
                   toast.error(JSON.stringify(error.response.data));
@@ -361,7 +360,7 @@ ListingForm.defaultProps = {
   price: "",
   domestic_shipping: "",
   international_shipping: undefined,
-  status: "ACTIVE",
+  state: "active",
 };
 
 export default ListingForm;

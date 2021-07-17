@@ -57,7 +57,7 @@ export default function Header(): JSX.Element {
         <div className="items-center hidden mr-8 space-x-4 justify-items-center md:inline-flex">
           <div data-tip data-for="sell">
             <IconLink
-              href="/listings?status=active"
+              href="/listings?state=active"
               icon={<CurrencyDollarIcon />}
             />
             <ReactTooltip id="sell" type="dark" place="bottom" effect="solid">

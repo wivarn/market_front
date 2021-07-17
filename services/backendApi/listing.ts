@@ -24,7 +24,7 @@ export const ListingApi = (
         price: listing.price,
         domestic_shipping: listing.domestic_shipping,
         international_shipping: listing.international_shipping,
-        status: listing.status,
+        aasm_state: listing.aasm_state,
       },
       {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -56,7 +56,7 @@ export const ListingApi = (
         price: listing.price,
         domestic_shipping: listing.domestic_shipping,
         international_shipping: listing.international_shipping,
-        status: listing.status,
+        aasm_state: listing.aasm_state,
       },
       {
         headers: { Authorization: `Bearer ${accessToken}` },

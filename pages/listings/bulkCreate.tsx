@@ -20,7 +20,7 @@ import { useSession } from "next-auth/client";
 import { useState } from "react";
 
 delete listingSchema.photos;
-delete listingSchema.status;
+delete listingSchema.state;
 const headerSchema = Yup.array().of(
   Yup.mixed().oneOf(Object.keys(listingSchema))
 );
@@ -171,7 +171,7 @@ export default function BulkCreateListings(): JSX.Element {
       .bulkCreate(listings.data)
       .then(() => {
         toast.success("New listings created");
-        router.push("/listings?status=draft");
+        router.push("/listings?state=draft");
       });
   }
 

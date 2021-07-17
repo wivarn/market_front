@@ -16,7 +16,7 @@ export interface Listing extends BasicListing {
   photos: string[];
   description?: string;
   sellerName?: string;
-  status?: string;
+  aasm_state?: string;
 }
 
 export interface ListingTemplate {
