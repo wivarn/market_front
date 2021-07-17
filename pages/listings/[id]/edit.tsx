@@ -3,23 +3,27 @@ import { NextSeo } from "next-seo";
 import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { useSession } from "next-auth/client";
 
 export default function EditListing(): JSX.Element {
+  const [session, sessionLoading] = useSession();
   const router = useRouter();
   const { id } = router.query;
 
   function getListing() {
-    const { data, error } = useSWR(id ? `listings/${id}` : null);
+    const { data, error } = useSWR(
+      id && session ? [`listings/${id}/edit`, session.accessToken] : null
+    );
 
     return {
       response: data,
-      isLoading: !error && !data,
+      listingLoading: !error && !data,
       isError: error,
     };
   }
 
-  const { response, isLoading, isError } = getListing();
-  if (isLoading) return <SpinnerLg text="Loading..." />;
+  const { response, listingLoading, isError } = getListing();
+  if (listingLoading || sessionLoading) return <SpinnerLg text="Loading..." />;
   if (isError) return <div>Error</div>;
 
   const listing = response.data;
@@ -28,7 +32,7 @@ export default function EditListing(): JSX.Element {
       <NextSeo title="Update Listing" />
       <ListingForm
         id={listing.id}
-        state={listing.aasm_state}
+        aasm_state={listing.aasm_state}
         currency={listing.currency}
         category={listing.category || undefined}
         subcategory={listing.subcategory || undefined}

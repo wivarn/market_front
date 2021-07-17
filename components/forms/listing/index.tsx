@@ -124,16 +124,24 @@ const ListingForm = (props: Listing): JSX.Element => {
   }
 
   function renderUpdateButtons(formik: FormikProps<any>) {
-    const draft = newListing || formik.values.state === "draft";
+    if (
+      formik.values.aasm_state !== "draft" &&
+      formik.values.aasm_state !== "active" &&
+      formik.values.aasm_state !== "removed"
+    )
+      return null;
+    const draft = newListing || formik.values.aasm_state === "draft";
+    const removed = formik.values.aasm_state === "removed";
 
     function renderPublishButton(formik: FormikProps<any>) {
       return (
         <SubmitButton
-          text={(draft ? "Publish" : "Update") + " Listing"}
+          text={(draft || removed ? "Publish" : "Update") + " Listing"}
           disabled={formik.isSubmitting}
           onClick={async () => {
             formik.setFieldValue("state", "active");
-            if (draft) formik.setFieldValue("state_transition", "publish");
+            if (draft || removed)
+              formik.setFieldValue("state_transition", "publish");
           }}
         />
       );
@@ -161,9 +169,10 @@ const ListingForm = (props: Listing): JSX.Element => {
   }
 
   function renderDeleteButton(id: string | undefined) {
-    if (!id) return null;
+    if (!id || (props.aasm_state !== "draft" && props.aasm_state !== "active"))
+      return null;
 
-    const draft = props.state == "draft";
+    const draft = props.aasm_state === "draft";
     return (
       <DeleteButton
         text={draft ? "Delete" : "Remove"}
@@ -374,7 +383,7 @@ ListingForm.defaultProps = {
   price: "",
   domestic_shipping: "",
   international_shipping: undefined,
-  state: "draft",
+  aasm_state: "draft",
   state_transition: undefined,
 };
 

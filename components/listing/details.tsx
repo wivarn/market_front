@@ -13,6 +13,8 @@ import { useSession } from "next-auth/client";
 const ListingDetails = (props: Listing): JSX.Element => {
   const [session] = useSession();
   const isSeller = session?.accountId == props.accountId;
+  const editable =
+    props.aasm_state === "draft" || props.aasm_state === "active";
 
   function getAddress() {
     const { data, error } = useSWR(
@@ -41,6 +43,7 @@ const ListingDetails = (props: Listing): JSX.Element => {
   }
 
   function renderButton() {
+    if (!editable) return null;
     if (isSeller) {
       return (
         <SecondaryButtonFull

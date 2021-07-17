@@ -26,6 +26,7 @@ const ListingPreviewGrid = ({
             <ListingPreview
               key={listing.id}
               id={listing.id}
+              aasm_state={listing.aasm_state}
               photos={listing.photos}
               title={listing.title}
               price={listing.price}

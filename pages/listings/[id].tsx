@@ -31,6 +31,7 @@ export default function ShowListing(): JSX.Element {
       <CardContainer6xl>
         <ListingDetails
           id={listing.id}
+          aasm_state={listing.aasm_state}
           accountId={listing.account_id}
           photos={listing.photos}
           title={listing.title}
