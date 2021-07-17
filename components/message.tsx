@@ -26,8 +26,8 @@ export function GenericErrorMessage(): JSX.Element {
         <Image src="/assets/error.svg" height={400} width={400} />
         <div className="mt-4 text-lg text-center">
           <span>
-            Well that's embarrassing! It looks like something went wrong. Please
-            try again, or{" "}
+            Well that is embarrassing! It looks like something went wrong.
+            Please try again, or{" "}
             <Link href="#">
               <a className="underline text-info">contact support.</a>
             </Link>
