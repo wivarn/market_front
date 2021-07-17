@@ -32,9 +32,9 @@ export const UserListingsPreview = (props: PreviewProps): JSX.Element => {
 export const UserListings = (props: ListingProps): JSX.Element => {
   return (
     <div>
-      <div className="grid items-center grid-cols-3 space-between justify-items-center">
+      <div className="grid items-center grid-cols-4 space-between justify-items-center">
         <SearchFilter />
-        <h3 className="text-center">Listings</h3>
+        <h3 className="col-span-2 text-center">Listings</h3>
         <SearchSort />
       </div>
       <ListingPreviewGrid
