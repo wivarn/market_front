@@ -23,8 +23,8 @@ export default function EditListing(): JSX.Element {
     };
   }
 
-  const { response, isLoading, isError } = getListing();
-  if (isLoading) return <SpinnerLg text="Loading..." />;
+  const { response, listingLoading, isError } = getListing();
+  if (listingLoading) return <SpinnerLg text="Loading..." />;
   if (isError) return <GenericErrorMessage></GenericErrorMessage>;
 
   const listing = response.data;
