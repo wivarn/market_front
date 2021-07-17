@@ -5,7 +5,7 @@ import useSWR, { mutate } from "swr";
 
 import { DropdownCombobox } from "../fields";
 import FormContainer from "../container";
-import InfoMessage from "components/message";
+import { InfoMessage, GenericErrorMessage } from "components/message";
 import Link from "next/link";
 import { ProfileApi } from "services/backendApi/profile";
 import { SpinnerLg } from "components/spinner";
@@ -47,7 +47,7 @@ export default function PaymentForm(): JSX.Element {
   const { profile, isLoading, isError } = getProfile();
 
   if (isLoading || loading) return <SpinnerLg text="Loading..." />;
-  if (isError) return <div>Error</div>;
+  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
 
   return (
     <FormContainer>

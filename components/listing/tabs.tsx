@@ -1,3 +1,4 @@
+import { GenericErrorMessage } from "components/message";
 import Link from "next/link";
 import { OverflowButton } from "components/listing/overflowButton";
 import { PrimaryButton } from "components/buttons";
@@ -69,17 +70,18 @@ export default function ListingTabs({
   const { addressResponse, addressLoading, addressError } = getAddress();
 
   const address = addressResponse?.data;
-  const addressSet = addressLoading ? false : !!Object.keys(address).length;
+  const addressSet =
+    addressLoading || addressError ? false : !!Object.keys(address).length;
 
   const { payment, paymentLoading, paymentError } = getPayment(addressSet);
 
   if (addressLoading) return <SpinnerLg text="Loading..." />;
-  if (addressError) return <div>Error</div>;
+  if (addressError) return <GenericErrorMessage></GenericErrorMessage>;
 
   let disableListings = true;
   if (addressSet) {
     if (paymentLoading) return <SpinnerLg text="Loading..." />;
-    if (paymentError) return <div>Error</div>;
+    if (paymentError) return <GenericErrorMessage></GenericErrorMessage>;
     disableListings = !payment.data.charges_enabled;
   } else {
     disableListings = true;

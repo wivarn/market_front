@@ -1,4 +1,5 @@
 import { CardContainer6xl } from "components/cardContainer";
+import { GenericErrorMessage } from "components/message";
 import ListingDetails from "components/listing/details";
 import { NextSeo } from "next-seo";
 import { SpinnerLg } from "components/spinner";
@@ -21,7 +22,7 @@ export default function ShowListing(): JSX.Element {
 
   const { response, isLoading, isError } = getListing();
   if (isLoading) return <SpinnerLg text="Loading..." />;
-  if (isError) return <div>Error</div>;
+  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
 
   const listing = response.data;
 

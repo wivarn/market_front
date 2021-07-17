@@ -1,3 +1,4 @@
+import { GenericErrorMessage } from "components/message";
 import ListingTemplateForm from "components/forms/listing/template";
 import { NextSeo } from "next-seo";
 import { SpinnerLg } from "components/spinner";
@@ -22,7 +23,7 @@ export default function NewListing(): JSX.Element {
   const { response, loadingTemplate, isError } = getListingTemplate();
 
   if (loadingTemplate) return <SpinnerLg text="Loading..." />;
-  if (isError) return <div>Error</div>;
+  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
 
   const template = response.data;
 

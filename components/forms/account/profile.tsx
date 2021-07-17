@@ -2,13 +2,14 @@ import * as Yup from "yup";
 
 import { DropdownCombobox, TextFieldFull } from "../fields";
 import { Form, Formik } from "formik";
-import { SmCheckCircleIcon, SmExclamationCircleIcon } from "components/icons";
 import useSWR, { mutate } from "swr";
 
 import FormContainer from "../container";
+import { GenericErrorMessage } from "components/message";
 import Link from "next/link";
 import { ProfileApi } from "services/backendApi/profile";
 import ReactTooltip from "react-tooltip";
+import { SmCheckCircleIcon } from "components/icons";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
 import { toast } from "react-toastify";
@@ -81,7 +82,7 @@ export default function ProfileForm(): JSX.Element {
   const { profile, isLoading, isError } = getProfile();
 
   if (isLoading || loading) return <SpinnerLg text="Loading..." />;
-  if (isError) return <div>Error</div>;
+  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
 
   return (
     <FormContainer>
