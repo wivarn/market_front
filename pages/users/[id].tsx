@@ -1,5 +1,6 @@
 import { AddressApi } from "services/backendApi/address";
 import { IUser } from "types/user";
+import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { UserInfo } from "components/user";
 import { UserListingsPreview } from "components/user/listings";
@@ -41,9 +42,18 @@ export default function ShowUser(): JSX.Element {
 
   return (
     <div>
-      <UserInfo givenName={user.given_name} familyName={user.family_name} />
-      <UserListingsPreview listings={user.listings} />
-      <UserReviewsPreview />
+      <PageContainer>
+        <div className="mb-4">
+          <h3 className="mb-4 text-center">Seller Profile</h3>
+          <UserInfo givenName={user.given_name} familyName={user.family_name} />
+        </div>
+        <div className="py-4">
+          <UserListingsPreview listings={user.listings} />
+        </div>
+        <div>
+          <UserReviewsPreview />
+        </div>
+      </PageContainer>
     </div>
   );
 }

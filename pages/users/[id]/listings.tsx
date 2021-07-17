@@ -1,3 +1,4 @@
+import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { UserListings } from "components/user/listings";
 import { useRouter } from "next/router";
@@ -31,10 +32,12 @@ export default function ShowUserListings(): JSX.Element {
   const listings = listingsResponse.data;
 
   return (
-    <UserListings
-      listings={listings.listings}
-      totalPages={listings.total_pages}
-      initialPage={Number(router.query.page)}
-    />
+    <PageContainer>
+      <UserListings
+        listings={listings.listings}
+        totalPages={listings.total_pages}
+        initialPage={Number(router.query.page)}
+      />
+    </PageContainer>
   );
 }
