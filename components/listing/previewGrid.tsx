@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 interface Listings {
   listings: Listing[];
-  totalPages: number;
+  totalPages?: number;
   initialPage?: number;
 }
 
@@ -18,26 +18,10 @@ const ListingPreviewGrid = ({
 }: Listings): JSX.Element => {
   const router = useRouter();
 
-  return (
-    <>
-      <div className="grid grid-cols-1 gap-2 mb-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
-        {listings.map((listing: Listing) => {
-          return (
-            <ListingPreview
-              key={listing.id}
-              id={listing.id}
-              photos={listing.photos}
-              title={listing.title}
-              price={listing.price}
-              currency={listing.currency}
-              domestic_shipping={listing.domestic_shipping}
-              international_shipping={listing.international_shipping}
-              grading_company={listing.grading_company}
-              condition={listing.condition}
-            />
-          );
-        })}
-      </div>
+  function renderPagination() {
+    if (totalPages === undefined || initialPage === undefined) return null;
+
+    return (
       <ReactPaginate
         initialPage={initialPage}
         pageCount={totalPages}
@@ -56,6 +40,31 @@ const ListingPreviewGrid = ({
           });
         }}
       />
+    );
+  }
+
+  return (
+    <>
+      <div className="grid grid-cols-1 gap-2 mb-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
+        {listings.map((listing: Listing) => {
+          return (
+            <ListingPreview
+              key={listing.id}
+              id={listing.id}
+              aasm_state={listing.aasm_state}
+              photos={listing.photos}
+              title={listing.title}
+              price={listing.price}
+              currency={listing.currency}
+              domestic_shipping={listing.domestic_shipping}
+              international_shipping={listing.international_shipping}
+              grading_company={listing.grading_company}
+              condition={listing.condition}
+            />
+          );
+        })}
+      </div>
+      {renderPagination()}
     </>
   );
 };

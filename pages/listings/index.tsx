@@ -13,7 +13,7 @@ import { useSession } from "next-auth/client";
 export default function Listings(): JSX.Element {
   const [session, loadingSession] = useSession();
   const router = useRouter();
-  const { status, page } = router.query;
+  const { state, page } = router.query;
 
   function getListings() {
     const query = Object.entries(router.query)
@@ -23,7 +23,7 @@ export default function Listings(): JSX.Element {
       .join("&");
 
     const { data, error } = useSWR(
-      session && status ? [`listings?${query}`, session.accessToken] : null
+      session && state ? [`listings?${query}`, session.accessToken] : null
     );
 
     return {
@@ -60,7 +60,7 @@ export default function Listings(): JSX.Element {
     <div className="my-4">
       <PageContainer yPadding="py-4">
         <NextSeo title="Your Listings" />
-        <ListingTabs activeTab={`${status}`}>{renderListings()}</ListingTabs>
+        <ListingTabs activeTab={`${state}`}>{renderListings()}</ListingTabs>
       </PageContainer>
     </div>
   );

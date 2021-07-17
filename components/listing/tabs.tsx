@@ -124,28 +124,28 @@ export default function ListingTabs({
       </div>
       <div className="flex justify-center mt-4 mb-2 space-x-8">
         <LinkWrapper
-          href="/listings?status=active"
+          href="/listings?state=active"
           tab="active"
           activeTab={activeTab}
         >
           Active
         </LinkWrapper>
         <LinkWrapper
-          href="/listings?status=sold"
+          href="/listings?state=sold"
           tab="sold"
           activeTab={activeTab}
         >
           Sold
         </LinkWrapper>
         <LinkWrapper
-          href="/listings?status=draft"
+          href="/listings?state=draft"
           tab="draft"
           activeTab={activeTab}
         >
           Draft
         </LinkWrapper>
         <LinkWrapper
-          href="/listings?status=removed"
+          href="/listings?state=removed"
           tab="removed"
           activeTab={activeTab}
         >

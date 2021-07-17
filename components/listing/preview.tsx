@@ -4,10 +4,14 @@ import { Listing } from "types/listings";
 import ListingBasicInfo from "./basicInfo";
 
 const ListingPreview = (props: Listing): JSX.Element => {
+  const href =
+    props.aasm_state === "active"
+      ? `/listings/${props.id}`
+      : `/listings/${props.id}/edit`;
   return (
     <div className="mt-4">
       <div>
-        <Link href={`/listings/${props.id}`}>
+        <Link href={href}>
           <a>
             <div className="flex flex-wrap bg-white rounded-md shadow-md w-80 hover:shadow-xl">
               <div className="container relative w-80 h-80">
