@@ -172,23 +172,21 @@ const ListingForm = (props: Listing): JSX.Element => {
             await ListingApi(session?.accessToken)
               .destroy(id)
               .then(() => {
-                toast.error("Your listing has been deleted");
+                toast.success("Your listing has been deleted");
                 router.push("/listings?state=active");
               })
               .catch((error) => {
-                console.log(error);
-                alert(error.response.data.error);
+                toast.error(error.response.data.error);
               });
           } else {
             await ListingApi(session?.accessToken)
               .updateState(id, "remove")
               .then(() => {
-                toast.error("Your listing has been removed");
+                toast.success("Your listing has been removed");
                 router.push("/listings?state=active");
               })
               .catch((error) => {
-                console.log(error);
-                alert(error.response.data.error);
+                toast.error(error.response.data.error);
               });
           }
         }}
@@ -258,7 +256,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                   router.push("/listings?state=active");
                 })
                 .catch((error) => {
-                  toast.error(JSON.stringify(error.response.data));
+                  toast.error(error.response.data.error);
                 })
                 .finally(() => {
                   actions.setSubmitting(false);
