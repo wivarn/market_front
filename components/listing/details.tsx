@@ -7,8 +7,8 @@ import { InfoCard } from "./infoCard";
 import { LgUserCircleIcon } from "components/icons";
 import { Listing } from "types/listings";
 import { toast } from "react-toastify";
-import { useSession } from "next-auth/client";
 import useSWR from "swr";
+import { useSession } from "next-auth/client";
 
 const ListingDetails = (props: Listing): JSX.Element => {
   const [session] = useSession();

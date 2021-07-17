@@ -123,7 +123,7 @@ const ListingForm = (props: Listing): JSX.Element => {
     );
   }
 
-  function renderButtons(formik: FormikProps<any>, id: string | undefined) {
+  function renderUpdateButtons(formik: FormikProps<any>) {
     const draft = newListing || formik.values.state === "draft";
 
     function renderPublishButton(formik: FormikProps<any>) {
@@ -133,6 +133,7 @@ const ListingForm = (props: Listing): JSX.Element => {
           disabled={formik.isSubmitting}
           onClick={async () => {
             formik.setFieldValue("state", "active");
+            if (draft) formik.setFieldValue("state_transition", "publish");
           }}
         />
       );
@@ -151,33 +152,47 @@ const ListingForm = (props: Listing): JSX.Element => {
       );
     }
 
-    function renderDeleteButton(id: string | undefined) {
-      if (!id) return null;
-      return (
-        <DeleteButton
-          text="Delete"
-          onClick={async () => {
+    return (
+      <div className="space-x-2">
+        {renderPublishButton(formik)}
+        {renderDraftButton(formik)}
+      </div>
+    );
+  }
+
+  function renderDeleteButton(id: string | undefined) {
+    if (!id) return null;
+
+    const draft = props.state == "draft";
+    return (
+      <DeleteButton
+        text={draft ? "Delete" : "Remove"}
+        onClick={async () => {
+          if (draft) {
             await ListingApi(session?.accessToken)
               .destroy(id)
               .then(() => {
                 toast.error("Your listing has been deleted");
-                router.push("/listings");
+                router.push("/listings?state=active");
               })
               .catch((error) => {
                 console.log(error);
                 alert(error.response.data.error);
               });
-          }}
-        />
-      );
-    }
-
-    return (
-      <div className="space-x-2">
-        {renderPublishButton(formik)}
-        {renderDraftButton(formik)}
-        {renderDeleteButton(id)}
-      </div>
+          } else {
+            await ListingApi(session?.accessToken)
+              .updateState(id, "remove")
+              .then(() => {
+                toast.error("Your listing has been removed");
+                router.push("/listings?state=active");
+              })
+              .catch((error) => {
+                console.log(error);
+                alert(error.response.data.error);
+              });
+          }
+        }}
+      />
     );
   }
 
@@ -339,10 +354,11 @@ const ListingForm = (props: Listing): JSX.Element => {
                     currency={profile?.currency}
                   />
                 </FormSection>
-                {renderButtons(formik, props.id)}
+                {renderUpdateButtons(formik)}
               </Form>
             )}
           </Formik>
+          {renderDeleteButton(props.id)}
         </div>
       </CardContainer6xl>
     </div>
@@ -360,7 +376,8 @@ ListingForm.defaultProps = {
   price: "",
   domestic_shipping: "",
   international_shipping: undefined,
-  state: "active",
+  state: "draft",
+  state_transition: undefined,
 };
 
 export default ListingForm;

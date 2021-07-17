@@ -8,6 +8,10 @@ export const ListingApi = (
   create: (listing: Listing) => Promise<AxiosResponse<any>>;
   bulkCreate: (listings: Listing[]) => Promise<AxiosResponse<any>>;
   update: ({ id, ...listing }: Listing) => Promise<AxiosResponse<any>>;
+  updateState: (
+    id: string,
+    state_transition: string
+  ) => Promise<AxiosResponse<any>>;
   destroy: (id: string) => Promise<AxiosResponse<any>>;
 } => {
   const create = async (listing: Listing) => {
@@ -24,7 +28,7 @@ export const ListingApi = (
         price: listing.price,
         domestic_shipping: listing.domestic_shipping,
         international_shipping: listing.international_shipping,
-        aasm_state: listing.aasm_state,
+        state_transition: listing.state_transition,
       },
       {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -56,7 +60,19 @@ export const ListingApi = (
         price: listing.price,
         domestic_shipping: listing.domestic_shipping,
         international_shipping: listing.international_shipping,
-        aasm_state: listing.aasm_state,
+        state_transition: listing.state_transition,
+      },
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+  };
+
+  const updateState = async (id: string, state_transition: string) => {
+    return base.post(
+      `listings/${id}`,
+      {
+        state_transition: state_transition,
       },
       {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -70,5 +86,5 @@ export const ListingApi = (
     });
   };
 
-  return { create, bulkCreate, update, destroy };
+  return { create, bulkCreate, update, updateState, destroy };
 };
