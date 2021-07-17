@@ -44,7 +44,7 @@ export default function SearchSort(): JSX.Element {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute right-0 z-10 px-2 py-1 my-2 text-sm bg-white border rounded-md shadow-lg md:left-0 md:w-full md:text-base max-h-72 border-accent">
+            <Listbox.Options className="absolute right-0 z-10 px-2 py-2 my-2 text-sm bg-white border rounded-md shadow-lg md:left-0 md:w-full md:text-base max-h-72 border-accent">
               {sortOptions.map((option, optionId) => (
                 <Listbox.Option
                   key={optionId}
