@@ -42,7 +42,7 @@ export function BlankMessage(props: Props): JSX.Element {
   return (
     <div className="container mt-8">
       <div className="grid items-center max-w-xl p-4 mx-auto rounded-md ">
-        <Image src="/assets/create.svg" height={400} width={400} />
+        <Image src="/assets/blank.svg" height={400} width={400} />
         <div className="mt-4 text-lg text-center">{props.children}</div>
       </div>
     </div>
