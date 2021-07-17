@@ -23,7 +23,7 @@ export default function profile(): JSX.Element {
     };
   }
 
-  const { response, isLoading, error } = getPayment();
+  const { response, isLoading } = getPayment();
 
   if (isLoading || loading) return <SpinnerLg text="Loading..." />;
   // TODO: render an error message about existing stripe connection being disconnected
