@@ -42,7 +42,8 @@ export default function ShowListing(): JSX.Element {
           grading_company={listing.grading_company}
           condition={listing.condition}
           description={listing.description}
-          sellerName={`${listing.given_name} ${listing.family_name}`}
+          sellerGivenName={listing.given_name}
+          sellerFamilyName={listing.family_name}
         />
       </CardContainer6xl>
     </>

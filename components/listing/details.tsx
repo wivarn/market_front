@@ -2,15 +2,16 @@ import { SecondaryButtonFull, SubmitButtonFull } from "components/buttons";
 
 import { CartApi } from "services/backendApi/cart";
 import { ConditionPill } from "./condition";
+import { IListingWithSeller } from "types/listings";
 import { ImageSlider } from "components/listing/imageSlider";
 import { InfoCard } from "./infoCard";
-import { LgUserCircleIcon } from "components/icons";
-import { Listing } from "types/listings";
+import Link from "next/link";
+import { UserInfo } from "components/user";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
-const ListingDetails = (props: Listing): JSX.Element => {
+const ListingDetails = (props: IListingWithSeller): JSX.Element => {
   const [session] = useSession();
   const isSeller = session?.accountId == props.accountId;
   const editable =
@@ -100,12 +101,14 @@ const ListingDetails = (props: Listing): JSX.Element => {
             <div>
               {renderButton()}
               <div className="my-4 border"></div>
-              <LgUserCircleIcon />
-              <span className="">
-                <h3>{props.sellerName}</h3>
-                <div className="text-sm text-accent">Location</div>
-                <div className="text-sm text-success">User Rating</div>
-              </span>
+              <Link href={`/users/${props.accountId}`}>
+                <a>
+                  <UserInfo
+                    givenName={props.sellerGivenName}
+                    familyName={props.sellerFamilyName}
+                  />
+                </a>
+              </Link>
               <div className="my-4 border"></div>
               <div className="my-2 ">{props.description}</div>
             </div>

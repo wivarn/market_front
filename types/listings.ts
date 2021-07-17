@@ -15,9 +15,13 @@ export interface Listing extends BasicListing {
   id?: string;
   photos: string[];
   description?: string;
-  sellerName?: string;
   aasm_state?: string;
   state_transition?: string;
+}
+
+export interface IListingWithSeller extends Listing {
+  sellerGivenName: string;
+  sellerFamilyName: string;
 }
 
 export interface ListingTemplate {
