@@ -118,39 +118,39 @@ export default function ListingTabs({
           </div>
         </span>
       </div>
-      <div className="flex justify-between px-4 py-2">
+      <div className="grid items-center justify-between grid-cols-5 py-2 justify-items-center">
         <SearchFilter />
+        <div className="flex justify-center col-span-3 mt-4 mb-2 space-x-2 md:space-x-8">
+          <LinkWrapper
+            href="/listings?state=active"
+            tab="active"
+            activeTab={activeTab}
+          >
+            Active
+          </LinkWrapper>
+          <LinkWrapper
+            href="/listings?state=sold"
+            tab="sold"
+            activeTab={activeTab}
+          >
+            Sold
+          </LinkWrapper>
+          <LinkWrapper
+            href="/listings?state=draft"
+            tab="draft"
+            activeTab={activeTab}
+          >
+            Draft
+          </LinkWrapper>
+          <LinkWrapper
+            href="/listings?state=removed"
+            tab="removed"
+            activeTab={activeTab}
+          >
+            Removed
+          </LinkWrapper>
+        </div>
         <SearchSort />
-      </div>
-      <div className="flex justify-center mt-4 mb-2 space-x-8">
-        <LinkWrapper
-          href="/listings?state=active"
-          tab="active"
-          activeTab={activeTab}
-        >
-          Active
-        </LinkWrapper>
-        <LinkWrapper
-          href="/listings?state=sold"
-          tab="sold"
-          activeTab={activeTab}
-        >
-          Sold
-        </LinkWrapper>
-        <LinkWrapper
-          href="/listings?state=draft"
-          tab="draft"
-          activeTab={activeTab}
-        >
-          Draft
-        </LinkWrapper>
-        <LinkWrapper
-          href="/listings?state=removed"
-          tab="removed"
-          activeTab={activeTab}
-        >
-          Removed
-        </LinkWrapper>
       </div>
       {children}
     </div>

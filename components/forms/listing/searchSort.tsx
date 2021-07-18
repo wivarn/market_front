@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
+import { SmChevronDownIcon, XsSortIcon } from "components/icons";
 
-import { SmChevronDownIcon } from "components/icons";
 import { useRouter } from "next/router";
 
 const sortOptions = [
@@ -26,13 +26,16 @@ export default function SearchSort(): JSX.Element {
   const [selected, setSelected] = useState(initialSelected);
 
   return (
-    <div className="w-72">
+    <div className="relative md:w-72">
       <Listbox value={selected} onChange={setSelected}>
-        <div className="relative my-2">
-          <Listbox.Button className="relative w-64 py-2 pl-3 text-sm text-left bg-white border rounded-md cursor-default sm:w-full md:text-base border-accent">
-            <span className="block truncate">{selected.text}</span>
-            <span className="absolute inset-y-0 right-0 flex items-center pr-2">
+        <div>
+          <Listbox.Button className="relative p-2 text-left bg-white border rounded-md md:w-72 border-accent">
+            <span className="hidden truncate md:block">{selected.text}</span>
+            <span className="absolute inset-y-0 right-0 items-center hidden pr-2 md:flex">
               <SmChevronDownIcon />
+            </span>
+            <span className="block md:hidden">
+              <XsSortIcon />
             </span>
           </Listbox.Button>
           <Transition
@@ -41,7 +44,7 @@ export default function SearchSort(): JSX.Element {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute z-10 w-full px-2 py-1 mt-1 overflow-auto text-sm bg-white border rounded-md shadow-lg md:text-base max-h-72 border-accent">
+            <Listbox.Options className="absolute right-0 z-10 px-2 py-2 my-2 text-sm bg-white border rounded-md shadow-lg md:left-0 md:w-full md:text-base max-h-72 border-accent">
               {sortOptions.map((option, optionId) => (
                 <Listbox.Option
                   key={optionId}
