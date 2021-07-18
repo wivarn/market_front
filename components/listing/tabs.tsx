@@ -1,3 +1,4 @@
+import { GenericErrorMessage } from "components/message";
 import Link from "next/link";
 import { OverflowButton } from "components/listing/overflowButton";
 import { PrimaryButton } from "components/buttons";
@@ -69,17 +70,18 @@ export default function ListingTabs({
   const { addressResponse, addressLoading, addressError } = getAddress();
 
   const address = addressResponse?.data;
-  const addressSet = addressLoading ? false : !!Object.keys(address).length;
+  const addressSet =
+    addressLoading || addressError ? false : !!Object.keys(address).length;
 
   const { payment, paymentLoading, paymentError } = getPayment(addressSet);
 
   if (addressLoading) return <SpinnerLg text="Loading..." />;
-  if (addressError) return <div>Error</div>;
+  if (addressError) return <GenericErrorMessage></GenericErrorMessage>;
 
   let disableListings = true;
   if (addressSet) {
     if (paymentLoading) return <SpinnerLg text="Loading..." />;
-    if (paymentError) return <div>Error</div>;
+    if (paymentError) return <GenericErrorMessage></GenericErrorMessage>;
     disableListings = !payment.data.charges_enabled;
   } else {
     disableListings = true;
@@ -116,39 +118,39 @@ export default function ListingTabs({
           </div>
         </span>
       </div>
-      <div className="flex justify-between px-4 py-2">
+      <div className="grid items-center justify-between grid-cols-5 py-2 justify-items-center">
         <SearchFilter />
+        <div className="flex justify-center col-span-3 mt-4 mb-2 space-x-2 md:space-x-8">
+          <LinkWrapper
+            href="/listings?state=active"
+            tab="active"
+            activeTab={activeTab}
+          >
+            Active
+          </LinkWrapper>
+          <LinkWrapper
+            href="/listings?state=sold"
+            tab="sold"
+            activeTab={activeTab}
+          >
+            Sold
+          </LinkWrapper>
+          <LinkWrapper
+            href="/listings?state=draft"
+            tab="draft"
+            activeTab={activeTab}
+          >
+            Draft
+          </LinkWrapper>
+          <LinkWrapper
+            href="/listings?state=removed"
+            tab="removed"
+            activeTab={activeTab}
+          >
+            Removed
+          </LinkWrapper>
+        </div>
         <SearchSort />
-      </div>
-      <div className="flex justify-center mt-4 mb-2 space-x-8">
-        <LinkWrapper
-          href="/listings?state=active"
-          tab="active"
-          activeTab={activeTab}
-        >
-          Active
-        </LinkWrapper>
-        <LinkWrapper
-          href="/listings?state=sold"
-          tab="sold"
-          activeTab={activeTab}
-        >
-          Sold
-        </LinkWrapper>
-        <LinkWrapper
-          href="/listings?state=draft"
-          tab="draft"
-          activeTab={activeTab}
-        >
-          Draft
-        </LinkWrapper>
-        <LinkWrapper
-          href="/listings?state=removed"
-          tab="removed"
-          activeTab={activeTab}
-        >
-          Removed
-        </LinkWrapper>
       </div>
       {children}
     </div>

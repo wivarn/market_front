@@ -27,6 +27,7 @@ import {
   HiOutlineUserCircle,
   HiSearchCircle,
   HiShieldCheck,
+  HiSortDescending,
   HiStar,
   HiTag,
   HiTrash,
@@ -88,8 +89,8 @@ export const SmCheckIcon = (): JSX.Element => {
   return <HiCheck className="icon-sm" />;
 };
 
-export const SmFilterIcon = (): JSX.Element => {
-  return <HiFilter className="icon-sm" />;
+export const XsFilterIcon = (): JSX.Element => {
+  return <HiFilter className="icon-xs" />;
 };
 
 export const ChevronRightIcon = (): JSX.Element => {
@@ -122,6 +123,10 @@ export const UserCircleIcon = (): JSX.Element => {
 
 export const SearchCircleIcon = (): JSX.Element => {
   return <HiSearchCircle className="icon" />;
+};
+
+export const XsSortIcon = (): JSX.Element => {
+  return <HiSortDescending className="icon-xs" />;
 };
 
 export const TagIcon = (): JSX.Element => {
@@ -158,6 +163,10 @@ export const StarIcon = (): JSX.Element => {
 
 export const ErrorIcon = (): JSX.Element => {
   return <HiXCircle className="icon" />;
+};
+
+export const SmErrorIcon = (): JSX.Element => {
+  return <HiXCircle className="icon-sm" />;
 };
 
 export const XIcon = (): JSX.Element => {

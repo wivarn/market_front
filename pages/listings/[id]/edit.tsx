@@ -1,3 +1,4 @@
+import { GenericErrorMessage } from "components/message";
 import ListingForm from "components/forms/listing";
 import { NextSeo } from "next-seo";
 import { SpinnerLg } from "components/spinner";
@@ -23,8 +24,8 @@ export default function EditListing(): JSX.Element {
   }
 
   const { response, listingLoading, isError } = getListing();
-  if (listingLoading || sessionLoading) return <SpinnerLg text="Loading..." />;
-  if (isError) return <div>Error</div>;
+  if (listingLoading) return <SpinnerLg text="Loading..." />;
+  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
 
   const listing = response.data;
   return (

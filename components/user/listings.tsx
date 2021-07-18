@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Listing } from "types/listings";
 import ListingPreviewGrid from "components/listing/previewGrid";
+import SearchFilter from "components/forms/listing/searchFilter";
 import SearchSort from "components/forms/listing/searchSort";
 import { useRouter } from "next/router";
 
@@ -17,9 +18,12 @@ export const UserListingsPreview = (props: PreviewProps): JSX.Element => {
   const { id } = useRouter().query;
   return (
     <div>
-      <h2>
-        Listings <Link href={`/users/${id}/listings`}>View All</Link>
-      </h2>
+      <h3 className="mb-4 text-center">
+        Recent Listings{" "}
+        <Link href={`/users/${id}/listings`}>
+          <a className="text-base underline text-info">View All</a>
+        </Link>
+      </h3>
       <ListingPreviewGrid listings={props.listings} />
     </div>
   );
@@ -28,8 +32,11 @@ export const UserListingsPreview = (props: PreviewProps): JSX.Element => {
 export const UserListings = (props: ListingProps): JSX.Element => {
   return (
     <div>
-      <h2>Listings</h2>
-      <SearchSort />
+      <div className="grid items-center grid-cols-4 space-between justify-items-center">
+        <SearchFilter />
+        <h3 className="col-span-2 text-center">Listings</h3>
+        <SearchSort />
+      </div>
       <ListingPreviewGrid
         listings={props.listings}
         initialPage={props.initialPage}

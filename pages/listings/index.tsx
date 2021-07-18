@@ -1,7 +1,10 @@
+import { BlankMessage, GenericErrorMessage } from "components/message";
+
 import ListingPreviewGrid from "components/listing/previewGrid";
 import ListingTabs from "components/listing/tabs";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
+import { PrimaryButton } from "components/buttons";
 import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -35,7 +38,15 @@ export default function Listings(): JSX.Element {
   function renderListings() {
     if (loadingListings || loadingSession)
       return <SpinnerLg text="Loading..." />;
-    if (isError) return <div>Error</div>;
+    if (isError) return <GenericErrorMessage></GenericErrorMessage>;
+    if (!response.data.total_pages)
+      return (
+        <BlankMessage>
+          <div className="p-2">You have no {status} listings.</div>
+          <PrimaryButton text="Create New Listing" />
+        </BlankMessage>
+      );
+
     return (
       <ListingPreviewGrid
         listings={response.data.listings}

@@ -1,5 +1,8 @@
-import { CartApi } from "services/backendApi/cart";
 import { ICart, ICartListing } from "types/listings";
+
+import { CartApi } from "services/backendApi/cart";
+import { GenericErrorMessage } from "components/message";
+import Image from "next/image";
 import Link from "next/link";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
@@ -7,7 +10,6 @@ import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
-import Image from "next/image";
 
 export default function Cart(): JSX.Element {
   const [session, sessionLoading] = useSession();
@@ -49,7 +51,8 @@ export default function Cart(): JSX.Element {
 
   if (sessionLoading || loadingCart || addressLoading)
     return <SpinnerLg text="Loading..." />;
-  if (cartError || addressError) return <div>Error</div>;
+  if (cartError || addressError)
+    return <GenericErrorMessage></GenericErrorMessage>;
   const carts = cartResponse.data;
   const address = addressResponse.data;
 
