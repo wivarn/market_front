@@ -3,6 +3,7 @@ import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { PrimaryButton } from "components/buttons";
 import { PromoCard } from "components/promoCards";
+import { RecentListings } from "components/listing/recentListings";
 
 export default function Home(): JSX.Element {
   if (process.env.NEXT_PUBLIC_FEATURE_LAUNCHED != "true") return <Landing />;
@@ -23,6 +24,7 @@ export default function Home(): JSX.Element {
         </PageContainer>
       </div>
       <PageContainer>
+        <RecentListings />
         <div className="grid grid-cols-1 gap-1 my-8 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
           <PromoCard
             title="Become a member"
