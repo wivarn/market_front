@@ -43,41 +43,35 @@ export const gradingList = [
   { value: "1.0", text: "1" },
 ];
 
-export const categoryList = [
-  { value: "SPORTS_CARDS", text: "Sports Cards" },
-  { value: "TRADING_CARDS", text: "Trading Card Games" },
-  { value: "COLLECTIBLES", text: "Collectibles" },
-];
-
 export const sportsCardList = [
   { value: "BASEBALL", text: "Baseball" },
   { value: "BASKETBALL", text: "Basketball" },
   { value: "FOOTBALL", text: "Football" },
   { value: "HOCKEY", text: "Hockey" },
-  { value: "SOCCER", text: "Soccer" },
-  { value: "OTHER", text: "Other" },
+  { value: "OTHER", text: "Other Sports Cards" },
 ];
 
 export const tradingCardList = [
-  { value: "CARDFIGHT_VANGUARD", text: "Cardfight Vanguard" },
-  { value: "DRAGON_BALL_SUPER", text: "Dragon Ball Super" },
-  { value: "FLESH_AND_BLOOD", text: "Flesh and Blood" },
   { value: "MAGIC", text: "Magic The Gathering" },
   { value: "POKEMON", text: "Pokemon" },
-  { value: "STAR_WARS_DESTINY", text: "Star Wars Destiny" },
-  { value: "YUGIOH", text: "Yu-gi-oh!" },
-  { value: "OTHER", text: "Other" },
+  { value: "OTHER", text: "Other Trading Cards" },
 ];
 
 export const collectibleList = [
-  { value: "ANTIQUES", text: "Antiques" },
-  { value: "ART", text: "Art" },
-  { value: "COINS", text: "Coins" },
   { value: "COMICS", text: "Comic Books" },
-  { value: "STAMPS", text: "Stamps" },
   { value: "TOYS", text: "Toys" },
-  { value: "WATCHES", text: "Watches" },
-  { value: "OTHER", text: "Other" },
+  { value: "GAMES", text: "Video Games" },
+  { value: "OTHER", text: "Other Collectibles" },
+];
+
+export const categoryList = [
+  { value: "SPORTS_CARDS", text: "Sports Cards", subCategory: sportsCardList },
+  {
+    value: "TRADING_CARDS",
+    text: "Trading Cards",
+    subCategory: tradingCardList,
+  },
+  { value: "COLLECTIBLES", text: "Collectibles", subCategory: collectibleList },
 ];
 
 export const listingSchema: ObjectShape = {

@@ -11,11 +11,53 @@ import { IconLink } from "./iconLink";
 import Link from "next/link";
 import { MdSkwirlIcon } from "components/icons";
 import PageContainer from "components/pageContainer";
+import { Popover } from "@headlessui/react";
 import ReactTooltip from "react-tooltip";
 import SearchForm from "components/forms/listing/search";
+import { SmChevronDownIcon } from "components/icons";
 import { Spinner } from "components/spinner";
+import { categoryList } from "constants/listings";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+
+const popoverPanelClass =
+  "grid p-2 text-sm w-56 space-y-2 bg-white border border-accent rounded-md";
+const popoverButtonClass =
+  "focus:outline-none text-sm items-center flex font-semibold p-2 rounded-md text-accent-dark";
+const popoverLinkClass =
+  "p-2 text-accent-darker rounded-md hover:bg-primary hover:text-white";
+
+function CategoryPopovers() {
+  return (
+    <div className="grid grid-cols-3 mx-auto justify-items-center">
+      {categoryList.map((category) => {
+        return (
+          <Popover key={category.value} className="relative">
+            <Popover.Button className={popoverButtonClass}>
+              {category.text} <SmChevronDownIcon />
+            </Popover.Button>
+
+            <Popover.Panel className="absolute z-10">
+              <div className={popoverPanelClass}>
+                {category.subCategory.map((subCategory) => {
+                  return (
+                    <a
+                      key={subCategory.value}
+                      className={popoverLinkClass}
+                      href={`/listings/search?category=SPORTS_CARDS&subcategory=${subCategory.value}`}
+                    >
+                      {subCategory.text}
+                    </a>
+                  );
+                })}
+              </div>
+            </Popover.Panel>
+          </Popover>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function Header(): JSX.Element {
   const [session, sessionLoading] = useSession();
@@ -105,6 +147,11 @@ export default function Header(): JSX.Element {
             <div className="ml-auto">{renderNav()}</div>
           </nav>
         </PageContainer>
+        <div className="w-full mt-2 border-t border-b">
+          <PageContainer yPadding="p-none">
+            <CategoryPopovers />
+          </PageContainer>
+        </div>
       </header>
     </div>
   );

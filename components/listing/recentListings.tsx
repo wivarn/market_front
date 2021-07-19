@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ListingPreviewGrid from "./previewGrid";
 import { SpinnerLg } from "components/spinner";
 import useSWR from "swr";
@@ -20,16 +21,31 @@ export const RecentListings = (): JSX.Element => {
   const cards = cardsResponse.data;
 
   return (
-    <div>
-      <h2>New Sports Card Listings</h2>
+    <div className="py-2">
+      <h3 className="my-4 text-center text-accent-darker">
+        Sports Cards{" "}
+        <Link href="/listings/search?category=SPORTS_CARDS">
+          <a className="text-base underline text-primary">View All</a>
+        </Link>
+      </h3>
       <div>
         <ListingPreviewGrid listings={cards.sports_cards} />
       </div>
-      <h2>New Trading Card Listings</h2>
+      <h3 className="my-4 text-center">
+        Trading Cards{" "}
+        <Link href="/listings/search?category=TRADING_CARDS">
+          <a className="text-base underline text-primary">View All</a>
+        </Link>
+      </h3>
       <div>
         <ListingPreviewGrid listings={cards.trading_cards} />
       </div>
-      <h2>New Collectible Listings</h2>
+      <h3 className="my-4 text-center">
+        Collectibles{" "}
+        <Link href="/listings/search?category=COLLECTIBLES">
+          <a className="text-base underline text-primary">View All</a>
+        </Link>
+      </h3>
       <div>
         <ListingPreviewGrid listings={cards.collectibles} />
       </div>

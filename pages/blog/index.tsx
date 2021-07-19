@@ -17,11 +17,11 @@ export default function BlogIndex({ articles }: Props): JSX.Element {
       <NextSeo title="Blog" />
       <LandingHeader />
       <div className="grid items-center bg-cover h-96 bg-bloghead">
-        <PageContainer>
+        <div>
           <div className="grid justify-center mx-auto rounded-md">
             <h2 className="text-center text-white">Our Blog</h2>
           </div>
-        </PageContainer>
+        </div>
       </div>
       <div>
         <PageContainer>

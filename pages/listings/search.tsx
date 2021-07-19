@@ -58,11 +58,9 @@ export default function Listings(): JSX.Element {
     <div className="my-4">
       <NextSeo title="Search Results" />
       <PageContainer yPadding="py-4">
-        <h3 className="py-2 text-center border-b border-accent">
-          Your search results
-        </h3>
-        <div className="flex justify-between px-4 py-2">
+        <div className="grid items-center justify-between grid-cols-4 mb-8 justify-items-center">
           <SearchFilter />
+          <h3 className="col-span-2">Search Results</h3>
           <SearchSort />
         </div>
         {renderListings()}

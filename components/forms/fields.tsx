@@ -339,7 +339,7 @@ export const _DropdownCombobox = ({
             }
           }}
           aria-label="clear selection"
-          className="absolute inline-block right-8 bottom-3 text-accent-darker"
+          className="absolute inline-block right-8 bottom-3 text-accent-dark"
           ref={resetRef}
         >
           <SmXIcon />
@@ -347,7 +347,7 @@ export const _DropdownCombobox = ({
         <span
           {...getToggleButtonProps({ disabled: props.disabled })}
           aria-label="toggle menu"
-          className="absolute inline-block right-2 bottom-2 text-accent-darker"
+          className="absolute inline-block right-2 bottom-2 text-accent-dark"
         >
           <SmChevronDownIcon />
         </span>
@@ -369,7 +369,7 @@ export const _DropdownCombobox = ({
                   "p-2 m-1 " +
                   `${
                     index === highlightedIndex
-                      ? "bg-accent-darker text-accent-lightest rounded-md"
+                      ? "bg-primary text-white rounded-md"
                       : ""
                   }` +
                   `${item.disabled ? "bg-primary-dark" : ""}`

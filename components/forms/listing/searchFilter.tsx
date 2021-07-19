@@ -195,7 +195,7 @@ export default function SearchFilter(): JSX.Element {
     <Disclosure>
       {() => (
         <div className="relative">
-          <Disclosure.Button className="inline-flex items-center gap-2 p-2 border rounded-md border-accent hover:text-primary">
+          <Disclosure.Button className="inline-flex items-center gap-2 p-2 bg-white border rounded-md border-accent hover:text-primary">
             <XsFilterIcon /> <span className="hidden md:flex">Filter</span>
           </Disclosure.Button>
           <Disclosure.Panel>
