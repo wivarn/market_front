@@ -44,14 +44,14 @@ export default function SearchSort(): JSX.Element {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute right-0 z-10 px-2 py-2 my-2 text-sm bg-white border rounded-md shadow-lg md:left-0 md:w-full md:text-base max-h-72 border-accent">
+            <Listbox.Options className="absolute right-0 z-10 px-2 py-2 my-2 text-sm bg-white border rounded-md shadow-lg md:left-0 md:w-full md:text-base border-accent">
               {sortOptions.map((option, optionId) => (
                 <Listbox.Option
                   key={optionId}
                   className={({ active }) =>
                     `${
                       active
-                        ? "text-accent-lightest bg-accent-darker rounded-md font-semibold"
+                        ? "text-white bg-primary rounded-md font-semibold"
                         : "text-accent-darker"
                     }
                           cursor-default select-none relative py-2 px-2`
