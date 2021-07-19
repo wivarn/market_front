@@ -1,7 +1,6 @@
 import { Fragment, LegacyRef, forwardRef } from "react";
 import { Menu, Transition } from "@headlessui/react";
 
-import { IconButton } from "components/iconButton";
 import Link from "next/link";
 import { SmOverflowIcon } from "components/icons";
 
@@ -24,7 +23,7 @@ const LinkWrapper = forwardRef(
         <a
           ref={ref}
           className={classNames(
-            active ? "bg-accent-darker text-white" : "text-accent-darker",
+            active ? "bg-primary text-white" : "text-accent-darker",
             "block px-4 py-2 text-sm font-semibold rounded-md"
           )}
           {...props}
@@ -49,10 +48,10 @@ export const OverflowButton = (props: Props): JSX.Element => {
         <>
           <div>
             <Menu.Button
-              className="py-2 focus:outline-none"
+              className="inline-flex items-center gap-2 p-1 mt-1 border rounded-md border-accent hover:text-primary"
               disabled={props.disabled}
             >
-              <IconButton icon={<SmOverflowIcon />} disabled={props.disabled} />
+              <SmOverflowIcon />
             </Menu.Button>
           </div>
 

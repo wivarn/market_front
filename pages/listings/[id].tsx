@@ -1,4 +1,5 @@
 import { CardContainer6xl } from "components/cardContainer";
+import { GenericErrorMessage } from "components/message";
 import ListingDetails from "components/listing/details";
 import { NextSeo } from "next-seo";
 import { SpinnerLg } from "components/spinner";
@@ -21,7 +22,7 @@ export default function ShowListing(): JSX.Element {
 
   const { response, isLoading, isError } = getListing();
   if (isLoading) return <SpinnerLg text="Loading..." />;
-  if (isError) return <div>Error</div>;
+  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
 
   const listing = response.data;
 
@@ -31,6 +32,7 @@ export default function ShowListing(): JSX.Element {
       <CardContainer6xl>
         <ListingDetails
           id={listing.id}
+          aasm_state={listing.aasm_state}
           accountId={listing.account_id}
           photos={listing.photos}
           title={listing.title}
@@ -41,7 +43,8 @@ export default function ShowListing(): JSX.Element {
           grading_company={listing.grading_company}
           condition={listing.condition}
           description={listing.description}
-          sellerName={`${listing.given_name} ${listing.family_name}`}
+          sellerGivenName={listing.given_name}
+          sellerFamilyName={listing.family_name}
         />
       </CardContainer6xl>
     </>

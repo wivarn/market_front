@@ -18,9 +18,10 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 import { useState } from "react";
+import { GenericErrorMessage } from "components/message";
 
 delete listingSchema.photos;
-delete listingSchema.status;
+delete listingSchema.state;
 const headerSchema = Yup.array().of(
   Yup.mixed().oneOf(Object.keys(listingSchema))
 );
@@ -58,7 +59,7 @@ export default function BulkCreateListings(): JSX.Element {
   const { response, loadingTemplate, isError } = getListingTemplate();
 
   if (loadingTemplate) return <SpinnerLg text="Loading..." />;
-  if (isError) return <div>Error</div>;
+  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
 
   const listingTemplate = response.data;
 
@@ -171,7 +172,7 @@ export default function BulkCreateListings(): JSX.Element {
       .bulkCreate(listings.data)
       .then(() => {
         toast.success("New listings created");
-        router.push("/listings?status=draft");
+        router.push("/listings?state=draft");
       });
   }
 

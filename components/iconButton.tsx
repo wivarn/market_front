@@ -1,12 +1,10 @@
 import React, { ReactNode } from "react";
 
 import Link from "next/link";
-import { ToolTipAbove } from "components/tooltip";
 
 interface ButtonProps {
   icon: ReactNode;
   disabled?: boolean;
-  tooltip?: string;
 }
 
 interface LinkProps {
@@ -24,7 +22,6 @@ export const IconButton = (props: ButtonProps): JSX.Element => {
       >
         {props.icon}
       </button>
-      {props.tooltip ? <ToolTipAbove text={props.tooltip} /> : null}
     </div>
   );
 };

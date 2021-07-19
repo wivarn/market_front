@@ -242,7 +242,7 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
                 .then(() => {
                   mutate(["account/listing_template", session?.accessToken]);
                   toast.success("Your listing template has been updated");
-                  router.push("/listings?status=active");
+                  router.push("/listings?state=active");
                 })
                 .catch((error) => {
                   toast.error(JSON.stringify(error.response.data));

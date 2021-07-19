@@ -1,26 +1,31 @@
+import { GenericErrorMessage } from "components/message";
 import ListingForm from "components/forms/listing";
 import { NextSeo } from "next-seo";
 import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { useSession } from "next-auth/client";
 
 export default function EditListing(): JSX.Element {
+  const [session, sessionLoading] = useSession();
   const router = useRouter();
   const { id } = router.query;
 
   function getListing() {
-    const { data, error } = useSWR(id ? `listings/${id}` : null);
+    const { data, error } = useSWR(
+      id && session ? [`listings/${id}/edit`, session.accessToken] : null
+    );
 
     return {
       response: data,
-      isLoading: !error && !data,
+      listingLoading: !error && !data,
       isError: error,
     };
   }
 
-  const { response, isLoading, isError } = getListing();
-  if (isLoading) return <SpinnerLg text="Loading..." />;
-  if (isError) return <div>Error</div>;
+  const { response, listingLoading, isError } = getListing();
+  if (listingLoading) return <SpinnerLg text="Loading..." />;
+  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
 
   const listing = response.data;
   return (
@@ -28,18 +33,18 @@ export default function EditListing(): JSX.Element {
       <NextSeo title="Update Listing" />
       <ListingForm
         id={listing.id}
-        status={listing.status}
+        aasm_state={listing.aasm_state}
         currency={listing.currency}
-        category={listing.category}
-        subcategory={listing.subcategory}
+        category={listing.category || undefined}
+        subcategory={listing.subcategory || undefined}
         title={listing.title}
-        description={listing.description}
-        grading_company={listing.grading_company}
-        condition={listing.condition}
-        photos={listing.photos}
-        price={listing.price}
-        domestic_shipping={listing.domestic_shipping}
-        international_shipping={listing.international_shipping}
+        description={listing.description || undefined}
+        grading_company={listing.grading_company || undefined}
+        condition={listing.condition || undefined}
+        photos={listing.photos || []}
+        price={listing.price || undefined}
+        domestic_shipping={listing.domestic_shipping || undefined}
+        international_shipping={listing.international_shipping || undefined}
       />
     </>
   );

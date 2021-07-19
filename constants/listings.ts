@@ -43,41 +43,35 @@ export const gradingList = [
   { value: "1.0", text: "1" },
 ];
 
-export const categoryList = [
-  { value: "SPORTS_CARDS", text: "Sports Cards" },
-  { value: "TRADING_CARDS", text: "Trading Card Games" },
-  { value: "COLLECTIBLES", text: "Collectibles" },
-];
-
 export const sportsCardList = [
   { value: "BASEBALL", text: "Baseball" },
   { value: "BASKETBALL", text: "Basketball" },
   { value: "FOOTBALL", text: "Football" },
   { value: "HOCKEY", text: "Hockey" },
-  { value: "SOCCER", text: "Soccer" },
-  { value: "OTHER", text: "Other" },
+  { value: "OTHER", text: "Other Sports Cards" },
 ];
 
 export const tradingCardList = [
-  { value: "CARDFIGHT_VANGUARD", text: "Cardfight Vanguard" },
-  { value: "DRAGON_BALL_SUPER", text: "Dragon Ball Super" },
-  { value: "FLESH_AND_BLOOD", text: "Flesh and Blood" },
   { value: "MAGIC", text: "Magic The Gathering" },
   { value: "POKEMON", text: "Pokemon" },
-  { value: "STAR_WARS_DESTINY", text: "Star Wars Destiny" },
-  { value: "YUGIOH", text: "Yu-gi-oh!" },
-  { value: "OTHER", text: "Other" },
+  { value: "OTHER", text: "Other Trading Cards" },
 ];
 
 export const collectibleList = [
-  { value: "ANTIQUES", text: "Antiques" },
-  { value: "ART", text: "Art" },
-  { value: "COINS", text: "Coins" },
   { value: "COMICS", text: "Comic Books" },
-  { value: "STAMPS", text: "Stamps" },
   { value: "TOYS", text: "Toys" },
-  { value: "WATCHES", text: "Watches" },
-  { value: "OTHER", text: "Other" },
+  { value: "GAMES", text: "Video Games" },
+  { value: "OTHER", text: "Other Collectibles" },
+];
+
+export const categoryList = [
+  { value: "SPORTS_CARDS", text: "Sports Cards", subCategory: sportsCardList },
+  {
+    value: "TRADING_CARDS",
+    text: "Trading Cards",
+    subCategory: tradingCardList,
+  },
+  { value: "COLLECTIBLES", text: "Collectibles", subCategory: collectibleList },
 ];
 
 export const listingSchema: ObjectShape = {
@@ -87,8 +81,8 @@ export const listingSchema: ObjectShape = {
         return category.value;
       })
     )
-    .when("status", (status, schema) => {
-      return status != "DRAFT"
+    .when("state", (state, schema) => {
+      return state != "draft"
         ? schema.required("Category is required")
         : schema;
     }),
@@ -117,15 +111,15 @@ export const listingSchema: ObjectShape = {
         })
       ),
     })
-    .when("status", (status, schema) => {
-      return status != "DRAFT"
+    .when("state", (state, schema) => {
+      return state != "draft"
         ? schema.required("Sub-category is required")
         : schema;
     }),
   photos: Yup.array(Yup.string())
     .max(10)
-    .when("status", (status, schema) => {
-      return status != "DRAFT" ? schema.min(1) : schema;
+    .when("state", (state, schema) => {
+      return state != "draft" ? schema.min(1) : schema;
     }),
   title: Yup.string()
     .min(2, "Title must be more than 2 characters")
@@ -161,22 +155,22 @@ export const listingSchema: ObjectShape = {
         "This is not a valid grading"
       );
     })
-    .when("status", (status, schema) => {
-      return status != "DRAFT"
+    .when("state", (state, schema) => {
+      return state != "draft"
         ? schema.required("Condition is required")
         : schema;
     }),
   price: Yup.number()
     .min(1, "Price must more than 1.00")
     .max(99999999.99, "Price must be less than 99999999.99")
-    .when("status", (status, schema) => {
-      return status != "DRAFT" ? schema.required("Price is required") : schema;
+    .when("state", (state, schema) => {
+      return state != "draft" ? schema.required("Price is required") : schema;
     }),
   domestic_shipping: Yup.number()
     .min(0, "Shipping can't be less than 0")
     .max(99999999.99, "Shipping must be less than 99999999.99")
-    .when("status", (status, schema) => {
-      return status != "DRAFT"
+    .when("state", (state, schema) => {
+      return state != "draft"
         ? schema.required("Shipping price is required")
         : schema;
     }),
@@ -185,5 +179,5 @@ export const listingSchema: ObjectShape = {
     .min(0, "Shipping can't be less than 0")
     .max(99999999.99, "Shipping must be less than 99999999.99")
     .nullable(),
-  status: Yup.string().required("Required"),
+  state: Yup.string().required("Required"),
 };

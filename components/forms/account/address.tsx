@@ -4,7 +4,7 @@ import { DropdownCombobox, TextFieldFull } from "../fields";
 import { Form, Formik, FormikProps } from "formik";
 import { countryList, provinceList, stateList } from "constants/address";
 import useSWR, { mutate } from "swr";
-
+import { InfoMessage, GenericErrorMessage } from "components/message";
 import { Address } from "types/account";
 import { AddressApi } from "services/backendApi/address";
 import FormContainer from "../container";
@@ -67,15 +67,14 @@ const addressSchema = Yup.object().shape({
 
 function renderAddressWarning() {
   return (
-    <div>
-      <p>You must have your address set in order to purchase or sell</p>
-      <Link href="#">
-        <a>click here to find out why</a>
-      </Link>
-      <Link href="#">
-        <a>click here to learn how we protect your data</a>
-      </Link>
-    </div>
+    <InfoMessage>
+      <span>
+        You must enter your address before you can buy or sell.{" "}
+        <Link href="#">
+          <a className="underline text-info">Learn more.</a>
+        </Link>
+      </span>
+    </InfoMessage>
   );
 }
 
@@ -155,7 +154,7 @@ export default function AddressForm(): JSX.Element {
   const { addressResponse, isLoading, isError } = getAddress();
 
   if (isLoading || sessionLoading) return <SpinnerLg text="Loading..." />;
-  if (isError) return <div>Error</div>;
+  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
 
   const address = addressResponse.data;
   const noAddress = !Object.keys(address).length;

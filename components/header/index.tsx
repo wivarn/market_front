@@ -11,10 +11,53 @@ import { IconLink } from "./iconLink";
 import Link from "next/link";
 import { MdSkwirlIcon } from "components/icons";
 import PageContainer from "components/pageContainer";
+import { Popover } from "@headlessui/react";
+import ReactTooltip from "react-tooltip";
 import SearchForm from "components/forms/listing/search";
+import { SmChevronDownIcon } from "components/icons";
 import { Spinner } from "components/spinner";
+import { categoryList } from "constants/listings";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+
+const popoverPanelClass =
+  "grid p-2 text-sm w-56 space-y-2 bg-white border border-accent rounded-md";
+const popoverButtonClass =
+  "focus:outline-none text-sm items-center flex font-semibold p-2 rounded-md text-accent-dark";
+const popoverLinkClass =
+  "p-2 text-accent-darker rounded-md hover:bg-primary hover:text-white";
+
+function CategoryPopovers() {
+  return (
+    <div className="grid grid-cols-3 mx-auto justify-items-center">
+      {categoryList.map((category) => {
+        return (
+          <Popover key={category.value} className="relative">
+            <Popover.Button className={popoverButtonClass}>
+              {category.text} <SmChevronDownIcon />
+            </Popover.Button>
+
+            <Popover.Panel className="absolute z-10">
+              <div className={popoverPanelClass}>
+                {category.subCategory.map((subCategory) => {
+                  return (
+                    <a
+                      key={subCategory.value}
+                      className={popoverLinkClass}
+                      href={`/listings/search?category=SPORTS_CARDS&subcategory=${subCategory.value}`}
+                    >
+                      {subCategory.text}
+                    </a>
+                  );
+                })}
+              </div>
+            </Popover.Panel>
+          </Popover>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function Header(): JSX.Element {
   const [session, sessionLoading] = useSession();
@@ -37,8 +80,15 @@ export default function Header(): JSX.Element {
 
   function LoggedOutNav() {
     return (
-      <div className="items-center justify-items-right">
-        <IconLink href="/login" icon={<UserCircleIcon />} tooltip="Log In" />
+      <div
+        data-tip
+        data-for="login"
+        className="items-center justify-items-right"
+      >
+        <IconLink href="/login" icon={<UserCircleIcon />} />
+        <ReactTooltip id="login" type="dark" place="bottom" effect="solid">
+          Login
+        </ReactTooltip>
       </div>
     );
   }
@@ -47,12 +97,21 @@ export default function Header(): JSX.Element {
     return (
       <>
         <div className="items-center hidden mr-8 space-x-4 justify-items-center md:inline-flex">
-          <IconLink
-            href="/listings?status=active"
-            icon={<CurrencyDollarIcon />}
-            tooltip="Sell"
-          />
-          <IconLink href="/cart" icon={<ShoppingCartIcon />} tooltip="Cart" />
+          <div data-tip data-for="sell">
+            <IconLink
+              href="/listings?state=active"
+              icon={<CurrencyDollarIcon />}
+            />
+            <ReactTooltip id="sell" type="dark" place="bottom" effect="solid">
+              Sell
+            </ReactTooltip>
+          </div>
+          <div data-tip data-for="cart">
+            <IconLink href="/cart" icon={<ShoppingCartIcon />} />
+            <ReactTooltip id="cart" type="dark" place="bottom" effect="solid">
+              Cart
+            </ReactTooltip>
+          </div>
           <DropDown />
         </div>
         <div className="inline-flex items-center md:hidden">
@@ -88,6 +147,11 @@ export default function Header(): JSX.Element {
             <div className="ml-auto">{renderNav()}</div>
           </nav>
         </PageContainer>
+        <div className="w-full mt-2 border-t border-b">
+          <PageContainer yPadding="p-none">
+            <CategoryPopovers />
+          </PageContainer>
+        </div>
       </header>
     </div>
   );

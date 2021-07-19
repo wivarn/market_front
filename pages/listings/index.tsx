@@ -1,7 +1,10 @@
+import { BlankMessage, GenericErrorMessage } from "components/message";
+
 import ListingPreviewGrid from "components/listing/previewGrid";
 import ListingTabs from "components/listing/tabs";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
+import { PrimaryButton } from "components/buttons";
 import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -10,7 +13,7 @@ import { useSession } from "next-auth/client";
 export default function Listings(): JSX.Element {
   const [session, loadingSession] = useSession();
   const router = useRouter();
-  const { status, page } = router.query;
+  const { state, page } = router.query;
 
   function getListings() {
     const query = Object.entries(router.query)
@@ -20,7 +23,7 @@ export default function Listings(): JSX.Element {
       .join("&");
 
     const { data, error } = useSWR(
-      session && status ? [`listings?${query}`, session.accessToken] : null
+      session && state ? [`listings?${query}`, session.accessToken] : null
     );
 
     return {
@@ -35,7 +38,15 @@ export default function Listings(): JSX.Element {
   function renderListings() {
     if (loadingListings || loadingSession)
       return <SpinnerLg text="Loading..." />;
-    if (isError) return <div>Error</div>;
+    if (isError) return <GenericErrorMessage></GenericErrorMessage>;
+    if (!response.data.total_pages)
+      return (
+        <BlankMessage>
+          <div className="p-2">You have no {status} listings.</div>
+          <PrimaryButton text="Create New Listing" />
+        </BlankMessage>
+      );
+
     return (
       <ListingPreviewGrid
         listings={response.data.listings}
@@ -49,7 +60,7 @@ export default function Listings(): JSX.Element {
     <div className="my-4">
       <PageContainer yPadding="py-4">
         <NextSeo title="Your Listings" />
-        <ListingTabs activeTab={`${status}`}>{renderListings()}</ListingTabs>
+        <ListingTabs activeTab={`${state}`}>{renderListings()}</ListingTabs>
       </PageContainer>
     </div>
   );

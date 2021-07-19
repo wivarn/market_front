@@ -12,7 +12,7 @@ import { Logo } from "./logo";
 
 export default function Footer(): JSX.Element {
   return (
-    <footer className="py-8 text-center border-t border-b bg-accent-lightest">
+    <footer className="py-8 text-center">
       <div className="text-2xl font-semibold text-primary">
         <Logo colour="text-primary" />
         <nav>
@@ -30,16 +30,6 @@ export default function Footer(): JSX.Element {
             <li>
               <Link href="/about">
                 <a className="hover:text-primary">About</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact">
-                <a className="hover:text-primary">Contact</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/help">
-                <a className="hover:text-primary">Help</a>
               </Link>
             </li>
           </ul>
