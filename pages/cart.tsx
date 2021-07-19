@@ -60,8 +60,9 @@ export default function Cart(): JSX.Element {
   console.log(address);
 
   return (
-    <>
+    <div className="my-8">
       <NextSeo title="Cart" />
+
       <PageContainer>
         <h3 className="pb-2 text-center">Your Cart</h3>
         {carts.map((cart: ICart) => {
@@ -124,7 +125,7 @@ export default function Cart(): JSX.Element {
                   </div>
                 );
               })}
-              <div className="px-4 py-2 bg-accent-lighter">
+              <div className="px-4 py-2 border-t bg-accent-lightest">
                 <div className="flex items-center space-x-4">
                   <p>
                     Total={" "}
@@ -144,6 +145,6 @@ export default function Cart(): JSX.Element {
           );
         })}
       </PageContainer>
-    </>
+    </div>
   );
 }
