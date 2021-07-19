@@ -43,12 +43,6 @@ export const gradingList = [
   { value: "1.0", text: "1" },
 ];
 
-export const categoryList = [
-  { value: "SPORTS_CARDS", text: "Sports Cards" },
-  { value: "TRADING_CARDS", text: "Trading Cards" },
-  { value: "COLLECTIBLES", text: "Collectibles" },
-];
-
 export const sportsCardList = [
   { value: "BASEBALL", text: "Baseball" },
   { value: "BASKETBALL", text: "Basketball" },
@@ -68,6 +62,16 @@ export const collectibleList = [
   { value: "TOYS", text: "Toys" },
   { value: "GAMES", text: "Video Games" },
   { value: "OTHER", text: "Other Collectibles" },
+];
+
+export const categoryList = [
+  { value: "SPORTS_CARDS", text: "Sports Cards", subCategory: sportsCardList },
+  {
+    value: "TRADING_CARDS",
+    text: "Trading Cards",
+    subCategory: tradingCardList,
+  },
+  { value: "COLLECTIBLES", text: "Collectibles", subCategory: collectibleList },
 ];
 
 export const listingSchema: ObjectShape = {

@@ -16,6 +16,7 @@ import ReactTooltip from "react-tooltip";
 import SearchForm from "components/forms/listing/search";
 import { SmChevronDownIcon } from "components/icons";
 import { Spinner } from "components/spinner";
+import { categoryList } from "constants/listings";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -26,120 +27,35 @@ const popoverButtonClass =
 const popoverLinkClass =
   "p-2 text-accent-darker rounded-md hover:bg-primary hover:text-white";
 
-function SportsCardPopover() {
+function CategoryPopovers() {
   return (
-    <Popover className="relative">
-      <Popover.Button className={popoverButtonClass}>
-        Sports Cards <SmChevronDownIcon />
-      </Popover.Button>
+    <div className="grid grid-cols-3 mx-auto justify-items-center">
+      {categoryList.map((category) => {
+        return (
+          <Popover key={category.value} className="relative">
+            <Popover.Button className={popoverButtonClass}>
+              {category.text} <SmChevronDownIcon />
+            </Popover.Button>
 
-      <Popover.Panel className="absolute z-10">
-        <div className={popoverPanelClass}>
-          <a
-            className={popoverLinkClass}
-            href="/listings/search?category=SPORTS_CARDS&subcategory=HOCKEY"
-          >
-            Hockey
-          </a>
-          <a
-            className={popoverLinkClass}
-            href="/listings/search?category=SPORTS_CARDS&subcategory=BASEBALL"
-          >
-            Baseball
-          </a>
-          <a
-            className={popoverLinkClass}
-            href="/listings/search?category=SPORTS_CARDS&subcategory=BASKETBALL"
-          >
-            Basketball
-          </a>
-          <a
-            className={popoverLinkClass}
-            href="/listings/search?category=SPORTS_CARDS&subcategory=FOOTBALL"
-          >
-            Football
-          </a>
-          <a
-            className={popoverLinkClass}
-            href="/listings/search?category=SPORTS_CARDS&subcategory=OTHER"
-          >
-            Other Sports Cards
-          </a>
-        </div>
-      </Popover.Panel>
-    </Popover>
-  );
-}
-
-function TradingCardPopover() {
-  return (
-    <Popover className="relative">
-      <Popover.Button className={popoverButtonClass}>
-        Trading Cards <SmChevronDownIcon />
-      </Popover.Button>
-
-      <Popover.Panel className="absolute z-10">
-        <div className={popoverPanelClass}>
-          <a
-            className={popoverLinkClass}
-            href="/listings/search?category=TRADING_CARDS&subcategory=POKEMON"
-          >
-            Pokemon
-          </a>
-          <a
-            className={popoverLinkClass}
-            href="/listings/search?category=TRADING_CARDS&subcategory=MAGIC"
-          >
-            Magic The Gathering
-          </a>
-          <a
-            className={popoverLinkClass}
-            href="/listings/search?category=TRADING_CARDS&subcategory=OTHER"
-          >
-            Other TCGs
-          </a>
-        </div>
-      </Popover.Panel>
-    </Popover>
-  );
-}
-
-function CollectiblePopover() {
-  return (
-    <Popover className="relative">
-      <Popover.Button className={popoverButtonClass}>
-        Collectibles <SmChevronDownIcon />
-      </Popover.Button>
-
-      <Popover.Panel className="absolute z-10">
-        <div className={popoverPanelClass}>
-          <a
-            className={popoverLinkClass}
-            href="/listings/search?category=COLLECTIBLES&subcategory=COMICS"
-          >
-            Comic Books
-          </a>
-          <a
-            className={popoverLinkClass}
-            href="/listings/search?category=COLLECTIBLES&subcategory=GAMES"
-          >
-            Games
-          </a>
-          <a
-            className={popoverLinkClass}
-            href="/listings/search?category=COLLECTIBLES&subcategory=TOYS"
-          >
-            Toys
-          </a>
-          <a
-            className={popoverLinkClass}
-            href="/listings/search?category=COLLECTIBLES&subcategory=OTHER"
-          >
-            Other Collectibles
-          </a>
-        </div>
-      </Popover.Panel>
-    </Popover>
+            <Popover.Panel className="absolute z-10">
+              <div className={popoverPanelClass}>
+                {category.subCategory.map((subCategory) => {
+                  return (
+                    <a
+                      key={subCategory.value}
+                      className={popoverLinkClass}
+                      href={`/listings/search?category=SPORTS_CARDS&subcategory=${subCategory.value}`}
+                    >
+                      {subCategory.text}
+                    </a>
+                  );
+                })}
+              </div>
+            </Popover.Panel>
+          </Popover>
+        );
+      })}
+    </div>
   );
 }
 
@@ -233,11 +149,7 @@ export default function Header(): JSX.Element {
         </PageContainer>
         <div className="w-full mt-2 border-t border-b">
           <PageContainer yPadding="p-none">
-            <div className="grid grid-cols-3 mx-auto justify-items-center">
-              <SportsCardPopover />
-              <TradingCardPopover />
-              <CollectiblePopover />
-            </div>
+            <CategoryPopovers />
           </PageContainer>
         </div>
       </header>
