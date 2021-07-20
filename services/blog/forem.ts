@@ -3,7 +3,7 @@ import { convertMarkdownToHtml, sanitizeMarkdown } from "./markdown";
 
 import axios from "axios";
 
-const usernames = ["wivarn", "kleverrobot"];
+const usernames = ["wivarn", "kleverrobot", "allonblack"];
 const foremApiBasePaths = [
   "https://dev.to/api/",
   "https://the.community.club/api/",
