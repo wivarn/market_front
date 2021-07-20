@@ -60,7 +60,6 @@ export const tradingCardList = [
 export const collectibleList = [
   { value: "COMICS", text: "Comic Books" },
   { value: "TOYS", text: "Toys" },
-  { value: "GAMES", text: "Video Games" },
   { value: "OTHER", text: "Other Collectibles" },
 ];
 
