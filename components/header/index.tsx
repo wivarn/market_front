@@ -20,31 +20,24 @@ import { categoryList } from "constants/listings";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
-const popoverPanelClass =
-  "grid p-2 text-sm w-56 space-y-2 bg-white border border-accent rounded-md";
-const popoverButtonClass =
-  "focus:outline-none text-sm items-center flex font-semibold p-2 rounded-md text-accent-dark";
-const popoverLinkClass =
-  "p-2 text-accent-darker rounded-md hover:bg-primary hover:text-white";
-
 function CategoryPopovers() {
   return (
     <div className="grid grid-cols-3 mx-auto justify-items-center">
       {categoryList.map((category) => {
         return (
           <Popover key={category.value} className="relative">
-            <Popover.Button className={popoverButtonClass}>
+            <Popover.Button className="flex items-center p-2 text-sm font-semibold rounded-md focus:outline-none text-accent-dark">
               {category.text} <SmChevronDownIcon />
             </Popover.Button>
 
             <Popover.Panel className="absolute z-10">
-              <div className={popoverPanelClass}>
+              <div className="grid w-56 p-2 space-y-2 text-sm bg-white border rounded-md border-accent">
                 {category.subCategory.map((subCategory) => {
                   return (
                     <a
                       key={subCategory.value}
-                      className={popoverLinkClass}
-                      href={`/listings/search?category=SPORTS_CARDS&subcategory=${subCategory.value}`}
+                      className="p-2 rounded-md text-accent-darker hover:bg-primary hover:text-white"
+                      href={`/listings/search?category=${category.value}&subcategory=${subCategory.value}`}
                     >
                       {subCategory.text}
                     </a>
@@ -130,14 +123,12 @@ export default function Header(): JSX.Element {
       </Head>
       <header>
         <PageContainer yPadding="py-1">
-          <nav className="flex items-center px-2">
+          <nav className="flex items-center">
             <Link href="/">
               <a>
                 <span className="inline-flex fill-current text-primary">
                   <MdSkwirlIcon />
-                  <h2 className="hidden px-2 mt-2 font-bold md:block">
-                    skwirl
-                  </h2>
+                  <h2 className="hidden mt-2 font-bold md:block">skwirl</h2>
                 </span>
               </a>
             </Link>
@@ -147,7 +138,7 @@ export default function Header(): JSX.Element {
             <div className="ml-auto">{renderNav()}</div>
           </nav>
         </PageContainer>
-        <div className="w-full mt-2 border-t border-b">
+        <div className="w-full border-t border-b">
           <PageContainer yPadding="p-none">
             <CategoryPopovers />
           </PageContainer>

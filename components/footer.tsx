@@ -12,7 +12,7 @@ import { Logo } from "./logo";
 
 export default function Footer(): JSX.Element {
   return (
-    <footer className="py-8 text-center">
+    <footer className="py-8 text-center bg-secondary-light">
       <div className="text-2xl font-semibold text-primary">
         <Logo colour="text-primary" />
         <nav>

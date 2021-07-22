@@ -348,7 +348,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                     name="domestic_shipping"
                     id={`${idPrefix}domestic_shipping`}
                     description="Enter the price for domestic shipping."
-                    placeholder="0"
+                    placeholder="Enter 0 for free shipping"
                     currency={profile?.currency}
                   />
 
@@ -356,8 +356,8 @@ const ListingForm = (props: Listing): JSX.Element => {
                     label="International Shipping"
                     name="international_shipping"
                     id={`${idPrefix}international_shipping`}
-                    description="Enter the price for international shipping."
-                    placeholder="0"
+                    description="Leave blank if you do not offer international shipping. Enter 0 for free shipping."
+                    placeholder="No international shipping"
                     currency={profile?.currency}
                   />
                 </FormSection>

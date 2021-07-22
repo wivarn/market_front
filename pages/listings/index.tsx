@@ -43,7 +43,7 @@ export default function Listings(): JSX.Element {
       return (
         <BlankMessage>
           <div className="p-2">You have no {status} listings.</div>
-          <PrimaryButton text="Create New Listing" />
+          <PrimaryButton href="/listings/new" text="Create New Listing" />
         </BlankMessage>
       );
 

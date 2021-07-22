@@ -1,6 +1,6 @@
 @layer components {
   .icon-xs {
-    @apply h-5 w-5;
+    @apply h-4 w-4;
   }
   
   .icon-sm {
