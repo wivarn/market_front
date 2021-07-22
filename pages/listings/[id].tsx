@@ -1,4 +1,3 @@
-import { CardContainer6xl } from "components/cardContainer";
 import { GenericErrorMessage } from "components/message";
 import ListingDetails from "components/listing/details";
 import { NextSeo } from "next-seo";
