@@ -65,7 +65,7 @@ export const OverflowButton = (props: Props): JSX.Element => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 z-50 w-48 px-2 text-left bg-white rounded-md shadow-md md:left-0 ring-1 ring-accent focus:outline-none">
+            <Menu.Items className="absolute z-50 w-48 px-2 text-left bg-white rounded-md shadow-md -right-4 md:-left-4 ring-1 ring-accent focus:outline-none">
               <div className="py-2">
                 <Menu.Item>
                   {({ active }) => (
