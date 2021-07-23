@@ -211,7 +211,7 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
     <div className="relative p-4">
       <CardContainer6xl>
         <div className="absolute -top-8">
-          <BackButton text="Back to listings" href="/listings" />
+          <BackButton text="Back to listings" href="/listings?state=active" />
         </div>
         <div className="p-2">
           <h3 className="p-2 text-center">

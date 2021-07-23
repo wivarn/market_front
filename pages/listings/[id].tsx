@@ -1,4 +1,5 @@
 import { GenericErrorMessage } from "components/message";
+import { BackButton } from "components/buttons";
 import ListingDetails from "components/listing/details";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
@@ -28,7 +29,8 @@ export default function ShowListing(): JSX.Element {
 
   return (
     <div className="my-4">
-      <PageContainer yPadding="py-none">
+      <PageContainer yPadding="py-2">
+        <BackButton text="Back" />
         <NextSeo title={listing.title} />
         <ListingDetails
           id={listing.id}
