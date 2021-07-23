@@ -56,9 +56,6 @@ export default function Cart(): JSX.Element {
   const carts = cartResponse.data;
   const address = addressResponse.data;
 
-  console.log(carts);
-  console.log(address);
-
   return (
     <div className="my-8">
       <NextSeo title="Cart" />
