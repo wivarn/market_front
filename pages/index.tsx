@@ -23,11 +23,12 @@ export default function Home(): JSX.Element {
           <div className="mb-8"></div>
         </div>
       </div>
-      <PageContainer yPadding="py-0">
-        <RecentListings />
-      </PageContainer>
+      <RecentListings />
       <div className="my-8">
         <PageContainer>
+          <h3 className="my-4 text-center text-accent-darker">
+            Connect with us
+          </h3>
           <div className="grid grid-cols-1 gap-1 my-8 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
             <PromoCard
               title="Become a member"
