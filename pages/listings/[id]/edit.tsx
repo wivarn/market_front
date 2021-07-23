@@ -7,7 +7,7 @@ import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
 export default function EditListing(): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const [session] = useSession();
   const router = useRouter();
   const { id } = router.query;
 
@@ -45,6 +45,7 @@ export default function EditListing(): JSX.Element {
         price={listing.price || undefined}
         domestic_shipping={listing.domestic_shipping || undefined}
         international_shipping={listing.international_shipping || undefined}
+        combined_shipping={listing.combined_shipping || undefined}
       />
     </>
   );

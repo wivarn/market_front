@@ -360,6 +360,15 @@ const ListingForm = (props: Listing): JSX.Element => {
                     placeholder="No international shipping"
                     currency={profile?.currency}
                   />
+
+                  <ListingNumberField
+                    label="Combined Shipping"
+                    name="combined_shipping"
+                    id={`${idPrefix}combined_shipping`}
+                    description="Leave blank if you do not offer combined shipping. Enter 0 no additional shipping fee after the first item in an order."
+                    placeholder="No combined shipping"
+                    currency={profile?.currency}
+                  />
                 </FormSection>
                 {renderUpdateButtons(formik)}
               </Form>
@@ -383,6 +392,7 @@ ListingForm.defaultProps = {
   price: "",
   domestic_shipping: "",
   international_shipping: undefined,
+  combined_shipping: undefined,
   aasm_state: "draft",
   state_transition: undefined,
 };
