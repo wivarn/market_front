@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SmBackArrowIcon } from "components/icons";
+import { useRouter } from "next/router";
 interface Props {
   text: string;
   type?: "button" | "submit" | "reset";
@@ -14,13 +15,14 @@ interface BaseButtonProps extends Props {
 }
 
 export const BackButton = (props: Props): JSX.Element => {
+  const router = useRouter();
   const backButton = (
     <button
       {...props}
       className="flex space-x-1 font-semibold underline text-info hover:text-primary"
       type="button"
     >
-      <SmBackArrowIcon /> <div>{props.text}</div>
+      <SmBackArrowIcon /> <span>{props.text}</span>
     </button>
   );
   if (props.href) {
@@ -30,7 +32,7 @@ export const BackButton = (props: Props): JSX.Element => {
       </Link>
     );
   }
-  return backButton;
+  return <div onClick={() => router.back()}>{backButton}</div>;
 };
 
 export const CTAButton = (props: Props): JSX.Element => {
