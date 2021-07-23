@@ -6,6 +6,7 @@ import { IListingWithSeller } from "types/listings";
 import { ImageSlider } from "components/listing/imageSlider";
 import { InfoCard } from "./infoCard";
 import Link from "next/link";
+import { PrimaryButtonFull } from "components/buttons";
 import { UserInfo } from "components/user";
 import { toast } from "react-toastify";
 import useSWR from "swr";
@@ -45,7 +46,13 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
 
   function renderButton() {
     if (!editable) return null;
-    if (isSeller) {
+    if (!session)
+      return (
+        <div className="py-2">
+          <PrimaryButtonFull text="Log in to purchase" href="/login" />
+        </div>
+      );
+    else if (isSeller) {
       return (
         <SecondaryButtonFull
           href={`/listings/${props.id}/edit`}
@@ -56,7 +63,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
       return (
         <SubmitButtonFull
           text="Add to Cart"
-          disabled={!session || noAddress}
+          disabled={noAddress}
           onClick={addItem}
         />
       );
