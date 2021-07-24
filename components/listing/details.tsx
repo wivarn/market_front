@@ -47,11 +47,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
   function renderButton() {
     if (!editable) return null;
     if (!session)
-      return (
-        <div className="py-2">
-          <PrimaryButtonFull text="Log in to purchase" href="/login" />
-        </div>
-      );
+      return <PrimaryButtonFull text="Log in to purchase" href="/login" />;
     else if (isSeller) {
       return (
         <SecondaryButtonFull
@@ -79,7 +75,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
           ) : null}
         </div>
         <InfoCard>
-          <h4 className="pb-2 mb-4 text-center border-b">{props.title}</h4>
+          <h4 className="pb-2 mb-4 text-center border-b-2">{props.title}</h4>
           <span className="text-xl font-semibold md:text-2xl text-accent-darker">
             {Number(props.price).toLocaleString("en", {
               style: "currency",
@@ -101,9 +97,9 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
             })}{" "}
             Shipping
           </div>
-          <div>
+          <div className="mt-2">
             {renderButton()}
-            <div className="my-4 border"></div>
+            <div className="my-4 border-t border-b"></div>
             <Link href={`/users/${props.accountId}`}>
               <a>
                 <UserInfo
