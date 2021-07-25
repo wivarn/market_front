@@ -31,7 +31,7 @@ export default function profile(): JSX.Element {
   if (purchasesError) return <GenericErrorMessage />;
 
   return (
-    <div className="my-4">
+    <div className="my-8">
       <NextSeo title="Purchase History" />
       <PageContainer yPadding="py-2">
         <h3 className="p-2 text-center">Your Purchases</h3>
