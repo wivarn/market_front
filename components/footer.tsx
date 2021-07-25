@@ -6,17 +6,17 @@ import {
   SmYoutubeIcon,
 } from "./icons";
 
-import { IconButtonLink } from "./iconButton";
+import { IconButtonLinkLight } from "./iconButton";
 import Link from "next/link";
 import { Logo } from "./logo";
 
 export default function Footer(): JSX.Element {
   return (
-    <footer className="py-8 text-center bg-secondary-light">
-      <div className="text-2xl font-semibold text-primary">
+    <footer className="py-8 text-center border-t bg-info-darker border-accent">
+      <div className="text-2xl font-semibold">
         <Logo colour="text-primary" />
         <nav>
-          <ul className="flex flex-col justify-center mt-4 space-y-2 text-lg font-semibold md:space-y-0 md:space-x-4 md:flex-row text-accent-darker">
+          <ul className="flex flex-col justify-center mt-4 space-y-2 text-lg font-semibold text-white md:space-y-0 md:space-x-4 md:flex-row">
             <li>
               <Link href="/">
                 <a className="hover:text-primary">Home</a>
@@ -35,34 +35,34 @@ export default function Footer(): JSX.Element {
           </ul>
         </nav>
         <div className="flex justify-center mt-4 space-x-4">
-          <IconButtonLink
+          <IconButtonLinkLight
             url="https://www.youtube.com/channel/UCDe_aLZv7CoKLxiZxAPbDJg"
             icon={<SmYoutubeIcon />}
             target="_blank"
           />
-          <IconButtonLink
+          <IconButtonLinkLight
             url="https://www.facebook.com/skwirl.io"
             icon={<SmFacebookIcon />}
             target="_blank"
           />
-          <IconButtonLink
+          <IconButtonLinkLight
             url="https://www.reddit.com/r/Skwirl"
             icon={<SmRedditIcon />}
             target="_blank"
           />
-          <IconButtonLink
+          <IconButtonLinkLight
             url="https://www.instagram.com/skwirl.io"
             icon={<SmInstagramIcon />}
             target="_blank"
           />
-          <IconButtonLink
+          <IconButtonLinkLight
             url="https://twitter.com/skwirl_io"
             icon={<SmTwitterIcon />}
             target="_blank"
           />
         </div>
         <div className="mt-4 text-sm">
-          <div className="font-normal text-accent-dark">
+          <div className="font-normal text-accent-light">
             © Copyright {new Date().getFullYear()} Skwirl.
           </div>
         </div>

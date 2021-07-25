@@ -1,3 +1,4 @@
+import { GenericErrorMessage } from "components/message";
 import Link from "next/link";
 import ListingPreviewGrid from "./previewGrid";
 import PageContainer from "components/pageContainer";
@@ -17,7 +18,12 @@ export const RecentListings = (): JSX.Element => {
 
   const { cardsResponse, cardsLoading, cardsError } = getRecentCards();
   if (cardsLoading) return <SpinnerLg text="Loading..." />;
-  if (cardsError) return <div>Error</div>;
+  if (cardsError)
+    return (
+      <PageContainer>
+        <GenericErrorMessage></GenericErrorMessage>
+      </PageContainer>
+    );
 
   const cards = cardsResponse.data;
 

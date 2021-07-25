@@ -10,7 +10,6 @@ import Head from "next/head";
 import { IconLink } from "./iconLink";
 import Link from "next/link";
 import { MdSkwirlIcon } from "components/icons";
-import PageContainer from "components/pageContainer";
 import { Popover } from "@headlessui/react";
 import ReactTooltip from "react-tooltip";
 import SearchForm from "components/forms/listing/search";
@@ -31,7 +30,7 @@ function CategoryPopovers() {
             </Popover.Button>
 
             <Popover.Panel className="absolute z-10">
-              <div className="grid w-56 p-2 space-y-2 text-sm bg-white border rounded-md border-accent">
+              <div className="grid w-48 p-2 space-y-2 text-sm bg-white border rounded-md border-accent">
                 {category.subCategory.map((subCategory) => {
                   return (
                     <a
@@ -115,33 +114,41 @@ export default function Header(): JSX.Element {
   }
 
   return (
-    <div>
+    <div className="">
       <Head>
         <title>skwirl</title>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <header>
-        <PageContainer yPadding="py-1">
-          <nav className="flex items-center">
-            <Link href="/">
-              <a>
-                <span className="inline-flex fill-current text-primary">
-                  <MdSkwirlIcon />
-                  <h2 className="hidden mt-2 font-bold md:block">skwirl</h2>
-                </span>
-              </a>
-            </Link>
-            <span className="w-full px-2 mx-auto">
-              <SearchForm />
-            </span>
-            <div className="ml-auto">{renderNav()}</div>
-          </nav>
-        </PageContainer>
-        <div className="w-full border-t border-b">
-          <PageContainer yPadding="p-none">
-            <CategoryPopovers />
-          </PageContainer>
+      <header className="bg-primary">
+        <nav className="flex items-center px-2 mx-auto max-w-screen-2xl">
+          <Link href="/">
+            <a>
+              <span
+                data-tip
+                data-for="home"
+                className="inline-flex fill-current text-primary-lightest"
+              >
+                <MdSkwirlIcon />
+                <h2 className="hidden mt-2 font-bold md:block">skwirl</h2>
+                <ReactTooltip
+                  id="home"
+                  type="dark"
+                  place="bottom"
+                  effect="solid"
+                >
+                  Home
+                </ReactTooltip>
+              </span>
+            </a>
+          </Link>
+          <span className="w-full px-2 mx-auto">
+            <SearchForm />
+          </span>
+          <div className="ml-auto">{renderNav()}</div>
+        </nav>
+        <div className="w-full bg-white border-t border-b">
+          <CategoryPopovers />
         </div>
       </header>
     </div>
