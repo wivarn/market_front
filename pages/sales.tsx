@@ -1,5 +1,6 @@
 import { GenericErrorMessage } from "components/message";
 import { NextSeo } from "next-seo";
+import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
@@ -25,9 +26,12 @@ export default function sales(): JSX.Element {
   if (salesError) return <GenericErrorMessage />;
 
   return (
-    <>
+    <div className="my-4">
       <NextSeo title="Sales" />
-      {JSON.stringify(salesResponse.data)}
-    </>
+      <PageContainer yPadding="py-2">
+        <h3 className="p-2 text-center">Orders</h3>
+        {JSON.stringify(salesResponse.data)}
+      </PageContainer>
+    </div>
   );
 }

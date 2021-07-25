@@ -106,12 +106,22 @@ export const DropDown = (): JSX.Element => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute z-50 w-screen text-center bg-primary md:bg-white -right-2 md:text-left md:mt-2 md:w-48 md:shadow-md md:rounded-md md:px-2 ring-1 ring-accent focus:outline-none">
+            <Menu.Items className="absolute z-50 w-screen text-center bg-primary md:bg-white -right-2 md:text-left md:mt-2 md:w-48 md:shadow-md md:rounded-md md:px-2 md:border focus:outline-none">
               <div className="py-2">
                 <Menu.Item>
                   {({ active }) => (
                     <LinkWrapper href="/account/profile" active={active}>
                       Profile
+                    </LinkWrapper>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <LinkWrapper
+                      href="/account/purchaseHistory"
+                      active={active}
+                    >
+                      Purchases
                     </LinkWrapper>
                   )}
                 </Menu.Item>
@@ -125,7 +135,14 @@ export const DropDown = (): JSX.Element => {
                 <Menu.Item>
                   {({ active }) => (
                     <LinkWrapper href="/listings?state=active" active={active}>
-                      Sell
+                      Listings
+                    </LinkWrapper>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <LinkWrapper href="/sales" active={active}>
+                      Orders
                     </LinkWrapper>
                   )}
                 </Menu.Item>

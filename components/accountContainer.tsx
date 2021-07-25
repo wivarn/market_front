@@ -35,9 +35,7 @@ export default function AccountContainer({
   return (
     <div className="my-4">
       <CardContainer2xl>
-        <h3 className="py-2 text-center border-b border-accent">
-          Your Profile
-        </h3>
+        <h3 className="py-2 text-center">Your Account</h3>
         <div className="font-semibold text-accent-darker">
           <div className="flex justify-center mt-4 space-x-4 md:space-x-8">
             <LinkWrapper
@@ -60,13 +58,6 @@ export default function AccountContainer({
               activeTab={activeTab}
             >
               Payments
-            </LinkWrapper>
-            <LinkWrapper
-              href="/account/purchaseHistory"
-              tab="purchaseHistory"
-              activeTab={activeTab}
-            >
-              Purchases
             </LinkWrapper>
           </div>
         </div>
