@@ -128,7 +128,11 @@ export default function ListingTabs({
           >
             Active
           </LinkWrapper>
-          <LinkWrapper href="/sales" tab="sold" activeTab={activeTab}>
+          <LinkWrapper
+            href="/listings?state=sold"
+            tab="sold"
+            activeTab={activeTab}
+          >
             Sold
           </LinkWrapper>
           <LinkWrapper

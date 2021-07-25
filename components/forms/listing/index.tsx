@@ -1,6 +1,7 @@
 import * as Yup from "yup";
 
 import {
+  BackButton,
   DeleteButton,
   SecondarySubmitButton,
   SubmitButton,
@@ -26,7 +27,7 @@ import {
 } from "constants/listings";
 import { createRef, useState } from "react";
 
-import { CardContainer6xl } from "components/cardContainer";
+import PageContainer from "components/pageContainer";
 import FormSection from "./section";
 import { Listing } from "types/listings";
 import { ListingApi } from "services/backendApi/listing";
@@ -242,7 +243,8 @@ const ListingForm = (props: Listing): JSX.Element => {
 
   return (
     <div className="p-4">
-      <CardContainer6xl>
+      <PageContainer yPadding="py-2">
+        <BackButton text="Back to listings" href="/listings?state=active" />
         <div className="p-2">
           <h3 className="p-2 text-center">
             Enter the details for your listing
@@ -376,7 +378,7 @@ const ListingForm = (props: Listing): JSX.Element => {
           </Formik>
           {renderDeleteButton(props.id)}
         </div>
-      </CardContainer6xl>
+      </PageContainer>
     </div>
   );
 };

@@ -1,6 +1,6 @@
-import AccountContainer from "components/accountContainer";
 import { GenericErrorMessage } from "components/message";
 import { NextSeo } from "next-seo";
+import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
@@ -31,11 +31,12 @@ export default function profile(): JSX.Element {
   if (purchasesError) return <GenericErrorMessage />;
 
   return (
-    <>
+    <div className="my-4">
       <NextSeo title="Purchase History" />
-      <AccountContainer activeTab="purchaseHistory">
+      <PageContainer yPadding="py-2">
+        <h3 className="p-2 text-center">Your Purchases</h3>
         {JSON.stringify(purchasesResponse.data)}
-      </AccountContainer>
-    </>
+      </PageContainer>
+    </div>
   );
 }
