@@ -11,7 +11,7 @@ interface props {
   order: IOrder;
 }
 
-export default function Order({ order }: props): JSX.Element {
+export function SalesOrder({ order }: props): JSX.Element {
   const [session] = useSession();
 
   async function shipOrder() {
@@ -26,26 +26,32 @@ export default function Order({ order }: props): JSX.Element {
   }
 
   return (
-    <div className="border border-primary">
+    <div className="max-w-4xl mx-auto mt-4 border rounded-md">
       <div>
-        <span>
+        <div className="px-4 py-2 text-white rounded-t-md bg-info-darker">
           <h4>
-            Buyer:{" "}
-            <Link href={`/users/${order.seller_id}/listings`}>
-              <a>
-                {order.seller.given_name} {order.seller.family_name}
+            Order: #{order.id} by{" "}
+            <Link href={`/users/${order.buyer_id}`}>
+              <a className="underline hover:text-primary">
+                {order.buyer.given_name} {order.buyer.family_name}
               </a>
             </Link>
           </h4>
-        </span>
-        <span>
-          <p>
-            {order.address.street1}
-            {order.address.street2}
-            {order.address.city}, {order.address.state}
+          <span className="flex items-center space-x-4">
+            <h5>Status: {order.aasm_state}</h5>
+            <SubmitButton text="Mark as shipped" onClick={shipOrder} />
+          </span>
+        </div>
+        <div className="px-4 py-2 text-accent-dark">
+          <p className="text-sm">
+            Ship to:
+            <br /> {order.buyer.given_name} {order.buyer.family_name}
+            <br />
+            {order.address.street1} {order.address.street2} <br />
+            {order.address.city}, {order.address.state} <br />
             {order.address.zip}, {order.address.country}
           </p>
-        </span>
+        </div>
       </div>
       <div>
         {order.listings.map((listing) => {
@@ -64,15 +70,99 @@ export default function Order({ order }: props): JSX.Element {
           );
         })}
       </div>
-      <div>
-        <span>Status: {order.aasm_state}</span>
-        <span>Total = {order.total}</span>
+      <div className="px-4 py-2 border-t bg-accent-lightest">
+        <div className="flex items-center space-x-4">
+          <p>
+            Total={" "}
+            {Number(order.total).toLocaleString("en", {
+              style: "currency",
+              currency: "usd",
+            })}{" "}
+            {order.listings[0].currency}
+          </p>
+        </div>
       </div>
-      <div>
-        Tracking Number or URL:
+      <div className="px-4 py-2 bg-accent-lightest">
         <OrderTrackingForm orderId={order.id} tracking={order.tracking} />
       </div>
-      <SubmitButton text="Mark as shipped" onClick={shipOrder} />
+    </div>
+  );
+}
+
+export function PurchaseOrder({ order }: props): JSX.Element {
+  const [session] = useSession();
+
+  async function receiveOrder() {
+    OrderApi(session?.accessToken)
+      .updateState("ship", order.id, "receive")
+      .then(() => {
+        toast.success("Order marked as received");
+      })
+      .catch(() => {
+        toast.error("Failed to mark order as received");
+      });
+  }
+
+  return (
+    <div className="max-w-4xl mx-auto mt-4 border rounded-md">
+      <div>
+        <div className="px-4 py-2 text-white rounded-t-md bg-info-darker">
+          <h4>
+            Order: #{order.id} from{" "}
+            <Link href={`/users/${order.buyer_id}`}>
+              <a className="underline hover:text-primary">
+                {order.seller.given_name} {order.seller.family_name}
+              </a>
+            </Link>
+          </h4>
+          <span className="flex items-center space-x-4">
+            <h5>Status: {order.aasm_state}</h5>
+            <SubmitButton text="Mark as received" onClick={receiveOrder} />
+          </span>
+        </div>
+        <div className="px-4 py-2 text-accent-dark">
+          <p className="text-sm">
+            Shipped to:
+            <br /> {order.buyer.given_name} {order.buyer.family_name}
+            <br />
+            {order.address.street1} {order.address.street2} <br />
+            {order.address.city}, {order.address.state} <br />
+            {order.address.zip}, {order.address.country}
+          </p>
+        </div>
+      </div>
+      <div>
+        {order.listings.map((listing) => {
+          return (
+            <ListingPreviewList
+              key={listing.id}
+              id={listing.id}
+              photos={listing.photos}
+              title={listing.title}
+              price={listing.price}
+              currency={listing.currency}
+              domestic_shipping={listing.domestic_shipping}
+              international_shipping={listing.international_shipping}
+              shipping_country={listing.shipping_country}
+            />
+          );
+        })}
+      </div>
+      <div className="px-4 py-2 border-t bg-accent-lightest">
+        <div className="flex items-center space-x-4">
+          <p>
+            Total={" "}
+            {Number(order.total).toLocaleString("en", {
+              style: "currency",
+              currency: "usd",
+            })}{" "}
+            {order.listings[0].currency}
+          </p>
+        </div>
+      </div>
+      <div className="px-4 py-2 bg-accent-lightest">
+        Tracking: {order.tracking}
+      </div>
     </div>
   );
 }
