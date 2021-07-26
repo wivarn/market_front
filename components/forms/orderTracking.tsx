@@ -45,11 +45,11 @@ export default function OrderTrackingForm({
     >
       {({ isSubmitting }) => (
         <Form>
-          <span className="grid space-y-4 justify-items-center lg:justify-items-start">
+          <span className="flex items-center space-x-4">
             <TextField
               name="tracking"
               id={`order-${orderId}-tracking`}
-              placeholder="optional"
+              placeholder="Add Tracking (optional)"
             />
 
             <SubmitButton text="Save" disabled={isSubmitting} />
