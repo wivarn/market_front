@@ -1,6 +1,6 @@
 import { IOrder } from "types/order";
 import Link from "next/link";
-import ListingPreview from "./listing/preview";
+import { ListingPreviewTile } from "./listing/preview";
 
 interface props {
   order: IOrder;
@@ -32,7 +32,7 @@ export default function Order({ order }: props): JSX.Element {
       <div>
         {order.listings.map((listing) => {
           return (
-            <ListingPreview
+            <ListingPreviewTile
               key={listing.id}
               id={listing.id}
               aasm_state={listing.aasm_state}
