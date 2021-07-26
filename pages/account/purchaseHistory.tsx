@@ -1,5 +1,7 @@
 import { GenericErrorMessage } from "components/message";
+import { IOrder } from "types/order";
 import { NextSeo } from "next-seo";
+import Order from "components/order";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import useSWR from "swr";
@@ -35,7 +37,9 @@ export default function profile(): JSX.Element {
       <NextSeo title="Purchase History" />
       <PageContainer yPadding="py-2">
         <h3 className="p-2 text-center">Your Purchases</h3>
-        {JSON.stringify(purchasesResponse.data)}
+        {purchasesResponse.data.map((order: IOrder) => {
+          return <Order key={order.id} order={order} />;
+        })}
       </PageContainer>
     </div>
   );

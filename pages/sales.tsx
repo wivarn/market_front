@@ -25,11 +25,13 @@ export default function sales(): JSX.Element {
   if (salesLoading || sessionLoading) return <SpinnerLg text="Loading..." />;
   if (salesError) return <GenericErrorMessage />;
 
+  console.log(salesResponse.data);
+
   return (
     <div className="my-4">
       <NextSeo title="Sales" />
       <PageContainer yPadding="py-2">
-        <h3 className="p-2 text-center">Orders</h3>
+        <h3 className="p-2 text-center">Sales</h3>
         {JSON.stringify(salesResponse.data)}
       </PageContainer>
     </div>
