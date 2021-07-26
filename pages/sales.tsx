@@ -1,5 +1,7 @@
 import { GenericErrorMessage } from "components/message";
+import { IOrder } from "types/order";
 import { NextSeo } from "next-seo";
+import Order from "components/order";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import useSWR from "swr";
@@ -25,14 +27,14 @@ export default function sales(): JSX.Element {
   if (salesLoading || sessionLoading) return <SpinnerLg text="Loading..." />;
   if (salesError) return <GenericErrorMessage />;
 
-  console.log(salesResponse.data);
-
   return (
     <div className="my-4">
       <NextSeo title="Sales" />
       <PageContainer yPadding="py-2">
         <h3 className="p-2 text-center">Sales</h3>
-        {JSON.stringify(salesResponse.data)}
+        {salesResponse.data.map((order: IOrder) => {
+          return <Order key={order.id} order={order} />;
+        })}
       </PageContainer>
     </div>
   );

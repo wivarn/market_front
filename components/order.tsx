@@ -1,24 +1,42 @@
 import { IOrder } from "types/order";
 import Link from "next/link";
-import { ListingPreviewTile } from "./listing/preview";
+import { ListingPreviewList } from "./listing/preview";
+import { OrderApi } from "services/backendApi/order";
+import OrderTrackingForm from "./forms/orderTracking";
+import { SubmitButton } from "./buttons";
+import { toast } from "react-toastify";
+import { useSession } from "next-auth/client";
 
 interface props {
   order: IOrder;
 }
 
 export default function Order({ order }: props): JSX.Element {
+  const [session] = useSession();
+
+  async function shipOrder() {
+    OrderApi(session?.accessToken)
+      .updateState("sales", order.id, "ship")
+      .then(() => {
+        toast.success("Order marked as shipped");
+      })
+      .catch(() => {
+        toast.error("Failed to mark order as shipped");
+      });
+  }
+
   return (
-    <div>
+    <div className="border border-primary">
       <div>
         <span>
-          <h2>
+          <h4>
             Buyer:{" "}
             <Link href={`/users/${order.seller_id}/listings`}>
               <a>
                 {order.seller.given_name} {order.seller.family_name}
               </a>
             </Link>
-          </h2>
+          </h4>
         </span>
         <span>
           <p>
@@ -32,18 +50,16 @@ export default function Order({ order }: props): JSX.Element {
       <div>
         {order.listings.map((listing) => {
           return (
-            <ListingPreviewTile
+            <ListingPreviewList
               key={listing.id}
               id={listing.id}
-              aasm_state={listing.aasm_state}
               photos={listing.photos}
               title={listing.title}
               price={listing.price}
               currency={listing.currency}
               domestic_shipping={listing.domestic_shipping}
               international_shipping={listing.international_shipping}
-              grading_company={listing.grading_company}
-              condition={listing.condition}
+              shipping_country={listing.shipping_country}
             />
           );
         })}
@@ -54,8 +70,9 @@ export default function Order({ order }: props): JSX.Element {
       </div>
       <div>
         Tracking Number or URL:
-        {order.tracking}
+        <OrderTrackingForm orderId={order.id} tracking={order.tracking} />
       </div>
+      <SubmitButton text="Mark as shipped" onClick={shipOrder} />
     </div>
   );
 }
