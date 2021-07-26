@@ -45,11 +45,12 @@ export default function OrderTrackingForm({
     >
       {({ isSubmitting }) => (
         <Form>
-          <span className="flex items-center space-x-4">
+          <span className="flex items-end space-x-4">
             <TextField
               name="tracking"
               id={`order-${orderId}-tracking`}
               placeholder="Add Tracking (optional)"
+              label="Tracking Number"
             />
 
             <SubmitButton text="Save" disabled={isSubmitting} />
