@@ -17,6 +17,7 @@ export interface Listing extends BasicListing {
   description?: string;
   aasm_state?: string;
   state_transition?: string;
+  combined_shipping?: string | number | null;
 }
 
 export interface IListingWithSeller extends Listing {

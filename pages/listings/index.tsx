@@ -42,8 +42,8 @@ export default function Listings(): JSX.Element {
     if (!response.data.total_pages)
       return (
         <BlankMessage>
-          <div className="p-2">You have no {status} listings.</div>
-          <PrimaryButton text="Create New Listing" />
+          <div className="p-2">You have no {state} listings.</div>
+          <PrimaryButton href="/listings/new" text="Create New Listing" />
         </BlankMessage>
       );
 

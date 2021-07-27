@@ -2,8 +2,8 @@ import { ICart, ICartListing } from "types/listings";
 
 import { CartApi } from "services/backendApi/cart";
 import { GenericErrorMessage } from "components/message";
-import Image from "next/image";
 import Link from "next/link";
+import { ListingPreviewList } from "components/listing/preview";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
@@ -47,17 +47,13 @@ export default function Cart(): JSX.Element {
   }
 
   const { cartResponse, loadingCart, cartError } = getCart();
-  const { addressResponse, addressLoading, addressError } = getAddress();
+  const { addressLoading, addressError } = getAddress();
 
   if (sessionLoading || loadingCart || addressLoading)
     return <SpinnerLg text="Loading..." />;
   if (cartError || addressError)
     return <GenericErrorMessage></GenericErrorMessage>;
   const carts = cartResponse.data;
-  const address = addressResponse.data;
-
-  console.log(carts);
-  console.log(address);
 
   return (
     <div className="my-8">
@@ -79,50 +75,17 @@ export default function Cart(): JSX.Element {
               </h4>
               {cart.listings.map((listing: ICartListing) => {
                 return (
-                  <div key={listing.id} className="mx-4 my-4 space-y-2">
-                    <Link href={`/listings/${listing.id}`}>
-                      <a className="flex hover:shadow-md">
-                        <div className="container relative w-24 h-24">
-                          <Image
-                            src={listing.photos[0]}
-                            alt={listing.title}
-                            layout="fill"
-                            objectFit="cover"
-                            placeholder="blur"
-                            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFlSURBVHgBFY/JbtNQAEWP/Z7t4LR26jgDEdCyoBSJYc2uAjYg2MEn8Et8CkhILFgwFJDYVJTSCAmJtE4ztU0d+8XDq3uluzvS0TGev3qtm57g2mqKVJpzNSTLl2RLRVL9x/6SpUowXbfO/Q3By2ePeHiloGdKtlSXYDZkw5hzOa1LzBurOb40sT6/Yavo83S7zePee0b+Jp5T0PEsGjWBNIVEGyXWdRv/xQN+fmgTdu7yJN/lUHnUbAfqJbIbNlnzc9JBSOpDSx1Qv9mgkQQcT01qliBLK7DduoowIr4fRtyzTvg9gNkfl0anWQVFpIkmXsRIzwtwSsW7PRjsrfB1HrF9u8vOpz7rtzTHozOysoqZzCYkWYEQ0F5pUueUwPfZXO/h2hLDNMgLjRyOJ8zL/2TTIwZhizTPGP3bZxodEN4RlBocx8bY/bKjv318Sxz/xagUiZpjOy6LONHD8YJf/THBWsAFu1mYYHGmVmwAAAAASUVORK5CYII="
-                            className="rounded-l-md"
-                          />
-                        </div>
-                        <div className="w-full p-2 border rounded-r-md">
-                          <p className="line-clamp-1">{listing.title}</p>
-
-                          <div>
-                            <span className="font-semibold text-accent-darker">
-                              {Number(listing.price).toLocaleString("en", {
-                                style: "currency",
-                                currency: "usd",
-                              })}{" "}
-                            </span>
-                            <span className="text-xs text-accent-dark">
-                              {listing.currency}
-                            </span>
-                            <div className="text-xs leading-none text-accent-dark">
-                              +
-                              {Number(
-                                address.country == listing.shipping_country
-                                  ? listing.domestic_shipping
-                                  : listing.international_shipping
-                              ).toLocaleString("en", {
-                                style: "currency",
-                                currency: "usd",
-                              })}{" "}
-                              Shipping
-                            </div>
-                          </div>
-                        </div>
-                      </a>
-                    </Link>
-                  </div>
+                  <ListingPreviewList
+                    key={listing.id}
+                    id={listing.id}
+                    photos={listing.photos}
+                    title={listing.title}
+                    price={listing.price}
+                    currency={listing.currency}
+                    domestic_shipping={listing.domestic_shipping}
+                    international_shipping={listing.international_shipping}
+                    shipping_country={listing.shipping_country}
+                  />
                 );
               })}
               <div className="px-4 py-2 border-t bg-accent-lightest">
@@ -136,7 +99,7 @@ export default function Cart(): JSX.Element {
                     {cart.listings[0].currency}
                   </p>
                   <SubmitButton
-                    text="Proceed to checkout"
+                    text="Checkout"
                     onClick={() => checkout(cart.seller_id)}
                   />
                 </div>
