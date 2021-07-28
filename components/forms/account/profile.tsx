@@ -155,7 +155,7 @@ export default function ProfileForm(): JSX.Element {
               />
 
               <PictureField
-                label="Profile picture"
+                label="Profile Picture"
                 name="picture"
                 id={`${idPrefix}picture`}
                 previewImage={profile.picture.url}

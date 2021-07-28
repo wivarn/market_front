@@ -211,18 +211,23 @@ export const PictureField = ({
           ) : null}
         </label>
       ) : null}
-      <div className="col-span-2">
-        <input className={inputClassName} type="file" {...field} {...props} />
-        <Image
-          loader={imageLoader}
-          src={previewImageState.path}
-          alt={field.value}
-          width="100"
-          height="100"
-        />
-        {!hideError && meta.touched && meta.error ? (
-          <div className="text-error">{meta.error}</div>
-        ) : null}
+      <div className="flex items-center">
+        <div className="container relative w-24 h-24 m-2 border rounded-full">
+          <Image
+            loader={imageLoader}
+            src={previewImageState.path}
+            alt={field.value}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-full"
+          />
+        </div>
+        <div>
+          <input className={inputClassName} type="file" {...field} {...props} />
+          {!hideError && meta.touched && meta.error ? (
+            <div className="text-error">{meta.error}</div>
+          ) : null}
+        </div>
       </div>
     </div>
   );
