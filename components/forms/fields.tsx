@@ -198,7 +198,7 @@ export const PictureField = ({
   };
 
   const imageLoader = ({ src }: ImageLoaderProps) => {
-    return src;
+    return src.replace(`${process.env.NEXT_PUBLIC_PUBLIC_PATH}`, "");
   };
 
   return (

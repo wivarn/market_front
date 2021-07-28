@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 import { DropdownCombobox, PictureField, TextFieldFull } from "../fields";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import useSWR, { mutate } from "swr";
 
