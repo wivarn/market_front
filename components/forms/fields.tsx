@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { FieldHookConfig, useField } from "formik";
+import Image, { ImageLoaderProps } from "next/image";
 import { SmChevronDownIcon, SmXIcon } from "components/icons";
 
 import { Dispatch } from "react";
@@ -36,6 +37,15 @@ type TextAreaProps = FieldHookConfig<string> &
     descriptionClassName?: string;
     inputClassName?: string;
   };
+
+type PictureProps = TextFieldProps & {
+  previewImage?: string;
+  setImageData: Dispatch<
+    SetStateAction<{
+      data: string;
+    }>
+  >;
+};
 
 export type ListingComboBoxOption = {
   value: string;
@@ -163,15 +173,58 @@ export function Toggle({
   );
 }
 
-export const FileField = ({ label, ...props }: TextFieldProps): JSX.Element => {
+export const PictureField = ({
+  label,
+  description,
+  className,
+  labelClassName,
+  descriptionClassName,
+  inputClassName,
+  hideError,
+  previewImage,
+  setImageData,
+  ...props
+}: PictureProps): JSX.Element => {
+  const [field, meta] = useField(props);
+  const [previewImageState, setPreviewImageState] = useState({
+    path: previewImage || "/", // should set a real placeholder image
+  });
+
+  field.onChange = (event: React.ChangeEvent<any>) => {
+    setPreviewImageState({
+      path: URL.createObjectURL(event.target.files[0]),
+    });
+    setImageData({ data: event.target.files[0] });
+  };
+
+  const imageLoader = ({ src }: ImageLoaderProps) => {
+    return src;
+  };
+
   return (
-    <_InputField
-      label={label}
-      labelClassName={labelClassName}
-      inputClassName={inputClassName}
-      type="file"
-      {...props}
-    />
+    <div className={className}>
+      {label ? (
+        <label htmlFor={props.id} className={labelClassName}>
+          {label}
+          {description ? (
+            <span className={descriptionClassName}>{description}</span>
+          ) : null}
+        </label>
+      ) : null}
+      <div className="col-span-2">
+        <input className={inputClassName} type="file" {...field} {...props} />
+        <Image
+          loader={imageLoader}
+          src={previewImageState.path}
+          alt={field.value}
+          width="100"
+          height="100"
+        />
+        {!hideError && meta.touched && meta.error ? (
+          <div className="text-error">{meta.error}</div>
+        ) : null}
+      </div>
+    </div>
   );
 };
 
