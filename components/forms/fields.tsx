@@ -187,7 +187,7 @@ export const PictureField = ({
 }: PictureProps): JSX.Element => {
   const [field, meta] = useField(props);
   const [previewImageState, setPreviewImageState] = useState({
-    path: previewImage || "/", // should set a real placeholder image
+    path: previewImage || "/ProfilePlaceholder.svg", // should set a real placeholder image
   });
 
   field.onChange = (event: React.ChangeEvent<any>) => {
