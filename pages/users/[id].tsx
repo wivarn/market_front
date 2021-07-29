@@ -1,4 +1,5 @@
 import { AddressApi } from "services/backendApi/address";
+import { GenericErrorMessage } from "components/message";
 import { IUser } from "types/user";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
@@ -36,7 +37,12 @@ export default function ShowUser(): JSX.Element {
 
   const { userResponse, userLoading, userError } = getUser();
   if (userLoading) return <SpinnerLg text="Loading..." />;
-  if (userError) return <div>Error</div>;
+  if (userError)
+    return (
+      <PageContainer>
+        <GenericErrorMessage></GenericErrorMessage>
+      </PageContainer>
+    );
 
   const user: IUser = userResponse.data;
 
