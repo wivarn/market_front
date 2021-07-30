@@ -23,6 +23,7 @@ import {
   HiInformationCircle,
   HiMenu,
   HiOutlineCurrencyDollar,
+  HiOutlineQuestionMarkCircle,
   HiOutlineShoppingCart,
   HiOutlineUserCircle,
   HiSearchCircle,
@@ -119,6 +120,10 @@ export const ShoppingCartIcon = (): JSX.Element => {
 
 export const UserCircleIcon = (): JSX.Element => {
   return <HiOutlineUserCircle className="icon" />;
+};
+
+export const QuestionCircleIcond = (): JSX.Element => {
+  return <HiOutlineQuestionMarkCircle className="icon" />;
 };
 
 export const SearchCircleIcon = (): JSX.Element => {
