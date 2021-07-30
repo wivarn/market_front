@@ -78,12 +78,14 @@ export default function ResetPasswordForm(): JSX.Element {
                   label="Password"
                   type="password"
                   placeholder="Password"
+                  label="Password"
                 />
                 <TextFieldFull
                   name="passwordConfirmation"
                   label="Confirm Password"
                   type="password"
                   placeholder="Password Confirmation"
+                  label="Password Confirmation"
                 />
 
                 <SubmitButton

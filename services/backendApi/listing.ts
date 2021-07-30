@@ -5,36 +5,19 @@ import { base } from "./base";
 export const ListingApi = (
   accessToken?: string
 ): {
-  create: (listing: Listing) => Promise<AxiosResponse<any>>;
+  create: (formData: FormData) => Promise<AxiosResponse<any>>;
   bulkCreate: (listings: Listing[]) => Promise<AxiosResponse<any>>;
-  update: ({ id, ...listing }: Listing) => Promise<AxiosResponse<any>>;
+  update: (id: string, formData: FormData) => Promise<AxiosResponse<any>>;
   updateState: (
     id: string,
     state_transition: string
   ) => Promise<AxiosResponse<any>>;
   destroy: (id: string) => Promise<AxiosResponse<any>>;
 } => {
-  const create = async (listing: Listing) => {
-    return base.post(
-      "listings",
-      {
-        category: listing.category,
-        subcategory: listing.subcategory,
-        photos: listing.photos,
-        title: listing.title,
-        grading_company: listing.grading_company,
-        condition: listing.condition,
-        description: listing.description,
-        price: listing.price,
-        domestic_shipping: listing.domestic_shipping,
-        international_shipping: listing.international_shipping,
-        combined_shipping: listing.combined_shipping,
-        state_transition: listing.state_transition,
-      },
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      }
-    );
+  const create = async (formData: FormData) => {
+    return base.post("listings", formData, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
   };
 
   const bulkCreate = async (listings: Listing[]) => {
@@ -47,27 +30,10 @@ export const ListingApi = (
     );
   };
 
-  const update = async ({ id, ...listing }: Listing) => {
-    return base.post(
-      `listings/${id}`,
-      {
-        category: listing.category,
-        subcategory: listing.subcategory,
-        photos: listing.photos,
-        title: listing.title,
-        grading_company: listing.grading_company,
-        condition: listing.condition,
-        description: listing.description,
-        price: listing.price,
-        domestic_shipping: listing.domestic_shipping,
-        international_shipping: listing.international_shipping,
-        combined_shipping: listing.combined_shipping,
-        state_transition: listing.state_transition,
-      },
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      }
-    );
+  const update = async (id: string, formData: FormData) => {
+    return base.post(`listings/${id}`, formData, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
   };
 
   const updateState = async (id: string, state_transition: string) => {

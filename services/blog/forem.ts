@@ -52,7 +52,7 @@ const blogFilter = (article: any) => article.canonical_url.startsWith(blogURL);
 const getArticleIds = async (username: string, basePath: string) => {
   return await axios
     .get(`${basePath}articles/latest`, {
-      params: { username: username, per_page: 500 },
+      params: { username: username, per_page: 999 },
     })
     .then((response) => {
       const articles = response.data.filter(blogFilter);
@@ -69,7 +69,7 @@ export const getAllArticles = async (): Promise<Article[]> => {
   for (const username of usernames) {
     for (const basePath of foremApiBasePaths) {
       for (const id of await getArticleIds(username, basePath)) {
-        await axios.get(`${basePath}/articles/${id}`).then((response) => {
+        await axios.get(`${basePath}articles/${id}`).then((response) => {
           articles.push(convertResponseToArticle(response.data));
         });
       }

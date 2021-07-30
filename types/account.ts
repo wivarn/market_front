@@ -2,6 +2,7 @@ export interface Profile {
   givenName?: string;
   familyName?: string;
   currency?: string;
+  pictureData?: FormData;
 }
 
 export interface Account extends Profile {
