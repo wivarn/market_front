@@ -104,7 +104,7 @@ const ListingForm = (props: Listing): JSX.Element => {
         <ListingDropdownCombobox
           label={label}
           name="condition"
-          description="Enter the condition for the item. See our grading guide for more information."
+          description="Enter the condition for the item. See our condition and grading guide for more information."
           items={items}
           resetRef={conditionRef}
         />
