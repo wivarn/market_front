@@ -33,7 +33,6 @@ import { ListingApi } from "services/backendApi/listing";
 import { MultiPictureField } from "../fields";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
-import _ from "lodash";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -365,6 +364,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                   <MultiPictureField
                     label="Drag and drop some files here, or click to select files"
                     id={`${idPrefix}pictures`}
+                    previewImages={initialValues.photos}
                     setImageData={setImageData}
                   />
                 </FormSection>

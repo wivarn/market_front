@@ -71,7 +71,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
       <div className="md:grid md:grid-auto-cols">
         <div>
           {props.photos.length ? (
-            <ImageSlider src={props.photos[0]} alt={props.title} />
+            <ImageSlider src={props.photos[0].url} alt={props.title} />
           ) : null}
         </div>
         <InfoCard>

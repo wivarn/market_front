@@ -52,6 +52,7 @@ type PictureProps = TextFieldProps & {
 type MultiPictureProps = {
   id?: string;
   label?: string;
+  previewImages: { url: string }[];
   setImageData: Dispatch<SetStateAction<File[]>>;
 };
 
@@ -206,7 +207,7 @@ export const PictureField = ({
   };
 
   const imageLoader = ({ src }: ImageLoaderProps) => {
-    return src.replace(`${process.env.NEXT_PUBLIC_PUBLIC_PATH}`, "");
+    return src;
   };
 
   return (
@@ -243,36 +244,39 @@ export const PictureField = ({
 
 export const MultiPictureField = ({
   label,
+  previewImages,
   setImageData,
 }: MultiPictureProps): JSX.Element => {
-  const [files, setFiles] = useState([{ preview: "" }]);
+  const [pictureImages, setPictureImages] = useState(
+    previewImages || [{ url: "" }]
+  );
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/jpeg, image/png, image/webp",
     multiple: true,
     maxFiles: 10,
     onDrop: (acceptedFiles: File[]) => {
-      setFiles(
+      setPictureImages(
         acceptedFiles.map((file) => {
-          return { preview: URL.createObjectURL(file) };
+          return { url: URL.createObjectURL(file) };
         })
       );
       setImageData(acceptedFiles);
     },
   });
 
-  const thumbs = files.map((file) => (
-    <div key={file.preview}>
-      <img src={file.preview} />
+  const thumbs = pictureImages.map((file) => (
+    <div key={file.url}>
+      <img src={file.url} />
     </div>
   ));
 
   useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
-      files.forEach((file) => URL.revokeObjectURL(file.preview));
+      pictureImages.forEach((file) => URL.revokeObjectURL(file.url));
     },
-    [files]
+    [pictureImages]
   );
 
   return (
