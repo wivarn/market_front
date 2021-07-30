@@ -73,23 +73,23 @@ export default function ResetPasswordForm(): JSX.Element {
             <div className="my-2 space-y-4">
               <Form>
                 <div className="space-y-2">
-                <TextFieldFull
-                  name="password"
-                  label="Password"
-                  type="password"
-                  placeholder="Password"
-                />
-                <TextFieldFull
-                  name="passwordConfirmation"
-                  label="Confirm Password"
-                  type="password"
-                  placeholder="Password Confirmation"
-                />
+                  <TextFieldFull
+                    name="password"
+                    label="Password"
+                    type="password"
+                    placeholder="Password"
+                  />
+                  <TextFieldFull
+                    name="passwordConfirmation"
+                    label="Confirm Password"
+                    type="password"
+                    placeholder="Password Confirmation"
+                  />
 
-                <SubmitButton
-                  text="Reset Password"
-                  disabled={props.isSubmitting}
-                />
+                  <SubmitButton
+                    text="Reset Password"
+                    disabled={props.isSubmitting}
+                  />
                 </div>
               </Form>
             </div>
