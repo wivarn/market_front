@@ -3,6 +3,7 @@ import {
   InputHTMLAttributes,
   SetStateAction,
   TextareaHTMLAttributes,
+  useEffect,
   useState,
 } from "react";
 import { FieldHookConfig, useField } from "formik";
@@ -13,6 +14,7 @@ import { Dispatch } from "react";
 import { RefObject } from "react";
 import { Switch } from "@headlessui/react";
 import { useCombobox } from "downshift";
+import { useDropzone } from "react-dropzone";
 
 type TextFieldProps = FieldHookConfig<string> &
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
@@ -45,6 +47,12 @@ type PictureProps = TextFieldProps & {
       data: string;
     }>
   >;
+};
+
+type MultiPictureProps = {
+  id?: string;
+  label?: string;
+  setImageData: Dispatch<SetStateAction<File[]>>;
 };
 
 export type ListingComboBoxOption = {
@@ -229,6 +237,49 @@ export const PictureField = ({
           ) : null}
         </div>
       </div>
+    </div>
+  );
+};
+
+export const MultiPictureField = ({
+  label,
+  setImageData,
+}: MultiPictureProps): JSX.Element => {
+  const [files, setFiles] = useState([{ preview: "" }]);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "image/jpeg, image/png, image/webp",
+    multiple: true,
+    maxFiles: 10,
+    onDrop: (acceptedFiles: File[]) => {
+      setFiles(
+        acceptedFiles.map((file) => {
+          return { preview: URL.createObjectURL(file) };
+        })
+      );
+      setImageData(acceptedFiles);
+    },
+  });
+
+  const thumbs = files.map((file) => (
+    <div key={file.preview}>
+      <img src={file.preview} />
+    </div>
+  ));
+
+  useEffect(
+    () => () => {
+      // Make sure to revoke the data uris to avoid memory leaks
+      files.forEach((file) => URL.revokeObjectURL(file.preview));
+    },
+    [files]
+  );
+
+  return (
+    <div {...getRootProps()}>
+      <input {...getInputProps()} />
+      <span>{label}</span>
+      <div>{thumbs}</div>
     </div>
   );
 };

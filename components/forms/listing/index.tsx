@@ -27,29 +27,17 @@ import {
 } from "constants/listings";
 import { createRef, useState } from "react";
 
-import PageContainer from "components/pageContainer";
 import FormSection from "./section";
 import { Listing } from "types/listings";
 import { ListingApi } from "services/backendApi/listing";
+import { MultiPictureField } from "../fields";
+import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
-
-// Stub photos while waiting for S3 integration
-const stubPhotos = [
-  "/images/picture-1.jpg",
-  "/images/picture-2.jpg",
-  "/images/picture-3.jpg",
-  "/images/picture-4.jpg",
-  "/images/picture-5.jpg",
-];
-
-// Pick random photo from library
-const randomPhotos = () =>
-  _.sampleSize(stubPhotos, Math.floor(Math.random() * stubPhotos.length));
 
 const schema = Yup.object().shape(listingSchema);
 
@@ -94,6 +82,7 @@ const ListingForm = (props: Listing): JSX.Element => {
   const router = useRouter();
   const [session] = useSession();
   const [graded, setGraded] = useState(!!props.grading_company);
+  const [imageData, setImageData] = useState<File[]>([]);
 
   const newListing = !props.id;
 
@@ -253,9 +242,48 @@ const ListingForm = (props: Listing): JSX.Element => {
             initialValues={initialValues}
             validationSchema={schema}
             onSubmit={(values: Listing, actions) => {
+              const formData = new FormData();
+              const requestValues = (({
+                category,
+                subcategory,
+                title,
+                grading_company,
+                condition,
+                description,
+                price,
+                domestic_shipping,
+                international_shipping,
+                combined_shipping,
+                state_transition,
+              }) => ({
+                category,
+                subcategory,
+                title,
+                grading_company,
+                condition,
+                description,
+                price,
+                domestic_shipping,
+                international_shipping,
+                combined_shipping,
+                state_transition,
+              }))(values);
+              Object.entries(requestValues).forEach(([key, value]) => {
+                if (value != undefined) {
+                  formData.append(key, `${value}`);
+                }
+              });
+
+              for (let i = 0; i < imageData.length; i++) {
+                formData.append("photos[]", imageData[i]);
+              }
+
               const request = newListing
-                ? ListingApi(session.accessToken).create(values)
-                : ListingApi(session.accessToken).update(values);
+                ? ListingApi(session.accessToken).create(formData)
+                : ListingApi(session.accessToken).update(
+                    `${values.id}`,
+                    formData
+                  );
 
               request
                 .then(() => {
@@ -333,7 +361,13 @@ const ListingForm = (props: Listing): JSX.Element => {
                   {renderGrading()}
                 </FormSection>
 
-                <FormSection header="Photos">stub</FormSection>
+                <FormSection header="Photos">
+                  <MultiPictureField
+                    label="Drag and drop some files here, or click to select files"
+                    id={`${idPrefix}pictures`}
+                    setImageData={setImageData}
+                  />
+                </FormSection>
 
                 <FormSection header="Price and Shipping">
                   <ListingNumberField
@@ -386,7 +420,7 @@ const ListingForm = (props: Listing): JSX.Element => {
 ListingForm.defaultProps = {
   category: "",
   subcategory: "",
-  photos: randomPhotos(),
+  photos: [],
   title: "",
   grading_company: "",
   condition: "",

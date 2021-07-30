@@ -18,7 +18,7 @@ export const ListingPreviewTile = (props: Listing): JSX.Element => {
               <div className="container relative w-80 h-80">
                 {props.photos.length ? (
                   <Image
-                    src={props.photos[0]}
+                    src={props.photos[0].url}
                     alt={props.title}
                     layout="fill"
                     objectFit="cover"
