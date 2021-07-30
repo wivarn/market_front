@@ -121,9 +121,9 @@ export default function LoginForm(): JSX.Element {
         </div>
         <div className="py-4 mt-4 border-t border-accent">
           <p className="py-2 text-accent-darkest">
-            {"Don't have an account? Sign up!"}
+            {"Don't have an account yet?"}
           </p>
-          <SecondaryButton href="/account/new" text="Create Account" />
+          <SecondaryButton href="/account/new" text="Create new account" />
         </div>
       </AuthFormContainer>
     </div>

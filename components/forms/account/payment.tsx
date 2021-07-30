@@ -1,11 +1,11 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
+import { GenericErrorMessage, InfoMessage } from "components/message";
 import useSWR, { mutate } from "swr";
 
 import { DropdownCombobox } from "../fields";
 import FormContainer from "../container";
-import { InfoMessage, GenericErrorMessage } from "components/message";
 import Link from "next/link";
 import { ProfileApi } from "services/backendApi/profile";
 import { SpinnerLg } from "components/spinner";
@@ -57,8 +57,10 @@ export default function PaymentForm(): JSX.Element {
         }}
         validationSchema={paymentSchema}
         onSubmit={(values, actions) => {
+          const formData = new FormData();
+          formData.append("currency", values.currency);
           ProfileApi(session?.accessToken)
-            .update(values)
+            .update(formData)
             .then(() => {
               toast.success("Your listing currency has been updated");
               mutate(["account/profile", session?.accessToken]);

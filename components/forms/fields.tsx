@@ -3,15 +3,18 @@ import {
   InputHTMLAttributes,
   SetStateAction,
   TextareaHTMLAttributes,
+  useEffect,
   useState,
 } from "react";
 import { FieldHookConfig, useField } from "formik";
+import Image, { ImageLoaderProps } from "next/image";
 import { SmChevronDownIcon, SmXIcon } from "components/icons";
 
 import { Dispatch } from "react";
 import { RefObject } from "react";
 import { Switch } from "@headlessui/react";
 import { useCombobox } from "downshift";
+import { useDropzone } from "react-dropzone";
 
 type TextFieldProps = FieldHookConfig<string> &
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
@@ -36,6 +39,22 @@ type TextAreaProps = FieldHookConfig<string> &
     descriptionClassName?: string;
     inputClassName?: string;
   };
+
+type PictureProps = TextFieldProps & {
+  previewImage?: string;
+  setImageData: Dispatch<
+    SetStateAction<{
+      data: string;
+    }>
+  >;
+};
+
+type MultiPictureProps = {
+  id?: string;
+  label?: string;
+  previewImages: { url: string }[];
+  setImageData: Dispatch<SetStateAction<File[]>>;
+};
 
 export type ListingComboBoxOption = {
   value: string;
@@ -163,15 +182,109 @@ export function Toggle({
   );
 }
 
-export const FileField = ({ label, ...props }: TextFieldProps): JSX.Element => {
+export const PictureField = ({
+  label,
+  description,
+  className,
+  labelClassName,
+  descriptionClassName,
+  inputClassName,
+  hideError,
+  previewImage,
+  setImageData,
+  ...props
+}: PictureProps): JSX.Element => {
+  const [field, meta] = useField(props);
+  const [previewImageState, setPreviewImageState] = useState({
+    path: previewImage || "/ProfilePlaceholder.svg", // should set a real placeholder image
+  });
+
+  field.onChange = (event: React.ChangeEvent<any>) => {
+    setPreviewImageState({
+      path: URL.createObjectURL(event.target.files[0]),
+    });
+    setImageData({ data: event.target.files[0] });
+  };
+
+  const imageLoader = ({ src }: ImageLoaderProps) => {
+    return src;
+  };
+
   return (
-    <_InputField
-      label={label}
-      labelClassName={labelClassName}
-      inputClassName={inputClassName}
-      type="file"
-      {...props}
-    />
+    <div className={className}>
+      {label ? (
+        <label htmlFor={props.id} className={labelClassName}>
+          {label}
+          {description ? (
+            <span className={descriptionClassName}>{description}</span>
+          ) : null}
+        </label>
+      ) : null}
+      <div className="flex items-center">
+        <div className="container relative w-24 h-24 m-2 border rounded-full">
+          <Image
+            loader={imageLoader}
+            src={previewImageState.path}
+            alt={field.value}
+            layout="fill"
+            objectFit="cover"
+            className="rounded-full"
+          />
+        </div>
+        <div>
+          <input className={inputClassName} type="file" {...field} {...props} />
+          {!hideError && meta.touched && meta.error ? (
+            <div className="text-error">{meta.error}</div>
+          ) : null}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const MultiPictureField = ({
+  label,
+  previewImages,
+  setImageData,
+}: MultiPictureProps): JSX.Element => {
+  const [pictureImages, setPictureImages] = useState(
+    previewImages || [{ url: "" }]
+  );
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "image/jpeg, image/png, image/webp",
+    multiple: true,
+    maxFiles: 10,
+    onDrop: (acceptedFiles: File[]) => {
+      setPictureImages(
+        acceptedFiles.map((file) => {
+          return { url: URL.createObjectURL(file) };
+        })
+      );
+      setImageData(acceptedFiles);
+    },
+  });
+
+  const thumbs = pictureImages.map((file) => (
+    <div key={file.url}>
+      <img src={file.url} />
+    </div>
+  ));
+
+  useEffect(
+    () => () => {
+      // Make sure to revoke the data uris to avoid memory leaks
+      pictureImages.forEach((file) => URL.revokeObjectURL(file.url));
+    },
+    [pictureImages]
+  );
+
+  return (
+    <div {...getRootProps()}>
+      <input {...getInputProps()} />
+      <span>{label}</span>
+      <div>{thumbs}</div>
+    </div>
   );
 };
 

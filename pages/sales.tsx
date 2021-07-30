@@ -1,6 +1,8 @@
 import { GenericErrorMessage } from "components/message";
+import { IOrder } from "types/order";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
+import { SalesOrder } from "components/order";
 import { SpinnerLg } from "components/spinner";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
@@ -29,8 +31,10 @@ export default function sales(): JSX.Element {
     <div className="my-8">
       <NextSeo title="Sales" />
       <PageContainer yPadding="py-2">
-        <h3 className="p-2 text-center">Your Sales</h3>
-        {JSON.stringify(salesResponse.data)}
+        <h3 className="p-2 text-center">Sales</h3>
+        {salesResponse.data.map((order: IOrder) => {
+          return <SalesOrder key={order.id} order={order} />;
+        })}
       </PageContainer>
     </div>
   );

@@ -13,7 +13,7 @@ export interface Listing extends BasicListing {
   subcategory?: string;
   accountId?: string;
   id?: string;
-  photos: string[];
+  photos: { url: string }[];
   description?: string;
   aasm_state?: string;
   state_transition?: string;
