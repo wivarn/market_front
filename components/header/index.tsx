@@ -10,6 +10,7 @@ import Head from "next/head";
 import { IconLink } from "./iconLink";
 import Link from "next/link";
 import { MdSkwirlIcon } from "components/icons";
+import PageContainer from "components/pageContainer";
 import { Popover } from "@headlessui/react";
 import ReactTooltip from "react-tooltip";
 import SearchForm from "components/forms/listing/search";
@@ -135,8 +136,11 @@ export default function Header(): JSX.Element {
           </span>
           <div className="ml-auto">{renderNav()}</div>
         </nav>
+
         <div className="w-full bg-white border-t border-b">
-          <CategoryPopovers />
+          <div className="container max-w-6xl mx-auto">
+            <CategoryPopovers />
+          </div>
         </div>
       </header>
     </div>
