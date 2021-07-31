@@ -42,11 +42,7 @@ type TextAreaProps = FieldHookConfig<string> &
 
 type PictureProps = TextFieldProps & {
   previewImage?: string;
-  setImageData: Dispatch<
-    SetStateAction<{
-      data: string;
-    }>
-  >;
+  setImageData: Dispatch<SetStateAction<string | Blob>>;
 };
 
 type MultiPictureProps = {
@@ -203,7 +199,7 @@ export const PictureField = ({
     setPreviewImageState({
       path: URL.createObjectURL(event.target.files[0]),
     });
-    setImageData({ data: event.target.files[0] });
+    setImageData(event.target.files[0]);
   };
 
   const imageLoader = ({ src }: ImageLoaderProps) => {
@@ -232,7 +228,13 @@ export const PictureField = ({
           />
         </div>
         <div>
-          <input className={inputClassName} type="file" {...field} {...props} />
+          <input
+            className={inputClassName}
+            type="file"
+            accept="image/jpeg, image/png, image/webp, image/heic"
+            {...field}
+            {...props}
+          />
           {!hideError && meta.touched && meta.error ? (
             <div className="text-error">{meta.error}</div>
           ) : null}
@@ -252,7 +254,7 @@ export const MultiPictureField = ({
   );
 
   const { getRootProps, getInputProps } = useDropzone({
-    accept: "image/jpeg, image/png, image/webp",
+    accept: "image/jpeg, image/png, image/webp, image/heic",
     multiple: true,
     maxFiles: 10,
     onDrop: (acceptedFiles: File[]) => {

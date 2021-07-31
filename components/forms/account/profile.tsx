@@ -71,9 +71,7 @@ const emailLabel = () => {
 
 export default function ProfileForm(): JSX.Element {
   const [session, loading] = useSession();
-  const [imageData, setImageData] = useState({
-    data: "",
-  });
+  const [imageData, setImageData] = useState<string | Blob>("");
 
   function getProfile() {
     const { data, error } = useSWR(
@@ -110,9 +108,9 @@ export default function ProfileForm(): JSX.Element {
           formData.append("given_name", values.givenName);
           formData.append("family_name", values.familyName);
           formData.append("currency", values.currency);
-          formData.append("picture", imageData.data);
+          // formData.append("picture", imageData);
           ProfileApi(session?.accessToken)
-            .update(formData)
+            .update(formData, imageData)
             .then(() => {
               toast.success("Your profile has been updated");
               mutate(["account/profile", session?.accessToken]);

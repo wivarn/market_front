@@ -1,16 +1,52 @@
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
+
 import { base } from "./base";
 
 export const ProfileApi = (
   accessToken?: string
 ): {
-  update: (formData: FormData) => Promise<AxiosResponse<any>>;
+  update: (formData: FormData, picture: string | Blob) => Promise<void>;
+  uploadPictureCredentials: () => Promise<AxiosResponse<any>>;
+  updatePictureKey: (key: string) => Promise<AxiosResponse<any>>;
 } => {
-  const update = async (formData: FormData) => {
-    return base.post("account/profile", formData, {
+  const update = async (formData: FormData, picture: string | Blob) => {
+    return base
+      .post("account/profile", formData, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then(() => {
+        uploadPictureCredentials().then((res) => {
+          const { uri, ...credentials } = res.data;
+          const formData = new FormData();
+          Object.entries(credentials).forEach(([key, value]) => {
+            formData.append(key, `${value}`);
+          });
+          formData.append("file", picture);
+          axios.post(uri, formData).then((res) => {
+            const key = new URL(res.request.responseURL).searchParams.get(
+              "key"
+            );
+            updatePictureKey(`${key}`);
+          });
+        });
+      });
+  };
+
+  const uploadPictureCredentials = async () => {
+    return base.get("account/profile/upload_picture_credentials", {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
   };
 
-  return { update };
+  const updatePictureKey = async (key: string) => {
+    return base.put(
+      "account/profile/update_picture_key",
+      { key: key },
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+  };
+
+  return { update, uploadPictureCredentials, updatePictureKey };
 };
