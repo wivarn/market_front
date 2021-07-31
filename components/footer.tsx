@@ -32,6 +32,16 @@ export default function Footer(): JSX.Element {
                 <a className="hover:text-primary">About</a>
               </Link>
             </li>
+            <li>
+              <a
+                href="https://skwirl.zendesk.com"
+                rel="noreferrer"
+                target="_blank"
+                className="hover:text-primary"
+              >
+                Support
+              </a>
+            </li>
           </ul>
         </nav>
         <div className="flex justify-center mt-4 space-x-4">

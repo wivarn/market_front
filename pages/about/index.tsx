@@ -7,7 +7,7 @@ export default function About(): JSX.Element {
       <div>
         <NextSeo title="About us" />
         <PageContainer>
-          <h3>About us</h3>
+          <h3 className="text-center">About us</h3>
         </PageContainer>
       </div>
     </>

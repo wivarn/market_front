@@ -70,27 +70,29 @@ export default function ResetPasswordForm(): JSX.Element {
           }}
         >
           {(props) => (
-            <Form>
-              <div className="my-2 space-y-4">
-                <TextFieldFull
-                  name="password"
-                  type="password"
-                  placeholder="Password"
-                  label="Password"
-                />
-                <TextFieldFull
-                  name="passwordConfirmation"
-                  type="password"
-                  placeholder="Password Confirmation"
-                  label="Password Confirmation"
-                />
+            <div className="my-2 space-y-4">
+              <Form>
+                <div className="space-y-2">
+                  <TextFieldFull
+                    name="password"
+                    label="Password"
+                    type="password"
+                    placeholder="Password"
+                  />
+                  <TextFieldFull
+                    name="passwordConfirmation"
+                    label="Confirm Password"
+                    type="password"
+                    placeholder="Password Confirmation"
+                  />
 
-                <SubmitButton
-                  text="Reset Password"
-                  disabled={props.isSubmitting}
-                />
-              </div>
-            </Form>
+                  <SubmitButton
+                    text="Reset Password"
+                    disabled={props.isSubmitting}
+                  />
+                </div>
+              </Form>
+            </div>
           )}
         </Formik>
       </div>

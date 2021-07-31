@@ -120,7 +120,7 @@ export const SearchField = ({
     <_InputField
       label={label}
       labelClassName={labelClassName}
-      inputClassName="px-2 xs:w-72 sm:w-80 py-1 border rounded-full border-accent"
+      inputClassName="px-2 w-64 sm:w-96 py-1 border rounded-full border-accent"
       {...props}
     />
   );
