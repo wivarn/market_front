@@ -13,7 +13,7 @@ export const ProfileApi = (
   updatePictureKey: (key: string) => Promise<AxiosResponse<any>>;
 } => {
   const update = async (formData: FormData, picture?: string | Blob) => {
-    if (process.env.VERCEL) {
+    if (process.env.VERCEL_URL) {
       return base
         .post("account/profile", formData, {
           headers: { Authorization: `Bearer ${accessToken}` },
