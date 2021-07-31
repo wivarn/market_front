@@ -108,7 +108,6 @@ export default function ProfileForm(): JSX.Element {
           formData.append("given_name", values.givenName);
           formData.append("family_name", values.familyName);
           formData.append("currency", values.currency);
-          // formData.append("picture", imageData);
           ProfileApi(session?.accessToken)
             .update(formData, imageData)
             .then(() => {

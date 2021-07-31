@@ -128,7 +128,7 @@ const ListingForm = (props: Listing): JSX.Element => {
           text={(draft || removed ? "Publish" : "Update") + " Listing"}
           disabled={formik.isSubmitting}
           onClick={async () => {
-            formik.setFieldValue("state", "active");
+            formik.setFieldValue("aasm_state", "active");
             if (draft || removed)
               formik.setFieldValue("state_transition", "publish");
           }}
@@ -143,7 +143,7 @@ const ListingForm = (props: Listing): JSX.Element => {
           text={(newListing ? "Save" : "Update") + " Draft"}
           disabled={formik.isSubmitting}
           onClick={async () => {
-            formik.setFieldValue("state", "draft");
+            formik.setFieldValue("aasm_state", "draft");
           }}
         />
       );
@@ -273,15 +273,12 @@ const ListingForm = (props: Listing): JSX.Element => {
                 }
               });
 
-              for (let i = 0; i < imageData.length; i++) {
-                formData.append("photos[]", imageData[i]);
-              }
-
               const request = newListing
                 ? ListingApi(session.accessToken).create(formData)
                 : ListingApi(session.accessToken).update(
                     `${values.id}`,
-                    formData
+                    formData,
+                    imageData
                   );
 
               request

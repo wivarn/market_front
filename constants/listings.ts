@@ -80,8 +80,8 @@ export const listingSchema: ObjectShape = {
         return category.value;
       })
     )
-    .when("state", (state, schema) => {
-      return state != "draft"
+    .when("aasm_state", (aasm_state, schema) => {
+      return aasm_state != "draft"
         ? schema.required("Category is required")
         : schema;
     }),
@@ -110,15 +110,15 @@ export const listingSchema: ObjectShape = {
         })
       ),
     })
-    .when("state", (state, schema) => {
-      return state != "draft"
+    .when("aasm_state", (aasm_state, schema) => {
+      return aasm_state != "draft"
         ? schema.required("Sub-category is required")
         : schema;
     }),
   // photos: Yup.array(Yup.string())
   //   .max(10)
-  //   .when("state", (state, schema) => {
-  //     return state != "draft" ? schema.min(1) : schema;
+  //   .when("aasm_state", (aasm_state, schema) => {
+  //     return aasm_state != "draft" ? schema.min(1) : schema;
   //   }),
   title: Yup.string()
     .min(2, "Title must be more than 2 characters")
@@ -154,22 +154,24 @@ export const listingSchema: ObjectShape = {
         "This is not a valid grading"
       );
     })
-    .when("state", (state, schema) => {
-      return state != "draft"
+    .when("aasm_state", (aasm_state, schema) => {
+      return aasm_state != "draft"
         ? schema.required("Condition is required")
         : schema;
     }),
   price: Yup.number()
     .min(1, "Price must more than 1.00")
     .max(99999999.99, "Price must be less than 99999999.99")
-    .when("state", (state, schema) => {
-      return state != "draft" ? schema.required("Price is required") : schema;
+    .when("aasm_state", (aasm_state, schema) => {
+      return aasm_state != "draft"
+        ? schema.required("Price is required")
+        : schema;
     }),
   domestic_shipping: Yup.number()
     .min(0, "Shipping can't be less than 0")
     .max(99999999.99, "Shipping must be less than 99999999.99")
-    .when("state", (state, schema) => {
-      return state != "draft"
+    .when("aasm_state", (aasm_state, schema) => {
+      return aasm_state != "draft"
         ? schema.required("Shipping price is required")
         : schema;
     }),
@@ -178,5 +180,5 @@ export const listingSchema: ObjectShape = {
     .min(0, "Shipping can't be less than 0")
     .max(99999999.99, "Shipping must be less than 99999999.99")
     .nullable(),
-  state: Yup.string().required("Required"),
+  aasm_state: Yup.string().required("Required"),
 };
