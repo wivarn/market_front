@@ -1,5 +1,5 @@
 module.exports = {
   images: {
-    domains: ["assets.skwirlhouse1.ca"],
+    domains: [process.env.PUBLIC_ASSETS_DOMAIN],
   },
 };
