@@ -6,13 +6,13 @@ import { base } from "./base";
 export const ListingApi = (
   accessToken?: string
 ): {
-  create: (formData: FormData) => Promise<AxiosResponse<any>>;
+  create: (formData: FormData, photos?: File[]) => Promise<AxiosResponse<any>>;
   bulkCreate: (listings: Listing[]) => Promise<AxiosResponse<any>>;
   update: (
     id: string,
     formData: FormData,
     imageData: File[]
-  ) => Promise<void | AxiosResponse<any>>;
+  ) => Promise<AxiosResponse<any>>;
   updateState: (
     id: string,
     state_transition: string
@@ -24,10 +24,57 @@ export const ListingApi = (
   updatePhotosKeys: (id: string, keys: string[]) => Promise<AxiosResponse<any>>;
   destroy: (id: string) => Promise<AxiosResponse<any>>;
 } => {
-  const create = async (formData: FormData) => {
-    return base.post("listings", formData, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
+  const create = async (formData: FormData, photos?: File[]) => {
+    if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+      const listingResponse = await base.post("listings", formData, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+
+      const id = listingResponse.data.id;
+      if (photos?.length) {
+        const credentialsResponse = await uploadPhotosCredentials(
+          id,
+          photos?.length
+        );
+        const keys: string[] = await Promise.all(
+          credentialsResponse.data.map(
+            async (
+              {
+                uri,
+                ...credentials
+              }: {
+                uri: string;
+                credentials: any;
+              },
+              index: number
+            ) => {
+              const formData = new FormData();
+              Object.entries(credentials).forEach(([key, value]) => {
+                formData.append(key, `${value}`);
+              });
+              formData.append("file", photos[index]);
+              const uploadResponse = await axios.post(uri, formData);
+              return new URL(
+                uploadResponse.request.responseURL
+              ).searchParams.get("key");
+            }
+          )
+        );
+        await updatePhotosKeys(id, keys);
+      }
+      return listingResponse;
+    } else {
+      if (photos?.length) {
+        for (let i = 0; i < photos.length; i++) {
+          formData.append("photos[]", photos[i]);
+        }
+      }
+      console.log(photos);
+      console.log(formData.getAll("photos[]"));
+      return base.post("listings", formData, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+    }
   };
 
   const bulkCreate = async (listings: Listing[]) => {
@@ -41,7 +88,7 @@ export const ListingApi = (
   };
 
   const update = async (id: string, formData: FormData, photos?: File[]) => {
-    if (process.env.VERCEL) {
+    if (process.env.NEXT_PUBLIC_VERCEL_URL) {
       const listingResponse = await base.post(`listings/${id}`, formData, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
@@ -92,7 +139,7 @@ export const ListingApi = (
 
   const updateState = async (id: string, state_transition: string) => {
     return base.post(
-      `listings/${id}`,
+      `listings/${id}/update_state`,
       {
         state_transition: state_transition,
       },

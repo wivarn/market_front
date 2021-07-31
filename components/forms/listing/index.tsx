@@ -253,7 +253,6 @@ const ListingForm = (props: Listing): JSX.Element => {
                 domestic_shipping,
                 international_shipping,
                 combined_shipping,
-                state_transition,
               }) => ({
                 category,
                 subcategory,
@@ -265,7 +264,6 @@ const ListingForm = (props: Listing): JSX.Element => {
                 domestic_shipping,
                 international_shipping,
                 combined_shipping,
-                state_transition,
               }))(values);
               Object.entries(requestValues).forEach(([key, value]) => {
                 if (value != undefined) {
@@ -274,21 +272,32 @@ const ListingForm = (props: Listing): JSX.Element => {
               });
 
               const request = newListing
-                ? ListingApi(session.accessToken).create(formData)
+                ? ListingApi(session.accessToken).create(formData, imageData)
                 : ListingApi(session.accessToken).update(
                     `${values.id}`,
                     formData,
                     imageData
                   );
 
+              function success() {
+                toast.success(
+                  newListing
+                    ? "New listing created"
+                    : "Your listing has been updated"
+                );
+                router.push("/listings?state=active");
+              }
               request
-                .then(() => {
-                  toast.success(
-                    newListing
-                      ? "New listing created"
-                      : "Your listing has been updated"
-                  );
-                  router.push("/listings?state=active");
+                .then((response: any) => {
+                  if (values.state_transition) {
+                    ListingApi(session.accessToken)
+                      .updateState(response.data.id, values.state_transition)
+                      .then(() => {
+                        success();
+                      });
+                  } else {
+                    success();
+                  }
                 })
                 .catch((error) => {
                   toast.error(error.response.data.error);
