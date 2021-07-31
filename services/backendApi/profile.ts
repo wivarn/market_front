@@ -5,31 +5,45 @@ import { base } from "./base";
 export const ProfileApi = (
   accessToken?: string
 ): {
-  update: (formData: FormData, picture: string | Blob) => Promise<void>;
+  update: (
+    formData: FormData,
+    picture?: string | Blob
+  ) => Promise<void | AxiosResponse<any>>;
   uploadPictureCredentials: () => Promise<AxiosResponse<any>>;
   updatePictureKey: (key: string) => Promise<AxiosResponse<any>>;
 } => {
-  const update = async (formData: FormData, picture: string | Blob) => {
-    return base
-      .post("account/profile", formData, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      .then(() => {
-        uploadPictureCredentials().then((res) => {
-          const { uri, ...credentials } = res.data;
-          const formData = new FormData();
-          Object.entries(credentials).forEach(([key, value]) => {
-            formData.append(key, `${value}`);
-          });
-          formData.append("file", picture);
-          axios.post(uri, formData).then((res) => {
-            const key = new URL(res.request.responseURL).searchParams.get(
-              "key"
-            );
-            updatePictureKey(`${key}`);
-          });
+  const update = async (formData: FormData, picture?: string | Blob) => {
+    if (process.env.VERCEL) {
+      return base
+        .post("account/profile", formData, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        .then(() => {
+          if (picture) {
+            uploadPictureCredentials().then((res) => {
+              const { uri, ...credentials } = res.data;
+              const formData = new FormData();
+              Object.entries(credentials).forEach(([key, value]) => {
+                formData.append(key, `${value}`);
+              });
+              formData.append("file", picture);
+              axios.post(uri, formData).then((res) => {
+                const key = new URL(res.request.responseURL).searchParams.get(
+                  "key"
+                );
+                updatePictureKey(`${key}`);
+              });
+            });
+          }
         });
+    } else {
+      if (picture) {
+        formData.append("picture", picture);
+      }
+      return base.post("account/profile", formData, {
+        headers: { Authorization: `Bearer ${accessToken}` },
       });
+    }
   };
 
   const uploadPictureCredentials = async () => {
