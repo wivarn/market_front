@@ -124,21 +124,9 @@ export default function Header(): JSX.Element {
         <nav className="flex items-center px-2 mx-auto max-w-screen-2xl">
           <Link href="/">
             <a>
-              <span
-                data-tip
-                data-for="home"
-                className="inline-flex fill-current text-primary-lightest"
-              >
+              <span className="inline-flex fill-current text-primary-lightest">
                 <MdSkwirlIcon />
                 <h2 className="hidden mt-2 font-bold md:block">skwirl</h2>
-                <ReactTooltip
-                  id="home"
-                  type="dark"
-                  place="bottom"
-                  effect="solid"
-                >
-                  Home
-                </ReactTooltip>
               </span>
             </a>
           </Link>
@@ -147,8 +135,11 @@ export default function Header(): JSX.Element {
           </span>
           <div className="ml-auto">{renderNav()}</div>
         </nav>
+
         <div className="w-full bg-white border-t border-b">
-          <CategoryPopovers />
+          <div className="container max-w-6xl mx-auto">
+            <CategoryPopovers />
+          </div>
         </div>
       </header>
     </div>

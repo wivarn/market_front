@@ -7,6 +7,7 @@ import Layout from "components/layout";
 import { Provider } from "next-auth/client";
 import SEO from "next-seo-config";
 import { SWRConfig } from "swr";
+import Script from "next/script";
 import { StrictMode } from "react";
 import Toast from "components/toast";
 import { fetcher } from "services/backendApi/fetcher";
@@ -29,6 +30,10 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
         <Provider session={pageProps.session}>
           <SWRConfig value={{ fetcher: fetcher }}>
             <Layout>
+              <Script
+                id="ze-snippet"
+                src="https://static.zdassets.com/ekr/snippet.js?key=76fb5d50-93de-49d4-a24e-b570c83c5f15"
+              />
               <Component {...pageProps} />
               <Toast />
             </Layout>

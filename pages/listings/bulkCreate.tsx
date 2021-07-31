@@ -4,6 +4,7 @@ import Dropzone, { FileRejection } from "react-dropzone";
 
 import { BackButton } from "components/buttons";
 import { CardContainer6xl } from "components/cardContainer";
+import { GenericErrorMessage } from "components/message";
 import { ListingApi } from "services/backendApi/listing";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
@@ -18,7 +19,6 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 import { useState } from "react";
-import { GenericErrorMessage } from "components/message";
 
 delete listingSchema.photos;
 delete listingSchema.state;
@@ -106,7 +106,10 @@ export default function BulkCreateListings(): JSX.Element {
 
     return (
       <div className="mx-auto my-4 overflow-x-auto">
-        <h4 className="py-2 text-center">Listing Preview</h4>
+        <div className="flex py-2 space-x-4 ">
+          <h4 className="py-2 text-center">Listing Preview</h4>
+          <SubmitButton text="Save all as draft" onClick={bulkCreate} />
+        </div>
         <table className="flex-grow table-auto">
           <thead>
             <tr>
@@ -221,7 +224,14 @@ export default function BulkCreateListings(): JSX.Element {
               Once you are happy with the input click save to create your bulk
               listings in draft state.
             </p>
-            <SubmitButton text="Save all as draft" onClick={bulkCreate} />
+            <a
+              href="https://docs.google.com/spreadsheets/d/13Dt1hu_LygaMPwtkOHvH5h6p18skhFiUS2ekZGOwQYg/edit?usp=sharing"
+              rel="noreferrer"
+              target="_blank"
+              className="underline text-info hover:text-primary"
+            >
+              Click here for instructions and template
+            </a>
           </div>
         </CardContainer6xl>
         <div className="grid grid-cols-1 mx-auto">{renderTable()}</div>

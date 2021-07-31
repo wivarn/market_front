@@ -28,7 +28,7 @@ export default function sales(): JSX.Element {
   if (salesError) return <GenericErrorMessage />;
 
   return (
-    <div className="my-4">
+    <div className="my-8">
       <NextSeo title="Sales" />
       <PageContainer yPadding="py-2">
         <h3 className="p-2 text-center">Sales</h3>

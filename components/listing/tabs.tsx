@@ -110,9 +110,9 @@ export default function ListingTabs({
               disable={!disableListings}
             >
               <div>
-                You need to set your address and
+                Set your address and payment
                 <br />
-                payment settings to create listings.
+                settings to create listings.
               </div>
             </ReactTooltip>
           </div>
@@ -120,7 +120,7 @@ export default function ListingTabs({
       </div>
       <div className="grid items-center justify-between grid-cols-5 py-2 justify-items-center">
         <SearchFilter />
-        <div className="flex justify-center col-span-3 mt-4 mb-2 space-x-2 md:space-x-8">
+        <div className="flex justify-center col-span-3 mt-4 mb-2 space-x-4 md:space-x-8">
           <LinkWrapper
             href="/listings?state=active"
             tab="active"

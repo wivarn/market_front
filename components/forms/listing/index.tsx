@@ -27,10 +27,10 @@ import {
 } from "constants/listings";
 import { createRef, useState } from "react";
 
-import PageContainer from "components/pageContainer";
 import FormSection from "./section";
 import { Listing } from "types/listings";
 import { ListingApi } from "services/backendApi/listing";
+import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import _ from "lodash";
 import { toast } from "react-toastify";
@@ -261,7 +261,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                 .then(() => {
                   toast.success(
                     newListing
-                      ? "New listing created!"
+                      ? "New listing created"
                       : "Your listing has been updated"
                   );
                   router.push("/listings?state=active");
@@ -280,7 +280,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                   <ListingDropdownCombobox
                     name="category"
                     label="Category"
-                    description="Selecting a category will allow us to tailor the listing form for your needs."
+                    description="Selecting a category will tailor the listing form to your needs."
                     items={categoryList}
                     placeholder="Select a category"
                     childresetRef={subcategoryRef}
@@ -301,7 +301,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                 <FormSection header="Details">
                   <ListingTextField
                     label="Title"
-                    description="Title is the main search field for the listing. Try using the format of 'Set' + 'Card Name' + 'Attributes'."
+                    description="Title is the main search field for the listing. For cards, try using the format of 'Set' + 'Card Name' + 'Attributes'."
                     name="title"
                     id={`${idPrefix}title`}
                     type="text"
@@ -311,7 +311,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                     label="Description"
                     name="description"
                     id={`${idPrefix}description`}
-                    description="Use the description to provide any detail about your listing that you want buyers to know about."
+                    description="Use the description to provide any addtional detail about your listing that you want buyers to know about."
                     type="text"
                     placeholder="description"
                   />
@@ -323,7 +323,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                     enabled={graded}
                     setEnabled={setGraded}
                     label="Professionally Graded?"
-                    description="If turned on then you will need to provide the grading company and grading score."
+                    description="If toggled on then you will provide the grading company and grading score."
                     onClick={async () => {
                       gradingCompanyRef.current?.click();
                       conditionRef.current?.click();
@@ -358,7 +358,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                     label="International Shipping"
                     name="international_shipping"
                     id={`${idPrefix}international_shipping`}
-                    description="Leave blank if you do not offer international shipping. Enter 0 for free shipping."
+                    description="Leave blank if you do not offer international shipping. Enter 0 for free international shipping."
                     placeholder="No international shipping"
                     currency={profile?.currency}
                   />
@@ -367,7 +367,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                     label="Combined Shipping"
                     name="combined_shipping"
                     id={`${idPrefix}combined_shipping`}
-                    description="Leave blank if you do not offer combined shipping. Enter 0 no additional shipping fee after the first item in an order."
+                    description="Enter the amount to charge for each additional item purchased in a single order after the first. Leave blank if you do not offer combined shipping."
                     placeholder="No combined shipping"
                     currency={profile?.currency}
                   />
