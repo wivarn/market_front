@@ -274,7 +274,7 @@ export const MultiPictureField = ({
   });
 
   const thumbs = pictureImages.map((file) => (
-    <div className="p-2 my-4" key={file.url}>
+    <div className="flex flex-wrap p-2 my-4" key={file.url}>
       <img src={file.url} className="object-contain w-64 h-64 rounded-md" />
     </div>
   ));
@@ -317,7 +317,7 @@ export const MultiPictureField = ({
         <span className="hidden text-sm font-normal md:block text-accent-dark">
           The first photo will be shown by default in your listing preview.
         </span>
-        <div className="flex flex-wrap">{thumbs}</div>
+        <div>{thumbs}</div>
       </div>
     </div>
   );
