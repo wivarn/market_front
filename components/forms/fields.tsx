@@ -49,6 +49,10 @@ type MultiPictureProps = {
   id?: string;
   label?: string;
   description?: string;
+  className?: string;
+  labelClassName?: string;
+  descriptionClassName?: string;
+  inputClassName?: string;
   previewImages: { url: string }[];
   setImageData: Dispatch<SetStateAction<File[]>>;
 };
@@ -270,8 +274,8 @@ export const MultiPictureField = ({
   });
 
   const thumbs = pictureImages.map((file) => (
-    <div className="container relative w-32 h-32 p-2" key={file.url}>
-      <img src={file.url} className="rounded-md" />
+    <div className="p-2 my-4" key={file.url}>
+      <img src={file.url} className="object-contain w-64 h-64 rounded-md" />
     </div>
   ));
 
@@ -284,20 +288,37 @@ export const MultiPictureField = ({
   );
 
   return (
-    <div className="" {...getRootProps()}>
-      {label ? (
-        <label className={labelClassName}>
-          {label}
-          {description ? (
-            <span className={descriptionClassName}>{description}</span>
-          ) : null}
-        </label>
-      ) : null}
-      <input className="" {...getInputProps()} />
-      <div className="p-4 text-center bg-white border-2 border-dashed border-accent">
-        Drag and drop photos or click to upload
+    <div>
+      <div
+        className="grid items-center w-full grid-cols-1 py-2 mx-auto gap-x-4 lg:grid-cols-3 md:grid-cols-2"
+        {...getRootProps()}
+      >
+        {label ? (
+          <label className="text-base font-semibold text-accent-darker">
+            {label}
+            {description ? (
+              <span className="hidden text-sm font-normal md:block text-accent-dark">
+                {description}
+              </span>
+            ) : null}
+          </label>
+        ) : null}
+        <div className="relative w-full rounded-md">
+          <input {...getInputProps()} />
+          <div className="py-4 text-center bg-white border-2 border-dashed rounded-md border-accent text-accent-darker">
+            Drag and drop photos or click to upload
+          </div>
+        </div>
       </div>
-      <div className="flex">{thumbs}</div>
+      <div className="p-2 bg-white border rounded-md">
+        <label className="text-base font-semibold text-accent-darker">
+          Photo Preview
+        </label>
+        <span className="hidden text-sm font-normal md:block text-accent-dark">
+          The first photo will be shown by default in your listing preview.
+        </span>
+        <div className="flex flex-wrap">{thumbs}</div>
+      </div>
     </div>
   );
 };

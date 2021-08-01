@@ -22,10 +22,10 @@ import { createRef, useState } from "react";
 import useSWR, { mutate } from "swr";
 
 import { BackButton } from "components/buttons";
-import { CardContainer6xl } from "components/cardContainer";
 import FormSection from "./section";
 import { ListingTemplate } from "types/listings";
 import { ListingTemplateApi } from "services/backendApi/listingTemplate";
+import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
 import { toast } from "react-toastify";
@@ -122,6 +122,10 @@ const listingSchema = Yup.object().shape({
     .min(0, "Shipping can't be less than 0")
     .max(99999999.99, "Shipping must be less than 99999999.99")
     .nullable(),
+  combined_shipping: Yup.number()
+    .min(0, "Shipping can't be less than 0")
+    .max(99999999.99, "Shipping must be less than 99999999.99")
+    .nullable(),
 });
 
 const subcategoryRef = createRef<HTMLSpanElement>();
@@ -195,7 +199,7 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
         <ListingDropdownCombobox
           label={label}
           name="condition"
-          description="Enter the condition for the item. See our grading guide for more information."
+          description="Enter the condition for the item. See our condition guide for more information."
           items={items}
           resetRef={conditionRef}
         />
@@ -208,15 +212,11 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
   if (!session) return <SpinnerLg text="Loading..." />;
 
   return (
-    <div className="relative p-4">
-      <CardContainer6xl>
-        <div className="absolute -top-8">
-          <BackButton text="Back to listings" href="/listings?state=active" />
-        </div>
-        <div className="p-2">
-          <h3 className="p-2 text-center">
-            Enter the details for your listing template
-          </h3>
+    <div className="my-4">
+      <PageContainer yPadding="py-2">
+        <BackButton text="Back to listings" href="/listings?state=active" />
+        <div className="px-2">
+          <h3 className="p-2 text-center">Create a listing template</h3>
           <Formik
             initialValues={{
               category: props.category || "",
@@ -258,7 +258,7 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
                   <ListingDropdownCombobox
                     name="category"
                     label="Category"
-                    description="Selecting a category will allow us to tailor the listing form for your needs."
+                    description="Selecting a category will tailor the listing form to your needs."
                     items={categoryList}
                     placeholder="Select a category"
                     childresetRef={subcategoryRef}
@@ -281,14 +281,14 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
                     description="Title is the main search field for the listing. Try using the format of 'Set' + 'Card Name' + 'Attributes'."
                     name="title"
                     type="text"
-                    placeholder="title"
+                    placeholder="Enter a title"
                   />
                   <ListingLongTextField
                     label="Description"
                     name="description"
                     description="Use the description to provide any detail about your listing that you want buyers to know about."
                     type="text"
-                    placeholder="description"
+                    placeholder="Write a description"
                   />
                 </FormSection>
 
@@ -298,7 +298,7 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
                     enabled={graded}
                     setEnabled={setGraded}
                     label="Professionally Graded?"
-                    description="If turned on then you will need to provide the grading company and grading score."
+                    description="If toggled on then you will provide the grading company and grading score."
                     onClick={async () => {
                       gradingCompanyRef.current?.click();
                       conditionRef.current?.click();
@@ -306,6 +306,14 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
                     }}
                   />
                   {renderGrading()}
+                  <a
+                    href="skwirl.zendesk.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline text-info"
+                  >
+                    Learn about our condition guidelines
+                  </a>
                 </FormSection>
 
                 <FormSection header="Price and Shipping">
@@ -320,17 +328,24 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
                   <ListingNumberField
                     label="Domestic Shipping"
                     name="domestic_shipping"
-                    description="Enter the price for domestic shipping."
-                    placeholder="0"
+                    description="Enter the price for domestic shipping. Enter 0 for free shipping."
+                    placeholder="Enter domestic shipping price"
                     currency={profile?.data?.currency}
                   />
 
                   <ListingNumberField
                     label="International Shipping"
                     name="international_shipping"
-                    description="Enter the price for international shipping."
-                    placeholder="0"
+                    description="Leave blank if you do not offer international shipping. Enter 0 for free international shipping."
+                    placeholder="No international shipping"
                     currency={profile?.data?.currency}
+                  />
+                  <ListingNumberField
+                    label="Combined Shipping"
+                    name="combined_shipping"
+                    description="Enter the amount to charge for each additional item purchased in a single order after the first. Leave blank if you do not offer combined shipping."
+                    placeholder="No combined shipping"
+                    currency={profile?.currency}
                   />
                 </FormSection>
                 <div className="space-x-2">
@@ -343,7 +358,7 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
             )}
           </Formik>
         </div>
-      </CardContainer6xl>
+      </PageContainer>
     </div>
   );
 };
