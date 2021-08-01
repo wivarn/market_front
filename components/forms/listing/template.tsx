@@ -131,6 +131,7 @@ const listingSchema = Yup.object().shape({
 const subcategoryRef = createRef<HTMLSpanElement>();
 const gradingCompanyRef = createRef<HTMLSpanElement>();
 const conditionRef = createRef<HTMLSpanElement>();
+const idPrefix = "listing-template-form-";
 
 function subCategoryCombobox(formik: FormikProps<any>) {
   const category = formik.values.category;
@@ -177,7 +178,7 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
     return {
       profile: data,
       isLoading: !error && !data,
-      isError: error,
+      profileError: error,
     };
   }
 
@@ -207,12 +208,12 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
     );
   }
 
-  const { profile } = getProfile();
+  const profile = getProfile().profile?.data;
 
   if (!session) return <SpinnerLg text="Loading..." />;
 
   return (
-    <div className="my-4">
+    <div className="p-4">
       <PageContainer yPadding="py-2">
         <BackButton text="Back to listings" href="/listings?state=active" />
         <div className="px-2">
@@ -269,6 +270,7 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
                   <ListingTextField
                     label="Tags"
                     name="tags"
+                    id={`${idPrefix}tags`}
                     description="You can use tags to add any additional filter criteria to your listing."
                     type="text"
                     placeholder="pending"
@@ -279,15 +281,17 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
                 <FormSection header="Details">
                   <ListingTextField
                     label="Title"
-                    description="Title is the main search field for the listing. Try using the format of 'Set' + 'Card Name' + 'Attributes'."
+                    description="Title is the main search field for the listing. For cards, try using the format of 'Set' + 'Card Name' + 'Attributes'."
                     name="title"
+                    id={`${idPrefix}title`}
                     type="text"
                     placeholder="Enter a title"
                   />
                   <ListingLongTextField
                     label="Description"
                     name="description"
-                    description="Use the description to provide any detail about your listing that you want buyers to know about."
+                    id={`${idPrefix}description`}
+                    description="Use the description to provide any addtional detail about your listing that you want buyers to know about."
                     type="text"
                     placeholder="Write a description"
                   />
@@ -321,29 +325,34 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
                   <ListingNumberField
                     label="Price"
                     name="price"
+                    id={`${idPrefix}price`}
                     description="Enter the price. Lower prices will increase your chances of making a sale."
                     placeholder="0"
-                    currency={profile?.data?.currency}
+                    currency={profile?.currency}
                   />
 
                   <ListingNumberField
                     label="Domestic Shipping"
                     name="domestic_shipping"
+                    id={`${idPrefix}domestic_shipping`}
                     description="Enter the price for domestic shipping. Enter 0 for free shipping."
                     placeholder="Enter domestic shipping price"
-                    currency={profile?.data?.currency}
+                    currency={profile?.currency}
                   />
 
                   <ListingNumberField
                     label="International Shipping"
                     name="international_shipping"
+                    id={`${idPrefix}international_shipping`}
                     description="Leave blank if you do not offer international shipping. Enter 0 for free international shipping."
                     placeholder="No international shipping"
-                    currency={profile?.data?.currency}
+                    currency={profile?.currency}
                   />
+
                   <ListingNumberField
                     label="Combined Shipping"
                     name="combined_shipping"
+                    id={`${idPrefix}combined_shipping`}
                     description="Enter the amount to charge for each additional item purchased in a single order after the first. Leave blank if you do not offer combined shipping."
                     placeholder="No combined shipping"
                     currency={profile?.currency}

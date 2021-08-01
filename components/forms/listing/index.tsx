@@ -14,7 +14,7 @@ import {
   ListingNumberField,
   ListingTextField,
   ListingToggle,
-} from "../listing/fields";
+} from "./fields";
 import {
   categoryList,
   collectibleList,
