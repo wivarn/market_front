@@ -207,10 +207,6 @@ export const PictureField = ({
     setImageData(event.target.files[0]);
   };
 
-  const imageLoader = ({ src }: ImageLoaderProps) => {
-    return src;
-  };
-
   return (
     <div className={className}>
       {label ? (
@@ -224,7 +220,9 @@ export const PictureField = ({
       <div className="flex items-center">
         <div className="container relative w-24 h-24 m-2 border rounded-full">
           <Image
-            loader={imageLoader}
+            loader={({ src }: ImageLoaderProps) => {
+              return src;
+            }}
             src={previewImageState.path}
             alt={field.value}
             layout="fill"
@@ -284,6 +282,9 @@ export const MultiPictureField = ({
           width="300"
           objectFit="contain"
           className="p-2 my-4"
+          loader={({ src }: ImageLoaderProps) => {
+            return src;
+          }}
         />
       ))}
     </div>
