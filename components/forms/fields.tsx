@@ -48,6 +48,11 @@ type PictureProps = TextFieldProps & {
 type MultiPictureProps = {
   id?: string;
   label?: string;
+  description?: string;
+  className?: string;
+  labelClassName?: string;
+  descriptionClassName?: string;
+  inputClassName?: string;
   previewImages: { url: string }[];
   setImageData: Dispatch<SetStateAction<File[]>>;
 };
@@ -246,6 +251,7 @@ export const PictureField = ({
 
 export const MultiPictureField = ({
   label,
+  description,
   previewImages,
   setImageData,
 }: MultiPictureProps): JSX.Element => {
@@ -267,11 +273,21 @@ export const MultiPictureField = ({
     },
   });
 
-  const thumbs = pictureImages.map((file) => (
-    <div key={file.url}>
-      <img src={file.url} />
+  const thumbs = (
+    <div className="flex flex-wrap p-2 bg-white border rounded-md">
+      {pictureImages.map((file) => (
+        <Image
+          key={file.url}
+          src={file.url}
+          layout="fixed"
+          height="300"
+          width="300"
+          objectFit="contain"
+          className="p-2 my-4"
+        />
+      ))}
     </div>
-  ));
+  );
 
   useEffect(
     () => () => {
@@ -282,10 +298,37 @@ export const MultiPictureField = ({
   );
 
   return (
-    <div {...getRootProps()}>
-      <input {...getInputProps()} />
-      <span>{label}</span>
-      <div>{thumbs}</div>
+    <div>
+      <div
+        className="grid items-center w-full grid-cols-1 py-2 mx-auto gap-x-4 lg:grid-cols-3 md:grid-cols-2"
+        {...getRootProps()}
+      >
+        {label ? (
+          <label className="text-base font-semibold text-accent-darker">
+            {label}
+            {description ? (
+              <span className="hidden text-sm font-normal md:block text-accent-dark">
+                {description}
+              </span>
+            ) : null}
+          </label>
+        ) : null}
+        <div className="relative w-full rounded-md">
+          <input {...getInputProps()} />
+          <div className="py-4 text-center bg-white border-2 border-dashed rounded-md border-accent text-accent-darker">
+            Drag and drop photos or click to upload
+          </div>
+        </div>
+      </div>
+      <div className="my-2">
+        <label className="text-base font-semibold text-accent-darker">
+          Photo Preview
+        </label>
+        <span className="hidden text-sm font-normal md:block text-accent-dark">
+          The first photo will be shown by default in your listing preview.
+        </span>
+        {thumbs}
+      </div>
     </div>
   );
 };

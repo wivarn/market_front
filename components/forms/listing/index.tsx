@@ -14,7 +14,7 @@ import {
   ListingNumberField,
   ListingTextField,
   ListingToggle,
-} from "../listing/fields";
+} from "./fields";
 import {
   categoryList,
   collectibleList,
@@ -49,7 +49,7 @@ function subCategoryCombobox(formik: FormikProps<any>) {
   const category = formik.values.category;
   const placeholder = category
     ? "Select a sub-category"
-    : "Select category first";
+    : "Select the category first";
 
   let items: ListingComboBoxOption[] = [];
   switch (category) {
@@ -95,6 +95,7 @@ const ListingForm = (props: Listing): JSX.Element => {
           <ListingDropdownCombobox
             label="Grading Company"
             description="Enter the company who graded the item. If not listed choose 'other'."
+            placeholder="Select a grading company"
             name="grading_company"
             items={gradingCompanyList}
             resetRef={gradingCompanyRef}
@@ -104,7 +105,8 @@ const ListingForm = (props: Listing): JSX.Element => {
         <ListingDropdownCombobox
           label={label}
           name="condition"
-          description="Enter the condition for the item. See our grading guide for more information."
+          description="Enter the condition for the item. See our condition guide for more information."
+          placeholder="Select a condition or grading"
           items={items}
           resetRef={conditionRef}
         />
@@ -233,7 +235,7 @@ const ListingForm = (props: Listing): JSX.Element => {
     <div className="p-4">
       <PageContainer yPadding="py-2">
         <BackButton text="Back to listings" href="/listings?state=active" />
-        <div className="p-2">
+        <div className="px-2">
           <h3 className="p-2 text-center">
             Enter the details for your listing
           </h3>
@@ -338,7 +340,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                     name="title"
                     id={`${idPrefix}title`}
                     type="text"
-                    placeholder="title"
+                    placeholder="Enter a title"
                   />
                   <ListingLongTextField
                     label="Description"
@@ -346,7 +348,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                     id={`${idPrefix}description`}
                     description="Use the description to provide any addtional detail about your listing that you want buyers to know about."
                     type="text"
-                    placeholder="description"
+                    placeholder="Write a description"
                   />
                 </FormSection>
 
@@ -364,11 +366,20 @@ const ListingForm = (props: Listing): JSX.Element => {
                     }}
                   />
                   {renderGrading()}
+                  <a
+                    href="skwirl.zendesk.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline text-info"
+                  >
+                    Learn about our condition guidelines
+                  </a>
                 </FormSection>
 
                 <FormSection header="Photos">
                   <MultiPictureField
-                    label="Drag and drop some files here, or click to select files"
+                    label="Photos"
+                    description="Add quality photos to help you sell your listing. It is usually good to have multiple photos showing the front and back of your item."
                     id={`${idPrefix}pictures`}
                     previewImages={initialValues.photos}
                     setImageData={setImageData}
@@ -390,7 +401,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                     name="domestic_shipping"
                     id={`${idPrefix}domestic_shipping`}
                     description="Enter the price for domestic shipping. Enter 0 for free shipping."
-                    placeholder="Enter domestic shipping price."
+                    placeholder="Enter domestic shipping price"
                     currency={profile?.currency}
                   />
 
