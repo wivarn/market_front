@@ -229,6 +229,7 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
               price: props.price || "",
               domestic_shipping: props.domestic_shipping || "",
               international_shipping: props.international_shipping || "",
+              combined_shipping: props.combined_shipping || "",
             }}
             validationSchema={listingSchema}
             onSubmit={(values: ListingTemplate, actions) => {
