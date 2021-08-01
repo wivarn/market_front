@@ -48,6 +48,7 @@ type PictureProps = TextFieldProps & {
 type MultiPictureProps = {
   id?: string;
   label?: string;
+  description?: string;
   previewImages: { url: string }[];
   setImageData: Dispatch<SetStateAction<File[]>>;
 };
@@ -246,6 +247,7 @@ export const PictureField = ({
 
 export const MultiPictureField = ({
   label,
+  description,
   previewImages,
   setImageData,
 }: MultiPictureProps): JSX.Element => {
@@ -268,8 +270,8 @@ export const MultiPictureField = ({
   });
 
   const thumbs = pictureImages.map((file) => (
-    <div key={file.url}>
-      <img src={file.url} />
+    <div className="container relative w-32 h-32 p-2" key={file.url}>
+      <img src={file.url} className="rounded-md" />
     </div>
   ));
 
@@ -282,10 +284,20 @@ export const MultiPictureField = ({
   );
 
   return (
-    <div {...getRootProps()}>
-      <input {...getInputProps()} />
-      <span>{label}</span>
-      <div>{thumbs}</div>
+    <div className="" {...getRootProps()}>
+      {label ? (
+        <label className={labelClassName}>
+          {label}
+          {description ? (
+            <span className={descriptionClassName}>{description}</span>
+          ) : null}
+        </label>
+      ) : null}
+      <input className="" {...getInputProps()} />
+      <div className="p-4 text-center bg-white border-2 border-dashed border-accent">
+        Drag and drop photos or click to upload
+      </div>
+      <div className="flex">{thumbs}</div>
     </div>
   );
 };

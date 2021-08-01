@@ -364,11 +364,20 @@ const ListingForm = (props: Listing): JSX.Element => {
                     }}
                   />
                   {renderGrading()}
+                  <a
+                    href="skwirl.zendesk.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline text-info"
+                  >
+                    Learn about our condition guidelines
+                  </a>
                 </FormSection>
 
                 <FormSection header="Photos">
                   <MultiPictureField
-                    label="Drag and drop some files here, or click to select files"
+                    label="Photos"
+                    description="Add photos to show the condition of your listing. It is usually good to have multiple photos showing the front and back of your item."
                     id={`${idPrefix}pictures`}
                     previewImages={initialValues.photos}
                     setImageData={setImageData}
