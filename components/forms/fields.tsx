@@ -273,11 +273,21 @@ export const MultiPictureField = ({
     },
   });
 
-  const thumbs = pictureImages.map((file) => (
-    <div className="p-2 my-4" key={file.url}>
-      <img src={file.url} className="object-contain w-64 h-64 rounded-md" />
+  const thumbs = (
+    <div className="flex flex-wrap p-2 bg-white border rounded-md">
+      {pictureImages.map((file) => (
+        <Image
+          key={file.url}
+          src={file.url}
+          layout="fixed"
+          height="300"
+          width="300"
+          objectFit="contain"
+          className="p-2 my-4"
+        />
+      ))}
     </div>
-  ));
+  );
 
   useEffect(
     () => () => {
@@ -317,9 +327,7 @@ export const MultiPictureField = ({
         <span className="hidden text-sm font-normal md:block text-accent-dark">
           The first photo will be shown by default in your listing preview.
         </span>
-        <div className="flex flex-wrap p-2 bg-white border rounded-md">
-          {thumbs}
-        </div>
+        {thumbs}
       </div>
     </div>
   );
