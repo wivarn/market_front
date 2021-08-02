@@ -12,6 +12,21 @@ interface props {
 }
 
 export function SalesOrder({ order }: props): JSX.Element {
+  const orderDate = new Date(order.created_at).toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
+  const orderUpdateDate = new Date(order.updated_at).toLocaleDateString(
+    "en-US",
+    {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }
+  );
+
   const [session] = useSession();
 
   async function shipOrder() {
@@ -36,9 +51,12 @@ export function SalesOrder({ order }: props): JSX.Element {
                 {order.buyer.given_name} {order.buyer.family_name}
               </a>
             </Link>
+            on {orderDate}
           </h5>
           <span className="flex items-center space-x-4">
-            <h5>Status: {order.aasm_state}</h5>
+            <p>
+              Status: {order.aasm_state} (Last Updated on {orderUpdateDate}
+            </p>
             <SubmitButton text="Mark as shipped" onClick={shipOrder} />
           </span>
         </div>
@@ -92,6 +110,21 @@ export function SalesOrder({ order }: props): JSX.Element {
 }
 
 export function PurchaseOrder({ order }: props): JSX.Element {
+  const orderDate = new Date(order.created_at).toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+
+  const orderUpdateDate = new Date(order.updated_at).toLocaleDateString(
+    "en-US",
+    {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }
+  );
+
   const [session] = useSession();
 
   async function receiveOrder() {
@@ -109,16 +142,19 @@ export function PurchaseOrder({ order }: props): JSX.Element {
     <div className="max-w-4xl mx-auto mt-4 border rounded-md">
       <div>
         <div className="px-4 py-2 text-white rounded-t-md bg-info-darker">
-          <h4>
+          <h5>
             Order #{order.id} from{" "}
             <Link href={`/users/${order.seller_id}`}>
               <a className="underline hover:text-primary">
                 {order.seller.given_name} {order.seller.family_name}
               </a>
-            </Link>
-          </h4>
+            </Link>{" "}
+            on {orderDate}
+          </h5>
           <span className="flex items-center space-x-4">
-            <h5>Status: {order.aasm_state}</h5>
+            <p>
+              Status: {order.aasm_state} (updated on {orderUpdateDate})
+            </p>
             <SubmitButton text="Mark as received" onClick={receiveOrder} />
           </span>
         </div>
