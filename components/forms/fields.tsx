@@ -300,20 +300,20 @@ export const MultiPictureField = ({
 
   return (
     <div>
+      {label ? (
+        <label className="text-base font-semibold text-accent-darker">
+          {label}
+          {description ? (
+            <span className="hidden text-sm font-normal md:block text-accent-dark">
+              {description}
+            </span>
+          ) : null}
+        </label>
+      ) : null}
       <div
         className="grid items-center w-full grid-cols-1 py-2 mx-auto gap-x-4 lg:grid-cols-3 md:grid-cols-2"
         {...getRootProps()}
       >
-        {label ? (
-          <label className="text-base font-semibold text-accent-darker">
-            {label}
-            {description ? (
-              <span className="hidden text-sm font-normal md:block text-accent-dark">
-                {description}
-              </span>
-            ) : null}
-          </label>
-        ) : null}
         <div className="relative w-full rounded-md">
           <input {...getInputProps()} />
           <div className="py-4 text-center bg-white border-2 border-dashed rounded-md border-accent text-accent-darker">
