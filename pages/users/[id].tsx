@@ -51,13 +51,17 @@ export default function ShowUser(): JSX.Element {
       <PageContainer>
         <div className="grid mb-4 text-center justify-items-center">
           <h3 className="mb-4 text-center">User Profile</h3>
-          <UserInfo givenName={user.given_name} familyName={user.family_name} />
+          <UserInfo
+            given_name={user.given_name}
+            family_name={user.family_name}
+            picture={user.picture}
+          />
         </div>
       </PageContainer>
 
       <div className="my-4">
         <PageContainer>
-          <UserListingsPreview listings={user.listings} />
+          <UserListingsPreview listings={user.listings || []} />
         </PageContainer>
       </div>
       <div className="py-4">
