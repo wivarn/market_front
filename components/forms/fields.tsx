@@ -53,7 +53,7 @@ type MultiPictureProps = {
   labelClassName?: string;
   descriptionClassName?: string;
   inputClassName?: string;
-  previewImages: { url: string }[];
+  existingImageMetas: { url: string }[];
   setImageData: Dispatch<SetStateAction<File[]>>;
 };
 
@@ -250,11 +250,11 @@ export const PictureField = ({
 export const MultiPictureField = ({
   label,
   description,
-  previewImages,
+  existingImageMetas,
   setImageData,
 }: MultiPictureProps): JSX.Element => {
-  const [picturePreviews, setPicturePreviews] = useState(
-    previewImages || [{ url: "" }]
+  const [imageMetas, setImageMetas] = useState(
+    existingImageMetas || [{ url: "" }]
   );
 
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
@@ -265,14 +265,14 @@ export const MultiPictureField = ({
       const newPreviews = acceptedFiles.map((file) => {
         return { url: URL.createObjectURL(file) };
       });
-      setPicturePreviews(picturePreviews.concat(newPreviews));
+      setImageMetas(imageMetas.concat(newPreviews));
       setImageData(acceptedFiles);
     },
   });
 
-  const thumbs = (
+  const imageSorter = (
     <div className="flex flex-wrap p-2 bg-white border rounded-md">
-      {picturePreviews.map((file) => (
+      {imageMetas.map((file) => (
         <Image
           key={file.url}
           src={file.url}
@@ -309,9 +309,9 @@ export const MultiPictureField = ({
   useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
-      picturePreviews.forEach((file) => URL.revokeObjectURL(file.url));
+      imageMetas.forEach((file) => URL.revokeObjectURL(file.url));
     },
-    [picturePreviews]
+    [imageMetas]
   );
 
   return (
@@ -344,7 +344,7 @@ export const MultiPictureField = ({
         <span className="hidden text-sm font-normal md:block text-accent-dark">
           The first photo will be shown by default in your listing preview.
         </span>
-        {thumbs}
+        {imageSorter}
         {errors}
       </div>
     </div>
