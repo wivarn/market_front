@@ -51,11 +51,7 @@ export default function ShowUser(): JSX.Element {
       <PageContainer>
         <div className="grid mb-4 text-center justify-items-center">
           <h3 className="mb-4 text-center">User Profile</h3>
-          <UserInfo
-            given_name={user.given_name}
-            family_name={user.family_name}
-            picture={user.picture}
-          />
+          <UserInfo {...user} />
         </div>
       </PageContainer>
 

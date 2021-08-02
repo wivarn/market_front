@@ -102,11 +102,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
             <div className="my-4 border-t border-b"></div>
             <Link href={`/users/${props.accountId}`}>
               <a>
-                <UserInfo
-                  given_name={props.seller.given_name}
-                  family_name={props.seller.family_name}
-                  picture={props.seller.picture}
-                />
+                <UserInfo {...props.seller} />
               </a>
             </Link>
             <div className="my-4 border"></div>
