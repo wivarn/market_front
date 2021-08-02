@@ -1,3 +1,4 @@
+import { IUser } from "types/user";
 export interface BasicListing {
   title: string;
   price: string | number;
@@ -21,8 +22,7 @@ export interface Listing extends BasicListing {
 }
 
 export interface IListingWithSeller extends Listing {
-  sellerGivenName: string;
-  sellerFamilyName: string;
+  seller: IUser;
 }
 
 export interface ListingTemplate {

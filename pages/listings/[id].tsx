@@ -1,5 +1,5 @@
-import { GenericErrorMessage } from "components/message";
 import { BackButton } from "components/buttons";
+import { GenericErrorMessage } from "components/message";
 import ListingDetails from "components/listing/details";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
@@ -26,6 +26,7 @@ export default function ShowListing(): JSX.Element {
   if (isError) return <GenericErrorMessage></GenericErrorMessage>;
 
   const listing = response.data;
+  console.log(listing);
 
   return (
     <div className="my-4">
@@ -33,6 +34,7 @@ export default function ShowListing(): JSX.Element {
         <BackButton text="Back" />
         <NextSeo title={listing.title} />
         <ListingDetails
+          seller={listing.account}
           id={listing.id}
           aasm_state={listing.aasm_state}
           accountId={listing.account_id}
@@ -45,8 +47,6 @@ export default function ShowListing(): JSX.Element {
           grading_company={listing.grading_company}
           condition={listing.condition}
           description={listing.description}
-          sellerGivenName={listing.given_name}
-          sellerFamilyName={listing.family_name}
         />
       </PageContainer>
     </div>

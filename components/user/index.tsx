@@ -3,6 +3,7 @@ import { LgUserCircleIcon } from "components/icons";
 interface IProps {
   givenName: string;
   familyName: string;
+  picture: string;
 }
 
 export const UserInfo = (props: IProps): JSX.Element => {
