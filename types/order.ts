@@ -13,4 +13,6 @@ export interface IOrder {
   total: string;
   tracking: string;
   listings: ICartListing[];
+  created_at: string;
+  updated_at: string;
 }
