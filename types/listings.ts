@@ -41,7 +41,7 @@ export interface ListingTemplate {
 
 export interface ICartListing {
   id: string;
-  photos: string[];
+  photos: { url: string }[];
   title: string;
   currency: string;
   price: string;
