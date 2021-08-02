@@ -217,8 +217,8 @@ export const PictureField = ({
           ) : null}
         </label>
       ) : null}
-      <div className="flex items-center">
-        <div className="container relative w-24 h-24 m-2 border rounded-full">
+      <div className="items-center m-2 ">
+        <div className="container relative w-24 h-24 my-2 border rounded-full">
           <Image
             loader={({ src }: ImageLoaderProps) => {
               return src;
@@ -227,7 +227,7 @@ export const PictureField = ({
             alt={field.value}
             layout="fill"
             objectFit="cover"
-            className="rounded-full"
+            className="rounded-full "
           />
         </div>
         <div>
