@@ -49,7 +49,7 @@ export default function ShowUser(): JSX.Element {
   return (
     <div className="my-4">
       <PageContainer>
-        <div className="grid mb-4 text-center justify-items-center">
+        <div className="grid mx-auto mb-4 justify-items-center">
           <h3 className="mb-4 text-center">User Profile</h3>
           <UserInfo {...user} />
         </div>
