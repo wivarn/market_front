@@ -26,7 +26,6 @@ export default function ShowListing(): JSX.Element {
   if (isError) return <GenericErrorMessage></GenericErrorMessage>;
 
   const listing = response.data;
-  console.log(listing);
 
   return (
     <div className="my-4">
