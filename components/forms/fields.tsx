@@ -253,27 +253,26 @@ export const MultiPictureField = ({
   previewImages,
   setImageData,
 }: MultiPictureProps): JSX.Element => {
-  const [pictureImages, setPictureImages] = useState(
+  const [picturePreviews, setPicturePreviews] = useState(
     previewImages || [{ url: "" }]
   );
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, fileRejections } = useDropzone({
     accept: "image/jpeg, image/png, image/webp, image/heic",
     multiple: true,
     maxFiles: 10,
     onDrop: (acceptedFiles: File[]) => {
-      setPictureImages(
-        acceptedFiles.map((file) => {
-          return { url: URL.createObjectURL(file) };
-        })
-      );
+      const newPreviews = acceptedFiles.map((file) => {
+        return { url: URL.createObjectURL(file) };
+      });
+      setPicturePreviews(picturePreviews.concat(newPreviews));
       setImageData(acceptedFiles);
     },
   });
 
   const thumbs = (
     <div className="flex flex-wrap p-2 bg-white border rounded-md">
-      {pictureImages.map((file) => (
+      {picturePreviews.map((file) => (
         <Image
           key={file.url}
           src={file.url}
@@ -290,12 +289,29 @@ export const MultiPictureField = ({
     </div>
   );
 
+  const errors = fileRejections.length ? (
+    <div>
+      <h4>Rejected Images</h4>
+      {fileRejections.map(({ file, errors }) => (
+        <div key={file.name}>
+          <ul>
+            {errors.map((e) => (
+              <li key={e.code}>
+                {file.name} {e.message}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  ) : null;
+
   useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
-      pictureImages.forEach((file) => URL.revokeObjectURL(file.url));
+      picturePreviews.forEach((file) => URL.revokeObjectURL(file.url));
     },
-    [pictureImages]
+    [picturePreviews]
   );
 
   return (
@@ -329,6 +345,7 @@ export const MultiPictureField = ({
           The first photo will be shown by default in your listing preview.
         </span>
         {thumbs}
+        {errors}
       </div>
     </div>
   );
