@@ -18,15 +18,6 @@ export function SalesOrder({ order }: props): JSX.Element {
     year: "numeric",
   });
 
-  const orderUpdateDate = new Date(order.updated_at).toLocaleDateString(
-    "en-US",
-    {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    }
-  );
-
   const [session] = useSession();
 
   async function shipOrder() {
@@ -44,7 +35,7 @@ export function SalesOrder({ order }: props): JSX.Element {
     <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
       <div>
         <div className="flex items-center px-4 py-2 space-x-4 text-white space-between justify-items-center bg-info-darker rounded-t-md">
-          <p className="text-center">Status: {order.aasm_state} </p>
+          <p className="font-bold text-center">Status: {order.aasm_state} </p>
           <SubmitButton text="Mark as shipped" onClick={shipOrder} />
         </div>
         <table className="w-full border-b table-fixed">
@@ -121,15 +112,6 @@ export function PurchaseOrder({ order }: props): JSX.Element {
     year: "numeric",
   });
 
-  const orderUpdateDate = new Date(order.updated_at).toLocaleDateString(
-    "en-US",
-    {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    }
-  );
-
   const [session] = useSession();
 
   async function receiveOrder() {
@@ -144,25 +126,34 @@ export function PurchaseOrder({ order }: props): JSX.Element {
   }
 
   return (
-    <div className="max-w-4xl mx-auto mt-4 border rounded-md">
+    <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
       <div>
-        <div className="px-4 py-2 text-white rounded-t-md bg-info-darker">
-          <h5>
-            Order #{order.id} from{" "}
-            <Link href={`/users/${order.seller_id}`}>
-              <a className="underline hover:text-primary">
-                {order.seller.given_name} {order.seller.family_name}
-              </a>
-            </Link>{" "}
-            on {orderDate}
-          </h5>
-          <span className="flex items-center space-x-4">
-            <p>
-              Status: {order.aasm_state} (updated on {orderUpdateDate})
-            </p>
-            <SubmitButton text="Mark as received" onClick={receiveOrder} />
-          </span>
+        <div className="flex items-center px-4 py-2 space-x-4 text-white space-between justify-items-center bg-info-darker rounded-t-md">
+          <p className="font-bold text-center">Status: {order.aasm_state} </p>
+          <SubmitButton text="Mark as received" onClick={receiveOrder} />
         </div>
+        <table className="w-full border-b table-fixed">
+          <thead className="bg-accent-lighter">
+            <tr>
+              <th className="w-1/3">Order Number</th>
+              <th className="w-1/3">Order From</th>
+              <th className="w-1/3">Order Date</th>
+            </tr>
+          </thead>
+          <tbody className="text-center">
+            <tr>
+              <td>#{order.id}</td>
+              <td>
+                <Link href={`/users/${order.buyer_id}`}>
+                  <a className="underline hover:text-primary">
+                    {order.seller.given_name} {order.seller.family_name}
+                  </a>
+                </Link>{" "}
+              </td>
+              <td>{orderDate}</td>
+            </tr>
+          </tbody>
+        </table>
         <div className="flex px-4 py-2 border-b text-accent-darker bg-accent-lightest">
           <span className="flex text-sm">
             Shipped to:{" "}
@@ -193,20 +184,16 @@ export function PurchaseOrder({ order }: props): JSX.Element {
           );
         })}
       </div>
-      <div className="px-4 py-2 border-t bg-accent-lightest">
-        <div className="flex items-center space-x-4">
-          <p>
-            Total ={" "}
-            {Number(order.total).toLocaleString("en", {
-              style: "currency",
-              currency: "usd",
-            })}{" "}
-            {order.listings[0].currency}
-          </p>
-        </div>
-      </div>
-      <div className="px-4 py-2 bg-accent-lightest">
+      <p className="p-2 text-sm border-t bg-accent-lightest">
         Tracking Number: {order.tracking}
+      </p>
+      <div className="px-4 py-2 font-bold text-right text-white bg-info-darker rounded-b-md">
+        Total ={" "}
+        {Number(order.total).toLocaleString("en", {
+          style: "currency",
+          currency: "usd",
+        })}{" "}
+        {order.listings[0].currency}
       </div>
     </div>
   );
