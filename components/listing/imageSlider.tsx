@@ -37,6 +37,7 @@ export default function ImageSlider(props: Props): JSX.Element {
   const settings = {
     dots: true,
     infinite: true,
+    lazyLoad: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
