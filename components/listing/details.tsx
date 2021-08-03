@@ -114,8 +114,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
       <InfoCard>
         <h4 className="pb-2 text-center border-b">Recent Seller Reviews</h4>
         <div className="pt-4">
-          <p>review 1</p>
-          <p>review 2</p>
+          <p>Coming Soon</p>
         </div>
       </InfoCard>
     </div>
