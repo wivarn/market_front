@@ -34,11 +34,14 @@ export default function profile(): JSX.Element {
   function renderConnectButton() {
     if (stripeAccount.charges_enabled) {
       return (
-        <span>
-          <Link href="https://dashboard.stripe.com/account">
-            Stripe account
-          </Link>
-        </span>
+        <a
+          href="https://dashboard.stripe.com/account"
+          target="_blank"
+          rel="noreferrer"
+          className="underline text-info hover:text-primary-dark"
+        >
+          Go to your Stripe account
+        </a>
       );
     }
 
@@ -62,7 +65,10 @@ export default function profile(): JSX.Element {
       <NextSeo title="Payments" />
       <AccountContainer activeTab="payments">
         <PaymentForm />
-        {renderConnectButton()}
+        <div className="container max-w-lg p-2 px-4 mx-auto mt-8 mb-8 border rounded-md bg-accent-lightest border-accent-light">
+          <h5>We integrate with Stripe for Payments</h5>
+          {renderConnectButton()}
+        </div>
       </AccountContainer>
     </>
   );
