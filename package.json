@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@dnd-kit/core": "^3.1.1",
+    "@dnd-kit/sortable": "^4.0.0",
     "@headlessui/react": "^1.2.0",
     "@mailchimp/mailchimp_marketing": "^3.0.53",
     "@stripe/react-stripe-js": "^1.4.1",

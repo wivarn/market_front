@@ -12,6 +12,7 @@ import { SmChevronDownIcon, SmXIcon } from "components/icons";
 
 import { Dispatch } from "react";
 import { RefObject } from "react";
+import { SortableImages } from "components/sortable";
 import { Switch } from "@headlessui/react";
 import { useCombobox } from "downshift";
 import { useDropzone } from "react-dropzone";
@@ -54,6 +55,7 @@ type MultiPictureProps = {
   descriptionClassName?: string;
   inputClassName?: string;
   existingImageMetas: { url: string }[];
+  imageData: File[];
   setImageData: Dispatch<SetStateAction<File[]>>;
 };
 
@@ -251,10 +253,11 @@ export const MultiPictureField = ({
   label,
   description,
   existingImageMetas,
+  imageData,
   setImageData,
 }: MultiPictureProps): JSX.Element => {
   const [imageMetas, setImageMetas] = useState(
-    existingImageMetas || [{ url: "" }]
+    existingImageMetas.length ? existingImageMetas : [{ url: "" }]
   );
 
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
@@ -269,25 +272,6 @@ export const MultiPictureField = ({
       setImageData(acceptedFiles);
     },
   });
-
-  const imageSorter = (
-    <div className="flex flex-wrap p-2 bg-white border rounded-md">
-      {imageMetas.map((file) => (
-        <Image
-          key={file.url}
-          src={file.url}
-          layout="fixed"
-          height="300"
-          width="300"
-          objectFit="contain"
-          className="p-2 my-4"
-          loader={({ src }: ImageLoaderProps) => {
-            return src;
-          }}
-        />
-      ))}
-    </div>
-  );
 
   const errors = fileRejections.length ? (
     <div>
@@ -344,7 +328,12 @@ export const MultiPictureField = ({
         <span className="hidden text-sm font-normal md:block text-accent-dark">
           The first photo will be shown by default in your listing preview.
         </span>
-        {imageSorter}
+        <SortableImages
+          imageMetas={imageMetas}
+          setImageMetas={setImageMetas}
+          imageData={imageData}
+          setImageData={setImageData}
+        />
         {errors}
       </div>
     </div>

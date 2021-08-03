@@ -382,6 +382,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                     description="Add quality photos to help you sell your listing. It is usually good to have multiple photos showing the front and back of your item."
                     id={`${idPrefix}pictures`}
                     existingImageMetas={initialValues.photos}
+                    imageData={imageData}
                     setImageData={setImageData}
                   />
                 </FormSection>
