@@ -3,6 +3,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "components/icons";
 import Image from "next/image";
 import PageContainer from "components/pageContainer";
 import Slider from "react-slick";
+import { SpinnerLg } from "components/spinner";
 
 export interface Props {
   imageMetas: { url: string }[];
@@ -12,7 +13,7 @@ function NextArrow(props) {
   const { onClick } = props;
   return (
     <button
-      className="absolute z-10 p-2 border rounded-full group-hover:opacity-50 focus:outline-none bg-accent-lighter opacity-10 right-5 bottom-1/2"
+      className="absolute z-20 p-2 border rounded-full group-hover:opacity-50 focus:outline-none bg-accent-lighter opacity-10 right-5 bottom-1/2"
       onClick={onClick}
     >
       <ChevronRightIcon />
@@ -24,7 +25,7 @@ function PrevArrow(props) {
   const { onClick } = props;
   return (
     <button
-      className="absolute z-10 p-2 border rounded-full group-hover:opacity-50 focus:outline-none bg-accent-lighter opacity-10 left-5 bottom-1/2"
+      className="absolute z-20 p-2 border rounded-full group-hover:opacity-50 focus:outline-none bg-accent-lighter opacity-10 left-5 bottom-1/2"
       // style={{ ...style, display: "block", background: "green" }}
       onClick={onClick}
     >
@@ -52,8 +53,9 @@ export default function ImageSlider(props: Props): JSX.Element {
             src={imageMeta.url}
             layout="fill"
             objectFit="contain"
-            className="rounded-md"
+            className="z-10 rounded-md"
           />
+          <SpinnerLg />
         </div>
       </div>
     </PageContainer>
