@@ -1,4 +1,5 @@
 import AccountContainer from "components/accountContainer";
+import Link from "next/link";
 import { NextSeo } from "next-seo";
 import { PaymentApi } from "services/backendApi/payment";
 import PaymentForm from "components/forms/account/payment";
@@ -32,7 +33,13 @@ export default function profile(): JSX.Element {
 
   function renderConnectButton() {
     if (stripeAccount.charges_enabled) {
-      return <span>Stripe account: {JSON.stringify(stripeAccount)}</span>;
+      return (
+        <span>
+          <Link href="https://dashboard.stripe.com/account">
+            Stripe account
+          </Link>
+        </span>
+      );
     }
 
     async function redirectToStripe() {
