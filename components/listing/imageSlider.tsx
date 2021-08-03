@@ -1,16 +1,20 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "components/icons";
+import Slider, { Settings } from "react-slick";
 
 import Image from "next/image";
+import { MouseEventHandler } from "react";
 import PageContainer from "components/pageContainer";
-import Slider from "react-slick";
 import { SpinnerLg } from "components/spinner";
 
 export interface Props {
   imageMetas: { url: string }[];
 }
 
-function NextArrow(props) {
-  const { onClick } = props;
+function NextArrow({
+  onClick,
+}: {
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+}) {
   return (
     <button
       className="absolute z-20 p-2 border rounded-full group-hover:opacity-50 focus:outline-none bg-accent-lighter opacity-10 right-5 bottom-1/2"
@@ -21,8 +25,11 @@ function NextArrow(props) {
   );
 }
 
-function PrevArrow(props) {
-  const { onClick } = props;
+function PrevArrow({
+  onClick,
+}: {
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+}) {
   return (
     <button
       className="absolute z-20 p-2 border rounded-full group-hover:opacity-50 focus:outline-none bg-accent-lighter opacity-10 left-5 bottom-1/2"
@@ -35,10 +42,10 @@ function PrevArrow(props) {
 }
 
 export default function ImageSlider(props: Props): JSX.Element {
-  const settings = {
+  const settings: Settings = {
     dots: true,
     infinite: true,
-    lazyLoad: true,
+    lazyLoad: "ondemand",
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
