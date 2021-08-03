@@ -3,7 +3,7 @@ import { SecondaryButtonFull, SubmitButtonFull } from "components/buttons";
 import { CartApi } from "services/backendApi/cart";
 import { ConditionPill } from "./condition";
 import { IListingWithSeller } from "types/listings";
-import { ImageSlider } from "components/listing/imageSlider";
+import ImageSlider from "components/listing/imageSlider";
 import { InfoCard } from "./infoCard";
 import Link from "next/link";
 import { PrimaryButtonFull } from "components/buttons";
@@ -71,7 +71,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
       <div className="md:grid md:grid-auto-cols">
         <div>
           {props.photos.length ? (
-            <ImageSlider src={props.photos[0].url} alt={props.title} />
+            <ImageSlider imageMetas={props.photos} />
           ) : null}
         </div>
         <InfoCard>
@@ -114,8 +114,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
       <InfoCard>
         <h4 className="pb-2 text-center border-b">Recent Seller Reviews</h4>
         <div className="pt-4">
-          <p>review 1</p>
-          <p>review 2</p>
+          <p>Coming Soon</p>
         </div>
       </InfoCard>
     </div>

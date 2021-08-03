@@ -15,6 +15,14 @@ export function Spinner(props: Props): JSX.Element {
   );
 }
 
+export function ImageSpinner(): JSX.Element {
+  return (
+    <div className="absolute inset-0 flex items-center p-2 animate-pulse">
+      <LgSpinnerIcon />
+    </div>
+  );
+}
+
 export function SpinnerLg(props: Props): JSX.Element {
   return (
     <div className="flex justify-center m-auto h-96">
