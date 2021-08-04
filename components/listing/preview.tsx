@@ -54,12 +54,12 @@ export const ListingPreviewList = (props: ICartListing): JSX.Element => {
         <a className="flex hover:shadow-md">
           <div className="container relative w-24 h-24">
             <Image
-              src={props.photos[0]}
+              src={props.photos[0].url}
               alt={props.title}
               layout="fill"
               objectFit="cover"
               placeholder="blur"
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFlSURBVHgBFY/JbtNQAEWP/Z7t4LR26jgDEdCyoBSJYc2uAjYg2MEn8Et8CkhILFgwFJDYVJTSCAmJtE4ztU0d+8XDq3uluzvS0TGev3qtm57g2mqKVJpzNSTLl2RLRVL9x/6SpUowXbfO/Q3By2ePeHiloGdKtlSXYDZkw5hzOa1LzBurOb40sT6/Yavo83S7zePee0b+Jp5T0PEsGjWBNIVEGyXWdRv/xQN+fmgTdu7yJN/lUHnUbAfqJbIbNlnzc9JBSOpDSx1Qv9mgkQQcT01qliBLK7DduoowIr4fRtyzTvg9gNkfl0anWQVFpIkmXsRIzwtwSsW7PRjsrfB1HrF9u8vOpz7rtzTHozOysoqZzCYkWYEQ0F5pUueUwPfZXO/h2hLDNMgLjRyOJ8zL/2TTIwZhizTPGP3bZxodEN4RlBocx8bY/bKjv318Sxz/xagUiZpjOy6LONHD8YJf/THBWsAFu1mYYHGmVmwAAAAASUVORK5CYII="
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAKCAYAAACJxx+AAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADcSURBVHgBNY/PTgIxEMZ/065yUQ96QLyQoI/pE/kqxoMXjImaiCaCchDNamC3Hb4u7LSTtDPfnxk7vL5xDMwhK01v1ylhblR8f3bfvPgiLZb46hcmE+LVJdXwVIDVkvT0TH6dUbicj6CtSQ/3pEcp5Jcp+e5WvbTTPxnA7F+SGWIQ4H0qxryY6LbwpowChSCSU5lv1FiXkZRSqT86KzsbEYZjgjfNjl2aXeh9dEy8GMOmpvK/H8LBgNys6cMswlxD59TpusnPy1A9IERCjF0tsHe3skEfnrVUq7qzBVw1YRwIWDLVAAAAAElFTkSuQmCC"
               className="rounded-l-md"
             />
           </div>

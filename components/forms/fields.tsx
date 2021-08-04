@@ -12,6 +12,7 @@ import { SmChevronDownIcon, SmXIcon } from "components/icons";
 
 import { Dispatch } from "react";
 import { RefObject } from "react";
+import { SortableImages } from "components/sortable";
 import { Switch } from "@headlessui/react";
 import { useCombobox } from "downshift";
 import { useDropzone } from "react-dropzone";
@@ -53,7 +54,8 @@ type MultiPictureProps = {
   labelClassName?: string;
   descriptionClassName?: string;
   inputClassName?: string;
-  previewImages: { url: string }[];
+  existingImageMetas: { url: string }[];
+  imageData: File[];
   setImageData: Dispatch<SetStateAction<File[]>>;
 };
 
@@ -217,8 +219,8 @@ export const PictureField = ({
           ) : null}
         </label>
       ) : null}
-      <div className="flex items-center">
-        <div className="container relative w-24 h-24 m-2 border rounded-full">
+      <div className="items-center m-2 ">
+        <div className="container relative w-24 h-24 my-2 border rounded-full">
           <Image
             loader={({ src }: ImageLoaderProps) => {
               return src;
@@ -227,7 +229,7 @@ export const PictureField = ({
             alt={field.value}
             layout="fill"
             objectFit="cover"
-            className="rounded-full"
+            className="rounded-full "
           />
         </div>
         <div>
@@ -250,70 +252,70 @@ export const PictureField = ({
 export const MultiPictureField = ({
   label,
   description,
-  previewImages,
+  existingImageMetas,
+  imageData,
   setImageData,
 }: MultiPictureProps): JSX.Element => {
-  const [pictureImages, setPictureImages] = useState(
-    previewImages || [{ url: "" }]
+  const [imageMetas, setImageMetas] = useState(
+    existingImageMetas.length ? existingImageMetas : [{ url: "" }]
   );
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, fileRejections } = useDropzone({
     accept: "image/jpeg, image/png, image/webp, image/heic",
     multiple: true,
     maxFiles: 10,
     onDrop: (acceptedFiles: File[]) => {
-      setPictureImages(
-        acceptedFiles.map((file) => {
-          return { url: URL.createObjectURL(file) };
-        })
-      );
+      const newPreviews = acceptedFiles.map((file) => {
+        return { url: URL.createObjectURL(file) };
+      });
+      // setImageMetas(imageMetas.concat(newPreviews));
+      // fix this later
+      setImageMetas(newPreviews);
       setImageData(acceptedFiles);
     },
   });
 
-  const thumbs = (
-    <div className="flex flex-wrap p-2 bg-white border rounded-md">
-      {pictureImages.map((file) => (
-        <Image
-          key={file.url}
-          src={file.url}
-          layout="fixed"
-          height="300"
-          width="300"
-          objectFit="contain"
-          className="p-2 my-4"
-          loader={({ src }: ImageLoaderProps) => {
-            return src;
-          }}
-        />
+  const errors = fileRejections.length ? (
+    <div>
+      <h4>Rejected Images</h4>
+      {fileRejections.map(({ file, errors }) => (
+        <div key={file.name}>
+          <ul>
+            {errors.map((e) => (
+              <li key={e.code}>
+                {file.name} {e.message}
+              </li>
+            ))}
+          </ul>
+        </div>
       ))}
     </div>
-  );
+  ) : null;
 
   useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
-      pictureImages.forEach((file) => URL.revokeObjectURL(file.url));
+      imageMetas.forEach((file) => URL.revokeObjectURL(file.url));
     },
-    [pictureImages]
+    [imageMetas]
   );
 
   return (
     <div>
+      {label ? (
+        <label className="text-base font-semibold text-accent-darker">
+          {label}
+          {description ? (
+            <span className="hidden text-sm font-normal md:block text-accent-dark">
+              {description}
+            </span>
+          ) : null}
+        </label>
+      ) : null}
       <div
         className="grid items-center w-full grid-cols-1 py-2 mx-auto gap-x-4 lg:grid-cols-3 md:grid-cols-2"
         {...getRootProps()}
       >
-        {label ? (
-          <label className="text-base font-semibold text-accent-darker">
-            {label}
-            {description ? (
-              <span className="hidden text-sm font-normal md:block text-accent-dark">
-                {description}
-              </span>
-            ) : null}
-          </label>
-        ) : null}
         <div className="relative w-full rounded-md">
           <input {...getInputProps()} />
           <div className="py-4 text-center bg-white border-2 border-dashed rounded-md border-accent text-accent-darker">
@@ -328,7 +330,13 @@ export const MultiPictureField = ({
         <span className="hidden text-sm font-normal md:block text-accent-dark">
           The first photo will be shown by default in your listing preview.
         </span>
-        {thumbs}
+        <SortableImages
+          imageMetas={imageMetas}
+          setImageMetas={setImageMetas}
+          imageData={imageData}
+          setImageData={setImageData}
+        />
+        {errors}
       </div>
     </div>
   );

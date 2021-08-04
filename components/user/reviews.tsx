@@ -9,7 +9,7 @@ export const UserReviewsPreview = (): JSX.Element => {
           <a className="text-base underline text-info">View All</a>
         </Link>
       </h3>
-      Some Reviews
+      Coming soon
     </div>
   );
 };
