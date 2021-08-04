@@ -328,7 +328,8 @@ export const MultiPictureField = ({
           Photo Preview
         </label>
         <span className="hidden text-sm font-normal md:block text-accent-dark">
-          The first photo will be shown by default in your listing preview.
+          The first photo will be shown by default in your listing preview. Drag
+          to reorder photos.
         </span>
         <SortableImages
           imageMetas={imageMetas}
