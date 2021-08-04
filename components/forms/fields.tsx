@@ -257,7 +257,7 @@ export const MultiPictureField = ({
   setImageData,
 }: MultiPictureProps): JSX.Element => {
   const [imageMetas, setImageMetas] = useState(
-    existingImageMetas.length ? existingImageMetas : [{ url: "" }]
+    existingImageMetas.length ? existingImageMetas : []
   );
 
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
