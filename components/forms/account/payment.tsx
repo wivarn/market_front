@@ -73,10 +73,13 @@ export default function PaymentForm(): JSX.Element {
         {(formik) => (
           <Form>
             <div className="my-2 space-y-2">
+              <h5 className="text-center text-accent-darker">
+                Listing Settings
+              </h5>
               <InfoMessage>
                 <span>
-                  Listing currency will set the currency for new listings. If
-                  you change it current listings will not be affected.{" "}
+                  This will set the currency for new listings. If you change it
+                  current listings will not be affected.{" "}
                   <Link href="#">
                     <a className="underline text-info">Learn more.</a>
                   </Link>

@@ -6,7 +6,7 @@ export const UserInfo = (props: IUser): JSX.Element => {
     <div className="flex items-center space-x-2">
       <div className="container relative w-20 h-20 m-2 border rounded-full">
         <Image
-          src={props.picture.url}
+          src={props.picture.url || "/ProfilePlaceholder.svg"}
           alt={props.given_name}
           layout="fill"
           objectFit="cover"

@@ -328,7 +328,7 @@ const ListingForm = (props: Listing): JSX.Element => {
                     id={`${idPrefix}tags`}
                     description="You can use tags to add any additional filter criteria to your listing."
                     type="text"
-                    placeholder="pending"
+                    placeholder="Coming soon!"
                     disabled={true}
                   />
                 </FormSection>

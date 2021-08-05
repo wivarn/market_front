@@ -319,7 +319,7 @@ export const MultiPictureField = ({
         <div className="relative w-full rounded-md">
           <input {...getInputProps()} />
           <div className="py-4 text-center bg-white border-2 border-dashed rounded-md border-accent text-accent-darker">
-            Drag and drop photos or click to upload
+            Drag and drop photos or click to upload.
           </div>
         </div>
       </div>
@@ -328,7 +328,8 @@ export const MultiPictureField = ({
           Photo Preview
         </label>
         <span className="hidden text-sm font-normal md:block text-accent-dark">
-          The first photo will be shown by default in your listing preview.
+          The first photo will be shown by default in your listing preview. Drag
+          to reorder photos.
         </span>
         <SortableImages
           imageMetas={imageMetas}

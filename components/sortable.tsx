@@ -44,11 +44,11 @@ function SortableImage(props: { id: string; url: string }) {
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
       <Image
         src={props.url}
-        layout="fixed"
-        height="300"
-        width="300"
+        layout="intrinsic"
+        height="150"
+        width="150"
         objectFit="contain"
-        className="p-2 my-4"
+        className="p-2 my-4 hover:opacity-50"
         loader={({ src }: ImageLoaderProps) => {
           return src;
         }}
