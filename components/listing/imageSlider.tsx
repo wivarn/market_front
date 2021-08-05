@@ -3,7 +3,6 @@ import Slider, { Settings } from "react-slick";
 
 import Image from "next/image";
 import { MouseEventHandler } from "react";
-import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 
 export interface Props {
@@ -53,9 +52,9 @@ export default function ImageSlider(props: Props): JSX.Element {
     prevArrow: <PrevArrow />,
   };
   const images = props.imageMetas.map((imageMeta) => (
-    <PageContainer yPadding="py-none" key={imageMeta.url}>
-      <div className="container relative mx-auto ">
-        <div className="flex flex-grow mx-auto w-600 h-600">
+    <div className="px-2" key={imageMeta.url}>
+      <div className="container relative mx-auto sm:w-600 sm:h-600">
+        <div className="flex flex-grow mx-auto">
           <Image
             src={imageMeta.url}
             layout="fill"
@@ -65,7 +64,7 @@ export default function ImageSlider(props: Props): JSX.Element {
           <SpinnerLg />
         </div>
       </div>
-    </PageContainer>
+    </div>
   ));
   return (
     <div>

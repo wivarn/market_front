@@ -65,18 +65,16 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
       );
     }
   }
-
-  console.log(props.photos);
   return (
-    <div className="container relative p-2 mx-auto">
-      <div className="md:grid md:grid-auto-cols">
-        <div>
+    <div className="container p-2 mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="px-4 my-2">
           {props.photos.length ? (
             <ImageSlider imageMetas={props.photos} />
           ) : null}
         </div>
         <InfoCard>
-          <h4 className="pb-2 mb-4 text-center border-b-2">{props.title}</h4>
+          <h3 className="pb-2 mt-2 mb-8 text-center border-b">{props.title}</h3>
           <span className="text-xl font-semibold md:text-2xl text-accent-darker">
             {Number(props.price).toLocaleString("en", {
               style: "currency",
@@ -84,7 +82,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
             })}{" "}
           </span>
           <span className="text-md text-accent-darker">{props.currency}</span>
-          <span className="ml-4">
+          <span className="ml-8">
             <ConditionPill
               grading_company={props.grading_company}
               condition={props.condition}
@@ -100,18 +98,19 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
           </div>
           <div className="mt-2">
             {renderButton()}
-            <div className="my-4 border-t border-b"></div>
+            <div className="my-8"></div>
             <Link href={`/users/${props.accountId}`}>
               <a>
                 <UserInfo {...props.seller} />
               </a>
             </Link>
-            <div className="my-4 border"></div>
-            <div className="my-2 ">{props.description}</div>
           </div>
         </InfoCard>
       </div>
-
+      <InfoCard>
+        <h4 className="pb-2 text-center border-b">About this item</h4>
+        <div className="my-2 ">{props.description}</div>
+      </InfoCard>
       <InfoCard>
         <h4 className="pb-2 text-center border-b">Recent Seller Reviews</h4>
         <div className="pt-4">
