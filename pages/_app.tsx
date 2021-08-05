@@ -30,7 +30,13 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
         </>
       ) : (
         <Provider session={pageProps.session}>
-          <SWRConfig value={{ fetcher: fetcher, revalidateOnFocus: false }}>
+          <SWRConfig
+            value={{
+              fetcher: fetcher,
+              revalidateOnFocus: false,
+              revalidateOnReconnect: false,
+            }}
+          >
             <Layout>
               <Script
                 id="ze-snippet"
