@@ -68,13 +68,15 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
   return (
     <div className="container p-2 mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="px-4 my-2">
+        <div className="my-2 lg:px-4">
           {props.photos.length ? (
             <ImageSlider imageMetas={props.photos} />
           ) : null}
         </div>
         <InfoCard>
-          <h3 className="pb-2 mt-2 mb-8 text-center border-b">{props.title}</h3>
+          <h2 className="pb-2 mt-2 mb-8 text-2xl border-b md:text-3xl">
+            {props.title}
+          </h2>
           <span className="text-xl font-semibold md:text-2xl text-accent-darker">
             {Number(props.price).toLocaleString("en", {
               style: "currency",
@@ -96,7 +98,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
             })}{" "}
             Shipping
           </div>
-          <div className="mt-2">
+          <div className="my-4">
             {renderButton()}
             <div className="my-8"></div>
             <Link href={`/users/${props.accountId}`}>
@@ -108,8 +110,8 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
         </InfoCard>
       </div>
       <InfoCard>
-        <h4 className="pb-2 text-center border-b">About this item</h4>
-        <div className="my-2 ">{props.description}</div>
+        <h4 className="pb-2 text-center border-b ">Decription</h4>
+        <div className="pt-4">{props.description}</div>
       </InfoCard>
       <InfoCard>
         <h4 className="pb-2 text-center border-b">Recent Seller Reviews</h4>
