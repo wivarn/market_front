@@ -66,6 +66,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
     }
   }
 
+  console.log(props.photos);
   return (
     <div className="container relative p-2 mx-auto">
       <div className="md:grid md:grid-auto-cols">

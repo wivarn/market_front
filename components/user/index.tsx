@@ -5,13 +5,27 @@ export const UserInfo = (props: IUser): JSX.Element => {
   return (
     <div className="flex items-center space-x-2">
       <div className="container relative w-20 h-20 m-2 border rounded-full">
-        <Image
-          src={props.picture.url}
-          alt={props.given_name}
-          layout="fill"
-          objectFit="cover"
-          className="rounded-full"
-        />
+        {props.picture.url ? (
+          <span>
+            <Image
+              src={props.picture.url}
+              alt={props.given_name}
+              layout="fill"
+              objectFit="cover"
+              className="rounded-full"
+            />
+          </span>
+        ) : (
+          <span>
+            <Image
+              src="/ProfilePlaceholder.svg"
+              alt={props.given_name}
+              layout="fill"
+              objectFit="cover"
+              className="rounded-full"
+            />
+          </span>
+        )}
       </div>
       <span>
         <h4>
