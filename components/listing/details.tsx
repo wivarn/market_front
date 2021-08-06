@@ -8,6 +8,7 @@ import { InfoCard } from "./infoCard";
 import Link from "next/link";
 import { PrimaryButtonFull } from "components/buttons";
 import { UserInfo } from "components/user";
+import { categoryList } from "constants/listings";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
@@ -28,10 +29,13 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
       addressLoading: !error && !data,
     };
   }
-
   const { addressResponse, addressLoading } = getAddress();
   const address = addressResponse?.data;
   const noAddress = addressLoading ? true : !Object.keys(address).length;
+  const category = categoryList.find((c) => c.value == props.category);
+  const subCategory = category?.subCategory.find(
+    (s) => s.value == props.subcategory
+  );
 
   async function addItem() {
     CartApi(session?.accessToken)
@@ -67,46 +71,101 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
   }
   return (
     <div className="container p-2 mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="my-2 lg:px-4">
+      <div className="grid grid-cols-1 xl:grid-cols-2">
+        <div className="my-4 lg:px-4">
           {props.photos.length ? (
             <ImageSlider imageMetas={props.photos} />
           ) : null}
         </div>
         <InfoCard>
-          <h2 className="pb-2 mt-2 mb-8 text-2xl border-b md:text-3xl">
+          <h2 className="pb-2 mt-2 mb-4 text-lg border-b sm:text-xl md:text-2xl">
             {props.title}
           </h2>
-          <span className="text-xl font-semibold md:text-2xl text-accent-darker">
-            {Number(props.price).toLocaleString("en", {
-              style: "currency",
-              currency: "usd",
-            })}{" "}
-          </span>
-          <span className="text-md text-accent-darker">{props.currency}</span>
-          <span className="ml-8">
-            <ConditionPill
-              grading_company={props.grading_company}
-              condition={props.condition}
-            />
-          </span>
-          <div className="text-sm leading-none text-accent-dark">
-            +
-            {Number(props.domestic_shipping).toLocaleString("en", {
-              style: "currency",
-              currency: "usd",
-            })}{" "}
-            Shipping
+          <div>
+            <span className="text-xl font-semibold md:text-2xl text-accent-darker">
+              {Number(props.price).toLocaleString("en", {
+                style: "currency",
+                currency: "usd",
+              })}{" "}
+            </span>
+            <span className="text-md text-accent-darker">{props.currency}</span>
+            <div className="text-sm leading-none text-accent-dark">
+              +
+              {Number(props.domestic_shipping).toLocaleString("en", {
+                style: "currency",
+                currency: "usd",
+              })}{" "}
+              Shipping
+            </div>
           </div>
+          <div className="my-4">{renderButton()}</div>
+          <div className="grid grid-cols-1 my-4 space-y-4 sm:grid-cols-2">
+            <div>
+              <label className="font-semibold text-accent-darker">
+                Category
+              </label>
+              <div>
+                <Link href={`/listings/search?category=${props.category}`}>
+                  <a className="underline text-info hover:text-primary">
+                    {category?.text}
+                  </a>
+                </Link>
+              </div>
+            </div>
+            <div>
+              <label>Sub-Category</label>
+              <div>
+                <Link
+                  href={`/listings/search?category=${props.category}&subcategory=${props.subcategory}`}
+                >
+                  <a className="underline text-info hover:text-primary">
+                    {subCategory?.text}
+                  </a>
+                </Link>
+              </div>
+            </div>
+            <div>
+              <label className="font-semibold text-accent-darker">Tags</label>
+            </div>
+
+            <div>
+              <label className="font-semibold text-accent-darker">
+                Condition
+              </label>
+              <div>
+                <ConditionPill
+                  grading_company={props.grading_company}
+                  condition={props.condition}
+                />
+              </div>
+            </div>
+          </div>
+
           <div className="my-4">
-            {renderButton()}
-            <div className="my-8"></div>
-            <Link href={`/users/${props.accountId}`}>
-              <a>
-                <UserInfo {...props.seller} />
-              </a>
-            </Link>
+            <h5>Combined Shipping</h5>
+            {props.combined_shipping ? (
+              <div className=" text-accent-darker">
+                Each additonal item purchased from this seller will cost{" "}
+                {Number(props.combined_shipping).toLocaleString("en", {
+                  style: "currency",
+                  currency: "usd",
+                })}{" "}
+                for shipping.
+              </div>
+            ) : (
+              "Seller does not offer combined shipping for this item."
+            )}
+            <div className="font-semibold text-accent-darker">
+              {props.combined_shipping}
+            </div>
           </div>
+          <div className="my-8"></div>
+          <h5>Seller Information</h5>
+          <Link href={`/users/${props.accountId}`}>
+            <a>
+              <UserInfo {...props.seller} />
+            </a>
+          </Link>
         </InfoCard>
       </div>
       <InfoCard>
