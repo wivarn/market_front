@@ -1,5 +1,5 @@
 const defaultTitle = "Skwirl";
-const description = "The marketplace for modern collectors";
+const description = "The social marketplace for modern collectors";
 
 const SEO = {
   defaultTitle,
