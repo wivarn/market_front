@@ -1,7 +1,6 @@
 import {
   SmFacebookIcon,
   SmInstagramIcon,
-  SmRedditIcon,
   SmTwitterIcon,
   SmYoutubeIcon,
 } from "./icons";
@@ -20,11 +19,6 @@ export default function Footer(): JSX.Element {
             <li>
               <Link href="/">
                 <a className="hover:text-primary">Home</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/blog">
-                <a className="hover:text-primary">Blog</a>
               </Link>
             </li>
             <li>
@@ -53,11 +47,6 @@ export default function Footer(): JSX.Element {
           <IconButtonLinkLight
             url="https://www.facebook.com/skwirl.io"
             icon={<SmFacebookIcon />}
-            target="_blank"
-          />
-          <IconButtonLinkLight
-            url="https://www.reddit.com/r/Skwirl"
-            icon={<SmRedditIcon />}
             target="_blank"
           />
           <IconButtonLinkLight

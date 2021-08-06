@@ -27,7 +27,7 @@ export const BackButton = (props: Props): JSX.Element => {
   );
   if (props.href) {
     return (
-      <Link href={props.href} passHref>
+      <Link href={props.href}>
         <a>{backButton}</a>
       </Link>
     );

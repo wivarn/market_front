@@ -44,8 +44,7 @@ export default function ImageSlider(props: Props): JSX.Element {
   const settings: Settings = {
     dots: true,
     infinite: true,
-    lazyLoad: "ondemand",
-    speed: 500,
+    lazyLoad: "progressive",
     slidesToShow: 1,
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
