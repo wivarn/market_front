@@ -169,7 +169,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
         </InfoCard>
       </div>
       <InfoCard>
-        <h4 className="pb-2 text-center border-b ">Decription</h4>
+        <h4 className="pb-2 text-center border-b ">Description</h4>
         <div className="pt-4">{props.description}</div>
       </InfoCard>
       <InfoCard>
