@@ -113,7 +113,9 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
               </div>
             </div>
             <div>
-              <label>Sub-Category</label>
+              <label className="font-semibold text-accent-darker">
+                Sub-Category
+              </label>
               <div>
                 <Link
                   href={`/listings/search?category=${props.category}&subcategory=${props.subcategory}`}
