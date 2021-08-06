@@ -3,7 +3,6 @@ import Slider, { Settings } from "react-slick";
 
 import Image from "next/image";
 import { MouseEventHandler } from "react";
-import { SpinnerLg } from "components/spinner";
 
 export interface Props {
   imageMetas: { url: string }[];
@@ -57,10 +56,11 @@ export default function ImageSlider(props: Props): JSX.Element {
           <Image
             src={imageMeta.url}
             layout="fill"
+            placeholder="blur"
+            blurDataURL={imageMeta.url}
             objectFit="contain"
             className="z-10 rounded-md"
           />
-          <SpinnerLg />
         </div>
       </div>
     </div>

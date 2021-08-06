@@ -9,7 +9,7 @@ export default function Home(): JSX.Element {
   if (process.env.NEXT_PUBLIC_FEATURE_LAUNCHED != "true") return <Landing />;
 
   return (
-    <div>
+    <>
       <NextSeo title="Home" />
       <div className="w-full px-8 py-2 my-8 bg-gradient-to-t from-info via-info-dark to-info-darker text-accent-lightest">
         <div className="container mx-auto max-w-screen-2xl">
@@ -51,6 +51,6 @@ export default function Home(): JSX.Element {
           </div>
         </PageContainer>
       </div>
-    </div>
+    </>
   );
 }
