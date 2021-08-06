@@ -215,9 +215,13 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
   return (
     <div className="p-4">
       <PageContainer yPadding="py-2">
-        <BackButton text="Back to listings" href="/listings?state=active" />
+        <div className="absolute">
+          <BackButton text="Back to listings" href="/listings?state=active" />
+        </div>
         <div className="px-2">
-          <h3 className="p-2 text-center">Create a listing template</h3>
+          <h3 className="p-2 mt-8 text-center md:mt-0">
+            Create a listing template
+          </h3>
           <Formik
             initialValues={{
               category: props.category || "",

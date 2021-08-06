@@ -232,11 +232,13 @@ const ListingForm = (props: Listing): JSX.Element => {
   const initialValues = newListing ? { ...props, ...template } : props;
 
   return (
-    <div className="p-4">
+    <div className="p-4 ">
       <PageContainer yPadding="py-2">
-        <BackButton text="Back to listings" href="/listings?state=active" />
+        <div className="absolute">
+          <BackButton text="Back to listings" href="/listings?state=active" />
+        </div>
         <div className="px-2">
-          <h3 className="p-2 text-center">
+          <h3 className="p-2 mt-8 text-center md:mt-0">
             Enter the details for your listing
           </h3>
           <Formik
