@@ -38,7 +38,7 @@ export default function ShowListing(): JSX.Element {
           description: `${listing.description}`,
           images: [
             {
-              url: `${listing.photo[0].url}`,
+              url: `${listing.photos[0].url}`,
               alt: `${listing.title}`,
             },
           ],

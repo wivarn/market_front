@@ -30,7 +30,10 @@ export default function EditListing(): JSX.Element {
   const listing = response.data;
   return (
     <>
-      <NextSeo title="Update Listing" />
+      <NextSeo
+        title="Update Listing"
+        canonical={`https://skwirl.io/listings/${listing.id}`}
+      />
       <ListingForm
         id={listing.id}
         aasm_state={listing.aasm_state}

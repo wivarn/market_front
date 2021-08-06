@@ -1,3 +1,4 @@
+import { Description } from "@headlessui/react/dist/components/description/description";
 import Landing from "components/landing";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
@@ -10,7 +11,26 @@ export default function Home(): JSX.Element {
 
   return (
     <>
-      <NextSeo title="Home" />
+      <NextSeo
+        title="Home"
+        openGraph={{
+          url: "https://skwirl.io",
+          title: "Skwirl",
+          description: "The social marketplace for modern collectors",
+          images: [
+            {
+              url: "/assets/hero-cards.svg",
+              alt: "Skwirl Collector Marketplace",
+            },
+          ],
+          site_name: "Skwirl",
+        }}
+        twitter={{
+          handle: "@skwirl_io",
+          site: "@skwirl",
+          cardType: "summary_large_image",
+        }}
+      />
       <div className="w-full px-8 py-2 my-8 bg-gradient-to-t from-info via-info-dark to-info-darker text-accent-lightest">
         <div className="container mx-auto max-w-screen-2xl">
           <h4 className="mt-8 text-white">
