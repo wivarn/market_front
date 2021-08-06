@@ -8,6 +8,7 @@ import { InfoCard } from "./infoCard";
 import Link from "next/link";
 import { PrimaryButtonFull } from "components/buttons";
 import { UserInfo } from "components/user";
+import { categoryList } from "constants/listings";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
@@ -28,7 +29,6 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
       addressLoading: !error && !data,
     };
   }
-
   const { addressResponse, addressLoading } = getAddress();
   const address = addressResponse?.data;
   const noAddress = addressLoading ? true : !Object.keys(address).length;
@@ -77,36 +77,75 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
           <h2 className="pb-2 mt-2 mb-8 text-2xl border-b md:text-3xl">
             {props.title}
           </h2>
-          <span className="text-xl font-semibold md:text-2xl text-accent-darker">
-            {Number(props.price).toLocaleString("en", {
-              style: "currency",
-              currency: "usd",
-            })}{" "}
-          </span>
-          <span className="text-md text-accent-darker">{props.currency}</span>
-          <span className="ml-8">
-            <ConditionPill
-              grading_company={props.grading_company}
-              condition={props.condition}
-            />
-          </span>
-          <div className="text-sm leading-none text-accent-dark">
-            +
-            {Number(props.domestic_shipping).toLocaleString("en", {
-              style: "currency",
-              currency: "usd",
-            })}{" "}
-            Shipping
+          <div className="grid grid-cols-2">
+            <div className="mb-8">
+              <label className="font-semibold text-accent-darker">
+                Category
+              </label>
+              <div>
+                <Link href={`//listings/search?category=${props.category}`}>
+                  <a className="underline text-info hover:text-primary">
+                    {props.category}
+                  </a>
+                </Link>
+              </div>
+            </div>
+            <div>
+              <label>Sub-Category</label>
+              <div>
+                <Link
+                  href={`//listings/search?category=${props.category}&subcategory=${props.subcategory}`}
+                >
+                  <a className="underline text-info hover:text-primary">
+                    {props.subcategory}
+                  </a>
+                </Link>
+              </div>
+            </div>
+            <div>
+              <span className="text-xl font-semibold md:text-2xl text-accent-darker">
+                {Number(props.price).toLocaleString("en", {
+                  style: "currency",
+                  currency: "usd",
+                })}{" "}
+              </span>
+              <span className="text-md text-accent-darker">
+                {props.currency}
+              </span>
+              <div className="text-sm leading-none text-accent-dark">
+                +
+                {Number(props.domestic_shipping).toLocaleString("en", {
+                  style: "currency",
+                  currency: "usd",
+                })}{" "}
+                Shipping
+              </div>
+            </div>
+            <div>
+              <label className="font-semibold text-accent-darker">
+                Condition
+              </label>
+              <div>
+                <ConditionPill
+                  grading_company={props.grading_company}
+                  condition={props.condition}
+                />
+              </div>
+            </div>
           </div>
-          <div className="my-4">
-            {renderButton()}
-            <div className="my-8"></div>
-            <Link href={`/users/${props.accountId}`}>
-              <a>
-                <UserInfo {...props.seller} />
-              </a>
-            </Link>
+
+          <div className="my-4">{renderButton()}</div>
+          <h5 className="my-4">Combined Shipping</h5>
+          <div className="font-semibold text-accent-darker">
+            {props.combined_shipping}
           </div>
+          <div className="my-8"></div>
+          <h5>Seller Information</h5>
+          <Link href={`/users/${props.accountId}`}>
+            <a>
+              <UserInfo {...props.seller} />
+            </a>
+          </Link>
         </InfoCard>
       </div>
       <InfoCard>

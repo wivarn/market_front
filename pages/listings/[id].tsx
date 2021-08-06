@@ -33,6 +33,8 @@ export default function ShowListing(): JSX.Element {
         <BackButton text="Back" />
         <NextSeo title={listing.title} />
         <ListingDetails
+          category={listing.category}
+          subcategory={listing.subcategory}
           seller={listing.account}
           id={listing.id}
           aasm_state={listing.aasm_state}
