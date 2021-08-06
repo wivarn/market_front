@@ -77,7 +77,7 @@ export const DropDown = (): JSX.Element => {
                   place="bottom"
                   effect="solid"
                 >
-                  Accout
+                  Account
                 </ReactTooltip>
               </div>
             </Menu.Button>
