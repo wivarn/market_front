@@ -57,7 +57,7 @@ export default function AccountContainer({
               tab="payments"
               activeTab={activeTab}
             >
-              Payments
+              Settings
             </LinkWrapper>
           </div>
         </div>

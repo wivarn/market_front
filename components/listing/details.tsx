@@ -100,7 +100,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
           </div>
           <div className="my-4">{renderButton()}</div>
           <div className="grid grid-cols-1 my-4 space-y-4 sm:grid-cols-2">
-            <div>
+            <div className="mt-4">
               <label className="font-semibold text-accent-darker">
                 Category
               </label>
@@ -113,7 +113,9 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
               </div>
             </div>
             <div>
-              <label>Sub-Category</label>
+              <label className="font-semibold text-accent-darker">
+                Sub-Category
+              </label>
               <div>
                 <Link
                   href={`/listings/search?category=${props.category}&subcategory=${props.subcategory}`}
@@ -169,7 +171,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
         </InfoCard>
       </div>
       <InfoCard>
-        <h4 className="pb-2 text-center border-b ">Decription</h4>
+        <h4 className="pb-2 text-center border-b ">Description</h4>
         <div className="pt-4">{props.description}</div>
       </InfoCard>
       <InfoCard>
