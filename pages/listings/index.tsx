@@ -4,7 +4,6 @@ import ListingPreviewGrid from "components/listing/previewGrid";
 import ListingTabs from "components/listing/tabs";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
-import { PrimaryButton } from "components/buttons";
 import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
@@ -43,7 +42,6 @@ export default function Listings(): JSX.Element {
       return (
         <BlankMessage>
           <div className="p-2">You have no {state} listings.</div>
-          <PrimaryButton href="/listings/new" text="Create New Listing" />
         </BlankMessage>
       );
 
