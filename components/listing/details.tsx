@@ -71,18 +71,36 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
   }
   return (
     <div className="container p-2 mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="my-2 lg:px-4">
+      <div className="grid grid-cols-1 xl:grid-cols-2">
+        <div className="my-4 lg:px-4">
           {props.photos.length ? (
             <ImageSlider imageMetas={props.photos} />
           ) : null}
         </div>
         <InfoCard>
-          <h2 className="pb-2 mt-2 mb-8 text-2xl border-b md:text-3xl">
+          <h2 className="pb-2 mt-2 mb-4 text-lg border-b sm:text-xl md:text-2xl">
             {props.title}
           </h2>
-          <div className="grid grid-cols-2">
-            <div className="mb-8">
+          <div>
+            <span className="text-xl font-semibold md:text-2xl text-accent-darker">
+              {Number(props.price).toLocaleString("en", {
+                style: "currency",
+                currency: "usd",
+              })}{" "}
+            </span>
+            <span className="text-md text-accent-darker">{props.currency}</span>
+            <div className="text-sm leading-none text-accent-dark">
+              +
+              {Number(props.domestic_shipping).toLocaleString("en", {
+                style: "currency",
+                currency: "usd",
+              })}{" "}
+              Shipping
+            </div>
+          </div>
+          <div className="my-4">{renderButton()}</div>
+          <div className="grid grid-cols-1 my-4 space-y-4 sm:grid-cols-2">
+            <div>
               <label className="font-semibold text-accent-darker">
                 Category
               </label>
@@ -107,24 +125,9 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
               </div>
             </div>
             <div>
-              <span className="text-xl font-semibold md:text-2xl text-accent-darker">
-                {Number(props.price).toLocaleString("en", {
-                  style: "currency",
-                  currency: "usd",
-                })}{" "}
-              </span>
-              <span className="text-md text-accent-darker">
-                {props.currency}
-              </span>
-              <div className="text-sm leading-none text-accent-dark">
-                +
-                {Number(props.domestic_shipping).toLocaleString("en", {
-                  style: "currency",
-                  currency: "usd",
-                })}{" "}
-                Shipping
-              </div>
+              <label className="font-semibold text-accent-darker">Tags</label>
             </div>
+
             <div>
               <label className="font-semibold text-accent-darker">
                 Condition
@@ -138,10 +141,23 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
             </div>
           </div>
 
-          <div className="my-4">{renderButton()}</div>
-          <h5 className="my-4">Combined Shipping</h5>
-          <div className="font-semibold text-accent-darker">
-            {props.combined_shipping}
+          <div className="my-4">
+            <h5>Combined Shipping</h5>
+            {props.combined_shipping ? (
+              <div className=" text-accent-darker">
+                Each additonal item purchased from this seller will cost{" "}
+                {Number(props.combined_shipping).toLocaleString("en", {
+                  style: "currency",
+                  currency: "usd",
+                })}{" "}
+                for shipping.
+              </div>
+            ) : (
+              "Seller does not offer combined shipping for this item."
+            )}
+            <div className="font-semibold text-accent-darker">
+              {props.combined_shipping}
+            </div>
           </div>
           <div className="my-8"></div>
           <h5>Seller Information</h5>
