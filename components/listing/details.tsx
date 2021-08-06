@@ -32,6 +32,10 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
   const { addressResponse, addressLoading } = getAddress();
   const address = addressResponse?.data;
   const noAddress = addressLoading ? true : !Object.keys(address).length;
+  const category = categoryList.find((c) => c.value == props.category);
+  const subCategory = category?.subCategory.find(
+    (s) => s.value == props.subcategory
+  );
 
   async function addItem() {
     CartApi(session?.accessToken)
@@ -83,9 +87,9 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
                 Category
               </label>
               <div>
-                <Link href={`//listings/search?category=${props.category}`}>
+                <Link href={`/listings/search?category=${props.category}`}>
                   <a className="underline text-info hover:text-primary">
-                    {props.category}
+                    {category?.text}
                   </a>
                 </Link>
               </div>
@@ -94,10 +98,10 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
               <label>Sub-Category</label>
               <div>
                 <Link
-                  href={`//listings/search?category=${props.category}&subcategory=${props.subcategory}`}
+                  href={`/listings/search?category=${props.category}&subcategory=${props.subcategory}`}
                 >
                   <a className="underline text-info hover:text-primary">
-                    {props.subcategory}
+                    {subCategory?.text}
                   </a>
                 </Link>
               </div>
