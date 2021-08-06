@@ -35,6 +35,7 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
               fetcher: fetcher,
               revalidateOnFocus: false,
               revalidateOnReconnect: false,
+              revalidateOnMount: false,
             }}
           >
             <Layout>
