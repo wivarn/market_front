@@ -7,6 +7,8 @@ export const CartApi = (
   index: () => Promise<AxiosResponse<any>>;
   addItem: (sellerId: string, listingId: string) => Promise<AxiosResponse<any>>;
   checkout: (sellerId: string) => Promise<AxiosResponse<any>>;
+  empty: (sellerId: string) => Promise<AxiosResponse<any>>;
+  emptyAll: () => Promise<AxiosResponse<any>>;
 } => {
   const index = async () => {
     return base.get("carts", {
@@ -36,5 +38,17 @@ export const CartApi = (
     );
   };
 
-  return { index, addItem, checkout };
+  const empty = async (sellerId: string) => {
+    return base.delete(`carts/${sellerId}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  };
+
+  const emptyAll = async () => {
+    return base.delete("carts/empty_all", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  };
+
+  return { index, addItem, checkout, empty, emptyAll };
 };
