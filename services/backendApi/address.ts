@@ -1,12 +1,12 @@
-import { Address } from "types/account";
 import { AxiosResponse } from "axios";
+import { IAddress } from "types/account";
 import { base } from "./base";
 
 export const AddressApi = (
   accessToken?: string
 ): {
   get: () => Promise<AxiosResponse<any>>;
-  update: (address: Address) => Promise<AxiosResponse<any>>;
+  update: (address: IAddress) => Promise<AxiosResponse<any>>;
 } => {
   const get = async () => {
     return base.get("account/address", {
@@ -14,7 +14,7 @@ export const AddressApi = (
     });
   };
 
-  const update = async (address: Address) => {
+  const update = async (address: IAddress) => {
     return base.post(
       "account/address",
       {

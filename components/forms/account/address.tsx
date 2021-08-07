@@ -2,19 +2,21 @@ import * as Yup from "yup";
 
 import { DropdownCombobox, TextFieldFull } from "../fields";
 import { Form, Formik, FormikProps } from "formik";
+import { GenericErrorMessage, InfoMessage } from "components/message";
 import { countryList, provinceList, stateList } from "constants/address";
-import useSWR, { mutate } from "swr";
-import { InfoMessage, GenericErrorMessage } from "components/message";
-import { Address } from "types/account";
+
 import { AddressApi } from "services/backendApi/address";
 import FormContainer from "../container";
+import { IAddress } from "types/account";
+import Link from "next/link";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
 import { createRef } from "react";
 import { toast } from "react-toastify";
-import { useSession } from "next-auth/client";
-import Link from "next/link";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/client";
+import { useState } from "react";
 
 const addressSchema = Yup.object().shape({
   street1: Yup.string()
@@ -126,7 +128,7 @@ function zipField(country: string) {
   );
 }
 
-function trimValues(values: Address) {
+function trimValues(values: IAddress) {
   values.street1 = values.street1.trim();
   values.street2 = values.street2?.trim();
   values.city = values.city.trim();
@@ -138,25 +140,23 @@ function trimValues(values: Address) {
 export default function AddressForm(): JSX.Element {
   const [session, sessionLoading] = useSession();
   const router = useRouter();
+  const [address, setAddress] = useState<IAddress | null>(null);
+  const [error, setError] = useState(false);
 
-  function getAddress() {
-    const { data, error } = useSWR(
-      session ? ["account/address", session.accessToken] : null
-    );
+  useEffect(() => {
+    if (sessionLoading) return;
+    AddressApi(session?.accessToken)
+      .get()
+      .then((addressResponse) => {
+        setAddress(addressResponse.data);
+      })
+      .catch(() => {
+        setError(true);
+      });
+  }, [sessionLoading]);
 
-    return {
-      addressResponse: data,
-      isLoading: !error && !data,
-      isError: error,
-    };
-  }
-
-  const { addressResponse, isLoading, isError } = getAddress();
-
-  if (isLoading || sessionLoading) return <SpinnerLg text="Loading..." />;
-  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
-
-  const address = addressResponse.data;
+  if (sessionLoading || !address) return <SpinnerLg text="Loading..." />;
+  if (error) return <GenericErrorMessage></GenericErrorMessage>;
   const noAddress = !Object.keys(address).length;
 
   return (
@@ -177,7 +177,6 @@ export default function AddressForm(): JSX.Element {
             .update(trimValues(values))
             .then(() => {
               toast.success("Your address has been updated");
-              mutate(["account/address", session?.accessToken]);
               if (noAddress) {
                 router.push("/account/payments");
               }

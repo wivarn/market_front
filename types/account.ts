@@ -11,7 +11,7 @@ export interface Account extends Profile {
   passwordConfirmation: string;
 }
 
-export interface Address {
+export interface IAddress {
   street1: string;
   street2?: string;
   city: string;
