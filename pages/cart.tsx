@@ -1,4 +1,5 @@
 import { ICart, ICartListing } from "types/listings";
+import useSWR, { mutate } from "swr";
 
 import { CartApi } from "services/backendApi/cart";
 import { GenericErrorMessage } from "components/message";
@@ -8,7 +9,7 @@ import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
-import useSWR from "swr";
+import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
 
 export default function Cart(): JSX.Element {
@@ -46,6 +47,24 @@ export default function Cart(): JSX.Element {
       });
   }
 
+  async function empty(sellerId: string) {
+    CartApi(session?.accessToken)
+      .empty(sellerId)
+      .then(() => {
+        toast.success("Cart is emptied");
+        mutate(["carts", session?.accessToken]);
+      });
+  }
+
+  async function emptyAll() {
+    CartApi(session?.accessToken)
+      .emptyAll()
+      .then(() => {
+        toast.success("All carts are emptied");
+        mutate(["carts", session?.accessToken]);
+      });
+  }
+
   const { cartResponse, loadingCart, cartError } = getCart();
   const { addressLoading, addressError } = getAddress();
 
@@ -61,6 +80,7 @@ export default function Cart(): JSX.Element {
 
       <PageContainer>
         <h3 className="pb-2 text-center">Your Cart</h3>
+        <SubmitButton text="Empty All Carts" onClick={() => emptyAll()} />
         {carts.map((cart: ICart) => {
           return (
             <div
@@ -101,6 +121,10 @@ export default function Cart(): JSX.Element {
                   <SubmitButton
                     text="Checkout"
                     onClick={() => checkout(cart.seller_id)}
+                  />
+                  <SubmitButton
+                    text="Empty"
+                    onClick={() => empty(cart.seller_id)}
                   />
                 </div>
               </div>
