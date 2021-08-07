@@ -5,6 +5,7 @@ import { base } from "./base";
 export const ProfileApi = (
   accessToken?: string
 ): {
+  get: () => Promise<AxiosResponse<any>>;
   update: (
     formData: FormData,
     picture?: string | Blob
@@ -12,6 +13,12 @@ export const ProfileApi = (
   uploadPictureCredentials: () => Promise<AxiosResponse<any>>;
   updatePictureKey: (key: string) => Promise<AxiosResponse<any>>;
 } => {
+  const get = async () => {
+    return base.get("account/profile", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  };
+
   const update = async (formData: FormData, picture?: string | Blob) => {
     if (process.env.NEXT_PUBLIC_VERCEL_URL) {
       return base
@@ -62,5 +69,5 @@ export const ProfileApi = (
     );
   };
 
-  return { update, uploadPictureCredentials, updatePictureKey };
+  return { get, update, uploadPictureCredentials, updatePictureKey };
 };

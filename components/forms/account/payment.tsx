@@ -2,10 +2,11 @@ import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
 import { GenericErrorMessage, InfoMessage } from "components/message";
-import useSWR, { mutate } from "swr";
+import { useEffect, useState } from "react";
 
 import { DropdownCombobox } from "../fields";
 import FormContainer from "../container";
+import { IProfile } from "types/account";
 import Link from "next/link";
 import { ProfileApi } from "services/backendApi/profile";
 import { SpinnerLg } from "components/spinner";
@@ -30,40 +31,39 @@ const paymentSchema = Yup.object().shape({
 });
 
 export default function PaymentForm(): JSX.Element {
-  const [session, loading] = useSession();
+  const [session, sessionLoading] = useSession();
+  const [profile, setProfile] = useState<IProfile | null>(null);
+  const [error, setError] = useState(false);
 
-  function getProfile() {
-    const { data, error } = useSWR(
-      session ? ["account/profile", session.accessToken] : null
-    );
+  useEffect(() => {
+    if (sessionLoading) return;
+    ProfileApi(session?.accessToken)
+      .get()
+      .then((profileResponse) => {
+        setProfile(profileResponse.data);
+      })
+      .catch(() => {
+        setError(true);
+      });
+  }, [sessionLoading]);
 
-    return {
-      profile: data,
-      isLoading: !error && !data,
-      isError: error,
-    };
-  }
-
-  const { profile, isLoading, isError } = getProfile();
-
-  if (isLoading || loading) return <SpinnerLg text="Loading..." />;
-  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
+  if (sessionLoading || !profile) return <SpinnerLg text="Loading..." />;
+  if (error) return <GenericErrorMessage />;
 
   return (
     <FormContainer>
       <Formik
         initialValues={{
-          currency: profile.data.currency,
+          currency: profile.currency,
         }}
         validationSchema={paymentSchema}
         onSubmit={(values, actions) => {
           const formData = new FormData();
-          formData.append("currency", values.currency);
+          formData.append("currency", `${values.currency}`);
           ProfileApi(session?.accessToken)
             .update(formData)
             .then(() => {
               toast.success("Your listing currency has been updated");
-              mutate(["account/profile", session?.accessToken]);
             })
             .finally(() => {
               actions.setSubmitting(false);

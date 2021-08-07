@@ -1,36 +1,35 @@
+import { GenericErrorMessage, InfoMessage } from "components/message";
+import { useEffect, useState } from "react";
+
 import AccountContainer from "components/accountContainer";
-import { InfoMessage } from "components/message";
 import Link from "next/link";
 import { NextSeo } from "next-seo";
 import { PaymentApi } from "services/backendApi/payment";
 import PaymentForm from "components/forms/account/payment";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
-import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
-export default function profile(): JSX.Element {
-  const [session, loading] = useSession();
+export default function payments(): JSX.Element {
+  const [session, sessionLoading] = useSession();
+  // TODO: add payment type
+  const [stripeAccount, setStripeAccount] = useState<any>(null);
+  const [error, setError] = useState(false);
 
-  function getPayment() {
-    const { data, error } = useSWR(
-      session ? ["account/payments", session.accessToken] : null
-    );
+  useEffect(() => {
+    if (sessionLoading) return;
+    PaymentApi(session?.accessToken)
+      .get()
+      .then((paymentResponse) => {
+        setStripeAccount(paymentResponse.data);
+      })
+      .catch(() => {
+        setError(true);
+      });
+  }, [sessionLoading]);
 
-    return {
-      response: data,
-      isLoading: !error && !data,
-      error: error,
-    };
-  }
-
-  const { response, isLoading, error } = getPayment();
-
-  if (isLoading || loading) return <SpinnerLg text="Loading..." />;
-  // TODO: render an error message about existing stripe connection being disconnected
-  // if (error) return <div>Error</div>;
-
-  const stripeAccount = error ? {} : response.data;
+  if (sessionLoading || !stripeAccount) return <SpinnerLg text="Loading..." />;
+  if (error) return <GenericErrorMessage />;
 
   function renderConnectButton() {
     if (stripeAccount.charges_enabled) {

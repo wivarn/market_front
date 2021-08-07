@@ -1,12 +1,12 @@
 import * as Yup from "yup";
 
-import { DropdownCombobox, PictureField, TextFieldFull } from "../fields";
 import { Form, Formik } from "formik";
-import React, { useState } from "react";
-import useSWR, { mutate } from "swr";
+import { PictureField, TextFieldFull } from "../fields";
+import React, { useEffect, useState } from "react";
 
 import FormContainer from "../container";
 import { GenericErrorMessage } from "components/message";
+import { IAccount } from "types/account";
 import Link from "next/link";
 import { ProfileApi } from "services/backendApi/profile";
 import ReactTooltip from "react-tooltip";
@@ -70,49 +70,44 @@ const emailLabel = () => {
 };
 
 export default function ProfileForm(): JSX.Element {
-  const [session, loading] = useSession();
+  const [session, sessionLoading] = useSession();
   const [imageData, setImageData] = useState<string | Blob>("");
+  const [profile, setProfile] = useState<IAccount | null>(null);
+  const [error, setError] = useState(false);
 
-  function getProfile() {
-    const { data, error } = useSWR(
-      session ? ["account/profile", session.accessToken] : null
-    );
+  useEffect(() => {
+    if (sessionLoading) return;
+    ProfileApi(session?.accessToken)
+      .get()
+      .then((profileResponse) => {
+        setProfile(profileResponse.data);
+      })
+      .catch(() => {
+        setError(true);
+      });
+  }, [sessionLoading]);
 
-    return {
-      profileResponse: data,
-      isLoading: !error && !data,
-      isError: error,
-    };
-  }
-
-  const { profileResponse, isLoading, isError } = getProfile();
-
-  if (isLoading || loading) return <SpinnerLg text="Loading..." />;
-  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
-
-  const profile = profileResponse.data;
+  if (sessionLoading || !profile) return <SpinnerLg text="Loading..." />;
+  if (error) return <GenericErrorMessage />;
 
   return (
     <FormContainer>
       <Formik
         initialValues={{
-          givenName: profile.given_name,
-          familyName: profile.family_name,
-          currency: profile.currency,
+          given_name: profile.given_name,
+          family_name: profile.family_name,
           email: profile.email,
           phoneNumber: profile.phone_number,
         }}
         validationSchema={profileSchema}
         onSubmit={(values, actions) => {
           const formData = new FormData();
-          formData.append("given_name", values.givenName);
-          formData.append("family_name", values.familyName);
-          formData.append("currency", values.currency);
+          formData.append("given_name", `${values.given_name}`);
+          formData.append("family_name", `${values.family_name}`);
           ProfileApi(session?.accessToken)
             .update(formData, imageData)
             .then(() => {
               toast.success("Your profile has been updated");
-              mutate(["account/profile", session?.accessToken]);
             })
             .finally(() => {
               actions.setSubmitting(false);
@@ -124,18 +119,13 @@ export default function ProfileForm(): JSX.Element {
             <div className="my-2 space-y-2">
               <TextFieldFull
                 label="First Name"
-                name="givenName"
+                name="given_name"
                 id={`${idPrefix}givenName`}
               />
               <TextFieldFull
                 label="Last Name"
-                name="familyName"
+                name="family_name"
                 id={`${idPrefix}familyName`}
-              />
-              <DropdownCombobox
-                label="Currency"
-                name="currency"
-                items={currencyList}
               />
 
               <TextFieldFull

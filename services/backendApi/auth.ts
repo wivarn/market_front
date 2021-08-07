@@ -1,5 +1,5 @@
-import { Account } from "types/account";
 import { AxiosResponse } from "axios";
+import { IAccount } from "types/account";
 import { base } from "./base";
 
 export const AuthApi = (
@@ -7,7 +7,7 @@ export const AuthApi = (
 ): {
   login: (login: string, password: string) => Promise<AxiosResponse<any>>;
   logout: () => Promise<AxiosResponse<any>>;
-  createAccount: (account: Account) => Promise<AxiosResponse<any>>;
+  createAccount: (account: IAccount) => Promise<AxiosResponse<any>>;
   refreshToken: (refreshToken: string) => Promise<AxiosResponse<any>>;
   verifyAccount: (key: string) => Promise<AxiosResponse<any>>;
   passwordResetRequest: (email: string) => Promise<AxiosResponse<any>>;
@@ -36,11 +36,11 @@ export const AuthApi = (
     );
   };
 
-  const createAccount = async (account: Account) => {
+  const createAccount = async (account: IAccount) => {
     return await base.post("/auth/create-account", {
       login: account.email,
-      given_name: account.givenName,
-      family_name: account.familyName,
+      given_name: account.given_name,
+      family_name: account.family_name,
       password: account.password,
       "password-confirm": account.passwordConfirmation,
     });

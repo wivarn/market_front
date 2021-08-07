@@ -156,7 +156,7 @@ export default function AddressForm(): JSX.Element {
   }, [sessionLoading]);
 
   if (sessionLoading || !address) return <SpinnerLg text="Loading..." />;
-  if (error) return <GenericErrorMessage></GenericErrorMessage>;
+  if (error) return <GenericErrorMessage />;
   const noAddress = !Object.keys(address).length;
 
   return (

@@ -2,9 +2,9 @@ import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
 
-import { Account } from "types/account";
 import { AuthApi } from "services/backendApi/auth";
 import AuthFormContainer from "./container";
+import { IAccount } from "types/account";
 import { SecondaryButton } from "components/buttons";
 import { SubmitButtonFull } from "components/buttons";
 import { TextFieldFull } from "../fields";
@@ -45,13 +45,13 @@ export default function CreateAccountForm(): JSX.Element {
           <Formik
             initialValues={{
               email: "",
-              givenName: "",
-              familyName: "",
+              given_name: "",
+              family_name: "",
               password: "",
               passwordConfirmation: "",
             }}
             validationSchema={createAccountSchema}
-            onSubmit={(account: Account, actions) => {
+            onSubmit={(account: IAccount, actions) => {
               AuthApi()
                 .createAccount(account)
                 .then((response) => {

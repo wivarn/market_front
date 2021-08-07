@@ -1,11 +1,12 @@
-export interface Profile {
-  givenName?: string;
-  familyName?: string;
+export interface IProfile {
+  given_name?: string;
+  family_name?: string;
   currency?: string;
-  pictureData?: FormData;
+  picture: { url: string };
+  phone_number?: string;
 }
 
-export interface Account extends Profile {
+export interface IAccount extends IProfile {
   email: string;
   password: string;
   passwordConfirmation: string;

@@ -4,8 +4,15 @@ import { base } from "./base";
 export const PaymentApi = (
   accessToken?: string
 ): {
+  get: () => Promise<AxiosResponse<any>>;
   linkAccount: () => Promise<AxiosResponse<any>>;
 } => {
+  const get = async () => {
+    return base.get("account/payments", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  };
+
   const linkAccount = async () => {
     return base.post(
       "account/payments/link_account",
@@ -16,5 +23,5 @@ export const PaymentApi = (
     );
   };
 
-  return { linkAccount };
+  return { get, linkAccount };
 };
