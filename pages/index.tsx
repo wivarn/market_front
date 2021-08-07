@@ -20,7 +20,7 @@ export default function Home(): JSX.Element {
         />
         <meta
           property="og:image"
-          content="https://skwirl.io/assets/hero-cards.svg"
+          content="https://the.community.club/images/eXc7vhG5nxrA7X2J_N0N9SQKarocvgHuaXSf1booidg/s:1000:420/mb:500000/aHR0cHM6Ly90aGUu/Y29tbXVuaXR5LmNs/dWIvcmVtb3RlaW1h/Z2VzL3VwbG9hZHMv/YXJ0aWNsZXMvM3ly/OHZmc3NxYnhodGo1/amZja2wucG5n"
         />
         <meta property="og:url" content="http://skwirl.io" />
       </Head>
