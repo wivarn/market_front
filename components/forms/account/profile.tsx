@@ -16,28 +16,15 @@ import { SubmitButtonFull } from "components/buttons";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
 
-const currencyList = [
-  { value: "CAD", text: "CAD" },
-  { value: "USD", text: "USD" },
-];
-
 const profileSchema = Yup.object().shape({
-  givenName: Yup.string()
+  given_name: Yup.string()
     .min(1, "Must be 1 or more characters")
     .max(256, "Must be at most 256 characters")
     .required("First name is required"),
-  familyName: Yup.string()
+  family_name: Yup.string()
     .min(1, "Must be 1 or more characters")
     .max(256, "Must be at most 256 characters")
     .required("Last name is required"),
-  currency: Yup.mixed()
-    .oneOf(
-      currencyList.map((currency) => {
-        return currency.value;
-      }),
-      "invalid currency"
-    )
-    .required("Currency is required"),
   picture: Yup.string().matches(/^.*\.(jpg|jpeg|png|webp)$/i, {
     message: "Picture must be jpg, jpeg, png or webp",
     excludeEmptyString: true,
