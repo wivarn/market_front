@@ -4,6 +4,7 @@ import { base } from "./base";
 export const OrderApi = (
   accessToken?: string
 ): {
+  purchases: () => Promise<AxiosResponse<any>>;
   update: (
     relation: string,
     id: string,
@@ -15,6 +16,12 @@ export const OrderApi = (
     state_transition: string
   ) => Promise<AxiosResponse<any>>;
 } => {
+  const purchases = async () => {
+    return base.get("orders?view=purchases", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  };
+
   const update = async (relation: string, id: string, tracking: string) => {
     return base.post(
       `orders/${id}`,
@@ -45,5 +52,5 @@ export const OrderApi = (
     );
   };
 
-  return { update, updateState };
+  return { purchases, update, updateState };
 };

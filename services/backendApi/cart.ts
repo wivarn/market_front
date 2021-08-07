@@ -4,9 +4,16 @@ import { base } from "./base";
 export const CartApi = (
   accessToken?: string
 ): {
+  index: () => Promise<AxiosResponse<any>>;
   addItem: (sellerId: string, listingId: string) => Promise<AxiosResponse<any>>;
   checkout: (sellerId: string) => Promise<AxiosResponse<any>>;
 } => {
+  const index = async () => {
+    return base.get("carts", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  };
+
   const addItem = async (sellerId: string, listingId: string) => {
     return base.post(
       `carts/${sellerId}/add_item`,
@@ -29,5 +36,5 @@ export const CartApi = (
     );
   };
 
-  return { addItem, checkout };
+  return { index, addItem, checkout };
 };

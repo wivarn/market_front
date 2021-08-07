@@ -1,4 +1,5 @@
 import { ICart, ICartListing } from "types/listings";
+import { useEffect, useState } from "react";
 
 import { CartApi } from "services/backendApi/cart";
 import { GenericErrorMessage } from "components/message";
@@ -8,35 +9,24 @@ import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
-import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
 export default function Cart(): JSX.Element {
   const [session, sessionLoading] = useSession();
+  const [carts, setCarts] = useState<any>(null);
+  const [error, setError] = useState(false);
 
-  function getCart() {
-    const { data, error } = useSWR(
-      session ? ["carts", session.accessToken] : null
-    );
-
-    return {
-      cartResponse: data,
-      loadingCart: !error && !data,
-      cartError: error,
-    };
-  }
-
-  function getAddress() {
-    const { data, error } = useSWR(
-      session ? ["account/address", session.accessToken] : null
-    );
-
-    return {
-      addressResponse: data,
-      addressLoading: !error && !data,
-      addressError: error,
-    };
-  }
+  useEffect(() => {
+    if (sessionLoading) return;
+    CartApi(session?.accessToken)
+      .index()
+      .then((cartsResponse) => {
+        setCarts(cartsResponse.data);
+      })
+      .catch(() => {
+        setError(true);
+      });
+  }, [sessionLoading]);
 
   async function checkout(sellerId: string) {
     CartApi(session?.accessToken)
@@ -46,14 +36,8 @@ export default function Cart(): JSX.Element {
       });
   }
 
-  const { cartResponse, loadingCart, cartError } = getCart();
-  const { addressLoading, addressError } = getAddress();
-
-  if (sessionLoading || loadingCart || addressLoading)
-    return <SpinnerLg text="Loading..." />;
-  if (cartError || addressError)
-    return <GenericErrorMessage></GenericErrorMessage>;
-  const carts = cartResponse.data;
+  if (sessionLoading || !carts) return <SpinnerLg text="Loading..." />;
+  if (error) return <GenericErrorMessage></GenericErrorMessage>;
 
   return (
     <div className="my-8">
