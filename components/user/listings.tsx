@@ -1,12 +1,12 @@
+import { IListing } from "types/listings";
 import Link from "next/link";
-import { Listing } from "types/listings";
 import ListingPreviewGrid from "components/listing/previewGrid";
 import SearchFilter from "components/forms/listing/searchFilter";
 import SearchSort from "components/forms/listing/searchSort";
 import { useRouter } from "next/router";
 
 interface PreviewProps {
-  listings: Listing[];
+  listings: IListing[];
 }
 
 interface ListingProps extends PreviewProps {

@@ -1,7 +1,7 @@
-import { BasicListing } from "types/listings";
 import { ConditionPill } from "./condition";
+import { IBasicListing } from "types/listings";
 
-const ListingBasicInfo = (props: BasicListing): JSX.Element => {
+const ListingBasicInfo = (props: IBasicListing): JSX.Element => {
   return (
     <div className="mt-1 mb-1">
       <div className="border-b h-14">

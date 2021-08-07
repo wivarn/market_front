@@ -1,12 +1,12 @@
 import { SmChevronLeftIcon, SmChevronRightIcon } from "components/icons";
 
-import { Listing } from "types/listings";
+import { IListing } from "types/listings";
 import { ListingPreviewTile } from "components/listing/preview";
 import ReactPaginate from "react-paginate";
 import { useRouter } from "next/router";
 
 interface Listings {
-  listings: Listing[];
+  listings: IListing[];
   totalPages?: number;
   initialPage?: number;
 }
@@ -46,7 +46,7 @@ const ListingPreviewGrid = ({
   return (
     <>
       <div className="grid grid-cols-1 gap-2 mb-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
-        {listings.map((listing: Listing) => {
+        {listings.map((listing: IListing) => {
           return (
             <ListingPreviewTile
               key={listing.id}

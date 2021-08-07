@@ -23,7 +23,7 @@ import useSWR, { mutate } from "swr";
 
 import { BackButton } from "components/buttons";
 import FormSection from "./section";
-import { ListingTemplate } from "types/listings";
+import { IListingTemplate } from "types/listings";
 import { ListingTemplateApi } from "services/backendApi/listingTemplate";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
@@ -165,7 +165,7 @@ function subCategoryCombobox(formik: FormikProps<any>) {
   );
 }
 
-const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
+const ListingTemplateForm = (props: IListingTemplate): JSX.Element => {
   const [session] = useSession();
   const [graded, setGraded] = useState(false);
   const router = useRouter();
@@ -237,7 +237,7 @@ const ListingTemplateForm = (props: ListingTemplate): JSX.Element => {
               combined_shipping: props.combined_shipping || "",
             }}
             validationSchema={listingSchema}
-            onSubmit={(values: ListingTemplate, actions) => {
+            onSubmit={(values: IListingTemplate, actions) => {
               Object.keys(values).forEach((key) => {
                 if (values[key] == "") {
                   values[key] = undefined;

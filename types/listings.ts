@@ -1,5 +1,5 @@
 import { IUser } from "types/user";
-export interface BasicListing {
+export interface IBasicListing {
   title: string;
   price: string | number;
   currency?: string;
@@ -9,7 +9,7 @@ export interface BasicListing {
   condition: string | number;
 }
 
-export interface Listing extends BasicListing {
+export interface IListing extends IBasicListing {
   category?: string;
   subcategory?: string;
   accountId?: string;
@@ -21,11 +21,11 @@ export interface Listing extends BasicListing {
   combined_shipping?: string | number | null;
 }
 
-export interface IListingWithSeller extends Listing {
+export interface IListingWithSeller extends IListing {
   seller: IUser;
 }
 
-export interface ListingTemplate {
+export interface IListingTemplate {
   [key: string]: string | number | undefined | boolean;
   category?: string;
   subcategory?: string;

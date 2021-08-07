@@ -28,7 +28,7 @@ import {
 import { createRef, useState } from "react";
 
 import FormSection from "./section";
-import { Listing } from "types/listings";
+import { IListing } from "types/listings";
 import { ListingApi } from "services/backendApi/listing";
 import { MultiPictureField } from "../fields";
 import PageContainer from "components/pageContainer";
@@ -77,7 +77,7 @@ function subCategoryCombobox(formik: FormikProps<any>) {
   );
 }
 
-const ListingForm = (props: Listing): JSX.Element => {
+const ListingForm = (props: IListing): JSX.Element => {
   const router = useRouter();
   const [session] = useSession();
   const [graded, setGraded] = useState(!!props.grading_company);
@@ -244,7 +244,7 @@ const ListingForm = (props: Listing): JSX.Element => {
           <Formik
             initialValues={initialValues}
             validationSchema={schema}
-            onSubmit={(values: Listing, actions) => {
+            onSubmit={(values: IListing, actions) => {
               const formData = new FormData();
               const requestValues = (({
                 category,

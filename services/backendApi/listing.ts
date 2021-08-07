@@ -1,13 +1,13 @@
 import axios, { AxiosResponse } from "axios";
 
-import { Listing } from "../../types/listings";
+import { IListing } from "../../types/listings";
 import { base } from "./base";
 
 export const ListingApi = (
   accessToken?: string
 ): {
   create: (formData: FormData, photos?: File[]) => Promise<AxiosResponse<any>>;
-  bulkCreate: (listings: Listing[]) => Promise<AxiosResponse<any>>;
+  bulkCreate: (listings: IListing[]) => Promise<AxiosResponse<any>>;
   update: (
     id: string,
     formData: FormData,
@@ -77,7 +77,7 @@ export const ListingApi = (
     }
   };
 
-  const bulkCreate = async (listings: Listing[]) => {
+  const bulkCreate = async (listings: IListing[]) => {
     return base.post(
       "listings/bulk_create",
       { listings: listings },

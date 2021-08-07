@@ -1,10 +1,10 @@
-import { ICartListing, Listing } from "types/listings";
+import { ICartListing, IListing } from "types/listings";
 
 import Image from "next/image";
 import Link from "next/link";
 import ListingBasicInfo from "./basicInfo";
 
-export const ListingPreviewTile = (props: Listing): JSX.Element => {
+export const ListingPreviewTile = (props: IListing): JSX.Element => {
   const href =
     props.aasm_state === "active"
       ? `/listings/${props.id}`

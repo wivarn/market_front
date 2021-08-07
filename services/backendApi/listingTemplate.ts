@@ -1,13 +1,13 @@
 import { AxiosResponse } from "axios";
-import { ListingTemplate } from "../../types/listings";
+import { IListingTemplate } from "../../types/listings";
 import { base } from "./base";
 
 export const ListingTemplateApi = (
   accessToken?: string
 ): {
-  update: (listing: ListingTemplate) => Promise<AxiosResponse<any>>;
+  update: (listing: IListingTemplate) => Promise<AxiosResponse<any>>;
 } => {
-  const update = async (listing: ListingTemplate) => {
+  const update = async (listing: IListingTemplate) => {
     return base.post(
       `account/listing_template`,
       {
