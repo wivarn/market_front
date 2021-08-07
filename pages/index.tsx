@@ -1,4 +1,3 @@
-import { Description } from "@headlessui/react/dist/components/description/description";
 import Landing from "components/landing";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
@@ -19,8 +18,7 @@ export default function Home(): JSX.Element {
           description: "The social marketplace for modern collectors",
           images: [
             {
-              url:
-                "https://images.unsplash.com/photo-1593642702909-dec73df255d7?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
+              url: "https://skwirl.io/assets/hero-cards.svg",
               alt: "Skwirl Collector Marketplace",
             },
           ],
