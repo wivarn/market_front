@@ -2,7 +2,7 @@ export interface IProfile {
   given_name?: string;
   family_name?: string;
   currency?: string;
-  picture: { url: string };
+  picture?: { url: string };
   phone_number?: string;
 }
 

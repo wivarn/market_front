@@ -77,13 +77,13 @@ export default function CreateAccountForm(): JSX.Element {
                   />
 
                   <TextFieldFull
-                    name="givenName"
-                    id={`${idPrefix}givenName`}
+                    name="given_name"
+                    id={`${idPrefix}given_name`}
                     label="First name"
                   />
                   <TextFieldFull
-                    name="familyName"
-                    id={`${idPrefix}familyName`}
+                    name="family_name"
+                    id={`${idPrefix}family_name`}
                     label="Last name"
                   />
 
