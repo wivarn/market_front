@@ -33,7 +33,8 @@ export default function ShowListing(): JSX.Element {
         title={listing.title}
         description={listing.description}
         openGraph={{
-          url: `https://skwirl.io/listings/${listing.id}`,
+          url:
+            "https://skwirlhouse1.ca/_next/image?url=https%3A%2F%2Fassets.skwirlhouse1.ca%2Fuploads%2Flisting%2Fphotos%2F67%2F6d3f2b3d-b47d-4089-beb9-99bf36f40889%2F4C56C128-840B-488F-A79B-4EDD7B7D817E.jpeg&w=1920&q=75",
           title: `${listing.title}`,
           description: `${listing.description}`,
           images: [
