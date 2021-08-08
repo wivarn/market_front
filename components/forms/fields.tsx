@@ -315,12 +315,12 @@ export const MultiPictureField = ({
         </label>
       ) : null}
       <div
-        className="grid items-center w-full grid-cols-1 py-2 mx-auto gap-x-4 lg:grid-cols-3 md:grid-cols-2"
+        className="items-center w-full grid-cols-1 py-2 mx-auto gap-x-4"
         {...getRootProps()}
       >
         <div className="relative w-full rounded-md">
           <input {...getInputProps()} />
-          <div className="py-4 text-center bg-white border-2 border-dashed rounded-md border-accent text-accent-darker">
+          <div className="py-12 text-center bg-white border-2 border-dashed rounded-md border-accent text-accent-darker">
             Drag and drop photos or click to upload.
           </div>
         </div>
