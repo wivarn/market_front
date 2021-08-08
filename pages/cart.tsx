@@ -14,6 +14,7 @@ import { useSession } from "next-auth/client";
 
 export default function Cart(): JSX.Element {
   const [session, sessionLoading] = useSession();
+  // TODO: add cart type
   const [carts, setCarts] = useState<any>(null);
   const [error, setError] = useState(false);
 
