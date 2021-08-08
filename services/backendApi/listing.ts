@@ -70,8 +70,6 @@ export const ListingApi = (
           formData.append("photos[]", photos[i]);
         }
       }
-      console.log(photos);
-      console.log(formData.getAll("photos[]"));
       return base.post("listings", formData, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
