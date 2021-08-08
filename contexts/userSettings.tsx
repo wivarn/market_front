@@ -9,6 +9,7 @@ import { useEffect } from "react";
 interface IUserSettingsContext {
   userSettings: IUserSettings;
   updateUserSettings: () => void;
+  resetUserSettings: () => void;
 }
 
 interface IUserSettings {
@@ -19,15 +20,20 @@ interface IUserSettings {
   listing_template: IListingTemplate;
 }
 
+const defaultSettings: IUserSettings = {
+  currency: "USD",
+  country: "USA",
+  address_set: false,
+  stripe_linked: false,
+  listing_template: {},
+};
+
 export const UserSettingsContext = createContext<IUserSettingsContext>({
-  userSettings: {
-    currency: "USD",
-    country: "USA",
-    address_set: false,
-    stripe_linked: false,
-    listing_template: {},
-  },
+  userSettings: defaultSettings,
   updateUserSettings: () => {
+    // empty
+  },
+  resetUserSettings: () => {
     // empty
   },
 });
@@ -38,13 +44,9 @@ export const UserSettingsProvider = ({
   children: React.ReactNode;
 }): JSX.Element => {
   const [session] = useSession();
-  const [userSettings, setUserSettings] = useState<IUserSettings>({
-    currency: "USD",
-    country: "USA",
-    address_set: false,
-    stripe_linked: false,
-    listing_template: {},
-  });
+  const [userSettings, setUserSettings] = useState<IUserSettings>(
+    defaultSettings
+  );
 
   const updateUserSettings = () => {
     getSession().then((session) => {
@@ -57,6 +59,10 @@ export const UserSettingsProvider = ({
     });
   };
 
+  const resetUserSettings = () => {
+    setUserSettings(defaultSettings);
+  };
+
   useEffect(() => {
     updateUserSettings();
   }, []);
@@ -67,6 +73,7 @@ export const UserSettingsProvider = ({
     if (session?.error) {
       signOut({ redirect: false, callbackUrl: "/" }).then(async () => {
         router.push("/");
+        resetUserSettings();
       });
     }
   }, [session]);
@@ -74,6 +81,7 @@ export const UserSettingsProvider = ({
   const contextProps: IUserSettingsContext = {
     userSettings: userSettings,
     updateUserSettings: updateUserSettings,
+    resetUserSettings: resetUserSettings,
   };
 
   return (

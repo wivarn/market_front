@@ -2,10 +2,10 @@ import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
 
-import { AddressApi } from "services/backendApi/address";
 import { SearchField } from "../fields";
+import { UserSettingsContext } from "contexts/userSettings";
+import { useContext } from "react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/client";
 
 interface Values {
   query: string;
@@ -17,7 +17,7 @@ const querySchema = Yup.object().shape({
 
 export default function SearchForm(): JSX.Element {
   const router = useRouter();
-  const [session] = useSession();
+  const { userSettings } = useContext(UserSettingsContext);
 
   let query = "";
   if (router.pathname == "/listings/search") {
@@ -30,24 +30,14 @@ export default function SearchForm(): JSX.Element {
       initialValues={{ query: query }}
       validationSchema={querySchema}
       onSubmit={(values: Values, actions) => {
-        if (session) {
-          AddressApi(session?.accessToken)
-            .get()
-            .then((response) => {
-              const country = response.data ? response.data.country : "USA";
-              router.push({
-                pathname: "/listings/search",
-                query: { query: values.query, shipping_country: country },
-              });
-              actions.setSubmitting(false);
-            });
-        } else {
-          router.push({
-            pathname: "/listings/search",
-            query: { query: values.query, shipping_country: "USA" },
-          });
-          actions.setSubmitting(false);
-        }
+        router.push({
+          pathname: "/listings/search",
+          query: {
+            query: values.query,
+            shipping_country: userSettings.country,
+          },
+        });
+        actions.setSubmitting(false);
       }}
     >
       {() => (
