@@ -55,7 +55,7 @@ export default function ForgotPasswordForm(): JSX.Element {
 
                 <SubmitButton
                   text="Send Password Reset"
-                  disabled={isSubmitting}
+                  submitting={isSubmitting}
                 />
               </div>
               <div className="py-4 mt-4 border-t border-accent">

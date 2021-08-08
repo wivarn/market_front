@@ -265,7 +265,7 @@ export default function SearchFilter(): JSX.Element {
                       <div className="inline-flex py-2 space-x-2">
                         <SubmitButton
                           text="Apply"
-                          disabled={formik.isSubmitting}
+                          submitting={formik.isSubmitting}
                         />
                         <ResetButton
                           text="Clear"

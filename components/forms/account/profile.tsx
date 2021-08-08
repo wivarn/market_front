@@ -138,7 +138,7 @@ export default function ProfileForm(): JSX.Element {
 
               <SubmitButtonFull
                 text="Update Profile"
-                disabled={formik.isSubmitting}
+                submitting={formik.isSubmitting}
               />
             </div>
           </Form>

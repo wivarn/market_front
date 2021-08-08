@@ -111,7 +111,7 @@ export default function LoginForm(): JSX.Element {
                   />
                   <SubmitButtonFull
                     text="Log in"
-                    disabled={props.isSubmitting}
+                    submitting={props.isSubmitting}
                   />
                   <Link href="/auth/forgotPassword">
                     <a className="underline text-info">
