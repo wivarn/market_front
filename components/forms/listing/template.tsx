@@ -19,7 +19,6 @@ import {
   tradingCardList,
 } from "constants/listings";
 import { createRef, useState } from "react";
-import useSWR, { mutate } from "swr";
 
 import { BackButton } from "components/buttons";
 import FormSection from "./section";
@@ -28,7 +27,9 @@ import { ListingTemplateApi } from "services/backendApi/listingTemplate";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
+import { UserSettingsContext } from "contexts/userSettings";
 import { toast } from "react-toastify";
+import { useContext } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
@@ -165,22 +166,11 @@ function subCategoryCombobox(formik: FormikProps<any>) {
   );
 }
 
-const ListingTemplateForm = (props: IListingTemplate): JSX.Element => {
-  const [session] = useSession();
+const ListingTemplateForm = (): JSX.Element => {
+  const [session, sessionLoading] = useSession();
   const [graded, setGraded] = useState(false);
   const router = useRouter();
-
-  function getProfile() {
-    const { data, error } = useSWR(
-      session ? ["account/profile", session.accessToken] : null
-    );
-
-    return {
-      profile: data,
-      isLoading: !error && !data,
-      profileError: error,
-    };
-  }
+  const { userSettings, updateUserSettings } = useContext(UserSettingsContext);
 
   function renderGrading() {
     const label = graded ? "Grading" : "Condition";
@@ -208,9 +198,8 @@ const ListingTemplateForm = (props: IListingTemplate): JSX.Element => {
     );
   }
 
-  const profile = getProfile().profile?.data;
-
-  if (!session) return <SpinnerLg text="Loading..." />;
+  if (sessionLoading) return <SpinnerLg text="Loading..." />;
+  const template = userSettings.listing_template;
 
   return (
     <div className="p-4">
@@ -224,17 +213,17 @@ const ListingTemplateForm = (props: IListingTemplate): JSX.Element => {
           </h3>
           <Formik
             initialValues={{
-              category: props.category || "",
-              subcategory: props.subcategory || "",
-              title: props.title || "",
+              category: template.category || "",
+              subcategory: template.subcategory || "",
+              title: template.title || "",
               graded: false,
-              grading_company: props.grading_company || "",
-              condition: props.condition || "",
-              description: props.description || "",
-              price: props.price || "",
-              domestic_shipping: props.domestic_shipping || "",
-              international_shipping: props.international_shipping || "",
-              combined_shipping: props.combined_shipping || "",
+              grading_company: template.grading_company || "",
+              condition: template.condition || "",
+              description: template.description || "",
+              price: template.price || "",
+              domestic_shipping: template.domestic_shipping || "",
+              international_shipping: template.international_shipping || "",
+              combined_shipping: template.combined_shipping || "",
             }}
             validationSchema={listingSchema}
             onSubmit={(values: IListingTemplate, actions) => {
@@ -243,12 +232,12 @@ const ListingTemplateForm = (props: IListingTemplate): JSX.Element => {
                   values[key] = undefined;
                 }
               });
-              ListingTemplateApi(session.accessToken)
+              ListingTemplateApi(session?.accessToken)
                 .update(values)
                 .then(() => {
-                  mutate(["account/listing_template", session?.accessToken]);
                   toast.success("Your listing template has been updated");
                   router.push("/listings?state=active");
+                  updateUserSettings();
                 })
                 .catch((error) => {
                   toast.error(JSON.stringify(error.response.data));
@@ -332,7 +321,7 @@ const ListingTemplateForm = (props: IListingTemplate): JSX.Element => {
                     id={`${idPrefix}price`}
                     description="Enter the price. Lower prices will increase your chances of making a sale."
                     placeholder="0"
-                    currency={profile?.currency}
+                    currency={userSettings.currency}
                   />
 
                   <ListingNumberField
@@ -341,7 +330,7 @@ const ListingTemplateForm = (props: IListingTemplate): JSX.Element => {
                     id={`${idPrefix}domestic_shipping`}
                     description="Enter the price for domestic shipping. Enter 0 for free shipping."
                     placeholder="Enter domestic shipping price"
-                    currency={profile?.currency}
+                    currency={userSettings.currency}
                   />
 
                   <ListingNumberField
@@ -350,7 +339,7 @@ const ListingTemplateForm = (props: IListingTemplate): JSX.Element => {
                     id={`${idPrefix}international_shipping`}
                     description="Leave blank if you do not offer international shipping. Enter 0 for free international shipping."
                     placeholder="No international shipping"
-                    currency={profile?.currency}
+                    currency={userSettings.currency}
                   />
 
                   <ListingNumberField
@@ -359,7 +348,7 @@ const ListingTemplateForm = (props: IListingTemplate): JSX.Element => {
                     id={`${idPrefix}combined_shipping`}
                     description="Enter the amount to charge for each additional item purchased in a single order after the first. Leave blank if you do not offer combined shipping."
                     placeholder="No combined shipping"
-                    currency={profile?.currency}
+                    currency={userSettings.currency}
                   />
                 </FormSection>
                 <div className="space-x-2">

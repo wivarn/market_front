@@ -15,7 +15,7 @@ interface IUserSettings {
   currency: "CAD" | "USD";
   country: "CAN" | "USA";
   stripe_linked: boolean;
-  listing_template?: IListingTemplate;
+  listing_template: IListingTemplate;
 }
 
 export const UserSettingsContext = createContext<IUserSettingsContext>({
