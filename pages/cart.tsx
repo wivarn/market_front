@@ -2,6 +2,7 @@ import { ICart, ICartListing } from "types/listings";
 import { useEffect, useState } from "react";
 
 import { CartApi } from "services/backendApi/cart";
+import { DeleteButton } from "components/buttons";
 import { GenericErrorMessage } from "components/message";
 import Link from "next/link";
 import { ListingPreviewList } from "components/listing/preview";
@@ -44,7 +45,7 @@ export default function Cart(): JSX.Element {
     CartApi(session?.accessToken)
       .empty(sellerId)
       .then(() => {
-        toast.success("Cart is emptied");
+        toast.success("Cart has been emptied");
       });
   }
 
@@ -52,17 +53,16 @@ export default function Cart(): JSX.Element {
     CartApi(session?.accessToken)
       .emptyAll()
       .then(() => {
-        toast.success("All carts are emptied");
+        toast.success("All carts have been emptied");
       });
   }
 
   return (
-    <div className="my-8">
+    <div className="my-4">
       <NextSeo title="Cart" />
 
       <PageContainer>
-        <h3 className="pb-2 text-center">Your Cart</h3>
-        <SubmitButton text="Empty All Carts" onClick={() => emptyAll()} />
+        <h3 className="pb-2 text-center">Your Carts</h3>
         {carts.map((cart: ICart) => {
           return (
             <div
@@ -91,7 +91,7 @@ export default function Cart(): JSX.Element {
                 );
               })}
               <div className="px-4 py-2 border-t bg-accent-lightest">
-                <div className="flex items-center space-x-4">
+                <div className="flex flex-wrap items-center space-x-4">
                   <p>
                     Total={" "}
                     {Number(cart.total).toLocaleString("en", {
@@ -104,8 +104,9 @@ export default function Cart(): JSX.Element {
                     text="Checkout"
                     onClick={() => checkout(cart.seller_id)}
                   />
-                  <SubmitButton
-                    text="Empty"
+
+                  <DeleteButton
+                    text="Empty cart"
                     onClick={() => empty(cart.seller_id)}
                   />
                 </div>
@@ -113,6 +114,9 @@ export default function Cart(): JSX.Element {
             </div>
           );
         })}
+        <div className="flex justify-end mt-8 mr-8">
+          <DeleteButton text="Empty all carts" onClick={() => emptyAll()} />
+        </div>
       </PageContainer>
     </div>
   );
