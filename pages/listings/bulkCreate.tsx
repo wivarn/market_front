@@ -4,7 +4,6 @@ import Dropzone, { FileRejection } from "react-dropzone";
 
 import { BackButton } from "components/buttons";
 import { CardContainer6xl } from "components/cardContainer";
-import { GenericErrorMessage } from "components/message";
 import { ListingApi } from "services/backendApi/listing";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
@@ -13,10 +12,11 @@ import { ParseResult } from "papaparse";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
 import { UploadIcon } from "components/icons";
+import { UserSettingsContext } from "contexts/userSettings";
 import { listingSchema } from "constants/listings";
 import { toast } from "react-toastify";
+import { useContext } from "react";
 import { useRouter } from "next/router";
-import useSWR from "swr";
 import { useSession } from "next-auth/client";
 import { useState } from "react";
 
@@ -43,25 +43,8 @@ export default function BulkCreateListings(): JSX.Element {
     },
   });
   const [error, setError] = useState("");
-
-  function getListingTemplate() {
-    const { data, error } = useSWR(
-      session ? ["account/listing_template", session.accessToken] : null
-    );
-
-    return {
-      response: data,
-      loadingTemplate: !error && !data,
-      isError: error,
-    };
-  }
-
-  const { response, loadingTemplate, isError } = getListingTemplate();
-
-  if (loadingTemplate) return <SpinnerLg text="Loading..." />;
-  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
-
-  const listingTemplate = response.data;
+  const { userSettings } = useContext(UserSettingsContext);
+  const listingTemplate = userSettings.listing_template;
 
   const onDropAccepted = (files: File[]) => {
     setError("");

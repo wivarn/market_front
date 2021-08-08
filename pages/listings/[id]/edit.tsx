@@ -1,33 +1,36 @@
+import { useEffect, useState } from "react";
+
 import { GenericErrorMessage } from "components/message";
+import { IListing } from "types/listings";
+import { ListingApi } from "services/backendApi/listing";
 import ListingForm from "components/forms/listing";
 import { NextSeo } from "next-seo";
 import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
-import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
 export default function EditListing(): JSX.Element {
-  const [session] = useSession();
+  const [session, sessionLoading] = useSession();
   const router = useRouter();
   const { id } = router.query;
+  const [listing, setListing] = useState<IListing | null>(null);
+  const [error, setError] = useState(false);
 
-  function getListing() {
-    const { data, error } = useSWR(
-      id && session ? [`listings/${id}/edit`, session.accessToken] : null
-    );
+  useEffect(() => {
+    if (sessionLoading) return;
+    ListingApi(session?.accessToken)
+      .edit(`${id}`)
+      .then((listingResponse) => {
+        setListing(listingResponse.data);
+      })
+      .catch(() => {
+        setError(true);
+      });
+  }, [sessionLoading, router.isReady]);
 
-    return {
-      response: data,
-      listingLoading: !error && !data,
-      isError: error,
-    };
-  }
+  if (sessionLoading || !listing) return <SpinnerLg text="Loading..." />;
+  if (error) return <GenericErrorMessage></GenericErrorMessage>;
 
-  const { response, listingLoading, isError } = getListing();
-  if (listingLoading) return <SpinnerLg text="Loading..." />;
-  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
-
-  const listing = response.data;
   return (
     <>
       <NextSeo title="Update Listing" />

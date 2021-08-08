@@ -8,6 +8,7 @@ export const ListingApi = (
 ): {
   create: (formData: FormData, photos?: File[]) => Promise<AxiosResponse<any>>;
   bulkCreate: (listings: IListing[]) => Promise<AxiosResponse<any>>;
+  edit: (id: string) => Promise<AxiosResponse<any>>;
   update: (
     id: string,
     formData: FormData,
@@ -85,6 +86,12 @@ export const ListingApi = (
         headers: { Authorization: `Bearer ${accessToken}` },
       }
     );
+  };
+
+  const edit = async (id: string) => {
+    return base.get(`listings/${id}/edit`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
   };
 
   const update = async (id: string, formData: FormData, photos?: File[]) => {
@@ -180,6 +187,7 @@ export const ListingApi = (
   return {
     create,
     bulkCreate,
+    edit,
     update,
     updateState,
     uploadPhotosCredentials,

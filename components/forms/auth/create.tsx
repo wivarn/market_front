@@ -13,11 +13,11 @@ import { useRouter } from "next/router";
 
 const createAccountSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
-  givenName: Yup.string()
+  given_name: Yup.string()
     .min(1, "Must be 1 or more characters")
     .max(256, "Must be at most 256 characters")
     .required("Required"),
-  familyName: Yup.string()
+  family_name: Yup.string()
     .min(1, "Must be 1 or more characters")
     .max(256, "Must be at most 256 characters")
     .required("Required"),

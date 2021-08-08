@@ -1,4 +1,3 @@
-import { GenericErrorMessage } from "components/message";
 import Link from "next/link";
 import { OverflowButton } from "components/listing/overflowButton";
 import { PrimaryButton } from "components/buttons";
@@ -6,8 +5,9 @@ import React from "react";
 import ReactTooltip from "react-tooltip";
 import SearchFilter from "components/forms/listing/searchFilter";
 import SearchSort from "components/forms/listing/searchSort";
-import { SpinnerLg } from "components/spinner";
-import useSWR from "swr";
+import { UserSettingsContext } from "contexts/userSettings";
+import { useContext } from "react";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -41,50 +41,15 @@ export default function ListingTabs({
   activeTab: string;
   children: React.ReactNode;
 }): JSX.Element {
-  const [session] = useSession();
+  const [session, sessionLoading] = useSession();
+  const router = useRouter();
+  const { userSettings } = useContext(UserSettingsContext);
 
-  function getAddress() {
-    const { data, error } = useSWR(
-      session ? ["account/address", session.accessToken] : null
-    );
+  const disableListings =
+    !userSettings.address_set && !userSettings.stripe_linked;
 
-    return {
-      addressResponse: data,
-      addressLoading: !error && !data,
-      addressError: error,
-    };
-  }
-
-  function getPayment(addressSet: boolean) {
-    const { data, error } = useSWR(
-      session && addressSet ? ["account/payments", session.accessToken] : null
-    );
-
-    return {
-      payment: data,
-      paymentLoading: !error && !data,
-      paymentError: error,
-    };
-  }
-
-  const { addressResponse, addressLoading, addressError } = getAddress();
-
-  const address = addressResponse?.data;
-  const addressSet =
-    addressLoading || addressError ? false : !!Object.keys(address).length;
-
-  const { payment, paymentLoading, paymentError } = getPayment(addressSet);
-
-  if (addressLoading) return <SpinnerLg text="Loading..." />;
-  if (addressError) return <GenericErrorMessage></GenericErrorMessage>;
-
-  let disableListings = true;
-  if (addressSet) {
-    if (paymentLoading) return <SpinnerLg text="Loading..." />;
-    if (paymentError) return <GenericErrorMessage></GenericErrorMessage>;
-    disableListings = !payment.data.charges_enabled;
-  } else {
-    disableListings = true;
+  if (!sessionLoading && !session) {
+    router.push("/");
   }
 
   return (

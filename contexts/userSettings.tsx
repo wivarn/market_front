@@ -14,6 +14,7 @@ interface IUserSettingsContext {
 interface IUserSettings {
   currency: "CAD" | "USD";
   country: "CAN" | "USA";
+  address_set: boolean;
   stripe_linked: boolean;
   listing_template: IListingTemplate;
 }
@@ -22,6 +23,7 @@ export const UserSettingsContext = createContext<IUserSettingsContext>({
   userSettings: {
     currency: "USD",
     country: "USA",
+    address_set: false,
     stripe_linked: false,
     listing_template: {},
   },
@@ -39,6 +41,7 @@ export const UserSettingsProvider = ({
   const [userSettings, setUserSettings] = useState<IUserSettings>({
     currency: "USD",
     country: "USA",
+    address_set: false,
     stripe_linked: false,
     listing_template: {},
   });
