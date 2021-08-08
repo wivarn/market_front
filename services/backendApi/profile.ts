@@ -12,6 +12,7 @@ export const ProfileApi = (
   ) => Promise<void | AxiosResponse<any>>;
   uploadPictureCredentials: () => Promise<AxiosResponse<any>>;
   updatePictureKey: (key: string) => Promise<AxiosResponse<any>>;
+  settings: () => Promise<AxiosResponse<any>>;
 } => {
   const get = async () => {
     return base.get("account/profile", {
@@ -69,5 +70,11 @@ export const ProfileApi = (
     );
   };
 
-  return { get, update, uploadPictureCredentials, updatePictureKey };
+  const settings = async () => {
+    return base.get("account/profile/settings", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  };
+
+  return { get, update, uploadPictureCredentials, updatePictureKey, settings };
 };
