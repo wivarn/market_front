@@ -3,7 +3,6 @@ import {
   ShoppingCartIcon,
   UserCircleIcon,
 } from "components/icons";
-import { signOut, useSession } from "next-auth/client";
 
 import { DropDown } from "./dropdown";
 import Head from "next/head";
@@ -16,8 +15,7 @@ import SearchForm from "components/forms/listing/search";
 import { SmChevronDownIcon } from "components/icons";
 import { Spinner } from "components/spinner";
 import { categoryList } from "constants/listings";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useSession } from "next-auth/client";
 
 function CategoryPopovers() {
   return (
@@ -53,17 +51,6 @@ function CategoryPopovers() {
 
 export default function Header(): JSX.Element {
   const [session, sessionLoading] = useSession();
-  const router = useRouter();
-
-  // Might not be the best place to put this. Maybe we should have this in the layout or _app
-  // page instead. It has be somewhere global or at least anywhere that could have a session.
-  useEffect(() => {
-    if (session?.error) {
-      signOut({ redirect: false, callbackUrl: "/" }).then(async () => {
-        router.push("/");
-      });
-    }
-  }, [session]);
 
   function renderNav() {
     if (sessionLoading) return <Spinner />;
