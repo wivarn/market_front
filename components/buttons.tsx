@@ -141,7 +141,7 @@ const _Button = (props: BaseButtonProps): JSX.Element => {
       onClick={props.onClick}
     >
       {props.submitting ? (
-        <span className="flex space-x-2">
+        <span className="flex justify-center space-x-2">
           <SpinnerXs /> <span>{props.text}</span>
         </span>
       ) : (

@@ -18,6 +18,9 @@ export default function Cart(): JSX.Element {
   // TODO: add cart type
   const [carts, setCarts] = useState<any>(null);
   const [error, setError] = useState(false);
+  const [submittingCheckout, setSubmittingCheckout] = useState(false);
+  const [submittingEmpty, setSubmittingEmpty] = useState(false);
+  const [submittingEmptyAll, setSubmittingEmptyAll] = useState(false);
 
   useEffect(() => {
     if (sessionLoading) return;
@@ -32,28 +35,34 @@ export default function Cart(): JSX.Element {
   }, [sessionLoading]);
 
   async function checkout(sellerId: string) {
+    setSubmittingCheckout(true);
     CartApi(session?.accessToken)
       .checkout(sellerId)
       .then(async (response) => {
         window.location.assign(response.data.url);
+        setSubmittingCheckout(false);
       });
   }
 
   if (sessionLoading || !carts) return <SpinnerLg text="Loading..." />;
   if (error) return <GenericErrorMessage></GenericErrorMessage>;
   async function empty(sellerId: string) {
+    setSubmittingEmpty(true);
     CartApi(session?.accessToken)
       .empty(sellerId)
       .then(() => {
         toast.success("Cart has been emptied");
+        setSubmittingEmpty(false);
       });
   }
 
   async function emptyAll() {
+    setSubmittingEmptyAll(true);
     CartApi(session?.accessToken)
       .emptyAll()
       .then(() => {
         toast.success("All carts have been emptied");
+        setSubmittingEmptyAll(false);
       });
   }
 
@@ -102,11 +111,13 @@ export default function Cart(): JSX.Element {
                   </p>
                   <SubmitButton
                     text="Checkout"
+                    submitting={submittingCheckout}
                     onClick={() => checkout(cart.seller_id)}
                   />
 
                   <DeleteButton
                     text="Empty cart"
+                    submitting={submittingEmpty}
                     onClick={() => empty(cart.seller_id)}
                   />
                 </div>
@@ -115,7 +126,11 @@ export default function Cart(): JSX.Element {
           );
         })}
         <div className="flex justify-end mt-8 mr-8">
-          <DeleteButton text="Empty all carts" onClick={() => emptyAll()} />
+          <DeleteButton
+            text="Empty all carts"
+            onClick={() => emptyAll()}
+            submitting={submittingEmptyAll}
+          />
         </div>
       </PageContainer>
     </div>

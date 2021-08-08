@@ -227,8 +227,6 @@ export const PictureField = ({
             }}
             src={previewImageState.path}
             alt={field.value}
-            placeholder="blur"
-            blurDataURL={previewImage || "/ProfilePlaceholder.svg"}
             layout="fill"
             objectFit="cover"
             className="rounded-full "

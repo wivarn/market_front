@@ -1,4 +1,5 @@
 import { SecondaryButtonFull, SubmitButtonFull } from "components/buttons";
+import { useContext, useState } from "react";
 
 import { CartApi } from "services/backendApi/cart";
 import { ConditionPill } from "./condition";
@@ -11,11 +12,11 @@ import { UserInfo } from "components/user";
 import { UserSettingsContext } from "contexts/userSettings";
 import { categoryList } from "constants/listings";
 import { toast } from "react-toastify";
-import { useContext } from "react";
 import { useSession } from "next-auth/client";
 
 const ListingDetails = (props: IListingWithSeller): JSX.Element => {
   const [session] = useSession();
+  const [submitting, setSubmitting] = useState(false);
   const { userSettings } = useContext(UserSettingsContext);
   const isSeller = session?.accountId == props.accountId;
   const editable =
@@ -27,13 +28,16 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
   );
 
   async function addItem() {
+    setSubmitting(true);
     CartApi(session?.accessToken)
       .addItem(`${props.accountId}`, `${props.id}`)
       .then(() => {
         toast.success("Item added to cart");
+        setSubmitting(false);
       })
       .catch((error) => {
         toast.error(JSON.stringify(error.response.data));
+        setSubmitting(false);
       });
   }
 
@@ -53,6 +57,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
         <SubmitButtonFull
           text="Add to Cart"
           disabled={!userSettings.address_set}
+          submitting={submitting}
           onClick={addItem}
         />
       );
