@@ -31,13 +31,14 @@ function CategoryPopovers() {
               <div className="grid w-48 p-2 space-y-2 text-sm bg-white border rounded-md border-accent">
                 {category.subCategory.map((subCategory) => {
                   return (
-                    <a
+                    <Link
                       key={subCategory.value}
-                      className="p-2 rounded-md text-accent-darker hover:bg-primary hover:text-white"
                       href={`/listings/search?category=${category.value}&subcategory=${subCategory.value}`}
                     >
-                      {subCategory.text}
-                    </a>
+                      <a className="p-2 rounded-md text-accent-darker hover:bg-primary hover:text-white">
+                        {subCategory.text}
+                      </a>
+                    </Link>
                   );
                 })}
               </div>
