@@ -1,4 +1,4 @@
-import { LgSpinnerIcon, SpinnerIcon } from "components/icons";
+import { LgSpinnerIcon, SpinnerIcon, SpinnerIconXs } from "components/icons";
 
 export interface Props {
   text?: string;
@@ -8,6 +8,17 @@ export function Spinner(props: Props): JSX.Element {
   return (
     <div className="flex items-center p-2 animate-pulse">
       <SpinnerIcon />
+      {props.text ? (
+        <span className="px-2 text-xl text-accent-darker">{props.text}</span>
+      ) : null}
+    </div>
+  );
+}
+
+export function SpinnerXs(props: Props): JSX.Element {
+  return (
+    <div className="flex items-center animate-pulse">
+      <SpinnerIconXs />
       {props.text ? (
         <span className="px-2 text-xl text-accent-darker">{props.text}</span>
       ) : null}

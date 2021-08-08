@@ -65,6 +65,10 @@ export const MdSkwirlIcon = (): JSX.Element => {
   );
 };
 
+export const SpinnerIconXs = (): JSX.Element => {
+  return <CgSpinner className="icon-xs animate-spin" />;
+};
+
 export const SpinnerIcon = (): JSX.Element => {
   return <CgSpinner className="icon animate-spin" />;
 };
