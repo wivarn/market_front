@@ -3,6 +3,7 @@ import NextAuth, { User } from "next-auth";
 import { AuthApi } from "services/backendApi/auth";
 import { JWT } from "next-auth/jwt";
 import Providers from "next-auth/providers";
+import { accessTokenAge } from "constants/auth";
 import jwtDecode from "jwt-decode";
 
 process.env.NEXTAUTH_URL = process.env.NEXTAUTH_URL || process.env.VERCEL_URL;
@@ -12,7 +13,7 @@ interface Credentials {
   password: string;
 }
 
-const accessTokenAge = 25 * 60 * 1000; // 25 minutes, backend is configured for 30 minutes
+const accessTokenAgeMS = accessTokenAge * 1000; // milliseconds
 
 async function refreshAccessToken(token: JWT) {
   try {
@@ -29,7 +30,7 @@ async function refreshAccessToken(token: JWT) {
     return {
       ...token,
       accessToken: refreshedTokens.access_token,
-      accessTokenExpires: Date.now() + accessTokenAge,
+      accessTokenExpires: Date.now() + accessTokenAgeMS,
       refreshToken: refreshedTokens.refresh_token,
     };
   } catch (error) {
@@ -74,7 +75,7 @@ export default NextAuth({
     async jwt(token, user) {
       if (user) {
         token.accessToken = user.access_token;
-        token.accessTokenExpires = Date.now() + accessTokenAge;
+        token.accessTokenExpires = Date.now() + accessTokenAgeMS;
         token.refreshToken = user.refresh_token;
       }
 

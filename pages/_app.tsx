@@ -13,6 +13,7 @@ import Script from "next/script";
 import { StrictMode } from "react";
 import Toast from "components/toast";
 import { UserSettingsProvider } from "contexts/userSettings";
+import { accessTokenAge } from "constants/auth";
 import { fetcher } from "services/backendApi/fetcher";
 
 function Market({ Component, pageProps }: AppProps): JSX.Element {
@@ -30,7 +31,10 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
           <Toast />
         </>
       ) : (
-        <Provider session={pageProps.session}>
+        <Provider
+          session={pageProps.session}
+          options={{ clientMaxAge: accessTokenAge }}
+        >
           <SWRConfig value={{ fetcher: fetcher }}>
             <UserSettingsProvider>
               <Layout>

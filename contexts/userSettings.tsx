@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { getSession, signOut, useSession } from "next-auth/client";
+import { signOut, useSession } from "next-auth/client";
 
 import { IListingTemplate } from "types/listings";
 import { ProfileApi } from "services/backendApi/profile";
@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 interface IUserSettingsContext {
   userSettings: IUserSettings;
-  updateUserSettings: () => void;
+  updateUserSettings: (accessToken?: string) => void;
   resetUserSettings: () => void;
 }
 
@@ -48,15 +48,16 @@ export const UserSettingsProvider = ({
     defaultSettings
   );
 
-  const updateUserSettings = () => {
-    getSession().then((session) => {
-      session &&
-        ProfileApi(session?.accessToken)
-          .settings()
-          .then((profileResponse) => {
-            setUserSettings(profileResponse.data);
-          });
-    });
+  const updateUserSettings = (accessToken?: string) => {
+    if (!accessToken) {
+      resetUserSettings();
+    } else {
+      ProfileApi(accessToken)
+        .settings()
+        .then((profileResponse) => {
+          setUserSettings(profileResponse.data);
+        });
+    }
   };
 
   const resetUserSettings = () => {
@@ -64,14 +65,14 @@ export const UserSettingsProvider = ({
   };
 
   useEffect(() => {
-    updateUserSettings();
-  }, []);
+    if (session === undefined) return;
+    updateUserSettings(session?.accessToken);
+  }, [session]);
 
   // Might not be the best place to put this. Maybe we should have this in the layout or _app
   // page instead. It has be somewhere global or at least anywhere that could have a session.
   useEffect(() => {
     if (session?.error) {
-      console.log(session);
       signOut({ redirect: false, callbackUrl: "/" }).then(async () => {
         router.push("/");
         resetUserSettings();

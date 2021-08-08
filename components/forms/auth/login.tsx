@@ -7,10 +7,8 @@ import Link from "next/link";
 import { SecondaryButton } from "components/buttons";
 import { SubmitButtonFull } from "components/buttons";
 import { TextFieldFull } from "../fields";
-import { UserSettingsContext } from "contexts/userSettings";
 import { signIn } from "next-auth/client";
 import { toast } from "react-toastify";
-import { useContext } from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -34,7 +32,6 @@ const idPrefix = "login-form-";
 export default function LoginForm(): JSX.Element {
   const [locked, setLocked] = useState(false);
   const router = useRouter();
-  const { updateUserSettings } = useContext(UserSettingsContext);
 
   function renderLockedBanner() {
     if (locked) {
@@ -84,7 +81,6 @@ export default function LoginForm(): JSX.Element {
                     }
                   } else {
                     router.push("/");
-                    updateUserSettings();
                   }
                 })
                 .finally(() => {
