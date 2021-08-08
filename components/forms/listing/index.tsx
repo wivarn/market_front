@@ -33,9 +33,10 @@ import { ListingApi } from "services/backendApi/listing";
 import { MultiPictureField } from "../fields";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
+import { UserSettingsContext } from "contexts/userSettings";
 import { toast } from "react-toastify";
+import { useContext } from "react";
 import { useRouter } from "next/router";
-import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
 const schema = Yup.object().shape(listingSchema);
@@ -79,9 +80,10 @@ function subCategoryCombobox(formik: FormikProps<any>) {
 
 const ListingForm = (props: IListing): JSX.Element => {
   const router = useRouter();
-  const [session] = useSession();
+  const [session, sessionLoading] = useSession();
   const [graded, setGraded] = useState(!!props.grading_company);
   const [imageData, setImageData] = useState<File[]>([]);
+  const { userSettings } = useContext(UserSettingsContext);
 
   const newListing = !props.id;
 
@@ -194,34 +196,9 @@ const ListingForm = (props: IListing): JSX.Element => {
     );
   }
 
-  function getProfile() {
-    const { data, error } = useSWR(
-      session ? ["account/profile", session.accessToken] : null
-    );
+  const template = userSettings.listing_template;
 
-    return {
-      profile: data,
-      isLoading: !error && !data,
-      profileError: error,
-    };
-  }
-
-  function getListingTemplate() {
-    const { data, error } = useSWR(
-      session ? ["account/listing_template", session.accessToken] : null
-    );
-
-    return {
-      template: data,
-      loadingTemplate: !error && !data,
-      templateError: error,
-    };
-  }
-
-  const profile = getProfile().profile?.data;
-  const template = getListingTemplate().template?.data;
-
-  if (!session || !template) return <SpinnerLg text="Loading..." />;
+  if (sessionLoading) return <SpinnerLg text="Loading..." />;
 
   for (const key in template) {
     if (template[key] === null || template[key] === undefined) {
@@ -276,8 +253,8 @@ const ListingForm = (props: IListing): JSX.Element => {
               });
 
               const request = newListing
-                ? ListingApi(session.accessToken).create(formData, imageData)
-                : ListingApi(session.accessToken).update(
+                ? ListingApi(session?.accessToken).create(formData, imageData)
+                : ListingApi(session?.accessToken).update(
                     `${values.id}`,
                     formData,
                     imageData
@@ -294,7 +271,7 @@ const ListingForm = (props: IListing): JSX.Element => {
               request
                 .then((response: any) => {
                   if (values.state_transition) {
-                    ListingApi(session.accessToken)
+                    ListingApi(session?.accessToken)
                       .updateState(response.data.id, values.state_transition)
                       .then(() => {
                         success();
@@ -396,7 +373,7 @@ const ListingForm = (props: IListing): JSX.Element => {
                     id={`${idPrefix}price`}
                     description="Enter the price. Lower prices will increase your chances of making a sale."
                     placeholder="0"
-                    currency={profile?.currency}
+                    currency={userSettings.currency}
                   />
 
                   <ListingNumberField
@@ -405,7 +382,7 @@ const ListingForm = (props: IListing): JSX.Element => {
                     id={`${idPrefix}domestic_shipping`}
                     description="Enter the price for domestic shipping. Enter 0 for free shipping."
                     placeholder="Enter domestic shipping price"
-                    currency={profile?.currency}
+                    currency={userSettings.currency}
                   />
 
                   <ListingNumberField
@@ -414,7 +391,7 @@ const ListingForm = (props: IListing): JSX.Element => {
                     id={`${idPrefix}international_shipping`}
                     description="Leave blank if you do not offer international shipping. Enter 0 for free international shipping."
                     placeholder="No international shipping"
-                    currency={profile?.currency}
+                    currency={userSettings.currency}
                   />
 
                   <ListingNumberField
@@ -423,7 +400,7 @@ const ListingForm = (props: IListing): JSX.Element => {
                     id={`${idPrefix}combined_shipping`}
                     description="Enter the amount to charge for each additional item purchased in a single order after the first. Leave blank if you do not offer combined shipping."
                     placeholder="No combined shipping"
-                    currency={profile?.currency}
+                    currency={userSettings.currency}
                   />
                 </FormSection>
                 {renderUpdateButtons(formik)}

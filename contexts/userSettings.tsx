@@ -1,12 +1,30 @@
 import { createContext, useState } from "react";
 import { getSession, signOut, useSession } from "next-auth/client";
 
+import { IListingTemplate } from "types/listings";
 import { ProfileApi } from "services/backendApi/profile";
 import router from "next/router";
 import { useEffect } from "react";
 
-export const UserSettingsContext = createContext({
-  userSettings: {},
+interface IUserSettingsContext {
+  userSettings: IUserSettings;
+  updateUserSettings: () => void;
+}
+
+interface IUserSettings {
+  currency: "CAD" | "USD";
+  country: "CAN" | "USA";
+  stripe_linked: boolean;
+  listing_template?: IListingTemplate;
+}
+
+export const UserSettingsContext = createContext<IUserSettingsContext>({
+  userSettings: {
+    currency: "USD",
+    country: "USA",
+    stripe_linked: false,
+    listing_template: {},
+  },
   updateUserSettings: () => {
     // empty
   },
@@ -18,7 +36,12 @@ export const UserSettingsProvider = ({
   children: React.ReactNode;
 }): JSX.Element => {
   const [session] = useSession();
-  const [userSettings, setUserSettings] = useState({});
+  const [userSettings, setUserSettings] = useState<IUserSettings>({
+    currency: "USD",
+    country: "USA",
+    stripe_linked: false,
+    listing_template: {},
+  });
 
   const updateUserSettings = () => {
     getSession().then((session) => {
@@ -45,7 +68,7 @@ export const UserSettingsProvider = ({
     }
   }, [session]);
 
-  const contextProps = {
+  const contextProps: IUserSettingsContext = {
     userSettings: userSettings,
     updateUserSettings: updateUserSettings,
   };
