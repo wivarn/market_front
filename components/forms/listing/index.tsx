@@ -84,8 +84,17 @@ const ListingForm = (props: IListing): JSX.Element => {
   const [graded, setGraded] = useState(!!props.grading_company);
   const [imageData, setImageData] = useState<File[]>([]);
   const { userSettings } = useContext(UserSettingsContext);
+  const template = userSettings.listing_template;
 
+  if (sessionLoading || !template.id) return <SpinnerLg text="Loading..." />;
+
+  for (const key in template) {
+    if (template[key] === null || template[key] === undefined) {
+      delete template[key];
+    }
+  }
   const newListing = !props.id;
+  const initialValues = newListing ? { ...props, ...template } : props;
 
   function renderGrading() {
     const label = graded ? "Grading" : "Condition";
@@ -195,18 +204,6 @@ const ListingForm = (props: IListing): JSX.Element => {
       />
     );
   }
-
-  const template = userSettings.listing_template;
-
-  if (sessionLoading) return <SpinnerLg text="Loading..." />;
-
-  for (const key in template) {
-    if (template[key] === null || template[key] === undefined) {
-      delete template[key];
-    }
-  }
-
-  const initialValues = newListing ? { ...props, ...template } : props;
 
   return (
     <div className="p-4 ">
