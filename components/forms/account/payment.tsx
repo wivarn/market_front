@@ -1,17 +1,19 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
-import { GenericErrorMessage, InfoMessage } from "components/message";
-import { useEffect, useState } from "react";
 
 import { DropdownCombobox } from "../fields";
 import FormContainer from "../container";
-import { IProfile } from "types/account";
+import { InfoMessage } from "components/message";
 import Link from "next/link";
 import { ProfileApi } from "services/backendApi/profile";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
+import { UserSettingsContext } from "contexts/userSettings";
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
 const currencyList = [
@@ -32,29 +34,23 @@ const paymentSchema = Yup.object().shape({
 
 export default function PaymentForm(): JSX.Element {
   const [session, sessionLoading] = useSession();
-  const [profile, setProfile] = useState<IProfile | null>(null);
-  const [error, setError] = useState(false);
+  const router = useRouter();
+  const { userSettings } = useContext(UserSettingsContext);
 
   useEffect(() => {
-    if (sessionLoading) return;
-    ProfileApi(session?.accessToken)
-      .get()
-      .then((profileResponse) => {
-        setProfile(profileResponse.data);
-      })
-      .catch(() => {
-        setError(true);
-      });
-  }, [sessionLoading]);
+    if (!userSettings.address_set) {
+      toast.error("You must set your address before setting payment options");
+      router.push("/account/address");
+    }
+  }, []);
 
-  if (sessionLoading || !profile) return <SpinnerLg text="Loading..." />;
-  if (error) return <GenericErrorMessage />;
+  if (sessionLoading) return <SpinnerLg text="Loading..." />;
 
   return (
     <FormContainer>
       <Formik
         initialValues={{
-          currency: profile.currency,
+          currency: userSettings.currency,
         }}
         validationSchema={paymentSchema}
         onSubmit={(values, actions) => {

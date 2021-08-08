@@ -8,30 +8,19 @@ import { InfoCard } from "./infoCard";
 import Link from "next/link";
 import { PrimaryButtonFull } from "components/buttons";
 import { UserInfo } from "components/user";
+import { UserSettingsContext } from "contexts/userSettings";
 import { categoryList } from "constants/listings";
 import { toast } from "react-toastify";
-import useSWR from "swr";
+import { useContext } from "react";
 import { useSession } from "next-auth/client";
 
 const ListingDetails = (props: IListingWithSeller): JSX.Element => {
   const [session] = useSession();
+  const { userSettings } = useContext(UserSettingsContext);
   const isSeller = session?.accountId == props.accountId;
   const editable =
     props.aasm_state === "draft" || props.aasm_state === "active";
 
-  function getAddress() {
-    const { data, error } = useSWR(
-      session ? ["account/address", session.accessToken] : null
-    );
-
-    return {
-      addressResponse: data,
-      addressLoading: !error && !data,
-    };
-  }
-  const { addressResponse, addressLoading } = getAddress();
-  const address = addressResponse?.data;
-  const noAddress = addressLoading ? true : !Object.keys(address).length;
   const category = categoryList.find((c) => c.value == props.category);
   const subCategory = category?.subCategory.find(
     (s) => s.value == props.subcategory
@@ -63,7 +52,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
       return (
         <SubmitButtonFull
           text="Add to Cart"
-          disabled={noAddress}
+          disabled={!userSettings.address_set}
           onClick={addItem}
         />
       );
