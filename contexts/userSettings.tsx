@@ -71,6 +71,7 @@ export const UserSettingsProvider = ({
   // page instead. It has be somewhere global or at least anywhere that could have a session.
   useEffect(() => {
     if (session?.error) {
+      console.log(session);
       signOut({ redirect: false, callbackUrl: "/" }).then(async () => {
         router.push("/");
         resetUserSettings();
