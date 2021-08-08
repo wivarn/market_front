@@ -199,7 +199,7 @@ export const PictureField = ({
 }: PictureProps): JSX.Element => {
   const [field, meta] = useField(props);
   const [previewImageState, setPreviewImageState] = useState({
-    path: previewImage || "/ProfilePlaceholder.svg", // should set a real placeholder image
+    path: previewImage || "/ProfilePlaceholder.svg",
   });
 
   field.onChange = (event: React.ChangeEvent<any>) => {
@@ -227,6 +227,8 @@ export const PictureField = ({
             }}
             src={previewImageState.path}
             alt={field.value}
+            placeholder="blur"
+            blurDataURL={previewImage || "/ProfilePlaceholder.svg"}
             layout="fill"
             objectFit="cover"
             className="rounded-full "
