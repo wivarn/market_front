@@ -53,7 +53,7 @@ export default function OrderTrackingForm({
               label="Tracking Number"
             />
 
-            <SubmitButton text="Save" disabled={isSubmitting} />
+            <SubmitButton text="Save" submitting={isSubmitting} />
           </span>
         </Form>
       )}

@@ -102,7 +102,7 @@ export default function CreateAccountForm(): JSX.Element {
 
                   <SubmitButtonFull
                     text="Create Account"
-                    disabled={isSubmitting}
+                    submitting={isSubmitting}
                   />
                 </div>
               </Form>

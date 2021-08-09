@@ -2,7 +2,6 @@ import {
   FaDiscord,
   FaFacebookSquare,
   FaInstagramSquare,
-  FaRedditSquare,
   FaTwitterSquare,
   FaYoutubeSquare,
 } from "react-icons/fa";
@@ -18,7 +17,6 @@ import {
   HiCloudUpload,
   HiDotsVertical,
   HiExclamation,
-  HiExclamationCircle,
   HiFilter,
   HiInformationCircle,
   HiMenu,
@@ -53,7 +51,7 @@ export const SkwirlIcon = (): JSX.Element => {
   );
 };
 
-export const MdSkwirlIcon = (): JSX.Element => {
+export const SkwirlIconMd = (): JSX.Element => {
   return (
     <Image
       src="/skwirl.svg"
@@ -65,11 +63,15 @@ export const MdSkwirlIcon = (): JSX.Element => {
   );
 };
 
+export const SpinnerIconXs = (): JSX.Element => {
+  return <CgSpinner className="icon-xs animate-spin" />;
+};
+
 export const SpinnerIcon = (): JSX.Element => {
   return <CgSpinner className="icon animate-spin" />;
 };
 
-export const LgSpinnerIcon = (): JSX.Element => {
+export const SpinnerIconLg = (): JSX.Element => {
   return <CgSpinner className="icon-lg animate-spin" />;
 };
 
@@ -77,7 +79,7 @@ export const UploadIcon = (): JSX.Element => {
   return <HiCloudUpload className="icon-lg" />;
 };
 
-export const SmBackArrowIcon = (): JSX.Element => {
+export const BackArrowIconSm = (): JSX.Element => {
   return <HiArrowCircleLeft className="icon-sm" />;
 };
 
@@ -85,11 +87,11 @@ export const CurrencyDollarIcon = (): JSX.Element => {
   return <HiOutlineCurrencyDollar className="icon" />;
 };
 
-export const SmCheckIcon = (): JSX.Element => {
+export const CheckIconSm = (): JSX.Element => {
   return <HiCheck className="icon-sm" />;
 };
 
-export const XsFilterIcon = (): JSX.Element => {
+export const FilterIconSm = (): JSX.Element => {
   return <HiFilter className="icon-xs" />;
 };
 
@@ -101,15 +103,15 @@ export const ChevronLeftIcon = (): JSX.Element => {
   return <HiChevronLeft className="icon" />;
 };
 
-export const SmChevronRightIcon = (): JSX.Element => {
+export const ChevronRightIconSm = (): JSX.Element => {
   return <HiChevronRight className="icon-sm" />;
 };
 
-export const SmOverflowIcon = (): JSX.Element => {
+export const OverflowIconSm = (): JSX.Element => {
   return <HiDotsVertical className="icon-sm" />;
 };
 
-export const SmChevronLeftIcon = (): JSX.Element => {
+export const ChevronLeftIconSm = (): JSX.Element => {
   return <HiChevronLeft className="icon-sm" />;
 };
 
@@ -125,7 +127,7 @@ export const SearchCircleIcon = (): JSX.Element => {
   return <HiSearchCircle className="icon" />;
 };
 
-export const XsSortIcon = (): JSX.Element => {
+export const SortIconXs = (): JSX.Element => {
   return <HiSortDescending className="icon-xs" />;
 };
 
@@ -165,7 +167,7 @@ export const ErrorIcon = (): JSX.Element => {
   return <HiXCircle className="icon" />;
 };
 
-export const SmErrorIcon = (): JSX.Element => {
+export const ErrorIconSm = (): JSX.Element => {
   return <HiXCircle className="icon-sm" />;
 };
 
@@ -173,11 +175,11 @@ export const XIcon = (): JSX.Element => {
   return <HiX className="icon" />;
 };
 
-export const SmXIcon = (): JSX.Element => {
+export const XIconSm = (): JSX.Element => {
   return <HiX className="icon-xs" />;
 };
 
-export const SmArrowNarrowDown = (): JSX.Element => {
+export const ArrowDownSm = (): JSX.Element => {
   return <HiArrowNarrowDown className="icon-sm" />;
 };
 
@@ -185,24 +187,16 @@ export const InfoCircle = (): JSX.Element => {
   return <HiInformationCircle className="icon" />;
 };
 
-export const SmInfoCircle = (): JSX.Element => {
+export const InfoCircleSm = (): JSX.Element => {
   return <HiInformationCircle className="icon-sm" />;
 };
 
-export const SmChevronDownIcon = (): JSX.Element => {
+export const ChevronDownIconSm = (): JSX.Element => {
   return <HiChevronDown className="icon-sm" />;
 };
 
-export const LgUserCircleIcon = (): JSX.Element => {
-  return <HiOutlineUserCircle className="float-left icon-2xl" />;
-};
-
-export const SmCheckCircleIcon = (): JSX.Element => {
+export const CheckCircleIconSm = (): JSX.Element => {
   return <HiCheckCircle className="icon-sm" />;
-};
-
-export const SmExclamationCircleIcon = (): JSX.Element => {
-  return <HiExclamationCircle className="icon-sm" />;
 };
 
 // Social media icons
@@ -211,22 +205,18 @@ export const DiscordIcon = (): JSX.Element => {
   return <FaDiscord className="icon" />;
 };
 
-export const SmTwitterIcon = (): JSX.Element => {
+export const TwitterIconSm = (): JSX.Element => {
   return <FaTwitterSquare className="icon-sm" />;
 };
 
-export const SmFacebookIcon = (): JSX.Element => {
+export const FacebookIconSm = (): JSX.Element => {
   return <FaFacebookSquare className="icon-sm" />;
 };
 
-export const SmYoutubeIcon = (): JSX.Element => {
+export const YoutubeIconSm = (): JSX.Element => {
   return <FaYoutubeSquare className="icon-sm" />;
 };
 
-export const SmInstagramIcon = (): JSX.Element => {
+export const InstagramIconSm = (): JSX.Element => {
   return <FaInstagramSquare className="icon-sm" />;
-};
-
-export const SmRedditIcon = (): JSX.Element => {
-  return <FaRedditSquare className="icon-sm" />;
 };

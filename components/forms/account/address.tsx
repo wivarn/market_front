@@ -219,7 +219,7 @@ export default function AddressForm(): JSX.Element {
 
               <SubmitButtonFull
                 text="Update Address"
-                disabled={formik.isSubmitting}
+                submitting={formik.isSubmitting}
               />
             </div>
           </Form>

@@ -88,7 +88,7 @@ export default function ResetPasswordForm(): JSX.Element {
 
                   <SubmitButton
                     text="Reset Password"
-                    disabled={props.isSubmitting}
+                    submitting={props.isSubmitting}
                   />
                 </div>
               </Form>

@@ -52,7 +52,7 @@ export default function UnlockAccountForm(): JSX.Element {
                 />
                 <SubmitButton
                   text="Send Unlock Reset"
-                  disabled={isSubmitting}
+                  submitting={isSubmitting}
                 />
               </div>
             </Form>

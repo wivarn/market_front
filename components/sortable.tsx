@@ -47,6 +47,8 @@ function SortableImage(props: { id: string; url: string }) {
         layout="intrinsic"
         height="150"
         width="150"
+        placeholder="blur"
+        blurDataURL={props.url}
         objectFit="contain"
         className="p-2 my-4 hover:opacity-50"
         loader={({ src }: ImageLoaderProps) => {
