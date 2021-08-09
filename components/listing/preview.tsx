@@ -23,7 +23,7 @@ export const ListingPreviewTile = (props: IListing): JSX.Element => {
                     layout="fill"
                     objectFit="cover"
                     placeholder="blur"
-                    blurDataURL={props.photos[0].url}
+                    blurDataURL="/assets/image-loader.svg"
                     className="rounded-t-md"
                   />
                 ) : null}
@@ -59,7 +59,7 @@ export const ListingPreviewList = (props: ICartListing): JSX.Element => {
               layout="fill"
               objectFit="cover"
               placeholder="blur"
-              blurDataURL={props.photos[0].url}
+              blurDataURL="/assets/image-loader.svg"
               className="rounded-l-md"
             />
           </div>
