@@ -11,8 +11,10 @@ import { IAddress } from "types/account";
 import Link from "next/link";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
+import { UserSettingsContext } from "contexts/userSettings";
 import { createRef } from "react";
 import { toast } from "react-toastify";
+import { useContext } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
@@ -142,6 +144,7 @@ export default function AddressForm(): JSX.Element {
   const router = useRouter();
   const [address, setAddress] = useState<IAddress | null>(null);
   const [error, setError] = useState(false);
+  const { updateUserSettings } = useContext(UserSettingsContext);
 
   useEffect(() => {
     if (sessionLoading) return;
@@ -180,6 +183,7 @@ export default function AddressForm(): JSX.Element {
               if (noAddress) {
                 router.push("/account/payments");
               }
+              updateUserSettings(session?.accessToken);
             })
             .catch((error) => {
               toast.error(JSON.stringify(error.response.data));

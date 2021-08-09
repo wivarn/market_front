@@ -35,7 +35,7 @@ const paymentSchema = Yup.object().shape({
 export default function PaymentForm(): JSX.Element {
   const [session, sessionLoading] = useSession();
   const router = useRouter();
-  const { userSettings } = useContext(UserSettingsContext);
+  const { userSettings, updateUserSettings } = useContext(UserSettingsContext);
 
   useEffect(() => {
     if (!userSettings.address_set) {
@@ -60,6 +60,7 @@ export default function PaymentForm(): JSX.Element {
             .update(formData)
             .then(() => {
               toast.success("Your listing currency has been updated");
+              updateUserSettings(session?.accessToken);
             })
             .finally(() => {
               actions.setSubmitting(false);

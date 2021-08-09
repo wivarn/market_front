@@ -8,6 +8,8 @@ import { PaymentApi } from "services/backendApi/payment";
 import PaymentForm from "components/forms/account/payment";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
+import { UserSettingsContext } from "contexts/userSettings";
+import { useContext } from "react";
 import { useSession } from "next-auth/client";
 
 export default function payments(): JSX.Element {
@@ -15,6 +17,7 @@ export default function payments(): JSX.Element {
   // TODO: add payment type
   const [stripeAccount, setStripeAccount] = useState<any>(null);
   const [error, setError] = useState(false);
+  const { userSettings, updateUserSettings } = useContext(UserSettingsContext);
 
   useEffect(() => {
     if (sessionLoading) return;
@@ -26,13 +29,14 @@ export default function payments(): JSX.Element {
       .catch(() => {
         setError(true);
       });
+    updateUserSettings(session?.accessToken);
   }, [sessionLoading]);
 
   if (sessionLoading || !stripeAccount) return <SpinnerLg text="Loading..." />;
   if (error) return <GenericErrorMessage />;
 
   function renderConnectButton() {
-    if (stripeAccount.charges_enabled) {
+    if (userSettings.stripe_linked) {
       return (
         <a
           href="https://dashboard.stripe.com/account"
