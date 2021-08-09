@@ -9,11 +9,14 @@ import PaymentForm from "components/forms/account/payment";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
 import { UserSettingsContext } from "contexts/userSettings";
+import { toast } from "react-toastify";
 import { useContext } from "react";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
 export default function payments(): JSX.Element {
   const [session, sessionLoading] = useSession();
+  const router = useRouter();
   // TODO: add payment type
   const [stripeAccount, setStripeAccount] = useState<any>(null);
   const [error, setError] = useState(false);
@@ -31,6 +34,13 @@ export default function payments(): JSX.Element {
       });
     updateUserSettings(session?.accessToken);
   }, [sessionLoading]);
+
+  useEffect(() => {
+    if (!userSettings.address_set) {
+      toast.error("You must set your address before setting payment options");
+      router.push("/account/address");
+    }
+  }, []);
 
   if (sessionLoading || !stripeAccount) return <SpinnerLg text="Loading..." />;
   if (error) return <GenericErrorMessage />;

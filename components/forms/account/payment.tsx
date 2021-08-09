@@ -12,8 +12,6 @@ import { SubmitButtonFull } from "components/buttons";
 import { UserSettingsContext } from "contexts/userSettings";
 import { toast } from "react-toastify";
 import { useContext } from "react";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
 const currencyList = [
@@ -34,15 +32,7 @@ const paymentSchema = Yup.object().shape({
 
 export default function PaymentForm(): JSX.Element {
   const [session, sessionLoading] = useSession();
-  const router = useRouter();
   const { userSettings, updateUserSettings } = useContext(UserSettingsContext);
-
-  useEffect(() => {
-    if (!userSettings.address_set) {
-      toast.error("You must set your address before setting payment options");
-      router.push("/account/address");
-    }
-  }, []);
 
   if (sessionLoading) return <SpinnerLg text="Loading..." />;
 
