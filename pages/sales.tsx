@@ -38,7 +38,7 @@ export default function sales(): JSX.Element {
           <p>
             You have not made any sales yet.
             <br />{" "}
-            <Link href="/listings">
+            <Link href="/listings?state=active">
               <a className="underline text-info hover:text-primary">
                 Start selling now
               </a>
