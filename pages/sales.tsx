@@ -29,8 +29,10 @@ export default function sales(): JSX.Element {
   if (salesLoading || sessionLoading) return <SpinnerLg text="Loading..." />;
   if (salesError) return <GenericErrorMessage />;
 
+  const sales = salesResponse.data;
+
   function renderSales() {
-    if (salesResponse.length == 0) {
+    if (sales.length == 0) {
       return (
         <BlankMessage>
           <p>
@@ -47,7 +49,7 @@ export default function sales(): JSX.Element {
     }
     return (
       <div>
-        {salesResponse.data.map((order: IOrder) => {
+        {sales.map((order: IOrder) => {
           return <SalesOrder key={order.id} order={order} />;
         })}
       </div>
