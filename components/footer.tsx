@@ -1,8 +1,8 @@
 import {
-  SmFacebookIcon,
-  SmInstagramIcon,
-  SmTwitterIcon,
-  SmYoutubeIcon,
+  FacebookIconSm,
+  InstagramIconSm,
+  TwitterIconSm,
+  YoutubeIconSm,
 } from "./icons";
 
 import { IconButtonLinkLight } from "./iconButton";
@@ -41,22 +41,22 @@ export default function Footer(): JSX.Element {
         <div className="flex justify-center mt-4 space-x-4">
           <IconButtonLinkLight
             url="https://www.youtube.com/channel/UCDe_aLZv7CoKLxiZxAPbDJg"
-            icon={<SmYoutubeIcon />}
+            icon={<YoutubeIconSm />}
             target="_blank"
           />
           <IconButtonLinkLight
             url="https://www.facebook.com/skwirl.io"
-            icon={<SmFacebookIcon />}
+            icon={<FacebookIconSm />}
             target="_blank"
           />
           <IconButtonLinkLight
             url="https://www.instagram.com/skwirl.io"
-            icon={<SmInstagramIcon />}
+            icon={<InstagramIconSm />}
             target="_blank"
           />
           <IconButtonLinkLight
             url="https://twitter.com/skwirl_io"
-            icon={<SmTwitterIcon />}
+            icon={<TwitterIconSm />}
             target="_blank"
           />
         </div>

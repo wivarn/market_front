@@ -4,15 +4,15 @@ import {
   UserCircleIcon,
 } from "components/icons";
 
+import { ChevronDownIconSm } from "components/icons";
 import { DropDown } from "./dropdown";
 import Head from "next/head";
 import { IconLink } from "./iconLink";
 import Link from "next/link";
-import { MdSkwirlIcon } from "components/icons";
 import { Popover } from "@headlessui/react";
 import ReactTooltip from "react-tooltip";
 import SearchForm from "components/forms/listing/search";
-import { SmChevronDownIcon } from "components/icons";
+import { SkwirlIconMd } from "components/icons";
 import { Spinner } from "components/spinner";
 import { categoryList } from "constants/listings";
 import { useSession } from "next-auth/client";
@@ -24,20 +24,21 @@ function CategoryPopovers() {
         return (
           <Popover key={category.value} className="relative">
             <Popover.Button className="flex items-center p-2 text-sm font-semibold rounded-md focus:outline-none text-accent-dark">
-              {category.text} <SmChevronDownIcon />
+              {category.text} <ChevronDownIconSm />
             </Popover.Button>
 
             <Popover.Panel className="absolute z-10">
               <div className="grid w-48 p-2 space-y-2 text-sm bg-white border rounded-md border-accent">
                 {category.subCategory.map((subCategory) => {
                   return (
-                    <a
+                    <Link
                       key={subCategory.value}
-                      className="p-2 rounded-md text-accent-darker hover:bg-primary hover:text-white"
                       href={`/listings/search?category=${category.value}&subcategory=${subCategory.value}`}
                     >
-                      {subCategory.text}
-                    </a>
+                      <a className="p-2 rounded-md text-accent-darker hover:bg-primary hover:text-white">
+                        {subCategory.text}
+                      </a>
+                    </Link>
                   );
                 })}
               </div>
@@ -112,7 +113,7 @@ export default function Header(): JSX.Element {
           <Link href="/">
             <a>
               <span className="inline-flex fill-current text-primary-lightest">
-                <MdSkwirlIcon />
+                <SkwirlIconMd />
                 <h2 className="hidden mt-2 font-bold md:block">skwirl</h2>
               </span>
             </a>

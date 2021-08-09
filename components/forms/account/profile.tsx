@@ -4,13 +4,13 @@ import { Form, Formik } from "formik";
 import { PictureField, TextFieldFull } from "../fields";
 import React, { useEffect, useState } from "react";
 
+import { CheckCircleIconSm } from "components/icons";
 import FormContainer from "../container";
 import { GenericErrorMessage } from "components/message";
 import { IAccount } from "types/account";
 import Link from "next/link";
 import { ProfileApi } from "services/backendApi/profile";
 import ReactTooltip from "react-tooltip";
-import { SmCheckCircleIcon } from "components/icons";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
 import { toast } from "react-toastify";
@@ -38,7 +38,7 @@ const emailLabel = () => {
     <div className="flex items-center space-x-2">
       <span className="font-semibold">Email</span>
       <span data-tip data-for="email" className="text-success">
-        <SmCheckCircleIcon />
+        <CheckCircleIconSm />
         <ReactTooltip
           id="email"
           type="dark"
@@ -138,7 +138,7 @@ export default function ProfileForm(): JSX.Element {
 
               <SubmitButtonFull
                 text="Update Profile"
-                disabled={formik.isSubmitting}
+                submitting={formik.isSubmitting}
               />
             </div>
           </Form>

@@ -1,6 +1,6 @@
+import { ChevronDownIconSm, SortIconXs } from "components/icons";
 import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { SmChevronDownIcon, XsSortIcon } from "components/icons";
 
 import { useRouter } from "next/router";
 
@@ -32,10 +32,10 @@ export default function SearchSort(): JSX.Element {
           <Listbox.Button className="relative p-2 text-left bg-white border rounded-md md:w-72 border-accent">
             <span className="hidden truncate md:block">{selected.text}</span>
             <span className="absolute inset-y-0 right-0 items-center hidden pr-2 md:flex">
-              <SmChevronDownIcon />
+              <ChevronDownIconSm />
             </span>
             <span className="block md:hidden">
-              <XsSortIcon />
+              <SortIconXs />
             </span>
           </Listbox.Button>
           <Transition

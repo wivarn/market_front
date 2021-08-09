@@ -80,7 +80,7 @@ export default function PaymentForm(): JSX.Element {
 
               <SubmitButtonFull
                 text="Update Currency"
-                disabled={formik.isSubmitting}
+                submitting={formik.isSubmitting}
               />
             </div>
           </Form>

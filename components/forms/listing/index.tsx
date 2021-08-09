@@ -139,7 +139,7 @@ const ListingForm = (props: IListing): JSX.Element => {
       return (
         <SubmitButton
           text={(draft || removed ? "Publish" : "Update") + " Listing"}
-          disabled={formik.isSubmitting}
+          submitting={formik.isSubmitting}
           onClick={async () => {
             formik.setFieldValue("aasm_state", "active");
             if (draft || removed)
@@ -154,7 +154,7 @@ const ListingForm = (props: IListing): JSX.Element => {
       return (
         <SecondarySubmitButton
           text={(newListing ? "Save" : "Update") + " Draft"}
-          disabled={formik.isSubmitting}
+          submitting={formik.isSubmitting}
           onClick={async () => {
             formik.setFieldValue("aasm_state", "draft");
           }}

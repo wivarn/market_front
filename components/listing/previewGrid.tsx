@@ -1,4 +1,4 @@
-import { SmChevronLeftIcon, SmChevronRightIcon } from "components/icons";
+import { ChevronLeftIconSm, ChevronRightIconSm } from "components/icons";
 
 import { IListing } from "types/listings";
 import { ListingPreviewTile } from "components/listing/preview";
@@ -25,9 +25,9 @@ const ListingPreviewGrid = ({
       <ReactPaginate
         initialPage={initialPage}
         pageCount={totalPages}
-        previousLabel={<SmChevronLeftIcon />}
+        previousLabel={<ChevronLeftIconSm />}
         previousClassName=" bg-primary text-accent-lightest rounded-full"
-        nextLabel={<SmChevronRightIcon />}
+        nextLabel={<ChevronRightIconSm />}
         nextClassName=" bg-primary text-accent-lightest rounded-full"
         pageRangeDisplayed={2}
         marginPagesDisplayed={1}

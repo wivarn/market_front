@@ -2,7 +2,7 @@ import { Fragment, LegacyRef, forwardRef } from "react";
 import { Menu, Transition } from "@headlessui/react";
 
 import Link from "next/link";
-import { SmOverflowIcon } from "components/icons";
+import { OverflowIconSm } from "components/icons";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -51,7 +51,7 @@ export const OverflowButton = (props: Props): JSX.Element => {
               className="inline-flex items-center gap-2 p-1 mt-1 border rounded-md border-accent hover:text-primary"
               disabled={props.disabled}
             >
-              <SmOverflowIcon />
+              <OverflowIconSm />
             </Menu.Button>
           </div>
 

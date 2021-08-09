@@ -354,7 +354,7 @@ const ListingTemplateForm = (): JSX.Element => {
                 <div className="space-x-2">
                   <SubmitButton
                     text="Update template"
-                    disabled={formik.isSubmitting}
+                    submitting={formik.isSubmitting}
                   />
                 </div>
               </Form>

@@ -1,10 +1,12 @@
+import { BackArrowIconSm } from "components/icons";
 import Link from "next/link";
-import { SmBackArrowIcon } from "components/icons";
+import { SpinnerXs } from "./spinner";
 import { useRouter } from "next/router";
 interface Props {
   text: string;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
+  submitting?: boolean;
   hidden?: boolean;
   href?: string;
   onClick?: () => Promise<void>;
@@ -22,7 +24,7 @@ export const BackButton = (props: Props): JSX.Element => {
       className="flex space-x-1 font-semibold underline text-info hover:text-primary"
       type="button"
     >
-      <SmBackArrowIcon /> <span>{props.text}</span>
+      <BackArrowIconSm /> <span>{props.text}</span>
     </button>
   );
   if (props.href) {
@@ -134,11 +136,17 @@ const _Button = (props: BaseButtonProps): JSX.Element => {
     <button
       type={props.type ? props.type : "submit"}
       className={`px-2 py-1 my-1 font-semibold rounded-md disabled:cursor-not-allowed ${props.buttonClassName}`}
-      disabled={props.disabled}
+      disabled={props.disabled || props.submitting}
       hidden={props.hidden}
       onClick={props.onClick}
     >
-      {props.text}
+      {props.submitting ? (
+        <span className="flex justify-center space-x-2">
+          <SpinnerXs /> <span>{props.text}</span>
+        </span>
+      ) : (
+        <>{props.text}</>
+      )}
     </button>
   );
   if (props.href) {
