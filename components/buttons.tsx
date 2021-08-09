@@ -1,5 +1,5 @@
+import { BackArrowIconSm } from "components/icons";
 import Link from "next/link";
-import { SmBackArrowIcon } from "components/icons";
 import { SpinnerXs } from "./spinner";
 import { useRouter } from "next/router";
 interface Props {
@@ -24,7 +24,7 @@ export const BackButton = (props: Props): JSX.Element => {
       className="flex space-x-1 font-semibold underline text-info hover:text-primary"
       type="button"
     >
-      <SmBackArrowIcon /> <span>{props.text}</span>
+      <BackArrowIconSm /> <span>{props.text}</span>
     </button>
   );
   if (props.href) {

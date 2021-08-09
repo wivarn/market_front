@@ -1,4 +1,4 @@
-import { SmFacebookIcon, SmInstagramIcon, SmTwitterIcon } from "../icons";
+import { FacebookIconSm, InstagramIconSm, TwitterIconSm } from "../icons";
 
 import { IconButtonLink } from "../iconButton";
 import Link from "next/link";
@@ -17,17 +17,17 @@ export default function LandingFooter(): JSX.Element {
           </Link>
           <IconButtonLink
             url="https://www.facebook.com/skwirl.io"
-            icon={<SmFacebookIcon />}
+            icon={<FacebookIconSm />}
             target="_blank"
           />
           <IconButtonLink
             url="https://www.instagram.com/skwirl.io"
-            icon={<SmInstagramIcon />}
+            icon={<InstagramIconSm />}
             target="_blank"
           />
           <IconButtonLink
             url="https://twitter.com/skwirl_io"
-            icon={<SmTwitterIcon />}
+            icon={<TwitterIconSm />}
             target="_blank"
           />
         </div>

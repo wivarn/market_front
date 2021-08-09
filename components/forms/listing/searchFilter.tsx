@@ -15,8 +15,8 @@ import {
 import { createRef, useState } from "react";
 
 import { Disclosure } from "@headlessui/react";
+import { FilterIconSm } from "components/icons";
 import { NumberField } from "../fields";
-import { XsFilterIcon } from "components/icons";
 import { countryList } from "constants/address";
 import { useRouter } from "next/router";
 
@@ -196,7 +196,7 @@ export default function SearchFilter(): JSX.Element {
       {() => (
         <div className="relative">
           <Disclosure.Button className="inline-flex items-center gap-2 p-2 bg-white border rounded-md border-accent hover:text-primary">
-            <XsFilterIcon /> <span className="hidden md:flex">Filter</span>
+            <FilterIconSm /> <span className="hidden md:flex">Filter</span>
           </Disclosure.Button>
           <Disclosure.Panel>
             <div className="absolute z-10 p-2 px-4 border rounded-lg top-14 bg-accent-lightest border-accent-light">

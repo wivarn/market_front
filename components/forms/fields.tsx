@@ -1,3 +1,4 @@
+import { ChevronDownIconSm, XIconSm } from "components/icons";
 import {
   DetailedHTMLProps,
   InputHTMLAttributes,
@@ -8,7 +9,6 @@ import {
 } from "react";
 import { FieldHookConfig, useField } from "formik";
 import Image, { ImageLoaderProps } from "next/image";
-import { SmChevronDownIcon, SmXIcon } from "components/icons";
 
 import { Dispatch } from "react";
 import { RefObject } from "react";
@@ -510,14 +510,14 @@ export const _DropdownCombobox = ({
           className="absolute inline-block right-8 bottom-3 text-accent-dark"
           ref={resetRef}
         >
-          <SmXIcon />
+          <XIconSm />
         </span>
         <span
           {...getToggleButtonProps({ disabled: props.disabled })}
           aria-label="toggle menu"
           className="absolute inline-block right-2 bottom-2 text-accent-dark"
         >
-          <SmChevronDownIcon />
+          <ChevronDownIconSm />
         </span>
 
         <ul

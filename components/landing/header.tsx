@@ -1,4 +1,4 @@
-import { SmFacebookIcon, SmInstagramIcon, SmTwitterIcon } from "../icons";
+import { FacebookIconSm, InstagramIconSm, TwitterIconSm } from "../icons";
 
 import { IconButtonLink } from "../iconButton";
 import Link from "next/link";
@@ -27,21 +27,21 @@ export default function LandingHeader(): JSX.Element {
             <li>
               <IconButtonLink
                 url="https://www.facebook.com/skwirl.io"
-                icon={<SmFacebookIcon />}
+                icon={<FacebookIconSm />}
                 target="_blank"
               />
             </li>
             <li>
               <IconButtonLink
                 url="https://www.instagram.com/skwirl.io"
-                icon={<SmInstagramIcon />}
+                icon={<InstagramIconSm />}
                 target="_blank"
               />
             </li>
             <li>
               <IconButtonLink
                 url="https://twitter.com/skwirl_io"
-                icon={<SmTwitterIcon />}
+                icon={<TwitterIconSm />}
                 target="_blank"
               />
             </li>
