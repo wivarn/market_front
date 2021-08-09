@@ -32,7 +32,7 @@ export default function purchaseHistory(): JSX.Element {
   if (error) return <GenericErrorMessage />;
 
   function renderPurchases() {
-    if (purchases.length == 0) {
+    if (purchases?.length == 0) {
       return (
         <BlankMessage>
           <p>
@@ -49,7 +49,7 @@ export default function purchaseHistory(): JSX.Element {
     }
     return (
       <>
-        {purchases.map((order: IOrder) => {
+        {purchases?.map((order: IOrder) => {
           return <PurchaseOrder key={order.id} order={order} />;
         })}
       </>
