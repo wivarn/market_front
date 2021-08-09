@@ -33,10 +33,11 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
       .addItem(`${props.accountId}`, `${props.id}`)
       .then(() => {
         toast.success("Item added to cart");
-        setSubmitting(false);
       })
       .catch((error) => {
         toast.error(JSON.stringify(error.response.data));
+      })
+      .finally(() => {
         setSubmitting(false);
       });
   }

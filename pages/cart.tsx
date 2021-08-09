@@ -40,6 +40,8 @@ export default function Cart(): JSX.Element {
       .checkout(sellerId)
       .then(async (response) => {
         window.location.assign(response.data.url);
+      })
+      .finally(() => {
         setSubmittingCheckout(false);
       });
   }
@@ -52,6 +54,8 @@ export default function Cart(): JSX.Element {
       .empty(sellerId)
       .then(() => {
         toast.success("Cart has been emptied");
+      })
+      .finally(() => {
         setSubmittingEmpty(false);
       });
   }
@@ -62,6 +66,8 @@ export default function Cart(): JSX.Element {
       .emptyAll()
       .then(() => {
         toast.success("All carts have been emptied");
+      })
+      .finally(() => {
         setSubmittingEmptyAll(false);
       });
   }
