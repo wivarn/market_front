@@ -9,7 +9,9 @@ import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
+import { UserSettingsContext } from "contexts/userSettings";
 import { toast } from "react-toastify";
+import { useContext } from "react";
 import { useSession } from "next-auth/client";
 
 export default function Cart(): JSX.Element {
@@ -17,9 +19,10 @@ export default function Cart(): JSX.Element {
   // TODO: add cart type
   const [carts, setCarts] = useState<any>(null);
   const [error, setError] = useState(false);
+  const { userSettings } = useContext(UserSettingsContext);
 
   useEffect(() => {
-    if (sessionLoading) return;
+    if (sessionLoading || !userSettings.address_set) return;
     CartApi(session?.accessToken)
       .index()
       .then((cartsResponse) => {
@@ -36,6 +39,17 @@ export default function Cart(): JSX.Element {
       .then(async (response) => {
         window.location.assign(response.data.url);
       });
+  }
+
+  if (!userSettings.address_set) {
+    return (
+      <PageContainer>
+        <p>
+          You need to <Link href="/account/address">set an addresss</Link>{" "}
+          before you can have a cart
+        </p>
+      </PageContainer>
+    );
   }
 
   if (sessionLoading || !carts) return <SpinnerLg text="Loading..." />;
