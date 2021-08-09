@@ -145,7 +145,7 @@ const _Button = (props: BaseButtonProps): JSX.Element => {
           <SpinnerXs /> <span>{props.text}</span>
         </span>
       ) : (
-        <span>{props.text}</span>
+        <>{props.text}</>
       )}
     </button>
   );
