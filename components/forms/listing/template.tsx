@@ -198,8 +198,8 @@ const ListingTemplateForm = (): JSX.Element => {
     );
   }
 
-  if (sessionLoading) return <SpinnerLg text="Loading..." />;
   const template = userSettings.listing_template;
+  if (sessionLoading || !template.id) return <SpinnerLg text="Loading..." />;
 
   return (
     <div className="p-4">
