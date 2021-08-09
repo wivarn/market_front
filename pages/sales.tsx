@@ -1,5 +1,7 @@
-import { GenericErrorMessage } from "components/message";
+import { BlankMessage, GenericErrorMessage } from "components/message";
+
 import { IOrder } from "types/order";
+import Link from "next/link";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { SalesOrder } from "components/order";
@@ -27,14 +29,39 @@ export default function sales(): JSX.Element {
   if (salesLoading || sessionLoading) return <SpinnerLg text="Loading..." />;
   if (salesError) return <GenericErrorMessage />;
 
-  return (
-    <div className="my-8">
-      <NextSeo title="Sales" />
-      <PageContainer yPadding="py-2">
-        <h3 className="p-2 text-center">Sales</h3>
-        {salesResponse.data.map((order: IOrder) => {
+  const sales = salesResponse.data;
+
+  function renderSales() {
+    if (sales.length == 0) {
+      return (
+        <BlankMessage>
+          <p>
+            You have not made any sales yet.
+            <br />{" "}
+            <Link href="/listings?state=active">
+              <a className="underline text-info hover:text-primary">
+                Start selling now
+              </a>
+            </Link>
+          </p>
+        </BlankMessage>
+      );
+    }
+    return (
+      <div>
+        {sales.map((order: IOrder) => {
           return <SalesOrder key={order.id} order={order} />;
         })}
+      </div>
+    );
+  }
+
+  return (
+    <div className="my-4">
+      <NextSeo title="Sales" />
+      <PageContainer>
+        <h3 className="pb-2 text-center">Sales</h3>
+        {renderSales()}
       </PageContainer>
     </div>
   );

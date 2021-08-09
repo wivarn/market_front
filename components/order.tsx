@@ -6,6 +6,7 @@ import OrderTrackingForm from "./forms/orderTracking";
 import { SubmitButton } from "./buttons";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
+import { useState } from "react";
 
 interface props {
   order: IOrder;
@@ -17,10 +18,12 @@ export function SalesOrder({ order }: props): JSX.Element {
     month: "short",
     year: "numeric",
   });
+  const [submittingShipped, setSubmittingShipped] = useState(false);
 
   const [session] = useSession();
 
   async function shipOrder() {
+    setSubmittingShipped(true);
     OrderApi(session?.accessToken)
       .updateState("sales", order.id, "ship")
       .then(() => {
@@ -28,6 +31,9 @@ export function SalesOrder({ order }: props): JSX.Element {
       })
       .catch(() => {
         toast.error("Failed to mark order as shipped");
+      })
+      .finally(() => {
+        setSubmittingShipped(false);
       });
   }
 
@@ -36,7 +42,11 @@ export function SalesOrder({ order }: props): JSX.Element {
       <div>
         <div className="flex items-center px-4 py-2 space-x-4 text-white space-between justify-items-center bg-info-darker rounded-t-md">
           <p className="font-bold text-center">Status: {order.aasm_state} </p>
-          <SubmitButton text="Mark as shipped" onClick={shipOrder} />
+          <SubmitButton
+            text="Mark as shipped"
+            onClick={shipOrder}
+            submitting={submittingShipped}
+          />
         </div>
         <table className="w-full border-b table-fixed">
           <thead className="bg-accent-lighter">
@@ -112,9 +122,11 @@ export function PurchaseOrder({ order }: props): JSX.Element {
     year: "numeric",
   });
 
+  const [submittingReceived, setSubmittingReceived] = useState(false);
   const [session] = useSession();
 
   async function receiveOrder() {
+    setSubmittingReceived(true);
     OrderApi(session?.accessToken)
       .updateState("ship", order.id, "receive")
       .then(() => {
@@ -122,6 +134,9 @@ export function PurchaseOrder({ order }: props): JSX.Element {
       })
       .catch(() => {
         toast.error("Failed to mark order as received");
+      })
+      .finally(() => {
+        setSubmittingReceived(false);
       });
   }
 
@@ -130,7 +145,11 @@ export function PurchaseOrder({ order }: props): JSX.Element {
       <div>
         <div className="flex items-center px-4 py-2 space-x-4 text-white space-between justify-items-center bg-info-darker rounded-t-md">
           <p className="font-bold text-center">Status: {order.aasm_state} </p>
-          <SubmitButton text="Mark as received" onClick={receiveOrder} />
+          <SubmitButton
+            text="Mark as received"
+            onClick={receiveOrder}
+            submitting={submittingReceived}
+          />
         </div>
         <table className="w-full border-b table-fixed">
           <thead className="bg-accent-lighter">

@@ -1,9 +1,10 @@
+import { BlankMessage, GenericErrorMessage } from "components/message";
 import { ICart, ICartListing } from "types/listings";
 import { useEffect, useState } from "react";
 
 import { CartApi } from "services/backendApi/cart";
 import { DeleteButton } from "components/buttons";
-import { GenericErrorMessage } from "components/message";
+import Image from "next/image";
 import Link from "next/link";
 import { ListingPreviewList } from "components/listing/preview";
 import { NextSeo } from "next-seo";
@@ -40,11 +41,21 @@ export default function Cart(): JSX.Element {
   if (sessionLoading) return <SpinnerLg text="Loading..." />;
   if (!userSettings.address_set) {
     return (
-      <PageContainer>
-        <p>
-          You need to <Link href="/account/address">set an addresss</Link>{" "}
-          before you can have a cart
-        </p>
+      <PageContainer yPadding="my-8">
+        <div className="container mt-8">
+          <div className="grid items-center max-w-xl p-4 mx-auto rounded-md ">
+            <Image src="/assets/cart.svg" height={400} width={400} />
+            <div className="mt-4 text-lg text-center">
+              <span>
+                Please update your address before adding items to your cart.
+                <br />
+                <Link href="/account/address">
+                  <a className="underline text-info">Update your address now</a>
+                </Link>
+              </span>
+            </div>
+          </div>
+        </div>
       </PageContainer>
     );
   }
@@ -89,7 +100,19 @@ export default function Cart(): JSX.Element {
 
   function renderCarts() {
     if (carts.length == 0) {
-      return <div>You have no carts</div>;
+      return (
+        <BlankMessage>
+          <p>
+            You have nothing in your cart.
+            <br />{" "}
+            <Link href="/">
+              <a className="underline text-info hover:text-primary">
+                Start shopping now
+              </a>
+            </Link>
+          </p>
+        </BlankMessage>
+      );
     }
 
     return (
@@ -162,7 +185,7 @@ export default function Cart(): JSX.Element {
     <div className="my-4">
       <NextSeo title="Cart" />
       <PageContainer>
-        <h3 className="pb-2 text-center">Your Carts</h3>
+        <h3 className="pb-2 text-center">Your Cart</h3>
         {renderCarts()}
       </PageContainer>
     </div>
