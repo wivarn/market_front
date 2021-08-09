@@ -31,16 +31,9 @@ export default function Cart(): JSX.Element {
       .catch(() => {
         setError(true);
       });
-  }, [sessionLoading]);
+  }, [sessionLoading, userSettings.address_set]);
 
-  async function checkout(sellerId: string) {
-    CartApi(session?.accessToken)
-      .checkout(sellerId)
-      .then(async (response) => {
-        window.location.assign(response.data.url);
-      });
-  }
-
+  if (sessionLoading) return <SpinnerLg text="Loading..." />;
   if (!userSettings.address_set) {
     return (
       <PageContainer>
@@ -51,9 +44,17 @@ export default function Cart(): JSX.Element {
       </PageContainer>
     );
   }
-
-  if (sessionLoading || !carts) return <SpinnerLg text="Loading..." />;
+  if (!carts) return <SpinnerLg text="Loading..." />;
   if (error) return <GenericErrorMessage></GenericErrorMessage>;
+
+  async function checkout(sellerId: string) {
+    CartApi(session?.accessToken)
+      .checkout(sellerId)
+      .then(async (response) => {
+        window.location.assign(response.data.url);
+      });
+  }
+
   async function empty(sellerId: string) {
     CartApi(session?.accessToken)
       .empty(sellerId)
@@ -70,12 +71,13 @@ export default function Cart(): JSX.Element {
       });
   }
 
-  return (
-    <div className="my-8">
-      <NextSeo title="Cart" />
+  function renderCarts() {
+    if (carts.length == 0) {
+      return <div>No Carts</div>;
+    }
 
-      <PageContainer>
-        <h3 className="pb-2 text-center">Your Cart</h3>
+    return (
+      <>
         <SubmitButton text="Empty All Carts" onClick={() => emptyAll()} />
         {carts.map((cart: ICart) => {
           return (
@@ -127,6 +129,18 @@ export default function Cart(): JSX.Element {
             </div>
           );
         })}
+      </>
+    );
+  }
+
+  return (
+    <div className="my-8">
+      <NextSeo title="Cart" />
+
+      <PageContainer>
+        <h3 className="pb-2 text-center">Your Cart</h3>
+
+        {renderCarts()}
       </PageContainer>
     </div>
   );
