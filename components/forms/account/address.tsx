@@ -140,20 +140,15 @@ function trimValues(values: IAddress) {
 }
 
 export default function AddressForm(): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const [session] = useSession();
   const router = useRouter();
   const [address, setAddress] = useState<IAddress | null>(null);
   const [error, setError] = useState(false);
   const { userSettings, assignUserSettings } = useContext(UserSettingsContext);
-  console.log("userSettings: ", userSettings);
-  console.log("address: ", address);
-  console.log("sessionLoading: ", sessionLoading);
-  console.log("session: ", session);
 
   useEffect(() => {
-    console.log("in effect: ", session);
     if (!session?.accessToken) return;
-    AddressApi(session?.accessToken)
+    AddressApi(session.accessToken)
       .get()
       .then((addressResponse) => {
         setAddress(addressResponse.data);
