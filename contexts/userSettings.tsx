@@ -75,7 +75,7 @@ export const UserSettingsProvider = ({
   };
 
   useEffect(() => {
-    if (session === undefined) return;
+    if (session === undefined || !userSettings.default_settings) return;
     updateUserSettings(session?.accessToken);
   }, [session]);
 
