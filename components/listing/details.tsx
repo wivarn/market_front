@@ -8,6 +8,7 @@ import ImageSlider from "components/listing/imageSlider";
 import { InfoCard } from "./infoCard";
 import Link from "next/link";
 import { PrimaryButtonFull } from "components/buttons";
+import ReactTooltip from "react-tooltip";
 import { UserInfo } from "components/user";
 import { UserSettingsContext } from "contexts/userSettings";
 import { categoryList } from "constants/listings";
@@ -55,12 +56,28 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
       );
     } else {
       return (
-        <SubmitButtonFull
-          text="Add to Cart"
-          disabled={!userSettings.address_set}
-          submitting={submitting}
-          onClick={addItem}
-        />
+        <div data-tip data-for="add-to-cart">
+          <SubmitButtonFull
+            text="Add to Cart"
+            disabled={!userSettings.address_set}
+            submitting={submitting}
+            onClick={addItem}
+          />
+          <ReactTooltip
+            id="add-to-cart"
+            type="dark"
+            place="top"
+            multiline={true}
+            effect="solid"
+            disable={userSettings.address_set}
+          >
+            <div className="text-center">
+              You need to set your address
+              <br />
+              before making purchases
+            </div>
+          </ReactTooltip>
+        </div>
       );
     }
   }
