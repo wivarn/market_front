@@ -144,7 +144,7 @@ export default function AddressForm(): JSX.Element {
   const router = useRouter();
   const [address, setAddress] = useState<IAddress | null>(null);
   const [error, setError] = useState(false);
-  const { updateUserSettings } = useContext(UserSettingsContext);
+  const { userSettings, assignUserSettings } = useContext(UserSettingsContext);
 
   useEffect(() => {
     if (sessionLoading) return;
@@ -180,8 +180,12 @@ export default function AddressForm(): JSX.Element {
             .update(trimValues(values))
             .then(() => {
               toast.success("Your address has been updated");
-              updateUserSettings(session?.accessToken);
               if (noAddress) {
+                assignUserSettings({
+                  ...userSettings,
+                  address_set: true,
+                  country: values.country,
+                });
                 router.push("/account/payments");
               }
             })

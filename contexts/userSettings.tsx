@@ -9,6 +9,7 @@ import { useEffect } from "react";
 interface IUserSettingsContext {
   userSettings: IUserSettings;
   updateUserSettings: (accessToken?: string) => void;
+  assignUserSettings: (newUserSettings: IUserSettings) => void;
   resetUserSettings: () => void;
 }
 
@@ -33,6 +34,9 @@ const defaultSettings: IUserSettings = {
 export const UserSettingsContext = createContext<IUserSettingsContext>({
   userSettings: defaultSettings,
   updateUserSettings: () => {
+    // empty
+  },
+  assignUserSettings: () => {
     // empty
   },
   resetUserSettings: () => {
@@ -62,6 +66,10 @@ export const UserSettingsProvider = ({
     }
   };
 
+  const assignUserSettings = (newUserSettings: IUserSettings) => {
+    setUserSettings(newUserSettings);
+  };
+
   const resetUserSettings = () => {
     setUserSettings(defaultSettings);
   };
@@ -85,6 +93,7 @@ export const UserSettingsProvider = ({
   const contextProps: IUserSettingsContext = {
     userSettings: userSettings,
     updateUserSettings: updateUserSettings,
+    assignUserSettings: assignUserSettings,
     resetUserSettings: resetUserSettings,
   };
 
