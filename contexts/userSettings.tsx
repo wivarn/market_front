@@ -18,6 +18,7 @@ interface IUserSettings {
   address_set: boolean;
   stripe_linked: boolean;
   listing_template: IListingTemplate;
+  default_settings?: true;
 }
 
 const defaultSettings: IUserSettings = {
@@ -26,6 +27,7 @@ const defaultSettings: IUserSettings = {
   address_set: false,
   stripe_linked: false,
   listing_template: {},
+  default_settings: true,
 };
 
 export const UserSettingsContext = createContext<IUserSettingsContext>({

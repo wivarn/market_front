@@ -180,10 +180,10 @@ export default function AddressForm(): JSX.Element {
             .update(trimValues(values))
             .then(() => {
               toast.success("Your address has been updated");
+              updateUserSettings(session?.accessToken);
               if (noAddress) {
                 router.push("/account/payments");
               }
-              updateUserSettings(session?.accessToken);
             })
             .catch((error) => {
               toast.error(JSON.stringify(error.response.data));

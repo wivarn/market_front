@@ -36,13 +36,14 @@ export default function payments(): JSX.Element {
   }, [sessionLoading]);
 
   useEffect(() => {
-    if (!userSettings.address_set) {
+    if (!userSettings.default_settings && !userSettings.address_set) {
       toast.error("You must set your address before setting payment options");
       router.push("/account/address");
     }
-  }, []);
+  }, [userSettings.default_settings]);
 
-  if (sessionLoading || !stripeAccount) return <SpinnerLg text="Loading..." />;
+  if (sessionLoading || stripeAccount == null)
+    return <SpinnerLg text="Loading..." />;
   if (error) return <GenericErrorMessage />;
 
   function renderConnectButton() {
