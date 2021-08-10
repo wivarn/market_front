@@ -152,7 +152,7 @@ export default function AddressForm(): JSX.Element {
 
   useEffect(() => {
     console.log("in effect: ", session);
-    if (sessionLoading) return;
+    if (!session?.accessToken) return;
     AddressApi(session?.accessToken)
       .get()
       .then((addressResponse) => {
@@ -161,9 +161,9 @@ export default function AddressForm(): JSX.Element {
       .catch(() => {
         setError(true);
       });
-  }, [sessionLoading]);
+  }, [session?.accessToken]);
 
-  if (sessionLoading || !address) return <SpinnerLg text="Loading..." />;
+  if (!address) return <SpinnerLg text="Loading..." />;
   if (error) return <GenericErrorMessage />;
   const noAddress = !Object.keys(address).length;
 
