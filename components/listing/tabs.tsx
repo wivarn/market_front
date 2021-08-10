@@ -46,7 +46,7 @@ export default function ListingTabs({
   const { userSettings } = useContext(UserSettingsContext);
 
   const disableListings =
-    !userSettings.address_set && !userSettings.stripe_linked;
+    !userSettings.address_set || !userSettings.stripe_linked;
 
   if (!sessionLoading && !session) {
     router.push("/");
