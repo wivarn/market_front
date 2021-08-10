@@ -147,6 +147,8 @@ export default function AddressForm(): JSX.Element {
   const { userSettings, assignUserSettings } = useContext(UserSettingsContext);
   console.log("userSettings: ", userSettings);
   console.log("address: ", address);
+  console.log("sessionLoading: ", sessionLoading);
+  console.log("session: ", session);
 
   useEffect(() => {
     console.log("in effect: ", session);
