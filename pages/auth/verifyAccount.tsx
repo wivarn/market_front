@@ -18,6 +18,7 @@ export default function verifyAccount(): JSX.Element {
       AuthApi()
         .verifyAccount(`${key}`)
         .then((response) => {
+          console.log("verify account: ", response);
           signIn("jwt", {
             ...response.data,
             redirect: false,

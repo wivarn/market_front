@@ -64,6 +64,7 @@ export default NextAuth({
       id: "jwt",
       name: "Jwt",
       authorize: async (jwt: User) => {
+        console.log("jwt authorize: ", jwt);
         return jwt;
       },
     }),

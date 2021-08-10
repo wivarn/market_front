@@ -145,8 +145,11 @@ export default function AddressForm(): JSX.Element {
   const [address, setAddress] = useState<IAddress | null>(null);
   const [error, setError] = useState(false);
   const { userSettings, assignUserSettings } = useContext(UserSettingsContext);
+  console.log("userSettings: ", userSettings);
+  console.log("address: ", address);
 
   useEffect(() => {
+    console.log("in effect: ", session);
     if (sessionLoading) return;
     AddressApi(session?.accessToken)
       .get()
