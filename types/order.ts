@@ -1,5 +1,5 @@
 import { IAddress } from "./account";
-import { ICartListing } from "./listings";
+import { IListingPreview } from "types/listings";
 import { IUser } from "types/user";
 
 export interface IOrder {
@@ -12,7 +12,7 @@ export interface IOrder {
   seller_id: string;
   total: string;
   tracking: string;
-  listings: ICartListing[];
+  listings: IListingPreview[];
   created_at: string;
   updated_at: string;
 }

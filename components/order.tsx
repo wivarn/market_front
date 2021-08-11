@@ -93,9 +93,7 @@ export function SalesOrder({ order }: props): JSX.Element {
               title={listing.title}
               price={listing.price}
               currency={listing.currency}
-              domestic_shipping={listing.domestic_shipping}
-              international_shipping={listing.international_shipping}
-              shipping_country={listing.shipping_country}
+              shipping={listing.shipping}
             />
           );
         })}
@@ -196,9 +194,7 @@ export function PurchaseOrder({ order }: props): JSX.Element {
               title={listing.title}
               price={listing.price}
               currency={listing.currency}
-              domestic_shipping={listing.domestic_shipping}
-              international_shipping={listing.international_shipping}
-              shipping_country={listing.shipping_country}
+              shipping={listing.shipping}
             />
           );
         })}
