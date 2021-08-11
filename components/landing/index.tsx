@@ -21,7 +21,7 @@ export default function Landing(): JSX.Element {
                 <h1 className="text-4xl font-extrabold lg:text-6xl xl:text-7xl text-accent-darkest">
                   {
                     <>
-                      {"The "}{" "}
+                      {"The "}
                       <span className="text-info">social marketplace</span>{" "}
                       {" for\n"}
                       <span className="text-primary">modern collectors</span>
