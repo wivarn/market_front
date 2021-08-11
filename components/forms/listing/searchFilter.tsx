@@ -253,7 +253,7 @@ export default function SearchFilter(): JSX.Element {
                       {renderGrading()}
 
                       <DropdownCombobox
-                        label="Country"
+                        label="Item Location"
                         name="shipping_country"
                         placeholder={
                           formik.getFieldProps("shipping_country").value

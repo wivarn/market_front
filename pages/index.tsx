@@ -1,9 +1,17 @@
+import {
+  DiscordIcon,
+  FacebookIconSm,
+  InstagramIconSm,
+  TwitterIconSm,
+  YoutubeIconSm,
+} from "components/icons";
+
+import { IconButtonLink } from "components/iconButton";
 import Landing from "components/landing";
+import MailChimpForm from "components/forms/mailChimp";
 import { NextSeo } from "next-seo";
-import PageContainer from "components/pageContainer";
-import { PrimaryButton } from "components/buttons";
-import { PromoCard } from "components/promoCards";
 import { RecentListings } from "components/listing/recentListings";
+import { SecondaryButton } from "components/buttons";
 
 export default function Home(): JSX.Element {
   if (process.env.NEXT_PUBLIC_FEATURE_LAUNCHED != "true") return <Landing />;
@@ -11,45 +19,76 @@ export default function Home(): JSX.Element {
   return (
     <div>
       <NextSeo title="Home" />
-      <div className="w-full px-8 py-2 my-8 bg-gradient-to-t from-info via-info-dark to-info-darker text-accent-lightest">
-        <div className="container mx-auto max-w-screen-2xl">
-          <h4 className="mt-8 text-white">
-            The social marketplace for modern collectors
-          </h4>
-          <h1 className="text-5xl font-bold text-white lg:text-6xl">
-            Find the next centerpiece for your collection
-          </h1>
-          <PrimaryButton href="/account/new" text="Sign up now" />
-          <div className="mb-8"></div>
+      <div className="pt-10 pb-20 bg-white">
+        <div className="container px-4 mx-auto max-w-screen-2xl">
+          <header className="grid text-center lg:justify-items-start justify-items-center lg:items-center lg:flex lg:text-left">
+            <div className="py-4">
+              <h1 className="text-4xl font-extrabold lg:text-6xl xl:text-7xl text-accent-darkest">
+                {
+                  <>
+                    {"The "}
+                    <span className="text-info">social marketplace</span>{" "}
+                    {" for\n"}
+                    <span className="text-primary">modern collectors</span>
+                  </>
+                }
+              </h1>
+              <h3 className="py-2">
+                Subscribe to our newsletter for exclusive offers and content!
+              </h3>
+              <MailChimpForm />
+            </div>
+            <img
+              src="/assets/hero-cards.svg"
+              alt="Card Hero"
+              className="px-4 mt-16 lg:float-right"
+            />
+          </header>
         </div>
       </div>
       <RecentListings />
-      <div className="my-8">
-        <PageContainer>
-          <h3 className="my-4 text-center text-accent-darker">
-            Connect with us
-          </h3>
-          <div className="grid grid-cols-1 gap-1 my-8 md:grid-cols-2 lg:grid-cols-3 justify-items-center">
-            <PromoCard
-              title="Become a member"
-              text="Subscribe to different membership levels on buymeacoffee.com to receive perks and rewards for being supporters."
-              imgSrc="/promo/subscribe_star.jpg"
-              href="https://www.buymeacoffee.com/skwirl"
+      <div className="py-16 bg-primary">
+        <div className="grid justify-center space-y-2 justify-items-center">
+          <div className="text-white">
+            <DiscordIcon />
+          </div>
+          <div className="text-2xl text-white lg:text-4xl">
+            Join the conversation
+          </div>
+          <SecondaryButton
+            text="Chat with us on Discord"
+            href="https://discord.gg/WHvDqHC2SC"
+          />
+        </div>
+      </div>
+      <div className="py-16 bg-secondary">
+        <div className="grid justify-center space-y-2 justify-items-center">
+          <div className="text-2xl text-info-darker lg:text-4xl">
+            Follow us on social media
+          </div>
+          <div className="flex justify-center mt-4 space-x-4">
+            <IconButtonLink
+              url="https://www.youtube.com/channel/UCDe_aLZv7CoKLxiZxAPbDJg"
+              icon={<YoutubeIconSm />}
+              target="_blank"
             />
-            <PromoCard
-              title="Watch us on Youtube"
-              text="Head over to our Youtube channel to see videos on all things collectibles! Get the latest insider news and tips from the pros"
-              imgSrc="/promo/youtube.jpg"
-              href="https://www.youtube.com/channel/UCDe_aLZv7CoKLxiZxAPbDJg"
+            <IconButtonLink
+              url="https://www.facebook.com/skwirl.io"
+              icon={<FacebookIconSm />}
+              target="_blank"
             />
-            <PromoCard
-              title="Get expert advice"
-              text="Learn from our experts on how to up your selling game. We'll teach you how to list your items, price them appropriately and package up and ship them around the world. Don't know where to start? Don't worry, we're here to help."
-              imgSrc="/promo/selling.jpg"
-              href="/blog"
+            <IconButtonLink
+              url="https://www.instagram.com/skwirl.io"
+              icon={<InstagramIconSm />}
+              target="_blank"
+            />
+            <IconButtonLink
+              url="https://twitter.com/skwirl_io"
+              icon={<TwitterIconSm />}
+              target="_blank"
             />
           </div>
-        </PageContainer>
+        </div>
       </div>
     </div>
   );

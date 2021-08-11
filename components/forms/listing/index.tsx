@@ -343,7 +343,7 @@ const ListingForm = (props: IListing): JSX.Element => {
                   />
                   {renderGrading()}
                   <a
-                    href="skwirl.zendesk.com"
+                    href="https://skwirl.zendesk.com/hc/en-us/articles/4404481792147-Condition-guide-for-raw-ungraded-cards"
                     target="_blank"
                     rel="noreferrer"
                     className="underline text-info"
