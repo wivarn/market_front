@@ -104,6 +104,26 @@ export default function CreateAccountForm(): JSX.Element {
                     text="Create Account"
                     submitting={isSubmitting}
                   />
+                  <p className="text-sm text-accent-dark">
+                    By creating an account you agree to Skwirl&#39;s{" "}
+                    <a
+                      href="https://skwirl.zendesk.com/hc/en-us/articles/4404540187283-Our-Terms-of-Service"
+                      rel="noreferrer"
+                      target="_blank"
+                      className="underline text-info"
+                    >
+                      Terms of Service
+                    </a>{" "}
+                    and{" "}
+                    <a
+                      href="https://skwirl.zendesk.com/hc/en-us/articles/4403778415763-Our-Privacy-Policy"
+                      rel="noreferrer"
+                      target="_blank"
+                      className="underline text-info"
+                    >
+                      Privacy Policy
+                    </a>
+                  </p>
                 </div>
               </Form>
             )}
