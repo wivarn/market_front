@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ListingBasicInfo from "./basicInfo";
 
+// card shaped preview
 export const ListingPreviewTile = (props: IListing): JSX.Element => {
   const href =
     props.aasm_state === "active"
@@ -47,6 +48,7 @@ export const ListingPreviewTile = (props: IListing): JSX.Element => {
   );
 };
 
+// banner shaped preview
 export const ListingPreviewList = (props: ICartListing): JSX.Element => {
   return (
     <div key={props.id} className="mx-4 my-4 space-y-2">
