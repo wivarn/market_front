@@ -33,9 +33,7 @@ export const RecentListings = (): JSX.Element => {
         <h3 className="my-4 text-center text-accent-darker">
           Sports Cards{" "}
           <Link href="/listings/search?category=SPORTS_CARDS">
-            <a className="text-base underline text-info hover:text-primary">
-              View All
-            </a>
+            <a className="text-base underline text-info">View All</a>
           </Link>
         </h3>
         <div>
@@ -46,9 +44,7 @@ export const RecentListings = (): JSX.Element => {
         <h3 className="my-4 text-center">
           Trading Cards{" "}
           <Link href="/listings/search?category=TRADING_CARDS">
-            <a className="text-base underline text-info hover:text-primary">
-              View All
-            </a>
+            <a className="text-base underline text-info">View All</a>
           </Link>
         </h3>
         <div>
@@ -59,9 +55,7 @@ export const RecentListings = (): JSX.Element => {
         <h3 className="my-4 text-center">
           Collectibles{" "}
           <Link href="/listings/search?category=COLLECTIBLES">
-            <a className="text-base underline text-info hover:text-primary">
-              View All
-            </a>
+            <a className="text-base underline text-info">View All</a>
           </Link>
         </h3>
         <div>
