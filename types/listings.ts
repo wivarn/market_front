@@ -1,4 +1,13 @@
 import { IUser } from "types/user";
+
+interface _IListingMinimum {
+  id: string;
+  photos: { url: string }[];
+  title: string;
+  price: string;
+  currency: string;
+}
+
 export interface IBasicListing {
   title: string;
   price: string | number;
@@ -7,6 +16,17 @@ export interface IBasicListing {
   international_shipping?: string | number | null;
   grading_company?: string | null;
   condition: string | number;
+}
+
+export interface IListingPreview extends _IListingMinimum {
+  shipping: string;
+}
+
+export interface IListingPreviewWithCondition extends _IListingMinimum {
+  shipping: string;
+  grading_company: string;
+  condition: string;
+  aasm_state: string;
 }
 
 export interface IListing extends IBasicListing {
@@ -55,5 +75,5 @@ export interface ICart {
   given_name: string;
   family_name: string;
   total: number;
-  listings: ICartListing[];
+  listings: IListingPreview[];
 }

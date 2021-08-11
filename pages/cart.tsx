@@ -1,5 +1,5 @@
 import { BlankMessage, GenericErrorMessage } from "components/message";
-import { ICart, ICartListing } from "types/listings";
+import { ICart, IListingPreview } from "types/listings";
 import { useEffect, useState } from "react";
 
 import { CartApi } from "services/backendApi/cart";
@@ -129,7 +129,7 @@ export default function Cart(): JSX.Element {
                   <a>{`${cart.given_name} ${cart.family_name}`}</a>
                 </Link>
               </h4>
-              {cart.listings.map((listing: ICartListing) => {
+              {cart.listings.map((listing: IListingPreview) => {
                 return (
                   <ListingPreviewList
                     key={listing.id}
@@ -138,9 +138,7 @@ export default function Cart(): JSX.Element {
                     title={listing.title}
                     price={listing.price}
                     currency={listing.currency}
-                    domestic_shipping={listing.domestic_shipping}
-                    international_shipping={listing.international_shipping}
-                    shipping_country={listing.shipping_country}
+                    shipping={listing.shipping}
                   />
                 );
               })}
