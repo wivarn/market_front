@@ -34,7 +34,7 @@ export default function Home(): JSX.Element {
                 }
               </h1>
               <h3 className="py-2">
-                Subscribe to our newsletter for exclusive offers and contests!
+                Subscribe to our newsletter for exclusive offers and content!
               </h3>
               <MailChimpForm />
             </div>
