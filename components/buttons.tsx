@@ -37,15 +37,6 @@ export const BackButton = (props: Props): JSX.Element => {
   return <div onClick={() => router.back()}>{backButton}</div>;
 };
 
-export const CTAButton = (props: Props): JSX.Element => {
-  return (
-    <_Button
-      {...props}
-      buttonClassName="text-2xl text-accent-lightest bg-primary disabled:bg-primary-light hover:bg-primary-dark"
-    />
-  );
-};
-
 export const PrimaryButton = (props: Props): JSX.Element => {
   return (
     <_Button

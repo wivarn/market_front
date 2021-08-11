@@ -37,14 +37,3 @@ export const CardContainer6xl = ({
   );
 };
 
-export const CardContainerFull = ({
-  children,
-}: {
-  children: React.ReactNode;
-}): JSX.Element => {
-  return (
-    <div className="max-w-full p-4 mx-auto">
-      <Container>{children}</Container>
-    </div>
-  );
-};

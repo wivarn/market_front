@@ -52,19 +52,19 @@ export default function Landing(): JSX.Element {
             <FeatureColumn
               title="Buy"
               description="Find the missing piece to your collection"
-              image="/promo/buy.png"
+              image="/assets/buy.png"
               imageAlt="Buy trading cards online"
             />
             <FeatureColumn
               title="Sell"
               description="Profit from the items you no longer need"
-              image="/promo/sell.png"
+              image="/assets/sell.png"
               imageAlt="Sell trading cards online"
             />
             <FeatureColumn
               title="Admire"
               description="Be admired for your most prized possessions"
-              image="/promo/admire.png"
+              image="/assets/admire.png"
               imageAlt="Admire collections"
             />
           </div>
@@ -75,26 +75,26 @@ export default function Landing(): JSX.Element {
           <FeatureRow
             title="Lower seller fees"
             description="Our 5% seller fee is more than 50% cheaper than everyone else. No hidden surprises and unlimited free listings. Keep more of your profits, so you can expand your collection faster."
-            image="/promo/money.svg"
+            image="/assets/money.svg"
             imageAlt="Low Selling Fees"
           />
           <FeatureRow
             title="Innovative Trust System"
             description="Real trust cannot rely on just user reviews. Trust is built through a network of connections and relationships with other collectors. We do that for you, so you can buy and sell with confidence."
-            image="/promo/trust.svg"
+            image="/assets/trust.svg"
             imageAlt="Trust system"
             reverse
           />
           <FeatureRow
             title="Built by collectors"
             description="We are collectors too. We share your passion and understand your needs. We will work with you to build the best collectible marketplace together."
-            image="/promo/innovation.svg"
+            image="/assets/innovation.svg"
             imageAlt="Built by collectors"
           />
           <FeatureRow
             title="More than just a marketplace"
             description="We believe that collecting is deeper than online transactions. That's why we're integrating social features so you can admire your favourite collectors, show off your prized possessions and subscribe to a feed that's tailored to your interests."
-            image="/promo/more.svg"
+            image="/assets/more.svg"
             imageAlt="Marketplace"
             reverse
           />
