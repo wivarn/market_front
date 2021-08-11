@@ -132,7 +132,7 @@ export default function ProfileForm(): JSX.Element {
                 label="Profile Picture"
                 name="picture"
                 id={`${idPrefix}picture`}
-                previewImage={`${profile?.picture?.url}`}
+                previewImage={profile?.picture?.url}
                 setImageData={setImageData}
               />
 
