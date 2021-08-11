@@ -29,6 +29,23 @@ export interface IListingPreviewWithCondition extends _IListingMinimum {
   aasm_state: string;
 }
 
+export interface IlistingDetails {
+  title: string;
+  price: string | number;
+  currency: string;
+  grading_company: string | null;
+  condition: string | number;
+  category: string;
+  subcategory: string;
+  seller: IUser;
+  id: string;
+  photos: { url: string }[];
+  description: string;
+  aasm_state: string;
+  shipping: string;
+  combined_shipping: string;
+}
+
 export interface IListing extends IBasicListing {
   category?: string;
   subcategory?: string;
