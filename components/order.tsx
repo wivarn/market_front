@@ -60,9 +60,9 @@ export function SalesOrder({ order }: props): JSX.Element {
             <tr>
               <td>#{order.id}</td>
               <td>
-                <Link href={`/users/${order.buyer_id}`}>
+                <Link href={`/users/${order.buyer.id}`}>
                   <a className="underline hover:text-primary">
-                    {order.buyer.given_name} {order.buyer.family_name}
+                    {order.buyer.full_name}
                   </a>
                 </Link>{" "}
               </td>
@@ -74,7 +74,7 @@ export function SalesOrder({ order }: props): JSX.Element {
           <span className="flex text-sm">
             Ship to:{" "}
             <span className="px-2 text-sm">
-              {order.buyer.given_name} {order.buyer.family_name}
+              {order.buyer.full_name}
               <br />
               {order.address.street1} {order.address.street2} <br />
               {order.address.city}, {order.address.state} <br />
@@ -161,9 +161,9 @@ export function PurchaseOrder({ order }: props): JSX.Element {
             <tr>
               <td>#{order.id}</td>
               <td>
-                <Link href={`/users/${order.buyer_id}`}>
+                <Link href={`/users/${order.buyer.id}`}>
                   <a className="underline hover:text-primary">
-                    {order.seller.given_name} {order.seller.family_name}
+                    {order.seller.full_name}
                   </a>
                 </Link>{" "}
               </td>
@@ -175,7 +175,7 @@ export function PurchaseOrder({ order }: props): JSX.Element {
           <span className="flex text-sm">
             Shipped to:{" "}
             <span className="px-2 text-sm">
-              {order.buyer.given_name} {order.buyer.family_name}
+              {order.buyer.full_name}
               <br />
               {order.address.street1} {order.address.street2} <br />
               {order.address.city}, {order.address.state} <br />
