@@ -1,19 +1,11 @@
-import {
-  FacebookIconSm,
-  InstagramIconSm,
-  TwitterIconSm,
-  YoutubeIconSm,
-} from "./icons";
-
-import { IconButtonLinkLight } from "./iconButton";
 import Link from "next/link";
-import { Logo } from "./logo";
+import { LogoXl } from "./logo";
 
 export default function Footer(): JSX.Element {
   return (
-    <footer className="py-8 text-center border-t bg-info-darker border-accent">
+    <footer className="py-8 text-center bg-info-darker">
       <div className="text-2xl font-semibold">
-        <Logo colour="text-primary" />
+        <LogoXl colour="text-primary" />
         <nav>
           <ul className="flex flex-col justify-center mt-4 space-y-2 text-lg font-semibold text-white md:space-y-0 md:space-x-4 md:flex-row">
             <li>
@@ -38,28 +30,6 @@ export default function Footer(): JSX.Element {
             </li>
           </ul>
         </nav>
-        <div className="flex justify-center mt-4 space-x-4">
-          <IconButtonLinkLight
-            url="https://www.youtube.com/channel/UCDe_aLZv7CoKLxiZxAPbDJg"
-            icon={<YoutubeIconSm />}
-            target="_blank"
-          />
-          <IconButtonLinkLight
-            url="https://www.facebook.com/skwirl.io"
-            icon={<FacebookIconSm />}
-            target="_blank"
-          />
-          <IconButtonLinkLight
-            url="https://www.instagram.com/skwirl.io"
-            icon={<InstagramIconSm />}
-            target="_blank"
-          />
-          <IconButtonLinkLight
-            url="https://twitter.com/skwirl_io"
-            icon={<TwitterIconSm />}
-            target="_blank"
-          />
-        </div>
         <div className="mt-4 text-sm">
           <div className="font-normal text-accent-light">
             © Copyright {new Date().getFullYear()} Skwirl.
