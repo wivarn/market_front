@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 
 import { CartApi } from "services/backendApi/cart";
 import { ConditionPill } from "./condition";
-import { IListingWithSeller } from "types/listings";
+import { IlistingDetails } from "types/listings";
 import ImageSlider from "components/listing/imageSlider";
 import { InfoCard } from "./infoCard";
 import Link from "next/link";
@@ -14,11 +14,11 @@ import { categoryList } from "constants/listings";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
 
-const ListingDetails = (props: IListingWithSeller): JSX.Element => {
+const ListingDetails = (props: IlistingDetails): JSX.Element => {
   const [session] = useSession();
   const [submitting, setSubmitting] = useState(false);
   const { userSettings } = useContext(UserSettingsContext);
-  const isSeller = session?.accountId == props.accountId;
+  const isSeller = session?.accountId == props.seller.id;
   const editable =
     props.aasm_state === "draft" || props.aasm_state === "active";
 
@@ -30,7 +30,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
   async function addItem() {
     setSubmitting(true);
     CartApi(session?.accessToken)
-      .addItem(`${props.accountId}`, `${props.id}`)
+      .addItem(`${props.seller.id}`, `${props.id}`)
       .then(() => {
         toast.success("Item added to cart");
       })
@@ -86,7 +86,7 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
             <span className="text-md text-accent-darker">{props.currency}</span>
             <div className="text-sm leading-none text-accent-dark">
               +
-              {Number(props.domestic_shipping).toLocaleString("en", {
+              {Number(props.shipping).toLocaleString("en", {
                 style: "currency",
                 currency: "usd",
               })}{" "}
@@ -152,13 +152,10 @@ const ListingDetails = (props: IListingWithSeller): JSX.Element => {
             ) : (
               "Seller does not offer combined shipping for this item."
             )}
-            <div className="font-semibold text-accent-darker">
-              {props.combined_shipping}
-            </div>
           </div>
           <div className="my-8"></div>
           <h5>Seller Information</h5>
-          <Link href={`/users/${props.accountId}`}>
+          <Link href={`/users/${props.seller.id}`}>
             <a>
               <UserInfo {...props.seller} />
             </a>

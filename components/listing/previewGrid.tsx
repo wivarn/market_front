@@ -1,12 +1,12 @@
 import { ChevronLeftIconSm, ChevronRightIconSm } from "components/icons";
 
-import { IListing } from "types/listings";
+import { IListingPreviewWithCondition } from "types/listings";
 import { ListingPreviewTile } from "components/listing/preview";
 import ReactPaginate from "react-paginate";
 import { useRouter } from "next/router";
 
-interface Listings {
-  listings: IListing[];
+interface IProps {
+  listings: IListingPreviewWithCondition[];
   totalPages?: number;
   initialPage?: number;
 }
@@ -15,7 +15,7 @@ const ListingPreviewGrid = ({
   listings,
   totalPages,
   initialPage,
-}: Listings): JSX.Element => {
+}: IProps): JSX.Element => {
   const router = useRouter();
 
   function renderPagination() {
@@ -46,20 +46,19 @@ const ListingPreviewGrid = ({
   return (
     <>
       <div className="grid grid-cols-1 gap-2 mb-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
-        {listings.map((listing: IListing) => {
+        {listings.map((listing: IListingPreviewWithCondition) => {
           return (
             <ListingPreviewTile
               key={listing.id}
               id={listing.id}
-              aasm_state={listing.aasm_state}
               photos={listing.photos}
               title={listing.title}
               price={listing.price}
               currency={listing.currency}
-              domestic_shipping={listing.domestic_shipping}
-              international_shipping={listing.international_shipping}
+              shipping={listing.shipping}
               grading_company={listing.grading_company}
               condition={listing.condition}
+              aasm_state={listing.aasm_state}
             />
           );
         })}

@@ -7,7 +7,7 @@ export const UserInfo = (props: IUser): JSX.Element => {
       <div className="container relative w-20 h-20 m-2 border rounded-full">
         <Image
           src={props.picture.url || "/ProfilePlaceholder.svg"}
-          alt={props.given_name}
+          alt={props.full_name}
           placeholder="blur"
           blurDataURL="/ProfilePlaceholder.svg"
           layout="fill"
@@ -16,9 +16,7 @@ export const UserInfo = (props: IUser): JSX.Element => {
         />
       </div>
       <span>
-        <h4>
-          {props.given_name} {props.family_name}
-        </h4>
+        <h4>{props.full_name}</h4>
         <div className="text-sm text-accent-dark">Location</div>
         <div className="text-sm text-accent-dark">User Ratings Coming Soon</div>
       </span>

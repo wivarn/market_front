@@ -1,5 +1,5 @@
 import { BlankMessage, GenericErrorMessage } from "components/message";
-import { ICart, ICartListing } from "types/listings";
+import { ICart, IListingPreview } from "types/listings";
 import { useEffect, useState } from "react";
 
 import { CartApi } from "services/backendApi/cart";
@@ -120,16 +120,16 @@ export default function Cart(): JSX.Element {
         {carts.map((cart: ICart) => {
           return (
             <div
-              key={cart.seller_id}
+              key={cart.seller.id}
               className="max-w-4xl mx-auto mt-4 border rounded-md"
             >
               <h4 className="px-4 py-2 text-white rounded-t-md bg-info-darker">
                 Seller:{" "}
-                <Link href={`/users/${cart.seller_id}`}>
-                  <a>{`${cart.given_name} ${cart.family_name}`}</a>
+                <Link href={`/users/${cart.seller.id}`}>
+                  <a>{`${cart.seller.full_name}`}</a>
                 </Link>
               </h4>
-              {cart.listings.map((listing: ICartListing) => {
+              {cart.listings.map((listing: IListingPreview) => {
                 return (
                   <ListingPreviewList
                     key={listing.id}
@@ -138,9 +138,7 @@ export default function Cart(): JSX.Element {
                     title={listing.title}
                     price={listing.price}
                     currency={listing.currency}
-                    domestic_shipping={listing.domestic_shipping}
-                    international_shipping={listing.international_shipping}
-                    shipping_country={listing.shipping_country}
+                    shipping={listing.shipping}
                   />
                 );
               })}
@@ -157,13 +155,13 @@ export default function Cart(): JSX.Element {
                   <SubmitButton
                     text="Checkout"
                     submitting={submittingCheckout}
-                    onClick={() => checkout(cart.seller_id)}
+                    onClick={() => checkout(cart.seller.id)}
                   />
 
                   <DeleteButton
                     text="Empty cart"
                     submitting={submittingEmpty}
-                    onClick={() => empty(cart.seller_id)}
+                    onClick={() => empty(cart.seller.id)}
                   />
                 </div>
               </div>

@@ -1,18 +1,21 @@
 import { IAddress } from "./account";
-import { ICartListing } from "./listings";
-import { IUser } from "types/user";
+import { IListingPreview } from "types/listings";
 
 export interface IOrder {
   id: string;
   aasm_state: string;
   address: IAddress;
-  buyer: IUser;
-  buyer_id: string;
-  seller: IUser;
-  seller_id: string;
+  buyer: {
+    id: string;
+    full_name: string;
+  };
+  seller: {
+    id: string;
+    full_name: string;
+  };
   total: string;
   tracking: string;
-  listings: ICartListing[];
+  listings: IListingPreview[];
   created_at: string;
   updated_at: string;
 }

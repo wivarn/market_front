@@ -1,10 +1,13 @@
-import { ICartListing, IListing } from "types/listings";
+import { IListingPreview, IListingPreviewWithCondition } from "types/listings";
 
+import { ConditionPill } from "./condition";
 import Image from "next/image";
 import Link from "next/link";
-import ListingBasicInfo from "./basicInfo";
 
-export const ListingPreviewTile = (props: IListing): JSX.Element => {
+// card shaped preview
+export const ListingPreviewTile = (
+  props: IListingPreviewWithCondition
+): JSX.Element => {
   const href =
     props.aasm_state === "active"
       ? `/listings/${props.id}`
@@ -29,15 +32,38 @@ export const ListingPreviewTile = (props: IListing): JSX.Element => {
                 ) : null}
               </div>
               <div className="w-full px-2 py-1">
-                <ListingBasicInfo
-                  title={props.title}
-                  price={props.price}
-                  currency={props.currency}
-                  domestic_shipping={props.domestic_shipping}
-                  international_shipping={props.international_shipping}
-                  grading_company={props.grading_company}
-                  condition={props.condition}
-                />
+                <div className="mt-1 mb-1">
+                  <div className="border-b h-14">
+                    <p className="font-semibold line-clamp-2 text-accent-darker">
+                      {props.title}
+                    </p>
+                  </div>
+                  <div className="relative mt-1">
+                    <span className="font-semibold text-accent-darker">
+                      {Number(props.price).toLocaleString("en", {
+                        style: "currency",
+                        currency: "usd",
+                      })}{" "}
+                    </span>
+                    <span className="text-xs text-accent-dark">
+                      {props.currency}
+                    </span>
+                    <span className="absolute inset-y-0 right-0">
+                      <ConditionPill
+                        grading_company={props.grading_company}
+                        condition={props.condition}
+                      />
+                    </span>
+                  </div>
+                  <div className="text-xs leading-none text-accent-dark">
+                    +
+                    {Number(props.shipping).toLocaleString("en", {
+                      style: "currency",
+                      currency: "usd",
+                    })}{" "}
+                    Shipping
+                  </div>
+                </div>
               </div>
             </div>
           </a>
@@ -47,7 +73,8 @@ export const ListingPreviewTile = (props: IListing): JSX.Element => {
   );
 };
 
-export const ListingPreviewList = (props: ICartListing): JSX.Element => {
+// banner shaped preview
+export const ListingPreviewList = (props: IListingPreview): JSX.Element => {
   return (
     <div key={props.id} className="mx-4 my-4 space-y-2">
       <Link href={`/listings/${props.id}`}>
@@ -76,7 +103,7 @@ export const ListingPreviewList = (props: ICartListing): JSX.Element => {
               <span className="text-xs text-accent-dark">{props.currency}</span>
               <div className="text-xs leading-none text-accent-dark">
                 +
-                {Number(props.domestic_shipping).toLocaleString("en", {
+                {Number(props.shipping).toLocaleString("en", {
                   style: "currency",
                   currency: "usd",
                 })}{" "}

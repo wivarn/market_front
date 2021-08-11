@@ -1,12 +1,21 @@
+import { useContext, useEffect, useState } from "react";
+
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { UserListings } from "components/user/listings";
+import { UserSettingsContext } from "contexts/userSettings";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
 export default function ShowUserListings(): JSX.Element {
   const router = useRouter();
   const { id } = router.query;
+  const [shipsTo, setShipsTo] = useState<string | null>(null);
+  const { userSettings } = useContext(UserSettingsContext);
+
+  useEffect(() => {
+    setShipsTo(userSettings.country);
+  }, [userSettings]);
 
   function getListings() {
     const query = Object.entries(router.query)
@@ -15,7 +24,7 @@ export default function ShowUserListings(): JSX.Element {
       })
       .join("&");
     const { data, error } = useSWR(
-      id ? `users/${id}/listings?=${query}` : null
+      id && shipsTo ? `users/${id}/listings?ships_to=${shipsTo}&${query}` : null
     );
 
     return {
@@ -26,7 +35,7 @@ export default function ShowUserListings(): JSX.Element {
   }
 
   const { listingsResponse, listingsLoading, listingsError } = getListings();
-  if (listingsLoading) return <SpinnerLg text="Loading..." />;
+  if (listingsLoading || !shipsTo) return <SpinnerLg text="Loading..." />;
   if (listingsError) return <div>Error</div>;
 
   const listings = listingsResponse.data;
