@@ -1,8 +1,7 @@
-import { IListing } from "./listings";
+import { IListingPreviewWithCondition } from "./listings";
 
 export interface IUser {
-  given_name: string;
-  family_name: string;
+  full_name: string;
   picture: { url: string };
-  listings?: IListing[];
+  listings?: IListingPreviewWithCondition[];
 }
