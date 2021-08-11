@@ -34,6 +34,28 @@ export default function Footer(): JSX.Element {
           <div className="font-normal text-accent-light">
             © Copyright {new Date().getFullYear()} Skwirl.
           </div>
+          <div className="font-normal text-accent-light">
+            <p className="text-sm text-accent-light">
+              Our{" "}
+              <a
+                href="https://skwirl.zendesk.com/hc/en-us/articles/4404540187283-Our-Terms-of-Service"
+                rel="noreferrer"
+                target="_blank"
+                className="text-white underline"
+              >
+                Terms of Service
+              </a>{" "}
+              and{" "}
+              <a
+                href="https://skwirl.zendesk.com/hc/en-us/articles/4403778415763-Our-Privacy-Policy"
+                rel="noreferrer"
+                target="_blank"
+                className="text-white underline"
+              >
+                Privacy Policy
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
