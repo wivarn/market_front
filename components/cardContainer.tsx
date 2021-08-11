@@ -36,4 +36,3 @@ export const CardContainer6xl = ({
     </div>
   );
 };
-
