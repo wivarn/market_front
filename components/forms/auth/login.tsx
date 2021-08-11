@@ -115,6 +115,26 @@ export default function LoginForm(): JSX.Element {
                     </a>
                   </Link>
                 </div>
+                <p className="text-sm text-accent-dark">
+                  By logging in you agree to Skwirl's{" "}
+                  <a
+                    href="https://skwirl.zendesk.com/hc/en-us/articles/4404540187283-Our-Terms-of-Service"
+                    rel="noreferrer"
+                    target="_blank"
+                    className="underline text-info"
+                  >
+                    Terms of Service
+                  </a>{" "}
+                  and{" "}
+                  <a
+                    href="https://skwirl.zendesk.com/hc/en-us/articles/4403778415763-Our-Privacy-Policy"
+                    rel="noreferrer"
+                    target="_blank"
+                    className="underline text-info"
+                  >
+                    Privacy Policy
+                  </a>
+                </p>
               </Form>
             )}
           </Formik>
