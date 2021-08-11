@@ -150,7 +150,7 @@ export default function Cart(): JSX.Element {
                       style: "currency",
                       currency: "usd",
                     })}{" "}
-                    {cart.listings[0].currency}
+                    {cart.listings[0]?.currency}
                   </p>
                   <SubmitButton
                     text="Checkout"
