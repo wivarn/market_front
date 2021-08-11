@@ -67,9 +67,14 @@ export default function PaymentForm(): JSX.Element {
                 <span>
                   This will set the currency for new listings. If you change it
                   current listings will not be affected.{" "}
-                  <Link href="#">
-                    <a className="underline text-info">Learn more.</a>
-                  </Link>
+                  <a
+                    href="https://skwirl.zendesk.com/hc/en-us/articles/4405138160147-Getting-started-as-a-seller"
+                    rel="noreferrer"
+                    target="_blank"
+                    className="underline text-info"
+                  >
+                    Learn more.
+                  </a>
                 </span>
               </InfoMessage>
               <DropdownCombobox
