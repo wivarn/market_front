@@ -71,9 +71,10 @@ export interface ICartListing {
 }
 
 export interface ICart {
-  seller_id: string;
-  given_name: string;
-  family_name: string;
-  total: number;
+  seller: {
+    id: string;
+    full_name: string;
+  };
+  total: string;
   listings: IListingPreview[];
 }

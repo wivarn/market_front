@@ -26,7 +26,7 @@ export const RecentListings = (): JSX.Element => {
     );
 
   const cards = cardsResponse.data;
-  console.log(cards);
+
   return (
     <div className="py-2">
       <PageContainer yPadding="py-2 mb-4">

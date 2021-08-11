@@ -75,7 +75,6 @@ export const ListingPreviewTile = (
 
 // banner shaped preview
 export const ListingPreviewList = (props: IListingPreview): JSX.Element => {
-  console.log(props);
   return (
     <div key={props.id} className="mx-4 my-4 space-y-2">
       <Link href={`/listings/${props.id}`}>
