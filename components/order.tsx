@@ -161,7 +161,7 @@ export function PurchaseOrder({ order }: props): JSX.Element {
             <tr>
               <td>#{order.id}</td>
               <td>
-                <Link href={`/users/${order.buyer.id}`}>
+                <Link href={`/users/${order.seller.id}`}>
                   <a className="underline hover:text-primary">
                     {order.seller.full_name}
                   </a>
