@@ -23,6 +23,8 @@ import { createRef, useState } from "react";
 import { BackButton } from "components/buttons";
 import FormSection from "./section";
 import { IListingTemplate } from "types/listings";
+import { InfoMessage } from "components/message";
+import Link from "next/link";
 import { ListingTemplateApi } from "services/backendApi/listingTemplate";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
@@ -211,6 +213,12 @@ const ListingTemplateForm = (): JSX.Element => {
           <h3 className="p-2 mt-8 text-center md:mt-0">
             Create a listing template
           </h3>
+          <InfoMessage>
+            <p>
+              Any fields saved in your listing template will be automatically
+              filled in new listings.
+            </p>
+          </InfoMessage>
           <Formik
             initialValues={{
               category: template.category || "",
@@ -305,7 +313,7 @@ const ListingTemplateForm = (): JSX.Element => {
                   />
                   {renderGrading()}
                   <a
-                    href="skwirl.zendesk.com"
+                    href="https://skwirl.zendesk.com/hc/en-us/articles/4404481792147-Condition-guide-for-raw-ungraded-cards"
                     target="_blank"
                     rel="noreferrer"
                     className="underline text-info"

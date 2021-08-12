@@ -29,6 +29,8 @@ import { createRef, useState } from "react";
 
 import FormSection from "./section";
 import { IListing } from "types/listings";
+import { InfoMessage } from "components/message";
+import Link from "next/link";
 import { ListingApi } from "services/backendApi/listing";
 import { MultiPictureField } from "../fields";
 import PageContainer from "components/pageContainer";
@@ -215,6 +217,19 @@ const ListingForm = (props: IListing): JSX.Element => {
           <h3 className="p-2 mt-8 text-center md:mt-0">
             Enter the details for your listing
           </h3>
+          <InfoMessage>
+            <p>
+              To make it faster to create listings update your{" "}
+              <Link href="/listings/template">
+                <a className="underline text-info">listing template</a>
+              </Link>{" "}
+              or use our{" "}
+              <Link href="/listings/bulkCreate">
+                <a className="underline text-info">bulk upload</a>
+              </Link>{" "}
+              feature
+            </p>
+          </InfoMessage>
           <Formik
             initialValues={initialValues}
             validationSchema={schema}
