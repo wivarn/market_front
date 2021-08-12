@@ -41,12 +41,14 @@ export default function ShowUserListings(): JSX.Element {
   const listings = listingsResponse.data;
 
   return (
-    <PageContainer>
-      <UserListings
-        listings={listings.listings}
-        totalPages={listings.total_pages}
-        initialPage={Number(router.query.page)}
-      />
-    </PageContainer>
+    <div className="my-4">
+      <PageContainer>
+        <UserListings
+          listings={listings.listings}
+          totalPages={listings.total_pages}
+          initialPage={Number(router.query.page)}
+        />
+      </PageContainer>
+    </div>
   );
 }
