@@ -215,8 +215,8 @@ const ListingTemplateForm = (): JSX.Element => {
           </h3>
           <InfoMessage>
             <p>
-              Any fields saved in the listing template will automatically fill
-              in those fields when creating a new listing.
+              Any fields saved in your listing template will be automatically
+              filled in new listings.
             </p>
           </InfoMessage>
           <Formik
