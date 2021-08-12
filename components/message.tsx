@@ -28,9 +28,14 @@ export function GenericErrorMessage(): JSX.Element {
           <span>
             Well that is embarrassing! It looks like something went wrong.
             Please try again, or{" "}
-            <Link href="#">
-              <a className="underline text-info">contact support.</a>
-            </Link>
+            <a
+              href="https://skwirl.zendesk.com/hc/en-us/requests/new"
+              rel="noreferrer"
+              target="_blank"
+              className="underline text-info"
+            >
+              contact support.
+            </a>
           </span>
         </div>
       </div>

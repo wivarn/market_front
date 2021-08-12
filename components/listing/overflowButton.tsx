@@ -48,7 +48,7 @@ export const OverflowButton = (props: Props): JSX.Element => {
         <>
           <div>
             <Menu.Button
-              className="inline-flex items-center gap-2 p-1 mt-1 border rounded-md border-accent hover:text-primary"
+              className="inline-flex items-center gap-2 p-1 mt-1 border rounded-md disabled:cursor-not-allowed disabled:border-accent-light disabled:text-accent border-accent hover:text-primary"
               disabled={props.disabled}
             >
               <OverflowIconSm />

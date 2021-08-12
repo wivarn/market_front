@@ -87,9 +87,14 @@ export default function payments(): JSX.Element {
             <span>
               We use Stripe to securely manage payments. You must set up a
               Stripe account to sell on Skwirl.{" "}
-              <Link href="#">
-                <a className="underline text-info">Learn more.</a>
-              </Link>
+              <a
+                href="https://skwirl.zendesk.com/hc/en-us/articles/4405138160147-Getting-started-as-a-seller"
+                rel="noreferrer"
+                target="_blank"
+                className="underline text-info"
+              >
+                Learn more.
+              </a>
             </span>
           </InfoMessage>
           <div className="py-2">{renderConnectButton()}</div>

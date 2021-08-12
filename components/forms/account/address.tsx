@@ -74,9 +74,14 @@ function renderAddressWarning() {
     <InfoMessage>
       <span>
         You must enter your address before you can buy or sell.{" "}
-        <Link href="#">
-          <a className="underline text-info">Learn more.</a>
-        </Link>
+        <a
+          href="https://skwirl.zendesk.com/hc/en-us/articles/4405138160147-Getting-started-as-a-seller"
+          rel="noreferrer"
+          target="_blank"
+          className="underline text-info"
+        >
+          Learn more.
+        </a>
       </span>
     </InfoMessage>
   );
