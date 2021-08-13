@@ -10,11 +10,13 @@ import useSWR from "swr";
 export default function ShowUserListings(): JSX.Element {
   const router = useRouter();
   const { id } = router.query;
-  const [shipsTo, setShipsTo] = useState<string | null>(null);
+  const [destinationCountry, setDestinationCountry] = useState<string | null>(
+    null
+  );
   const { userSettings } = useContext(UserSettingsContext);
 
   useEffect(() => {
-    setShipsTo(userSettings.country);
+    setDestinationCountry(userSettings.country);
   }, [userSettings]);
 
   function getListings() {
@@ -24,7 +26,9 @@ export default function ShowUserListings(): JSX.Element {
       })
       .join("&");
     const { data, error } = useSWR(
-      id && shipsTo ? `users/${id}/listings?ships_to=${shipsTo}&${query}` : null
+      id && destinationCountry
+        ? `users/${id}/listings?destination_country=${destinationCountry}&${query}`
+        : null
     );
 
     return {
@@ -35,7 +39,8 @@ export default function ShowUserListings(): JSX.Element {
   }
 
   const { listingsResponse, listingsLoading, listingsError } = getListings();
-  if (listingsLoading || !shipsTo) return <SpinnerLg text="Loading..." />;
+  if (listingsLoading || !destinationCountry)
+    return <SpinnerLg text="Loading..." />;
   if (listingsError) return <div>Error</div>;
 
   const listings = listingsResponse.data;

@@ -15,16 +15,18 @@ import { useState } from "react";
 export default function ShowUser(): JSX.Element {
   const router = useRouter();
   const { id } = router.query;
-  const [shipsTo, setShipsTo] = useState<string | null>(null);
+  const [destinationCountry, setDestinationCountry] = useState<string | null>(
+    null
+  );
   const { userSettings } = useContext(UserSettingsContext);
 
   useEffect(() => {
-    setShipsTo(userSettings.country);
+    setDestinationCountry(userSettings.country);
   }, [userSettings]);
 
   function getUser() {
     const { data, error } = useSWR(
-      id ? `users/${id}?ships_to=${shipsTo}` : null
+      id ? `users/${id}?destination_country=${destinationCountry}` : null
     );
 
     return {
@@ -35,7 +37,8 @@ export default function ShowUser(): JSX.Element {
   }
 
   const { userResponse, userLoading, userError } = getUser();
-  if (userLoading || !shipsTo) return <SpinnerLg text="Loading..." />;
+  if (userLoading || !destinationCountry)
+    return <SpinnerLg text="Loading..." />;
   if (userError)
     return (
       <PageContainer>

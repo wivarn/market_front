@@ -3,11 +3,17 @@ import Link from "next/link";
 import ListingPreviewGrid from "./previewGrid";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
+import { UserSettingsContext } from "contexts/userSettings";
+import { useContext } from "react";
 import useSWR from "swr";
 
 export const RecentListings = (): JSX.Element => {
+  const { userSettings } = useContext(UserSettingsContext);
+
   function getRecentCards() {
-    const { data, error } = useSWR("listings/recent_by_category");
+    const { data, error } = useSWR(
+      `listings/recent_by_category?destination_country=${userSettings.country}`
+    );
 
     return {
       cardsResponse: data,
