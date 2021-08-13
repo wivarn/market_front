@@ -87,6 +87,9 @@ const ListingForm = (props: IListing): JSX.Element => {
   const [imageData, setImageData] = useState<File[]>([]);
   const { userSettings } = useContext(UserSettingsContext);
   const template = userSettings.listing_template;
+  const [submittingPublish, setSubmittingPublish] = useState(false);
+  const [submittingDraft, setSubmittingDraft] = useState(false);
+  const [submittingDelete, setSubmittingDelete] = useState(false);
 
   if (sessionLoading || !template.id) return <SpinnerLg text="Loading..." />;
 
@@ -141,8 +144,10 @@ const ListingForm = (props: IListing): JSX.Element => {
       return (
         <SubmitButton
           text={(draft || removed ? "Publish" : "Update") + " Listing"}
-          submitting={formik.isSubmitting}
+          disabled={submittingDraft || submittingDelete}
+          submitting={submittingPublish}
           onClick={async () => {
+            setSubmittingPublish(true);
             formik.setFieldValue("aasm_state", "active");
             if (draft || removed)
               formik.setFieldValue("state_transition", "publish");
@@ -156,8 +161,10 @@ const ListingForm = (props: IListing): JSX.Element => {
       return (
         <SecondarySubmitButton
           text={(newListing ? "Save" : "Update") + " Draft"}
-          submitting={formik.isSubmitting}
+          disabled={submittingPublish || submittingDelete}
+          submitting={submittingDraft}
           onClick={async () => {
+            setSubmittingDraft(true);
             formik.setFieldValue("aasm_state", "draft");
           }}
         />
@@ -180,7 +187,10 @@ const ListingForm = (props: IListing): JSX.Element => {
     return (
       <DeleteButton
         text={draft ? "Delete" : "Remove"}
+        disabled={submittingDraft || submittingPublish}
+        submitting={submittingDelete}
         onClick={async () => {
+          setSubmittingDelete(true);
           if (draft) {
             await ListingApi(session?.accessToken)
               .destroy(id)
@@ -297,6 +307,9 @@ const ListingForm = (props: IListing): JSX.Element => {
                 })
                 .finally(() => {
                   actions.setSubmitting(false);
+                  setSubmittingDelete(false);
+                  setSubmittingPublish(false);
+                  setSubmittingDraft(false);
                 });
             }}
           >
