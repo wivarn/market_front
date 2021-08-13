@@ -34,7 +34,7 @@ export default function SearchForm(): JSX.Element {
           pathname: "/listings/search",
           query: {
             query: values.query,
-            shipping_country: userSettings.country,
+            destination_country: userSettings.country,
           },
         });
         actions.setSubmitting(false);
