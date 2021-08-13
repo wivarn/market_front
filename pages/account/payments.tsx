@@ -2,7 +2,6 @@ import { GenericErrorMessage, InfoMessage } from "components/message";
 import { useEffect, useState } from "react";
 
 import AccountContainer from "components/accountContainer";
-import Link from "next/link";
 import { NextSeo } from "next-seo";
 import { PaymentApi } from "services/backendApi/payment";
 import PaymentForm from "components/forms/account/payment";
