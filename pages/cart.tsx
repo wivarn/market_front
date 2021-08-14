@@ -22,9 +22,20 @@ export default function Cart(): JSX.Element {
   const [carts, setCarts] = useState<any>(null);
   const [error, setError] = useState(false);
   const { userSettings } = useContext(UserSettingsContext);
-  const [submittingCheckout, setSubmittingCheckout] = useState(false);
-  const [submittingEmpty, setSubmittingEmpty] = useState(false);
+  const [submittingCheckout, setSubmittingCheckout] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const [submittingEmpty, setSubmittingEmpty] = useState<{
+    [key: string]: boolean;
+  }>({});
   const [submittingEmptyAll, setSubmittingEmptyAll] = useState(false);
+  const anySubbmitting = () => {
+    return (
+      Object.values(submittingCheckout).some((v: boolean) => v) ||
+      Object.values(submittingEmpty).some((v: boolean) => v) ||
+      submittingEmptyAll
+    );
+  };
 
   useEffect(() => {
     if (sessionLoading || !userSettings.address_set) return;
@@ -63,26 +74,26 @@ export default function Cart(): JSX.Element {
   if (error) return <GenericErrorMessage></GenericErrorMessage>;
 
   async function checkout(sellerId: string) {
-    setSubmittingCheckout(true);
+    setSubmittingCheckout({ ...submittingCheckout, [sellerId]: true });
     CartApi(session?.accessToken)
       .checkout(sellerId)
       .then(async (response) => {
         window.location.assign(response.data.url);
       })
       .finally(() => {
-        setSubmittingCheckout(false);
+        setSubmittingCheckout({ ...submittingCheckout, [sellerId]: true });
       });
   }
 
   async function empty(sellerId: string) {
-    setSubmittingEmpty(true);
+    setSubmittingEmpty({ ...submittingEmpty, [sellerId]: true });
     CartApi(session?.accessToken)
       .empty(sellerId)
       .then(() => {
         toast.success("Cart has been emptied");
       })
       .finally(() => {
-        setSubmittingEmpty(false);
+        setSubmittingEmpty({ ...submittingEmpty, [sellerId]: true });
       });
   }
 
@@ -154,13 +165,15 @@ export default function Cart(): JSX.Element {
                   </p>
                   <SubmitButton
                     text="Checkout"
-                    submitting={submittingCheckout}
+                    submitting={submittingCheckout[cart.seller.id]}
+                    disabled={anySubbmitting()}
                     onClick={() => checkout(cart.seller.id)}
                   />
 
                   <DeleteButton
                     text="Empty cart"
-                    submitting={submittingEmpty}
+                    submitting={submittingEmpty[cart.seller.id]}
+                    disabled={anySubbmitting()}
                     onClick={() => empty(cart.seller.id)}
                   />
                 </div>
