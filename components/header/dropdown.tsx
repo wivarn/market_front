@@ -7,7 +7,9 @@ import { AuthApi } from "services/backendApi/auth";
 import { IconLink } from "./iconLink";
 import Link from "next/link";
 import ReactTooltip from "react-tooltip";
+import { UserSettingsContext } from "contexts/userSettings";
 import { toast } from "react-toastify";
+import { useContext } from "react";
 import { useRouter } from "next/router";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -47,19 +49,24 @@ function classNames(...classes: string[]) {
 export const DropDown = (): JSX.Element => {
   const [session] = useSession();
   const router = useRouter();
+  const { resetUserSettings } = useContext(UserSettingsContext);
 
   async function signOutAndRedirect() {
-    signOut({ redirect: false, callbackUrl: "/" }).then(async (_) => {
-      if (_) {
-        router.push("/");
-        session &&
-          AuthApi(session.accessToken)
-            .logout()
-            .catch((error) => {
-              toast.error(error);
-            });
-      }
-    });
+    signOut({ redirect: false, callbackUrl: "/" })
+      .then(async (_) => {
+        if (_) {
+          router.push("/");
+          session &&
+            AuthApi(session.accessToken)
+              .logout()
+              .catch((error) => {
+                toast.error(error);
+              });
+        }
+      })
+      .finally(() => {
+        resetUserSettings();
+      });
   }
 
   return (
