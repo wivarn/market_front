@@ -17,7 +17,7 @@ export default function EditListing(): JSX.Element {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (sessionLoading) return;
+    if (sessionLoading || !router.isReady) return;
     ListingApi(session?.accessToken)
       .edit(`${id}`)
       .then((listingResponse) => {
