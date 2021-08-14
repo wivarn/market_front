@@ -144,8 +144,8 @@ const ListingForm = (props: IListing): JSX.Element => {
       return (
         <SubmitButton
           text={(draft || removed ? "Publish" : "Update") + " Listing"}
-          disabled={submittingDraft || submittingDelete}
-          submitting={submittingPublish}
+          disabled={formik.isSubmitting}
+          submitting={formik.isSubmitting && submittingPublish}
           onClick={async () => {
             setSubmittingPublish(true);
             formik.setFieldValue("aasm_state", "active");
@@ -161,8 +161,8 @@ const ListingForm = (props: IListing): JSX.Element => {
       return (
         <SecondarySubmitButton
           text={(newListing ? "Save" : "Update") + " Draft"}
-          disabled={submittingPublish || submittingDelete}
-          submitting={submittingDraft}
+          disabled={formik.isSubmitting}
+          submitting={formik.isSubmitting && submittingDraft}
           onClick={async () => {
             setSubmittingDraft(true);
             formik.setFieldValue("aasm_state", "draft");
@@ -179,7 +179,7 @@ const ListingForm = (props: IListing): JSX.Element => {
     );
   }
 
-  function renderDeleteButton(id: string | undefined) {
+  function renderDeleteButton(formik: FormikProps<any>, id?: string) {
     if (!id || (props.aasm_state !== "draft" && props.aasm_state !== "active"))
       return null;
 
@@ -187,8 +187,8 @@ const ListingForm = (props: IListing): JSX.Element => {
     return (
       <DeleteButton
         text={draft ? "Delete" : "Remove"}
-        disabled={submittingDraft || submittingPublish}
-        submitting={submittingDelete}
+        disabled={formik.isSubmitting}
+        submitting={formik.isSubmitting && submittingDelete}
         onClick={async () => {
           setSubmittingDelete(true);
           if (draft) {
@@ -429,10 +429,10 @@ const ListingForm = (props: IListing): JSX.Element => {
                   />
                 </FormSection>
                 {renderUpdateButtons(formik)}
+                {renderDeleteButton(formik, props.id)}
               </Form>
             )}
           </Formik>
-          {renderDeleteButton(props.id)}
         </div>
       </PageContainer>
     </div>
