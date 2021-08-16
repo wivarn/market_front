@@ -478,6 +478,19 @@ export const _DropdownCombobox = ({
   // tricks the browser to not autofill the field
   const invisibleCharacter = String.fromCharCode(8204);
 
+  const renderDescription = () => {
+    if (!description) return null;
+
+    const noAutofillDescription = description
+      .split("")
+      .join(invisibleCharacter);
+    return (
+      <span className={descriptionClassName} {...getLabelProps()}>
+        {noAutofillDescription}
+      </span>
+    );
+  };
+
   const renderLabel = () => {
     if (!label) return null;
 
@@ -485,11 +498,7 @@ export const _DropdownCombobox = ({
     return (
       <label className={labelClassName} {...getLabelProps()}>
         {noAutofillLabel}
-        {description ? (
-          <span className={descriptionClassName} {...getLabelProps()}>
-            {description}
-          </span>
-        ) : null}
+        {renderDescription()}
       </label>
     );
   };

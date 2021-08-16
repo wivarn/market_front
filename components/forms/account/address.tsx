@@ -8,7 +8,6 @@ import { countryList, provinceList, stateList } from "constants/address";
 import { AddressApi } from "services/backendApi/address";
 import FormContainer from "../container";
 import { IAddress } from "types/account";
-import Link from "next/link";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
 import { UserSettingsContext } from "contexts/userSettings";
