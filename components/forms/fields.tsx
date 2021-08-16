@@ -19,7 +19,7 @@ import { useDropzone } from "react-dropzone";
 
 type TextFieldProps = FieldHookConfig<string> &
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
-    label?: string;
+    label?: string | JSX.Element;
     description?: string;
     className?: string;
     labelClassName?: string;
@@ -66,6 +66,7 @@ export type ListingComboBoxOption = {
 };
 
 type ComboBoxProps = TextFieldProps & {
+  label?: string;
   items: ListingComboBoxOption[];
   resetRef?: RefObject<HTMLSpanElement>;
   childresetRef?: RefObject<HTMLSpanElement>;
