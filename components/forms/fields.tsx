@@ -480,8 +480,7 @@ export const _DropdownCombobox = ({
 
     // tricks the browser to not autofill the field
     const invisibleCharacter = String.fromCharCode(8204);
-    const noAutofillLabel =
-      label.substr(0, 1) + invisibleCharacter + label.substr(1);
+    const noAutofillLabel = label.split("").join(invisibleCharacter);
 
     return (
       <label className={labelClassName} {...getLabelProps()}>
