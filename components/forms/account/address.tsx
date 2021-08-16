@@ -184,14 +184,11 @@ export default function AddressForm(): JSX.Element {
             .update(trimValues(values))
             .then(() => {
               toast.success("Your address has been updated");
-              if (noAddress) {
-                assignUserSettings({
-                  ...userSettings,
-                  address_set: true,
-                  country: values.country,
-                });
-                router.push("/account/payments");
-              }
+              assignUserSettings({
+                ...userSettings,
+                address_set: true,
+                country: values.country,
+              });
             })
             .catch((error) => {
               toast.error(JSON.stringify(error.response.data));
