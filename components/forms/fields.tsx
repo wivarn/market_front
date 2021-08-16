@@ -475,13 +475,13 @@ export const _DropdownCombobox = ({
     },
   });
 
+  // tricks the browser to not autofill the field
+  const invisibleCharacter = String.fromCharCode(8204);
+
   const renderLabel = () => {
     if (!label) return null;
 
-    // tricks the browser to not autofill the field
-    const invisibleCharacter = String.fromCharCode(8204);
     const noAutofillLabel = label.split("").join(invisibleCharacter);
-
     return (
       <label className={labelClassName} {...getLabelProps()}>
         {noAutofillLabel}
@@ -493,6 +493,10 @@ export const _DropdownCombobox = ({
       </label>
     );
   };
+
+  if (props.placeholder?.length) {
+    props.placeholder = props.placeholder.split("").join(invisibleCharacter);
+  }
 
   return (
     <div className={`${props.hidden ? "hidden" : null} ${className}`}>
