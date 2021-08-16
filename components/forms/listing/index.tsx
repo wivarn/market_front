@@ -229,7 +229,7 @@ const ListingForm = (props: IListing): JSX.Element => {
           </h3>
           <InfoMessage>
             <p>
-              To make it faster to create listings update your{" "}
+              For faster listings update your{" "}
               <Link href="/listings/template">
                 <a className="underline text-info">listing template</a>
               </Link>{" "}
