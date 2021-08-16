@@ -5,7 +5,6 @@ import { Form, Formik } from "formik";
 import { DropdownCombobox } from "../fields";
 import FormContainer from "../container";
 import { InfoMessage } from "components/message";
-import Link from "next/link";
 import { ProfileApi } from "services/backendApi/profile";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";

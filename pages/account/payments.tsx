@@ -18,6 +18,7 @@ export default function payments(): JSX.Element {
   const router = useRouter();
   // TODO: add payment type
   const [stripeAccount, setStripeAccount] = useState<any>(null);
+  const [submittingStripe, setSubmittingStripe] = useState(false);
   const [error, setError] = useState(false);
   const { userSettings, updateUserSettings } = useContext(UserSettingsContext);
 
@@ -60,10 +61,14 @@ export default function payments(): JSX.Element {
     }
 
     async function redirectToStripe() {
+      setSubmittingStripe(true);
       PaymentApi(session?.accessToken)
         .linkAccount()
         .then((response) => {
           window.location.assign(response.data.url);
+        })
+        .finally(() => {
+          setSubmittingStripe(false);
         });
     }
 
@@ -71,7 +76,13 @@ export default function payments(): JSX.Element {
       ? "Finish Connecting with Stripe"
       : "Connect with Stripe";
 
-    return <SubmitButton text={buttonText} onClick={redirectToStripe} />;
+    return (
+      <SubmitButton
+        text={buttonText}
+        submitting={submittingStripe}
+        onClick={redirectToStripe}
+      />
+    );
   }
 
   return (
