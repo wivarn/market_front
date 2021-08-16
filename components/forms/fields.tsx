@@ -19,7 +19,7 @@ import { useDropzone } from "react-dropzone";
 
 type TextFieldProps = FieldHookConfig<string> &
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
-    label?: string | JSX.Element;
+    label?: string;
     description?: string;
     className?: string;
     labelClassName?: string;
@@ -474,25 +474,36 @@ export const _DropdownCombobox = ({
     },
   });
 
+  const renderLabel = () => {
+    if (!label) return null;
+
+    // tricks the browser to not autofill the field
+    const invisibleCharacter = String.fromCharCode(8204);
+    const noAutofillLabel =
+      label.substr(0, 1) + invisibleCharacter + label.substr(1);
+
+    return (
+      <label className={labelClassName} {...getLabelProps()}>
+        {noAutofillLabel}
+        {description ? (
+          <span className={descriptionClassName} {...getLabelProps()}>
+            {description}
+          </span>
+        ) : null}
+      </label>
+    );
+  };
+
   return (
     <div className={`${props.hidden ? "hidden" : null} ${className}`}>
-      {label ? (
-        <label className={labelClassName} {...getLabelProps()}>
-          {label}
-          {description ? (
-            <span className={descriptionClassName} {...getLabelProps()}>
-              {description}
-            </span>
-          ) : null}
-        </label>
-      ) : null}
-
+      {renderLabel()}
       <div {...getComboboxProps()} className="relative">
         <input
           {...props}
           {...getToggleButtonProps()}
           {...getInputProps()}
           className={inputClassName}
+          name="noAutoFill"
           tabIndex="0"
           onBlur={() => {
             closeMenu();
