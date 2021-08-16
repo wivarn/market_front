@@ -107,12 +107,7 @@ export const ListingNumberField = ({
         </label>
       ) : null}
       <div className="relative">
-        <input
-          type="number"
-          className={fullInputClassName}
-          {...field}
-          {...props}
-        />
+        <input className={fullInputClassName} {...field} {...props} />
         <span className="absolute top-0 right-0 p-2 border border-accent-darker text-accent-lightest rounded-r-md bg-accent-darker">
           {props.currency}
         </span>
