@@ -13,7 +13,8 @@ interface Credentials {
   password: string;
 }
 
-const accessTokenAgeMS = accessTokenAge * 1000; // milliseconds
+// this is set to one minute less than clientMaxAge
+const accessTokenAgeMS = (accessTokenAge - 1) * 1000;
 
 async function refreshAccessToken(token: JWT) {
   try {
