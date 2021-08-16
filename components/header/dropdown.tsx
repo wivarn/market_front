@@ -156,7 +156,7 @@ export const DropDown = (): JSX.Element => {
                 <Menu.Item>
                   {({ active }) => (
                     <LinkWrapper
-                      href=""
+                      href="#"
                       active={active}
                       onClick={signOutAndRedirect}
                     >
