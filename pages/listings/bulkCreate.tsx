@@ -30,6 +30,7 @@ const bodySchema = Yup.object().shape(listingSchema);
 export default function BulkCreateListings(): JSX.Element {
   const [session] = useSession();
   const router = useRouter();
+  const [submittingBulkCreate, setSubmittingBulkCreate] = useState(false);
   const [listings, setListings] = useState<ParseResult<any>>({
     data: [],
     errors: [],
@@ -91,7 +92,11 @@ export default function BulkCreateListings(): JSX.Element {
       <div className="mx-auto my-4 overflow-x-auto">
         <div className="flex py-2 space-x-4 ">
           <h4 className="py-2 text-center">Listing Preview</h4>
-          <SubmitButton text="Save all as draft" onClick={bulkCreate} />
+          <SubmitButton
+            text="Save all as draft"
+            submitting={submittingBulkCreate}
+            onClick={bulkCreate}
+          />
         </div>
         <table className="flex-grow table-auto">
           <thead>
@@ -154,11 +159,15 @@ export default function BulkCreateListings(): JSX.Element {
   }
 
   async function bulkCreate() {
+    setSubmittingBulkCreate(true);
     ListingApi(session?.accessToken)
       .bulkCreate(listings.data)
       .then(() => {
         toast.success("New listings created");
         router.push("/listings?state=draft");
+      })
+      .finally(() => {
+        setSubmittingBulkCreate(false);
       });
   }
 
