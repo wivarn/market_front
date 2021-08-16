@@ -15,7 +15,6 @@ import { createRef } from "react";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { useEffect } from "react";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 import { useState } from "react";
 
@@ -145,7 +144,6 @@ function trimValues(values: IAddress) {
 
 export default function AddressForm(): JSX.Element {
   const [session] = useSession();
-  const router = useRouter();
   const [address, setAddress] = useState<IAddress | null>(null);
   const [error, setError] = useState(false);
   const { userSettings, assignUserSettings } = useContext(UserSettingsContext);
