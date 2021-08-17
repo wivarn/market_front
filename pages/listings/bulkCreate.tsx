@@ -4,6 +4,7 @@ import Dropzone, { FileRejection } from "react-dropzone";
 
 import { BackButton } from "components/buttons";
 import { CardContainer6xl } from "components/cardContainer";
+import { InfoMessage } from "components/message";
 import { ListingApi } from "services/backendApi/listing";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
@@ -30,6 +31,7 @@ const bodySchema = Yup.object().shape(listingSchema);
 export default function BulkCreateListings(): JSX.Element {
   const [session] = useSession();
   const router = useRouter();
+  const [submittingBulkCreate, setSubmittingBulkCreate] = useState(false);
   const [listings, setListings] = useState<ParseResult<any>>({
     data: [],
     errors: [],
@@ -91,7 +93,18 @@ export default function BulkCreateListings(): JSX.Element {
       <div className="mx-auto my-4 overflow-x-auto">
         <div className="flex py-2 space-x-4 ">
           <h4 className="py-2 text-center">Listing Preview</h4>
-          <SubmitButton text="Save all as draft" onClick={bulkCreate} />
+          <SubmitButton
+            text="Save all as draft"
+            submitting={submittingBulkCreate}
+            onClick={bulkCreate}
+          />
+        </div>
+        <div className="mb-4">
+          <InfoMessage>
+            Review your listings before clicking on save. After saving as draft
+            you will need to add photos and publish each listing to the
+            marketplace.
+          </InfoMessage>
         </div>
         <table className="flex-grow table-auto">
           <thead>
@@ -154,11 +167,15 @@ export default function BulkCreateListings(): JSX.Element {
   }
 
   async function bulkCreate() {
+    setSubmittingBulkCreate(true);
     ListingApi(session?.accessToken)
       .bulkCreate(listings.data)
       .then(() => {
         toast.success("New listings created");
         router.push("/listings?state=draft");
+      })
+      .finally(() => {
+        setSubmittingBulkCreate(false);
       });
   }
 
@@ -205,7 +222,8 @@ export default function BulkCreateListings(): JSX.Element {
             <p className="mb-2">
               Upload a csv with your listings and preview it in the table below.
               Once you are happy with the input click save to create your bulk
-              listings in draft state.
+              listings in draft state. You will then need to add photos and
+              publish each listing to the markeplace.
             </p>
             <a
               href="https://docs.google.com/spreadsheets/d/13Dt1hu_LygaMPwtkOHvH5h6p18skhFiUS2ekZGOwQYg/edit?usp=sharing"

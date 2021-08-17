@@ -229,7 +229,7 @@ const ListingForm = (props: IListing): JSX.Element => {
           </h3>
           <InfoMessage>
             <p>
-              To make it faster to create listings update your{" "}
+              For faster listings update your{" "}
               <Link href="/listings/template">
                 <a className="underline text-info">listing template</a>
               </Link>{" "}
@@ -327,7 +327,7 @@ const ListingForm = (props: IListing): JSX.Element => {
                   {subCategoryCombobox(formik)}
 
                   <ListingTextField
-                    label="Tags"
+                    label="Tags (Optional)"
                     name="tags"
                     id={`${idPrefix}tags`}
                     description="You can use tags to add any additional filter criteria to your listing."
@@ -347,7 +347,7 @@ const ListingForm = (props: IListing): JSX.Element => {
                     placeholder="Enter a title"
                   />
                   <ListingLongTextField
-                    label="Description"
+                    label="Description (Optional)"
                     name="description"
                     id={`${idPrefix}description`}
                     description="Use the description to provide any addtional detail about your listing that you want buyers to know about."
@@ -411,7 +411,7 @@ const ListingForm = (props: IListing): JSX.Element => {
                   />
 
                   <ListingNumberField
-                    label="International Shipping"
+                    label="International Shipping (Optional)"
                     name="international_shipping"
                     id={`${idPrefix}international_shipping`}
                     description="Leave blank if you do not offer international shipping. Enter 0 for free international shipping."
@@ -420,7 +420,7 @@ const ListingForm = (props: IListing): JSX.Element => {
                   />
 
                   <ListingNumberField
-                    label="Combined Shipping"
+                    label="Combined Shipping (Optional)"
                     name="combined_shipping"
                     id={`${idPrefix}combined_shipping`}
                     description="Enter the amount to charge for each additional item purchased in a single order after the first. Leave blank if you do not offer combined shipping."
