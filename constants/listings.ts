@@ -180,5 +180,9 @@ export const listingSchema: ObjectShape = {
     .min(0, "Shipping can't be less than 0")
     .max(99999999.99, "Shipping must be less than 99999999.99")
     .nullable(),
+  combined_shipping: Yup.number()
+    .min(0, "Shipping can't be less than 0")
+    .max(99999999.99, "Shipping must be less than 99999999.99")
+    .nullable(),
   aasm_state: Yup.string().required("Required"),
 };

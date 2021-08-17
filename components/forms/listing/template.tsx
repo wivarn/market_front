@@ -24,7 +24,6 @@ import { BackButton } from "components/buttons";
 import FormSection from "./section";
 import { IListingTemplate } from "types/listings";
 import { InfoMessage } from "components/message";
-import Link from "next/link";
 import { ListingTemplateApi } from "services/backendApi/listingTemplate";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
