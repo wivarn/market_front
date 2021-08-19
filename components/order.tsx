@@ -45,6 +45,7 @@ export function SalesOrder({ order }: props): JSX.Element {
           <SubmitButton
             text="Mark as shipped"
             onClick={shipOrder}
+            disabled={order.aasm_state != "paid"}
             submitting={submittingShipped}
           />
         </div>
@@ -64,7 +65,7 @@ export function SalesOrder({ order }: props): JSX.Element {
                   <a className="underline hover:text-primary">
                     {order.buyer.full_name}
                   </a>
-                </Link>{" "}
+                </Link>
               </td>
               <td>{orderDate}</td>
             </tr>
@@ -146,6 +147,7 @@ export function PurchaseOrder({ order }: props): JSX.Element {
           <SubmitButton
             text="Mark as received"
             onClick={receiveOrder}
+            disabled={order.aasm_state != "shipped"}
             submitting={submittingReceived}
           />
         </div>
@@ -165,7 +167,7 @@ export function PurchaseOrder({ order }: props): JSX.Element {
                   <a className="underline hover:text-primary">
                     {order.seller.full_name}
                   </a>
-                </Link>{" "}
+                </Link>
               </td>
               <td>{orderDate}</td>
             </tr>
