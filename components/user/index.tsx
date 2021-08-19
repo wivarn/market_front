@@ -17,7 +17,9 @@ export const UserInfo = (props: IUser): JSX.Element => {
       </div>
       <span>
         <h4>{props.full_name}</h4>
-        <div className="text-sm text-accent-dark">Location</div>
+        <div className="text-sm text-accent-dark">
+          {props.address?.state}, {props.address?.country}
+        </div>
         <div className="text-sm text-accent-dark">User Ratings Coming Soon</div>
       </span>
     </div>

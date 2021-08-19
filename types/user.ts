@@ -5,4 +5,5 @@ export interface IUser {
   full_name: string;
   picture: { url: string };
   listings?: IListingPreviewWithCondition[];
+  address?: { state: string; country: "CAN" | "USA" };
 }
