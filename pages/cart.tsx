@@ -37,8 +37,7 @@ export default function Cart(): JSX.Element {
     );
   };
 
-  useEffect(() => {
-    if (sessionLoading || !userSettings.address_set) return;
+  function fetchCarts() {
     CartApi(session?.accessToken)
       .index()
       .then((cartsResponse) => {
@@ -47,6 +46,11 @@ export default function Cart(): JSX.Element {
       .catch(() => {
         setError(true);
       });
+  }
+
+  useEffect(() => {
+    if (sessionLoading || !userSettings.address_set) return;
+    fetchCarts();
   }, [sessionLoading, userSettings.address_set]);
 
   if (sessionLoading) return <SpinnerLg text="Loading..." />;
@@ -91,6 +95,7 @@ export default function Cart(): JSX.Element {
       .empty(sellerId)
       .then(() => {
         toast.success("Cart has been emptied");
+        fetchCarts();
       })
       .finally(() => {
         setSubmittingEmpty({ ...submittingEmpty, [sellerId]: true });
@@ -103,6 +108,7 @@ export default function Cart(): JSX.Element {
       .emptyAll()
       .then(() => {
         toast.success("All carts have been emptied");
+        fetchCarts();
       })
       .finally(() => {
         setSubmittingEmptyAll(false);
