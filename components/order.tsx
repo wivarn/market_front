@@ -126,7 +126,7 @@ export function PurchaseOrder({ order }: props): JSX.Element {
   async function receiveOrder() {
     setSubmittingReceived(true);
     OrderApi(session?.accessToken)
-      .updateState("ship", order.id, "receive")
+      .updateState("purchases", order.id, "receive")
       .then(() => {
         toast.success("Order marked as received");
       })
