@@ -38,10 +38,7 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
           <SWRConfig value={{ fetcher: fetcher }}>
             <UserSettingsProvider>
               <Layout>
-                <Script
-                  id="ze-snippet"
-                  src="https://static.zdassets.com/ekr/snippet.js?key=76fb5d50-93de-49d4-a24e-b570c83c5f15"
-                />
+                <Script type="text/javascript">!function(){function e(){var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://skwirl.wixanswers.com/apps/widget/v1/skwirl/4b88128e-e3f5-4d0a-bde7-c03d193f89fe/en/embed.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}window.addEventListener?window.addEventListener("load",e):window.attachEvent("onload",e),window.AnswersWidget={onLoaded:function(e){window.AnswersWidget.queue.push(e)},queue:[]}}();</Script>
                 <Component {...pageProps} />
                 <Toast />
               </Layout>
