@@ -85,7 +85,7 @@ export default function Cart(): JSX.Element {
         window.location.assign(response.data.url);
       })
       .finally(() => {
-        setSubmittingCheckout({ ...submittingCheckout, [sellerId]: true });
+        setSubmittingCheckout({ ...submittingCheckout, [sellerId]: false });
       });
   }
 
@@ -98,7 +98,7 @@ export default function Cart(): JSX.Element {
         fetchCarts();
       })
       .finally(() => {
-        setSubmittingEmpty({ ...submittingEmpty, [sellerId]: true });
+        setSubmittingEmpty({ ...submittingEmpty, [sellerId]: false });
       });
   }
 
