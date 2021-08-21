@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { CartApi } from "services/backendApi/cart";
 import { DeleteButton } from "components/buttons";
+import { HiX } from "react-icons/hi";
 import Image from "next/image";
 import Link from "next/link";
 import { ListingPreviewList } from "components/listing/preview";
@@ -89,6 +90,22 @@ export default function Cart(): JSX.Element {
       });
   }
 
+  async function removeItem(sellerId: string, listingId: string) {
+    // setSubmitting(true);
+    CartApi(session?.accessToken)
+      .removeItem(sellerId, listingId)
+      .then(() => {
+        toast.success("Item removed from cart");
+        fetchCarts();
+      })
+      .catch((error) => {
+        toast.error(JSON.stringify(error.response.data));
+      });
+    // .finally(() => {
+    //   setSubmitting(false);
+    // });
+  }
+
   async function empty(sellerId: string) {
     setSubmittingEmpty({ ...submittingEmpty, [sellerId]: true });
     CartApi(session?.accessToken)
@@ -147,7 +164,15 @@ export default function Cart(): JSX.Element {
                 </Link>
               </h4>
               {cart.listings.map((listing: Ilisting) => {
-                return <ListingPreviewList key={listing.id} {...listing} />;
+                return (
+                  <span key={listing.id}>
+                    <ListingPreviewList {...listing} />
+                    <DeleteButton
+                      text={<HiX />}
+                      onClick={() => removeItem(cart.seller.id, listing.id)}
+                    />
+                  </span>
+                );
               })}
               <div className="px-4 py-2 border-t bg-accent-lightest">
                 <div className="flex flex-wrap items-center space-x-4">

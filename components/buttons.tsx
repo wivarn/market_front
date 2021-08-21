@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SpinnerXs } from "./spinner";
 import { useRouter } from "next/router";
 interface Props {
-  text: string;
+  text: string | JSX.Element;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
   submitting?: boolean;
