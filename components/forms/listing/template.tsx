@@ -31,6 +31,7 @@ import { SubmitButton } from "components/buttons";
 import { UserSettingsContext } from "contexts/userSettings";
 import { toast } from "react-toastify";
 import { useContext } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
@@ -169,9 +170,14 @@ function subCategoryCombobox(formik: FormikProps<any>) {
 
 const ListingTemplateForm = (): JSX.Element => {
   const [session, sessionLoading] = useSession();
-  const [graded, setGraded] = useState(false);
   const router = useRouter();
   const { userSettings, updateUserSettings } = useContext(UserSettingsContext);
+  const template = userSettings.listing_template;
+  const [graded, setGraded] = useState(!!template.grading_company);
+
+  useEffect(() => {
+    setGraded(!!template.grading_company);
+  }, [template.grading_company]);
 
   function renderGrading() {
     const label = graded ? "Grading" : "Condition";
@@ -199,8 +205,12 @@ const ListingTemplateForm = (): JSX.Element => {
     );
   }
 
-  const template = userSettings.listing_template;
   if (sessionLoading || !template.id) return <SpinnerLg text="Loading..." />;
+  for (const key in template) {
+    if (template[key] === null || template[key] === undefined) {
+      delete template[key];
+    }
+  }
 
   return (
     <div className="p-4">
@@ -220,23 +230,14 @@ const ListingTemplateForm = (): JSX.Element => {
           </InfoMessage>
           <Formik
             initialValues={{
-              category: template.category || "",
-              subcategory: template.subcategory || "",
-              title: template.title || "",
-              graded: false,
-              grading_company: template.grading_company || "",
-              condition: template.condition || "",
-              description: template.description || "",
-              price: template.price || "",
-              domestic_shipping: template.domestic_shipping || "",
-              international_shipping: template.international_shipping || "",
-              combined_shipping: template.combined_shipping || "",
+              ...template,
+              graded: !!template.grading_company,
             }}
             validationSchema={listingSchema}
             onSubmit={(values: IListingTemplate, actions) => {
               Object.keys(values).forEach((key) => {
-                if (values[key] == "") {
-                  values[key] = undefined;
+                if (values[key] == undefined || values[key] == "") {
+                  values[key] = null;
                 }
               });
               ListingTemplateApi(session?.accessToken)

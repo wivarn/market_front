@@ -40,17 +40,17 @@ export interface IListingFormData {
 }
 
 export interface IListingTemplate {
-  [key: string]: string | number | undefined | boolean;
-  category?: string;
-  subcategory?: string;
-  accountId?: string;
-  title?: string;
-  description?: string;
-  grading_company?: string;
-  condition?: string | number;
-  price?: string | number;
-  domestic_shipping?: string | number;
-  international_shipping?: string | number;
+  [key: string]: string | number | undefined | boolean | null;
+  category?: string | null;
+  subcategory?: string | null;
+  title?: string | null;
+  description?: string | null;
+  grading_company?: string | null;
+  condition?: string | number | null;
+  price?: string | number | null;
+  domestic_shipping?: string | number | null;
+  international_shipping?: string | number | null;
+  combined_shipping?: string | number | null;
 }
 
 export interface ICartListing {
