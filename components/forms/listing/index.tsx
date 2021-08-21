@@ -28,7 +28,7 @@ import {
 import { createRef, useState } from "react";
 
 import FormSection from "./section";
-import { IListing } from "types/listings";
+import { IListingFormData } from "types/listings";
 import { InfoMessage } from "components/message";
 import Link from "next/link";
 import { ListingApi } from "services/backendApi/listing";
@@ -80,7 +80,7 @@ function subCategoryCombobox(formik: FormikProps<any>) {
   );
 }
 
-const ListingForm = (props: IListing): JSX.Element => {
+const ListingForm = (props: IListingFormData): JSX.Element => {
   const router = useRouter();
   const [session, sessionLoading] = useSession();
   const [graded, setGraded] = useState(!!props.grading_company);
@@ -243,7 +243,7 @@ const ListingForm = (props: IListing): JSX.Element => {
           <Formik
             initialValues={initialValues}
             validationSchema={schema}
-            onSubmit={(values: IListing, actions) => {
+            onSubmit={(values: IListingFormData, actions) => {
               const formData = new FormData();
               const requestValues = (({
                 category,

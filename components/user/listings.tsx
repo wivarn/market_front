@@ -1,4 +1,4 @@
-import { IListingPreviewWithCondition } from "types/listings";
+import { Ilisting } from "types/listings";
 import Link from "next/link";
 import ListingPreviewGrid from "components/listing/previewGrid";
 import SearchFilter from "components/forms/listing/searchFilter";
@@ -6,7 +6,7 @@ import SearchSort from "components/forms/listing/searchSort";
 import { useRouter } from "next/router";
 
 interface PreviewProps {
-  listings: IListingPreviewWithCondition[];
+  listings: Ilisting[];
 }
 
 interface ListingProps extends PreviewProps {
@@ -14,7 +14,7 @@ interface ListingProps extends PreviewProps {
   initialPage: number;
 }
 
-export const UserListingsPreview = (props: PreviewProps): JSX.Element => {
+export const UserRecentListings = (props: PreviewProps): JSX.Element => {
   const { id } = useRouter().query;
   return (
     <div>

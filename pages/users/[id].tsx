@@ -3,7 +3,7 @@ import { IUser } from "types/user";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { UserInfo } from "components/user";
-import { UserListingsPreview } from "components/user/listings";
+import { UserRecentListings } from "components/user/listings";
 import { UserReviewsPreview } from "components/user/reviews";
 import { UserSettingsContext } from "contexts/userSettings";
 import { useContext } from "react";
@@ -59,7 +59,7 @@ export default function ShowUser(): JSX.Element {
 
       <div className="my-4">
         <PageContainer>
-          <UserListingsPreview listings={user.listings || []} />
+          <UserRecentListings listings={user.listings || []} />
         </PageContainer>
       </div>
       <div className="py-4">

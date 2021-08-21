@@ -1,5 +1,5 @@
 import { BlankMessage, GenericErrorMessage } from "components/message";
-import { ICart, IListingPreview } from "types/listings";
+import { ICart, Ilisting } from "types/listings";
 import { useEffect, useState } from "react";
 
 import { CartApi } from "services/backendApi/cart";
@@ -146,18 +146,8 @@ export default function Cart(): JSX.Element {
                   <a>{`${cart.seller.full_name}`}</a>
                 </Link>
               </h4>
-              {cart.listings.map((listing: IListingPreview) => {
-                return (
-                  <ListingPreviewList
-                    key={listing.id}
-                    id={listing.id}
-                    photos={listing.photos}
-                    title={listing.title}
-                    price={listing.price}
-                    currency={listing.currency}
-                    shipping={listing.shipping}
-                  />
-                );
+              {cart.listings.map((listing: Ilisting) => {
+                return <ListingPreviewList key={listing.id} {...listing} />;
               })}
               <div className="px-4 py-2 border-t bg-accent-lightest">
                 <div className="flex flex-wrap items-center space-x-4">

@@ -1,35 +1,18 @@
 import { IUser } from "types/user";
 
-interface _IListingMinimum {
+export interface Ilisting {
   id: string;
   photos: { url: string }[];
   title: string;
-  price: string;
-  currency: string;
-  aasm_state: string;
-}
-
-export interface IBasicListing {
-  title: string;
-  price: string | number;
-  currency?: string;
-  domestic_shipping: string | number;
-  international_shipping?: string | number | null;
-  grading_company?: string | null;
-  condition: string | number;
-}
-
-export interface IListingPreview extends _IListingMinimum {
-  shipping: string;
-}
-
-export interface IListingPreviewWithCondition extends _IListingMinimum {
-  shipping: string;
-  grading_company: string;
+  grading_company: string | null;
   condition: string;
+  currency: string;
+  price: string;
+  aasm_state: string;
+  shipping: string;
 }
 
-export interface IlistingDetails extends _IListingMinimum {
+export interface IlistingDetails extends Ilisting {
   grading_company: string | null;
   condition: string;
   category: string;
@@ -40,7 +23,14 @@ export interface IlistingDetails extends _IListingMinimum {
   combined_shipping: string;
 }
 
-export interface IListing extends IBasicListing {
+export interface IListingFormData {
+  title: string;
+  price: string | number;
+  currency?: string;
+  domestic_shipping: string | number;
+  international_shipping?: string | number | null;
+  grading_company?: string | null;
+  condition: string | number;
   category?: string;
   subcategory?: string;
   accountId?: string;
@@ -83,5 +73,5 @@ export interface ICart {
     full_name: string;
   };
   total: string;
-  listings: IListingPreview[];
+  listings: Ilisting[];
 }

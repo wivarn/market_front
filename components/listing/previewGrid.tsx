@@ -1,12 +1,12 @@
 import { ChevronLeftIconSm, ChevronRightIconSm } from "components/icons";
 
-import { IListingPreviewWithCondition } from "types/listings";
+import { Ilisting } from "types/listings";
 import { ListingPreviewTile } from "components/listing/preview";
 import ReactPaginate from "react-paginate";
 import { useRouter } from "next/router";
 
 interface IProps {
-  listings: IListingPreviewWithCondition[];
+  listings: Ilisting[];
   totalPages?: number;
   initialPage?: number;
 }
@@ -46,21 +46,8 @@ const ListingPreviewGrid = ({
   return (
     <>
       <div className="grid grid-cols-1 gap-2 mb-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
-        {listings.map((listing: IListingPreviewWithCondition) => {
-          return (
-            <ListingPreviewTile
-              key={listing.id}
-              id={listing.id}
-              photos={listing.photos}
-              title={listing.title}
-              price={listing.price}
-              currency={listing.currency}
-              shipping={listing.shipping}
-              grading_company={listing.grading_company}
-              condition={listing.condition}
-              aasm_state={listing.aasm_state}
-            />
-          );
+        {listings.map((listing: Ilisting) => {
+          return <ListingPreviewTile key={listing.id} {...listing} />;
         })}
       </div>
       {renderPagination()}

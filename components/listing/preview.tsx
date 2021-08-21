@@ -1,13 +1,10 @@
-import { IListingPreview, IListingPreviewWithCondition } from "types/listings";
-
 import { ConditionPill } from "./condition";
+import { Ilisting } from "types/listings";
 import Image from "next/image";
 import Link from "next/link";
 
 // card shaped preview
-export const ListingPreviewTile = (
-  props: IListingPreviewWithCondition
-): JSX.Element => {
+export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
   const href =
     props.aasm_state === "active"
       ? `/listings/${props.id}`
@@ -74,7 +71,7 @@ export const ListingPreviewTile = (
 };
 
 // banner shaped preview
-export const ListingPreviewList = (props: IListingPreview): JSX.Element => {
+export const ListingPreviewList = (props: Ilisting): JSX.Element => {
   return (
     <div key={props.id} className="mx-4 my-4 space-y-2">
       <Link href={`/listings/${props.id}`}>

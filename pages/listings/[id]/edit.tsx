@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { GenericErrorMessage } from "components/message";
-import { IListing } from "types/listings";
+import { IListingFormData } from "types/listings";
 import { ListingApi } from "services/backendApi/listing";
 import ListingForm from "components/forms/listing";
 import { NextSeo } from "next-seo";
@@ -13,7 +13,7 @@ export default function EditListing(): JSX.Element {
   const [session, sessionLoading] = useSession();
   const router = useRouter();
   const { id } = router.query;
-  const [listing, setListing] = useState<IListing | null>(null);
+  const [listing, setListing] = useState<IListingFormData | null>(null);
   const [error, setError] = useState(false);
 
   useEffect(() => {
