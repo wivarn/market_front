@@ -21,22 +21,22 @@ export interface IlistingDetails extends Ilisting {
 }
 
 export interface IListingFormData {
+  [key: string]: any;
+  id?: number;
   title: string;
   price: string | number;
   currency?: string;
   domestic_shipping: string | number;
-  international_shipping?: string | number | null;
-  grading_company?: string | null;
+  international_shipping: string | number;
+  combined_shipping: string | number;
+  grading_company: string;
   condition: string | number;
-  category?: string;
-  subcategory?: string;
-  accountId?: string;
-  id?: string;
-  photos: { url: string }[];
-  description?: string;
-  aasm_state?: string;
+  category: string;
+  subcategory: string;
+  photos: { url: string }[] | never[];
+  description: string;
+  aasm_state: string;
   state_transition?: string;
-  combined_shipping?: string | number | null;
 }
 
 export interface IListingTemplate {

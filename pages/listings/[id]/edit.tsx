@@ -34,22 +34,7 @@ export default function EditListing(): JSX.Element {
   return (
     <>
       <NextSeo title="Update Listing" />
-      <ListingForm
-        id={listing.id}
-        aasm_state={listing.aasm_state}
-        currency={listing.currency}
-        category={listing.category || undefined}
-        subcategory={listing.subcategory || undefined}
-        title={listing.title}
-        description={listing.description || undefined}
-        grading_company={listing.grading_company || undefined}
-        condition={listing.condition || undefined}
-        photos={listing.photos || []}
-        price={listing.price || undefined}
-        domestic_shipping={listing.domestic_shipping || undefined}
-        international_shipping={listing.international_shipping || undefined}
-        combined_shipping={listing.combined_shipping || undefined}
-      />
+      <ListingForm {...listing} />
     </>
   );
 }

@@ -98,8 +98,14 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
       delete template[key];
     }
   }
+
   const newListing = !props.id;
-  const initialValues = newListing ? { ...props, ...template } : props;
+  let initialValues = newListing ? { ...props, ...template } : props;
+  for (const key in initialValues) {
+    if (initialValues[key] === null) {
+      initialValues = { ...initialValues, [key]: undefined };
+    }
+  }
 
   function renderGrading() {
     const label = graded ? "Grading" : "Condition";
@@ -179,7 +185,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
     );
   }
 
-  function renderDeleteButton(formik: FormikProps<any>, id?: string) {
+  function renderDeleteButton(formik: FormikProps<any>, id?: number) {
     if (!id || (props.aasm_state !== "draft" && props.aasm_state !== "active"))
       return null;
 
@@ -439,7 +445,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
   );
 };
 
-ListingForm.defaultProps = {
+export const ListingFormDefaultProps: IListingFormData = {
   category: "",
   subcategory: "",
   photos: [],
@@ -449,10 +455,9 @@ ListingForm.defaultProps = {
   description: "",
   price: "",
   domestic_shipping: "",
-  international_shipping: undefined,
-  combined_shipping: undefined,
+  international_shipping: "",
+  combined_shipping: "",
   aasm_state: "draft",
-  state_transition: undefined,
 };
 
 export default ListingForm;

@@ -60,7 +60,7 @@ export default function ListingTabs({
           <div data-tip data-for="overflow">
             <PrimaryButton
               text="New Listing"
-              href="listings/new"
+              href="/listings/new"
               disabled={disableListings}
             />
           </div>

@@ -8,22 +8,25 @@ export const ListingApi = (
 ): {
   create: (formData: FormData, photos?: File[]) => Promise<AxiosResponse<any>>;
   bulkCreate: (listings: IListingFormData[]) => Promise<AxiosResponse<any>>;
-  edit: (id: string) => Promise<AxiosResponse<any>>;
+  edit: (id: string | number) => Promise<AxiosResponse<any>>;
   update: (
-    id: string,
+    id: string | number,
     formData: FormData,
     imageData: File[]
   ) => Promise<AxiosResponse<any>>;
   updateState: (
-    id: string,
+    id: string | number,
     state_transition: string
   ) => Promise<AxiosResponse<any>>;
   uploadPhotosCredentials: (
-    id: string,
+    id: string | number,
     number_of_photos: number
   ) => Promise<AxiosResponse<any>>;
-  updatePhotosKeys: (id: string, keys: string[]) => Promise<AxiosResponse<any>>;
-  destroy: (id: string) => Promise<AxiosResponse<any>>;
+  updatePhotosKeys: (
+    id: string | number,
+    keys: string[]
+  ) => Promise<AxiosResponse<any>>;
+  destroy: (id: string | number) => Promise<AxiosResponse<any>>;
 } => {
   const create = async (formData: FormData, photos?: File[]) => {
     if (process.env.NEXT_PUBLIC_VERCEL_URL) {
@@ -86,13 +89,17 @@ export const ListingApi = (
     );
   };
 
-  const edit = async (id: string) => {
+  const edit = async (id: string | number) => {
     return base.get(`listings/${id}/edit`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
   };
 
-  const update = async (id: string, formData: FormData, photos?: File[]) => {
+  const update = async (
+    id: string | number,
+    formData: FormData,
+    photos?: File[]
+  ) => {
     if (process.env.NEXT_PUBLIC_VERCEL_URL) {
       const listingResponse = await base.post(`listings/${id}`, formData, {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -142,7 +149,7 @@ export const ListingApi = (
     }
   };
 
-  const updateState = async (id: string, state_transition: string) => {
+  const updateState = async (id: string | number, state_transition: string) => {
     return base.post(
       `listings/${id}/update_state`,
       {
@@ -155,7 +162,7 @@ export const ListingApi = (
   };
 
   const uploadPhotosCredentials = async (
-    id: string,
+    id: string | number,
     number_of_photos: number
   ) => {
     return base.get(
@@ -166,7 +173,7 @@ export const ListingApi = (
     );
   };
 
-  const updatePhotosKeys = async (id: string, keys: string[]) => {
+  const updatePhotosKeys = async (id: string | number, keys: string[]) => {
     return base.put(
       `listings/${id}/update_photo_keys`,
       { keys: keys },
@@ -176,7 +183,7 @@ export const ListingApi = (
     );
   };
 
-  const destroy = async (id: string) => {
+  const destroy = async (id: string | number) => {
     return base.delete(`listings/${id}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });

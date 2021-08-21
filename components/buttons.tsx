@@ -106,6 +106,7 @@ export const DeleteButton = (props: Props): JSX.Element => {
   return (
     <_Button
       {...props}
+      type="button"
       buttonClassName="border border-error bg-error-lightest text-error hover:bg-error-lighter disabled:bg-error-lighter"
     />
   );
