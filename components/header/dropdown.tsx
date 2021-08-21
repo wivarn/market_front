@@ -124,10 +124,7 @@ export const DropDown = (): JSX.Element => {
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <LinkWrapper
-                      href="/account/purchaseHistory"
-                      active={active}
-                    >
+                    <LinkWrapper href="/account/purchases" active={active}>
                       Purchases
                     </LinkWrapper>
                   )}
@@ -148,7 +145,7 @@ export const DropDown = (): JSX.Element => {
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <LinkWrapper href="/sales" active={active}>
+                    <LinkWrapper href="/account/sales" active={active}>
                       Sales
                     </LinkWrapper>
                   )}

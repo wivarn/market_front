@@ -11,7 +11,7 @@ import { PurchaseOrder } from "components/order";
 import { SpinnerLg } from "components/spinner";
 import { useSession } from "next-auth/client";
 
-export default function purchaseHistory(): JSX.Element {
+export default function Purchases(): JSX.Element {
   const [session, sessionLoading] = useSession();
   const [purchases, setCarts] = useState<IOrder[] | null>(null);
   const [error, setError] = useState(false);
