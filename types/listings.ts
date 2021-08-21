@@ -13,14 +13,11 @@ export interface Ilisting {
 }
 
 export interface IlistingDetails extends Ilisting {
-  grading_company: string | null;
-  condition: string;
+  description: string;
   category: string;
   subcategory: string;
-  seller: IUser;
-  description: string;
-  shipping: string;
   combined_shipping: string;
+  seller: IUser;
 }
 
 export interface IListingFormData {
