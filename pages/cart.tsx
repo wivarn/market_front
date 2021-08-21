@@ -97,7 +97,7 @@ export default function Cart(): JSX.Element {
   async function removeItem(sellerId: string, listingId: string) {
     setSubmittingRemove({
       ...submittingRemove,
-      [sellerId]: true,
+      [listingId]: true,
     });
     CartApi(session?.accessToken)
       .removeItem(sellerId, listingId)
@@ -109,7 +109,7 @@ export default function Cart(): JSX.Element {
         toast.error(JSON.stringify(error.response.data));
       })
       .finally(() => {
-        setSubmittingRemove({ ...submittingRemove, [sellerId]: false });
+        setSubmittingRemove({ ...submittingRemove, [listingId]: false });
       });
   }
 
