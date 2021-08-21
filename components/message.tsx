@@ -29,7 +29,7 @@ export function GenericErrorMessage(): JSX.Element {
             Well that is embarrassing! It looks like something went wrong.
             Please try again, or{" "}
             <a
-              href="https://skwirl.zendesk.com/hc/en-us/requests/new"
+              href="https://support.skwirl.io/kb/en/contact"
               rel="noreferrer"
               target="_blank"
               className="underline text-info"

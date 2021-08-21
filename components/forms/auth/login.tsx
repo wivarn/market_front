@@ -118,7 +118,7 @@ export default function LoginForm(): JSX.Element {
                 <p className="text-sm text-accent-dark">
                   By logging in you agree to Skwirl&#39;s{" "}
                   <a
-                    href="https://skwirl.zendesk.com/hc/en-us/articles/4404540187283-Our-Terms-of-Service"
+                    href="https://support.skwirl.io/kb/en/article/terms-of-service"
                     rel="noreferrer"
                     target="_blank"
                     className="underline text-info"
@@ -127,7 +127,7 @@ export default function LoginForm(): JSX.Element {
                   </a>{" "}
                   and{" "}
                   <a
-                    href="https://skwirl.zendesk.com/hc/en-us/articles/4403778415763-Our-Privacy-Policy"
+                    href="https://support.skwirl.io/kb/en/article/privacy-policy"
                     rel="noreferrer"
                     target="_blank"
                     className="underline text-info"

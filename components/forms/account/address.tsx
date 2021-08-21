@@ -73,7 +73,7 @@ function renderAddressWarning() {
       <span>
         You must enter your address before you can buy or sell.{" "}
         <a
-          href="https://skwirl.zendesk.com/hc/en-us/articles/4405138160147-Getting-started-as-a-seller"
+          href="https://support.skwirl.io/kb/en/article/getting-started-as-a-seller"
           rel="noreferrer"
           target="_blank"
           className="underline text-info"

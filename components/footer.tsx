@@ -20,7 +20,7 @@ export default function Footer(): JSX.Element {
             </li>
             <li>
               <a
-                href="https://skwirl.zendesk.com"
+                href="https://support.skwirl.io/"
                 rel="noreferrer"
                 target="_blank"
                 className="hover:text-primary"
@@ -38,7 +38,7 @@ export default function Footer(): JSX.Element {
             <p className="text-sm text-accent-light">
               Our{" "}
               <a
-                href="https://skwirl.zendesk.com/hc/en-us/articles/4404540187283-Our-Terms-of-Service"
+                href="https://support.skwirl.io/kb/en/article/terms-of-service"
                 rel="noreferrer"
                 target="_blank"
                 className="text-white underline"
@@ -47,7 +47,7 @@ export default function Footer(): JSX.Element {
               </a>{" "}
               and{" "}
               <a
-                href="https://skwirl.zendesk.com/hc/en-us/articles/4403778415763-Our-Privacy-Policy"
+                href="https://support.skwirl.io/kb/en/article/privacy-policy"
                 rel="noreferrer"
                 target="_blank"
                 className="text-white underline"
