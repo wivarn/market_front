@@ -53,17 +53,6 @@ export interface IListingTemplate {
   combined_shipping?: string | number;
 }
 
-export interface ICartListing {
-  id: string;
-  photos: { url: string }[];
-  title: string;
-  currency: string;
-  price: string;
-  shipping_country: string;
-  domestic_shipping: string;
-  international_shipping?: string;
-}
-
 export interface ICart {
   seller: {
     id: string;
