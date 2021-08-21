@@ -86,17 +86,7 @@ export function SalesOrder({ order }: props): JSX.Element {
       </div>
       <div>
         {order.listings.map((listing) => {
-          return (
-            <ListingPreviewList
-              key={listing.id}
-              id={listing.id}
-              photos={listing.photos}
-              title={listing.title}
-              price={listing.price}
-              currency={listing.currency}
-              shipping={listing.shipping}
-            />
-          );
+          return <ListingPreviewList key={listing.id} {...listing} />;
         })}
       </div>
       <div className="p-2 border-t bg-accent-lightest">
@@ -188,17 +178,7 @@ export function PurchaseOrder({ order }: props): JSX.Element {
       </div>
       <div>
         {order.listings.map((listing) => {
-          return (
-            <ListingPreviewList
-              key={listing.id}
-              id={listing.id}
-              photos={listing.photos}
-              title={listing.title}
-              price={listing.price}
-              currency={listing.currency}
-              shipping={listing.shipping}
-            />
-          );
+          return <ListingPreviewList key={listing.id} {...listing} />;
         })}
       </div>
       <p className="p-2 text-sm border-t bg-accent-lightest">

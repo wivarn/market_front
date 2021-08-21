@@ -2,7 +2,6 @@ import React, { ReactNode } from "react";
 
 import Image from "next/image";
 import { InfoCircleSm } from "components/icons";
-import Link from "next/link";
 
 type Props = {
   children: ReactNode;
