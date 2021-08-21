@@ -67,7 +67,7 @@ export default function PaymentForm(): JSX.Element {
                   This will set the currency for new listings. If you change it
                   current listings will not be affected.{" "}
                   <a
-                    href="https://skwirl.zendesk.com/hc/en-us/articles/4405138160147-Getting-started-as-a-seller"
+                    href="https://support.skwirl.io/kb/en/article/getting-started-as-a-seller"
                     rel="noreferrer"
                     target="_blank"
                     className="underline text-info"

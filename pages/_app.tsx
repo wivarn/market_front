@@ -9,10 +9,10 @@ import Layout from "components/layout";
 import { Provider } from "next-auth/client";
 import SEO from "next-seo-config";
 import { SWRConfig } from "swr";
-import Script from "next/script";
 import { StrictMode } from "react";
 import Toast from "components/toast";
 import { UserSettingsProvider } from "contexts/userSettings";
+import { WixAnswers } from "components/wixAnswers";
 import { accessTokenAge } from "constants/auth";
 import { fetcher } from "services/backendApi/fetcher";
 
@@ -38,10 +38,7 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
           <SWRConfig value={{ fetcher: fetcher }}>
             <UserSettingsProvider>
               <Layout>
-                <Script
-                  id="ze-snippet"
-                  src="https://static.zdassets.com/ekr/snippet.js?key=76fb5d50-93de-49d4-a24e-b570c83c5f15"
-                />
+                <WixAnswers />
                 <Component {...pageProps} />
                 <Toast />
               </Layout>

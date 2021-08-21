@@ -312,7 +312,7 @@ const ListingTemplateForm = (): JSX.Element => {
                   />
                   {renderGrading()}
                   <a
-                    href="https://skwirl.zendesk.com/hc/en-us/articles/4404481792147-Condition-guide-for-raw-ungraded-cards"
+                    href="https://support.skwirl.io/kb/en/article/how-should-i-grade-the-condition-of-my-cards"
                     target="_blank"
                     rel="noreferrer"
                     className="underline text-info"
