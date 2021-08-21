@@ -179,7 +179,7 @@ export default function Cart(): JSX.Element {
                         <RemoveButton
                           text={<XIconSm />}
                           disabled={anySubmitting()}
-                          submitting={submittingCheckout[cart.seller.id]}
+                          submitting={submittingRemove[cart.seller.id]}
                           onClick={() => removeItem(cart.seller.id, listing.id)}
                         />
                       </div>
