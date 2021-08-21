@@ -94,7 +94,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
   if (sessionLoading || !template.id) return <SpinnerLg text="Loading..." />;
 
   for (const key in template) {
-    if (template[key] === null || template[key] === undefined) {
+    if (template[key] == null || template[key] == undefined) {
       delete template[key];
     }
   }
