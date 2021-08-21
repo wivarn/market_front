@@ -6,6 +6,7 @@ interface _IListingMinimum {
   title: string;
   price: string;
   currency: string;
+  aasm_state: string;
 }
 
 export interface IBasicListing {
@@ -26,22 +27,15 @@ export interface IListingPreviewWithCondition extends _IListingMinimum {
   shipping: string;
   grading_company: string;
   condition: string;
-  aasm_state: string;
 }
 
-export interface IlistingDetails {
-  title: string;
-  price: string | number;
-  currency: string;
+export interface IlistingDetails extends _IListingMinimum {
   grading_company: string | null;
-  condition: string | number;
+  condition: string;
   category: string;
   subcategory: string;
   seller: IUser;
-  id: string;
-  photos: { url: string }[];
   description: string;
-  aasm_state: string;
   shipping: string;
   combined_shipping: string;
 }
@@ -56,10 +50,6 @@ export interface IListing extends IBasicListing {
   aasm_state?: string;
   state_transition?: string;
   combined_shipping?: string | number | null;
-}
-
-export interface IListingWithSeller extends IListing {
-  seller: IUser;
 }
 
 export interface IListingTemplate {
