@@ -31,10 +31,7 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
           <Toast />
         </>
       ) : (
-        <Provider
-          session={pageProps.session}
-          options={{ clientMaxAge: accessTokenAge }}
-        >
+        <Provider session={pageProps.session}>
           <SWRConfig value={{ fetcher: fetcher }}>
             <UserSettingsProvider>
               <Layout>
