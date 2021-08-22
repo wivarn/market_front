@@ -72,15 +72,18 @@ export default function Header(): JSX.Element {
 
   function LoggedOutNav() {
     return (
-      <div
-        data-tip
-        data-for="login"
-        className="items-center justify-items-right"
-      >
-        <IconLink href="/login" icon={<UserCircleIcon />} />
-        <ReactTooltip id="login" type="dark" place="bottom" effect="solid">
-          Login
-        </ReactTooltip>
+      <div className="w-12 space-x-4 sm:w-32 justify-items-right">
+        <Link href="/login">
+          <a className="text-sm font-semibold text-white hover:text-accent-lighter">
+            Log in
+          </a>
+        </Link>
+        <span className="hidden text-white sm:inline-block">/</span>
+        <Link href="/account/new">
+          <a className="hidden text-sm font-semibold text-white sm:inline-block hover:text-accent-lighter">
+            Sign up
+          </a>
+        </Link>
       </div>
     );
   }
@@ -116,7 +119,7 @@ export default function Header(): JSX.Element {
   return (
     <div className="">
       <Head>
-        <title>skwirl</title>
+        <title>Skwirl</title>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
