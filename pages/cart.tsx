@@ -1,10 +1,9 @@
 import { BlankMessage, GenericErrorMessage } from "components/message";
+import { DeleteButton, RemoveButton } from "components/buttons";
 import { ICart, Ilisting } from "types/listings";
 import { useEffect, useState } from "react";
 
 import { CartApi } from "services/backendApi/cart";
-import { DeleteButton } from "components/buttons";
-import { HiX } from "react-icons/hi";
 import Image from "next/image";
 import Link from "next/link";
 import { ListingPreviewList } from "components/listing/preview";
@@ -13,6 +12,7 @@ import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
 import { UserSettingsContext } from "contexts/userSettings";
+import { XIconSm } from "components/icons";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { useSession } from "next-auth/client";
@@ -26,14 +26,18 @@ export default function Cart(): JSX.Element {
   const [submittingCheckout, setSubmittingCheckout] = useState<{
     [key: string]: boolean;
   }>({});
+  const [submittingRemove, setSubmittingRemove] = useState<{
+    [key: string]: boolean;
+  }>({});
   const [submittingEmpty, setSubmittingEmpty] = useState<{
     [key: string]: boolean;
   }>({});
   const [submittingEmptyAll, setSubmittingEmptyAll] = useState(false);
-  const anySubbmitting = () => {
+  const anySubmitting = () => {
     return (
       Object.values(submittingCheckout).some((v: boolean) => v) ||
       Object.values(submittingEmpty).some((v: boolean) => v) ||
+      Object.values(submittingRemove).some((v: boolean) => v) ||
       submittingEmptyAll
     );
   };
@@ -91,7 +95,10 @@ export default function Cart(): JSX.Element {
   }
 
   async function removeItem(sellerId: string, listingId: string) {
-    // setSubmitting(true);
+    setSubmittingRemove({
+      ...submittingRemove,
+      [listingId]: true,
+    });
     CartApi(session?.accessToken)
       .removeItem(sellerId, listingId)
       .then(() => {
@@ -100,10 +107,10 @@ export default function Cart(): JSX.Element {
       })
       .catch((error) => {
         toast.error(JSON.stringify(error.response.data));
+      })
+      .finally(() => {
+        setSubmittingRemove({ ...submittingRemove, [listingId]: false });
       });
-    // .finally(() => {
-    //   setSubmitting(false);
-    // });
   }
 
   async function empty(sellerId: string) {
@@ -157,20 +164,26 @@ export default function Cart(): JSX.Element {
               key={cart.seller.id}
               className="max-w-4xl mx-auto mt-4 border rounded-md"
             >
-              <h4 className="px-4 py-2 text-white rounded-t-md bg-info-darker">
+              <h5 className="px-4 py-2 text-white rounded-t-md bg-info-darker">
                 Seller:{" "}
                 <Link href={`/users/${cart.seller.id}`}>
-                  <a>{`${cart.seller.full_name}`}</a>
+                  <a className="underline">{`${cart.seller.full_name}`}</a>
                 </Link>
-              </h4>
+              </h5>
               {cart.listings.map((listing: Ilisting) => {
                 return (
                   <span key={listing.id}>
-                    <ListingPreviewList {...listing} />
-                    <DeleteButton
-                      text={<HiX />}
-                      onClick={() => removeItem(cart.seller.id, listing.id)}
-                    />
+                    <div className="relative">
+                      <ListingPreviewList {...listing} />
+                      <div className="absolute right-0 -top-4">
+                        <RemoveButton
+                          text={<XIconSm />}
+                          disabled={anySubmitting()}
+                          submitting={submittingRemove[cart.seller.id]}
+                          onClick={() => removeItem(cart.seller.id, listing.id)}
+                        />
+                      </div>
+                    </div>
                   </span>
                 );
               })}
@@ -187,14 +200,14 @@ export default function Cart(): JSX.Element {
                   <SubmitButton
                     text="Checkout"
                     submitting={submittingCheckout[cart.seller.id]}
-                    disabled={anySubbmitting()}
+                    disabled={anySubmitting()}
                     onClick={() => checkout(cart.seller.id)}
                   />
 
                   <DeleteButton
                     text="Empty cart"
                     submitting={submittingEmpty[cart.seller.id]}
-                    disabled={anySubbmitting()}
+                    disabled={anySubmitting()}
                     onClick={() => empty(cart.seller.id)}
                   />
                 </div>
@@ -206,6 +219,7 @@ export default function Cart(): JSX.Element {
           <DeleteButton
             text="Empty all carts"
             onClick={() => emptyAll()}
+            disabled={anySubmitting()}
             submitting={submittingEmptyAll}
           />
         </div>

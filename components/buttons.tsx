@@ -112,6 +112,16 @@ export const DeleteButton = (props: Props): JSX.Element => {
   );
 };
 
+export const RemoveButton = (props: Props): JSX.Element => {
+  return (
+    <_Button
+      {...props}
+      type="button"
+      buttonClassName="border rounded-full border-accent-darkest bg-accent-lightest text-accent-darkest hover:bg-accent-lighter disabled:bg-accent-lighter"
+    />
+  );
+};
+
 export const ResetButton = (props: Props): JSX.Element => {
   return (
     <_Button
