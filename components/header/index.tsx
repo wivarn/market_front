@@ -3,14 +3,14 @@ import {
   ShoppingCartIcon,
   UserCircleIcon,
 } from "components/icons";
+import { Menu, Transition } from "@headlessui/react";
 
 import { ChevronDownIconSm } from "components/icons";
 import { DropDown } from "./dropdown";
+import { Fragment } from "react";
 import Head from "next/head";
 import { IconLink } from "./iconLink";
 import Link from "next/link";
-import { Popover, Transition } from "@headlessui/react";
-import { Fragment } from "react";
 import ReactTooltip from "react-tooltip";
 import SearchForm from "components/forms/listing/search";
 import { SkwirlIconMd } from "components/icons";
@@ -23,10 +23,10 @@ function CategoryPopovers() {
     <div className="grid grid-cols-3 mx-auto justify-items-center">
       {categoryList.map((category) => {
         return (
-          <Popover key={category.value} className="relative">
-            <Popover.Button className="flex items-center p-2 text-sm font-semibold rounded-md focus:outline-none text-accent-dark">
+          <Menu as="div" className="relative" key={category.value}>
+            <Menu.Button className="flex items-center p-2 text-sm font-semibold rounded-md focus:outline-none text-accent-dark">
               {category.text} <ChevronDownIconSm />
-            </Popover.Button>
+            </Menu.Button>
             <Transition
               as={Fragment}
               enter="transition ease-out duration-200"
@@ -36,24 +36,26 @@ function CategoryPopovers() {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute z-10">
-                <div className="grid w-48 p-2 space-y-2 text-sm bg-white border rounded-md border-accent">
-                  {category.subCategory.map((subCategory) => {
-                    return (
-                      <Link
-                        key={subCategory.value}
-                        href={`/listings/search?category=${category.value}&subcategory=${subCategory.value}`}
-                      >
-                        <a className="p-2 rounded-md text-accent-darker hover:bg-primary hover:text-white">
-                          {subCategory.text}
-                        </a>
-                      </Link>
-                    );
-                  })}
-                </div>
-              </Popover.Panel>
+              <Menu.Items className="absolute z-10">
+                <Menu.Item>
+                  <div className="grid w-48 p-2 space-y-2 text-sm bg-white border rounded-md border-accent">
+                    {category.subCategory.map((subCategory) => {
+                      return (
+                        <Link
+                          key={subCategory.value}
+                          href={`/listings/search?category=${category.value}&subcategory=${subCategory.value}`}
+                        >
+                          <a className="p-2 rounded-md text-accent-darker hover:bg-primary hover:text-white">
+                            {subCategory.text}
+                          </a>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </Menu.Item>
+              </Menu.Items>
             </Transition>
-          </Popover>
+          </Menu>
         );
       })}
     </div>
