@@ -194,7 +194,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
       <DeleteButton
         text={draft ? "Delete" : "Remove"}
         disabled={formik.isSubmitting}
-        submitting={formik.isSubmitting && submittingDelete}
+        submitting={submittingDelete}
         onClick={async () => {
           setSubmittingDelete(true);
           if (draft) {
