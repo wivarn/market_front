@@ -5,13 +5,13 @@ import {
   TwitterIconSm,
   YoutubeIconSm,
 } from "components/icons";
+import { PrimaryButton, SecondaryButton } from "components/buttons";
 
 import { IconButtonLink } from "components/iconButton";
 import Landing from "components/landing";
 import MailChimpForm from "components/forms/mailChimp";
 import { NextSeo } from "next-seo";
 import { RecentListings } from "components/listing/recentListings";
-import { SecondaryButton } from "components/buttons";
 
 export default function Home(): JSX.Element {
   if (process.env.NEXT_PUBLIC_FEATURE_LAUNCHED != "true") return <Landing />;
@@ -34,9 +34,9 @@ export default function Home(): JSX.Element {
                 }
               </h1>
               <h3 className="py-2">
-                Subscribe to our newsletter for exclusive offers and content!
+                Find the next centerpiece for your collection!
               </h3>
-              <MailChimpForm />
+              <PrimaryButton text="Sign up now" href="/account/new" />
             </div>
             <img
               src="/assets/hero-cards.svg"
