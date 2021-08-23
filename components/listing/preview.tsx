@@ -14,14 +14,14 @@ export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
       <div>
         <Link href={href}>
           <a>
-            <div className="flex flex-wrap bg-white rounded-md shadow-md w-80 hover:shadow-xl">
-              <div className="container relative w-80 h-80">
+            <div className="flex flex-wrap bg-white border rounded-md group border-accent-light w-80 hover:shadow-xl">
+              <div className="container relative border-b w-80 h-80 bg-accent-lightest rounded-t-md border-accent-light">
                 {props.photos.length ? (
                   <Image
                     src={props.photos[0].url}
                     alt={props.title}
                     layout="fill"
-                    objectFit="cover"
+                    objectFit="contain"
                     placeholder="blur"
                     blurDataURL="/assets/image-loader.svg"
                     className="rounded-t-md"
@@ -30,8 +30,8 @@ export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
               </div>
               <div className="w-full px-2 py-1">
                 <div className="mt-1 mb-1">
-                  <div className="border-b h-14">
-                    <p className="font-semibold line-clamp-2 text-accent-darker">
+                  <div className="h-14">
+                    <p className="font-semibold group-hover:text-primary line-clamp-2 text-accent-darker">
                       {props.title}
                     </p>
                   </div>
