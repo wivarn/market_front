@@ -36,7 +36,7 @@ export function SalesOrder({ order }: props): JSX.Element {
         setSubmittingShipped(false);
       });
   }
-
+  console.log(order);
   return (
     <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
       <div>
@@ -45,7 +45,7 @@ export function SalesOrder({ order }: props): JSX.Element {
           <SubmitButton
             text="Mark as shipped"
             onClick={shipOrder}
-            disabled={order.aasm_state != "paid"}
+            disabled={order.aasm_state != "pending_shipment"}
             submitting={submittingShipped}
           />
         </div>
