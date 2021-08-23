@@ -32,7 +32,7 @@ function CategoryPopovers() {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Menu.Items className="absolute z-10">
+              <Menu.Items className="absolute z-10 focus:outline-none">
                 <Menu.Item>
                   <div className="grid w-48 p-2 space-y-2 text-sm bg-white border rounded-md border-accent">
                     {category.subCategory.map((subCategory) => {
@@ -70,13 +70,13 @@ export default function Header(): JSX.Element {
     return (
       <div className="w-12 space-x-4 sm:w-32 justify-items-right">
         <Link href="/login">
-          <a className="text-sm font-semibold text-white hover:text-accent-lighter">
+          <a className="text-sm font-semibold text-primary-lightest hover:text-primary-lighter">
             Log in
           </a>
         </Link>
         <span className="hidden text-white sm:inline-block">/</span>
         <Link href="/account/new">
-          <a className="hidden text-sm font-semibold text-white sm:inline-block hover:text-accent-lighter">
+          <a className="hidden text-sm font-semibold text-primary-lightest sm:inline-block hover:text-primary-lighter">
             Sign up
           </a>
         </Link>
