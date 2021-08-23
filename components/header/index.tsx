@@ -1,8 +1,4 @@
-import {
-  CurrencyDollarIcon,
-  ShoppingCartIcon,
-  UserCircleIcon,
-} from "components/icons";
+import { CurrencyDollarIcon, ShoppingCartIcon } from "components/icons";
 import { Menu, Transition } from "@headlessui/react";
 
 import { ChevronDownIconSm } from "components/icons";

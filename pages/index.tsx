@@ -9,7 +9,6 @@ import { PrimaryButton, SecondaryButton } from "components/buttons";
 
 import { IconButtonLink } from "components/iconButton";
 import Landing from "components/landing";
-import MailChimpForm from "components/forms/mailChimp";
 import { NextSeo } from "next-seo";
 import { RecentListings } from "components/listing/recentListings";
 
