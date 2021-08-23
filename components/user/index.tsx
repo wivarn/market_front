@@ -8,8 +8,6 @@ export const UserInfo = (props: IUser): JSX.Element => {
         <Image
           src={props.picture.url || "/ProfilePlaceholder.svg"}
           alt={props.full_name}
-          placeholder="blur"
-          blurDataURL="/ProfilePlaceholder.svg"
           layout="fill"
           objectFit="cover"
           className="rounded-full"
