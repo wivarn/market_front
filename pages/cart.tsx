@@ -126,18 +126,18 @@ export default function Cart(): JSX.Element {
       });
   }
 
-  async function emptyAll() {
-    setSubmittingEmptyAll(true);
-    CartApi(session?.accessToken)
-      .emptyAll()
-      .then(() => {
-        toast.success("All carts have been emptied");
-        fetchCarts();
-      })
-      .finally(() => {
-        setSubmittingEmptyAll(false);
-      });
-  }
+  // async function emptyAll() {
+  //   setSubmittingEmptyAll(true);
+  //   CartApi(session?.accessToken)
+  //     .emptyAll()
+  //     .then(() => {
+  //       toast.success("All carts have been emptied");
+  //       fetchCarts();
+  //     })
+  //     .finally(() => {
+  //       setSubmittingEmptyAll(false);
+  //     });
+  // }
 
   function renderCarts() {
     if (carts.length == 0) {
@@ -175,7 +175,7 @@ export default function Cart(): JSX.Element {
                   <span key={listing.id}>
                     <div className="relative">
                       <ListingPreviewList {...listing} />
-                      <div className="absolute top-2 right-6">
+                      <div className="absolute top-1 right-6">
                         <RemoveButton
                           text={<XIconSm />}
                           disabled={anySubmitting()}
