@@ -183,12 +183,6 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
         <h4 className="pb-2 text-center border-b ">Description</h4>
         <div className="pt-4">{props.description}</div>
       </InfoCard>
-      <InfoCard>
-        <h4 className="pb-2 text-center border-b">Recent Seller Reviews</h4>
-        <div className="pt-4">
-          <p>Coming Soon</p>
-        </div>
-      </InfoCard>
     </div>
   );
 };
