@@ -18,7 +18,6 @@ export const UserInfo = (props: IUser): JSX.Element => {
         <div className="text-sm text-accent-dark">
           {props.address?.state}, {props.address?.country}
         </div>
-        <div className="text-sm text-accent-dark">User Ratings Coming Soon</div>
       </span>
     </div>
   );
