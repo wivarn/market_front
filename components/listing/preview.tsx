@@ -21,7 +21,7 @@ export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
                     src={props.photos[0].url}
                     alt={props.title}
                     layout="fill"
-                    objectFit="contain"
+                    objectFit="cover"
                     placeholder="blur"
                     blurDataURL="/assets/image-loader.svg"
                     className="rounded-t-md"
@@ -31,11 +31,11 @@ export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
               <div className="w-full px-2 py-1">
                 <div className="mt-1 mb-1">
                   <div className="h-14">
-                    <p className="font-semibold group-hover:text-primary line-clamp-2 text-accent-darker">
+                    <p className=" group-hover:text-primary group-hover:font-semibold line-clamp-2 text-accent-darker">
                       {props.title}
                     </p>
                   </div>
-                  <div className="relative mt-1">
+                  <div className="relative">
                     <span className="font-semibold text-accent-darker">
                       {Number(props.price).toLocaleString("en", {
                         style: "currency",
@@ -75,7 +75,7 @@ export const ListingPreviewList = (props: Ilisting): JSX.Element => {
   return (
     <div key={props.id} className="mx-4 my-4 space-y-2">
       <Link href={`/listings/${props.id}`}>
-        <a className="flex hover:shadow-md">
+        <a className="flex border rounded-md hover:shadow-md group">
           <div className="container relative w-24 h-24">
             <Image
               src={props.photos[0].url}
@@ -87,8 +87,10 @@ export const ListingPreviewList = (props: Ilisting): JSX.Element => {
               className="rounded-l-md"
             />
           </div>
-          <div className="w-full p-2 border rounded-r-md">
-            <p className="line-clamp-1">{props.title}</p>
+          <div className="w-full p-2 rounded-r-md">
+            <p className="line-clamp-1 group-hover:text-primary group-hover:font-semibold">
+              {props.title}
+            </p>
 
             <div>
               <span className="font-semibold text-accent-darker">

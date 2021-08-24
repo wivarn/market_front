@@ -126,18 +126,18 @@ export default function Cart(): JSX.Element {
       });
   }
 
-  async function emptyAll() {
-    setSubmittingEmptyAll(true);
-    CartApi(session?.accessToken)
-      .emptyAll()
-      .then(() => {
-        toast.success("All carts have been emptied");
-        fetchCarts();
-      })
-      .finally(() => {
-        setSubmittingEmptyAll(false);
-      });
-  }
+  // async function emptyAll() {
+  //   setSubmittingEmptyAll(true);
+  //   CartApi(session?.accessToken)
+  //     .emptyAll()
+  //     .then(() => {
+  //       toast.success("All carts have been emptied");
+  //       fetchCarts();
+  //     })
+  //     .finally(() => {
+  //       setSubmittingEmptyAll(false);
+  //     });
+  // }
 
   function renderCarts() {
     if (carts.length == 0) {
@@ -175,7 +175,7 @@ export default function Cart(): JSX.Element {
                   <span key={listing.id}>
                     <div className="relative">
                       <ListingPreviewList {...listing} />
-                      <div className="absolute right-0 -top-4">
+                      <div className="absolute top-1 right-6">
                         <RemoveButton
                           text={<XIconSm />}
                           disabled={anySubmitting()}
@@ -189,14 +189,16 @@ export default function Cart(): JSX.Element {
               })}
               <div className="px-4 py-2 border-t bg-accent-lightest">
                 <div className="flex flex-wrap items-center space-x-4">
-                  <p>
-                    Total={" "}
-                    {Number(cart.total).toLocaleString("en", {
-                      style: "currency",
-                      currency: "usd",
-                    })}{" "}
-                    {cart.listings[0]?.currency}
-                  </p>
+                  <div className="text-xs font-semibold text-accent-dark">
+                    Total:
+                    <div className="text-base text-accent-darker">
+                      {Number(cart.total).toLocaleString("en", {
+                        style: "currency",
+                        currency: "usd",
+                      })}{" "}
+                      {cart.listings[0]?.currency}
+                    </div>
+                  </div>
                   <SubmitButton
                     text="Checkout"
                     submitting={submittingCheckout[cart.seller.id]}
@@ -215,14 +217,14 @@ export default function Cart(): JSX.Element {
             </div>
           );
         })}
-        <div className="flex justify-end mt-8 mr-8">
+        {/* <div className="flex justify-end mt-8 mr-8">
           <DeleteButton
             text="Empty all carts"
             onClick={() => emptyAll()}
             disabled={anySubmitting()}
             submitting={submittingEmptyAll}
           />
-        </div>
+        </div> */}
       </>
     );
   }

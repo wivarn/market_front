@@ -91,14 +91,6 @@ export const DropDown = (): JSX.Element => {
             <Menu.Button className="py-2 md:hidden focus:outline-none">
               <div data-tip data-for="menu">
                 <IconLink icon={<MenuIcon />} />
-                <ReactTooltip
-                  id="menu"
-                  type="dark"
-                  place="bottom"
-                  effect="solid"
-                >
-                  Menu
-                </ReactTooltip>
               </div>
             </Menu.Button>
           </div>

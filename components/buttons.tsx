@@ -117,7 +117,7 @@ export const RemoveButton = (props: Props): JSX.Element => {
     <_Button
       {...props}
       type="button"
-      buttonClassName="border rounded-full border-accent-darkest bg-accent-lightest text-accent-darkest hover:bg-accent-lighter disabled:bg-accent-lighter"
+      buttonClassName="px-1 border rounded-full bg-accent-lightest text-accent-dark hover:bg-accent-lighter disabled:bg-accent-lighter"
     />
   );
 };
@@ -137,7 +137,7 @@ const _Button = (props: BaseButtonProps): JSX.Element => {
   const button = (
     <button
       type={props.type ? props.type : "submit"}
-      className={`px-2 py-1 my-1 font-semibold rounded-md disabled:cursor-not-allowed ${props.buttonClassName}`}
+      className={`${props.buttonClassName} px-2 py-1 my-1 text-sm sm:text-base font-semibold rounded-md disabled:cursor-not-allowed `}
       disabled={props.disabled || props.submitting}
       hidden={props.hidden}
       onClick={props.onClick}

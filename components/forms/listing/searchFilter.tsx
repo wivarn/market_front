@@ -199,7 +199,7 @@ export default function SearchFilter(): JSX.Element {
             <FilterIconSm /> <span className="hidden md:flex">Filter</span>
           </Disclosure.Button>
           <Disclosure.Panel>
-            <div className="absolute z-10 p-2 px-4 border rounded-lg top-14 bg-accent-lightest border-accent-light">
+            <div className="absolute z-10 p-2 px-4 border rounded-lg top-10 bg-accent-lightest border-accent-light">
               <Formik
                 initialValues={initialValues}
                 enableReinitialize={true}
@@ -215,9 +215,9 @@ export default function SearchFilter(): JSX.Element {
                 {(formik) => (
                   <Form>
                     <div className="space-y-1">
-                      <h4 className="p-2 text-center border-b">
+                      <h5 className="p-2 text-center border-b">
                         Select Filters
-                      </h4>
+                      </h5>
 
                       <NumberField
                         name="min_price"
