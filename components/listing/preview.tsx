@@ -75,7 +75,7 @@ export const ListingPreviewList = (props: Ilisting): JSX.Element => {
   return (
     <div key={props.id} className="mx-4 my-4 space-y-2">
       <Link href={`/listings/${props.id}`}>
-        <a className="flex border rounded-md hover:shadow-md">
+        <a className="flex border rounded-md hover:shadow-md group">
           <div className="container relative w-24 h-24">
             <Image
               src={props.photos[0].url}
@@ -88,7 +88,9 @@ export const ListingPreviewList = (props: Ilisting): JSX.Element => {
             />
           </div>
           <div className="w-full p-2 rounded-r-md">
-            <p className="line-clamp-1">{props.title}</p>
+            <p className="line-clamp-1 group-hover:text-primary group-hover:font-semibold">
+              {props.title}
+            </p>
 
             <div>
               <span className="font-semibold text-accent-darker">
