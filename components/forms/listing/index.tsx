@@ -84,7 +84,9 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
   const router = useRouter();
   const [session, sessionLoading] = useSession();
   const [graded, setGraded] = useState(!!props.grading_company);
-  const [imageData, setImageData] = useState<File[]>([]);
+  const [imageData, setImageData] = useState<(File | string)[]>(
+    props.photos.map((photo) => photo.url)
+  );
   const { userSettings } = useContext(UserSettingsContext);
   const template = userSettings.listing_template;
   const [submittingPublish, setSubmittingPublish] = useState(false);

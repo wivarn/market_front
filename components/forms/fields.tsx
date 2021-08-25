@@ -55,8 +55,8 @@ type MultiPictureProps = {
   descriptionClassName?: string;
   inputClassName?: string;
   existingImageMetas: { url: string }[];
-  imageData: File[];
-  setImageData: Dispatch<SetStateAction<File[]>>;
+  imageData: (File | string)[];
+  setImageData: Dispatch<SetStateAction<(File | string)[]>>;
 };
 
 export type ListingComboBoxOption = {
@@ -273,10 +273,8 @@ export const MultiPictureField = ({
       const newPreviews = acceptedFiles.map((file) => {
         return { url: URL.createObjectURL(file) };
       });
-      // setImageMetas(imageMetas.concat(newPreviews));
-      // fix this later
-      setImageMetas(newPreviews);
-      setImageData(acceptedFiles);
+      setImageMetas(imageMetas.concat(newPreviews));
+      setImageData(imageData.concat(acceptedFiles));
     },
   });
 

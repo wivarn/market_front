@@ -6,13 +6,16 @@ import { base } from "./base";
 export const ListingApi = (
   accessToken?: string
 ): {
-  create: (formData: FormData, photos?: File[]) => Promise<AxiosResponse<any>>;
+  create: (
+    formData: FormData,
+    photos?: (File | string)[]
+  ) => Promise<AxiosResponse<any>>;
   bulkCreate: (listings: IListingFormData[]) => Promise<AxiosResponse<any>>;
   edit: (id: string | number) => Promise<AxiosResponse<any>>;
   update: (
     id: string | number,
     formData: FormData,
-    imageData: File[]
+    imageData: (File | string)[]
   ) => Promise<AxiosResponse<any>>;
   updateState: (
     id: string | number,
@@ -20,7 +23,7 @@ export const ListingApi = (
   ) => Promise<AxiosResponse<any>>;
   destroy: (id: string | number) => Promise<AxiosResponse<any>>;
 } => {
-  const create = async (formData: FormData, photos?: File[]) => {
+  const create = async (formData: FormData, photos?: (File | string)[]) => {
     if (process.env.NEXT_PUBLIC_VERCEL_URL) {
       const listingResponse = await base.post("listings", formData, {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -30,7 +33,7 @@ export const ListingApi = (
       if (photos?.length) {
         const presignedPutUrlsResponse = await _presignedPutUrls(
           `${id}`,
-          photos.map((photo) => photo.name)
+          photos.map((photo) => (typeof photo == "string" ? photo : photo.name))
         );
         const keys: string[] = await Promise.all(
           presignedPutUrlsResponse.data.map(
@@ -38,7 +41,7 @@ export const ListingApi = (
               { url, key }: { url: string; key: string },
               index: number
             ) => {
-              await axios.put(url, photos[index]);
+              if (url) await axios.put(url, photos[index]);
               return key;
             }
           )
@@ -77,7 +80,7 @@ export const ListingApi = (
   const update = async (
     id: string | number,
     formData: FormData,
-    photos?: File[]
+    photos?: (File | string)[]
   ) => {
     if (process.env.NEXT_PUBLIC_VERCEL_URL) {
       const listingResponse = await base.post(`listings/${id}`, formData, {
@@ -87,7 +90,7 @@ export const ListingApi = (
       if (photos?.length) {
         const presignedPutUrlsResponse = await _presignedPutUrls(
           `${id}`,
-          photos.map((photo) => photo.name)
+          photos.map((photo) => (typeof photo == "string" ? photo : photo.name))
         );
         const keys: string[] = await Promise.all(
           presignedPutUrlsResponse.data.map(
@@ -95,7 +98,7 @@ export const ListingApi = (
               { url, key }: { url: string; key: string },
               index: number
             ) => {
-              await axios.put(url, photos[index]);
+              if (url) await axios.put(url, photos[index]);
               return key;
             }
           )
@@ -128,11 +131,9 @@ export const ListingApi = (
   };
 
   const _presignedPutUrls = async (id: string, filenames: string[]) => {
-    const filenames_query_string = filenames
-      .map((filename) => `filenames[]=${filename}`)
-      .join("&");
-    return base.get(
-      `listings/${id}/presigned_put_urls?${filenames_query_string}`,
+    return base.post(
+      `listings/${id}/presigned_put_urls`,
+      { filenames: filenames },
       {
         headers: { Authorization: `Bearer ${accessToken}` },
       }

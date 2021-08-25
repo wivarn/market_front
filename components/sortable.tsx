@@ -22,8 +22,8 @@ import { CSS } from "@dnd-kit/utilities";
 type SortableImagesProps = {
   imageMetas: { url: string }[];
   setImageMetas: Dispatch<SetStateAction<{ url: string }[]>>;
-  imageData: File[];
-  setImageData: Dispatch<SetStateAction<File[]>>;
+  imageData: (File | string)[];
+  setImageData: Dispatch<SetStateAction<(File | string)[]>>;
 };
 
 function SortableImage(props: { id: string; url: string }) {
