@@ -24,41 +24,35 @@ export const ListingApi = (
   destroy: (id: string | number) => Promise<AxiosResponse<any>>;
 } => {
   const create = async (formData: FormData, photos?: (File | string)[]) => {
-    if (process.env.NEXT_PUBLIC_VERCEL_URL) {
-      const listingResponse = await base.post("listings", formData, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+    const listingResponse = await base.post("listings", formData, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
 
-      const id = listingResponse.data.id;
-      if (photos?.length) {
-        const presignedPutUrlsResponse = await _presignedPutUrls(
-          `${id}`,
-          photos.map((photo) => (typeof photo == "string" ? photo : photo.name))
-        );
-        const keys: string[] = await Promise.all(
-          presignedPutUrlsResponse.data.map(
-            async (
-              { url, key }: { url: string; key: string },
-              index: number
-            ) => {
-              if (url) await axios.put(url, photos[index]);
-              return key;
+    const id = listingResponse.data.id;
+    if (photos?.length) {
+      const presignedPutUrlsResponse = await _presignedPutUrls(
+        `${id}`,
+        photos.map((photo) => (typeof photo == "string" ? photo : photo.name))
+      );
+      const keys: string[] = await Promise.all(
+        presignedPutUrlsResponse.data.map(
+          async ({ url, key }: { url: string; key: string }, index: number) => {
+            if (url) {
+              if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+                await axios.put(url, photos[index]);
+              } else {
+                const fd = new FormData();
+                fd.append("file", photos[index]);
+                await axios.put(`/api/saveFile/${url}`, fd);
+              }
             }
-          )
-        );
-        await _updatePhotosKeys(id, keys);
-      }
-      return listingResponse;
-    } else {
-      if (photos?.length) {
-        for (let i = 0; i < photos.length; i++) {
-          formData.append("photos[]", photos[i]);
-        }
-      }
-      return base.post("listings", formData, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+            return key;
+          }
+        )
+      );
+      await _updatePhotosKeys(id, keys);
     }
+    return listingResponse;
   };
 
   const bulkCreate = async (listings: IListingFormData[]) => {
@@ -82,40 +76,34 @@ export const ListingApi = (
     formData: FormData,
     photos?: (File | string)[]
   ) => {
-    if (process.env.NEXT_PUBLIC_VERCEL_URL) {
-      const listingResponse = await base.post(`listings/${id}`, formData, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+    const listingResponse = await base.post(`listings/${id}`, formData, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
 
-      if (photos?.length) {
-        const presignedPutUrlsResponse = await _presignedPutUrls(
-          `${id}`,
-          photos.map((photo) => (typeof photo == "string" ? photo : photo.name))
-        );
-        const keys: string[] = await Promise.all(
-          presignedPutUrlsResponse.data.map(
-            async (
-              { url, key }: { url: string; key: string },
-              index: number
-            ) => {
-              if (url) await axios.put(url, photos[index]);
-              return key;
+    if (photos?.length) {
+      const presignedPutUrlsResponse = await _presignedPutUrls(
+        `${id}`,
+        photos.map((photo) => (typeof photo == "string" ? photo : photo.name))
+      );
+      const keys: string[] = await Promise.all(
+        presignedPutUrlsResponse.data.map(
+          async ({ url, key }: { url: string; key: string }, index: number) => {
+            if (url) {
+              if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+                await axios.put(url, photos[index]);
+              } else {
+                const fd = new FormData();
+                fd.append("file", photos[index]);
+                await axios.put(`/api/saveFile/${url}`, fd);
+              }
             }
-          )
-        );
-        await _updatePhotosKeys(id, keys);
-      }
-      return listingResponse;
-    } else {
-      if (photos?.length) {
-        for (let i = 0; i < photos.length; i++) {
-          formData.append("photos[]", photos[i]);
-        }
-      }
-      return base.post(`listings/${id}`, formData, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+            return key;
+          }
+        )
+      );
+      await _updatePhotosKeys(id, keys);
     }
+    return listingResponse;
   };
 
   const updateState = async (id: string | number, state_transition: string) => {

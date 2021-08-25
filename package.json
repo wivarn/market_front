@@ -40,6 +40,7 @@
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.2.1",
     "@tailwindcss/typography": "^0.4.1",
+    "@types/formidable": "^1.2.3",
     "@types/papaparse": "^5.2.5",
     "@types/react": "^17.0.3",
     "@types/react-paginate": "^7.1.0",
@@ -53,6 +54,7 @@
     "eslint-config-prettier": "^8.2.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-prettier": "^3.4.0",
+    "formidable": "^1.2.2",
     "gray-matter": "^4.0.3",
     "postcss": "^8.2.9",
     "postcss-import": "^14.0.2",
