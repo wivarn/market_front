@@ -18,14 +18,6 @@ export const ListingApi = (
     id: string | number,
     state_transition: string
   ) => Promise<AxiosResponse<any>>;
-  uploadPhotosCredentials: (
-    id: string | number,
-    number_of_photos: number
-  ) => Promise<AxiosResponse<any>>;
-  updatePhotosKeys: (
-    id: string | number,
-    keys: string[]
-  ) => Promise<AxiosResponse<any>>;
   destroy: (id: string | number) => Promise<AxiosResponse<any>>;
 } => {
   const create = async (formData: FormData, photos?: File[]) => {
@@ -36,35 +28,22 @@ export const ListingApi = (
 
       const id = listingResponse.data.id;
       if (photos?.length) {
-        const credentialsResponse = await uploadPhotosCredentials(
-          id,
-          photos?.length
+        const presignedPutUrlsResponse = await _presignedPutUrls(
+          `${id}`,
+          photos.map((photo) => photo.name)
         );
         const keys: string[] = await Promise.all(
-          credentialsResponse.data.map(
+          presignedPutUrlsResponse.data.map(
             async (
-              {
-                uri,
-                ...credentials
-              }: {
-                uri: string;
-                credentials: any;
-              },
+              { url, key }: { url: string; key: string },
               index: number
             ) => {
-              const formData = new FormData();
-              Object.entries(credentials).forEach(([key, value]) => {
-                formData.append(key, `${value}`);
-              });
-              formData.append("file", photos[index]);
-              const uploadResponse = await axios.post(uri, formData);
-              return new URL(
-                uploadResponse.request.responseURL
-              ).searchParams.get("key");
+              await axios.put(url, photos[index]);
+              return key;
             }
           )
         );
-        await updatePhotosKeys(id, keys);
+        await _updatePhotosKeys(id, keys);
       }
       return listingResponse;
     } else {
@@ -106,35 +85,22 @@ export const ListingApi = (
       });
 
       if (photos?.length) {
-        const credentialsResponse = await uploadPhotosCredentials(
-          id,
-          photos?.length
+        const presignedPutUrlsResponse = await _presignedPutUrls(
+          `${id}`,
+          photos.map((photo) => photo.name)
         );
         const keys: string[] = await Promise.all(
-          credentialsResponse.data.map(
+          presignedPutUrlsResponse.data.map(
             async (
-              {
-                uri,
-                ...credentials
-              }: {
-                uri: string;
-                credentials: any;
-              },
+              { url, key }: { url: string; key: string },
               index: number
             ) => {
-              const formData = new FormData();
-              Object.entries(credentials).forEach(([key, value]) => {
-                formData.append(key, `${value}`);
-              });
-              formData.append("file", photos[index]);
-              const uploadResponse = await axios.post(uri, formData);
-              return new URL(
-                uploadResponse.request.responseURL
-              ).searchParams.get("key");
+              await axios.put(url, photos[index]);
+              return key;
             }
           )
         );
-        await updatePhotosKeys(id, keys);
+        await _updatePhotosKeys(id, keys);
       }
       return listingResponse;
     } else {
@@ -161,19 +127,19 @@ export const ListingApi = (
     );
   };
 
-  const uploadPhotosCredentials = async (
-    id: string | number,
-    number_of_photos: number
-  ) => {
+  const _presignedPutUrls = async (id: string, filenames: string[]) => {
+    const filenames_query_string = filenames
+      .map((filename) => `filenames[]=${filename}`)
+      .join("&");
     return base.get(
-      `listings/${id}/upload_photos_credentials?number_of_photos=${number_of_photos}`,
+      `listings/${id}/presigned_put_urls?${filenames_query_string}`,
       {
         headers: { Authorization: `Bearer ${accessToken}` },
       }
     );
   };
 
-  const updatePhotosKeys = async (id: string | number, keys: string[]) => {
+  const _updatePhotosKeys = async (id: string | number, keys: string[]) => {
     return base.put(
       `listings/${id}/update_photo_keys`,
       { keys: keys },
@@ -195,8 +161,6 @@ export const ListingApi = (
     edit,
     update,
     updateState,
-    uploadPhotosCredentials,
-    updatePhotosKeys,
     destroy,
   };
 };

@@ -11,7 +11,6 @@ export const ProfileApi = (
     formData: FormData,
     picture?: File | null
   ) => Promise<void | AxiosResponse<any>>;
-  uploadPictureCredentials: () => Promise<AxiosResponse<any>>;
   settings: () => Promise<AxiosResponse<any>>;
 } => {
   const get = async () => {
@@ -28,13 +27,10 @@ export const ProfileApi = (
         })
         .then(() => {
           if (picture) {
-            console.log(picture.name);
             _presignedPutUrl(picture.name).then((res) => {
-              console.log(res.data.url);
               const key = res.data.key;
               axios.put(res.data.url, picture).then(() => {
                 _updatePictureKey(key).then(() => {
-                  console.log("success");
                   toast.success("Your profile has been updated");
                 });
               });
@@ -53,12 +49,6 @@ export const ProfileApi = (
           toast.success("Your profile has been updated");
         });
     }
-  };
-
-  const uploadPictureCredentials = async () => {
-    return base.get("account/profile/upload_picture_credentials", {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
   };
 
   const settings = async () => {
@@ -83,5 +73,5 @@ export const ProfileApi = (
     );
   };
 
-  return { get, update, uploadPictureCredentials, settings };
+  return { get, update, settings };
 };
