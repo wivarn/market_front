@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
 import { base } from "./base";
+import { toast } from "react-toastify";
 
 export const ProfileApi = (
   accessToken?: string
@@ -8,10 +9,9 @@ export const ProfileApi = (
   get: () => Promise<AxiosResponse<any>>;
   update: (
     formData: FormData,
-    picture?: string | Blob
+    picture?: File | null
   ) => Promise<void | AxiosResponse<any>>;
   uploadPictureCredentials: () => Promise<AxiosResponse<any>>;
-  updatePictureKey: (key: string) => Promise<AxiosResponse<any>>;
   settings: () => Promise<AxiosResponse<any>>;
 } => {
   const get = async () => {
@@ -20,26 +20,23 @@ export const ProfileApi = (
     });
   };
 
-  const update = async (formData: FormData, picture?: string | Blob) => {
-    if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+  const update = async (formData: FormData, picture?: File | null) => {
+    if (!process.env.NEXT_PUBLIC_VERCEL_URL) {
       return base
         .post("account/profile", formData, {
           headers: { Authorization: `Bearer ${accessToken}` },
         })
         .then(() => {
           if (picture) {
-            uploadPictureCredentials().then((res) => {
-              const { uri, ...credentials } = res.data;
-              const formData = new FormData();
-              Object.entries(credentials).forEach(([key, value]) => {
-                formData.append(key, `${value}`);
-              });
-              formData.append("file", picture);
-              axios.post(uri, formData).then((res) => {
-                const key = new URL(res.request.responseURL).searchParams.get(
-                  "key"
-                );
-                updatePictureKey(`${key}`);
+            console.log(picture.name);
+            _presignedPutUrl(picture.name).then((res) => {
+              console.log(res.data.url);
+              const key = res.data.key;
+              axios.put(res.data.url, picture).then(() => {
+                _updatePictureKey(key).then(() => {
+                  console.log("success");
+                  toast.success("Your profile has been updated");
+                });
               });
             });
           }
@@ -48,9 +45,13 @@ export const ProfileApi = (
       if (picture) {
         formData.append("picture", picture);
       }
-      return base.post("account/profile", formData, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+      return base
+        .post("account/profile", formData, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        .then(() => {
+          toast.success("Your profile has been updated");
+        });
     }
   };
 
@@ -60,7 +61,19 @@ export const ProfileApi = (
     });
   };
 
-  const updatePictureKey = async (key: string) => {
+  const settings = async () => {
+    return base.get("account/profile/settings", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  };
+
+  const _presignedPutUrl = async (filename: string) => {
+    return base.get(`account/profile/presigned_put_url?filename=${filename}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  };
+
+  const _updatePictureKey = async (key: string) => {
     return base.put(
       "account/profile/update_picture_key",
       { key: key },
@@ -70,11 +83,5 @@ export const ProfileApi = (
     );
   };
 
-  const settings = async () => {
-    return base.get("account/profile/settings", {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
-  };
-
-  return { get, update, uploadPictureCredentials, updatePictureKey, settings };
+  return { get, update, uploadPictureCredentials, settings };
 };

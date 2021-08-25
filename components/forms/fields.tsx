@@ -43,7 +43,7 @@ type TextAreaProps = FieldHookConfig<string> &
 
 type PictureProps = TextFieldProps & {
   previewImage?: string;
-  setImageData: Dispatch<SetStateAction<string | Blob>>;
+  setImageData: Dispatch<SetStateAction<File | null>>;
 };
 
 type MultiPictureProps = {
@@ -210,7 +210,7 @@ export const PictureField = ({
       });
       setImageData(event.target.files[0]);
     } else {
-      setImageData("");
+      setImageData(null);
     }
   };
 
