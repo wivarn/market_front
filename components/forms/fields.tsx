@@ -204,10 +204,14 @@ export const PictureField = ({
   });
 
   field.onChange = (event: React.ChangeEvent<any>) => {
-    setPreviewImageState({
-      path: URL.createObjectURL(event.target.files[0]),
-    });
-    setImageData(event.target.files[0]);
+    if (event.target.files[0]) {
+      setPreviewImageState({
+        path: URL.createObjectURL(event.target.files[0]),
+      });
+      setImageData(event.target.files[0]);
+    } else {
+      setImageData("");
+    }
   };
 
   return (
