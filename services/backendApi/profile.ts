@@ -21,7 +21,7 @@ export const ProfileApi = (
   };
 
   const update = async (formData: FormData, picture?: File | null) => {
-    if (!process.env.NEXT_PUBLIC_VERCEL_URL) {
+    if (process.env.NEXT_PUBLIC_VERCEL_URL) {
       return base
         .post("account/profile", formData, {
           headers: { Authorization: `Bearer ${accessToken}` },
