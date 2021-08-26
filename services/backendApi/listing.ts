@@ -8,14 +8,15 @@ export const ListingApi = (
 ): {
   create: (
     formData: FormData,
-    photos?: (File | string)[]
+    photos: (File | string)[]
   ) => Promise<AxiosResponse<any>>;
   bulkCreate: (listings: IListingFormData[]) => Promise<AxiosResponse<any>>;
   edit: (id: string | number) => Promise<AxiosResponse<any>>;
   update: (
     id: string | number,
     formData: FormData,
-    imageData: (File | string)[]
+    imageData: (File | string)[],
+    removedPhotos: { url: string }[]
   ) => Promise<AxiosResponse<any>>;
   updateState: (
     id: string | number,
@@ -23,7 +24,7 @@ export const ListingApi = (
   ) => Promise<AxiosResponse<any>>;
   destroy: (id: string | number) => Promise<AxiosResponse<any>>;
 } => {
-  const create = async (formData: FormData, photos?: (File | string)[]) => {
+  const create = async (formData: FormData, photos: (File | string)[]) => {
     const listingResponse = await base.post("listings", formData, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
@@ -74,7 +75,8 @@ export const ListingApi = (
   const update = async (
     id: string | number,
     formData: FormData,
-    photos?: (File | string)[]
+    photos: (File | string)[],
+    removedPhotos: { url: string }[]
   ) => {
     const listingResponse = await base.post(`listings/${id}`, formData, {
       headers: { Authorization: `Bearer ${accessToken}` },
@@ -101,7 +103,7 @@ export const ListingApi = (
           }
         )
       );
-      await _updatePhotosKeys(id, keys);
+      await _updatePhotosKeys(id, keys, removedPhotos);
     }
     return listingResponse;
   };
@@ -128,10 +130,14 @@ export const ListingApi = (
     );
   };
 
-  const _updatePhotosKeys = async (id: string | number, keys: string[]) => {
+  const _updatePhotosKeys = async (
+    id: string | number,
+    keys: string[],
+    removedPhotos?: { url: string }[]
+  ) => {
     return base.put(
       `listings/${id}/update_photo_keys`,
-      { keys: keys },
+      { keys: keys, removed_photos: removedPhotos || [] },
       {
         headers: { Authorization: `Bearer ${accessToken}` },
       }

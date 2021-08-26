@@ -87,6 +87,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
   const [imageData, setImageData] = useState<(File | string)[]>(
     props.photos.map((photo) => photo.url)
   );
+  const [removedImages, setRemovedImages] = useState<{ url: string }[]>([]);
   const { userSettings } = useContext(UserSettingsContext);
   const template = userSettings.listing_template;
   const [submittingPublish, setSubmittingPublish] = useState(false);
@@ -287,7 +288,8 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                 : ListingApi(session?.accessToken).update(
                     `${values.id}`,
                     formData,
-                    imageData
+                    imageData,
+                    removedImages
                   );
 
               function success() {
@@ -396,6 +398,8 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                     existingImageMetas={initialValues.photos}
                     imageData={imageData}
                     setImageData={setImageData}
+                    removed={removedImages}
+                    setRemoved={setRemovedImages}
                   />
                 </FormSection>
 
