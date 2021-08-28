@@ -26,8 +26,6 @@ type SortableImagesProps = {
   setImageMetas: Dispatch<SetStateAction<{ url: string }[]>>;
   imageData: (File | string)[];
   setImageData: Dispatch<SetStateAction<(File | string)[]>>;
-  removed: { url: string }[];
-  setRemoved: Dispatch<SetStateAction<{ url: string }[]>>;
 };
 
 export function SortableImages({
@@ -35,8 +33,6 @@ export function SortableImages({
   setImageMetas,
   imageData,
   setImageData,
-  removed,
-  setRemoved,
 }: SortableImagesProps): JSX.Element {
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -75,7 +71,6 @@ export function SortableImages({
 
   async function removeImage(id: string) {
     const index = imageMetas.findIndex((meta) => meta.url == id);
-    setRemoved(removed.concat(imageMetas[index]));
     setImageMetas((imageMetas) => imageMetas.filter((_, i) => i != index));
     setImageData((imageData) => imageData.filter((_, i) => i != index));
   }

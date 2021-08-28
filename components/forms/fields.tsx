@@ -57,8 +57,6 @@ type MultiPictureProps = {
   existingImageMetas: { url: string }[];
   imageData: (File | string)[];
   setImageData: Dispatch<SetStateAction<(File | string)[]>>;
-  removed: { url: string }[];
-  setRemoved: Dispatch<SetStateAction<{ url: string }[]>>;
 };
 
 export type ListingComboBoxOption = {
@@ -262,8 +260,6 @@ export const MultiPictureField = ({
   existingImageMetas,
   imageData,
   setImageData,
-  removed,
-  setRemoved,
 }: MultiPictureProps): JSX.Element => {
   const [imageMetas, setImageMetas] = useState(
     existingImageMetas.length ? existingImageMetas : []
@@ -343,8 +339,6 @@ export const MultiPictureField = ({
           setImageMetas={setImageMetas}
           imageData={imageData}
           setImageData={setImageData}
-          removed={removed}
-          setRemoved={setRemoved}
         />
         {errors}
       </div>

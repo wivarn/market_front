@@ -15,8 +15,7 @@ export const ListingApi = (
   update: (
     id: string | number,
     formData: FormData,
-    imageData: (File | string)[],
-    removedPhotos: { url: string }[]
+    imageData: (File | string)[]
   ) => Promise<AxiosResponse<any>>;
   updateState: (
     id: string | number,
@@ -76,8 +75,7 @@ export const ListingApi = (
   const update = async (
     id: string | number,
     formData: FormData,
-    photos: (File | string)[],
-    removedPhotos: { url: string }[]
+    photos: (File | string)[]
   ) => {
     const listingResponse = await base.post(`listings/${id}`, formData, {
       headers: { Authorization: `Bearer ${accessToken}` },
@@ -106,7 +104,7 @@ export const ListingApi = (
         }
       )
     );
-    await _updatePhotosIdentifiers(id, identifiers, removedPhotos);
+    await _updatePhotosIdentifiers(id, identifiers);
     return listingResponse;
   };
 
@@ -134,12 +132,11 @@ export const ListingApi = (
 
   const _updatePhotosIdentifiers = async (
     id: string | number,
-    identifiers: string[],
-    removedPhotos?: { url: string }[]
+    identifiers: string[]
   ) => {
     return base.put(
       `listings/${id}/update_photo_identifiers`,
-      { identifiers: identifiers, removed_photos: removedPhotos || [] },
+      { identifiers: identifiers },
       {
         headers: { Authorization: `Bearer ${accessToken}` },
       }
