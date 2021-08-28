@@ -74,7 +74,6 @@ export function SortableImages({
   }
 
   async function removeImage(id: string) {
-    console.log(id);
     const index = imageMetas.findIndex((meta) => meta.url == id);
     setRemoved(removed.concat(imageMetas[index]));
     setImageMetas((imageMetas) => imageMetas.filter((_, i) => i != index));

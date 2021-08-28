@@ -30,29 +30,30 @@ export const ListingApi = (
     });
 
     const id = listingResponse.data.id;
-    if (photos?.length) {
-      const presignedPutUrlsResponse = await _presignedPutUrls(
-        `${id}`,
-        photos.map((photo) => (typeof photo == "string" ? photo : photo.name))
-      );
-      const keys: string[] = await Promise.all(
-        presignedPutUrlsResponse.data.map(
-          async ({ url, key }: { url: string; key: string }, index: number) => {
-            if (url) {
-              if (process.env.NEXT_PUBLIC_VERCEL_URL) {
-                await axios.put(url, photos[index]);
-              } else {
-                const fd = new FormData();
-                fd.append("file", photos[index]);
-                await axios.put(`/api/saveFile/${url}`, fd);
-              }
+    const presignedPutUrlsResponse = await _presignedPutUrls(
+      `${id}`,
+      photos.map((photo) => (typeof photo == "string" ? photo : photo.name))
+    );
+    const identifiers: string[] = await Promise.all(
+      presignedPutUrlsResponse.data.map(
+        async (
+          { url, identifier }: { url: string; identifier: string },
+          index: number
+        ) => {
+          if (url) {
+            if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+              await axios.put(url, photos[index]);
+            } else {
+              const fd = new FormData();
+              fd.append("file", photos[index]);
+              await axios.put(`/api/saveFile/${url}`, fd);
             }
-            return key;
           }
-        )
-      );
-      await _updatePhotosKeys(id, keys);
-    }
+          return identifier;
+        }
+      )
+    );
+    await _updatePhotosIdentifiers(id, identifiers);
     return listingResponse;
   };
 
@@ -82,29 +83,30 @@ export const ListingApi = (
       headers: { Authorization: `Bearer ${accessToken}` },
     });
 
-    if (photos?.length) {
-      const presignedPutUrlsResponse = await _presignedPutUrls(
-        `${id}`,
-        photos.map((photo) => (typeof photo == "string" ? photo : photo.name))
-      );
-      const keys: string[] = await Promise.all(
-        presignedPutUrlsResponse.data.map(
-          async ({ url, key }: { url: string; key: string }, index: number) => {
-            if (url) {
-              if (process.env.NEXT_PUBLIC_VERCEL_URL) {
-                await axios.put(url, photos[index]);
-              } else {
-                const fd = new FormData();
-                fd.append("file", photos[index]);
-                await axios.put(`/api/saveFile/${url}`, fd);
-              }
+    const presignedPutUrlsResponse = await _presignedPutUrls(
+      `${id}`,
+      photos.map((photo) => (typeof photo == "string" ? photo : photo.name))
+    );
+    const identifiers: string[] = await Promise.all(
+      presignedPutUrlsResponse.data.map(
+        async (
+          { url, identifier }: { url: string; identifier: string },
+          index: number
+        ) => {
+          if (url) {
+            if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+              await axios.put(url, photos[index]);
+            } else {
+              const fd = new FormData();
+              fd.append("file", photos[index]);
+              await axios.put(`/api/saveFile/${url}`, fd);
             }
-            return key;
           }
-        )
-      );
-      await _updatePhotosKeys(id, keys, removedPhotos);
-    }
+          return identifier;
+        }
+      )
+    );
+    await _updatePhotosIdentifiers(id, identifiers, removedPhotos);
     return listingResponse;
   };
 
@@ -130,14 +132,14 @@ export const ListingApi = (
     );
   };
 
-  const _updatePhotosKeys = async (
+  const _updatePhotosIdentifiers = async (
     id: string | number,
-    keys: string[],
+    identifiers: string[],
     removedPhotos?: { url: string }[]
   ) => {
     return base.put(
-      `listings/${id}/update_photo_keys`,
-      { keys: keys, removed_photos: removedPhotos || [] },
+      `listings/${id}/update_photo_identifiers`,
+      { identifiers: identifiers, removed_photos: removedPhotos || [] },
       {
         headers: { Authorization: `Bearer ${accessToken}` },
       }

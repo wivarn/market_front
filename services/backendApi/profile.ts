@@ -28,9 +28,9 @@ export const ProfileApi = (
         .then(() => {
           if (picture) {
             _presignedPutUrl(picture.name).then((res) => {
-              const key = res.data.key;
+              const identifier = res.data.identifier;
               axios.put(res.data.url, picture).then(() => {
-                _updatePictureKey(key).then(() => {
+                _updatePictureIdentifier(identifier).then(() => {
                   toast.success("Your profile has been updated");
                 });
               });
@@ -63,10 +63,10 @@ export const ProfileApi = (
     });
   };
 
-  const _updatePictureKey = async (key: string) => {
+  const _updatePictureIdentifier = async (identifier: string) => {
     return base.put(
-      "account/profile/update_picture_key",
-      { key: key },
+      "account/profile/update_picture_identifier",
+      { identifier: identifier },
       {
         headers: { Authorization: `Bearer ${accessToken}` },
       }
