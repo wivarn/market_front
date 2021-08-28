@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
 import { base } from "./base";
-import { toast } from "react-toastify";
 
 export const ProfileApi = (
   accessToken?: string
@@ -9,8 +8,9 @@ export const ProfileApi = (
   get: () => Promise<AxiosResponse<any>>;
   update: (
     formData: FormData,
-    picture?: File | null
+    picture: File | null
   ) => Promise<void | AxiosResponse<any>>;
+  updateCurrency: (currency: string) => Promise<void | AxiosResponse<any>>;
   settings: () => Promise<AxiosResponse<any>>;
 } => {
   const get = async () => {
@@ -19,36 +19,37 @@ export const ProfileApi = (
     });
   };
 
-  const update = async (formData: FormData, picture?: File | null) => {
-    if (process.env.NEXT_PUBLIC_VERCEL_URL) {
-      return base
-        .post("account/profile", formData, {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
-        .then(() => {
-          if (picture) {
-            _presignedPutUrl(picture.name).then((res) => {
-              const identifier = res.data.identifier;
-              axios.put(res.data.url, picture).then(() => {
-                _updatePictureIdentifier(identifier).then(() => {
-                  toast.success("Your profile has been updated");
-                });
-              });
-            });
-          }
-        });
-    } else {
-      if (picture) {
-        formData.append("picture", picture);
+  const update = async (formData: FormData, picture: File | null) => {
+    const profileResponse = await base.post("account/profile", formData, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+
+    if (picture) {
+      const presignedPutUrlResponse = await _presignedPutUrl(picture.name);
+      const { url, identifier } = presignedPutUrlResponse.data;
+
+      if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+        await axios.put(url, picture);
+      } else {
+        const fd = new FormData();
+        fd.append("file", picture);
+        await axios.put(`/api/saveFile/${url}`, fd);
       }
-      return base
-        .post("account/profile", formData, {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
-        .then(() => {
-          toast.success("Your profile has been updated");
-        });
+
+      await _updatePictureIdentifier(identifier);
     }
+
+    return profileResponse;
+  };
+
+  const updateCurrency = async (currnecy: string) => {
+    return base.put(
+      "account/profile/profile",
+      { currnecy: currnecy },
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
   };
 
   const settings = async () => {
@@ -73,5 +74,5 @@ export const ProfileApi = (
     );
   };
 
-  return { get, update, settings };
+  return { get, update, updateCurrency, settings };
 };

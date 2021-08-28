@@ -43,10 +43,8 @@ export default function PaymentForm(): JSX.Element {
         }}
         validationSchema={paymentSchema}
         onSubmit={(values, actions) => {
-          const formData = new FormData();
-          formData.append("currency", `${values.currency}`);
           ProfileApi(session?.accessToken)
-            .update(formData)
+            .updateCurrency(values.currency)
             .then(() => {
               toast.success("Your listing currency has been updated");
               updateUserSettings(session?.accessToken);

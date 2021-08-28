@@ -13,6 +13,7 @@ import { ProfileApi } from "services/backendApi/profile";
 import ReactTooltip from "react-tooltip";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
+import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
 
 const profileSchema = Yup.object().shape({
@@ -92,6 +93,9 @@ export default function ProfileForm(): JSX.Element {
           formData.append("family_name", `${values.family_name}`);
           ProfileApi(session?.accessToken)
             .update(formData, imageData)
+            .then(() => {
+              toast.success("Your profile has been updated");
+            })
             .finally(() => {
               actions.setSubmitting(false);
             });
