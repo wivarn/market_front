@@ -18,11 +18,13 @@ import { fetcher } from "services/backendApi/fetcher";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
+declare const window: any;
+
 function Market({ Component, pageProps }: AppProps): JSX.Element {
   const router = useRouter();
 
   useEffect(() => {
-    const handleRouteChange = (url) => {
+    const handleRouteChange = (url: any) => {
       window.gtag("config", process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS, {
         page_path: url,
       });
