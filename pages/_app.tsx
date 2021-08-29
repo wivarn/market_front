@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { AppProps } from "next/app";
 import { DefaultSeo } from "next-seo";
+import GoogleAnalytics from "components/googleAnalytics";
 import Head from "next/head";
 import Layout from "components/layout";
 import { Provider } from "next-auth/client";
@@ -15,47 +16,15 @@ import { UserSettingsProvider } from "contexts/userSettings";
 import { WixAnswers } from "components/wixAnswers";
 import { accessTokenAge } from "constants/auth";
 import { fetcher } from "services/backendApi/fetcher";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-
-declare const window: any;
 
 function Market({ Component, pageProps }: AppProps): JSX.Element {
-  const router = useRouter();
-
-  useEffect(() => {
-    const handleRouteChange = (url: any) => {
-      window.gtag("config", process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS, {
-        page_path: url,
-      });
-    };
-    router.events.on("routeChangeComplete", handleRouteChange);
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
-    };
-  }, [router.events]);
   return (
     <StrictMode>
       <Head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="icon" href="/favicon.ico" key="favicon" />
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-        ></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
-              page_path: window.location.pathname,
-            });
-          `,
-          }}
-        />
+        <GoogleAnalytics />
       </Head>
       <DefaultSeo {...SEO} />
       {process.env.NEXT_PUBLIC_FEATURE_LAUNCHED != "true" ? (
