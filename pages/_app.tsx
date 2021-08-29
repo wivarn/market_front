@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { AppProps } from "next/app";
 import { DefaultSeo } from "next-seo";
+import GoogleAnalytics from "components/googleAnalytics";
 import Head from "next/head";
 import Layout from "components/layout";
 import { Provider } from "next-auth/client";
@@ -25,6 +26,7 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
         <link rel="icon" href="/favicon.ico" key="favicon" />
       </Head>
       <DefaultSeo {...SEO} />
+      <GoogleAnalytics />
       {process.env.NEXT_PUBLIC_FEATURE_LAUNCHED != "true" ? (
         <>
           <Component {...pageProps} />
