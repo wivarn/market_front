@@ -59,17 +59,11 @@ export default function ShowListing(
             images: [
               {
                 url: `${listing.photos[0].url}`,
-                width: 600,
-                height: 800,
+                width: 300,
+                height: 400,
                 alt: `${listing.title}`,
               },
             ],
-            site_name: "Skwirl",
-          }}
-          twitter={{
-            handle: "@skwirl_io",
-            site: "@skwirl",
-            cardType: "summary_large_image",
           }}
         />
         <ListingDetails

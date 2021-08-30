@@ -35,15 +35,10 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
               url: "https://skwirl.io/banner.png",
               width: 1200,
               height: 675,
-              alt: "Skwirl Marketplace | Buy, sell and admire sports cards, trading cards and collectibles",
+              alt:
+                "Skwirl Marketplace | Buy, sell and admire sports cards, trading cards and collectibles",
             },
           ],
-          site_name: "Skwirl",
-        }}
-        twitter={{
-          handle: "@skwirl_io",
-          site: "@skwirl",
-          cardType: "summary_large_image",
         }}
       />
       <GoogleAnalytics />
