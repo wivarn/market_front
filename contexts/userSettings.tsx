@@ -19,6 +19,7 @@ interface IUserSettings {
   address_set: boolean;
   stripe_linked: boolean;
   listing_template: IListingTemplate;
+  previous_path: string;
   default_settings?: true;
 }
 
@@ -28,6 +29,7 @@ const defaultSettings: IUserSettings = {
   address_set: false,
   stripe_linked: false,
   listing_template: {},
+  previous_path: "/",
   default_settings: true,
 };
 
@@ -61,7 +63,11 @@ export const UserSettingsProvider = ({
       ProfileApi(accessToken)
         .settings()
         .then((profileResponse) => {
-          setUserSettings(profileResponse.data);
+          setUserSettings({
+            ...userSettings,
+            default_settings: false,
+            ...profileResponse.data,
+          });
         });
     }
   };
@@ -78,6 +84,17 @@ export const UserSettingsProvider = ({
     if (session === undefined || !userSettings.default_settings) return;
     updateUserSettings(session?.accessToken);
   }, [session]);
+
+  useEffect(() => {
+    function handleRouteChange() {
+      assignUserSettings({ ...userSettings, previous_path: router.asPath });
+    }
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [userSettings]);
 
   // Might not be the best place to put this. Maybe we should have this in the layout or _app
   // page instead. It has be somewhere global or at least anywhere that could have a session.
