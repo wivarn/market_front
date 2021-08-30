@@ -1,8 +1,8 @@
 import { Ilisting } from "types/listings";
 import Link from "next/link";
 import ListingPreviewGrid from "components/listing/previewGrid";
+import { ListingSort } from "components/forms/listing/sort";
 import SearchFilter from "components/forms/listing/searchFilter";
-import SearchSort from "components/forms/listing/searchSort";
 import { useRouter } from "next/router";
 
 interface PreviewProps {
@@ -35,7 +35,7 @@ export const UserListings = (props: ListingProps): JSX.Element => {
       <div className="grid items-center grid-cols-4 mb-4 space-between justify-items-center">
         <SearchFilter />
         <h3 className="col-span-2 text-center">Listings</h3>
-        <SearchSort />
+        <ListingSort />
       </div>
       <ListingPreviewGrid
         listings={props.listings}

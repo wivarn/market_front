@@ -1,30 +1,54 @@
 import { ChevronDownIconSm, SortIconXs } from "components/icons";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 
+import { SpinnerXs } from "components/spinner";
 import { useRouter } from "next/router";
 
-const sortOptions = [
-  { id: "", text: "Best Match (default)" },
-  { id: "priceLow", text: "Price (low to high)" },
-  { id: "priceHigh", text: "Price (high to low)" },
-  { id: "priceShipLow", text: "Price + Shipping (low to high)" },
-  { id: "priceShipHigh", text: "Price + Shipping (high to low)" },
-  { id: "newest", text: "Newest" },
-  { id: "oldest", text: "Oldest" },
-];
+export function ListingSort(): JSX.Element {
+  const sortOptions = [
+    { id: "newest", text: "Newest (default)" },
+    { id: "oldest", text: "Oldest" },
+    { id: "priceLow", text: "Price (low to high)" },
+    { id: "priceHigh", text: "Price (high to low)" },
+  ];
 
-export default function SearchSort(): JSX.Element {
+  return <_Sort sortOptions={sortOptions} />;
+}
+
+export function SearchSort(): JSX.Element {
+  const sortOptions = [
+    { id: "", text: "Best Match (default)" },
+    { id: "priceLow", text: "Price (low to high)" },
+    { id: "priceHigh", text: "Price (high to low)" },
+    { id: "priceShipLow", text: "Price + Shipping (low to high)" },
+    { id: "priceShipHigh", text: "Price + Shipping (high to low)" },
+    { id: "newest", text: "Newest" },
+    { id: "oldest", text: "Oldest" },
+  ];
+
+  return <_Sort sortOptions={sortOptions} />;
+}
+
+function _Sort({
+  sortOptions,
+}: {
+  sortOptions: {
+    id: string;
+    text: string;
+  }[];
+}): JSX.Element {
   const router = useRouter();
+  const [selected, setSelected] = useState(sortOptions[0]);
 
-  let initialSelected = sortOptions[0];
-  const params = new URLSearchParams(router.asPath.split("?")[1]);
-  initialSelected =
-    sortOptions.find((option) => option.id == params.get("sort")) ||
-    sortOptions[0];
+  useEffect(() => {
+    setSelected(
+      sortOptions.find((option) => option.id == router.query.sort) ||
+        sortOptions[0]
+    );
+  }, [router.isReady, router.query.sort]);
 
-  const [selected, setSelected] = useState(initialSelected);
-
+  if (!router.isReady) return <SpinnerXs />;
   return (
     <div className="relative md:w-72">
       <Listbox value={selected} onChange={setSelected}>

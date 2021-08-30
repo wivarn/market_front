@@ -111,7 +111,9 @@ export default function LoginForm(): JSX.Element {
                   />
                   <Link href="/auth/forgotPassword">
                     <a className="underline text-info">
-                      <p className="py-2 text-sm">Forgot Password?</p>
+                      <div className="py-2">
+                        <span className="text-sm">Forgot Password?</span>
+                      </div>
                     </a>
                   </Link>
                 </div>
