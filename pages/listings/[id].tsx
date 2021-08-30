@@ -49,7 +49,23 @@ export default function ShowListing(
     <div className="my-4">
       <PageContainer yPadding="py-2">
         <BackButton text="Back" />
-        <NextSeo title={listing.title} />
+        <NextSeo
+          title={listing.title}
+          description={listing.description}
+          openGraph={{
+            url: `https://skwirl.io/listings/${listing.id}`,
+            title: `${listing.title}`,
+            description: `Find the best sports cards, trading cards and collectibles on the Skwirl marketplace. Get the best deals for ${listing.title} and best online prices. Free shipping for many products!`,
+            images: [
+              {
+                url: `${listing.photos[0].url}`,
+                width: 300,
+                height: 400,
+                alt: `${listing.title}`,
+              },
+            ],
+          }}
+        />
         <ListingDetails
           category={listing.category}
           subcategory={listing.subcategory}
