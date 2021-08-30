@@ -52,10 +52,16 @@ export default function ShowListing(
         <NextSeo
           title={listing.title}
           description={listing.description}
+          additionalLinkTags={[
+            {
+              rel: "icon",
+              href: "https://www.skwirl.io/favicon.ico",
+            },
+          ]}
           openGraph={{
             url: `https://skwirl.io/listings/${listing.id}`,
             title: `${listing.title}`,
-            description: `${listing.description}`,
+            description: `Find the best sports cards, trading cards and collectibles on the Skwirl marketplace. Get the best deals for ${listing.title} and best online prices. Free shipping for many products!`,
             images: [
               {
                 url: `${listing.photos[0].url}`,
