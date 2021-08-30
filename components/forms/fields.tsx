@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import { FieldHookConfig, useField } from "formik";
-import Image, { ImageLoaderProps } from "next/image";
+import Image, { ImageLoaderProps, ImageProps } from "next/image";
 
 import { Dispatch } from "react";
 import { RefObject } from "react";
@@ -200,19 +200,41 @@ export const PictureField = ({
 }: PictureProps): JSX.Element => {
   const [field, meta] = useField(props);
   const [previewImageState, setPreviewImageState] = useState({
-    path: previewImage || "/ProfilePlaceholder.svg",
+    url: previewImage || "/ProfilePlaceholder.svg",
   });
 
   field.onChange = (event: React.ChangeEvent<any>) => {
     if (event.target.files[0]) {
       setPreviewImageState({
-        path: URL.createObjectURL(event.target.files[0]),
+        url: URL.createObjectURL(event.target.files[0]),
       });
       setImageData(event.target.files[0]);
     } else {
       setImageData(null);
     }
   };
+
+  function renderImage() {
+    const attributes: ImageProps = {
+      src: previewImageState.url,
+      layout: "fill",
+      objectFit: "cover",
+      className: "rounded-full",
+    };
+
+    if (previewImageState.url.startsWith("blob:")) {
+      return (
+        <Image
+          {...attributes}
+          unoptimized={true}
+          loader={({ src }: ImageLoaderProps) => {
+            return src;
+          }}
+        />
+      );
+    }
+    return <Image {...attributes} />;
+  }
 
   return (
     <div className={className}>
@@ -226,16 +248,7 @@ export const PictureField = ({
       ) : null}
       <div className="items-center m-2 ">
         <div className="container relative w-24 h-24 my-2 border rounded-full">
-          <Image
-            loader={({ src }: ImageLoaderProps) => {
-              return src;
-            }}
-            src={previewImageState.path}
-            alt={field.value}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-full "
-          />
+          {renderImage()}
         </div>
         <div>
           <input

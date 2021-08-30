@@ -8,7 +8,7 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import Image, { ImageLoaderProps } from "next/image";
+import Image, { ImageLoaderProps, ImageProps } from "next/image";
 import {
   SortableContext,
   arrayMove,
@@ -97,20 +97,7 @@ export function SortableImages({
         {...listeners}
         className="relative"
       >
-        <Image
-          src={props.url}
-          layout="intrinsic"
-          height="150"
-          width="150"
-          placeholder="blur"
-          blurDataURL="/assets/image-loader.svg"
-          objectFit="contain"
-          className="p-2 my-4 hover:opacity-50"
-          loader={({ src }: ImageLoaderProps) => {
-            return src;
-          }}
-          unoptimized={true}
-        />
+        {renderImage(props.url)}
         <span className="absolute top right-6">
           <RemoveButton
             text={<XIconSm />}
@@ -118,6 +105,35 @@ export function SortableImages({
           />
         </span>
       </div>
+    );
+  }
+  function renderImage(url: string) {
+    const attributes: ImageProps = {
+      src: url,
+      layout: "intrinsic",
+      height: "150",
+      width: "150",
+      objectFit: "contain",
+      className: "p-2 my-4 hover:opacity-50",
+    };
+
+    if (url.startsWith("blob:")) {
+      return (
+        <Image
+          {...attributes}
+          unoptimized={true}
+          loader={({ src }: ImageLoaderProps) => {
+            return src;
+          }}
+        />
+      );
+    }
+    return (
+      <Image
+        {...attributes}
+        placeholder="blur"
+        blurDataURL="/assets/image-loader.svg"
+      />
     );
   }
 }
