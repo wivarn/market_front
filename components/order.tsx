@@ -36,7 +36,7 @@ export function SalesOrder({ order }: props): JSX.Element {
         setSubmittingShipped(false);
       });
   }
-  console.log(order);
+
   return (
     <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
       <div>
