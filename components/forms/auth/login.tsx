@@ -80,7 +80,7 @@ export default function LoginForm(): JSX.Element {
                       setLocked(true);
                     }
                   } else {
-                    router.push("/");
+                    router.push(`${router.query.redirect || "/"}`);
                   }
                 })
                 .finally(() => {

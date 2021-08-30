@@ -13,16 +13,17 @@ import { UserInfo } from "components/user";
 import { UserSettingsContext } from "contexts/userSettings";
 import { categoryList } from "constants/listings";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
 const ListingDetails = (props: IlistingDetails): JSX.Element => {
   const [session] = useSession();
   const [submitting, setSubmitting] = useState(false);
   const { userSettings } = useContext(UserSettingsContext);
+  const router = useRouter();
   const isSeller = session?.accountId == props.seller.id;
   const editable =
     props.aasm_state === "draft" || props.aasm_state === "active";
-
   const category = categoryList.find((c) => c.value == props.category);
   const subCategory = category?.subCategory.find(
     (s) => s.value == props.subcategory
@@ -46,7 +47,12 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
   function renderButton() {
     if (!editable) return null;
     if (!session)
-      return <PrimaryButtonFull text="Log in to purchase" href="/login" />;
+      return (
+        <PrimaryButtonFull
+          text="Log in to purchase"
+          href={`/login?redirect=${router.asPath}`}
+        />
+      );
     else if (isSeller) {
       return (
         <SecondaryButtonFull
