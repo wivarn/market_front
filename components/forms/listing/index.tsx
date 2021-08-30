@@ -297,7 +297,9 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                     : "Your listing has been updated"
                 );
                 router.push(
-                  `/listings?state=${newListing ? "active" : props.aasm_state}`
+                  `/listings?state=${
+                    newListing ? values.aasm_state : props.aasm_state
+                  }`
                 );
               }
               request
