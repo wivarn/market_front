@@ -229,7 +229,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
     <div className="p-4 ">
       <PageContainer yPadding="py-2">
         <div className="absolute">
-          <BackButton text="Back to listings" href="/listings?state=active" />
+          <BackButton text="Back" href="/listings?state=active" />
         </div>
         <div className="px-2">
           <h3 className="p-2 mt-8 text-center md:mt-0">

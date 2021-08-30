@@ -187,7 +187,7 @@ export default function BulkCreateListings(): JSX.Element {
       <PageContainer>
         <CardContainer6xl>
           <div className="absolute -top-8">
-            <BackButton text="Back to listings" href="/listings?state=active" />
+            <BackButton text="Back" href="/listings?state=active" />
           </div>
           <Dropzone
             accept="text/csv, .csv"
