@@ -1,7 +1,8 @@
 import { BackArrowIconSm } from "components/icons";
 import Link from "next/link";
 import { SpinnerXs } from "./spinner";
-import { useRouter } from "next/router";
+import { UserSettingsContext } from "contexts/userSettings";
+import { useContext } from "react";
 interface Props {
   text: string | JSX.Element;
   type?: "button" | "submit" | "reset";
@@ -17,7 +18,7 @@ interface BaseButtonProps extends Props {
 }
 
 export const BackButton = (props: Props): JSX.Element => {
-  const router = useRouter();
+  const { userSettings } = useContext(UserSettingsContext);
   const backButton = (
     <button
       {...props}
@@ -27,14 +28,12 @@ export const BackButton = (props: Props): JSX.Element => {
       <BackArrowIconSm /> <span>{props.text}</span>
     </button>
   );
-  if (props.href) {
-    return (
-      <Link href={props.href}>
-        <a>{backButton}</a>
-      </Link>
-    );
-  }
-  return <div onClick={() => router.back()}>{backButton}</div>;
+
+  return (
+    <Link href={userSettings.previous_path || props.href || "/"}>
+      <a>{backButton}</a>
+    </Link>
+  );
 };
 
 export const PrimaryButton = (props: Props): JSX.Element => {
