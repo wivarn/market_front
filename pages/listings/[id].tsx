@@ -49,7 +49,30 @@ export default function ShowListing(
     <div className="my-4">
       <PageContainer yPadding="py-2">
         <BackButton text="Back" />
-        <NextSeo title={listing.title} />
+        <NextSeo
+          title={listing.title}
+          description={listing.description}
+          openGraph={{
+            url: `https://skwirl.io/listings/${listing.id}`,
+            title: `${listing.title}`,
+            description: `${listing.description}`,
+            images: [
+              {
+                url:
+                  "https://sportscollectorsdigest.com/.image/ar_4:3%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTc3NTExNTAxNjYwNDMxNzM3/1979_topps_wayne_gretzky_18_rookie_psa_gem_mint_10_heritage_auctions.jpg",
+                width: 600,
+                height: 800,
+                alt: `${listing.title}`,
+              },
+            ],
+            site_name: "Skwirl",
+          }}
+          twitter={{
+            handle: "@skwirl_io",
+            site: "@skwirl",
+            cardType: "summary_large_image",
+          }}
+        />
         <ListingDetails
           category={listing.category}
           subcategory={listing.subcategory}
