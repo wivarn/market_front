@@ -58,8 +58,7 @@ export default function ShowListing(
             description: `${listing.description}`,
             images: [
               {
-                url:
-                  "https://sportscollectorsdigest.com/.image/ar_4:3%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTc3NTExNTAxNjYwNDMxNzM3/1979_topps_wayne_gretzky_18_rookie_psa_gem_mint_10_heritage_auctions.jpg",
+                url: `${listing.photos[0].url}`,
                 width: 600,
                 height: 800,
                 alt: `${listing.title}`,
