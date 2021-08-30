@@ -1,10 +1,10 @@
 import Link from "next/link";
+import { ListingSort } from "components/forms/listing/sort";
 import { OverflowButton } from "components/listing/overflowButton";
 import { PrimaryButton } from "components/buttons";
 import React from "react";
 import ReactTooltip from "react-tooltip";
 import SearchFilter from "components/forms/listing/searchFilter";
-import SearchSort from "components/forms/listing/searchSort";
 import { UserSettingsContext } from "contexts/userSettings";
 import { useContext } from "react";
 import { useRouter } from "next/router";
@@ -115,7 +115,7 @@ export default function ListingTabs({
             Removed
           </LinkWrapper>
         </div>
-        <SearchSort />
+        <ListingSort />
       </div>
       {children}
     </div>
