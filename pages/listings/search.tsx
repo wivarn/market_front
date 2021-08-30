@@ -4,7 +4,7 @@ import ListingPreviewGrid from "components/listing/previewGrid";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import SearchFilter from "components/forms/listing/searchFilter";
-import { SearchSort } from "components/forms/listing/searchSort";
+import SearchSort from "components/forms/listing/searchSort";
 import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";

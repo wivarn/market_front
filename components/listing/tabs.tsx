@@ -4,7 +4,7 @@ import { PrimaryButton } from "components/buttons";
 import React from "react";
 import ReactTooltip from "react-tooltip";
 import SearchFilter from "components/forms/listing/searchFilter";
-import { ListSort } from "components/forms/listing/searchSort";
+import SearchSort from "components/forms/listing/searchSort";
 import { UserSettingsContext } from "contexts/userSettings";
 import { useContext } from "react";
 import { useRouter } from "next/router";
@@ -115,7 +115,7 @@ export default function ListingTabs({
             Removed
           </LinkWrapper>
         </div>
-        <ListSort />
+        <SearchSort />
       </div>
       {children}
     </div>
