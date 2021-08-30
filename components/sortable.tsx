@@ -90,20 +90,22 @@ export function SortableImages({
     };
 
     return (
-      <div
-        ref={setNodeRef}
-        style={style}
-        {...attributes}
-        {...listeners}
-        className="relative"
-      >
-        {renderImage(props.url)}
-        <span className="absolute top right-6">
-          <RemoveButton
-            text={<XIconSm />}
-            onClick={() => removeImage(props.url)}
-          />
-        </span>
+      <div className="p-2">
+        <div
+          ref={setNodeRef}
+          style={style}
+          {...attributes}
+          {...listeners}
+          className="relative p-2 border-2 rounded-md hover:border-primary bg-accent-lightest"
+        >
+          {renderImage(props.url)}
+          <span className="absolute top-0 right-1">
+            <RemoveButton
+              text={<XIconSm />}
+              onClick={() => removeImage(props.url)}
+            />
+          </span>
+        </div>
       </div>
     );
   }
@@ -111,10 +113,9 @@ export function SortableImages({
     const attributes: ImageProps = {
       src: url,
       layout: "intrinsic",
-      height: "150",
-      width: "150",
+      height: "200",
+      width: "200",
       objectFit: "contain",
-      className: "p-2 my-4 hover:opacity-50",
     };
 
     if (url.startsWith("blob:")) {
