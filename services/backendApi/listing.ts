@@ -6,6 +6,7 @@ import { base } from "./base";
 export const ListingApi = (
   accessToken?: string
 ): {
+  get: (id: string, query?: string) => Promise<AxiosResponse<any>>;
   create: (
     formData: FormData,
     photos: (File | string)[]
@@ -23,6 +24,10 @@ export const ListingApi = (
   ) => Promise<AxiosResponse<any>>;
   destroy: (id: string | number) => Promise<AxiosResponse<any>>;
 } => {
+  const get = async (id: string, query?: string) => {
+    return base.get(`listings/${id}${query ? `?${query}` : ""}`);
+  };
+
   const create = async (formData: FormData, photos: (File | string)[]) => {
     const listingResponse = await base.post("listings", formData, {
       headers: { Authorization: `Bearer ${accessToken}` },
@@ -150,6 +155,7 @@ export const ListingApi = (
   };
 
   return {
+    get,
     create,
     bulkCreate,
     edit,
