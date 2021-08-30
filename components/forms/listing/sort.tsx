@@ -42,11 +42,11 @@ function _Sort({
   const [selected, setSelected] = useState(sortOptions[0]);
 
   useEffect(() => {
-    const initialSelected =
+    setSelected(
       sortOptions.find((option) => option.id == router.query.sort) ||
-      sortOptions[0];
-    setSelected(initialSelected);
-  }, [router.isReady]);
+        sortOptions[0]
+    );
+  }, [router.isReady, router.query.sort]);
 
   if (!router.isReady) return <SpinnerXs />;
   return (
