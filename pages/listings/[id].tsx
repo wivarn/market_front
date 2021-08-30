@@ -52,12 +52,6 @@ export default function ShowListing(
         <NextSeo
           title={listing.title}
           description={listing.description}
-          additionalLinkTags={[
-            {
-              rel: "icon",
-              href: "https://www.skwirl.io/favicon.ico",
-            },
-          ]}
           openGraph={{
             url: `https://skwirl.io/listings/${listing.id}`,
             title: `${listing.title}`,

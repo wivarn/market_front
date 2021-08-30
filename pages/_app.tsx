@@ -2,8 +2,9 @@ import "../styles/global.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import { DefaultSeo, NextSeo } from "next-seo";
+
 import { AppProps } from "next/app";
-import { DefaultSeo } from "next-seo";
 import GoogleAnalytics from "components/googleAnalytics";
 import Head from "next/head";
 import Layout from "components/layout";
@@ -25,7 +26,26 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="icon" href="/favicon.ico" key="favicon" />
       </Head>
-      <DefaultSeo {...SEO} />
+      <DefaultSeo
+        {...SEO}
+        openGraph={{
+          url: "https://skwirl.io",
+          images: [
+            {
+              url: "https://skwirl.io/banner.png",
+              width: 1200,
+              height: 675,
+              alt: "Skwirl Marketplace | Buy, sell and admire sports cards, trading cards and collectibles",
+            },
+          ],
+          site_name: "Skwirl",
+        }}
+        twitter={{
+          handle: "@skwirl_io",
+          site: "@skwirl",
+          cardType: "summary_large_image",
+        }}
+      />
       <GoogleAnalytics />
       {process.env.NEXT_PUBLIC_FEATURE_LAUNCHED != "true" ? (
         <>
