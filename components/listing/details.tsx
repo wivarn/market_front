@@ -29,6 +29,43 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
     (s) => s.value == props.subcategory
   );
 
+  const renderShipping = () => {
+    if (Number(props.shipping) === 0) {
+      return (
+        <div className="text-sm font-semibold leading-none text-success">
+          + Free Shipping
+        </div>
+      );
+    }
+    return (
+      <div className="text-sm leading-none text-accent-dark">
+        +
+        {Number(props.shipping).toLocaleString("en", {
+          style: "currency",
+          currency: "usd",
+        })}{" "}
+        Shipping
+      </div>
+    );
+  };
+
+  const renderCombinedShipping = () => {
+    if (Number(props.combined_shipping) === 0) {
+      return <div className="text-accent-darker">Free</div>;
+    } else if (Number(props.combined_shipping) > 0) {
+      return (
+        <div className="text-accent-darker">
+          {Number(props.combined_shipping).toLocaleString("en", {
+            style: "currency",
+            currency: "usd",
+          })}
+        </div>
+      );
+    } else {
+      <div className=" text-accent-darker">None</div>;
+    }
+  };
+
   async function addItem() {
     setSubmitting(true);
     CartApi(session?.accessToken)
@@ -107,14 +144,7 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
               })}{" "}
             </span>
             <span className="text-md text-accent-darker">{props.currency}</span>
-            <div className="text-sm leading-none text-accent-dark">
-              +
-              {Number(props.shipping).toLocaleString("en", {
-                style: "currency",
-                currency: "usd",
-              })}{" "}
-              Shipping
-            </div>
+            {renderShipping()}
           </div>
           <div className="my-4">{renderButton()}</div>
           <div className="grid grid-cols-1 my-4 space-y-4 sm:grid-cols-2">
@@ -144,9 +174,6 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
                 </Link>
               </div>
             </div>
-            <div>
-              <label className="font-semibold text-accent-darker">Tags</label>
-            </div>
 
             <div>
               <label className="font-semibold text-accent-darker">
@@ -159,22 +186,12 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
                 />
               </div>
             </div>
-          </div>
-
-          <div className="my-4">
-            <h5>Combined Shipping</h5>
-            {props.combined_shipping ? (
-              <div className=" text-accent-darker">
-                Each additonal item purchased from this seller will cost{" "}
-                {Number(props.combined_shipping).toLocaleString("en", {
-                  style: "currency",
-                  currency: "usd",
-                })}{" "}
-                for shipping.
-              </div>
-            ) : (
-              "Seller does not offer combined shipping for this item."
-            )}
+            <div>
+              <label className="font-semibold text-accent-darker">
+                Combined Shipping
+              </label>
+              {renderCombinedShipping()}
+            </div>
           </div>
           <div className="my-8"></div>
           <h5>Seller Information</h5>

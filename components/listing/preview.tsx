@@ -9,6 +9,25 @@ export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
     props.aasm_state === "active"
       ? `/listings/${props.id}`
       : `/listings/${props.id}/edit`;
+  const renderShipping = () => {
+    if (Number(props.shipping) === 0) {
+      return (
+        <div className="text-xs font-semibold leading-none text-success">
+          + Free Shipping
+        </div>
+      );
+    }
+    return (
+      <div className="text-xs leading-none text-accent-dark">
+        +
+        {Number(props.shipping).toLocaleString("en", {
+          style: "currency",
+          currency: "usd",
+        })}{" "}
+        Shipping
+      </div>
+    );
+  };
   return (
     <div className="mt-4">
       <div>
@@ -52,14 +71,7 @@ export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
                       />
                     </span>
                   </div>
-                  <div className="text-xs leading-none text-accent-dark">
-                    +
-                    {Number(props.shipping).toLocaleString("en", {
-                      style: "currency",
-                      currency: "usd",
-                    })}{" "}
-                    Shipping
-                  </div>
+                  {renderShipping()}
                 </div>
               </div>
             </div>
@@ -72,6 +84,25 @@ export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
 
 // banner shaped preview
 export const ListingPreviewList = (props: Ilisting): JSX.Element => {
+  const renderShipping = () => {
+    if (Number(props.shipping) === 0) {
+      return (
+        <div className="text-xs font-semibold leading-none text-success">
+          + Free Shipping
+        </div>
+      );
+    }
+    return (
+      <div className="text-xs leading-none text-accent-dark">
+        +
+        {Number(props.shipping).toLocaleString("en", {
+          style: "currency",
+          currency: "usd",
+        })}{" "}
+        Shipping
+      </div>
+    );
+  };
   return (
     <div key={props.id} className="mx-4 my-4 space-y-2">
       <Link href={`/listings/${props.id}`}>
@@ -100,14 +131,7 @@ export const ListingPreviewList = (props: Ilisting): JSX.Element => {
                 })}{" "}
               </span>
               <span className="text-xs text-accent-dark">{props.currency}</span>
-              <div className="text-xs leading-none text-accent-dark">
-                +
-                {Number(props.shipping).toLocaleString("en", {
-                  style: "currency",
-                  currency: "usd",
-                })}{" "}
-                Shipping
-              </div>
+              {renderShipping()}
             </div>
           </div>
         </a>
