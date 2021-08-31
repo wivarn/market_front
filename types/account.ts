@@ -3,7 +3,6 @@ export interface IProfile {
   family_name?: string;
   currency?: "CAD" | "USD";
   picture?: { url: string };
-  phone_number?: string;
 }
 
 export interface IAccount extends IProfile {
