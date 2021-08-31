@@ -164,11 +164,19 @@ export default function Cart(): JSX.Element {
               key={cart.seller.id}
               className="max-w-4xl mx-auto mt-4 border rounded-md"
             >
-              <h5 className="px-4 py-2 text-white rounded-t-md bg-info-darker">
+              <h5 className="relative px-4 py-2 text-white rounded-t-md bg-info-darker">
                 Seller:{" "}
                 <Link href={`/users/${cart.seller.id}`}>
                   <a className="underline">{`${cart.seller.full_name}`}</a>
                 </Link>
+                <span className="absolute top-0 right-2">
+                  <RemoveButton
+                    text={<XIconSm />}
+                    submitting={submittingEmpty[cart.seller.id]}
+                    disabled={anySubmitting()}
+                    onClick={() => empty(cart.seller.id)}
+                  />
+                </span>
               </h5>
               {cart.listings.map((listing: Ilisting) => {
                 return (
@@ -188,7 +196,7 @@ export default function Cart(): JSX.Element {
                 );
               })}
               <div className="px-4 py-2 border-t bg-accent-lightest">
-                <div className="flex flex-wrap items-center space-x-4">
+                <div className="flex flex-wrap items-center justify-end space-x-4">
                   <div className="text-xs font-semibold text-accent-dark">
                     Total:
                     <div className="text-base text-accent-darker">
@@ -204,13 +212,6 @@ export default function Cart(): JSX.Element {
                     submitting={submittingCheckout[cart.seller.id]}
                     disabled={anySubmitting()}
                     onClick={() => checkout(cart.seller.id)}
-                  />
-
-                  <DeleteButton
-                    text="Empty cart"
-                    submitting={submittingEmpty[cart.seller.id]}
-                    disabled={anySubmitting()}
-                    onClick={() => empty(cart.seller.id)}
                   />
                 </div>
               </div>

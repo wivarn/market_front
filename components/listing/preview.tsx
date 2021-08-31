@@ -118,20 +118,25 @@ export const ListingPreviewList = (props: Ilisting): JSX.Element => {
               className="rounded-l-md"
             />
           </div>
-          <div className="w-full p-2 rounded-r-md">
-            <p className="line-clamp-1 group-hover:text-primary group-hover:font-semibold">
+          <div className="relative w-full p-2 rounded-r-md">
+            <p className="mr-8 line-clamp-1 group-hover:text-primary group-hover:font-semibold">
               {props.title}
             </p>
 
-            <div>
-              <span className="font-semibold text-accent-darker">
-                {Number(props.price).toLocaleString("en", {
-                  style: "currency",
-                  currency: "usd",
-                })}{" "}
-              </span>
-              <span className="text-xs text-accent-dark">{props.currency}</span>
-              {renderShipping()}
+            <div className="flex justify-end mt-4">
+              <div className="grid grid-cols-1">
+                <span className="font-semibold text-accent-darker">
+                  {Number(props.price).toLocaleString("en", {
+                    style: "currency",
+                    currency: "usd",
+                  })}{" "}
+                  <span className="text-xs text-accent-dark">
+                    {props.currency}
+                  </span>
+                </span>
+
+                {renderShipping()}
+              </div>
             </div>
           </div>
         </a>
