@@ -1,5 +1,5 @@
 import { BlankMessage, GenericErrorMessage } from "components/message";
-import { DeleteButton, RemoveButton } from "components/buttons";
+import { RemoveButton } from "components/buttons";
 import { ICart, Ilisting } from "types/listings";
 import { useEffect, useState } from "react";
 
@@ -32,13 +32,11 @@ export default function Cart(): JSX.Element {
   const [submittingEmpty, setSubmittingEmpty] = useState<{
     [key: string]: boolean;
   }>({});
-  const [submittingEmptyAll, setSubmittingEmptyAll] = useState(false);
   const anySubmitting = () => {
     return (
       Object.values(submittingCheckout).some((v: boolean) => v) ||
       Object.values(submittingEmpty).some((v: boolean) => v) ||
-      Object.values(submittingRemove).some((v: boolean) => v) ||
-      submittingEmptyAll
+      Object.values(submittingRemove).some((v: boolean) => v)
     );
   };
 
