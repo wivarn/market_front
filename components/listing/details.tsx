@@ -30,7 +30,7 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
   );
 
   const renderShipping = () => {
-    if (Number(props.shipping) === 0) {
+    if (Number(props.shipping) == 0) {
       return (
         <div className="text-sm font-semibold leading-none text-success">
           + Free Shipping
@@ -50,20 +50,19 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
   };
 
   const renderCombinedShipping = () => {
-    if (Number(props.combined_shipping) === 0) {
+    if (props.combined_shipping == null) {
+      return <div className=" text-accent-darker">None</div>;
+    } else if (Number(props.combined_shipping) == 0) {
       return <div className="text-accent-darker">Free</div>;
-    } else if (Number(props.combined_shipping) > 0) {
-      return (
-        <div className="text-accent-darker">
-          {Number(props.combined_shipping).toLocaleString("en", {
-            style: "currency",
-            currency: "usd",
-          })}
-        </div>
-      );
-    } else {
-      <div className=" text-accent-darker">None</div>;
     }
+    return (
+      <div className="text-accent-darker">
+        {Number(props.combined_shipping).toLocaleString("en", {
+          style: "currency",
+          currency: "usd",
+        })}
+      </div>
+    );
   };
 
   async function addItem() {
