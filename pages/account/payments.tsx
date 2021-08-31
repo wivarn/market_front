@@ -67,6 +67,9 @@ export default function payments(): JSX.Element {
         .then((response) => {
           window.location.assign(response.data.url);
         })
+        .catch((error) => {
+          toast.error(error.response.data.error);
+        })
         .finally(() => {
           setSubmittingStripe(false);
         });
