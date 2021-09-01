@@ -9,6 +9,7 @@ export const AuthApi = (
   logout: () => Promise<AxiosResponse<any>>;
   createAccount: (account: IAccount) => Promise<AxiosResponse<any>>;
   refreshToken: (refreshToken: string) => Promise<AxiosResponse<any>>;
+  verifyAccountResend: (login: string) => Promise<AxiosResponse<any>>;
   verifyAccount: (key: string) => Promise<AxiosResponse<any>>;
   passwordResetRequest: (email: string) => Promise<AxiosResponse<any>>;
   resetPassword: (
@@ -64,6 +65,12 @@ export const AuthApi = (
     });
   };
 
+  const verifyAccountResend = async (login: string) => {
+    return await base.post("/auth/verify-account-resend", {
+      login: login,
+    });
+  };
+
   const passwordResetRequest = async (email: string) => {
     return await base.post("/auth/reset-password-request", {
       login: email,
@@ -100,6 +107,7 @@ export const AuthApi = (
     createAccount,
     refreshToken,
     verifyAccount,
+    verifyAccountResend,
     passwordResetRequest,
     resetPassword,
     unlockAccountRequest,
