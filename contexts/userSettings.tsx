@@ -22,6 +22,7 @@ interface IUserSettings {
   listing_template: IListingTemplate;
   has_cart: boolean;
   has_pending_shipment: boolean;
+  selling_enabled: boolean;
   previous_path: string;
   default_settings?: boolean;
 }
@@ -33,6 +34,7 @@ const defaultSettings: IUserSettings = {
   stripe_linked: false,
   has_cart: false,
   has_pending_shipment: false,
+  selling_enabled: false,
   listing_template: {},
   previous_path: "/",
   default_settings: true,

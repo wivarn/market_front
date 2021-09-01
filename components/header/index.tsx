@@ -92,6 +92,22 @@ export default function Header(): JSX.Element {
   }
 
   function LoggedInNav() {
+    function sellLink() {
+      const href = userSettings.selling_enabled
+        ? "/listings?state=active"
+        : "#";
+      const tooltip = userSettings.selling_enabled ? "Sell" : "You can't sell";
+
+      return (
+        <div data-tip data-for="sell">
+          <IconLink href={href} icon={<CurrencyDollarIcon />} />
+          <ReactTooltip id="sell" type="dark" place="bottom" effect="solid">
+            {tooltip}
+          </ReactTooltip>
+        </div>
+      );
+    }
+
     function cartDot() {
       if (!userSettings.has_cart) return null;
       return (
@@ -100,18 +116,11 @@ export default function Header(): JSX.Element {
         </span>
       );
     }
+
     return (
       <>
         <div className="items-center hidden mr-8 space-x-4 justify-items-center md:inline-flex">
-          <div data-tip data-for="sell">
-            <IconLink
-              href="/listings?state=active"
-              icon={<CurrencyDollarIcon />}
-            />
-            <ReactTooltip id="sell" type="dark" place="bottom" effect="solid">
-              Sell
-            </ReactTooltip>
-          </div>
+          {sellLink()}
           <div data-tip data-for="cart" className="relative">
             <IconLink href="/cart" icon={<ShoppingCartIcon />} />
             {cartDot()}
