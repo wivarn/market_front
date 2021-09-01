@@ -84,7 +84,6 @@ export default function ProfileForm(): JSX.Element {
           given_name: profile.given_name,
           family_name: profile.family_name,
           email: profile.email,
-          phoneNumber: profile.phone_number,
         }}
         validationSchema={profileSchema}
         onSubmit={(values, actions) => {
@@ -119,12 +118,6 @@ export default function ProfileForm(): JSX.Element {
                 label={emailLabel()}
                 name="email"
                 id={`${idPrefix}email`}
-                disabled={true}
-              />
-              <TextFieldFull
-                label="Phone Number (optional)"
-                name="phoneNumber"
-                id={`${idPrefix}phoneNumber`}
                 disabled={true}
               />
 

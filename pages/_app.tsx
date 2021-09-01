@@ -2,9 +2,8 @@ import "../styles/global.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import { DefaultSeo, NextSeo } from "next-seo";
-
 import { AppProps } from "next/app";
+import { DefaultSeo } from "next-seo";
 import GoogleAnalytics from "components/googleAnalytics";
 import Head from "next/head";
 import Layout from "components/layout";
