@@ -24,10 +24,10 @@ export const PaymentApi = (
     );
   };
 
-  const updateCurrency = async (currnecy: string) => {
+  const updateCurrency = async (currency: string) => {
     return base.put(
-      "account/payments/update_currnecy",
-      { currnecy: currnecy },
+      "account/payments/update_currency",
+      { currency: currency },
       {
         headers: { Authorization: `Bearer ${accessToken}` },
       }
