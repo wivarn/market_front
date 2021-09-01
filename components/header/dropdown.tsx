@@ -69,10 +69,14 @@ export const DropDown = (): JSX.Element => {
       });
   }
 
+  const href = userSettings.selling_enabled
+    ? "/listings?state=active"
+    : "/apply";
+
   function salesDot() {
     if (!userSettings.has_pending_shipment) return null;
     return (
-      <span className="float-right text-info">
+      <span className="float-right text-info-darker">
         <CircleIconXs />
       </span>
     );
@@ -139,8 +143,8 @@ export const DropDown = (): JSX.Element => {
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <LinkWrapper href="/listings?state=active" active={active}>
-                      Listings
+                    <LinkWrapper href={href} active={active}>
+                      Sell
                     </LinkWrapper>
                   )}
                 </Menu.Item>
