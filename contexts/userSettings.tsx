@@ -108,7 +108,7 @@ export const UserSettingsProvider = ({
   useInterval(() => {
     if (session === undefined) return;
     updateUserSettings(session?.accessToken);
-  }, 15 * 1000);
+  }, 15 * 60 * 1000);
 
   // Might not be the best place to put this. It has be somewhere global or at least anywhere that could have a session.
   useEffect(() => {
