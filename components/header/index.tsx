@@ -95,14 +95,12 @@ export default function Header(): JSX.Element {
     function sellLink() {
       const href = userSettings.selling_enabled
         ? "/listings?state=active"
-        : "#";
-      const tooltip = userSettings.selling_enabled ? "Sell" : "You can't sell";
-
+        : "/apply";
       return (
         <div data-tip data-for="sell">
           <IconLink href={href} icon={<CurrencyDollarIcon />} />
           <ReactTooltip id="sell" type="dark" place="bottom" effect="solid">
-            {tooltip}
+            Sell
           </ReactTooltip>
         </div>
       );
@@ -111,7 +109,7 @@ export default function Header(): JSX.Element {
     function cartDot() {
       if (!userSettings.has_cart) return null;
       return (
-        <span className="absolute top-0 right-0 text-info">
+        <span className="absolute top-0 right-0 text-info-darker">
           <CircleIconXs />
         </span>
       );
@@ -138,7 +136,7 @@ export default function Header(): JSX.Element {
   }
 
   return (
-    <div className="">
+    <>
       <Head>
         <title>Skwirl</title>
         <meta charSet="UTF-8" />
@@ -166,6 +164,6 @@ export default function Header(): JSX.Element {
           </div>
         </div>
       </header>
-    </div>
+    </>
   );
 }
