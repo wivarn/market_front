@@ -1,4 +1,8 @@
-import { CurrencyDollarIcon, ShoppingCartIcon } from "components/icons";
+import {
+  CircleIconXs,
+  CurrencyDollarIcon,
+  ShoppingCartIcon,
+} from "components/icons";
 import { Menu, Transition } from "@headlessui/react";
 
 import { ChevronDownIconSm } from "components/icons";
@@ -11,7 +15,9 @@ import ReactTooltip from "react-tooltip";
 import SearchForm from "components/forms/listing/search";
 import { SkwirlIconMd } from "components/icons";
 import { Spinner } from "components/spinner";
+import { UserSettingsContext } from "contexts/userSettings";
 import { categoryList } from "constants/listings";
+import { useContext } from "react";
 import { useSession } from "next-auth/client";
 
 function CategoryPopovers() {
@@ -60,6 +66,7 @@ function CategoryPopovers() {
 
 export default function Header(): JSX.Element {
   const [session, sessionLoading] = useSession();
+  const { userSettings } = useContext(UserSettingsContext);
 
   function renderNav() {
     if (sessionLoading) return <Spinner />;
@@ -85,6 +92,14 @@ export default function Header(): JSX.Element {
   }
 
   function LoggedInNav() {
+    function cartDot() {
+      if (!userSettings.has_cart) return null;
+      return (
+        <span className="absolute top-0 right-0 text-info">
+          <CircleIconXs />
+        </span>
+      );
+    }
     return (
       <>
         <div className="items-center hidden mr-8 space-x-4 justify-items-center md:inline-flex">
@@ -97,8 +112,9 @@ export default function Header(): JSX.Element {
               Sell
             </ReactTooltip>
           </div>
-          <div data-tip data-for="cart">
+          <div data-tip data-for="cart" className="relative">
             <IconLink href="/cart" icon={<ShoppingCartIcon />} />
+            {cartDot()}
             <ReactTooltip id="cart" type="dark" place="bottom" effect="solid">
               Cart
             </ReactTooltip>

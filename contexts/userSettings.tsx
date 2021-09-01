@@ -19,6 +19,8 @@ interface IUserSettings {
   address_set: boolean;
   stripe_linked: boolean;
   listing_template: IListingTemplate;
+  has_cart: boolean;
+  has_pending_shipment: boolean;
   previous_path: string;
   default_settings?: true;
 }
@@ -28,6 +30,8 @@ const defaultSettings: IUserSettings = {
   country: "USA",
   address_set: false,
   stripe_linked: false,
+  has_cart: false,
+  has_pending_shipment: false,
   listing_template: {},
   previous_path: "/",
   default_settings: true,

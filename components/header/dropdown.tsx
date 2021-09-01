@@ -1,6 +1,6 @@
+import { CircleIconXs, MenuIcon, UserChevronIcon } from "components/icons";
 import { Fragment, LegacyRef, forwardRef } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { MenuIcon, UserChevronIcon } from "components/icons";
 import { signOut, useSession } from "next-auth/client";
 
 import { AuthApi } from "services/backendApi/auth";
@@ -49,7 +49,7 @@ function classNames(...classes: string[]) {
 export const DropDown = (): JSX.Element => {
   const [session] = useSession();
   const router = useRouter();
-  const { resetUserSettings } = useContext(UserSettingsContext);
+  const { userSettings, resetUserSettings } = useContext(UserSettingsContext);
 
   async function signOutAndRedirect() {
     signOut({ redirect: false, callbackUrl: "/" })
@@ -67,6 +67,15 @@ export const DropDown = (): JSX.Element => {
       .finally(() => {
         resetUserSettings();
       });
+  }
+
+  function salesDot() {
+    if (!userSettings.has_pending_shipment) return null;
+    return (
+      <span className="float-right text-info">
+        <CircleIconXs />
+      </span>
+    );
   }
 
   return (
@@ -139,6 +148,7 @@ export const DropDown = (): JSX.Element => {
                   {({ active }) => (
                     <LinkWrapper href="/account/sales" active={active}>
                       Sales
+                      {salesDot()}
                     </LinkWrapper>
                   )}
                 </Menu.Item>

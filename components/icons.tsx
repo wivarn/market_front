@@ -1,4 +1,5 @@
 import {
+  FaCircle,
   FaDiscord,
   FaFacebookSquare,
   FaInstagramSquare,
@@ -197,6 +198,10 @@ export const ChevronDownIconSm = (): JSX.Element => {
 
 export const CheckCircleIconSm = (): JSX.Element => {
   return <HiCheckCircle className="icon-sm" />;
+};
+
+export const CircleIconXs = (): JSX.Element => {
+  return <FaCircle className="icon-xs" />;
 };
 
 // Social media icons
