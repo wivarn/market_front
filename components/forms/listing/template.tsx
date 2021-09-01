@@ -267,16 +267,6 @@ const ListingTemplateForm = (): JSX.Element => {
                     childresetRef={subcategoryRef}
                   />
                   {subCategoryCombobox(formik)}
-
-                  <ListingTextField
-                    label="Tags"
-                    name="tags"
-                    id={`${idPrefix}tags`}
-                    description="You can use tags to add any additional filter criteria to your listing."
-                    type="text"
-                    placeholder="pending"
-                    disabled={true}
-                  />
                 </FormSection>
 
                 <FormSection header="Details">
