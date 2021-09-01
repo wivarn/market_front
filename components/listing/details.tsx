@@ -19,7 +19,7 @@ import { useSession } from "next-auth/client";
 const ListingDetails = (props: IlistingDetails): JSX.Element => {
   const [session] = useSession();
   const [submitting, setSubmitting] = useState(false);
-  const { userSettings } = useContext(UserSettingsContext);
+  const { userSettings, assignUserSettings } = useContext(UserSettingsContext);
   const router = useRouter();
   const isSeller = session?.accountId == props.seller.id;
   const editable =
@@ -71,6 +71,7 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
       .addItem(`${props.seller.id}`, `${props.id}`)
       .then(() => {
         toast.success("Item added to cart");
+        assignUserSettings({ ...userSettings, has_cart: true });
       })
       .catch((error) => {
         toast.error(JSON.stringify(error.response.data));

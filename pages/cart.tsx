@@ -1,5 +1,4 @@
 import { BlankMessage, GenericErrorMessage } from "components/message";
-import { RemoveButton } from "components/buttons";
 import { ICart, Ilisting } from "types/listings";
 import { useEffect, useState } from "react";
 
@@ -9,6 +8,7 @@ import Link from "next/link";
 import { ListingPreviewList } from "components/listing/preview";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
+import { RemoveButton } from "components/buttons";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
 import { UserSettingsContext } from "contexts/userSettings";
@@ -22,7 +22,7 @@ export default function Cart(): JSX.Element {
   // TODO: add cart type
   const [carts, setCarts] = useState<any>(null);
   const [error, setError] = useState(false);
-  const { userSettings } = useContext(UserSettingsContext);
+  const { userSettings, assignUserSettings } = useContext(UserSettingsContext);
   const [submittingCheckout, setSubmittingCheckout] = useState<{
     [key: string]: boolean;
   }>({});
@@ -55,6 +55,12 @@ export default function Cart(): JSX.Element {
     if (sessionLoading || !userSettings.address_set) return;
     fetchCarts();
   }, [sessionLoading, userSettings.address_set]);
+
+  useEffect(() => {
+    if (carts && !carts.length) {
+      assignUserSettings({ ...userSettings, has_cart: false });
+    }
+  }, [carts]);
 
   if (sessionLoading) return <SpinnerLg text="Loading..." />;
   if (!userSettings.address_set) {
@@ -99,9 +105,9 @@ export default function Cart(): JSX.Element {
     });
     CartApi(session?.accessToken)
       .removeItem(sellerId, listingId)
-      .then(() => {
+      .then((cartsResponse) => {
         toast.success("Item removed from cart");
-        fetchCarts();
+        setCarts(cartsResponse.data);
       })
       .catch((error) => {
         toast.error(JSON.stringify(error.response.data));
@@ -115,27 +121,14 @@ export default function Cart(): JSX.Element {
     setSubmittingEmpty({ ...submittingEmpty, [sellerId]: true });
     CartApi(session?.accessToken)
       .empty(sellerId)
-      .then(() => {
+      .then((cartsResponse) => {
         toast.success("Cart has been emptied");
-        fetchCarts();
+        setCarts(cartsResponse.data);
       })
       .finally(() => {
         setSubmittingEmpty({ ...submittingEmpty, [sellerId]: false });
       });
   }
-
-  // async function emptyAll() {
-  //   setSubmittingEmptyAll(true);
-  //   CartApi(session?.accessToken)
-  //     .emptyAll()
-  //     .then(() => {
-  //       toast.success("All carts have been emptied");
-  //       fetchCarts();
-  //     })
-  //     .finally(() => {
-  //       setSubmittingEmptyAll(false);
-  //     });
-  // }
 
   function renderCarts() {
     if (carts.length == 0) {
