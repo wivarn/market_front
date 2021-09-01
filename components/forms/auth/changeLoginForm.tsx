@@ -4,32 +4,41 @@ import { Form, Formik } from "formik";
 
 import { AuthApi } from "services/backendApi/auth";
 import AuthFormContainer from "./container";
-import { SecondaryButton } from "components/buttons";
+import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
 import { TextFieldFull } from "../fields";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/client";
 
-const verifyAccountResendSchema = Yup.object().shape({
+const changeLoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
+  password: Yup.string()
+    .min(8, "Password must be 8 or more characters")
+    .required("Password is required"),
 });
 
-export default function ResendVerificationForm(): JSX.Element {
+export default function ChangeLoginForm(): JSX.Element {
   const router = useRouter();
+  const [session, sessionLoading] = useSession();
+
+  if (sessionLoading) return <SpinnerLg text="Loading..." />;
+
   return (
     <AuthFormContainer>
       <h3 className="py-4 text-center border-b border-accent">
-        Resend Verification Request
+        Change Login Email
       </h3>
       <div className="py-2">
         <Formik
           initialValues={{
             email: "",
+            password: "",
           }}
-          validationSchema={verifyAccountResendSchema}
+          validationSchema={changeLoginSchema}
           onSubmit={(values, actions) => {
-            AuthApi()
-              .verifyAccountResend(values.email)
+            AuthApi(session?.accessToken)
+              .changeLogin(values.email, values.password)
               .then((response) => {
                 toast.success(response.data.success);
                 router.push("/");
@@ -48,18 +57,22 @@ export default function ResendVerificationForm(): JSX.Element {
                 <TextFieldFull
                   name="email"
                   label="Email"
-                  id="resent-verificiation-email"
+                  id="change-email"
                   type="email"
                   placeholder="Email"
                 />
 
+                <TextFieldFull
+                  name="password"
+                  id="change-email-password"
+                  type="password"
+                  label="Password"
+                />
+
                 <SubmitButton
-                  text="Resend verification email"
+                  text="Chnage your login email"
                   submitting={isSubmitting}
                 />
-              </div>
-              <div className="py-4 mt-4 border-t border-accent">
-                <SecondaryButton href="/login" text="Back to log in" />
               </div>
             </Form>
           )}

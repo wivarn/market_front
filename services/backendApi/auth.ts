@@ -19,6 +19,8 @@ export const AuthApi = (
   ) => Promise<AxiosResponse<any>>;
   unlockAccountRequest: (email: string) => Promise<AxiosResponse<any>>;
   unlockAccount: (key: string) => Promise<AxiosResponse<any>>;
+  changeLogin: (login: string, password: string) => Promise<AxiosResponse<any>>;
+  verifyLoginChange: (key: string) => Promise<AxiosResponse<any>>;
 } => {
   const login = async (login: string, password: string) => {
     return await base.post("auth/login", {
@@ -101,6 +103,25 @@ export const AuthApi = (
     });
   };
 
+  const changeLogin = async (login: string, password: string) => {
+    return await base.post(
+      "/auth/change-login",
+      {
+        login: login,
+        password: password,
+      },
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+  };
+
+  const verifyLoginChange = async (key: string) => {
+    return await base.post("/auth/verify-login-change", {
+      key: key,
+    });
+  };
+
   return {
     login,
     logout,
@@ -112,5 +133,7 @@ export const AuthApi = (
     resetPassword,
     unlockAccountRequest,
     unlockAccount,
+    changeLogin,
+    verifyLoginChange,
   };
 };

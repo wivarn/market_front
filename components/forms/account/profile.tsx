@@ -49,7 +49,7 @@ const emailLabel = () => {
           Your email is verified
         </ReactTooltip>
       </span>
-      <Link href="account/changeEmail">
+      <Link href="/account/changeLogin">
         <a className="font-normal underline text-info">edit</a>
       </Link>
     </div>
