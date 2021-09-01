@@ -46,7 +46,7 @@ export default function ShowUser(): JSX.Element {
     );
 
   const user: IUser = userResponse.data;
-  console.log(user);
+
   return (
     <div className="my-4">
       <PageContainer>
