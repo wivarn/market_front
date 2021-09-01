@@ -17,7 +17,7 @@ export default function payments(): JSX.Element {
   const [session, sessionLoading] = useSession();
   const router = useRouter();
   // TODO: add payment type
-  const [stripeAccount, setStripeAccount] = useState<any>(null);
+  const [payment, setPayment] = useState<any>(null);
   const [submittingStripe, setSubmittingStripe] = useState(false);
   const [error, setError] = useState(false);
   const { userSettings, updateUserSettings } = useContext(UserSettingsContext);
@@ -27,7 +27,7 @@ export default function payments(): JSX.Element {
     PaymentApi(session?.accessToken)
       .get()
       .then((paymentResponse) => {
-        setStripeAccount(paymentResponse.data);
+        setPayment(paymentResponse.data);
       })
       .catch(() => {
         setError(true);
@@ -42,8 +42,7 @@ export default function payments(): JSX.Element {
     }
   }, [userSettings.default_settings]);
 
-  if (sessionLoading || stripeAccount == null)
-    return <SpinnerLg text="Loading..." />;
+  if (sessionLoading || payment == null) return <SpinnerLg text="Loading..." />;
   if (error) return <GenericErrorMessage />;
 
   function renderConnectButton() {
@@ -75,7 +74,7 @@ export default function payments(): JSX.Element {
         });
     }
 
-    const buttonText = stripeAccount.id
+    const buttonText = payment.stripe_id
       ? "Finish Connecting with Stripe"
       : "Connect with Stripe";
 

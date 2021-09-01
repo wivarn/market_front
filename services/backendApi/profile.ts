@@ -10,7 +10,6 @@ export const ProfileApi = (
     formData: FormData,
     picture: File | null
   ) => Promise<void | AxiosResponse<any>>;
-  updateCurrency: (currency: string) => Promise<void | AxiosResponse<any>>;
   settings: () => Promise<AxiosResponse<any>>;
 } => {
   const get = async () => {
@@ -42,16 +41,6 @@ export const ProfileApi = (
     return profileResponse;
   };
 
-  const updateCurrency = async (currnecy: string) => {
-    return base.put(
-      "account/profile/profile",
-      { currnecy: currnecy },
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      }
-    );
-  };
-
   const settings = async () => {
     return base.get("account/profile/settings", {
       headers: { Authorization: `Bearer ${accessToken}` },
@@ -74,5 +63,5 @@ export const ProfileApi = (
     );
   };
 
-  return { get, update, updateCurrency, settings };
+  return { get, update, settings };
 };

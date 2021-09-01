@@ -5,7 +5,7 @@ import { Form, Formik } from "formik";
 import { DropdownCombobox } from "../fields";
 import FormContainer from "../container";
 import { InfoMessage } from "components/message";
-import { ProfileApi } from "services/backendApi/profile";
+import { PaymentApi } from "services/backendApi/payment";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
 import { UserSettingsContext } from "contexts/userSettings";
@@ -43,7 +43,7 @@ export default function PaymentForm(): JSX.Element {
         }}
         validationSchema={paymentSchema}
         onSubmit={(values, actions) => {
-          ProfileApi(session?.accessToken)
+          PaymentApi(session?.accessToken)
             .updateCurrency(values.currency)
             .then(() => {
               toast.success("Your listing currency has been updated");
