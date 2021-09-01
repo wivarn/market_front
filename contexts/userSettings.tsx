@@ -5,6 +5,7 @@ import { IListingTemplate } from "types/listings";
 import { ProfileApi } from "services/backendApi/profile";
 import router from "next/router";
 import { useEffect } from "react";
+import { useInterval } from "ultils/hooks";
 
 interface IUserSettingsContext {
   userSettings: IUserSettings;
@@ -104,8 +105,12 @@ export const UserSettingsProvider = ({
     };
   }, [userSettings]);
 
-  // Might not be the best place to put this. Maybe we should have this in the layout or _app
-  // page instead. It has be somewhere global or at least anywhere that could have a session.
+  useInterval(() => {
+    if (session === undefined) return;
+    updateUserSettings(session?.accessToken);
+  }, 15 * 1000);
+
+  // Might not be the best place to put this. It has be somewhere global or at least anywhere that could have a session.
   useEffect(() => {
     if (session?.error) {
       signOut({ redirect: false, callbackUrl: "/" }).then(async () => {
