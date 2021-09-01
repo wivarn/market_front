@@ -26,7 +26,7 @@ export default function OrderTrackingForm({
   return (
     <Formik
       initialValues={{
-        tracking: tracking,
+        tracking: tracking || "",
       }}
       validationSchema={orderTrackingSchema}
       onSubmit={(values, actions) => {

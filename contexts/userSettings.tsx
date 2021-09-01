@@ -9,7 +9,7 @@ import { useEffect } from "react";
 interface IUserSettingsContext {
   userSettings: IUserSettings;
   updateUserSettings: (accessToken?: string) => void;
-  assignUserSettings: (newUserSettings: IUserSettings) => void;
+  assignUserSettings: (newUserSettings: Partial<IUserSettings>) => void;
   resetUserSettings: () => void;
 }
 
@@ -22,7 +22,7 @@ interface IUserSettings {
   has_cart: boolean;
   has_pending_shipment: boolean;
   previous_path: string;
-  default_settings?: true;
+  default_settings?: boolean;
 }
 
 const defaultSettings: IUserSettings = {
@@ -76,8 +76,12 @@ export const UserSettingsProvider = ({
     }
   };
 
-  const assignUserSettings = (newUserSettings: IUserSettings) => {
-    setUserSettings(newUserSettings);
+  const assignUserSettings = (newUserSettings: Partial<IUserSettings>) => {
+    setUserSettings({
+      ...userSettings,
+      default_settings: false,
+      ...newUserSettings,
+    });
   };
 
   const resetUserSettings = () => {

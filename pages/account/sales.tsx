@@ -6,11 +6,15 @@ import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { SalesOrder } from "components/order";
 import { SpinnerLg } from "components/spinner";
+import { UserSettingsContext } from "contexts/userSettings";
+import { useContext } from "react";
+import { useEffect } from "react";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
 export default function sales(): JSX.Element {
   const [session, sessionLoading] = useSession();
+  const { assignUserSettings } = useContext(UserSettingsContext);
 
   function getSales() {
     const { data, error } = useSWR(
@@ -25,11 +29,18 @@ export default function sales(): JSX.Element {
   }
 
   const { salesResponse, salesLoading, salesError } = getSales();
+  const sales: IOrder[] = salesResponse?.data;
+
+  useEffect(() => {
+    if (!sales) return;
+    const has_pending_shipment = sales?.some((sale) => {
+      return sale.aasm_state == "pending_shipment";
+    });
+    assignUserSettings({ has_pending_shipment: has_pending_shipment });
+  }, [sales]);
 
   if (salesLoading || sessionLoading) return <SpinnerLg text="Loading..." />;
   if (salesError) return <GenericErrorMessage />;
-
-  const sales = salesResponse.data;
 
   function renderSales() {
     if (sales.length == 0) {

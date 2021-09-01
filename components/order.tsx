@@ -4,6 +4,7 @@ import { ListingPreviewList } from "./listing/preview";
 import { OrderApi } from "services/backendApi/order";
 import OrderTrackingForm from "./forms/orderTracking";
 import { SubmitButton } from "./buttons";
+import { mutate } from "swr";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
 import { useState } from "react";
@@ -28,6 +29,7 @@ export function SalesOrder({ order }: props): JSX.Element {
       .updateState("sales", order.id, "ship")
       .then(() => {
         toast.success("Order marked as shipped");
+        mutate(session ? ["orders?view=sales", session.accessToken] : null);
       })
       .catch(() => {
         toast.error("Failed to mark order as shipped");
