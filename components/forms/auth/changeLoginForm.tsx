@@ -66,7 +66,7 @@ export default function ChangeLoginForm(): JSX.Element {
                   type="password"
                   label="Password"
                 />
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap space-x-2">
                   <SubmitButton text="Change email" submitting={isSubmitting} />
                   <SecondaryButton href="/account/profile" text="Cancel" />
                 </div>
