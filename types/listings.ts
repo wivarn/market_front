@@ -9,7 +9,7 @@ export interface Ilisting {
   currency: string;
   price: string;
   aasm_state: string;
-  shipping: string;
+  shipping: string | number;
 }
 
 export interface IlistingDetails extends Ilisting {

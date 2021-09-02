@@ -28,9 +28,16 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
   const subCategory = category?.subCategory.find(
     (s) => s.value == props.subcategory
   );
+  const cantShipToYou = props.shipping == null;
 
   const renderShipping = () => {
-    if (Number(props.shipping) == 0) {
+    if (cantShipToYou) {
+      return (
+        <div className="text-sm font-semibold leading-none text-error">
+          {"Doesn't ship to your location"}
+        </div>
+      );
+    } else if (props.shipping == 0) {
       return (
         <div className="text-sm font-semibold leading-none text-success">
           + Free Shipping
@@ -97,33 +104,41 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
           text="Update Listing"
         />
       );
-    } else {
+    } else if (cantShipToYou) {
       return (
-        <div data-tip data-for="add-to-cart">
-          <SubmitButtonFull
-            text="Add to Cart"
-            disabled={!userSettings.address_set}
-            submitting={submitting}
-            onClick={addItem}
-          />
-          <ReactTooltip
-            id="add-to-cart"
-            type="dark"
-            place="top"
-            multiline={true}
-            effect="solid"
-            disable={userSettings.address_set}
-          >
-            <div className="text-center">
-              You need to set your address
-              <br />
-              before making purchases
-            </div>
-          </ReactTooltip>
-        </div>
+        <PrimaryButtonFull
+          text="Doesn't ship to your location"
+          href="#"
+          disabled={true}
+        />
       );
     }
+    return (
+      <div data-tip data-for="add-to-cart">
+        <SubmitButtonFull
+          text="Add to Cart"
+          disabled={!userSettings.address_set}
+          submitting={submitting}
+          onClick={addItem}
+        />
+        <ReactTooltip
+          id="add-to-cart"
+          type="dark"
+          place="top"
+          multiline={true}
+          effect="solid"
+          disable={userSettings.address_set}
+        >
+          <div className="text-center">
+            You need to set your address
+            <br />
+            before making purchases
+          </div>
+        </ReactTooltip>
+      </div>
+    );
   }
+
   return (
     <div className="container p-2 mx-auto">
       <div className="grid grid-cols-1 xl:grid-cols-2">

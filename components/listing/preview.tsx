@@ -10,7 +10,13 @@ export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
       ? `/listings/${props.id}`
       : `/listings/${props.id}/edit`;
   const renderShipping = () => {
-    if (Number(props.shipping) === 0) {
+    if (props.shipping == null) {
+      return (
+        <div className="text-xs font-semibold leading-none text-error">
+          {"Doesn't ship to your location"}
+        </div>
+      );
+    } else if (props.shipping == 0) {
       return (
         <div className="text-xs font-semibold leading-none text-success">
           + Free Shipping
