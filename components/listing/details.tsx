@@ -16,7 +16,6 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
-// Comment
 const ListingDetails = (props: IlistingDetails): JSX.Element => {
   const [session] = useSession();
   const [submitting, setSubmitting] = useState(false);
