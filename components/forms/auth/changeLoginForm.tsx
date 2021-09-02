@@ -1,11 +1,11 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
+import { SecondaryButton, SubmitButton } from "components/buttons";
 
 import { AuthApi } from "services/backendApi/auth";
 import AuthFormContainer from "./container";
 import { SpinnerLg } from "components/spinner";
-import { SubmitButton } from "components/buttons";
 import { TextFieldFull } from "../fields";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -26,9 +26,7 @@ export default function ChangeLoginForm(): JSX.Element {
 
   return (
     <AuthFormContainer>
-      <h3 className="py-4 text-center border-b border-accent">
-        Change Login Email
-      </h3>
+      <h3 className="py-4 text-center border-b border-accent">Change Email</h3>
       <div className="py-2">
         <Formik
           initialValues={{
@@ -68,11 +66,10 @@ export default function ChangeLoginForm(): JSX.Element {
                   type="password"
                   label="Password"
                 />
-
-                <SubmitButton
-                  text="Chnage your login email"
-                  submitting={isSubmitting}
-                />
+                <div className="flex flex-wrap space-x-2">
+                  <SubmitButton text="Change email" submitting={isSubmitting} />
+                  <SecondaryButton href="/account/profile" text="Cancel" />
+                </div>
               </div>
             </Form>
           )}

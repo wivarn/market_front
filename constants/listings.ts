@@ -53,7 +53,7 @@ export const sportsCardList = [
 
 export const tradingCardList = [
   { value: "MAGIC", text: "Magic The Gathering" },
-  { value: "POKEMON", text: "Pokemon" },
+  { value: "POKEMON", text: "Pokémon" },
   { value: "OTHER", text: "Other Trading Cards" },
 ];
 
@@ -185,4 +185,11 @@ export const listingSchema: ObjectShape = {
     .max(99999999.99, "Shipping must be less than 99999999.99")
     .nullable(),
   aasm_state: Yup.string().required("Required"),
+};
+
+export const stateMappings: { [key: string]: string } = {
+  pending_shipment: "Pending Shipment",
+  shipped: "Shipped",
+  received: "Received",
+  reserved: "Reserved",
 };
