@@ -38,7 +38,9 @@ export const RecentListings = (): JSX.Element => {
       <PageContainer yPadding="py-2 mt-2 mb-4">
         <h3 className="my-4 text-center text-accent-darker">
           Sports Cards{" "}
-          <Link href="/listings/search?category=SPORTS_CARDS">
+          <Link
+            href={`/listings/search?destination_country=${userSettings.country}&category=SPORTS_CARDS`}
+          >
             <a className="text-base underline text-info">View All</a>
           </Link>
         </h3>
@@ -49,7 +51,9 @@ export const RecentListings = (): JSX.Element => {
       <PageContainer yPadding="py-2 mb-4">
         <h3 className="my-4 text-center">
           Trading Cards{" "}
-          <Link href="/listings/search?category=TRADING_CARDS">
+          <Link
+            href={`/listings/search?destination_country=${userSettings.country}&category=TRADING_CARDS`}
+          >
             <a className="text-base underline text-info">View All</a>
           </Link>
         </h3>
@@ -60,7 +64,9 @@ export const RecentListings = (): JSX.Element => {
       <PageContainer yPadding="py-2 mb-4">
         <h3 className="my-4 text-center">
           Collectibles{" "}
-          <Link href="/listings/search?category=COLLECTIBLES">
+          <Link
+            href={`/listings/search?destination_country=${userSettings.country}&category=COLLECTIBLES`}
+          >
             <a className="text-base underline text-info">View All</a>
           </Link>
         </h3>
