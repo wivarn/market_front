@@ -21,6 +21,8 @@ import { useContext } from "react";
 import { useSession } from "next-auth/client";
 
 function CategoryPopovers() {
+  const { userSettings } = useContext(UserSettingsContext);
+
   return (
     <div className="grid grid-cols-3 mx-auto justify-items-center">
       {categoryList.map((category) => {
@@ -45,7 +47,7 @@ function CategoryPopovers() {
                       return (
                         <Link
                           key={subCategory.value}
-                          href={`/listings/search?category=${category.value}&subcategory=${subCategory.value}`}
+                          href={`/listings/search?destination_country=${userSettings.country}&category=${category.value}&subcategory=${subCategory.value}`}
                         >
                           <a className="p-2 rounded-md text-accent-darker hover:bg-primary hover:text-white">
                             {subCategory.text}
