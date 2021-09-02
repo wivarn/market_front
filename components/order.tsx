@@ -4,6 +4,7 @@ import { ListingPreviewList } from "./listing/preview";
 import { OrderApi } from "services/backendApi/order";
 import OrderTrackingForm from "./forms/orderTracking";
 import { SubmitButton } from "./buttons";
+import { listingState } from "constants/listings";
 import { mutate } from "swr";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
@@ -20,7 +21,7 @@ export function SalesOrder({ order }: props): JSX.Element {
     year: "numeric",
   });
   const [submittingShipped, setSubmittingShipped] = useState(false);
-
+  const state = listingState.find((c) => c.value == order.aasm_state);
   const [session] = useSession();
 
   async function shipOrder() {
@@ -43,7 +44,7 @@ export function SalesOrder({ order }: props): JSX.Element {
     <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
       <div>
         <div className="flex items-center px-4 py-2 space-x-4 text-white space-between justify-items-center bg-info-darker rounded-t-md">
-          <p className="font-bold text-center">Status: {order.aasm_state} </p>
+          <p className="font-bold text-center">Status: {state?.text} </p>
           <SubmitButton
             text="Mark as shipped"
             onClick={shipOrder}
@@ -115,6 +116,7 @@ export function PurchaseOrder({ order }: props): JSX.Element {
 
   const [submittingReceived, setSubmittingReceived] = useState(false);
   const [session] = useSession();
+  const state = listingState.find((c) => c.value == order.aasm_state);
 
   async function receiveOrder() {
     setSubmittingReceived(true);
@@ -135,7 +137,7 @@ export function PurchaseOrder({ order }: props): JSX.Element {
     <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
       <div>
         <div className="flex items-center px-4 py-2 space-x-4 text-white space-between justify-items-center bg-info-darker rounded-t-md">
-          <p className="font-bold text-center">Status: {order.aasm_state} </p>
+          <p className="font-bold text-center">Status: {state?.text} </p>
           <SubmitButton
             text="Mark as received"
             onClick={receiveOrder}

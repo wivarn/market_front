@@ -53,7 +53,7 @@ export const sportsCardList = [
 
 export const tradingCardList = [
   { value: "MAGIC", text: "Magic The Gathering" },
-  { value: "POKEMON", text: "Pokemon" },
+  { value: "POKEMON", text: "Pokémon" },
   { value: "OTHER", text: "Other Trading Cards" },
 ];
 
@@ -186,3 +186,9 @@ export const listingSchema: ObjectShape = {
     .nullable(),
   aasm_state: Yup.string().required("Required"),
 };
+
+export const listingState = [
+  { value: "pending_shipment", text: "Pending Shipment" },
+  { value: "shipped", text: "Shipped" },
+  { value: "received", text: "Received" },
+];
