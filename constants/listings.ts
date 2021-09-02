@@ -187,7 +187,7 @@ export const listingSchema: ObjectShape = {
   aasm_state: Yup.string().required("Required"),
 };
 
-export const listingState = [
+export const orderState = [
   { value: "pending_shipment", text: "Pending Shipment" },
   { value: "shipped", text: "Shipped" },
   { value: "received", text: "Received" },
