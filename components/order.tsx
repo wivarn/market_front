@@ -21,7 +21,6 @@ export function SalesOrder({ order }: props): JSX.Element {
     year: "numeric",
   });
   const [submittingShipped, setSubmittingShipped] = useState(false);
-  const state = stateMappings[order.aasm_state] || order.aasm_state;
   const [session] = useSession();
 
   async function shipOrder() {
