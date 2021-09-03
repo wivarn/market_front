@@ -8,6 +8,7 @@ import Link from "next/link";
 import { ListingPreviewList } from "components/listing/preview";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
+import ReactTooltip from "react-tooltip";
 import { RemoveButton } from "components/buttons";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
@@ -180,6 +181,8 @@ export default function Cart(): JSX.Element {
             </span>
           </h5>
           {cart.listings.map((listing: Ilisting) => {
+            const notAvailable =
+              listing.shipping == null || listing.aasm_state != "active";
             return (
               <span key={listing.id}>
                 <div className="relative">
@@ -192,6 +195,13 @@ export default function Cart(): JSX.Element {
                       onClick={() => removeItem(cart.seller.id, listing.id)}
                     />
                   </div>
+                  {notAvailable ? (
+                    <div className="absolute inset-0 grid justify-center w-full top-8">
+                      <div className="w-64 h-10 grid-cols-1 p-2 text-center border rounded-md border-error bg-error-lightest text-error">
+                        This item is no longer available
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               </span>
             );
@@ -208,12 +218,29 @@ export default function Cart(): JSX.Element {
                   {cart.listings[0]?.currency}
                 </div>
               </div>
-              <SubmitButton
-                text="Checkout"
-                submitting={submittingCheckout[cart.seller.id]}
-                disabled={disableCheckout || anySubmitting()}
-                onClick={() => checkout(cart.seller.id)}
-              />
+              <span data-tip data-for="checkout">
+                <SubmitButton
+                  text="Checkout"
+                  submitting={submittingCheckout[cart.seller.id]}
+                  disabled={disableCheckout || anySubmitting()}
+                  onClick={() => checkout(cart.seller.id)}
+                />
+                <ReactTooltip
+                  id="checkout"
+                  type="dark"
+                  wrapper="span"
+                  multiline={true}
+                  place="top"
+                  effect="solid"
+                  disable={!disableCheckout}
+                >
+                  <div className="text-center">
+                    There is a problem with items in your cart.
+                    <br />
+                    Please remove items before checking out.
+                  </div>
+                </ReactTooltip>
+              </span>
             </div>
           </div>
         </div>
