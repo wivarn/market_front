@@ -192,6 +192,10 @@ export const InfoCircleSm = (): JSX.Element => {
   return <HiInformationCircle className="icon-sm" />;
 };
 
+export const InfoCircleXs = (): JSX.Element => {
+  return <HiInformationCircle className="icon-xs" />;
+};
+
 export const ChevronDownIconSm = (): JSX.Element => {
   return <HiChevronDown className="icon-sm" />;
 };
