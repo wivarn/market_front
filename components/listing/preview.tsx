@@ -91,7 +91,13 @@ export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
 // banner shaped preview
 export const ListingPreviewList = (props: Ilisting): JSX.Element => {
   const renderShipping = () => {
-    if (Number(props.shipping) === 0) {
+    if (props.shipping == null) {
+      return (
+        <div className="text-xs font-semibold leading-none text-error">
+          {"Doesn't ship to your location"}
+        </div>
+      );
+    } else if (props.shipping == 0) {
       return (
         <div className="text-xs font-semibold leading-none text-success">
           + Free Shipping
@@ -109,8 +115,16 @@ export const ListingPreviewList = (props: Ilisting): JSX.Element => {
       </div>
     );
   };
+
+  const notAvailable = props.shipping == null || props.aasm_state != "active";
+
   return (
-    <div key={props.id} className="mx-4 my-4 space-y-2">
+    <div
+      key={props.id}
+      className={`mx-4 my-4 space-y-2 ${
+        notAvailable ? "bg-error-lightest" : ""
+      }`}
+    >
       <Link href={`/listings/${props.id}`}>
         <a className="flex border rounded-md hover:shadow-md group">
           <div className="container relative w-24 h-24">
@@ -125,7 +139,11 @@ export const ListingPreviewList = (props: Ilisting): JSX.Element => {
             />
           </div>
           <div className="relative w-full p-2 rounded-r-md">
-            <p className="mr-8 line-clamp-1 group-hover:text-primary group-hover:font-semibold">
+            <p
+              className={`mr-8 line-clamp-1 group-hover:text-primary group-hover:font-semibold ${
+                notAvailable ? "line-through" : ""
+              }`}
+            >
               {props.title}
             </p>
 

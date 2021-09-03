@@ -150,75 +150,75 @@ export default function Cart(): JSX.Element {
     return (
       <>
         {carts.map((cart: ICart) => {
-          return (
-            <div
-              key={cart.seller.id}
-              className="max-w-4xl mx-auto mt-4 border rounded-md"
-            >
-              <h5 className="relative px-4 py-2 text-white rounded-t-md bg-info-darker">
-                Seller:{" "}
-                <Link href={`/users/${cart.seller.id}`}>
-                  <a className="underline">{`${cart.seller.full_name}`}</a>
-                </Link>
-                <span className="absolute top-0 right-2">
-                  <RemoveButton
-                    text={<XIconSm />}
-                    submitting={submittingEmpty[cart.seller.id]}
-                    disabled={anySubmitting()}
-                    onClick={() => empty(cart.seller.id)}
-                  />
-                </span>
-              </h5>
-              {cart.listings.map((listing: Ilisting) => {
-                return (
-                  <span key={listing.id}>
-                    <div className="relative">
-                      <ListingPreviewList {...listing} />
-                      <div className="absolute top-1 right-6">
-                        <RemoveButton
-                          text={<XIconSm />}
-                          disabled={anySubmitting()}
-                          submitting={submittingRemove[cart.seller.id]}
-                          onClick={() => removeItem(cart.seller.id, listing.id)}
-                        />
-                      </div>
-                    </div>
-                  </span>
-                );
-              })}
-              <div className="px-4 py-2 border-t bg-accent-lightest">
-                <div className="flex flex-wrap items-center justify-end space-x-4">
-                  <div className="text-xs font-semibold text-accent-dark">
-                    Total:
-                    <div className="text-base text-accent-darker">
-                      {Number(cart.total).toLocaleString("en", {
-                        style: "currency",
-                        currency: "usd",
-                      })}{" "}
-                      {cart.listings[0]?.currency}
-                    </div>
-                  </div>
-                  <SubmitButton
-                    text="Checkout"
-                    submitting={submittingCheckout[cart.seller.id]}
-                    disabled={anySubmitting()}
-                    onClick={() => checkout(cart.seller.id)}
-                  />
-                </div>
-              </div>
-            </div>
-          );
+          return renderCart(cart);
         })}
-        {/* <div className="flex justify-end mt-8 mr-8">
-          <DeleteButton
-            text="Empty all carts"
-            onClick={() => emptyAll()}
-            disabled={anySubmitting()}
-            submitting={submittingEmptyAll}
-          />
-        </div> */}
       </>
     );
+
+    function renderCart(cart: ICart) {
+      const disableCheckout = cart.listings.some(
+        (listing) => listing.shipping == null || listing.aasm_state != "active"
+      );
+
+      return (
+        <div
+          key={cart.seller.id}
+          className="max-w-4xl mx-auto mt-4 border rounded-md"
+        >
+          <h5 className="relative px-4 py-2 text-white rounded-t-md bg-info-darker">
+            Seller:{" "}
+            <Link href={`/users/${cart.seller.id}`}>
+              <a className="underline">{`${cart.seller.full_name}`}</a>
+            </Link>
+            <span className="absolute top-0 right-2">
+              <RemoveButton
+                text={<XIconSm />}
+                submitting={submittingEmpty[cart.seller.id]}
+                disabled={anySubmitting()}
+                onClick={() => empty(cart.seller.id)}
+              />
+            </span>
+          </h5>
+          {cart.listings.map((listing: Ilisting) => {
+            return (
+              <span key={listing.id}>
+                <div className="relative">
+                  <ListingPreviewList {...listing} />
+                  <div className="absolute top-1 right-6">
+                    <RemoveButton
+                      text={<XIconSm />}
+                      disabled={anySubmitting()}
+                      submitting={submittingRemove[cart.seller.id]}
+                      onClick={() => removeItem(cart.seller.id, listing.id)}
+                    />
+                  </div>
+                </div>
+              </span>
+            );
+          })}
+          <div className="px-4 py-2 border-t bg-accent-lightest">
+            <div className="flex flex-wrap items-center justify-end space-x-4">
+              <div className="text-xs font-semibold text-accent-dark">
+                Total:
+                <div className="text-base text-accent-darker">
+                  {Number(cart.total).toLocaleString("en", {
+                    style: "currency",
+                    currency: "usd",
+                  })}{" "}
+                  {cart.listings[0]?.currency}
+                </div>
+              </div>
+              <SubmitButton
+                text="Checkout"
+                submitting={submittingCheckout[cart.seller.id]}
+                disabled={disableCheckout || anySubmitting()}
+                onClick={() => checkout(cart.seller.id)}
+              />
+            </div>
+          </div>
+        </div>
+      );
+    }
   }
 
   return (
