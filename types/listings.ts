@@ -18,6 +18,7 @@ export interface IlistingDetails extends Ilisting {
   subcategory: string;
   combined_shipping: string;
   seller: IUser;
+  reserved_at: string;
 }
 
 export interface IListingFormData {
