@@ -81,6 +81,7 @@ export default function ShowListing(
           grading_company={listing.grading_company}
           condition={listing.condition}
           description={listing.description}
+          reserved_at={listing.reserved_at}
         />
       </PageContainer>
     </div>
