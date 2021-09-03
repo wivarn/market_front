@@ -24,6 +24,7 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
   const isSeller = session?.accountId == props.seller.id;
   const editable =
     props.aasm_state === "draft" || props.aasm_state === "active";
+  const sold = props.aasm_state === "sold" || props.aasm_state === "refunded";
   const category = categoryList.find((c) => c.value == props.category);
   const subCategory = category?.subCategory.find(
     (s) => s.value == props.subcategory
@@ -89,7 +90,18 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
   }
 
   function renderButton() {
-    if (!editable) return null;
+    if (sold)
+      return (
+        <PrimaryButtonFull text="This item has sold" disabled={true} href="#" />
+      );
+    if (!editable)
+      return (
+        <PrimaryButtonFull
+          text="This item is not available"
+          disabled={true}
+          href="#"
+        />
+      );
     if (!session)
       return (
         <PrimaryButtonFull
