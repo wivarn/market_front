@@ -6,6 +6,7 @@ import { ConditionPill } from "./condition";
 import { IlistingDetails } from "types/listings";
 import ImageSlider from "components/listing/imageSlider";
 import { InfoCard } from "./infoCard";
+import { InfoCircleXs } from "components/icons";
 import Link from "next/link";
 import { PrimaryButtonFull } from "components/buttons";
 import ReactTooltip from "react-tooltip";
@@ -206,7 +207,16 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
 
             <div>
               <label className="font-semibold text-accent-darker">
-                Condition
+                Condition{" "}
+                <Link href="https://support.skwirl.io/kb/en/article/what-are-the-condition-guidelines">
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline text-info hover:text-primary"
+                  >
+                    (Guide)
+                  </a>
+                </Link>
               </label>
               <div>
                 <ConditionPill
@@ -216,8 +226,26 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
               </div>
             </div>
             <div>
-              <label className="font-semibold text-accent-darker">
+              <label className="flex font-semibold text-accent-darker">
                 Combined Shipping
+                <span
+                  data-tip
+                  data-for="combined-shipping"
+                  className="text-center"
+                >
+                  <InfoCircleXs />
+                  <ReactTooltip
+                    id="combined-shipping"
+                    type="dark"
+                    wrapper="span"
+                    multiline={true}
+                    place="top"
+                    effect="solid"
+                  >
+                    The shipping cost if combined <br />
+                    with other items from this seller
+                  </ReactTooltip>
+                </span>
               </label>
               {renderCombinedShipping()}
             </div>
