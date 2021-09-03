@@ -116,15 +116,8 @@ export const ListingPreviewList = (props: Ilisting): JSX.Element => {
     );
   };
 
-  const notAvailable = props.shipping == null || props.aasm_state != "active";
-
   return (
-    <div
-      key={props.id}
-      className={`mx-4 my-4 space-y-2 ${
-        notAvailable ? "bg-error-lightest" : ""
-      }`}
-    >
+    <div key={props.id} className="mx-4 my-4 space-y-2">
       <Link href={`/listings/${props.id}`}>
         <a className="flex border rounded-md hover:shadow-md group">
           <div className="container relative w-24 h-24">
@@ -139,11 +132,7 @@ export const ListingPreviewList = (props: Ilisting): JSX.Element => {
             />
           </div>
           <div className="relative w-full p-2 rounded-r-md">
-            <p
-              className={`mr-8 line-clamp-1 group-hover:text-primary group-hover:font-semibold ${
-                notAvailable ? "line-through" : ""
-              }`}
-            >
+            <p className="mr-8 line-clamp-1 group-hover:text-primary group-hover:font-semibold">
               {props.title}
             </p>
 
