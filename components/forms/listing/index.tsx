@@ -419,7 +419,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                     name="international_shipping"
                     id={`${idPrefix}international_shipping`}
                     description={`Leave blank if you do not offer shipping to ${internationalShippingCountry}. Enter 0 for free shipping to ${internationalShippingCountry}.`}
-                    placeholder="No international shipping"
+                    placeholder={`No ${internationalShippingCountry} shipping`}
                     currency={userSettings.currency}
                   />
 
