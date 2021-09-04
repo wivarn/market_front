@@ -12,8 +12,6 @@
     "@dnd-kit/sortable": "^4.0.0",
     "@headlessui/react": "^1.2.0",
     "@mailchimp/mailchimp_marketing": "^3.0.53",
-    "@stripe/react-stripe-js": "^1.4.1",
-    "@stripe/stripe-js": "^1.15.1",
     "@tailwindcss/line-clamp": "^0.2.1",
     "@tailwindcss/typography": "^0.4.1",
     "axios": "^0.21.1",
