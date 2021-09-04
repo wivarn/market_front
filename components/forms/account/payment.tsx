@@ -33,7 +33,8 @@ export default function PaymentForm(): JSX.Element {
   const [session, sessionLoading] = useSession();
   const { userSettings, updateUserSettings } = useContext(UserSettingsContext);
 
-  if (sessionLoading) return <SpinnerLg text="Loading..." />;
+  if (sessionLoading || userSettings.default_settings)
+    return <SpinnerLg text="Loading..." />;
 
   return (
     <FormContainer>
