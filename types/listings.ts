@@ -55,6 +55,7 @@ export interface IListingTemplate {
 }
 
 export interface ICart {
+  checkout_session_id: string | null;
   seller: {
     id: string;
     full_name: string;

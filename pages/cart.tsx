@@ -157,9 +157,14 @@ export default function Cart(): JSX.Element {
     );
 
     function renderCart(cart: ICart) {
-      const disableCheckout = cart.listings.some(
-        (listing) => listing.shipping == null || listing.aasm_state != "active"
-      );
+      function notAvailable(listing: Ilisting): boolean {
+        return (
+          listing.shipping == null ||
+          (!cart.checkout_session_id && listing.aasm_state != "active")
+        );
+      }
+
+      const disableCheckout = cart.listings.some(notAvailable);
 
       return (
         <div
@@ -181,8 +186,6 @@ export default function Cart(): JSX.Element {
             </span>
           </h5>
           {cart.listings.map((listing: Ilisting) => {
-            const notAvailable =
-              listing.shipping == null || listing.aasm_state != "active";
             return (
               <span key={listing.id}>
                 <div className="relative">
@@ -195,7 +198,7 @@ export default function Cart(): JSX.Element {
                       onClick={() => removeItem(cart.seller.id, listing.id)}
                     />
                   </div>
-                  {notAvailable ? (
+                  {notAvailable(listing) ? (
                     <div className="absolute inset-0 grid justify-center w-full top-8">
                       <div className="w-64 h-10 grid-cols-1 p-2 text-center border rounded-md border-error bg-error-lightest text-error">
                         This item is no longer available
@@ -220,7 +223,7 @@ export default function Cart(): JSX.Element {
               </div>
               <span data-tip data-for="checkout">
                 <SubmitButton
-                  text="Checkout"
+                  text={`${cart.checkout_session_id ? "Finish " : ""}Checkout`}
                   submitting={submittingCheckout[cart.seller.id]}
                   disabled={disableCheckout || anySubmitting()}
                   onClick={() => checkout(cart.seller.id)}
