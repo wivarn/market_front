@@ -88,6 +88,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
     props.photos.map((photo) => photo.url)
   );
   const { userSettings } = useContext(UserSettingsContext);
+  const american = userSettings.country === "USA";
   const template = userSettings.listing_template;
   const [submittingPublish, setSubmittingPublish] = useState(false);
   const [submittingDraft, setSubmittingDraft] = useState(false);
@@ -100,7 +101,8 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
       delete template[key];
     }
   }
-
+  const domesticShippingCountry = american ? "United States" : "Canada";
+  const internationalShippingCountry = american ? "Canada" : "United States";
   const newListing = !props.id;
   let initialValues = newListing ? { ...props, ...template } : props;
   for (const key in initialValues) {
@@ -398,25 +400,25 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                     label="Price"
                     name="price"
                     id={`${idPrefix}price`}
-                    description="Enter the price. Lower prices will increase your chances of making a sale."
+                    description="Enter the price for your listing. Lower prices will increase your chances of making a sale."
                     placeholder="0"
                     currency={userSettings.currency}
                   />
 
                   <ListingNumberField
-                    label="Domestic Shipping"
+                    label={`Shipping to ${domesticShippingCountry}`}
                     name="domestic_shipping"
                     id={`${idPrefix}domestic_shipping`}
-                    description="Enter the price for domestic shipping. Enter 0 for free shipping."
-                    placeholder="Enter domestic shipping price"
+                    description={`Enter the price for shipping to ${domesticShippingCountry}. Enter 0 for free shipping to ${domesticShippingCountry}.`}
+                    placeholder={`Enter ${domesticShippingCountry} shipping price`}
                     currency={userSettings.currency}
                   />
 
                   <ListingNumberField
-                    label="International Shipping (Optional)"
+                    label={`Shipping to ${internationalShippingCountry} (Optional)`}
                     name="international_shipping"
                     id={`${idPrefix}international_shipping`}
-                    description="Leave blank if you do not offer international shipping. Enter 0 for free international shipping."
+                    description={`Leave blank if you do not offer shipping to ${internationalShippingCountry}. Enter 0 for free shipping to ${internationalShippingCountry}.`}
                     placeholder="No international shipping"
                     currency={userSettings.currency}
                   />
