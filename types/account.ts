@@ -1,7 +1,6 @@
 export interface IProfile {
   given_name?: string;
   family_name?: string;
-  currency?: "CAD" | "USD";
   picture?: { url: string };
 }
 

@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 
 import FormContainer from "components/forms/container";
 import { GenericErrorMessage } from "components/message";
-import { IUserWithRole } from "types/user";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
 import { TextField } from "components/forms/fields";
@@ -18,11 +17,19 @@ const updateRoleSchema = Yup.object().shape({
   role: Yup.string().required("Required"),
 });
 
-const userAttributes = ["id", "email", "full_name", "role", "fee"];
+const userAttributes = [
+  "id",
+  "email",
+  "given_name",
+  "family_name",
+  "status",
+  "role",
+  "fee",
+];
 
 export default function UpdateRole(): JSX.Element {
   const [session, sessionLoading] = useSession();
-  const [users, setUser] = useState<IUserWithRole[] | null>(null);
+  const [users, setUser] = useState<any>(null);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -104,7 +111,7 @@ export default function UpdateRole(): JSX.Element {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => {
+          {users.map((user: any) => {
             return (
               <tr key={user.id}>
                 {userAttributes.map((attribute) => {
