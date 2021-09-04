@@ -46,7 +46,7 @@ export default function UpdateRole(): JSX.Element {
 
   if (error) return <GenericErrorMessage />;
   if (sessionLoading || !users) return <SpinnerLg text="Loading..." />;
-  console.log(users);
+
   return (
     <>
       <FormContainer>
