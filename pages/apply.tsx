@@ -5,7 +5,7 @@ import PageContainer from "components/pageContainer";
 export default function apply(): JSX.Element {
   return (
     <>
-      <PageContainer>
+      <PageContainer yPadding="mt-8 py-8">
         <NextSeo title="Apply" />
         <h3 className="text-center">Become a seller</h3>
         <div className="container mt-8">

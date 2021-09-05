@@ -1,5 +1,7 @@
 import { CardContainer2xl } from "./cardContainer";
 import Link from "next/link";
+import { UserSettingsContext } from "contexts/userSettings";
+import { useContext } from "react";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -32,6 +34,8 @@ export default function AccountContainer({
   activeTab: string;
   children: React.ReactNode;
 }): JSX.Element {
+  const { userSettings } = useContext(UserSettingsContext);
+  const href = userSettings.selling_enabled ? "/account/payments" : "/apply";
   return (
     <div className="my-4">
       <CardContainer2xl>
@@ -52,12 +56,8 @@ export default function AccountContainer({
             >
               Address
             </LinkWrapper>
-            <LinkWrapper
-              href="/account/payments"
-              tab="payments"
-              activeTab={activeTab}
-            >
-              Settings
+            <LinkWrapper href={href} tab="payments" activeTab={activeTab}>
+              Payments
             </LinkWrapper>
           </div>
         </div>
