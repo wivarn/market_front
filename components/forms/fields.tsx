@@ -326,15 +326,6 @@ export const MultiPictureField = ({
     fieldHelpers.setValue(imageMetas);
   }, [imageMetas]);
 
-  useEffect(
-    () => () => {
-      // Make sure to revoke the data uris to avoid memory leaks
-      // TODO: only remove missing metas
-      imageMetas.forEach((file) => URL.revokeObjectURL(file.url));
-    },
-    [imageMetas]
-  );
-
   return (
     <div>
       {label ? (
