@@ -43,7 +43,7 @@ export default function MailChimpForm(): JSX.Element {
     >
       {({ isSubmitting }) => (
         <Form>
-          <span className="grid space-y-4 justify-items-center lg:justify-items-start">
+          <span className="grid space-y-4 justify-items-center">
             <TextField
               name="email"
               id="subscribe-mailchimp"
