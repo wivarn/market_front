@@ -386,6 +386,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
 
                 <FormSection header="Photos">
                   <MultiPictureField
+                    name="photos"
                     label="Photos"
                     description="Add quality photos to help you sell your listing. It is usually good to have multiple photos showing the front and back of your item."
                     id={`${idPrefix}pictures`}

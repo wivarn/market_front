@@ -46,18 +46,19 @@ type PictureProps = TextFieldProps & {
   setImageData: Dispatch<SetStateAction<File | null>>;
 };
 
-type MultiPictureProps = {
-  id?: string;
-  label?: string;
-  description?: string;
-  className?: string;
-  labelClassName?: string;
-  descriptionClassName?: string;
-  inputClassName?: string;
-  existingImageMetas: { url: string }[];
-  imageData: (File | string)[];
-  setImageData: Dispatch<SetStateAction<(File | string)[]>>;
-};
+type MultiPictureProps = FieldHookConfig<{ url: string }[]> &
+  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> & {
+    label?: string;
+    description?: string;
+    className?: string;
+    labelClassName?: string;
+    descriptionClassName?: string;
+    inputClassName?: string;
+    hideError?: boolean;
+    existingImageMetas: { url: string }[];
+    imageData: (File | string)[];
+    setImageData: Dispatch<SetStateAction<(File | string)[]>>;
+  };
 
 export type ListingComboBoxOption = {
   value: string;
@@ -273,40 +274,57 @@ export const MultiPictureField = ({
   existingImageMetas,
   imageData,
   setImageData,
+  ...props
 }: MultiPictureProps): JSX.Element => {
+  const [, meta, fieldHelpers] = useField<{ url: string }[]>(props);
   const [imageMetas, setImageMetas] = useState(
     existingImageMetas.length ? existingImageMetas : []
   );
+  const onDrop = (acceptedFiles: File[]) => {
+    const newPreviews = acceptedFiles.map((file) => {
+      return { url: URL.createObjectURL(file) };
+    });
+    setImageMetas(imageMetas.concat(newPreviews));
+    setImageData(imageData.concat(acceptedFiles));
+  };
 
   const { getRootProps, getInputProps, fileRejections } = useDropzone({
     accept: "image/jpeg, image/png, image/webp, image/heic",
     multiple: true,
     maxFiles: 10,
-    onDrop: (acceptedFiles: File[]) => {
-      const newPreviews = acceptedFiles.map((file) => {
-        return { url: URL.createObjectURL(file) };
-      });
-      setImageMetas(imageMetas.concat(newPreviews));
-      setImageData(imageData.concat(acceptedFiles));
-    },
+    onDrop: onDrop,
   });
 
-  const errors = fileRejections.length ? (
-    <div>
-      <h4>Rejected Images</h4>
-      {fileRejections.map(({ file, errors }) => (
-        <div key={file.name}>
-          <ul>
-            {errors.map((e) => (
-              <li key={e.code}>
-                {file.name} {e.message}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  ) : null;
+  function renderFormikErrors() {
+    if (!meta.touched || !meta.error) return null;
+
+    return <div className="text-error">{meta.error}</div>;
+  }
+
+  function renderDropzoneErrors() {
+    if (!fileRejections.length) return null;
+
+    return (
+      <div className="text-error">
+        <h4>Rejected Images</h4>
+        {fileRejections.map(({ file, errors }) => (
+          <div key={file.name}>
+            <ul>
+              {errors.map((e) => (
+                <li key={e.code}>
+                  {file.name} {e.message}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  useEffect(() => {
+    fieldHelpers.setValue(imageMetas);
+  }, [imageMetas]);
 
   useEffect(
     () => () => {
@@ -354,7 +372,8 @@ export const MultiPictureField = ({
           imageData={imageData}
           setImageData={setImageData}
         />
-        {errors}
+        {renderFormikErrors()}
+        {renderDropzoneErrors()}
       </div>
     </div>
   );
