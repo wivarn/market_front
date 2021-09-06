@@ -176,6 +176,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
           onClick={async () => {
             setSubmittingDraft(true);
             formik.setFieldValue("aasm_state", "draft");
+            formik.setFieldValue("state_transition", null);
           }}
         />
       );
