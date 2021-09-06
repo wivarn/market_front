@@ -8,13 +8,11 @@ import {
 import { PrimaryButton, SecondaryButton } from "components/buttons";
 
 import { IconButtonLink } from "components/iconButton";
-import Landing from "components/landing";
+import MailChimpForm from "components/forms/mailChimp";
 import { NextSeo } from "next-seo";
 import { RecentListings } from "components/listing/recentListings";
 
 export default function Home(): JSX.Element {
-  if (process.env.NEXT_PUBLIC_FEATURE_LAUNCHED != "true") return <Landing />;
-
   return (
     <div>
       <NextSeo title="Home" />
@@ -46,6 +44,14 @@ export default function Home(): JSX.Element {
         </div>
       </div>
       <RecentListings />
+      <div className="py-16 mt-4 bg-info-darker">
+        <div className="grid justify-center space-y-2 justify-items-center">
+          <div className="text-2xl text-white lg:text-4xl">
+            Subscribe to our newsletter
+          </div>
+          <MailChimpForm />
+        </div>
+      </div>
       <div className="py-16 bg-primary">
         <div className="grid justify-center space-y-2 justify-items-center">
           <div className="text-white">
