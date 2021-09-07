@@ -25,7 +25,7 @@ import {
   sportsCardList,
   tradingCardList,
 } from "constants/listings";
-import { createRef, useState } from "react";
+import { createRef, useEffect, useState } from "react";
 
 import FormSection from "./section";
 import { IListingFormData } from "types/listings";
@@ -228,6 +228,16 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
     );
   }
 
+  function renderFormErrors(formik: FormikProps<any>) {
+    useEffect(() => {
+      if (!formik.isSubmitting && Object.entries(formik.errors).length) {
+        toast.error(
+          "There was a problem with some of the fields. Fix the errors and try again."
+        );
+      }
+    }, [formik.isSubmitting]);
+  }
+
   return (
     <div className="p-4 ">
       <PageContainer yPadding="py-2">
@@ -330,6 +340,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
           >
             {(formik) => (
               <Form>
+                {renderFormErrors(formik)}
                 <FormSection header="Category">
                   <ListingDropdownCombobox
                     name="category"
