@@ -115,11 +115,13 @@ export const listingSchema: ObjectShape = {
         ? schema.required("Sub-category is required")
         : schema;
     }),
-  // photos: Yup.array(Yup.string())
-  //   .max(10)
-  //   .when("aasm_state", (aasm_state, schema) => {
-  //     return aasm_state != "draft" ? schema.min(1) : schema;
-  //   }),
+  photos: Yup.array(Yup.object().shape({ url: Yup.string().required() }))
+    .max(10)
+    .when("aasm_state", (aasm_state, schema) => {
+      return aasm_state != "draft"
+        ? schema.min(1, "At least one photo is required")
+        : schema;
+    }),
   title: Yup.string()
     .min(2, "Title must be more than 2 characters")
     .max(256, "Title must be less than 256 characters")

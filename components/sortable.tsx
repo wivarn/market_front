@@ -73,6 +73,7 @@ export function SortableImages({
     const index = imageMetas.findIndex((meta) => meta.url == id);
     setImageMetas((imageMetas) => imageMetas.filter((_, i) => i != index));
     setImageData((imageData) => imageData.filter((_, i) => i != index));
+    URL.revokeObjectURL(id);
   }
 
   function SortableImage(props: { id: string; url: string }) {

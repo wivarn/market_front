@@ -28,6 +28,16 @@ export default function Footer(): JSX.Element {
                 Support
               </a>
             </li>
+            <li>
+              <a
+                href="https://support.skwirl.io/kb/en/contact"
+                rel="noreferrer"
+                target="_blank"
+                className="hover:text-primary"
+              >
+                Contact
+              </a>
+            </li>
           </ul>
         </nav>
         <div className="mt-4 text-sm">

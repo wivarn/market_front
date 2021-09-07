@@ -41,27 +41,20 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
         }}
       />
       <GoogleAnalytics />
-      {process.env.NEXT_PUBLIC_FEATURE_LAUNCHED != "true" ? (
-        <>
-          <Component {...pageProps} />
-          <Toast />
-        </>
-      ) : (
-        <Provider
-          session={pageProps.session}
-          options={{ clientMaxAge: accessTokenAge }}
-        >
-          <SWRConfig value={{ fetcher: fetcher }}>
-            <UserSettingsProvider>
-              <Layout>
-                <WixAnswers />
-                <Component {...pageProps} />
-                <Toast />
-              </Layout>
-            </UserSettingsProvider>
-          </SWRConfig>
-        </Provider>
-      )}
+      <Provider
+        session={pageProps.session}
+        options={{ clientMaxAge: accessTokenAge }}
+      >
+        <SWRConfig value={{ fetcher: fetcher }}>
+          <UserSettingsProvider>
+            <Layout>
+              <WixAnswers />
+              <Component {...pageProps} />
+              <Toast />
+            </Layout>
+          </UserSettingsProvider>
+        </SWRConfig>
+      </Provider>
     </StrictMode>
   );
 }
