@@ -15,7 +15,9 @@ interface props {
 }
 
 export function SalesOrder({ order }: props): JSX.Element {
-  const orderDate = new Date(order.created_at).toLocaleDateString("en-US", {
+  const orderDate = new Date(
+    order.created_at.replace(/-/g, "/")
+  ).toLocaleDateString("en-US", {
     day: "numeric",
     month: "short",
     year: "numeric",
