@@ -14,7 +14,7 @@ import { StrictMode } from "react";
 import Toast from "components/toast";
 import { UserSettingsProvider } from "contexts/userSettings";
 import { WixAnswers } from "components/wixAnswers";
-import { accessTokenAge } from "constants/auth";
+import { accessTokenAgeSeconds } from "constants/auth";
 import { fetcher } from "services/backendApi/fetcher";
 
 function Market({ Component, pageProps }: AppProps): JSX.Element {
@@ -43,7 +43,7 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
       <GoogleAnalytics />
       <Provider
         session={pageProps.session}
-        options={{ clientMaxAge: accessTokenAge }}
+        options={{ clientMaxAge: accessTokenAgeSeconds }}
       >
         <SWRConfig value={{ fetcher: fetcher }}>
           <UserSettingsProvider>

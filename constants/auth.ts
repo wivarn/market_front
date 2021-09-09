@@ -1,1 +1,1 @@
-export const accessTokenAge = 25 * 60; // 25 minutes, backend is configured for 30 minutes
+export const accessTokenAgeSeconds = 15 * 60; // 15 minutes, backend is configured for 30 minutes

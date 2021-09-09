@@ -3,7 +3,7 @@ import NextAuth, { User } from "next-auth";
 import { AuthApi } from "services/backendApi/auth";
 import { JWT } from "next-auth/jwt";
 import Providers from "next-auth/providers";
-import { accessTokenAge } from "constants/auth";
+import { accessTokenAgeSeconds } from "constants/auth";
 import jwtDecode from "jwt-decode";
 
 process.env.NEXTAUTH_URL = process.env.NEXTAUTH_URL || process.env.VERCEL_URL;
@@ -14,7 +14,7 @@ interface Credentials {
 }
 
 // this is set to one minute less than clientMaxAge
-const accessTokenAgeMS = (accessTokenAge - 1) * 1000;
+const accessTokenAgeMS = (accessTokenAgeSeconds - 60) * 1000;
 
 async function refreshAccessToken(token: JWT) {
   try {
@@ -34,7 +34,7 @@ async function refreshAccessToken(token: JWT) {
       accessTokenExpires: Date.now() + accessTokenAgeMS,
       refreshToken: refreshedTokens.refresh_token,
     };
-  } catch (error) {
+  } catch (error: any) {
     console.log(error.response.data);
 
     return {
@@ -56,7 +56,7 @@ export default NextAuth({
             credentials.password
           );
           return response.data;
-        } catch (error) {
+        } catch (error: any) {
           throw new Error(error.response.data.error);
         }
       },
