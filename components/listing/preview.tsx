@@ -130,18 +130,16 @@ export const ListingPreviewList = (props: Ilisting): JSX.Element => {
     <div key={props.id} className="mx-4 my-4 space-y-2">
       <Link href={`/listings/${props.id}`}>
         <a className="flex border rounded-md hover:shadow-md group">
-          <div>
-            <Image
-              src={props.photos[0].url}
-              alt={props.title}
-              width="96"
-              height="96"
-              objectFit="cover"
-              placeholder="blur"
-              blurDataURL="/assets/image-loader.svg"
-              className="rounded-l-md"
-            />
-          </div>
+          <Image
+            src={props.photos[0].url}
+            alt={props.title}
+            width="96"
+            height="96"
+            objectFit="cover"
+            placeholder="blur"
+            blurDataURL="/assets/image-loader.svg"
+            className="rounded-l-md"
+          />
           <div className="relative w-full p-2 rounded-r-md">
             <p className="mr-8 line-clamp-1 group-hover:text-primary group-hover:font-semibold">
               {props.title}
