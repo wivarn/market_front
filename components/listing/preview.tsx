@@ -53,7 +53,7 @@ export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
                 />
               ) : (
                 <Image
-                  src="/no-image.jpeg"
+                  src="/no-image.png"
                   alt="No Image"
                   width="320"
                   height="320"
