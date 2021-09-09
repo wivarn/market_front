@@ -45,7 +45,8 @@ export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
                   <Image
                     src={props.photos[0].url}
                     alt={props.title}
-                    layout="fill"
+                    width="320"
+                    height="320"
                     objectFit="cover"
                     placeholder="blur"
                     blurDataURL="/assets/image-loader.svg"
@@ -124,7 +125,8 @@ export const ListingPreviewList = (props: Ilisting): JSX.Element => {
             <Image
               src={props.photos[0].url}
               alt={props.title}
-              layout="fill"
+              width="96"
+              height="96"
               objectFit="cover"
               placeholder="blur"
               blurDataURL="/assets/image-loader.svg"
