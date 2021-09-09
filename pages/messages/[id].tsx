@@ -12,6 +12,8 @@ import { SubmitButton } from "components/buttons";
 import { MessageApi } from "services/backendApi/message";
 import { toast } from "react-toastify";
 import PageContainer from "components/pageContainer";
+import { IMessage } from "types/message";
+import { IUser } from "types/user";
 
 export default function SendMessage(): JSX.Element {
   const router = useRouter();
@@ -35,7 +37,18 @@ export default function SendMessage(): JSX.Element {
   if (sessionLoading || messagesLoading) return <SpinnerLg text="Loading..." />;
   if (messagesError) return <GenericErrorMessage />;
 
-  const messages = messagesResponse.data;
+  const correspondent: IUser = messagesResponse.data.correspondent;
+  const messages: IMessage[] = messagesResponse.data.messages;
+
+  function renderMessages() {
+    if (!messages.length) return renderNoMessages();
+
+    return (
+      <div className="grid grid-cols-1">
+        {messages.map((message) => renderMessage(message))}
+      </div>
+    );
+  }
 
   function renderNoMessages() {
     return (
@@ -45,8 +58,24 @@ export default function SendMessage(): JSX.Element {
     );
   }
 
-  function renderMessages() {
-    if (!messages.length) return renderNoMessages();
+  function renderMessage(message: IMessage) {
+    const currentUserMessage = message.sender_id == session?.accountId;
+    return (
+      <div
+        className={`w-1/2 ${
+          currentUserMessage ? "justify-self-end" : "justify-self-start"
+        }`}
+      >
+        <div
+          className={`p-1 m-1 mx-auto border rounded ${
+            currentUserMessage ? "bg-info-lighter" : "bg-accent-lighter"
+          }`}
+        >
+          {message.body}
+        </div>
+        <div className="text-xs">{message.created_at}</div>
+      </div>
+    );
   }
 
   function renderMessageForm() {
@@ -57,7 +86,7 @@ export default function SendMessage(): JSX.Element {
         .required("Required"),
     });
     return (
-      <div className="mx-auto">
+      <div className="w-1/3 mx-auto">
         <Formik
           initialValues={{
             body: "",
@@ -74,6 +103,7 @@ export default function SendMessage(): JSX.Element {
               })
               .finally(() => {
                 actions.setSubmitting(false);
+                actions.resetForm();
               });
           }}
         >
