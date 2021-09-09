@@ -51,8 +51,8 @@ export default function ImageSlider(props: Props): JSX.Element {
   };
   const images = props.imageMetas.map((imageMeta) => (
     <div className="px-2" key={imageMeta.url}>
-      <div className="container relative mx-auto sm:w-600 sm:h-600">
-        <div className="flex flex-grow mx-auto">
+      <div className="container mx-auto sm:w-600">
+        <div className="flex flex-grow mx-auto ">
           <Image
             src={imageMeta.url}
             width="600"
