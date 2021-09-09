@@ -28,7 +28,7 @@ function CategoryPopovers() {
       {categoryList.map((category) => {
         return (
           <Menu as="div" className="relative" key={category.value}>
-            <Menu.Button className="flex items-center p-2 text-sm font-semibold rounded-md focus:outline-none text-accent-dark">
+            <Menu.Button className="flex items-center p-2 text-xs font-semibold rounded-md sm:text-sm focus:outline-none text-accent-dark">
               {category.text} <ChevronDownIconSm />
             </Menu.Button>
             <Transition
@@ -42,7 +42,7 @@ function CategoryPopovers() {
             >
               <Menu.Items className="absolute z-10 focus:outline-none">
                 <Menu.Item>
-                  <div className="grid w-48 p-2 space-y-2 text-sm bg-white border rounded-md border-accent">
+                  <div className="grid p-2 space-y-2 text-xs bg-white border rounded-md w-28 sm:w-48 sm:text-sm border-accent">
                     {category.subCategory.map((subCategory) => {
                       return (
                         <Link
