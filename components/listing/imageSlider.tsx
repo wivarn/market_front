@@ -3,7 +3,6 @@ import Slider, { Settings } from "react-slick";
 
 import Image from "next/image";
 import { MouseEventHandler } from "react";
-import { SpinnerLg } from "components/spinner";
 
 export interface Props {
   imageMetas: { url: string }[];
@@ -52,15 +51,17 @@ export default function ImageSlider(props: Props): JSX.Element {
   };
   const images = props.imageMetas.map((imageMeta) => (
     <div className="px-2" key={imageMeta.url}>
-      <div className="container relative mx-auto sm:w-600 sm:h-600">
-        <div className="flex flex-grow mx-auto">
+      <div className="container mx-auto sm:w-600">
+        <div className="flex flex-grow mx-auto ">
           <Image
             src={imageMeta.url}
-            layout="fill"
+            width="600"
+            height="600"
             objectFit="contain"
+            placeholder="blur"
+            blurDataURL="/assets/image-loader.svg"
             className="z-10 rounded-md"
           />
-          <SpinnerLg />
         </div>
       </div>
     </div>

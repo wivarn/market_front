@@ -15,7 +15,9 @@ interface props {
 }
 
 export function SalesOrder({ order }: props): JSX.Element {
-  const orderDate = new Date(order.created_at).toLocaleDateString("en-US", {
+  const orderDate = new Date(
+    order.created_at.replace(/-/g, "/")
+  ).toLocaleDateString("en-US", {
     day: "numeric",
     month: "short",
     year: "numeric",
@@ -187,9 +189,11 @@ export function PurchaseOrder({ order }: props): JSX.Element {
           return <ListingPreviewList key={listing.id} {...listing} />;
         })}
       </div>
-      <p className="p-2 text-sm border-t bg-accent-lightest">
-        Tracking Number: {order.tracking}
-      </p>
+      {order.tracking ? (
+        <p className="p-2 text-sm border-t bg-accent-lightest">
+          Tracking Number: {order.tracking}
+        </p>
+      ) : null}
       <div className="px-4 py-2 font-bold text-right text-white bg-info-darker rounded-b-md">
         Total ={" "}
         {Number(order.total).toLocaleString("en", {
