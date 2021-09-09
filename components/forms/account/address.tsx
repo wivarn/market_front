@@ -49,7 +49,7 @@ const addressSchema = Yup.object().shape({
     .when("country", {
       is: "CAN",
       then: Yup.string()
-        .matches(/\b[A-Z]\d[A-Z]\s?\d[A-Z]\d\b/, "invalid postal code")
+        .matches(/\b[A-Za-z]\d[A-Za-z]\s?\d[A-Za-z]\d\b/, "invalid postal code")
         .min(6, "invalid postal code")
         .max(7, "invalid postal code"),
       otherwise: Yup.string()
@@ -137,7 +137,7 @@ function trimValues(values: IAddress) {
   values.street1 = values.street1.trim();
   values.street2 = values.street2?.trim();
   values.city = values.city.trim();
-  values.zip = values.zip.replace(/\s+/g, "");
+  values.zip = values.zip.replace(/\s+/g, "").toUpperCase();
 
   return values;
 }
