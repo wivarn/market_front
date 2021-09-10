@@ -6,6 +6,7 @@ import { IMessage, IMessageWithCorrespondents } from "types/message";
 import { Spinner, SpinnerLg } from "components/spinner";
 import useSWR, { mutate } from "swr";
 
+import { IUser } from "types/user";
 import Image from "next/image";
 import Link from "next/link";
 import { MessageApi } from "services/backendApi/message";
@@ -114,6 +115,9 @@ export default function SendMessage(): JSX.Element {
     const messages: IMessage[] = messagesResponse.data.messages;
     if (!messages.length) return renderNoMessages();
 
+    const currentUser: IUser = messagesResponse.data.current_account;
+    const correspondent: IUser = messagesResponse.data.correspondent;
+
     return (
       <div className="grid grid-cols-1">
         {messages.map((message) => renderMessage(message))}
@@ -130,6 +134,7 @@ export default function SendMessage(): JSX.Element {
 
     function renderMessage(message: IMessage) {
       const currentUserMessage = message.sender_id == session?.accountId;
+      const sender = currentUserMessage ? currentUser : correspondent;
       return (
         <div
           key={message.created_at}
@@ -137,6 +142,16 @@ export default function SendMessage(): JSX.Element {
             currentUserMessage ? "justify-self-end" : "justify-self-start"
           }`}
         >
+          <div className="w-16 h-16 border rounded-full">
+            <Image
+              src={sender.picture.url || "/ProfilePlaceholder.svg"}
+              alt={sender.full_name}
+              width="64"
+              height="64"
+              objectFit="cover"
+              className="rounded-full "
+            />
+          </div>
           <div
             className={`p-1 m-1 mx-auto rounded ${
               currentUserMessage ? "bg-info-lighter" : "bg-accent-lighter"
