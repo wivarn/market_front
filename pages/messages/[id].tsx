@@ -119,35 +119,35 @@ export default function SendMessage(): JSX.Element {
         {messages.map((message) => renderMessage(message))}
       </div>
     );
-  }
 
-  function renderNoMessages() {
-    return (
-      <BlankMessage>
-        <p>You have no message history with this user.</p>
-      </BlankMessage>
-    );
-  }
+    function renderNoMessages() {
+      return (
+        <BlankMessage>
+          <p>You have no message history with this user.</p>
+        </BlankMessage>
+      );
+    }
 
-  function renderMessage(message: IMessage) {
-    const currentUserMessage = message.sender_id == session?.accountId;
-    return (
-      <div
-        key={message.created_at}
-        className={`w-1/2 ${
-          currentUserMessage ? "justify-self-end" : "justify-self-start"
-        }`}
-      >
+    function renderMessage(message: IMessage) {
+      const currentUserMessage = message.sender_id == session?.accountId;
+      return (
         <div
-          className={`p-1 m-1 mx-auto rounded ${
-            currentUserMessage ? "bg-info-lighter" : "bg-accent-lighter"
+          key={message.created_at}
+          className={`w-1/2 ${
+            currentUserMessage ? "justify-self-end" : "justify-self-start"
           }`}
         >
-          {message.body}
+          <div
+            className={`p-1 m-1 mx-auto rounded ${
+              currentUserMessage ? "bg-info-lighter" : "bg-accent-lighter"
+            }`}
+          >
+            {message.body}
+          </div>
+          <div className="text-xs">{message.created_at}</div>
         </div>
-        <div className="text-xs">{message.created_at}</div>
-      </div>
-    );
+      );
+    }
   }
 
   function renderMessageForm() {
@@ -171,6 +171,7 @@ export default function SendMessage(): JSX.Element {
               .create(`${id}`, values.body)
               .then(() => {
                 mutate([`messages/${id}`, session?.accessToken]);
+                mutate([`messages`, session?.accessToken]);
               })
               .catch(() => {
                 toast.error("Failed to send message");
@@ -183,7 +184,7 @@ export default function SendMessage(): JSX.Element {
         >
           {({ isSubmitting }) => (
             <Form>
-              <span className="flex flex-wrap items-end space-x-4 text-sm">
+              <span className="flex space-x-4">
                 <TextField
                   name="body"
                   id={`${id}-messages`}
