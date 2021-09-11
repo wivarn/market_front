@@ -47,7 +47,7 @@ function CategoryPopovers() {
                       return (
                         <Link
                           key={subCategory.value}
-                          href={`/listings/search?destination_country=${userSettings.country}&category=${category.value}&subcategory=${subCategory.value}`}
+                          href={`/listings/search?destination_country=${userSettings.country}&category=${category.value}&subcategory=${subCategory.value}&sort=newest`}
                         >
                           <a className="p-2 rounded-md text-accent-darker hover:bg-primary hover:text-white">
                             {subCategory.text}
