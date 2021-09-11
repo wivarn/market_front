@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { BlankMessage, GenericErrorMessage } from "components/message";
 import { Form, Formik } from "formik";
 import { IMessage, IMessageWithCorrespondents } from "types/message";
+import { NextSeo, ProfilePageJsonLd } from "next-seo";
 import { Spinner, SpinnerLg } from "components/spinner";
 import useSWR, { mutate } from "swr";
 
@@ -10,7 +11,6 @@ import { IUser } from "types/user";
 import Image from "next/image";
 import Link from "next/link";
 import { MessageApi } from "services/backendApi/message";
-import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { SubmitButton } from "components/buttons";
 import { TextField } from "components/forms/fields";
@@ -77,31 +77,43 @@ export default function SendMessage(): JSX.Element {
           ? message.recipient
           : message.sender;
       const currentChat = id && id == otherUser.id;
+      const messageDate = new Date(
+        message.created_at.replace(/-/g, "/")
+      ).toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      });
+
       return (
         <Link href={`/messages/${otherUser.id}`}>
           <a
             key={message.created_at}
-            className={`flex items-center rounded h-20 ${
-              currentChat ? "bg-info-lighter" : ""
+            className={`flex items-center rounded ${
+              currentChat ? "bg-info-lightest" : ""
             }`}
           >
-            <div className="container relative w-16 h-16 m-2 border rounded-full">
+            <div className="w-8 h-8 m-2 sm:h-16 sm:w-16">
               <Image
                 src={otherUser.picture.url || "/ProfilePlaceholder.svg"}
                 alt={otherUser.full_name}
                 width="64"
                 height="64"
                 objectFit="cover"
-                className="rounded-full"
+                className="border rounded-full"
               />
             </div>
-            <span className="">
-              <div className="font-bold">{otherUser.full_name}</div>
-              <div className="w-56 text-sm truncate">{message.body}</div>
-              <div className="text-xs text-accent-dark">
-                {message.created_at}
+            <div>
+              <div className="text-xs font-bold md:text-base">
+                {otherUser.full_name}
               </div>
-            </span>
+              <div className="hidden text-sm truncate md:block">
+                {message.body}
+              </div>
+              <div className="hidden text-xs text-accent-dark md:block">
+                {messageDate}
+              </div>
+            </div>
           </a>
         </Link>
       );
@@ -135,31 +147,44 @@ export default function SendMessage(): JSX.Element {
     function renderMessage(message: IMessage) {
       const currentUserMessage = message.sender_id == session?.accountId;
       const sender = currentUserMessage ? currentUser : correspondent;
+      const messageDate = new Date(message.created_at).toLocaleDateString(
+        "en-US",
+        {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        }
+      );
+
       return (
         <div
           key={message.created_at}
-          className={`w-1/2 ${
-            currentUserMessage ? "justify-self-end" : "justify-self-start"
+          className={`sm:w-1/2 my-2 ${
+            currentUserMessage ? "sm:justify-self-end" : "sm:justify-self-start"
           }`}
         >
-          <div className="w-16 h-16 border rounded-full">
+          <div className="flex items-center space-x-2">
             <Image
               src={sender.picture.url || "/ProfilePlaceholder.svg"}
               alt={sender.full_name}
-              width="64"
-              height="64"
+              width="32"
+              height="32"
               objectFit="cover"
-              className="rounded-full "
+              className="rounded-full"
             />
+            <span className="text-xs text-accent-dark">
+              <div>{sender.full_name}</div>
+              <div>{messageDate}</div>
+            </span>
           </div>
+
           <div
-            className={`p-1 m-1 mx-auto rounded ${
-              currentUserMessage ? "bg-info-lighter" : "bg-accent-lighter"
+            className={`p-2 m-2 mx-auto rounded-md border text-xs md:text-base ${
+              currentUserMessage ? "bg-accent-lightest" : "bg-white"
             }`}
           >
             {message.body}
           </div>
-          <div className="text-xs">{message.created_at}</div>
         </div>
       );
     }
@@ -171,11 +196,10 @@ export default function SendMessage(): JSX.Element {
     const messageSchema = Yup.object().shape({
       body: Yup.string()
         .min(1, "Must be at least one character")
-        .max(10000, "The maximum message size is 10,000 characters")
-        .required("Required"),
+        .max(10000, "The maximum message size is 10,000 characters"),
     });
     return (
-      <div className="w-1/3 mx-auto">
+      <>
         <Formik
           initialValues={{
             body: "",
@@ -199,7 +223,7 @@ export default function SendMessage(): JSX.Element {
         >
           {({ isSubmitting }) => (
             <Form>
-              <span className="flex space-x-4">
+              <div className="sm:space-x-4 sm:flex">
                 <TextField
                   name="body"
                   id={`${id}-messages`}
@@ -207,26 +231,33 @@ export default function SendMessage(): JSX.Element {
                 />
 
                 <SubmitButton text="Send" submitting={isSubmitting} />
-              </span>
+              </div>
             </Form>
           )}
         </Formik>
-      </div>
+      </>
     );
   }
 
   return (
-    <>
+    <div className="my-4">
       <NextSeo title="Message History" />
       <PageContainer>
         <div className="flex space-x-2">
-          <div className="flex-none border w-80">{renderLatestMessages()}</div>
-          <div className="flex-initial w-full h-screen overflow-y-auto border">
-            {renderMessages()}
-            {renderMessageForm()}
+          <div className="flex-none w-1/3 overflow-y-auto border rounded-md h-600">
+            {renderLatestMessages()}
+          </div>
+          <div className="flex flex-col w-2/3 border rounded-md h-600">
+            <h5 className="p-2 text-center text-white bg-info-darker rounded-t-md">
+              Messages
+            </h5>
+            <div className="flex-1 p-2 overflow-y-auto">{renderMessages()}</div>
+            <div className="p-2 bg-accent-lightest rounded-b-md">
+              {renderMessageForm()}
+            </div>
           </div>
         </div>
       </PageContainer>
-    </>
+    </div>
   );
 }

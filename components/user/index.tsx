@@ -10,7 +10,7 @@ export const UserInfo = (props: IUser): JSX.Element => {
     if (!session || session.accountId == props.id) return null;
 
     return (
-      <div className="pl-24">
+      <div>
         <Link href={`/messages/${props.id}`}>
           <a className="underline text-info">Send Message</a>
         </Link>
@@ -36,9 +36,9 @@ export const UserInfo = (props: IUser): JSX.Element => {
           <div className="text-sm text-accent-dark">
             {props.address?.state}, {props.address?.country}
           </div>
+          {renderSendMessage()}
         </span>
       </div>
-      {renderSendMessage()}
     </div>
   );
 };
