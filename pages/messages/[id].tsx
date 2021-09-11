@@ -5,6 +5,7 @@ import { Form, Formik } from "formik";
 import { IMessage, IMessageWithCorrespondents } from "types/message";
 import { NextSeo, ProfilePageJsonLd } from "next-seo";
 import { Spinner, SpinnerLg } from "components/spinner";
+import { TextField, TextFieldFull } from "components/forms/fields";
 import useSWR, { mutate } from "swr";
 
 import { IUser } from "types/user";
@@ -13,7 +14,6 @@ import Link from "next/link";
 import { MessageApi } from "services/backendApi/message";
 import PageContainer from "components/pageContainer";
 import { SubmitButton } from "components/buttons";
-import { TextField } from "components/forms/fields";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
@@ -104,9 +104,7 @@ export default function SendMessage(): JSX.Element {
               />
             </div>
             <div>
-              <div className="text-xs font-bold md:text-base">
-                {otherUser.full_name}
-              </div>
+              <div className="text-xs md:text-base">{otherUser.full_name}</div>
               <div className="hidden text-sm truncate md:block">
                 {message.body}
               </div>
@@ -223,14 +221,14 @@ export default function SendMessage(): JSX.Element {
         >
           {({ isSubmitting }) => (
             <Form>
-              <div className="sm:space-x-4 sm:flex">
-                <TextField
+              <div>
+                <TextFieldFull
                   name="body"
                   id={`${id}-messages`}
                   placeholder="Enter message here"
                 />
 
-                <SubmitButton text="Send" submitting={isSubmitting} />
+                <SubmitButton text="Send Message" submitting={isSubmitting} />
               </div>
             </Form>
           )}

@@ -77,7 +77,7 @@ type ComboBoxProps = TextFieldProps & {
 const labelClassName = "p-1 block text-sm font-semibold text-accent-darker";
 const descriptionClassName = "p-1 block text-sm font-normal text-accent-dark";
 const fullInputClassName = "w-full p-2 border rounded-md border-accent";
-const inputClassName = "p-2 border rounded-md sm:w-72 w-48 border-accent";
+const inputClassName = "p-2 border rounded-md w-72 border-accent";
 
 type ToggleProps = TextFieldProps & {
   enabled: boolean;
