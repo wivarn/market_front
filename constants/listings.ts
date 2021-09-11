@@ -7,6 +7,14 @@ export const conditionList = [
   { value: "8.0", text: "Excellent" },
   { value: "6.0", text: "Very Good" },
   { value: "4.0", text: "Good" },
+  { value: "2.0", text: "Poor" },
+];
+
+export const tradingCardConditionList = [
+  { value: "10.0", text: "Near Mint" },
+  { value: "8.0", text: "Light Play" },
+  { value: "6.0", text: "Moderate Play" },
+  { value: "4.0", text: "Heavy Play" },
   { value: "2.0", text: "Damaged" },
 ];
 

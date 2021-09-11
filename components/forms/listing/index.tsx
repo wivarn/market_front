@@ -23,6 +23,7 @@ import {
   gradingList,
   listingSchema,
   sportsCardList,
+  tradingCardConditionList,
   tradingCardList,
 } from "constants/listings";
 import { createRef, useEffect, useState } from "react";
@@ -113,7 +114,11 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
 
   function renderGrading() {
     const label = graded ? "Grading" : "Condition";
-    const items = graded ? gradingList : conditionList;
+    const rawCondition =
+      props.category == "TRADING_CARDS"
+        ? tradingCardConditionList
+        : conditionList;
+    const items = graded ? gradingList : rawCondition;
 
     return (
       <>
