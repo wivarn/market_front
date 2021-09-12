@@ -25,7 +25,7 @@ const createAccountSchema = Yup.object().shape({
     .min(8, "Must be 8 or more characters")
     .required("Required")
     .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
       "Must contain 8 characters, one uppercase, one lowercase, one number and one special character"
     ),
   passwordConfirmation: Yup.string().oneOf(

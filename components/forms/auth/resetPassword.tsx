@@ -15,7 +15,11 @@ import { useRouter } from "next/router";
 const resetPasswordSchema = Yup.object().shape({
   password: Yup.string()
     .min(8, "Must be 8 or more characters")
-    .required("Required"),
+    .required("Required")
+    .matches(
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
+      "Must contain 8 characters, one uppercase, one lowercase, one number and one special character"
+    ),
   passwordConfirmation: Yup.string().oneOf(
     [Yup.ref("password"), null],
     "Passwords must match"
