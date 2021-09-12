@@ -15,7 +15,11 @@ import { useRouter } from "next/router";
 const resetPasswordSchema = Yup.object().shape({
   password: Yup.string()
     .min(8, "Must be 8 or more characters")
-    .required("Required"),
+    .required("Required")
+    .matches(
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
+      "Must contain 8 characters, one uppercase, one lowercase, one number and one special character"
+    ),
   passwordConfirmation: Yup.string().oneOf(
     [Yup.ref("password"), null],
     "Passwords must match"
@@ -57,11 +61,11 @@ export default function ResetPasswordForm(): JSX.Element {
                 router.push("/");
               })
               .catch((error) => {
-                const data = error.response.data;
-                const message = data["field-error"]
-                  ? data["field-error"][1]
-                  : data.error;
-                toast.error(message);
+                toast.error(error.response.data.error);
+                const fieldErrors = error.response.data["field-error"];
+                for (let i = 0; i < fieldErrors.length; i += 2) {
+                  actions.setFieldError(fieldErrors[i], fieldErrors[i + 1]);
+                }
                 actions.resetForm();
               })
               .finally(() => {

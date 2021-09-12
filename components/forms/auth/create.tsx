@@ -23,7 +23,11 @@ const createAccountSchema = Yup.object().shape({
     .required("Required"),
   password: Yup.string()
     .min(8, "Must be 8 or more characters")
-    .required("Required"),
+    .required("Required")
+    .matches(
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
+      "Must contain 8 characters, one uppercase, one lowercase, one number and one special character"
+    ),
   passwordConfirmation: Yup.string().oneOf(
     [Yup.ref("password"), null],
     "Passwords must match"
@@ -60,6 +64,10 @@ export default function CreateAccountForm(): JSX.Element {
                 })
                 .catch((error) => {
                   toast.error(error.response.data.error);
+                  const fieldErrors = error.response.data["field-error"];
+                  for (let i = 0; i < fieldErrors.length; i += 2) {
+                    actions.setFieldError(fieldErrors[i], fieldErrors[i + 1]);
+                  }
                 })
                 .finally(() => {
                   actions.setSubmitting(false);
