@@ -61,11 +61,11 @@ export default function ResetPasswordForm(): JSX.Element {
                 router.push("/");
               })
               .catch((error) => {
-                const data = error.response.data;
-                const message = data["field-error"]
-                  ? data["field-error"][1]
-                  : data.error;
-                toast.error(message);
+                toast.error(error.response.data.error);
+                const fieldErrors = error.response.data["field-error"];
+                for (let i = 0; i < fieldErrors.length; i += 2) {
+                  actions.setFieldError(fieldErrors[i], fieldErrors[i + 1]);
+                }
                 actions.resetForm();
               })
               .finally(() => {
