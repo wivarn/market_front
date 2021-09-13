@@ -43,6 +43,10 @@ export default function ChangeLoginForm(): JSX.Element {
               })
               .catch((error) => {
                 toast.error(error.response.data.error);
+                const fieldErrors = error.response.data["field-error"];
+                for (let i = 0; i < fieldErrors?.length; i += 2) {
+                  actions.setFieldError(fieldErrors[i], fieldErrors[i + 1]);
+                }
               })
               .finally(() => {
                 actions.setSubmitting(false);
