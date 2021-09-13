@@ -39,7 +39,7 @@ export const RecentListings = (): JSX.Element => {
         <h3 className="my-4 text-center text-accent-darker">
           Sports Cards{" "}
           <Link
-            href={`/listings/search?destination_country=${userSettings.country}&category=SPORTS_CARDS`}
+            href={`/listings/search?destination_country=${userSettings.country}&category=SPORTS_CARDS&sort=newest`}
           >
             <a className="text-base underline text-info">View All</a>
           </Link>
@@ -52,7 +52,7 @@ export const RecentListings = (): JSX.Element => {
         <h3 className="my-4 text-center">
           Trading Cards{" "}
           <Link
-            href={`/listings/search?destination_country=${userSettings.country}&category=TRADING_CARDS`}
+            href={`/listings/search?destination_country=${userSettings.country}&category=TRADING_CARDS&sort=newest`}
           >
             <a className="text-base underline text-info">View All</a>
           </Link>
@@ -65,7 +65,7 @@ export const RecentListings = (): JSX.Element => {
         <h3 className="my-4 text-center">
           Collectibles{" "}
           <Link
-            href={`/listings/search?destination_country=${userSettings.country}&category=COLLECTIBLES`}
+            href={`/listings/search?destination_country=${userSettings.country}&category=COLLECTIBLES&sort=newest`}
           >
             <a className="text-base underline text-info">View All</a>
           </Link>
