@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { IAccount } from "types/account";
+import { ICreateAccount } from "types/account";
 import { base } from "./base";
 
 export const AuthApi = (
@@ -7,7 +7,7 @@ export const AuthApi = (
 ): {
   login: (login: string, password: string) => Promise<AxiosResponse<any>>;
   logout: () => Promise<AxiosResponse<any>>;
-  createAccount: (account: IAccount) => Promise<AxiosResponse<any>>;
+  createAccount: (account: ICreateAccount) => Promise<AxiosResponse<any>>;
   refreshToken: (refreshToken: string) => Promise<AxiosResponse<any>>;
   verifyAccountResend: (login: string) => Promise<AxiosResponse<any>>;
   verifyAccount: (key: string) => Promise<AxiosResponse<any>>;
@@ -39,9 +39,9 @@ export const AuthApi = (
     );
   };
 
-  const createAccount = async (account: IAccount) => {
+  const createAccount = async (account: ICreateAccount) => {
     return await base.post("/auth/create-account", {
-      login: account.email,
+      login: account.login,
       given_name: account.given_name,
       family_name: account.family_name,
       password: account.password,
@@ -73,9 +73,9 @@ export const AuthApi = (
     });
   };
 
-  const passwordResetRequest = async (email: string) => {
+  const passwordResetRequest = async (login: string) => {
     return await base.post("/auth/reset-password-request", {
-      login: email,
+      login: login,
     });
   };
 
@@ -91,9 +91,9 @@ export const AuthApi = (
     });
   };
 
-  const unlockAccountRequest = async (email: string) => {
+  const unlockAccountRequest = async (login: string) => {
     return await base.post("/auth/unlock-account-request", {
-      login: email,
+      login: login,
     });
   };
 

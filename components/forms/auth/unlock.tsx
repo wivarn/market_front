@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
 const unlockAccountSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
+  login: Yup.string().email("Invalid email").required("Required"),
 });
 
 export default function UnlockAccountForm(): JSX.Element {
@@ -23,12 +23,12 @@ export default function UnlockAccountForm(): JSX.Element {
       <div className="py-2">
         <Formik
           initialValues={{
-            email: "",
+            login: "",
           }}
           validationSchema={unlockAccountSchema}
           onSubmit={(values, actions) => {
             AuthApi()
-              .unlockAccountRequest(values.email)
+              .unlockAccountRequest(values.login)
               .then((response) => {
                 toast.success(response.data.success);
                 router.push("/");
@@ -45,7 +45,7 @@ export default function UnlockAccountForm(): JSX.Element {
             <Form>
               <div className="my-2 space-y-4">
                 <TextFieldFull
-                  name="email"
+                  name="login"
                   label="Email"
                   type="email"
                   placeholder="Email"

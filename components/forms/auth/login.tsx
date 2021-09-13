@@ -13,13 +13,13 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 
 interface Values {
-  email: string;
+  login: string;
   password: string;
   formError?: string;
 }
 
 const loginSchema = Yup.object().shape({
-  email: Yup.string()
+  login: Yup.string()
     .email("Please enter a valid email address")
     .required("Email is required"),
   password: Yup.string()
@@ -61,13 +61,13 @@ export default function LoginForm(): JSX.Element {
         <div className="py-2">
           <Formik
             initialValues={{
-              email: "",
+              login: "",
               password: "",
             }}
             validationSchema={loginSchema}
             onSubmit={(values: Values, actions) => {
               signIn("credentials", {
-                login: values.email,
+                login: values.login,
                 password: values.password,
                 redirect: false,
               })
@@ -93,8 +93,8 @@ export default function LoginForm(): JSX.Element {
                 {renderLockedBanner()}
                 <div className="my-2 space-y-4">
                   <TextFieldFull
-                    name="email"
-                    id={`${idPrefix}email`}
+                    name="login"
+                    id={`${idPrefix}login`}
                     type="email"
                     label="Email"
                   />

@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
 const forgotPasswordSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
+  login: Yup.string().email("Invalid email").required("Required"),
 });
 
 export default function ForgotPasswordForm(): JSX.Element {
@@ -24,18 +24,22 @@ export default function ForgotPasswordForm(): JSX.Element {
       <div className="py-2">
         <Formik
           initialValues={{
-            email: "",
+            login: "",
           }}
           validationSchema={forgotPasswordSchema}
           onSubmit={(values, actions) => {
             AuthApi()
-              .passwordResetRequest(values.email)
+              .passwordResetRequest(values.login)
               .then((response) => {
                 toast.success(response.data.success);
                 router.push("/");
               })
               .catch((error) => {
                 toast.error(error.response.data.error);
+                const fieldErrors = error.response.data["field-error"];
+                for (let i = 0; i < fieldErrors?.length; i += 2) {
+                  actions.setFieldError(fieldErrors[i], fieldErrors[i + 1]);
+                }
               })
               .finally(() => {
                 actions.setSubmitting(false);
@@ -46,7 +50,7 @@ export default function ForgotPasswordForm(): JSX.Element {
             <Form>
               <div className="my-2 space-y-4">
                 <TextFieldFull
-                  name="email"
+                  name="login"
                   label="Email"
                   id="password-reset-email"
                   type="email"

@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
 const verifyAccountResendSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
+  login: Yup.string().email("Invalid email").required("Required"),
 });
 
 export default function ResendVerificationForm(): JSX.Element {
@@ -24,12 +24,12 @@ export default function ResendVerificationForm(): JSX.Element {
       <div className="py-2">
         <Formik
           initialValues={{
-            email: "",
+            login: "",
           }}
           validationSchema={verifyAccountResendSchema}
           onSubmit={(values, actions) => {
             AuthApi()
-              .verifyAccountResend(values.email)
+              .verifyAccountResend(values.login)
               .then((response) => {
                 toast.success(response.data.success);
                 router.push("/");
@@ -46,9 +46,9 @@ export default function ResendVerificationForm(): JSX.Element {
             <Form>
               <div className="my-2 space-y-4">
                 <TextFieldFull
-                  name="email"
+                  name="login"
                   label="Email"
-                  id="resent-verificiation-email"
+                  id="resend-verificiation-email"
                   type="email"
                   placeholder="Email"
                 />

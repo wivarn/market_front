@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import { CheckCircleIconSm } from "components/icons";
 import FormContainer from "../container";
 import { GenericErrorMessage } from "components/message";
-import { IAccount } from "types/account";
+import { IProfile } from "types/account";
 import Link from "next/link";
 import { ProfileApi } from "services/backendApi/profile";
 import ReactTooltip from "react-tooltip";
@@ -59,7 +59,7 @@ const emailLabel = () => {
 export default function ProfileForm(): JSX.Element {
   const [session, sessionLoading] = useSession();
   const [imageData, setImageData] = useState<File | null>(null);
-  const [profile, setProfile] = useState<IAccount | null>(null);
+  const [profile, setProfile] = useState<IProfile | null>(null);
   const [error, setError] = useState(false);
 
   useEffect(() => {

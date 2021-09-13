@@ -1,11 +1,14 @@
 export interface IProfile {
+  email: string;
   given_name?: string;
   family_name?: string;
   picture?: { url: string };
 }
 
-export interface IAccount extends IProfile {
-  email: string;
+export interface ICreateAccount {
+  login: string;
+  given_name: string;
+  family_name: string;
   password: string;
   passwordConfirmation: string;
 }
