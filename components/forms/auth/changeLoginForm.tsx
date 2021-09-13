@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 
 const changeLoginSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
+  login: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string()
     .min(8, "Password must be 8 or more characters")
     .required("Password is required"),
@@ -30,13 +30,13 @@ export default function ChangeLoginForm(): JSX.Element {
       <div className="py-2">
         <Formik
           initialValues={{
-            email: "",
+            login: "",
             password: "",
           }}
           validationSchema={changeLoginSchema}
           onSubmit={(values, actions) => {
             AuthApi(session?.accessToken)
-              .changeLogin(values.email, values.password)
+              .changeLogin(values.login, values.password)
               .then((response) => {
                 toast.success(response.data.success);
                 router.push("/");
@@ -57,7 +57,7 @@ export default function ChangeLoginForm(): JSX.Element {
             <Form>
               <div className="my-2 space-y-4">
                 <TextFieldFull
-                  name="email"
+                  name="login"
                   label="Email"
                   id="change-email"
                   type="email"

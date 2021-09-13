@@ -5,7 +5,7 @@ export interface IProfile {
 }
 
 export interface IAccount extends IProfile {
-  email: string;
+  login: string;
   password: string;
   passwordConfirmation: string;
 }

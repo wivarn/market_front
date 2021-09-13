@@ -41,7 +41,7 @@ export const AuthApi = (
 
   const createAccount = async (account: IAccount) => {
     return await base.post("/auth/create-account", {
-      login: account.email,
+      login: account.login,
       given_name: account.given_name,
       family_name: account.family_name,
       password: account.password,
@@ -73,9 +73,9 @@ export const AuthApi = (
     });
   };
 
-  const passwordResetRequest = async (email: string) => {
+  const passwordResetRequest = async (login: string) => {
     return await base.post("/auth/reset-password-request", {
-      login: email,
+      login: login,
     });
   };
 
@@ -91,9 +91,9 @@ export const AuthApi = (
     });
   };
 
-  const unlockAccountRequest = async (email: string) => {
+  const unlockAccountRequest = async (login: string) => {
     return await base.post("/auth/unlock-account-request", {
-      login: email,
+      login: login,
     });
   };
 

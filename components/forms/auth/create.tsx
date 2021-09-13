@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
 const createAccountSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
+  login: Yup.string().email("Invalid email").required("Required"),
   given_name: Yup.string()
     .min(1, "Must be 1 or more characters")
     .max(256, "Must be at most 256 characters")
@@ -48,7 +48,7 @@ export default function CreateAccountForm(): JSX.Element {
         <div className="py-2">
           <Formik
             initialValues={{
-              email: "",
+              login: "",
               given_name: "",
               family_name: "",
               password: "",
@@ -78,8 +78,8 @@ export default function CreateAccountForm(): JSX.Element {
               <Form>
                 <div className="my-2 space-y-4">
                   <TextFieldFull
-                    name="email"
-                    id={`${idPrefix}email`}
+                    name="login"
+                    id={`${idPrefix}login`}
                     type="email"
                     label="Email"
                   />
