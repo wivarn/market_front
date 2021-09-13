@@ -4,7 +4,7 @@ import { Form, Formik } from "formik";
 
 import { AuthApi } from "services/backendApi/auth";
 import AuthFormContainer from "./container";
-import { IAccount } from "types/account";
+import { ICreateAccount } from "types/account";
 import { SecondaryButton } from "components/buttons";
 import { SubmitButtonFull } from "components/buttons";
 import { TextFieldFull } from "../fields";
@@ -55,7 +55,7 @@ export default function CreateAccountForm(): JSX.Element {
               passwordConfirmation: "",
             }}
             validationSchema={createAccountSchema}
-            onSubmit={(account: IAccount, actions) => {
+            onSubmit={(account: ICreateAccount, actions) => {
               AuthApi()
                 .createAccount(account)
                 .then((response) => {
