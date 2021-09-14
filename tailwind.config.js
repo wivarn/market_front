@@ -19,6 +19,7 @@ module.exports = {
       },
       height: {
         600: "600px",
+        800: "800px",
       },
       colors: {
         success: {

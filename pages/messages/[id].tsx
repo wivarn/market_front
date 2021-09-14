@@ -259,10 +259,10 @@ export default function SendMessage(): JSX.Element {
       <PageContainer>
         <h3 className="pb-2 text-center">Messages</h3>
         <div className="flex space-x-2">
-          <div className="flex-none w-1/3 overflow-y-auto border rounded-md h-600">
+          <div className="flex-none w-1/3 overflow-y-auto border rounded-md h-800">
             {renderLatestMessages()}
           </div>
-          <div className="flex flex-col w-2/3 border rounded-md h-600">
+          <div className="flex flex-col w-2/3 border rounded-md h-800">
             <h5 className="p-2 bg-info-darker rounded-t-md">
               <div className="flex mx-auto space-x-2 w-max">
                 <Image
