@@ -16,7 +16,7 @@ declare module "next-auth" {
   }
 
   interface Session {
-    accountId: number;
+    accountId: number | string;
     expires: string;
     accessToken: string;
   }
