@@ -106,11 +106,8 @@ export default function SendMessage(): JSX.Element {
             </div>
             <div className="w-5/6">
               <div className="text-xs md:text-base">{otherUser.full_name}</div>
-              <div className="hidden text-sm line-clamp-1 md:block">
-                {message.body}
-              </div>
               <div className="hidden text-xs text-accent-dark md:block">
-                {messageDate}
+                Last Message: {messageDate}
               </div>
             </div>
           </a>
