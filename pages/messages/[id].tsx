@@ -266,7 +266,7 @@ export default function SendMessage(): JSX.Element {
               Messages
             </h5>
             {renderMessages()}
-            <div className="p-2 bg-accent-lightest rounded-b-md">
+            <div className="p-2 border-t rounded-b-md">
               {renderMessageForm()}
             </div>
           </div>
