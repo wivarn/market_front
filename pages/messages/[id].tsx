@@ -139,11 +139,10 @@ export default function SendMessage(): JSX.Element {
     const correspondent: IUser = messagesResponse.data.correspondent;
 
     return (
-      <div
-        className="grid flex-1 grid-cols-1 p-2 overflow-y-auto"
-        ref={messagesRef}
-      >
-        {messages.map((message) => renderMessage(message))}
+      <div className="flex-1 p-2 overflow-y-auto" ref={messagesRef}>
+        <div className="grid grid-cols-1">
+          {messages.map((message) => renderMessage(message))}
+        </div>
       </div>
     );
 
