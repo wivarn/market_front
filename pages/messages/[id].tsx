@@ -3,17 +3,18 @@ import * as Yup from "yup";
 import { BlankMessage, GenericErrorMessage } from "components/message";
 import { Form, Formik } from "formik";
 import { IMessage, IMessageWithCorrespondents } from "types/message";
-import { NextSeo, ProfilePageJsonLd } from "next-seo";
 import { Spinner, SpinnerLg } from "components/spinner";
-import { TextField, TextFieldFull } from "components/forms/fields";
+import { useEffect, useRef } from "react";
 import useSWR, { mutate } from "swr";
 
 import { IUser } from "types/user";
 import Image from "next/image";
 import Link from "next/link";
 import { MessageApi } from "services/backendApi/message";
+import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { SubmitButton } from "components/buttons";
+import { TextFieldFull } from "components/forms/fields";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
@@ -86,7 +87,7 @@ export default function SendMessage(): JSX.Element {
       });
 
       return (
-        <Link href={`/messages/${otherUser.id}`}>
+        <Link href={`/messages/${otherUser.id}`} key={otherUser.id}>
           <a
             key={message.created_at}
             className={`flex items-center rounded ${
@@ -119,17 +120,29 @@ export default function SendMessage(): JSX.Element {
   }
 
   function renderMessages() {
+    const messages: IMessage[] = messagesResponse?.data?.messages;
+    const lastMessage = messages ? messages[messages.length - 1] : null;
+    const messagesRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      const chatBox = messagesRef.current;
+      if (chatBox) {
+        chatBox.scroll({ top: chatBox.scrollHeight });
+      }
+    }, [lastMessage?.created_at]);
+
     if (messagesLoading) return <SpinnerLg text="Loading..." />;
     if (messagesError) return <GenericErrorMessage />;
-
-    const messages: IMessage[] = messagesResponse.data.messages;
     if (!messages.length) return renderNoMessages();
 
     const currentUser: IUser = messagesResponse.data.current_account;
     const correspondent: IUser = messagesResponse.data.correspondent;
 
     return (
-      <div className="grid grid-cols-1">
+      <div
+        className="grid flex-1 grid-cols-1 p-2 overflow-y-auto"
+        ref={messagesRef}
+      >
         {messages.map((message) => renderMessage(message))}
       </div>
     );
@@ -249,7 +262,7 @@ export default function SendMessage(): JSX.Element {
             <h5 className="p-2 text-center text-white bg-info-darker rounded-t-md">
               Messages
             </h5>
-            <div className="flex-1 p-2 overflow-y-auto">{renderMessages()}</div>
+            {renderMessages()}
             <div className="p-2 bg-accent-lightest rounded-b-md">
               {renderMessageForm()}
             </div>
