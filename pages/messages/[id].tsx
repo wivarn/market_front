@@ -94,7 +94,7 @@ export default function SendMessage(): JSX.Element {
               currentChat ? "bg-info-lightest" : ""
             }`}
           >
-            <div className="w-8 h-8 m-2 sm:h-16 sm:w-16">
+            <div className="w-1/6 m-2">
               <Image
                 src={otherUser.picture.url || "/ProfilePlaceholder.svg"}
                 alt={otherUser.full_name}
@@ -104,9 +104,9 @@ export default function SendMessage(): JSX.Element {
                 className="border rounded-full"
               />
             </div>
-            <div>
+            <div className="w-5/6">
               <div className="text-xs md:text-base">{otherUser.full_name}</div>
-              <div className="hidden text-sm truncate md:block">
+              <div className="hidden text-sm line-clamp-1 md:block">
                 {message.body}
               </div>
               <div className="hidden text-xs text-accent-dark md:block">
