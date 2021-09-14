@@ -49,14 +49,30 @@ export default function SendMessage(): JSX.Element {
   }
 
   const { messagesResponse, messagesLoading, messagesError } = getMessages();
+  const {
+    latestMessagesResponse,
+    latestMessagesLoading,
+    latestMessagesError,
+  } = getLatestMessages();
+
+  const messages: IMessage[] = messagesResponse?.data?.messages;
+  const lastMessage = messages ? messages[messages.length - 1] : null;
+  const messagesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const chatBox = messagesRef.current;
+    if (chatBox) {
+      chatBox.scroll({ top: chatBox.scrollHeight });
+    }
+  }, [lastMessage?.created_at]);
+
+  if (messagesLoading) return <SpinnerLg text="Loading..." />;
+  if (messagesError) return <GenericErrorMessage />;
+
+  const currentUser: IUser = messagesResponse.data.current_account;
+  const correspondent: IUser = messagesResponse.data.correspondent;
 
   function renderLatestMessages() {
-    const {
-      latestMessagesResponse,
-      latestMessagesLoading,
-      latestMessagesError,
-    } = getLatestMessages();
-
     if (latestMessagesLoading) return <Spinner text="Loading..." />;
     if (latestMessagesError)
       return <span>Unable to load latest messages.</span>;
@@ -122,23 +138,7 @@ export default function SendMessage(): JSX.Element {
   }
 
   function renderMessages() {
-    const messages: IMessage[] = messagesResponse?.data?.messages;
-    const lastMessage = messages ? messages[messages.length - 1] : null;
-    const messagesRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-      const chatBox = messagesRef.current;
-      if (chatBox) {
-        chatBox.scroll({ top: chatBox.scrollHeight });
-      }
-    }, [lastMessage?.created_at]);
-
-    if (messagesLoading) return <SpinnerLg text="Loading..." />;
-    if (messagesError) return <GenericErrorMessage />;
     if (!messages.length) return renderNoMessages();
-
-    const currentUser: IUser = messagesResponse.data.current_account;
-    const correspondent: IUser = messagesResponse.data.correspondent;
 
     return (
       <div className="flex-1 p-2 overflow-y-auto" ref={messagesRef}>
@@ -262,8 +262,20 @@ export default function SendMessage(): JSX.Element {
             {renderLatestMessages()}
           </div>
           <div className="flex flex-col w-2/3 border rounded-md h-600">
-            <h5 className="p-2 text-center text-white bg-info-darker rounded-t-md">
-              Messages
+            <h5 className="p-2 bg-info-darker rounded-t-md">
+              <div className="flex mx-auto space-x-2 w-max">
+                <Image
+                  src={correspondent.picture.url || "/ProfilePlaceholder.svg"}
+                  alt={correspondent.full_name}
+                  width="32"
+                  height="32"
+                  objectFit="cover"
+                  className="border rounded-full"
+                />
+                <span className="my-auto text-white">
+                  {correspondent.full_name}
+                </span>
+              </div>
             </h5>
             {renderMessages()}
             <div className="p-2 border-t rounded-b-md">
