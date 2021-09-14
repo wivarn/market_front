@@ -90,11 +90,11 @@ export default function SendMessage(): JSX.Element {
         <Link href={`/messages/${otherUser.id}`} key={otherUser.id}>
           <a
             key={message.created_at}
-            className={`flex items-center rounded ${
+            className={`flex items-center ${
               currentChat ? "bg-info-lightest" : ""
             }`}
           >
-            <div className="w-1/6 m-2">
+            <div className="hidden w-1/6 m-2 lg:block">
               <Image
                 src={otherUser.picture.url || "/ProfilePlaceholder.svg"}
                 alt={otherUser.full_name}
@@ -104,10 +104,15 @@ export default function SendMessage(): JSX.Element {
                 className="border rounded-full"
               />
             </div>
-            <div className="w-5/6">
-              <div className="text-xs md:text-base">{otherUser.full_name}</div>
+            <div className="flex-none w-5/6 m-2 ">
+              <div className="text-xs font-bold md:text-sm">
+                {otherUser.full_name}
+              </div>
+              <div className="hidden text-sm truncate md:block text-accent-darker">
+                {message.body}
+              </div>
               <div className="hidden text-xs text-accent-dark md:block">
-                Last Message: {messageDate}
+                {messageDate}
               </div>
             </div>
           </a>
@@ -179,9 +184,11 @@ export default function SendMessage(): JSX.Element {
               objectFit="cover"
               className="rounded-full"
             />
-            <span className="text-xs text-accent-dark">
-              <div>{sender.full_name}</div>
-              <div>{messageDate}</div>
+            <span className="text-xs">
+              <div className="font-bold text-accent-darker">
+                {sender.full_name}
+              </div>
+              <div className="text-accent">{messageDate}</div>
             </span>
           </div>
 
@@ -259,7 +266,7 @@ export default function SendMessage(): JSX.Element {
               Messages
             </h5>
             {renderMessages()}
-            <div className="p-2 border-t rounded-b-md">
+            <div className="p-2 bg-accent-lightest rounded-b-md">
               {renderMessageForm()}
             </div>
           </div>
