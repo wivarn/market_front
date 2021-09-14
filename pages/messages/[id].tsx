@@ -257,6 +257,7 @@ export default function SendMessage(): JSX.Element {
     <div className="my-4">
       <NextSeo title="Message History" />
       <PageContainer>
+        <h3 className="pb-2 text-center">Messages</h3>
         <div className="flex space-x-2">
           <div className="flex-none w-1/3 overflow-y-auto border rounded-md h-600">
             {renderLatestMessages()}
@@ -273,7 +274,11 @@ export default function SendMessage(): JSX.Element {
                   className="border rounded-full"
                 />
                 <span className="my-auto text-white">
-                  {correspondent.full_name}
+                  <Link href={`/users/${correspondent.id}`}>
+                    <a className="underline hover:text-primary">
+                      {correspondent.full_name}
+                    </a>
+                  </Link>
                 </span>
               </div>
             </h5>
