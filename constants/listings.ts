@@ -2,7 +2,20 @@ import * as Yup from "yup";
 
 import { ObjectShape } from "yup/lib/object";
 
-export const conditionList = [
+interface IDropdownOption {
+  value: string;
+  text: string;
+}
+
+interface ICategoryDropdownOption extends IDropdownOption {
+  subCategory: IDropdownOption[];
+}
+
+interface IDropdownMap {
+  [key: string]: IDropdownOption[];
+}
+
+const defaultConditionList: IDropdownOption[] = [
   { value: "10.0", text: "Near Mint" },
   { value: "8.0", text: "Excellent" },
   { value: "6.0", text: "Very Good" },
@@ -10,7 +23,7 @@ export const conditionList = [
   { value: "2.0", text: "Poor" },
 ];
 
-export const tradingCardConditionList = [
+const tradingCardConditionList: IDropdownOption[] = [
   { value: "10.0", text: "Near Mint" },
   { value: "8.0", text: "Light Play" },
   { value: "6.0", text: "Moderate Play" },
@@ -18,7 +31,20 @@ export const tradingCardConditionList = [
   { value: "2.0", text: "Damaged" },
 ];
 
-export const gradingCompanyList = [
+const defaultValueHandler = {
+  get: (target: IDropdownMap, name: string) => {
+    return target[name] || target["default"];
+  },
+};
+
+const _conditionList: IDropdownMap = {
+  default: defaultConditionList,
+  TRADING_CARDS: tradingCardConditionList,
+};
+
+export const conditionList = new Proxy(_conditionList, defaultValueHandler);
+
+export const gradingCompanyList: IDropdownOption[] = [
   { value: "BGS", text: "BGS" },
   { value: "CSG", text: "CSG" },
   { value: "HGA", text: "HGA" },
@@ -29,7 +55,7 @@ export const gradingCompanyList = [
   { value: "OTHER", text: "Other" },
 ];
 
-export const gradingList = [
+export const gradingList: IDropdownOption[] = [
   { value: "10.0", text: "10" },
   { value: "9.5", text: "9.5" },
   { value: "9.0", text: "9" },
@@ -51,7 +77,7 @@ export const gradingList = [
   { value: "1.0", text: "1" },
 ];
 
-export const sportsCardList = [
+export const sportsCardList: IDropdownOption[] = [
   { value: "BASEBALL", text: "Baseball" },
   { value: "BASKETBALL", text: "Basketball" },
   { value: "FOOTBALL", text: "Football" },
@@ -59,19 +85,19 @@ export const sportsCardList = [
   { value: "OTHER", text: "Other Sports Cards" },
 ];
 
-export const tradingCardList = [
+export const tradingCardList: IDropdownOption[] = [
   { value: "MAGIC", text: "Magic The Gathering" },
   { value: "POKEMON", text: "Pokémon" },
   { value: "OTHER", text: "Other Trading Cards" },
 ];
 
-export const collectibleList = [
+export const collectibleList: IDropdownOption[] = [
   { value: "COMICS", text: "Comic Books" },
   { value: "TOYS", text: "Toys" },
   { value: "OTHER", text: "Other Collectibles" },
 ];
 
-export const categoryList = [
+export const categoryList: ICategoryDropdownOption[] = [
   { value: "SPORTS_CARDS", text: "Sports Cards", subCategory: sportsCardList },
   {
     value: "TRADING_CARDS",
@@ -151,7 +177,7 @@ export const listingSchema: ObjectShape = {
     .when("grading_company", (grading_company, schema) => {
       if (grading_company == null || grading_company == undefined) {
         return schema.oneOf(
-          conditionList.map((condition) => {
+          conditionList["default"].map((condition) => {
             return condition.value;
           }),
           "This is not a valid condition"

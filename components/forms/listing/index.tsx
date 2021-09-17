@@ -23,7 +23,6 @@ import {
   gradingList,
   listingSchema,
   sportsCardList,
-  tradingCardConditionList,
   tradingCardList,
 } from "constants/listings";
 import { createRef, useEffect, useState } from "react";
@@ -112,13 +111,9 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
     }
   }
 
-  function renderGrading() {
+  function renderGrading(formik: FormikProps<any>) {
     const label = graded ? "Grading" : "Condition";
-    const rawCondition =
-      props.category == "TRADING_CARDS"
-        ? tradingCardConditionList
-        : conditionList;
-    const items = graded ? gradingList : rawCondition;
+    const items = graded ? gradingList : conditionList[formik.values.category];
 
     return (
       <>
@@ -390,7 +385,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                       formik.setFieldValue("graded", !graded);
                     }}
                   />
-                  {renderGrading()}
+                  {renderGrading(formik)}
                   <a
                     href="https://support.skwirl.io/kb/en/article/how-should-i-grade-the-condition-of-my-cards"
                     target="_blank"
