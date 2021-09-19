@@ -4,6 +4,7 @@ export interface Ilisting {
   id: string;
   photos: { url: string }[];
   title: string;
+  category: string;
   grading_company: string | null;
   condition: string;
   currency: string;
@@ -14,7 +15,6 @@ export interface Ilisting {
 
 export interface IlistingDetails extends Ilisting {
   description: string;
-  category: string;
   subcategory: string;
   combined_shipping: string;
   seller: IUser;
