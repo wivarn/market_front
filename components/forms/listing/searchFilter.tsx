@@ -91,7 +91,7 @@ const filterSchema = Yup.object().shape({
   min_condition: Yup.mixed().when("grading_company", {
     is: "",
     then: Yup.mixed().oneOf(
-      conditionList
+      conditionList["default"]
         .map((condition) => {
           return condition.value;
         })
@@ -150,9 +150,9 @@ export default function SearchFilter(): JSX.Element {
     new URLSearchParams(router.asPath.split("?")[1]).get("graded") == "true"
   );
 
-  function renderGrading() {
+  function renderGrading(formik: FormikProps<any>) {
     const label = graded ? "Grading or better" : "Condition or better";
-    const items = graded ? gradingList : conditionList;
+    const items = graded ? gradingList : conditionList[formik.values.category];
 
     return (
       <>
@@ -250,7 +250,7 @@ export default function SearchFilter(): JSX.Element {
                           formik.setFieldValue("graded", !graded);
                         }}
                       />
-                      {renderGrading()}
+                      {renderGrading(formik)}
 
                       <DropdownCombobox
                         label="Item Location"

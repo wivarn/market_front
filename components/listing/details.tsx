@@ -222,6 +222,7 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
                 <ConditionPill
                   grading_company={props.grading_company}
                   condition={props.condition}
+                  category={props.category}
                 />
               </div>
             </div>
