@@ -16,7 +16,7 @@ interface IUserSettingsContext {
 
 interface IUserSettings {
   currency: "CAD" | "USD";
-  country: "CAN" | "USA";
+  country: "CAN" | "USA" | "";
   address_set: boolean;
   stripe_linked: boolean;
   listing_template: IListingTemplate;
@@ -29,7 +29,7 @@ interface IUserSettings {
 
 const defaultSettings: IUserSettings = {
   currency: "USD",
-  country: "USA",
+  country: "",
   address_set: false,
   stripe_linked: false,
   has_cart: false,

@@ -36,7 +36,7 @@ export default function ShowUser(): JSX.Element {
   }
 
   const { userResponse, userLoading, userError } = getUser();
-  if (userLoading || !destinationCountry)
+  if (userLoading || destinationCountry == null)
     return <SpinnerLg text="Loading..." />;
   if (userError)
     return (

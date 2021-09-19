@@ -26,7 +26,7 @@ export default function ShowUserListings(): JSX.Element {
       })
       .join("&");
     const { data, error } = useSWR(
-      id && destinationCountry
+      id && destinationCountry != null
         ? `users/${id}/listings?destination_country=${destinationCountry}&${query}`
         : null
     );
@@ -39,7 +39,7 @@ export default function ShowUserListings(): JSX.Element {
   }
 
   const { listingsResponse, listingsLoading, listingsError } = getListings();
-  if (listingsLoading || !destinationCountry)
+  if (listingsLoading || destinationCountry == null)
     return <SpinnerLg text="Loading..." />;
   if (listingsError) return <div>Error</div>;
 

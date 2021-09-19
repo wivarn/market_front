@@ -93,10 +93,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (session) return { props: {} };
 
   const id = context?.params?.id;
-  const listingResponse = await ListingApi().get(
-    `${id}`,
-    "destination_country=USA"
-  );
+  const listingResponse = await ListingApi().get(`${id}`);
   const listing: IlistingDetails = listingResponse.data;
   return {
     props: listing,
