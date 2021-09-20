@@ -111,9 +111,9 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
     }
   }
 
-  function renderGrading() {
+  function renderGrading(formik: FormikProps<any>) {
     const label = graded ? "Grading" : "Condition";
-    const items = graded ? gradingList : conditionList;
+    const items = graded ? gradingList : conditionList[formik.values.category];
 
     return (
       <>
@@ -385,7 +385,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                       formik.setFieldValue("graded", !graded);
                     }}
                   />
-                  {renderGrading()}
+                  {renderGrading(formik)}
                   <a
                     href="https://support.skwirl.io/kb/en/article/how-should-i-grade-the-condition-of-my-cards"
                     target="_blank"

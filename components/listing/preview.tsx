@@ -84,6 +84,7 @@ export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
                       <ConditionPill
                         grading_company={props.grading_company}
                         condition={props.condition}
+                        category={props.category}
                       />
                     </span>
                   </div>
