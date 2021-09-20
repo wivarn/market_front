@@ -193,7 +193,7 @@ export default function SearchFilter(): JSX.Element {
 
   return (
     <Disclosure>
-      {() => (
+      {({ close }) => (
         <div className="relative">
           <Disclosure.Button className="inline-flex items-center gap-2 p-2 bg-white border rounded-md border-accent hover:text-primary">
             <FilterIconSm /> <span className="hidden md:flex">Filter</span>
@@ -210,6 +210,17 @@ export default function SearchFilter(): JSX.Element {
                     query: { ...router.query, ...values },
                   });
                   actions.setSubmitting(false);
+                  close();
+                }}
+                onReset={(values) => {
+                  for (const filter in values) {
+                    delete router.query[filter];
+                  }
+                  router.push({
+                    pathname: router.pathname,
+                    query: { ...router.query, page: 0 },
+                  });
+                  close();
                 }}
               >
                 {(formik) => (
@@ -267,18 +278,7 @@ export default function SearchFilter(): JSX.Element {
                           text="Apply"
                           submitting={formik.isSubmitting}
                         />
-                        <ResetButton
-                          text="Clear"
-                          onClick={async () => {
-                            for (const filter in formik.values) {
-                              delete router.query[filter];
-                            }
-                            router.push({
-                              pathname: router.pathname,
-                              query: { ...router.query, page: 0 },
-                            });
-                          }}
-                        />
+                        <ResetButton text="Clear" />
                       </div>
                     </div>
                   </Form>
