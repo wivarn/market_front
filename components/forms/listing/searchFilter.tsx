@@ -14,9 +14,9 @@ import {
 } from "constants/listings";
 import { createRef, useState } from "react";
 
-import { Disclosure } from "@headlessui/react";
 import { FilterIconSm } from "components/icons";
 import { NumberField } from "../fields";
+import { Popover } from "@headlessui/react";
 import { countryList } from "constants/address";
 import { useRouter } from "next/router";
 
@@ -192,13 +192,13 @@ export default function SearchFilter(): JSX.Element {
   }
 
   return (
-    <Disclosure>
+    <Popover>
       {({ close }) => (
         <div className="relative">
-          <Disclosure.Button className="inline-flex items-center gap-2 p-2 bg-white border rounded-md border-accent hover:text-primary">
+          <Popover.Button className="inline-flex items-center gap-2 p-2 bg-white border rounded-md border-accent hover:text-primary">
             <FilterIconSm /> <span className="hidden md:flex">Filter</span>
-          </Disclosure.Button>
-          <Disclosure.Panel>
+          </Popover.Button>
+          <Popover.Panel>
             <div className="absolute z-10 p-2 px-4 border rounded-lg top-10 bg-accent-lightest border-accent-light">
               <Formik
                 initialValues={initialValues}
@@ -213,6 +213,7 @@ export default function SearchFilter(): JSX.Element {
                   close();
                 }}
                 onReset={(values) => {
+                  setGraded(false);
                   for (const filter in values) {
                     delete router.query[filter];
                   }
@@ -285,9 +286,9 @@ export default function SearchFilter(): JSX.Element {
                 )}
               </Formik>
             </div>
-          </Disclosure.Panel>
+          </Popover.Panel>
         </div>
       )}
-    </Disclosure>
+    </Popover>
   );
 }
