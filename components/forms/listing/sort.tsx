@@ -42,11 +42,20 @@ function _Sort({
   const [selected, setSelected] = useState(sortOptions[0]);
 
   useEffect(() => {
+    if (!router.isReady) return;
+
     setSelected(
       sortOptions.find((option) => option.id == router.query.sort) ||
         sortOptions[0]
     );
-  }, [router.isReady, router.query.sort]);
+  }, [router.isReady]);
+
+  useEffect(() => {
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, ...{ sort: selected.id } },
+    });
+  }, [selected]);
 
   if (!router.isReady) return <SpinnerXs />;
   return (
@@ -88,12 +97,6 @@ function _Sort({
                         className={`${
                           selected ? "font-semibold" : "font-normal"
                         } block truncate`}
-                        onClick={() => {
-                          router.push({
-                            pathname: router.pathname,
-                            query: { ...router.query, ...{ sort: option.id } },
-                          });
-                        }}
                       >
                         {option.text}
                       </span>
