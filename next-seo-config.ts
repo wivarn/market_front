@@ -1,5 +1,6 @@
 const defaultTitle = "Skwirl";
-const description = "The marketplace for modern collectors";
+const description =
+  "The trading card marketplace for modern collectors. Buy or sell sports cards, trading card games and collectibles.";
 
 const SEO = {
   defaultTitle,
