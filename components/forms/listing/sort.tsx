@@ -51,7 +51,7 @@ function _Sort({
   }, [router.isReady]);
 
   useEffect(() => {
-    if (!router.isReady || router.query.sort == undefined) return;
+    if (!router.isReady) return;
 
     router.push({
       pathname: router.pathname,
