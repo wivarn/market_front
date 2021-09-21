@@ -207,7 +207,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
               .destroy(id)
               .then(() => {
                 toast.success("Your listing has been deleted");
-                router.push("/listings?state=active");
+                router.push("/listings?state=active&sort=newest");
               })
               .catch((error) => {
                 toast.error(error.response.data.error);
@@ -217,7 +217,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
               .updateState(id, "remove")
               .then(() => {
                 toast.success("Your listing has been removed");
-                router.push("/listings?state=active");
+                router.push("/listings?state=active&sort=newest");
               })
               .catch((error) => {
                 toast.error(error.response.data.error);
@@ -242,7 +242,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
     <div className="p-4 ">
       <PageContainer yPadding="py-2">
         <div className="absolute">
-          <BackButton text="Back" href="/listings?state=active" />
+          <BackButton text="Back" href="/listings?state=active&sort=newest" />
         </div>
         <div className="px-2">
           <h3 className="p-2 mt-8 text-center md:mt-0">
@@ -312,7 +312,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                 router.push(
                   `/listings?state=${
                     newListing ? values.aasm_state : props.aasm_state
-                  }`
+                  }&sort=newest`
                 );
               }
               request

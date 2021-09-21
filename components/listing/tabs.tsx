@@ -87,28 +87,28 @@ export default function ListingTabs({
         <SearchFilter />
         <div className="flex justify-center col-span-3 mt-4 mb-2 space-x-4 md:space-x-8">
           <LinkWrapper
-            href="/listings?state=active"
+            href="/listings?state=active&sort=newest"
             tab="active"
             activeTab={activeTab}
           >
             Active
           </LinkWrapper>
           <LinkWrapper
-            href="/listings?state=sold"
+            href="/listings?state=sold&sort=newest"
             tab="sold"
             activeTab={activeTab}
           >
             Sold
           </LinkWrapper>
           <LinkWrapper
-            href="/listings?state=draft"
+            href="/listings?state=draft&sort=newest"
             tab="draft"
             activeTab={activeTab}
           >
             Draft
           </LinkWrapper>
           <LinkWrapper
-            href="/listings?state=removed"
+            href="/listings?state=removed&sort=newest"
             tab="removed"
             activeTab={activeTab}
           >

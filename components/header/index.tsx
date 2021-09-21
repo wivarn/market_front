@@ -96,7 +96,7 @@ export default function Header(): JSX.Element {
   function LoggedInNav() {
     function sellLink() {
       const href = userSettings.selling_enabled
-        ? "/listings?state=active"
+        ? "/listings?state=active&sort=newest"
         : "/apply";
       return (
         <div data-tip data-for="sell">
