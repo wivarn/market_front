@@ -70,7 +70,7 @@ export const DropDown = (): JSX.Element => {
   }
 
   const href = userSettings.selling_enabled
-    ? "/listings?state=active"
+    ? "/listings?state=active&sort=newest"
     : "/apply";
 
   function salesDot() {

@@ -51,9 +51,11 @@ function _Sort({
   }, [router.isReady]);
 
   useEffect(() => {
+    if (!router.isReady) return;
+
     router.push({
       pathname: router.pathname,
-      query: { ...router.query, ...{ sort: selected.id } },
+      query: { ...router.query, sort: selected.id },
     });
   }, [selected]);
 
