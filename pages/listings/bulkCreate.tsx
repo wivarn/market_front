@@ -142,7 +142,7 @@ export default function BulkCreateListings(): JSX.Element {
                     let errors = [];
                     try {
                       bodySchema.validateSyncAt(key, listing);
-                    } catch (validationError) {
+                    } catch (validationError: any) {
                       errors = validationError.errors;
                     }
                     return (
@@ -172,7 +172,7 @@ export default function BulkCreateListings(): JSX.Element {
       .bulkCreate(listings.data)
       .then(() => {
         toast.success("New listings created");
-        router.push("/listings?state=draft");
+        router.push("/listings?state=draft&sort=newest");
       })
       .finally(() => {
         setSubmittingBulkCreate(false);
@@ -187,7 +187,7 @@ export default function BulkCreateListings(): JSX.Element {
       <PageContainer>
         <CardContainer6xl>
           <div className="absolute -top-8">
-            <BackButton text="Back" href="/listings?state=active" />
+            <BackButton text="Back" href="/listings?state=active&sort=newest" />
           </div>
           <Dropzone
             accept="text/csv, .csv"

@@ -216,7 +216,7 @@ const ListingTemplateForm = (): JSX.Element => {
     <div className="p-4">
       <PageContainer yPadding="py-2">
         <div className="absolute">
-          <BackButton text="Back" href="/listings?state=active" />
+          <BackButton text="Back" href="/listings?state=active&sort=newest" />
         </div>
         <div className="px-2">
           <h3 className="p-2 mt-8 text-center md:mt-0">
@@ -244,7 +244,7 @@ const ListingTemplateForm = (): JSX.Element => {
                 .update(values)
                 .then(() => {
                   toast.success("Your listing template has been updated");
-                  router.push("/listings?state=active");
+                  router.push("/listings?state=active&sort=newest");
                   updateUserSettings(session?.accessToken);
                 })
                 .catch((error) => {
