@@ -5,8 +5,13 @@ import { Listbox, Transition } from "@headlessui/react";
 import { SpinnerXs } from "components/spinner";
 import { useRouter } from "next/router";
 
+interface sortOption {
+  id: string;
+  text: string;
+}
+
 export function ListingSort(): JSX.Element {
-  const sortOptions = [
+  const sortOptions: sortOption[] = [
     { id: "newest", text: "Newest (default)" },
     { id: "oldest", text: "Oldest" },
     { id: "priceLow", text: "Price (low to high)" },
@@ -17,7 +22,7 @@ export function ListingSort(): JSX.Element {
 }
 
 export function SearchSort(): JSX.Element {
-  const sortOptions = [
+  const sortOptions: sortOption[] = [
     { id: "", text: "Best Match (default)" },
     { id: "priceLow", text: "Price (low to high)" },
     { id: "priceHigh", text: "Price (high to low)" },
@@ -30,36 +35,32 @@ export function SearchSort(): JSX.Element {
   return <_Sort sortOptions={sortOptions} />;
 }
 
-function _Sort({
-  sortOptions,
-}: {
-  sortOptions: {
-    id: string;
-    text: string;
-  }[];
-}): JSX.Element {
+function _Sort({ sortOptions }: { sortOptions: sortOption[] }): JSX.Element {
   const router = useRouter();
-  const [selected, setSelected] = useState(sortOptions[0]);
+  const query = router.query;
+  const [selected, setSelected] = useState<sortOption | null>(null);
 
   useEffect(() => {
     if (!router.isReady) return;
 
     setSelected(
-      sortOptions.find((option) => option.id == router.query.sort) ||
-        sortOptions[0]
+      sortOptions.find((option) => option.id == query.sort) || sortOptions[0]
     );
   }, [router.isReady]);
 
   useEffect(() => {
-    if (!router.isReady) return;
+    // do not change route until page is initialized
+    if (!router.isReady || selected === null) return;
+    query.sort = selected.id;
+    if (!query.sort) delete query.sort;
 
     router.push({
       pathname: router.pathname,
-      query: { ...router.query, sort: selected.id },
+      query: query,
     });
   }, [selected]);
 
-  if (!router.isReady) return <SpinnerXs />;
+  if (!router.isReady || selected === null) return <SpinnerXs />;
   return (
     <div className="relative md:w-72">
       <Listbox value={selected} onChange={setSelected}>
