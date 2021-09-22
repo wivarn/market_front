@@ -72,9 +72,10 @@ export default function EmailSettingsForm(): JSX.Element {
         {(formik) => (
           <Form>
             <div className="my-2 space-y-2">
+              <h5 className="text-center text-accent-darker">Email Settings</h5>
               <Toggle
                 name="marketing"
-                label="Marketing Emails"
+                label="Receive newsletter and exclusive offers"
                 enabled={marketing}
                 setEnabled={setMarketing}
                 onClick={async () => {
