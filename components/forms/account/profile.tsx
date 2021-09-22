@@ -103,6 +103,7 @@ export default function ProfileForm(): JSX.Element {
         {(formik) => (
           <Form>
             <div className="my-2 space-y-2">
+              <h5 className="text-center text-accent-darker">User Profile</h5>
               <TextFieldFull
                 label="First Name"
                 name="given_name"

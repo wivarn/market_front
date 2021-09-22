@@ -20,7 +20,7 @@ export const UserRecentListings = (props: PreviewProps): JSX.Element => {
     <div>
       <h3 className="mb-4 text-center">
         Recent Listings{" "}
-        <Link href={`/users/${id}/listings`}>
+        <Link href={`/users/${id}/listings?sort=newest`}>
           <a className="text-base underline text-info">View All</a>
         </Link>
       </h3>

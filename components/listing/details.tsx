@@ -182,7 +182,7 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
               </label>
               <div>
                 <Link
-                  href={`/listings/search?destination_country=${userSettings.country}&category=${props.category}`}
+                  href={`/listings/search?destination_country=${userSettings.country}&category=${props.category}&sort=newest`}
                 >
                   <a className="underline text-info hover:text-primary">
                     {category?.text}
@@ -196,7 +196,7 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
               </label>
               <div>
                 <Link
-                  href={`/listings/search?destination_country=${userSettings.country}&category=${props.category}&subcategory=${props.subcategory}`}
+                  href={`/listings/search?destination_country=${userSettings.country}&category=${props.category}&subcategory=${props.subcategory}&sort=newest`}
                 >
                   <a className="underline text-info hover:text-primary">
                     {subCategory?.text}

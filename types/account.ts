@@ -11,6 +11,7 @@ export interface ICreateAccount {
   family_name: string;
   password: string;
   passwordConfirmation: string;
+  marketing: boolean;
 }
 
 export interface IAddress {
@@ -20,4 +21,8 @@ export interface IAddress {
   state: string;
   zip: string;
   country: "CAN" | "USA";
+}
+
+export interface IEmailSettings {
+  marketing: boolean;
 }

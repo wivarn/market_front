@@ -1,15 +1,16 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
+import { TextFieldFull, Toggle } from "../fields";
 
 import { AuthApi } from "services/backendApi/auth";
 import AuthFormContainer from "./container";
 import { ICreateAccount } from "types/account";
 import { SecondaryButton } from "components/buttons";
 import { SubmitButtonFull } from "components/buttons";
-import { TextFieldFull } from "../fields";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const createAccountSchema = Yup.object().shape({
   login: Yup.string().email("Invalid email").required("Required"),
@@ -32,12 +33,14 @@ const createAccountSchema = Yup.object().shape({
     [Yup.ref("password"), null],
     "Passwords must match"
   ),
+  marketing: Yup.boolean().required("required"),
 });
 
 const idPrefix = "create-account-";
 
 export default function CreateAccountForm(): JSX.Element {
   const router = useRouter();
+  const [marketing, setMarketing] = useState<boolean>(true);
 
   return (
     <div className="my-8">
@@ -53,6 +56,7 @@ export default function CreateAccountForm(): JSX.Element {
               family_name: "",
               password: "",
               passwordConfirmation: "",
+              marketing: marketing,
             }}
             validationSchema={createAccountSchema}
             onSubmit={(account: ICreateAccount, actions) => {
@@ -74,7 +78,7 @@ export default function CreateAccountForm(): JSX.Element {
                 });
             }}
           >
-            {({ isSubmitting }) => (
+            {(formik) => (
               <Form>
                 <div className="my-2 space-y-4">
                   <TextFieldFull
@@ -108,9 +112,19 @@ export default function CreateAccountForm(): JSX.Element {
                     label="Password Confirmation"
                   />
 
+                  <Toggle
+                    name="marketing"
+                    label="Subscribe to our newsletter with exclusive offers"
+                    enabled={marketing}
+                    setEnabled={setMarketing}
+                    onClick={async () => {
+                      formik.setFieldValue("marketing", !marketing);
+                    }}
+                  />
+
                   <SubmitButtonFull
                     text="Create Account"
-                    submitting={isSubmitting}
+                    submitting={formik.isSubmitting}
                   />
                   <p className="text-sm text-accent-dark">
                     By creating an account you agree to Skwirl&#39;s{" "}

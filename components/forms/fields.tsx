@@ -619,7 +619,7 @@ export function _Toggle({
   const [field] = useField(props);
 
   return (
-    <span onClick={onClick}>
+    <div onClick={onClick}>
       <input {...field} {...props} type="checkbox" hidden />
       <Switch.Group>
         <div className={className}>
@@ -651,6 +651,6 @@ export function _Toggle({
           </div>
         </div>
       </Switch.Group>
-    </span>
+    </div>
   );
 }
