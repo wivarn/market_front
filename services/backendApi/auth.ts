@@ -46,6 +46,7 @@ export const AuthApi = (
       family_name: account.family_name,
       password: account.password,
       "password-confirm": account.passwordConfirmation,
+      marketing: account.marketing,
     });
   };
 
