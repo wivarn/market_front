@@ -25,8 +25,7 @@ export default function EmailSettingsForm(): JSX.Element {
   const [error, setError] = useState(false);
   const [marketing, setMarketing] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (sessionLoading) return;
+  function fetchEmailSettings() {
     EmailSettingsApi(session?.accessToken)
       .get()
       .then((emailSettingsResponse) => {
@@ -36,6 +35,12 @@ export default function EmailSettingsForm(): JSX.Element {
       .catch(() => {
         setError(true);
       });
+  }
+
+  useEffect(() => {
+    if (sessionLoading) return;
+
+    fetchEmailSettings();
   }, [sessionLoading]);
 
   if (sessionLoading || !emailSettings) return <SpinnerLg text="Loading..." />;
@@ -54,6 +59,10 @@ export default function EmailSettingsForm(): JSX.Element {
             .then((emailSettingsResponse) => {
               toast.success("Your email settings have been updated");
               setEmailSettings(emailSettingsResponse.data);
+            })
+            .catch((error) => {
+              toast.error(error.response.data.error);
+              fetchEmailSettings();
             })
             .finally(() => {
               actions.setSubmitting(false);
