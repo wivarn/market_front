@@ -114,7 +114,7 @@ export default function CreateAccountForm(): JSX.Element {
 
                   <Toggle
                     name="marketing"
-                    label="Subscribe to our newsletter"
+                    label="Subscribe to our newsletter with exclusive offers"
                     enabled={marketing}
                     setEnabled={setMarketing}
                     onClick={async () => {
