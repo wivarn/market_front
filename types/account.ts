@@ -21,3 +21,7 @@ export interface IAddress {
   zip: string;
   country: "CAN" | "USA";
 }
+
+export interface IEmailSettings {
+  marketing: boolean;
+}
