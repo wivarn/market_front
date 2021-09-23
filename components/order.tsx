@@ -146,6 +146,36 @@ export function SalesOrder(props: props): JSX.Element {
   );
 }
 
+export function PurchaseOrders(props: IOrdersPaginated): JSX.Element {
+  const { page } = useRouter().query;
+  const purchases = props.orders;
+  const totalPages = props.meta.total_pages;
+  if (purchases?.length == 0) {
+    return (
+      <BlankMessage>
+        <p>
+          You have not made any purchases yet.
+          <br />{" "}
+          <Link href="/">
+            <a className="underline text-info hover:text-primary">
+              Start buying now
+            </a>
+          </Link>
+        </p>
+      </BlankMessage>
+    );
+  }
+  return (
+    <>
+      <div>
+        {purchases.map((order: IOrder) => {
+          return <PurchaseOrder key={order.id} order={order} />;
+        })}
+      </div>
+      <Pagination initialPage={Number(page)} totalPages={totalPages} />
+    </>
+  );
+}
 export function PurchaseOrder(props: props): JSX.Element {
   const [order, setOrder] = useState(props.order);
   const orderDate = new Date(
