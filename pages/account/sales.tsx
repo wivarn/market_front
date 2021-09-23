@@ -9,16 +9,25 @@ import { SpinnerLg } from "components/spinner";
 import { UserSettingsContext } from "contexts/userSettings";
 import { useContext } from "react";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
 export default function sales(): JSX.Element {
   const [session, sessionLoading] = useSession();
+  const router = useRouter();
   const { assignUserSettings } = useContext(UserSettingsContext);
 
   function getSales() {
+    const query = Object.entries(router.query)
+      .map((q) => {
+        return q[0] + "=" + q[1];
+      })
+      .join("&");
     const { data, error } = useSWR(
-      session ? ["orders?view=sales", session.accessToken] : null
+      session && router.isReady
+        ? [`orders?view=sales&${query}`, session.accessToken]
+        : null
     );
 
     return {
