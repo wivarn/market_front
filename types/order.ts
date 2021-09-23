@@ -19,3 +19,8 @@ export interface IOrder {
   created_at: string;
   updated_at: string;
 }
+
+export interface IOrdersPaginated {
+  orders: IOrder[];
+  meta: { total_pages: number };
+}

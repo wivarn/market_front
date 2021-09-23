@@ -13,7 +13,7 @@ export interface Ilisting {
   shipping: string | number;
 }
 
-export interface IPaginatedListings {
+export interface IListingsPaginated {
   listings: Ilisting[];
   meta: { total_pages: number };
 }

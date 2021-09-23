@@ -4,7 +4,6 @@ import { ListingPreviewList } from "./listing/preview";
 import { OrderApi } from "services/backendApi/order";
 import OrderTrackingForm from "./forms/orderTracking";
 import { SubmitButton } from "./buttons";
-import { mutate } from "swr";
 import { stateMappings } from "constants/listings";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
@@ -14,7 +13,8 @@ interface props {
   order: IOrder;
 }
 
-export function SalesOrder({ order }: props): JSX.Element {
+export function SalesOrder(props: props): JSX.Element {
+  const [order, setOrder] = useState(props.order);
   const orderDate = new Date(
     order.created_at.replace(/-/g, "/")
   ).toLocaleDateString("en-US", {
@@ -29,9 +29,9 @@ export function SalesOrder({ order }: props): JSX.Element {
     setSubmittingShipped(true);
     OrderApi(session?.accessToken)
       .updateState("sales", order.id, "ship")
-      .then(() => {
+      .then((response) => {
+        setOrder(response.data);
         toast.success("Order marked as shipped");
-        mutate(session ? ["orders?view=sales", session.accessToken] : null);
       })
       .catch(() => {
         toast.error("Failed to mark order as shipped");
