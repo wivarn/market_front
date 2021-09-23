@@ -188,6 +188,7 @@ export function PurchaseOrder(props: props): JSX.Element {
 
   const [submittingReceived, setSubmittingReceived] = useState(false);
   const [session] = useSession();
+  const canReceive = ["pending_shipment", "shipped"].includes(order.aasm_state);
 
   async function receiveOrder() {
     setSubmittingReceived(true);
@@ -215,7 +216,7 @@ export function PurchaseOrder(props: props): JSX.Element {
           <SubmitButton
             text="Mark as received"
             onClick={receiveOrder}
-            disabled={order.aasm_state != "shipped"}
+            disabled={!canReceive}
             submitting={submittingReceived}
           />
         </div>
