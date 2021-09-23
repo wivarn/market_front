@@ -1,16 +1,52 @@
-import { IOrder } from "types/order";
+import { IOrder, IOrdersPaginated } from "types/order";
+
+import { BlankMessage } from "./message";
 import Link from "next/link";
 import { ListingPreviewList } from "./listing/preview";
 import { OrderApi } from "services/backendApi/order";
 import OrderTrackingForm from "./forms/orderTracking";
+import { Pagination } from "./pagination";
 import { SubmitButton } from "./buttons";
 import { stateMappings } from "constants/listings";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 import { useState } from "react";
 
 interface props {
   order: IOrder;
+}
+
+export function SalesOrders(props: IOrdersPaginated): JSX.Element {
+  const { page } = useRouter().query;
+  const sales = props.orders;
+  const totalPages = props.meta.total_pages;
+  if (sales.length == 0) {
+    return (
+      <BlankMessage>
+        <p>
+          You have not made any sales yet.
+          <br />{" "}
+          <Link href="/listings?state=active&sort=newest">
+            <a className="underline text-info hover:text-primary">
+              Start selling now
+            </a>
+          </Link>
+        </p>
+      </BlankMessage>
+    );
+  }
+
+  return (
+    <>
+      <div>
+        {sales.map((order: IOrder) => {
+          return <SalesOrder key={order.id} order={order} />;
+        })}
+      </div>
+      <Pagination initialPage={Number(page)} totalPages={totalPages} />
+    </>
+  );
 }
 
 export function SalesOrder(props: props): JSX.Element {
