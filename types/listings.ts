@@ -13,6 +13,11 @@ export interface Ilisting {
   shipping: string | number;
 }
 
+export interface IPaginatedListings {
+  listings: Ilisting[];
+  meta: { total_pages: number };
+}
+
 export interface IlistingDetails extends Ilisting {
   description: string;
   subcategory: string;

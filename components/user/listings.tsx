@@ -10,8 +10,8 @@ interface PreviewProps {
 }
 
 interface ListingProps extends PreviewProps {
-  totalPages: number;
   initialPage: number;
+  totalPages: number;
 }
 
 export const UserRecentListings = (props: PreviewProps): JSX.Element => {
