@@ -31,7 +31,7 @@ export const Pagination = ({
       onPageChange={({ selected }) => {
         // ReactPaginate indexes start at 0, we need to offset to start at 1
         const newPage = selected + 1;
-        if (router.query.page != undefined || newPage) {
+        if (router.query.page != undefined || newPage > 1) {
           router.push({
             pathname: router.pathname,
             query: { ...router.query, page: newPage },
