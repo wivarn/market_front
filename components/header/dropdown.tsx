@@ -30,7 +30,7 @@ const LinkWrapper = forwardRef(
             active
               ? "bg-primary-lightest text-primary md:text-white md:bg-primary"
               : "text-primary-lightest md:text-accent-darker",
-            "block md:px-4 py-2 text-sm font-semibold md:rounded-md"
+            "relative block md:px-4 py-2 text-sm font-semibold md:rounded-md"
           )}
           {...props}
         >
@@ -76,7 +76,16 @@ export const DropDown = (): JSX.Element => {
   function salesDot() {
     if (!userSettings.has_pending_shipment) return null;
     return (
-      <span className="float-right text-info-darker">
+      <span className="absolute px-2 text-info-darker">
+        <CircleIconXs />
+      </span>
+    );
+  }
+
+  function cartDot() {
+    if (!userSettings.has_cart) return null;
+    return (
+      <span className="absolute px-2 text-info-darker">
         <CircleIconXs />
       </span>
     );
@@ -138,6 +147,7 @@ export const DropDown = (): JSX.Element => {
                   {({ active }) => (
                     <LinkWrapper href="/cart" active={active}>
                       Cart
+                      {cartDot()}
                     </LinkWrapper>
                   )}
                 </Menu.Item>
