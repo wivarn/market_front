@@ -95,7 +95,11 @@ export function SalesOrder(props: props): JSX.Element {
             disabled={order.aasm_state != "pending_shipment"}
             submitting={submittingShipped}
           />
-          <span data-tip data-for="mark-as-shipped" className="text-center">
+          <span
+            data-tip
+            data-for="mark-as-shipped"
+            className="text-xs text-center"
+          >
             <InfoCircleSm />
             <ReactTooltip
               id="mark-as-shipped"
@@ -105,7 +109,7 @@ export function SalesOrder(props: props): JSX.Element {
               place="top"
               effect="solid"
             >
-              Orders are automatically marked <br />
+              Orders are marked <br />
               as shipped after 30 days
             </ReactTooltip>
           </span>
@@ -251,8 +255,8 @@ export function PurchaseOrder(props: props): JSX.Element {
               place="top"
               effect="solid"
             >
-              Orders are automatically marked <br />
-              as received after 30 days
+              Orders are marked as <br />
+              received after 30 days
             </ReactTooltip>
           </span>
         </div>
