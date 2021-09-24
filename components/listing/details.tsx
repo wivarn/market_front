@@ -261,8 +261,8 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
         </InfoCard>
       </div>
       <InfoCard>
-        <h4 className="pb-2 text-center border-b ">Description</h4>
-        <div className="pt-4">{props.description}</div>
+        <h4 className="pb-2 text-center border-b">Description</h4>
+        <div className="pt-4 whitespace-pre">{props.description}</div>
       </InfoCard>
     </div>
   );
