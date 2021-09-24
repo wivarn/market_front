@@ -1,5 +1,6 @@
 import { BlankMessage, GenericErrorMessage } from "components/message";
 
+import { IListingsPaginated } from "types/listings";
 import ListingPreviewGrid from "components/listing/previewGrid";
 import ListingTabs from "components/listing/tabs";
 import { NextSeo } from "next-seo";
@@ -38,7 +39,8 @@ export default function Listings(): JSX.Element {
     if (loadingListings || loadingSession)
       return <SpinnerLg text="Loading..." />;
     if (isError) return <GenericErrorMessage></GenericErrorMessage>;
-    if (!response.data.total_pages)
+    const paginatedListings: IListingsPaginated = response.data;
+    if (!paginatedListings.meta.total_pages)
       return (
         <BlankMessage>
           <div className="p-2">You have no {state} listings.</div>
@@ -47,8 +49,8 @@ export default function Listings(): JSX.Element {
 
     return (
       <ListingPreviewGrid
-        listings={response.data.listings}
-        totalPages={response.data.total_pages}
+        listings={paginatedListings.listings}
+        totalPages={paginatedListings.meta.total_pages}
         initialPage={Number(page)}
       />
     );

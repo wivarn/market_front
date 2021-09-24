@@ -217,9 +217,10 @@ export default function SearchFilter(): JSX.Element {
                   for (const filter in values) {
                     delete router.query[filter];
                   }
+                  delete router.query.page;
                   router.push({
                     pathname: router.pathname,
-                    query: { ...router.query, page: 0 },
+                    query: { ...router.query },
                   });
                   close();
                 }}

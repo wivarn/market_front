@@ -1,12 +1,15 @@
-import { IOrder } from "types/order";
+import { IOrder, IOrdersPaginated } from "types/order";
+
+import { BlankMessage } from "./message";
 import Link from "next/link";
 import { ListingPreviewList } from "./listing/preview";
 import { OrderApi } from "services/backendApi/order";
 import OrderTrackingForm from "./forms/orderTracking";
+import { Pagination } from "./pagination";
 import { SubmitButton } from "./buttons";
-import { mutate } from "swr";
 import { stateMappings } from "constants/listings";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 import { useState } from "react";
 
@@ -14,7 +17,40 @@ interface props {
   order: IOrder;
 }
 
-export function SalesOrder({ order }: props): JSX.Element {
+export function SalesOrders(props: IOrdersPaginated): JSX.Element {
+  const { page } = useRouter().query;
+  const sales = props.orders;
+  const totalPages = props.meta.total_pages;
+  if (sales.length == 0) {
+    return (
+      <BlankMessage>
+        <p>
+          You have not made any sales yet.
+          <br />{" "}
+          <Link href="/listings?state=active&sort=newest">
+            <a className="underline text-info hover:text-primary">
+              Start selling now
+            </a>
+          </Link>
+        </p>
+      </BlankMessage>
+    );
+  }
+
+  return (
+    <>
+      <div>
+        {sales.map((order: IOrder) => {
+          return <SalesOrder key={order.id} order={order} />;
+        })}
+      </div>
+      <Pagination initialPage={Number(page)} totalPages={totalPages} />
+    </>
+  );
+}
+
+export function SalesOrder(props: props): JSX.Element {
+  const [order, setOrder] = useState(props.order);
   const orderDate = new Date(
     order.created_at.replace(/-/g, "/")
   ).toLocaleDateString("en-US", {
@@ -29,9 +65,9 @@ export function SalesOrder({ order }: props): JSX.Element {
     setSubmittingShipped(true);
     OrderApi(session?.accessToken)
       .updateState("sales", order.id, "ship")
-      .then(() => {
+      .then((response) => {
+        setOrder(response.data);
         toast.success("Order marked as shipped");
-        mutate(session ? ["orders?view=sales", session.accessToken] : null);
       })
       .catch(() => {
         toast.error("Failed to mark order as shipped");
@@ -110,6 +146,36 @@ export function SalesOrder({ order }: props): JSX.Element {
   );
 }
 
+export function PurchaseOrders(props: IOrdersPaginated): JSX.Element {
+  const { page } = useRouter().query;
+  const purchases = props.orders;
+  const totalPages = props.meta.total_pages;
+  if (purchases?.length == 0) {
+    return (
+      <BlankMessage>
+        <p>
+          You have not made any purchases yet.
+          <br />{" "}
+          <Link href="/">
+            <a className="underline text-info hover:text-primary">
+              Start buying now
+            </a>
+          </Link>
+        </p>
+      </BlankMessage>
+    );
+  }
+  return (
+    <>
+      <div>
+        {purchases.map((order: IOrder) => {
+          return <PurchaseOrder key={order.id} order={order} />;
+        })}
+      </div>
+      <Pagination initialPage={Number(page)} totalPages={totalPages} />
+    </>
+  );
+}
 export function PurchaseOrder(props: props): JSX.Element {
   const [order, setOrder] = useState(props.order);
   const orderDate = new Date(
@@ -122,6 +188,7 @@ export function PurchaseOrder(props: props): JSX.Element {
 
   const [submittingReceived, setSubmittingReceived] = useState(false);
   const [session] = useSession();
+  const canReceive = ["pending_shipment", "shipped"].includes(order.aasm_state);
 
   async function receiveOrder() {
     setSubmittingReceived(true);
@@ -149,7 +216,7 @@ export function PurchaseOrder(props: props): JSX.Element {
           <SubmitButton
             text="Mark as received"
             onClick={receiveOrder}
-            disabled={order.aasm_state != "shipped"}
+            disabled={!canReceive}
             submitting={submittingReceived}
           />
         </div>

@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 
+import { IListingsPaginated } from "types/listings";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { UserListings } from "components/user/listings";
@@ -43,14 +44,14 @@ export default function ShowUserListings(): JSX.Element {
     return <SpinnerLg text="Loading..." />;
   if (listingsError) return <div>Error</div>;
 
-  const listings = listingsResponse.data;
+  const listings: IListingsPaginated = listingsResponse.data;
 
   return (
     <div className="my-4">
       <PageContainer>
         <UserListings
           listings={listings.listings}
-          totalPages={listings.total_pages}
+          totalPages={listings.meta.total_pages}
           initialPage={Number(router.query.page)}
         />
       </PageContainer>
