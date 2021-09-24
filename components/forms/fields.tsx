@@ -574,7 +574,7 @@ export const _DropdownCombobox = ({
           {...getMenuProps()}
           className={`${
             isOpen
-              ? "absolute w-full border z-50 bg-white rounded-md border-accent mt-1"
+              ? "absolute w-full border z-50 bg-white rounded-md border-accent mt-1 max-h-72 overflow-scroll"
               : ""
           }`}
         >

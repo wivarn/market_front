@@ -1,11 +1,13 @@
 import { IOrder, IOrdersPaginated } from "types/order";
 
 import { BlankMessage } from "./message";
+import { InfoCircleSm } from "./icons";
 import Link from "next/link";
 import { ListingPreviewList } from "./listing/preview";
 import { OrderApi } from "services/backendApi/order";
 import OrderTrackingForm from "./forms/orderTracking";
 import { Pagination } from "./pagination";
+import ReactTooltip from "react-tooltip";
 import { SubmitButton } from "./buttons";
 import { stateMappings } from "constants/listings";
 import { toast } from "react-toastify";
@@ -80,16 +82,37 @@ export function SalesOrder(props: props): JSX.Element {
   return (
     <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
       <div>
-        <div className="flex items-center px-4 py-2 space-x-4 text-white space-between justify-items-center bg-info-darker rounded-t-md">
-          <p className="font-bold text-center">
-            Status: {stateMappings[order.aasm_state] || order.aasm_state}{" "}
-          </p>
+        <div className="flex items-center px-4 py-2 space-x-2 text-white bg-info-darker rounded-t-md">
+          <div>
+            <div className="text-xs">Status</div>
+            <div className="font-bold">
+              {stateMappings[order.aasm_state] || order.aasm_state}
+            </div>
+          </div>
           <SubmitButton
             text="Mark as shipped"
             onClick={shipOrder}
             disabled={order.aasm_state != "pending_shipment"}
             submitting={submittingShipped}
           />
+          <span
+            data-tip
+            data-for="mark-as-shipped"
+            className="text-xs text-center"
+          >
+            <InfoCircleSm />
+            <ReactTooltip
+              id="mark-as-shipped"
+              type="dark"
+              wrapper="span"
+              multiline={true}
+              place="top"
+              effect="solid"
+            >
+              Orders are marked <br />
+              as shipped after 30 days
+            </ReactTooltip>
+          </span>
         </div>
         <table className="w-full border-b table-fixed">
           <thead className="bg-accent-lighter">
@@ -209,16 +232,33 @@ export function PurchaseOrder(props: props): JSX.Element {
   return (
     <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
       <div>
-        <div className="flex items-center px-4 py-2 space-x-4 text-white space-between justify-items-center bg-info-darker rounded-t-md">
-          <p className="font-bold text-center">
-            Status: {stateMappings[order.aasm_state] || order.aasm_state}{" "}
-          </p>
+        <div className="flex items-center px-4 py-2 space-x-2 text-white bg-info-darker rounded-t-md">
+          <div>
+            <div className="text-xs">Status</div>
+            <div className="font-bold">
+              {stateMappings[order.aasm_state] || order.aasm_state}
+            </div>
+          </div>
           <SubmitButton
             text="Mark as received"
             onClick={receiveOrder}
             disabled={!canReceive}
             submitting={submittingReceived}
           />
+          <span data-tip data-for="mark-as-received" className="text-center">
+            <InfoCircleSm />
+            <ReactTooltip
+              id="mark-as-received"
+              type="dark"
+              wrapper="span"
+              multiline={true}
+              place="top"
+              effect="solid"
+            >
+              Orders are marked as <br />
+              received after 30 days
+            </ReactTooltip>
+          </span>
         </div>
         <table className="w-full border-b table-fixed">
           <thead className="bg-accent-lighter">
