@@ -82,7 +82,7 @@ export function SalesOrder(props: props): JSX.Element {
   return (
     <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
       <div>
-        <div className="flex items-center px-4 py-2 space-x-4 text-white space-between justify-items-center bg-info-darker rounded-t-md">
+        <div className="flex items-center px-4 py-2 space-x-2 text-white bg-info-darker rounded-t-md">
           <div>
             <div className="text-xs">Status</div>
             <div className="font-bold">
