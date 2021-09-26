@@ -102,6 +102,11 @@ export function Order(props: IOrderProps): JSX.Element {
   });
 
   function renderTransitionButton() {
+    const noButton = sale
+      ? order.aasm_state != "pending_shipment"
+      : !["pending_shipment", "shipped"].includes(order.aasm_state);
+    if (noButton) return <></>;
+
     async function shipOrder() {
       setSubmittingTransition(true);
       OrderApi(session?.accessToken)
@@ -141,15 +146,11 @@ export function Order(props: IOrderProps): JSX.Element {
 
     const text = sale ? "Mark as shipped" : "Mark as received";
     const onClick = sale ? shipOrder : receiveOrder;
-    const hidden = sale
-      ? order.aasm_state != "pending_shipment"
-      : !["pending_shipment", "shipped"].includes(order.aasm_state);
 
     return (
       <SubmitButton
         text={text}
         onClick={onClick}
-        hidden={hidden}
         submitting={submittingTransition}
       />
     );
