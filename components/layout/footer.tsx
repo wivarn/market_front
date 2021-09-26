@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LogoXl } from "./logo";
+import { LogoXl } from "components/logo";
 
 export default function Footer(): JSX.Element {
   return (
