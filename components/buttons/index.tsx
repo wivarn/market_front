@@ -1,6 +1,6 @@
 import { BackArrowIconSm } from "components/icons";
 import Link from "next/link";
-import { SpinnerXs } from "./spinner";
+import { SpinnerXs } from "components/spinner";
 import { UserSettingsContext } from "contexts/userSettings";
 import { useContext } from "react";
 interface Props {

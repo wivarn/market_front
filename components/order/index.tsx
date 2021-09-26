@@ -1,5 +1,8 @@
 import { IOrder, IOrdersPaginated } from "types/order";
-import { IOverflowMenuItem, OverflowButton } from "components/overflowButton";
+import {
+  IOverflowMenuItem,
+  OverflowButton,
+} from "components/buttons/overflowButton";
 
 import { BlankMessage } from "../message";
 import { InfoCircleSm } from "../icons";

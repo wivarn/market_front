@@ -1,4 +1,4 @@
-import { OverflowButton } from "components/overflowButton";
+import { OverflowButton } from "components/buttons/overflowButton";
 
 export interface Props {
   disabled: boolean;
