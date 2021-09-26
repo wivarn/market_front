@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 import { useState } from "react";
 
-interface props {
+interface IOrderProps {
   order: IOrder;
 }
 
@@ -83,7 +83,7 @@ export function PurchaseOrders(props: IOrdersPaginated): JSX.Element {
   );
 }
 
-export function Order(props: props): JSX.Element {
+export function Order(props: IOrderProps): JSX.Element {
   const [order, setOrder] = useState(props.order);
   const [submittingTransition, setSubmittingTransition] = useState(false);
   const [session, sessionLoading] = useSession();
@@ -256,7 +256,7 @@ export function Order(props: props): JSX.Element {
           style: "currency",
           currency: "usd",
         })}{" "}
-        {order.listings[0].currency}
+        {order.currency}
       </div>
     </div>
   );

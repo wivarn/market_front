@@ -2,6 +2,7 @@ import { IAddress } from "./account";
 import { Ilisting } from "types/listings";
 
 export interface IOrder {
+  [key: string]: any;
   id: string;
   aasm_state: string;
   address: IAddress;

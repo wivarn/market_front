@@ -1,6 +1,6 @@
 import { GenericErrorMessage } from "components/message";
 import { NextSeo } from "next-seo";
-import { Order } from "components/order";
+import OrderDetails from "components/order/details";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
@@ -36,7 +36,7 @@ export default function Purchases(): JSX.Element {
       <NextSeo title="Purchase Details" />
       <PageContainer>
         <h3 className="pb-2 text-center">Purchase Details</h3>
-        <Order order={orderResponse.data} />
+        <OrderDetails order={orderResponse.data} />
       </PageContainer>
     </div>
   );
