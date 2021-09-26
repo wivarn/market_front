@@ -53,7 +53,7 @@ export default function sales(): JSX.Element {
     <div className="my-4">
       <NextSeo title="Sales" />
       <PageContainer>
-        <h3 className="pb-2 text-center">Sales</h3>
+        <h3 className="text-center">Sales</h3>
         <SalesOrders {...paginatedOrders} />
       </PageContainer>
     </div>
