@@ -1,4 +1,5 @@
 import { IOrder, IOrdersPaginated } from "types/order";
+import { IOverflowMenuItem, OverflowButton } from "components/overflowButton";
 
 import { BlankMessage } from "../message";
 import { InfoCircleSm } from "../icons";
@@ -88,10 +89,12 @@ export function Order(props: IOrderProps): JSX.Element {
   const [order, setOrder] = useState(props.order);
   const [submittingTransition, setSubmittingTransition] = useState(false);
   const [session, sessionLoading] = useSession();
+  const router = useRouter();
 
   if (sessionLoading) return <SpinnerLg />;
 
   const sale = order.seller.id == session?.accountId;
+  const detailsHref = `/account/${sale ? "sales" : "purchases"}/${order.id}`;
 
   const orderDate = new Date(
     order.created_at.replace(/-/g, "/")
@@ -156,6 +159,21 @@ export function Order(props: IOrderProps): JSX.Element {
     );
   }
 
+  function renderOverflowButton() {
+    const menuItems: IOverflowMenuItem[] = [];
+
+    if (!router.query.id) {
+      menuItems.push({ href: detailsHref, text: "View Order Details" });
+    }
+
+    menuItems.push({
+      href: `/messages/${sale ? order.buyer.id : order.seller.id}`,
+      text: `Message ${sale ? "Buyer" : "Seller"}`,
+    });
+
+    return <OverflowButton menutItems={menuItems} />;
+  }
+
   function renderTracking() {
     if (sale) {
       return (
@@ -173,19 +191,10 @@ export function Order(props: IOrderProps): JSX.Element {
     }
   }
 
-  function LinkToDetails({
-    children,
-  }: {
-    children: React.ReactNode;
-  }): JSX.Element {
-    const href = `/account/${sale ? "sales" : "purchases"}/${order.id}`;
-    return <Link href={href}>{children}</Link>;
-  }
-
   return (
     <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
       <div>
-        <div className="flex items-center px-4 py-2 space-x-2 text-white bg-info-darker rounded-t-md">
+        <div className="relative flex items-center px-4 py-2 space-x-2 text-white bg-info-darker rounded-t-md">
           <div>
             <div className="text-xs">Status</div>
             <div className="font-bold">
@@ -211,6 +220,7 @@ export function Order(props: IOrderProps): JSX.Element {
               as shipped after 30 days
             </ReactTooltip>
           </span>
+          <span className="absolute right-3">{renderOverflowButton()}</span>
         </div>
         <table className="w-full border-b table-fixed">
           <thead className="bg-accent-lighter">
@@ -223,9 +233,9 @@ export function Order(props: IOrderProps): JSX.Element {
           <tbody className="text-center">
             <tr>
               <td>
-                <LinkToDetails>
+                <Link href={detailsHref}>
                   <a className="underline hover:text-primary">#{order.id}</a>
-                </LinkToDetails>
+                </Link>
               </td>
               <td>
                 <Link href={`/users/${order.buyer.id}`}>
