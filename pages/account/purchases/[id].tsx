@@ -1,3 +1,4 @@
+import { BackButton } from "components/buttons";
 import { GenericErrorMessage } from "components/message";
 import { NextSeo } from "next-seo";
 import OrderDetails from "components/order/details";
@@ -33,9 +34,12 @@ export default function Purchases(): JSX.Element {
 
   return (
     <div className="my-4">
-      <NextSeo title="Purchase Details" />
+      <NextSeo title="Purchase Info" />
       <PageContainer>
-        <h3 className="pb-2 text-center">Purchase Details</h3>
+        <div className="absolute">
+          <BackButton text="Back" href="/account/purchases" />
+        </div>
+        <h3 className="text-center">Purchase Info</h3>
         <OrderDetails order={orderResponse.data} />
       </PageContainer>
     </div>

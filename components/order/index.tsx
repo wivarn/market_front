@@ -101,7 +101,7 @@ export function Order(props: IOrderProps): JSX.Element {
     year: "numeric",
   });
 
-  function renderTrasnitionButton() {
+  function renderTransitionButton() {
     async function shipOrder() {
       setSubmittingTransition(true);
       OrderApi(session?.accessToken)
@@ -141,7 +141,7 @@ export function Order(props: IOrderProps): JSX.Element {
 
     const text = sale ? "Mark as shipped" : "Mark as received";
     const onClick = sale ? shipOrder : receiveOrder;
-    const disabled = sale
+    const hidden = sale
       ? order.aasm_state != "pending_shipment"
       : !["pending_shipment", "shipped"].includes(order.aasm_state);
 
@@ -149,7 +149,7 @@ export function Order(props: IOrderProps): JSX.Element {
       <SubmitButton
         text={text}
         onClick={onClick}
-        disabled={disabled}
+        hidden={hidden}
         submitting={submittingTransition}
       />
     );
@@ -191,7 +191,7 @@ export function Order(props: IOrderProps): JSX.Element {
               {stateMappings[order.aasm_state] || order.aasm_state}
             </div>
           </div>
-          {renderTrasnitionButton()}
+          {renderTransitionButton()}
           <span
             data-tip
             data-for="mark-as-shipped"
@@ -256,13 +256,15 @@ export function Order(props: IOrderProps): JSX.Element {
         })}
       </div>
       {renderTracking()}
-      <div className="px-4 py-2 font-bold text-right text-white bg-info-darker rounded-b-md">
-        Total ={" "}
-        {Number(order.total).toLocaleString("en", {
-          style: "currency",
-          currency: "usd",
-        })}{" "}
-        {order.currency}
+      <div className="px-4 py-2 text-right text-white bg-info-darker rounded-b-md">
+        <div className="text-xs">Total</div>
+        <div className="font-bold">
+          {Number(order.total).toLocaleString("en", {
+            style: "currency",
+            currency: "usd",
+          })}{" "}
+          {order.currency}
+        </div>
       </div>
     </div>
   );

@@ -42,7 +42,7 @@ export default function Purchases(): JSX.Element {
     <div className="my-4">
       <NextSeo title="Purchases" />
       <PageContainer>
-        <h3 className="pb-2 text-center">Purchases</h3>
+        <h3 className="text-center">Purchases</h3>
         <PurchaseOrders {...paginatedOrders} />
       </PageContainer>
     </div>

@@ -22,6 +22,7 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
 
     return (
       <div className="max-w-4xl mx-auto mt-4">
+        <h3 className="mb-4 text-center">History</h3>
         <table className="w-full border-b table-fixed">
           <thead className="bg-accent-lighter">
             <tr>

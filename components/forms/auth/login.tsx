@@ -109,13 +109,13 @@ export default function LoginForm(): JSX.Element {
                     text="Log in"
                     submitting={props.isSubmitting}
                   />
-                  <Link href="/auth/forgotPassword">
-                    <a className="underline text-info">
-                      <div className="py-2">
-                        <span className="text-sm">Forgot Password?</span>
-                      </div>
-                    </a>
-                  </Link>
+                  <div>
+                    <Link href="/auth/forgotPassword">
+                      <a className="text-sm underline text-info">
+                        Forgot Password?
+                      </a>
+                    </Link>
+                  </div>
                 </div>
                 <p className="text-sm text-accent-dark">
                   By logging in you agree to Skwirl&#39;s{" "}
