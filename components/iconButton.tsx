@@ -19,15 +19,3 @@ export const IconButtonLink = (props: LinkProps): JSX.Element => {
     </div>
   );
 };
-
-export const IconButtonLinkLight = (props: LinkProps): JSX.Element => {
-  return (
-    <div className="group">
-      <div className="text-accent-light hover:text-accent-lightest">
-        <Link href={props.url}>
-          <a target={props.target}>{props.icon}</a>
-        </Link>
-      </div>
-    </div>
-  );
-};
