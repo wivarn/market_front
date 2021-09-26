@@ -171,7 +171,9 @@ export function Order(props: IOrderProps): JSX.Element {
       text: `Message ${sale ? "Buyer" : "Seller"}`,
     });
 
-    return <OverflowButton menutItems={menuItems} />;
+    return (
+      <OverflowButton menutItems={menuItems} menuItemsClassName="-right-8" />
+    );
   }
 
   function renderTracking() {

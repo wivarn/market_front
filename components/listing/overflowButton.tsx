@@ -10,5 +10,11 @@ export const ListingOverflowButton = (props: Props): JSX.Element => {
     { href: "/listings/template", text: "Listing Template" },
   ];
 
-  return <OverflowButton {...props} menutItems={menuItems} />;
+  return (
+    <OverflowButton
+      {...props}
+      menutItems={menuItems}
+      menuItemsClassName="-right-4 md:-left-4"
+    />
+  );
 };

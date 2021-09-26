@@ -16,6 +16,7 @@ export interface IOverflowMenuItem {
 
 interface IProps {
   disabled?: boolean;
+  menuItemsClassName?: string;
   menutItems: IOverflowMenuItem[];
 }
 
@@ -71,7 +72,9 @@ export const OverflowButton = (props: IProps): JSX.Element => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute z-50 px-2 text-left bg-white rounded-md shadow-md w-max -right-4 md:-left-4 ring-1 ring-accent focus:outline-none">
+            <Menu.Items
+              className={`absolute z-50 px-2 text-left bg-white rounded-md shadow-md w-max ring-1 ring-accent focus:outline-none ${props.menuItemsClassName}`}
+            >
               <div className="py-2">
                 {props.menutItems.map((item) => {
                   return (
