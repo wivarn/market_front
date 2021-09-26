@@ -10,6 +10,7 @@ import { Pagination } from "../pagination";
 import ReactTooltip from "react-tooltip";
 import { SpinnerLg } from "../spinner";
 import { SubmitButton } from "../buttons";
+import { mutate } from "swr";
 import { stateMappings } from "constants/listings";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -107,6 +108,7 @@ export function Order(props: IOrderProps): JSX.Element {
         .updateState("sales", order.id, "ship")
         .then((response) => {
           setOrder(response.data);
+          mutate([`orders/${order.id}?relation=sales`, session?.accessToken]);
           toast.success("Order marked as shipped");
         })
         .catch(() => {
@@ -123,6 +125,10 @@ export function Order(props: IOrderProps): JSX.Element {
         .updateState("purchases", order.id, "receive")
         .then((response) => {
           setOrder(response.data);
+          mutate([
+            `orders/${order.id}?relation=purchases`,
+            session?.accessToken,
+          ]);
           toast.success("Order marked as received");
         })
         .catch(() => {
