@@ -166,6 +166,15 @@ export function Order(props: props): JSX.Element {
     }
   }
 
+  function LinkToDetails({
+    children,
+  }: {
+    children: React.ReactNode;
+  }): JSX.Element {
+    const href = `/account/${sale ? "sales" : "purchases"}/${order.id}`;
+    return <Link href={href}>{children}</Link>;
+  }
+
   return (
     <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
       <div>
@@ -206,7 +215,11 @@ export function Order(props: props): JSX.Element {
           </thead>
           <tbody className="text-center">
             <tr>
-              <td>#{order.id}</td>
+              <td>
+                <LinkToDetails>
+                  <a className="underline hover:text-primary">#{order.id}</a>
+                </LinkToDetails>
+              </td>
               <td>
                 <Link href={`/users/${order.buyer.id}`}>
                   <a className="underline hover:text-primary">

@@ -12,7 +12,7 @@ export default function Purchases(): JSX.Element {
   const [session, sessionLoading] = useSession();
   const router = useRouter();
 
-  function getPurchases() {
+  function getOrders() {
     const query = Object.entries(router.query)
       .map((q) => {
         return q[0] + "=" + q[1];
@@ -20,35 +20,30 @@ export default function Purchases(): JSX.Element {
       .join("&");
     const { data, error } = useSWR(
       session && router.isReady
-        ? [`orders?view=purchases&${query}`, session.accessToken]
+        ? [`orders?relation=purchases&${query}`, session.accessToken]
         : null
     );
 
     return {
-      purchasesResponse: data,
-      purchasesLoading: !error && !data,
-      purchasesError: error,
+      ordersResponse: data,
+      ordersLoading: !error && !data,
+      ordersError: error,
     };
   }
 
-  const {
-    purchasesResponse,
-    purchasesLoading,
-    purchasesError,
-  } = getPurchases();
+  const { ordersResponse, ordersLoading, ordersError } = getOrders();
 
-  if (sessionLoading || purchasesLoading)
-    return <SpinnerLg text="Loading..." />;
-  if (purchasesError) return <GenericErrorMessage />;
+  if (sessionLoading || ordersLoading) return <SpinnerLg text="Loading..." />;
+  if (ordersError) return <GenericErrorMessage />;
 
-  const paginatedSales: IOrdersPaginated = purchasesResponse.data;
+  const paginatedOrders: IOrdersPaginated = ordersResponse.data;
 
   return (
     <div className="my-4">
       <NextSeo title="Purchases" />
       <PageContainer>
         <h3 className="pb-2 text-center">Purchases</h3>
-        <PurchaseOrders {...paginatedSales} />
+        <PurchaseOrders {...paginatedOrders} />
       </PageContainer>
     </div>
   );
