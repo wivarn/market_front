@@ -1,15 +1,15 @@
 import { IOrder, IOrdersPaginated } from "types/order";
 
-import { BlankMessage } from "./message";
-import { InfoCircleSm } from "./icons";
+import { BlankMessage } from "../message";
+import { InfoCircleSm } from "../icons";
 import Link from "next/link";
-import { ListingPreviewList } from "./listing/preview";
+import { ListingPreviewList } from "../listing/preview";
 import { OrderApi } from "services/backendApi/order";
-import OrderTrackingForm from "./forms/orderTracking";
-import { Pagination } from "./pagination";
+import OrderTrackingForm from "../forms/orderTracking";
+import { Pagination } from "../pagination";
 import ReactTooltip from "react-tooltip";
-import { SpinnerLg } from "./spinner";
-import { SubmitButton } from "./buttons";
+import { SpinnerLg } from "../spinner";
+import { SubmitButton } from "../buttons";
 import { stateMappings } from "constants/listings";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
