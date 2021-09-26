@@ -199,7 +199,7 @@ export default function SearchFilter(): JSX.Element {
             <FilterIconSm /> <span className="hidden md:flex">Filter</span>
           </Popover.Button>
           <Popover.Panel>
-            <div className="absolute z-10 p-2 px-4 border rounded-lg top-10 bg-accent-lightest border-accent-light">
+            <div className="absolute z-10 p-2 px-4 border rounded-lg top-12 bg-accent-lightest border-accent-light">
               <Formik
                 initialValues={initialValues}
                 enableReinitialize={true}
