@@ -48,7 +48,9 @@ export default function ShowListing(
   return (
     <div className="my-4">
       <PageContainer yPadding="py-2">
-        <BackButton text="Back" />
+        <div className="absolute">
+          <BackButton text="Back" />
+        </div>
         <NextSeo
           title={listing.title}
           description={listing.description}
