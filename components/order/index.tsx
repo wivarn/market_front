@@ -5,6 +5,7 @@ import {
 } from "components/buttons/overflowButton";
 
 import { BlankMessage } from "../message";
+import CancelOrder from "./cancel";
 import { InfoCircleSm } from "../icons";
 import Link from "next/link";
 import { ListingPreviewList } from "../listing/preview";
@@ -91,6 +92,7 @@ export function PurchaseOrders(props: IOrdersPaginated): JSX.Element {
 export function Order(props: IOrderProps): JSX.Element {
   const [order, setOrder] = useState(props.order);
   const [submittingTransition, setSubmittingTransition] = useState(false);
+  const [cancelModal, setCancelModal] = useState(false);
   const [session, sessionLoading] = useSession();
   const router = useRouter();
 
@@ -174,6 +176,17 @@ export function Order(props: IOrderProps): JSX.Element {
       text: `Message ${sale ? "Buyer" : "Seller"}`,
     });
 
+    if (sale && order.aasm_state == "pending_shipment") {
+      const openCancelModal = async () => {
+        setCancelModal(true);
+      };
+      menuItems.push({
+        href: `#cancel-order-${order.id}`,
+        text: "Cancel Order",
+        onClick: openCancelModal,
+      });
+    }
+
     return (
       <OverflowButton menutItems={menuItems} menuItemsClassName="-right-8" />
     );
@@ -197,91 +210,94 @@ export function Order(props: IOrderProps): JSX.Element {
   }
 
   return (
-    <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
-      <div>
-        <div className="relative flex items-center px-4 py-2 space-x-2 text-white bg-info-darker rounded-t-md">
-          <div>
-            <div className="text-xs">Status</div>
-            <div className="font-bold">
-              {stateMappings[order.aasm_state] || order.aasm_state}
+    <>
+      <CancelOrder open={cancelModal} setOpen={setCancelModal} order={order} />
+      <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
+        <div>
+          <div className="relative flex items-center px-4 py-2 space-x-2 text-white bg-info-darker rounded-t-md">
+            <div>
+              <div className="text-xs">Status</div>
+              <div className="font-bold">
+                {stateMappings[order.aasm_state] || order.aasm_state}
+              </div>
             </div>
-          </div>
-          {renderTransitionButton()}
-          <span
-            data-tip
-            data-for="mark-as-shipped"
-            className="text-xs text-center"
-          >
-            <InfoCircleSm />
-            <ReactTooltip
-              id="mark-as-shipped"
-              type="dark"
-              wrapper="span"
-              multiline={true}
-              place="top"
-              effect="solid"
+            {renderTransitionButton()}
+            <span
+              data-tip
+              data-for="mark-as-shipped"
+              className="text-xs text-center"
             >
-              Orders are marked <br />
-              as shipped after 30 days
-            </ReactTooltip>
-          </span>
-          <span className="absolute right-3">{renderOverflowButton()}</span>
-        </div>
-        <table className="w-full border-b table-fixed">
-          <thead className="bg-accent-lighter">
-            <tr>
-              <th className="w-1/3">Order Number</th>
-              <th className="w-1/3">Order By</th>
-              <th className="w-1/3">Order Date</th>
-            </tr>
-          </thead>
-          <tbody className="text-center">
-            <tr>
-              <td>
-                <Link href={detailsHref}>
-                  <a className="underline hover:text-primary">#{order.id}</a>
-                </Link>
-              </td>
-              <td>
-                <Link href={`/users/${order.buyer.id}`}>
-                  <a className="underline hover:text-primary">
-                    {order.buyer.full_name}
-                  </a>
-                </Link>
-              </td>
-              <td>{orderDate}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div className="flex px-4 py-2 border-b text-accent-darker bg-accent-lightest">
-          <span className="flex text-sm">
-            Ship to:{" "}
-            <span className="px-2 text-sm">
-              {order.buyer.full_name}
-              <br />
-              {order.address.street1} {order.address.street2} <br />
-              {order.address.city}, {order.address.state} <br />
-              {order.address.zip}, {order.address.country}
+              <InfoCircleSm />
+              <ReactTooltip
+                id="mark-as-shipped"
+                type="dark"
+                wrapper="span"
+                multiline={true}
+                place="top"
+                effect="solid"
+              >
+                Orders are marked <br />
+                as shipped after 30 days
+              </ReactTooltip>
             </span>
-          </span>
+            <span className="absolute right-3">{renderOverflowButton()}</span>
+          </div>
+          <table className="w-full border-b table-fixed">
+            <thead className="bg-accent-lighter">
+              <tr>
+                <th className="w-1/3">Order Number</th>
+                <th className="w-1/3">Order By</th>
+                <th className="w-1/3">Order Date</th>
+              </tr>
+            </thead>
+            <tbody className="text-center">
+              <tr>
+                <td>
+                  <Link href={detailsHref}>
+                    <a className="underline hover:text-primary">#{order.id}</a>
+                  </Link>
+                </td>
+                <td>
+                  <Link href={`/users/${order.buyer.id}`}>
+                    <a className="underline hover:text-primary">
+                      {order.buyer.full_name}
+                    </a>
+                  </Link>
+                </td>
+                <td>{orderDate}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div className="flex px-4 py-2 border-b text-accent-darker bg-accent-lightest">
+            <span className="flex text-sm">
+              Ship to:{" "}
+              <span className="px-2 text-sm">
+                {order.buyer.full_name}
+                <br />
+                {order.address.street1} {order.address.street2} <br />
+                {order.address.city}, {order.address.state} <br />
+                {order.address.zip}, {order.address.country}
+              </span>
+            </span>
+          </div>
+        </div>
+        <div>
+          {order.listings.map((listing) => {
+            return <ListingPreviewList key={listing.id} {...listing} />;
+          })}
+        </div>
+        {renderTracking()}
+        <div className="px-4 py-2 text-right text-white bg-info-darker rounded-b-md">
+          <div className="text-xs">Total</div>
+          <div className="font-bold">
+            {Number(order.total).toLocaleString("en", {
+              style: "currency",
+              currency: "usd",
+            })}{" "}
+            {order.currency}
+          </div>
         </div>
       </div>
-      <div>
-        {order.listings.map((listing) => {
-          return <ListingPreviewList key={listing.id} {...listing} />;
-        })}
-      </div>
-      {renderTracking()}
-      <div className="px-4 py-2 text-right text-white bg-info-darker rounded-b-md">
-        <div className="text-xs">Total</div>
-        <div className="font-bold">
-          {Number(order.total).toLocaleString("en", {
-            style: "currency",
-            currency: "usd",
-          })}{" "}
-          {order.currency}
-        </div>
-      </div>
-    </div>
+    </>
   );
 }

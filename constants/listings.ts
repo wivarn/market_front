@@ -228,4 +228,5 @@ export const stateMappings: { [key: string]: string } = {
   shipped: "Shipped",
   received: "Received",
   reserved: "Reserved",
+  cancelled: "Cancelled",
 };

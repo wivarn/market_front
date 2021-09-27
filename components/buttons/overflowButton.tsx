@@ -12,6 +12,7 @@ interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 export interface IOverflowMenuItem {
   href: string;
   text: string;
+  onClick?: () => Promise<void>;
 }
 
 interface IProps {
@@ -78,7 +79,7 @@ export const OverflowButton = (props: IProps): JSX.Element => {
               <div className="py-2">
                 {props.menutItems.map((item) => {
                   return (
-                    <Menu.Item key={item.href}>
+                    <Menu.Item key={item.href} onClick={item.onClick}>
                       {({ active }) => (
                         <LinkWrapper href={item.href} active={active}>
                           {item.text}

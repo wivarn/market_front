@@ -14,6 +14,7 @@ export const OrderApi = (
     id: string,
     state_transition: string
   ) => Promise<AxiosResponse<any>>;
+  cancel: (id: string) => Promise<AxiosResponse<any>>;
 } => {
   const update = async (relation: string, id: string, tracking: string) => {
     return base.post(
@@ -45,5 +46,13 @@ export const OrderApi = (
     );
   };
 
-  return { update, updateState };
+  const cancel = async (id: string) => {
+    return base.post(
+      `orders/${id}/cancel`,
+      { notes: "Cancelled" },
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+  };
+
+  return { update, updateState, cancel };
 };
