@@ -90,9 +90,13 @@ export default function CancelOrder({
               </Dialog.Title>
               <div className="mt-2">
                 <p className="text-sm text-accent-darker">
-                  Are you sure you want to cancel this order? A full refund of $
-                  {order.total} {order.currency} will be issued to the buyer.
-                  This action cannot be undone.
+                  Are you sure you want to cancel this order? A full refund of{" "}
+                  {Number(order.total).toLocaleString("en", {
+                    style: "currency",
+                    currency: "usd",
+                  })}{" "}
+                  {order.currency} will be issued to the buyer. This action
+                  cannot be undone.
                 </p>
               </div>
 
