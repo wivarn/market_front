@@ -42,7 +42,7 @@ export default function Purchases(): JSX.Element {
         </div>
         <h3 className="text-center">Sale Info</h3>
         <OrderDetails order={orderResponse.data} />
-        <OrderRefundForm />
+        <OrderRefundForm order={orderResponse.data} />
       </PageContainer>
     </div>
   );

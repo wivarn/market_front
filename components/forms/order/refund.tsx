@@ -6,6 +6,7 @@ import { Form, Formik } from "formik";
 import FormContainer from "../container";
 import { GenericErrorMessage } from "components/message";
 import { IDropdownOption } from "types/form";
+import { IOrder } from "types/order";
 import { OrderApi } from "services/backendApi/order";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
@@ -18,19 +19,36 @@ export const reasonList: IDropdownOption[] = [
   { value: "requested_by_customer", text: "Requested By Customer" },
   { value: "duplicate", text: "Duplicate" },
   { value: "fraudulent", text: "Draudulent" },
-  { value: null, text: "Other" },
+  { value: "", text: "Other" },
 ];
 
-const refundOrderSchema = Yup.object().shape({
-  amount: Yup.number()
-    .min(0.01, "Price must more than 0.01")
-    .max(99999999.99, "Price must be less than 99999999.99"),
-});
+interface IProps {
+  order: IOrder;
+}
 
-export default function OrderRefundForm(): JSX.Element {
+export default function OrderRefundForm({ order }: IProps): JSX.Element {
   const router = useRouter();
   const [session, sessionLoading] = useSession();
   const [error, setError] = useState(false);
+
+  const refundOrderSchema = Yup.object().shape({
+    amount: Yup.number()
+      .min(0.01, "Price must more than 0.01")
+      .max(
+        Number(order.total),
+        `Price must be less than ${Number(order.total)}`
+      ),
+    reason: Yup.mixed().oneOf(
+      reasonList.map((reason): string | null => {
+        return reason.value;
+      })
+    ),
+    notes: Yup.mixed().when("reason", (reason, schema) => {
+      if (reason == null) {
+        return schema.required("Notes is required when reason is 'Other'");
+      }
+    }),
+  });
 
   if (sessionLoading || !router.isReady) return <SpinnerLg text="Loading..." />;
   if (error) return <GenericErrorMessage />;
