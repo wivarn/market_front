@@ -1,11 +1,7 @@
 import * as Yup from "yup";
 
+import { IDropdownOption } from "types/form";
 import { ObjectShape } from "yup/lib/object";
-
-interface IDropdownOption {
-  value: string;
-  text: string;
-}
 
 interface ICategoryDropdownOption extends IDropdownOption {
   subCategory: IDropdownOption[];

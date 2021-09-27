@@ -61,7 +61,7 @@ type MultiPictureProps = FieldHookConfig<{ url: string }[]> &
   };
 
 export type ListingComboBoxOption = {
-  value: string;
+  value: string | null;
   text: string;
   disabled?: boolean;
 };

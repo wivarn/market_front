@@ -1,4 +1,5 @@
 import { AxiosResponse } from "axios";
+import { IRefundRequest } from "./../../types/order";
 import { base } from "./base";
 
 export const OrderApi = (
@@ -14,6 +15,7 @@ export const OrderApi = (
     id: string,
     state_transition: string
   ) => Promise<AxiosResponse<any>>;
+  refund: (id: string, refund: IRefundRequest) => Promise<AxiosResponse<any>>;
   cancel: (id: string) => Promise<AxiosResponse<any>>;
 } => {
   const update = async (relation: string, id: string, tracking: string) => {
@@ -46,6 +48,14 @@ export const OrderApi = (
     );
   };
 
+  const refund = async (id: string, refund: IRefundRequest) => {
+    return base.post(
+      `orders/${id}/cancel`,
+      { refund },
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+  };
+
   const cancel = async (id: string) => {
     return base.post(
       `orders/${id}/cancel`,
@@ -54,5 +64,5 @@ export const OrderApi = (
     );
   };
 
-  return { update, updateState, cancel };
+  return { update, updateState, refund, cancel };
 };

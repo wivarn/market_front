@@ -32,3 +32,14 @@ export interface IOrderDetails extends IOrder {
   refunded_at: string | null;
   received_at: string | null;
 }
+
+export interface IRefundRequest {
+  amount: string | number;
+  reason: string;
+  notes?: string;
+}
+
+export interface IRefund extends IRefundRequest {
+  status: string;
+  updated_at: string;
+}
