@@ -49,11 +49,9 @@ export const OrderApi = (
   };
 
   const refund = async (id: string, refund: IRefundRequest) => {
-    return base.post(
-      `orders/${id}/cancel`,
-      { refund },
-      { headers: { Authorization: `Bearer ${accessToken}` } }
-    );
+    return base.post(`orders/${id}/refund`, refund, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
   };
 
   const cancel = async (id: string) => {

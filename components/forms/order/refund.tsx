@@ -5,22 +5,15 @@ import { Form, Formik } from "formik";
 
 import FormContainer from "../container";
 import { GenericErrorMessage } from "components/message";
-import { IDropdownOption } from "types/form";
 import { IOrder } from "types/order";
 import { OrderApi } from "services/backendApi/order";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
+import { refundReasonList } from "constants/orders";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
 import { useState } from "react";
-
-export const reasonList: IDropdownOption[] = [
-  { value: "requested_by_customer", text: "Requested By Customer" },
-  { value: "duplicate", text: "Duplicate" },
-  { value: "fraudulent", text: "Draudulent" },
-  { value: "", text: "Other" },
-];
 
 interface IProps {
   order: IOrder;
@@ -39,7 +32,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
         `Price must be less than ${Number(order.total)}`
       ),
     reason: Yup.mixed().oneOf(
-      reasonList.map((reason): string | null => {
+      refundReasonList.map((reason): string | null => {
         return reason.value;
       })
     ),
@@ -58,7 +51,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
       <Formik
         initialValues={{
           amount: 0,
-          reason: "",
+          reason: "requested_by_customer",
         }}
         validationSchema={refundOrderSchema}
         onSubmit={(values, actions) => {
@@ -82,7 +75,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
               <h5 className="text-center text-accent-darker">Offer a Refund</h5>
 
               <NumberField name="amount" label="Amount" />
-              <DropdownCombobox name="reason" items={reasonList} />
+              <DropdownCombobox name="reason" items={refundReasonList} />
               <TextField name="notes" label="Notes" />
 
               <SubmitButtonFull
