@@ -176,12 +176,7 @@ export function Order(props: IOrderProps): JSX.Element {
       text: `Message ${sale ? "Buyer" : "Seller"}`,
     });
 
-    if (
-      sale &&
-      ["pending_shipment", "shipped", "received", "refunded"].includes(
-        order.aasm_state
-      )
-    ) {
+    if (sale && ["pending_shipment", "shipped"].includes(order.aasm_state)) {
       menuItems.push({
         href: `/account/sales/${order.id}/refund#refund-${order.id}`,
         text: "Offer Refund",

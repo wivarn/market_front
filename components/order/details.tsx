@@ -15,6 +15,7 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
       pending_shipment_at: string;
       shipped_at: string;
       received_at: string;
+      cancelled_at: string;
     } = {
       pending_shipment_at: "Paid",
       shipped_at: "Shipped",

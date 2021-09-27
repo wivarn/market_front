@@ -9,6 +9,7 @@ import { IOrder } from "types/order";
 import { OrderApi } from "services/backendApi/order";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
+import { mutate } from "swr";
 import { refundReasonList } from "constants/orders";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -26,10 +27,10 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
 
   const refundOrderSchema = Yup.object().shape({
     amount: Yup.number()
-      .min(0.01, "Price must more than 0.01")
+      .min(0.01, "Refund must more than 0.01")
       .max(
         Number(order.total),
-        `Price must be less than ${Number(order.total)}`
+        `Refund must be less than ${Number(order.total)}`
       ),
     reason: Yup.mixed().oneOf(
       refundReasonList.map((reason): string | null => {
@@ -58,7 +59,12 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
           OrderApi(session?.accessToken)
             .refund(`${router.query.id}`, values)
             .then(() => {
+              mutate([
+                `orders/${order.id}?relation=sales`,
+                session?.accessToken,
+              ]);
               toast.success("Refund request submitted");
+              actions.resetForm();
             })
             .catch((error) => {
               toast.error(error.response.data.error);
