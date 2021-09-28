@@ -294,8 +294,8 @@ export function Order(props: IOrderProps): JSX.Element {
                 place="top"
                 effect="solid"
               >
-                Orders are marked <br />
-                as shipped after 30 days
+                Orders are marked as <br />
+                received after 30 days
               </ReactTooltip>
             </span>
             <span className="absolute right-3">{renderOverflowButton()}</span>
