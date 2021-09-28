@@ -40,6 +40,7 @@ export const PrimaryButton = (props: Props): JSX.Element => {
   return (
     <_Button
       {...props}
+      type="button"
       buttonClassName="text-accent-lightest bg-primary disabled:bg-primary-light hover:bg-primary-dark"
     />
   );
