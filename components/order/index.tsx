@@ -16,6 +16,7 @@ import ReactTooltip from "react-tooltip";
 import { SpinnerLg } from "../spinner";
 import { SubmitButton } from "../buttons";
 import { mutate } from "swr";
+import { refundReasonList } from "constants/orders";
 import { stateMappings } from "constants/listings";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -99,6 +100,7 @@ export function Order(props: IOrderProps): JSX.Element {
   if (sessionLoading) return <SpinnerLg />;
 
   const sale = order.seller.id == session?.accountId;
+  const refunded = !!order.refunds.length;
   const detailsHref = `/account/${sale ? "sales" : "purchases"}/${order.id}`;
 
   const orderDate = new Date(
@@ -109,11 +111,20 @@ export function Order(props: IOrderProps): JSX.Element {
     year: "numeric",
   });
 
+  function renderState() {
+    if (order.aasm_state == "cancelled") return stateMappings[order.aasm_state];
+    if (refundReasonList) return "Refunded";
+    return stateMappings[order.aasm_state] || order.aasm_state;
+  }
+
   function renderTransitionButton() {
-    const noButton = sale
-      ? order.aasm_state != "pending_shipment"
-      : !["pending_shipment", "shipped"].includes(order.aasm_state);
-    if (noButton) return <></>;
+    if (refunded) return null;
+    if (sale) {
+      if (order.aasm_state != "pending_shipment") return null;
+    } else {
+      if (!["pending_shipment", "shipped"].includes(order.aasm_state))
+        return null;
+    }
 
     async function shipOrder() {
       setSubmittingTransition(true);
@@ -183,7 +194,7 @@ export function Order(props: IOrderProps): JSX.Element {
       });
     }
 
-    if (sale && order.aasm_state == "pending_shipment") {
+    if (sale && order.aasm_state == "pending_shipment" && !refunded) {
       const openCancelModal = async () => {
         setCancelModal(true);
       };
@@ -229,11 +240,7 @@ export function Order(props: IOrderProps): JSX.Element {
           <div className="relative flex items-center px-4 py-2 space-x-2 text-white bg-info-darker rounded-t-md">
             <div>
               <div className="text-xs">Status</div>
-              <div className="font-bold">
-                {order.refunds.length
-                  ? "Refunded"
-                  : stateMappings[order.aasm_state] || order.aasm_state}
-              </div>
+              <div className="font-bold">{renderState()}</div>
             </div>
             {renderTransitionButton()}
             <span
