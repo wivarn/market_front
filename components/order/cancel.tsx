@@ -52,7 +52,7 @@ export default function CancelOrder({
     <Transition appear show={open} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed inset-0 z-10 overflow-y-auto"
+        className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-70"
         onClose={closeModal}
       >
         <div className="min-h-screen px-4 text-center">
@@ -104,13 +104,13 @@ export default function CancelOrder({
                 </p>
               </div>
 
-              <div className="space-x-2">
+              <div className="mt-2 space-x-2">
                 <SubmitButton
                   onClick={cancelOrder}
                   submitting={submitting}
-                  text="Ok"
+                  text="Cancel Order"
                 />
-                <SecondaryButton onClick={closeModal} text="Cancel" />
+                <SecondaryButton onClick={closeModal} text="Go Back" />
               </div>
             </div>
           </Transition.Child>
