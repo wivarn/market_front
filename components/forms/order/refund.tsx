@@ -1,6 +1,5 @@
 import * as Yup from "yup";
 
-import { Dispatch, SetStateAction, useState } from "react";
 import { DropdownCombobox, NumberField, TextField } from "../fields";
 import { Form, Formik } from "formik";
 
@@ -10,20 +9,18 @@ import { IOrderDetails } from "types/order";
 import { OrderApi } from "services/backendApi/order";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
+import { mutate } from "swr";
 import { refundReasonList } from "constants/orders";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
+import { useState } from "react";
 
 interface IProps {
   order: IOrderDetails;
-  setOrder: Dispatch<SetStateAction<IOrderDetails | null>>;
 }
 
-export default function OrderRefundForm({
-  order,
-  setOrder,
-}: IProps): JSX.Element {
+export default function OrderRefundForm({ order }: IProps): JSX.Element {
   const router = useRouter();
   const [session, sessionLoading] = useSession();
   const [error, setError] = useState(false);
@@ -61,8 +58,11 @@ export default function OrderRefundForm({
         onSubmit={(values, actions) => {
           OrderApi(session?.accessToken)
             .refund(`${router.query.id}`, values)
-            .then((response) => {
-              setOrder(response.data);
+            .then(() => {
+              mutate([
+                `orders/${order.id}?relation=sales`,
+                session?.accessToken,
+              ]);
               toast.success("Refund request submitted");
               actions.resetForm();
             })

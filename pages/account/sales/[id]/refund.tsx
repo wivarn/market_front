@@ -1,6 +1,5 @@
 import { BackButton } from "components/buttons";
 import { GenericErrorMessage } from "components/message";
-import { IOrderDetails } from "types/order";
 import { NextSeo } from "next-seo";
 import OrderDetails from "components/order/details";
 import OrderRefundForm from "components/forms/order/refund";
@@ -9,11 +8,9 @@ import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
-import { useState } from "react";
 
 export default function Refund(): JSX.Element {
   const [session, sessionLoading] = useSession();
-  const [order, setOrder] = useState<IOrderDetails | null>(null);
   const router = useRouter();
 
   function getOrder() {
@@ -32,10 +29,8 @@ export default function Refund(): JSX.Element {
   }
 
   const { orderResponse, orderLoading, orderError } = getOrder();
-  setOrder(orderResponse?.data);
 
-  if (sessionLoading || orderLoading || !order)
-    return <SpinnerLg text="Loading..." />;
+  if (sessionLoading || orderLoading) return <SpinnerLg text="Loading..." />;
   if (orderError) return <GenericErrorMessage />;
 
   return (
@@ -46,8 +41,8 @@ export default function Refund(): JSX.Element {
           <BackButton text="Back" href="/account/sales" />
         </div>
         <h3 className="text-center">Sale Info</h3>
-        <OrderDetails order={order} />
-        <OrderRefundForm order={order} setOrder={setOrder} />
+        <OrderDetails order={orderResponse.data} />
+        <OrderRefundForm order={orderResponse.data} />
       </PageContainer>
     </div>
   );

@@ -230,7 +230,9 @@ export function Order(props: IOrderProps): JSX.Element {
             <div>
               <div className="text-xs">Status</div>
               <div className="font-bold">
-                {stateMappings[order.aasm_state] || order.aasm_state}
+                {order.refunds.length
+                  ? "Refunded"
+                  : stateMappings[order.aasm_state] || order.aasm_state}
               </div>
             </div>
             {renderTransitionButton()}
