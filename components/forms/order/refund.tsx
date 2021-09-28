@@ -69,7 +69,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
       <Transition appear show={modalOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
+          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-70"
           onClose={closeModal}
         >
           <div className="min-h-screen px-4 text-center">
@@ -121,13 +121,13 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
                   </p>
                 </div>
 
-                <div className="space-x-2">
+                <div className="mt-2 space-x-2">
                   <SubmitButton
                     submitting={formik.isSubmitting}
                     onClick={formik.submitForm}
-                    text="Ok"
+                    text="Refund"
                   />
-                  <SecondaryButton onClick={closeModal} text="Cancel" />
+                  <SecondaryButton onClick={closeModal} text="Go Back" />
                 </div>
               </div>
             </Transition.Child>
