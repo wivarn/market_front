@@ -39,7 +39,7 @@ const className =
   "grid items-center w-full grid-cols-1 py-2 mx-auto gap-x-4 lg:grid-cols-3 md:grid-cols-2";
 
 export type ListingComboBoxOption = {
-  value: string;
+  value: string | null;
   text: string;
   disabled?: boolean;
 };
