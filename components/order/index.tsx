@@ -275,7 +275,9 @@ export function Order(props: IOrderProps): JSX.Element {
           <div className="relative flex items-center px-4 py-2 space-x-2 text-white bg-info-darker rounded-t-md">
             <div>
               <div className="text-xs">Status</div>
-              <div className="text-sm font-bold md:text-base">{renderState()}</div>
+              <div className="text-sm font-bold md:text-base">
+                {renderState()}
+              </div>
             </div>
             {renderTransitionButton()}
             <span
