@@ -5,6 +5,7 @@ import { SecondaryButton, SubmitButton } from "components/buttons";
 import { IOrder } from "types/order";
 import { OrderApi } from "services/backendApi/order";
 import { SpinnerXs } from "components/spinner";
+import { mutate } from "swr";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
 
@@ -12,11 +13,13 @@ interface IProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   order: IOrder;
+  setOrder: Dispatch<SetStateAction<IOrder>>;
 }
 export default function CancelOrder({
   open,
   setOpen,
   order,
+  setOrder,
 }: IProps): JSX.Element {
   const [session, SessionLoading] = useSession();
   const [submitting, setSubmitting] = useState(false);
@@ -29,7 +32,9 @@ export default function CancelOrder({
     setSubmitting(true);
     OrderApi(session?.accessToken)
       .cancel(order.id)
-      .then(() => {
+      .then((response) => {
+        setOrder(response.data);
+        mutate([`orders/${order.id}?relation=sales`, session?.accessToken]);
         toast.success("Refund submitted");
       })
       .catch(() => {
@@ -46,7 +51,6 @@ export default function CancelOrder({
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog
-        id={`cancel-order-${order.id}`}
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto"
         onClose={closeModal}

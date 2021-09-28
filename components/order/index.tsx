@@ -188,7 +188,7 @@ export function Order(props: IOrderProps): JSX.Element {
         setCancelModal(true);
       };
       menuItems.push({
-        href: `#cancel-order-${order.id}`,
+        href: `#`,
         text: "Cancel Order",
         onClick: openCancelModal,
       });
@@ -218,7 +218,12 @@ export function Order(props: IOrderProps): JSX.Element {
 
   return (
     <>
-      <CancelOrder open={cancelModal} setOpen={setCancelModal} order={order} />
+      <CancelOrder
+        open={cancelModal}
+        setOpen={setCancelModal}
+        order={order}
+        setOrder={setOrder}
+      />
       <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
         <div>
           <div className="relative flex items-center px-4 py-2 space-x-2 text-white bg-info-darker rounded-t-md">
