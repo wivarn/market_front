@@ -16,7 +16,6 @@ import ReactTooltip from "react-tooltip";
 import { SpinnerLg } from "../spinner";
 import { SubmitButton } from "../buttons";
 import { mutate } from "swr";
-import { refundReasonList } from "constants/orders";
 import { stateMappings } from "constants/listings";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -163,7 +162,7 @@ export function Order(props: IOrderProps): JSX.Element {
         });
     }
 
-    const text = sale ? "Mark as shipped" : "Mark as received";
+    const text = sale ? "Mark shipped" : "Mark received";
     const onClick = sale ? shipOrder : receiveOrder;
 
     return (
