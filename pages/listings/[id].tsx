@@ -1,10 +1,11 @@
+import { NextSeo, ProductJsonLd } from "next-seo";
+
 import { BackButton } from "components/buttons";
 import { GenericErrorMessage } from "components/message";
 import { GetServerSideProps } from "next";
 import { IlistingDetails } from "types/listings";
 import { ListingApi } from "services/backendApi/listing";
 import ListingDetails from "components/listing/details";
-import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { UserSettingsContext } from "contexts/userSettings";
@@ -51,13 +52,30 @@ export default function ShowListing(
         <div className="absolute">
           <BackButton text="Back" />
         </div>
+        <ProductJsonLd
+          productName={listing.title}
+          images={[listing.photos[0].url]}
+          description={`Find the best sports cards, trading card games and collectibles on the Skwirl marketplace. Get the best deals for ${listing.title} and lowest online prices. Free shipping for many products!`}
+          offers={[
+            {
+              price: `${listing.price}`,
+              priceCurrency: `${listing.currency}`,
+              url: `https://skwirl.io/listings/${listing.id}`,
+              seller: {
+                name: "Skwirl",
+              },
+            },
+          ]}
+          mpn="925872"
+        />
         <NextSeo
           title={listing.title}
-          description={listing.description}
+          description={`Find the best sports cards, trading card games and collectibles on the Skwirl marketplace. Get the best deals for ${listing.title} and lowest online prices. Free shipping for many products!`}
           openGraph={{
+            type: "website",
             url: `https://skwirl.io/listings/${listing.id}`,
             title: `${listing.title}`,
-            description: `Find the best sports cards, trading cards and collectibles on the Skwirl marketplace. Get the best deals for ${listing.title} and best online prices. Free shipping for many products!`,
+            description: `Find the best sports cards, trading card games and collectibles on the Skwirl marketplace. Get the best deals for ${listing.title} and lowest online prices. Free shipping for many products!`,
             images: [
               {
                 url: `${listing.photos[0].url}`,
