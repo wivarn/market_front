@@ -227,6 +227,41 @@ export function Order(props: IOrderProps): JSX.Element {
     }
   }
 
+  function renderOrderInfo() {
+    const order_user_id = sale ? order.buyer.id : order.seller.id;
+    const order_user_name = sale
+      ? order.buyer.full_name
+      : order.seller.full_name;
+    const order_user_label = sale ? "Sold To" : "Purchased From";
+    return (
+      <table className="w-full border-b table-fixed">
+        <thead className="bg-accent-lighter">
+          <tr className="text-sm md:text-base">
+            <th className="w-1/3">Order Number</th>
+            <th className="w-1/3">{order_user_label}</th>
+            <th className="w-1/3">Order Date</th>
+          </tr>
+        </thead>
+        <tbody className="text-center">
+          <tr className="text-sm md:text-base">
+            <td>
+              <Link href={detailsHref}>
+                <a className="underline hover:text-primary">#{order.id}</a>
+              </Link>
+            </td>
+            <td>
+              <Link href={`/users/${order_user_id}`}>
+                <a className="underline hover:text-primary">
+                  {order_user_name}
+                </a>
+              </Link>
+            </td>
+            <td>{orderDate}</td>
+          </tr>
+        </tbody>
+      </table>
+    );
+  }
   return (
     <>
       <CancelOrder
@@ -240,7 +275,7 @@ export function Order(props: IOrderProps): JSX.Element {
           <div className="relative flex items-center px-4 py-2 space-x-2 text-white bg-info-darker rounded-t-md">
             <div>
               <div className="text-xs">Status</div>
-              <div className="font-bold">{renderState()}</div>
+              <div className="text-sm font-bold md:text-base">{renderState()}</div>
             </div>
             {renderTransitionButton()}
             <span
@@ -263,32 +298,7 @@ export function Order(props: IOrderProps): JSX.Element {
             </span>
             <span className="absolute right-3">{renderOverflowButton()}</span>
           </div>
-          <table className="w-full border-b table-fixed">
-            <thead className="bg-accent-lighter">
-              <tr>
-                <th className="w-1/3">Order Number</th>
-                <th className="w-1/3">Order By</th>
-                <th className="w-1/3">Order Date</th>
-              </tr>
-            </thead>
-            <tbody className="text-center">
-              <tr>
-                <td>
-                  <Link href={detailsHref}>
-                    <a className="underline hover:text-primary">#{order.id}</a>
-                  </Link>
-                </td>
-                <td>
-                  <Link href={`/users/${order.buyer.id}`}>
-                    <a className="underline hover:text-primary">
-                      {order.buyer.full_name}
-                    </a>
-                  </Link>
-                </td>
-                <td>{orderDate}</td>
-              </tr>
-            </tbody>
-          </table>
+          {renderOrderInfo()}
           <div className="flex px-4 py-2 border-b text-accent-darker bg-accent-lightest">
             <span className="flex text-sm">
               Ship to:{" "}
