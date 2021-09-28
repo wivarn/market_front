@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { DropdownCombobox, NumberField, TextField } from "../fields";
+import { DropdownCombobox, NumberField, TextFieldFull } from "../fields";
 import { Form, Formik, FormikProps } from "formik";
 import { Fragment, useState } from "react";
 import {
@@ -172,11 +172,15 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
               <h5 className="text-center text-accent-darker">Offer a Refund</h5>
 
               <NumberField name="amount" label="Amount" />
-              <DropdownCombobox name="reason" items={refundReasonList} />
-              <TextField name="notes" label="Notes" />
+              <DropdownCombobox
+                name="reason"
+                label="Reason"
+                items={refundReasonList}
+              />
+              <TextFieldFull name="notes" label="Notes" />
 
               <PrimaryButton
-                text="Refund"
+                text="Refund Order"
                 onClick={() => openModal(formik)}
                 disabled={!formik.isValid}
               />
