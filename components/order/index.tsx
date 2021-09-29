@@ -112,7 +112,7 @@ export function Order(props: IOrderProps): JSX.Element {
 
   function renderState() {
     if (order.aasm_state == "cancelled") return stateMappings[order.aasm_state];
-    if (order.refunds.length > 0) return "Refunded";
+    if (refunded) return "Refunded";
     return stateMappings[order.aasm_state] || order.aasm_state;
   }
 
