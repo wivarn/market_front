@@ -47,7 +47,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
       .min(0.01, "Refund must more than 0.01")
       .max(
         Number(order.total),
-        `Refund must be less than ${Number(order.total)}`
+        `Refund can't be more than $${Number(order.total)}`
       ),
     reason: Yup.mixed().oneOf(
       refundReasonList.map((reason): string | null => {
