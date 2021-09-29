@@ -157,7 +157,7 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
       <div className="grid grid-cols-1 xl:grid-cols-2">
         <div className="my-4 lg:px-4">
           {props.photos.length ? (
-            <ImageSlider imageMetas={props.photos} />
+            <ImageSlider imageMetas={props.photos} imageTitle={props.title} />
           ) : null}
         </div>
         <InfoCard>

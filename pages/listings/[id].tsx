@@ -66,7 +66,6 @@ export default function ShowListing(
               },
             },
           ]}
-          mpn="925872"
         />
         <NextSeo
           title={listing.title}

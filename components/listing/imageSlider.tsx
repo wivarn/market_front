@@ -6,6 +6,7 @@ import { MouseEventHandler } from "react";
 
 export interface Props {
   imageMetas: { url: string }[];
+  imageTitle: string;
 }
 
 function NextArrow({
@@ -55,6 +56,7 @@ export default function ImageSlider(props: Props): JSX.Element {
         <div className="flex flex-grow mx-auto ">
           <Image
             src={imageMeta.url}
+            alt={props.imageTitle}
             width="600"
             height="600"
             objectFit="contain"
