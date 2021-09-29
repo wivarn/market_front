@@ -16,7 +16,6 @@ import ReactTooltip from "react-tooltip";
 import { SpinnerLg } from "../spinner";
 import { SubmitButton } from "../buttons";
 import { mutate } from "swr";
-import { refundReasonList } from "constants/orders";
 import { stateMappings } from "constants/listings";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -113,7 +112,7 @@ export function Order(props: IOrderProps): JSX.Element {
 
   function renderState() {
     if (order.aasm_state == "cancelled") return stateMappings[order.aasm_state];
-    if (refundReasonList) return "Refunded";
+    if (refunded) return "Refunded";
     return stateMappings[order.aasm_state] || order.aasm_state;
   }
 
