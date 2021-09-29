@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /listings/search*
+Disallow: /listings?state*
+Disallow: /messages
+Disallow: /cart
+Disallow: /account
+Disallow: /users
+
+Sitemap: http://skwirl.io/sitemap.xml
