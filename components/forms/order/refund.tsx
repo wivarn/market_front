@@ -47,7 +47,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
       .min(0.01, "Refund must more than 0.01")
       .max(
         Number(order.total),
-        `Refund can't be more than $${Number(order.total)}`
+        `Refund cannot be more than $${Number(order.total)}`
       ),
     reason: Yup.mixed().oneOf(
       refundReasonList.map((reason): string | null => {
@@ -56,7 +56,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
     ),
     notes: Yup.mixed().when("reason", (reason, schema) => {
       if (reason == null) {
-        return schema.required("Notes is required when reason is 'Other'");
+        return schema.required("Note is required when reason is 'Other'");
       }
     }),
   });
@@ -177,7 +177,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
                 label="Reason"
                 items={refundReasonList}
               />
-              <TextFieldFull name="notes" label="Notes" />
+              <TextFieldFull name="notes" label="Note" />
 
               <PrimaryButton
                 text="Refund Order"
