@@ -36,8 +36,10 @@ export default function Purchases(): JSX.Element {
     <div className="my-4">
       <NextSeo title="Purchase Info" />
       <PageContainer>
-        <div className="absolute">
-          <BackButton text="Back" href="/account/purchases" />
+        <div className="relative max-w-4xl mx-auto ">
+          <div className="absolute">
+            <BackButton text="Back" href="/account/purchases" />
+          </div>
         </div>
         <h3 className="text-center">Purchase Info</h3>
         <OrderDetails order={orderResponse.data} />
