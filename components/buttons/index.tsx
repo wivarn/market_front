@@ -30,7 +30,7 @@ export const BackButton = (props: Props): JSX.Element => {
   );
 
   return (
-    <Link href={userSettings.previous_path || props.href || "/"}>
+    <Link href={props.href || userSettings.previous_path || "/"}>
       <a>{backButton}</a>
     </Link>
   );

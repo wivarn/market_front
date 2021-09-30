@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { DropdownCombobox, NumberField, TextField } from "../fields";
+import { DropdownCombobox, NumberField, TextFieldFull } from "../fields";
 import { Form, Formik, FormikProps } from "formik";
 import { Fragment, useState } from "react";
 import {
@@ -47,7 +47,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
       .min(0.01, "Refund must more than 0.01")
       .max(
         Number(order.total),
-        `Refund must be less than ${Number(order.total)}`
+        `Refund cannot be more than $${Number(order.total)}`
       ),
     reason: Yup.mixed().oneOf(
       refundReasonList.map((reason): string | null => {
@@ -56,7 +56,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
     ),
     notes: Yup.mixed().when("reason", (reason, schema) => {
       if (reason == null) {
-        return schema.required("Notes is required when reason is 'Other'");
+        return schema.required("Note is required when reason is 'Other'");
       }
     }),
   });
@@ -69,7 +69,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
       <Transition appear show={modalOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
+          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-70"
           onClose={closeModal}
         >
           <div className="min-h-screen px-4 text-center">
@@ -121,13 +121,13 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
                   </p>
                 </div>
 
-                <div className="space-x-2">
+                <div className="mt-2 space-x-2">
                   <SubmitButton
                     submitting={formik.isSubmitting}
                     onClick={formik.submitForm}
-                    text="Ok"
+                    text="Refund"
                   />
-                  <SecondaryButton onClick={closeModal} text="Cancel" />
+                  <SecondaryButton onClick={closeModal} text="Go Back" />
                 </div>
               </div>
             </Transition.Child>
@@ -172,11 +172,15 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
               <h5 className="text-center text-accent-darker">Offer a Refund</h5>
 
               <NumberField name="amount" label="Amount" />
-              <DropdownCombobox name="reason" items={refundReasonList} />
-              <TextField name="notes" label="Notes" />
+              <DropdownCombobox
+                name="reason"
+                label="Reason"
+                items={refundReasonList}
+              />
+              <TextFieldFull name="notes" label="Note" />
 
               <PrimaryButton
-                text="Refund"
+                text="Refund Order"
                 onClick={() => openModal(formik)}
                 disabled={!formik.isValid}
               />
