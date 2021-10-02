@@ -28,7 +28,6 @@ interface IProps {
 export default function OrderRefundForm({ order }: IProps): JSX.Element {
   const router = useRouter();
   const [session, sessionLoading] = useSession();
-  const [error, setError] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
   async function openModal(formik: FormikProps<any>) {
@@ -62,7 +61,6 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
   });
 
   if (sessionLoading || !router.isReady) return <SpinnerLg text="Loading..." />;
-  if (error) return <GenericErrorMessage />;
 
   function renderModal(formik: FormikProps<any>) {
     return (
@@ -158,7 +156,6 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
             })
             .catch((error) => {
               toast.error(error.response.data.error);
-              setError(true);
             })
             .finally(() => {
               actions.setSubmitting(false);
