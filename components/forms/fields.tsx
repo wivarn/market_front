@@ -149,7 +149,7 @@ export const CurrencyFieldFull = ({
 }: TextFieldProps): JSX.Element => {
   return (
     <div className="relative">
-      <TextFieldFull label={label} {...props} />
+      <TextFieldFull label={label} type="text" {...props} />
       <span className="absolute right-0 p-2 border top-7 border-accent-darker text-accent-lightest rounded-r-md bg-accent-darker">
         {props.currency}
       </span>
