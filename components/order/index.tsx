@@ -103,7 +103,7 @@ export function Order(props: IOrderProps): JSX.Element {
   if (sessionLoading) return <SpinnerLg />;
 
   const sale = order.seller.id == session?.accountId;
-  const refunded = !!order.refunds.length;
+  const refunded_total = order.refunded_total;
   const detailsHref = `/account/${sale ? "sales" : "purchases"}/${order.id}`;
 
   const orderDate = new Date(
@@ -116,12 +116,13 @@ export function Order(props: IOrderProps): JSX.Element {
 
   function renderState() {
     if (order.aasm_state == "cancelled") return stateMappings[order.aasm_state];
-    if (refunded) return "Refunded";
+    if (refunded_total == order.total) return "Refunded";
+    if (refunded_total) return "Partially Refunded";
     return stateMappings[order.aasm_state] || order.aasm_state;
   }
 
   function renderTransitionButton() {
-    if (refunded) return null;
+    if (refunded_total) return null;
     if (sale) {
       if (order.aasm_state != "pending_shipment") return null;
     } else {
@@ -197,7 +198,7 @@ export function Order(props: IOrderProps): JSX.Element {
       });
     }
 
-    if (sale && order.aasm_state == "pending_shipment" && !refunded) {
+    if (sale && order.aasm_state == "pending_shipment" && !refunded_total) {
       const openCancelModal = async () => {
         setCancelModal(true);
       };
