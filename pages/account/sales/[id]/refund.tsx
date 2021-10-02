@@ -37,8 +37,10 @@ export default function Refund(): JSX.Element {
     <div className="my-4">
       <NextSeo title="Refund Order" />
       <PageContainer>
-        <div className="absolute">
-          <BackButton text="Back" href="/account/sales" />
+        <div className="relative max-w-4xl mx-auto">
+          <div className="absolute">
+            <BackButton text="Back" href="/account/sales" />
+          </div>
         </div>
         <h3 className="text-center">Sale Info</h3>
         <OrderDetails order={orderResponse.data} />
