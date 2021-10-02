@@ -3,6 +3,7 @@ import {
   IOverflowMenuItem,
   OverflowButton,
 } from "components/buttons/overflowButton";
+import { useEffect, useState } from "react";
 
 import { BlankMessage } from "../message";
 import CancelOrder from "./cancel";
@@ -20,7 +21,6 @@ import { stateMappings } from "constants/listings";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
-import { useState } from "react";
 
 interface IOrderProps {
   order: IOrder;
@@ -95,6 +95,10 @@ export function Order(props: IOrderProps): JSX.Element {
   const [cancelModal, setCancelModal] = useState(false);
   const [session, sessionLoading] = useSession();
   const router = useRouter();
+
+  useEffect(() => {
+    setOrder(props.order);
+  }, [props.order]);
 
   if (sessionLoading) return <SpinnerLg />;
 

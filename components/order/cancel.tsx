@@ -37,8 +37,8 @@ export default function CancelOrder({
         mutate([`orders/${order.id}?relation=sales`, session?.accessToken]);
         toast.success("Refund submitted");
       })
-      .catch(() => {
-        toast.error("Refund request failed");
+      .catch((error) => {
+        toast.error(error.response.data.error);
       })
       .finally(() => {
         closeModal();
