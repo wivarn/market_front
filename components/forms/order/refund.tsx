@@ -11,7 +11,6 @@ import {
 } from "components/buttons";
 
 import FormContainer from "../container";
-import { GenericErrorMessage } from "components/message";
 import { IOrderDetails } from "types/order";
 import { OrderApi } from "services/backendApi/order";
 import { SpinnerLg } from "components/spinner";
