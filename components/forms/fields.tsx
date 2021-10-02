@@ -143,13 +143,13 @@ export const NumberField = ({
   return <TextField label={label} type="number" {...props} />;
 };
 
-export const CurrencyField = ({
+export const CurrencyFieldFull = ({
   label,
   ...props
 }: TextFieldProps): JSX.Element => {
   return (
     <div className="relative">
-      <TextFieldFull label={label} type="number" {...props} />
+      <TextFieldFull label={label} {...props} />
       <span className="absolute right-0 p-2 border top-7 border-accent-darker text-accent-lightest rounded-r-md bg-accent-darker">
         {props.currency}
       </span>

@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import { CurrencyField, DropdownCombobox, TextFieldFull } from "../fields";
+import { CurrencyFieldFull, DropdownCombobox, TextFieldFull } from "../fields";
 import { Dialog, Transition } from "@headlessui/react";
 import { Form, Formik, FormikProps } from "formik";
 import { Fragment, useState } from "react";
@@ -12,7 +12,6 @@ import {
 
 import FormContainer from "../container";
 import { IOrderDetails } from "types/order";
-import { ListingNumberField } from "../listing/fields";
 import { OrderApi } from "services/backendApi/order";
 import { SpinnerLg } from "components/spinner";
 import { mutate } from "swr";
@@ -168,7 +167,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
             <div className="my-2 space-y-2">
               <h5 className="text-center text-accent-darker">Offer a Refund</h5>
 
-              <CurrencyField
+              <CurrencyFieldFull
                 name="amount"
                 label="Amount"
                 placeholder="0"
