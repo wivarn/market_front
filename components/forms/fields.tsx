@@ -29,6 +29,10 @@ type TextFieldProps = FieldHookConfig<string> &
     currency?: string;
   };
 
+type CurrencyFieldProps = TextFieldProps & {
+  currency?: string;
+};
+
 type TextAreaProps = FieldHookConfig<string> &
   DetailedHTMLProps<
     TextareaHTMLAttributes<HTMLTextAreaElement>,
@@ -146,7 +150,7 @@ export const NumberField = ({
 export const CurrencyFieldFull = ({
   label,
   ...props
-}: TextFieldProps): JSX.Element => {
+}: CurrencyFieldProps): JSX.Element => {
   return (
     <div className="relative">
       <TextFieldFull label={label} type="text" {...props} />
