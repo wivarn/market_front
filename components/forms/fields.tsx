@@ -26,7 +26,6 @@ type TextFieldProps = FieldHookConfig<string> &
     descriptionClassName?: string;
     inputClassName?: string;
     hideError?: boolean;
-    currency?: string;
   };
 
 type CurrencyFieldProps = TextFieldProps & {
