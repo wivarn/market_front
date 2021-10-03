@@ -28,6 +28,10 @@ type TextFieldProps = FieldHookConfig<string> &
     hideError?: boolean;
   };
 
+type CurrencyFieldProps = TextFieldProps & {
+  currency?: string;
+};
+
 type TextAreaProps = FieldHookConfig<string> &
   DetailedHTMLProps<
     TextareaHTMLAttributes<HTMLTextAreaElement>,
@@ -140,6 +144,20 @@ export const NumberField = ({
   ...props
 }: TextFieldProps): JSX.Element => {
   return <TextField label={label} type="number" {...props} />;
+};
+
+export const CurrencyFieldFull = ({
+  label,
+  ...props
+}: CurrencyFieldProps): JSX.Element => {
+  return (
+    <div className="relative">
+      <TextFieldFull label={label} type="text" {...props} />
+      <span className="absolute right-0 p-2 border top-7 border-accent-darker text-accent-lightest rounded-r-md bg-accent-darker">
+        {props.currency}
+      </span>
+    </div>
+  );
 };
 
 export const DropdownCombobox = ({
