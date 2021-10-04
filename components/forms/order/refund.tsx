@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { CurrencyFieldFull, DropdownCombobox, TextFieldFull } from "../fields";
 import { Dialog, Transition } from "@headlessui/react";
 import { Form, Formik, FormikProps } from "formik";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import {
   PrimaryButton,
   SecondaryButton,
@@ -28,6 +28,14 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
   const router = useRouter();
   const [session, sessionLoading] = useSession();
   const [modalOpen, setModalOpen] = useState(false);
+  const formRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const refundForm = formRef.current;
+    if (refundForm) {
+      refundForm.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
 
   async function openModal(formik: FormikProps<any>) {
     formik.setTouched({ amount: true, reason: true, notes: true }, true);
@@ -135,7 +143,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
   }
 
   return (
-    <FormContainer>
+    <FormContainer formRef={formRef}>
       <Formik
         initialValues={{
           amount: 0,
