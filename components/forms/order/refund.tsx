@@ -171,7 +171,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
         }}
       >
         {(formik) => (
-          <Form id={`refund-${router.query.id}`}>
+          <Form>
             <div className="my-2 space-y-2">
               <h5 className="text-center text-accent-darker">Offer a Refund</h5>
 
