@@ -2,7 +2,7 @@ import { RefObject } from "react";
 
 interface IPorps {
   children: React.ReactNode;
-  formRef: RefObject<any>;
+  formRef?: RefObject<any>;
 }
 
 export default function FormContainer(props: IPorps): JSX.Element {
