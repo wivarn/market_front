@@ -151,7 +151,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
                 session?.accessToken,
               ]);
               toast.success("Refund request submitted");
-              actions.resetForm();
+              router.push(`/account/sales/${order.id}`);
             })
             .catch((error) => {
               toast.error(error.response.data.error);
