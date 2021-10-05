@@ -1,11 +1,17 @@
-export default function FormContainer({
-  children,
-}: {
+import { RefObject } from "react";
+
+interface IPorps {
   children: React.ReactNode;
-}): JSX.Element {
+  formRef?: RefObject<any>;
+}
+
+export default function FormContainer(props: IPorps): JSX.Element {
   return (
-    <div className="container max-w-lg p-2 px-4 mx-auto mt-8 mb-8 border rounded-md bg-accent-lightest border-accent-light">
-      {children}
+    <div
+      ref={props.formRef}
+      className="container max-w-lg p-2 px-4 mx-auto mt-8 mb-8 border rounded-md bg-accent-lightest border-accent-light"
+    >
+      {props.children}
     </div>
   );
 }

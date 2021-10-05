@@ -16,7 +16,7 @@ export default function Purchases(): JSX.Element {
     const orderID = router.query.id;
     const { data, error } = useSWR(
       session && router.isReady
-        ? [`orders/${orderID}?relation=purchases`, session.accessToken]
+        ? [`orders/${orderID}?relation=sales`, session.accessToken]
         : null
     );
 
@@ -34,14 +34,14 @@ export default function Purchases(): JSX.Element {
 
   return (
     <div className="my-4">
-      <NextSeo title="Purchase Info" />
+      <NextSeo title="Sale Info" />
       <PageContainer>
         <div className="relative max-w-4xl mx-auto">
           <div className="absolute">
-            <BackButton text="Back" href="/account/purchases" />
+            <BackButton text="Back" href="/account/sales" />
           </div>
         </div>
-        <h3 className="text-center">Purchase Info</h3>
+        <h3 className="text-center">Sale Info</h3>
         <OrderDetails order={orderResponse.data} />
       </PageContainer>
     </div>

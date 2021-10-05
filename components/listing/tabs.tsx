@@ -1,6 +1,6 @@
 import Link from "next/link";
+import { ListingOverflowButton } from "components/listing/overflowButton";
 import { ListingSort } from "components/forms/listing/sort";
-import { OverflowButton } from "components/listing/overflowButton";
 import { PrimaryButton } from "components/buttons";
 import React from "react";
 import ReactTooltip from "react-tooltip";
@@ -65,7 +65,7 @@ export default function ListingTabs({
             />
           </div>
           <div data-tip data-for="overflow" className="text-center">
-            <OverflowButton disabled={disableListings} />
+            <ListingOverflowButton disabled={disableListings} />
             <ReactTooltip
               id="overflow"
               type="dark"

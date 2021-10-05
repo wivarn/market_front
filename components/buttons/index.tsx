@@ -1,6 +1,6 @@
 import { BackArrowIconSm } from "components/icons";
 import Link from "next/link";
-import { SpinnerXs } from "./spinner";
+import { SpinnerXs } from "components/spinner";
 import { UserSettingsContext } from "contexts/userSettings";
 import { useContext } from "react";
 interface Props {
@@ -30,7 +30,7 @@ export const BackButton = (props: Props): JSX.Element => {
   );
 
   return (
-    <Link href={userSettings.previous_path || props.href || "/"}>
+    <Link href={props.href || userSettings.previous_path || "/"}>
       <a>{backButton}</a>
     </Link>
   );
@@ -40,6 +40,7 @@ export const PrimaryButton = (props: Props): JSX.Element => {
   return (
     <_Button
       {...props}
+      type="button"
       buttonClassName="text-accent-lightest bg-primary disabled:bg-primary-light hover:bg-primary-dark"
     />
   );

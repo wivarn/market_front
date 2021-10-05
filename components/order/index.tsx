@@ -1,6 +1,12 @@
 import { IOrder, IOrdersPaginated } from "types/order";
+import {
+  IOverflowMenuItem,
+  OverflowButton,
+} from "components/buttons/overflowButton";
+import { useEffect, useState } from "react";
 
 import { BlankMessage } from "../message";
+import CancelOrder from "./cancel";
 import { InfoCircleSm } from "../icons";
 import Link from "next/link";
 import { ListingPreviewList } from "../listing/preview";
@@ -15,7 +21,6 @@ import { stateMappings } from "constants/listings";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/client";
-import { useState } from "react";
 
 interface IOrderProps {
   order: IOrder;
@@ -87,11 +92,19 @@ export function PurchaseOrders(props: IOrdersPaginated): JSX.Element {
 export function Order(props: IOrderProps): JSX.Element {
   const [order, setOrder] = useState(props.order);
   const [submittingTransition, setSubmittingTransition] = useState(false);
+  const [cancelModal, setCancelModal] = useState(false);
   const [session, sessionLoading] = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    setOrder(props.order);
+  }, [props.order]);
 
   if (sessionLoading) return <SpinnerLg />;
 
   const sale = order.seller.id == session?.accountId;
+  const refunded_total = order.refunded_total;
+  const detailsHref = `/account/${sale ? "sales" : "purchases"}/${order.id}`;
 
   const orderDate = new Date(
     order.created_at.replace(/-/g, "/")
@@ -101,7 +114,22 @@ export function Order(props: IOrderProps): JSX.Element {
     year: "numeric",
   });
 
+  function renderState() {
+    if (order.aasm_state == "cancelled") return stateMappings[order.aasm_state];
+    if (refunded_total == order.total) return "Refunded";
+    if (refunded_total) return "Partially Refunded";
+    return stateMappings[order.aasm_state] || order.aasm_state;
+  }
+
   function renderTransitionButton() {
+    if (refunded_total) return null;
+    if (sale) {
+      if (order.aasm_state != "pending_shipment") return null;
+    } else {
+      if (!["pending_shipment", "shipped"].includes(order.aasm_state))
+        return null;
+    }
+
     async function shipOrder() {
       setSubmittingTransition(true);
       OrderApi(session?.accessToken)
@@ -139,19 +167,50 @@ export function Order(props: IOrderProps): JSX.Element {
         });
     }
 
-    const text = sale ? "Mark as shipped" : "Mark as received";
+    const text = sale ? "Mark shipped" : "Mark received";
     const onClick = sale ? shipOrder : receiveOrder;
-    const hidden = sale
-      ? order.aasm_state != "pending_shipment"
-      : !["pending_shipment", "shipped"].includes(order.aasm_state);
 
     return (
       <SubmitButton
         text={text}
         onClick={onClick}
-        hidden={hidden}
         submitting={submittingTransition}
       />
+    );
+  }
+
+  function renderOverflowButton() {
+    const menuItems: IOverflowMenuItem[] = [];
+
+    if (!router.query.id) {
+      menuItems.push({ href: detailsHref, text: "View Order Details" });
+    }
+
+    menuItems.push({
+      href: `/messages/${sale ? order.buyer.id : order.seller.id}`,
+      text: `Message ${sale ? "Buyer" : "Seller"}`,
+    });
+
+    if (sale && ["pending_shipment", "shipped"].includes(order.aasm_state)) {
+      menuItems.push({
+        href: `/account/sales/${order.id}/refund`,
+        text: "Offer Refund",
+      });
+    }
+
+    if (sale && order.aasm_state == "pending_shipment" && !refunded_total) {
+      const openCancelModal = async () => {
+        setCancelModal(true);
+      };
+      menuItems.push({
+        href: `#`,
+        text: "Cancel Order",
+        onClick: openCancelModal,
+      });
+    }
+
+    return (
+      <OverflowButton menutItems={menuItems} menuItemsClassName="-right-8" />
     );
   }
 
@@ -172,100 +231,110 @@ export function Order(props: IOrderProps): JSX.Element {
     }
   }
 
-  function LinkToDetails({
-    children,
-  }: {
-    children: React.ReactNode;
-  }): JSX.Element {
-    const href = `/account/${sale ? "sales" : "purchases"}/${order.id}`;
-    return <Link href={href}>{children}</Link>;
+  function renderOrderInfo() {
+    const order_user_id = sale ? order.buyer.id : order.seller.id;
+    const order_user_name = sale
+      ? order.buyer.full_name
+      : order.seller.full_name;
+    const order_user_label = sale ? "Sold To" : "Purchased From";
+    return (
+      <table className="w-full border-b table-fixed">
+        <thead className="bg-accent-lighter">
+          <tr className="text-sm md:text-base">
+            <th className="w-1/3">Order Number</th>
+            <th className="w-1/3">{order_user_label}</th>
+            <th className="w-1/3">Order Date</th>
+          </tr>
+        </thead>
+        <tbody className="text-center">
+          <tr className="text-sm md:text-base">
+            <td>
+              <Link href={detailsHref}>
+                <a className="underline hover:text-primary">#{order.id}</a>
+              </Link>
+            </td>
+            <td>
+              <Link href={`/users/${order_user_id}`}>
+                <a className="underline hover:text-primary">
+                  {order_user_name}
+                </a>
+              </Link>
+            </td>
+            <td>{orderDate}</td>
+          </tr>
+        </tbody>
+      </table>
+    );
   }
-
   return (
-    <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
-      <div>
-        <div className="flex items-center px-4 py-2 space-x-2 text-white bg-info-darker rounded-t-md">
-          <div>
-            <div className="text-xs">Status</div>
-            <div className="font-bold">
-              {stateMappings[order.aasm_state] || order.aasm_state}
+    <>
+      <CancelOrder
+        open={cancelModal}
+        setOpen={setCancelModal}
+        order={order}
+        setOrder={setOrder}
+      />
+      <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
+        <div>
+          <div className="relative flex items-center px-4 py-2 space-x-2 text-white bg-info-darker rounded-t-md">
+            <div>
+              <div className="text-xs">Status</div>
+              <div className="text-sm font-bold md:text-base">
+                {renderState()}
+              </div>
             </div>
-          </div>
-          {renderTransitionButton()}
-          <span
-            data-tip
-            data-for="mark-as-shipped"
-            className="text-xs text-center"
-          >
-            <InfoCircleSm />
-            <ReactTooltip
-              id="mark-as-shipped"
-              type="dark"
-              wrapper="span"
-              multiline={true}
-              place="top"
-              effect="solid"
+            {renderTransitionButton()}
+            <span
+              data-tip
+              data-for="mark-as-shipped"
+              className="text-xs text-center"
             >
-              Orders are marked <br />
-              as shipped after 30 days
-            </ReactTooltip>
-          </span>
-        </div>
-        <table className="w-full border-b table-fixed">
-          <thead className="bg-accent-lighter">
-            <tr>
-              <th className="w-1/3">Order Number</th>
-              <th className="w-1/3">Order By</th>
-              <th className="w-1/3">Order Date</th>
-            </tr>
-          </thead>
-          <tbody className="text-center">
-            <tr>
-              <td>
-                <LinkToDetails>
-                  <a className="underline hover:text-primary">#{order.id}</a>
-                </LinkToDetails>
-              </td>
-              <td>
-                <Link href={`/users/${order.buyer.id}`}>
-                  <a className="underline hover:text-primary">
-                    {order.buyer.full_name}
-                  </a>
-                </Link>
-              </td>
-              <td>{orderDate}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div className="flex px-4 py-2 border-b text-accent-darker bg-accent-lightest">
-          <span className="flex text-sm">
-            Ship to:{" "}
-            <span className="px-2 text-sm">
-              {order.buyer.full_name}
-              <br />
-              {order.address.street1} {order.address.street2} <br />
-              {order.address.city}, {order.address.state} <br />
-              {order.address.zip}, {order.address.country}
+              <InfoCircleSm />
+              <ReactTooltip
+                id="mark-as-shipped"
+                type="dark"
+                wrapper="span"
+                multiline={true}
+                place="top"
+                effect="solid"
+              >
+                Orders are marked as <br />
+                received after 30 days
+              </ReactTooltip>
             </span>
-          </span>
+            <span className="absolute right-3">{renderOverflowButton()}</span>
+          </div>
+          {renderOrderInfo()}
+          <div className="flex px-4 py-2 border-b text-accent-darker bg-accent-lightest">
+            <span className="flex text-sm">
+              Ship to:{" "}
+              <span className="px-2 text-sm">
+                {order.buyer.full_name}
+                <br />
+                {order.address.street1} {order.address.street2} <br />
+                {order.address.city}, {order.address.state} <br />
+                {order.address.zip}, {order.address.country}
+              </span>
+            </span>
+          </div>
+        </div>
+        <div>
+          {order.listings.map((listing) => {
+            return <ListingPreviewList key={listing.id} {...listing} />;
+          })}
+        </div>
+        {renderTracking()}
+        <div className="px-4 py-2 text-right text-white bg-info-darker rounded-b-md">
+          <div className="text-xs">Total</div>
+          <div className="font-bold">
+            {Number(order.total).toLocaleString("en", {
+              style: "currency",
+              currency: "usd",
+            })}{" "}
+            {order.currency}
+          </div>
         </div>
       </div>
-      <div>
-        {order.listings.map((listing) => {
-          return <ListingPreviewList key={listing.id} {...listing} />;
-        })}
-      </div>
-      {renderTracking()}
-      <div className="px-4 py-2 text-right text-white bg-info-darker rounded-b-md">
-        <div className="text-xs">Total</div>
-        <div className="font-bold">
-          {Number(order.total).toLocaleString("en", {
-            style: "currency",
-            currency: "usd",
-          })}{" "}
-          {order.currency}
-        </div>
-      </div>
-    </div>
+    </>
   );
 }

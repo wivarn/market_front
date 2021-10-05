@@ -18,7 +18,8 @@ export interface IOrder {
   tracking: string;
   listings: Ilisting[];
   created_at: string;
-  updated_at: string;
+  refunds: IRefund[];
+  refunded_total: string;
 }
 
 export interface IOrdersPaginated {
@@ -31,4 +32,15 @@ export interface IOrderDetails extends IOrder {
   shipped_at: string | null;
   refunded_at: string | null;
   received_at: string | null;
+}
+
+export interface IRefundRequest {
+  amount: string | number;
+  reason: string;
+  notes?: string;
+}
+
+export interface IRefund extends IRefundRequest {
+  status: string;
+  updated_at: string;
 }
