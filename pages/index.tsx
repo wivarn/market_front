@@ -53,7 +53,7 @@ export default function Home(): JSX.Element {
           <div className="text-2xl text-accent-darker lg:text-4xl">
             Buy with confidence
           </div>
-          <div className="grid items-center grid-cols-2">
+          <div className="grid items-center grid-cols-1 md:grid-cols-2">
             <Image src="/assets/verify_seller.svg" height={300} width={300} />
             <div className="max-w-lg space-y-2">
               <h4>Our sellers are pre-screened to ensure:</h4>
@@ -94,18 +94,23 @@ export default function Home(): JSX.Element {
           <div className="text-2xl lg:text-4xl">
             Why you&#39;ll love selling on Skwirl
           </div>
-          <div className="grid grid-cols-3 justify-items-center">
-            <Image src="/assets/low_fee.svg" height={200} width={200} />
-
-            <Image src="/assets/free_listings.svg" height={200} width={200} />
-            <Image
-              src="/assets/fraud_protection.svg"
-              height={200}
-              width={200}
-            />
-            <h5>Low seller fees</h5>
-            <h5>Unlimited free listings</h5>
-            <h5>Fraud protection</h5>
+          <div className="grid grid-cols-1 md:grid-cols-3 justify-items-center">
+            <div>
+              <Image src="/assets/low_fee.svg" height={200} width={200} />
+              <h5>Low seller fees</h5>
+            </div>
+            <div>
+              <Image src="/assets/free_listings.svg" height={200} width={200} />
+              <h5>Unlimited free listings</h5>
+            </div>
+            <div>
+              <Image
+                src="/assets/fraud_protection.svg"
+                height={200}
+                width={200}
+              />
+              <h5>Fraud protection</h5>
+            </div>
           </div>
           <div className="pt-8">
             <SecondaryButton
