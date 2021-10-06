@@ -83,7 +83,7 @@ export const DropDown = (): JSX.Element => {
   }
 
   function cartDot() {
-    if (!userSettings.has_cart) return null;
+    if (!userSettings.cart_items) return null;
     return (
       <span className="absolute px-2 text-info-darker">
         <CircleIconXs />

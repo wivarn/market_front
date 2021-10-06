@@ -78,9 +78,9 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
     setSubmitting(true);
     CartApi(session?.accessToken)
       .addItem(`${props.seller.id}`, `${props.id}`)
-      .then(() => {
+      .then((response) => {
         toast.success("Item added to cart");
-        assignUserSettings({ ...userSettings, has_cart: true });
+        assignUserSettings({ ...userSettings, cart_items: response.data });
       })
       .catch((error) => {
         toast.error(JSON.stringify(error.response.data));

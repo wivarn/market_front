@@ -59,7 +59,7 @@ export default function Cart(): JSX.Element {
 
   useEffect(() => {
     if (carts && !carts.length) {
-      assignUserSettings({ ...userSettings, has_cart: false });
+      assignUserSettings({ ...userSettings, cart_items: [] });
     }
   }, [carts]);
 
