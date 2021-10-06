@@ -1,18 +1,9 @@
-import {
-  DiscordIcon,
-  FacebookIconSm,
-  InstagramIconSm,
-  SuccessIcon,
-  SuccessIconSm,
-  TwitterIconSm,
-  YoutubeIconSm,
-} from "components/icons";
 import { PrimaryButton, SecondaryButton } from "components/buttons";
 
-import { IconButtonLink } from "components/buttons/iconButton";
 import Image from "next/image";
 import { NextSeo } from "next-seo";
 import { RecentListings } from "components/listing/recentListings";
+import { SuccessIconSm } from "components/icons";
 
 export default function Home(): JSX.Element {
   return (
