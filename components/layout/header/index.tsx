@@ -109,7 +109,7 @@ export default function Header(): JSX.Element {
     }
 
     function cartDot() {
-      if (!userSettings.cart_items) return null;
+      if (!userSettings.cart_items.length) return null;
       return (
         <span className="absolute top-0 right-0 text-info-darker">
           <CircleIconXs />

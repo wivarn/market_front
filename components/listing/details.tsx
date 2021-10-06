@@ -22,10 +22,7 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
   const [submitting, setSubmitting] = useState(false);
   const { userSettings, assignUserSettings } = useContext(UserSettingsContext);
   const router = useRouter();
-  const isSeller = session?.accountId == props.seller.id;
-  const editable =
-    props.aasm_state === "draft" || props.aasm_state === "active";
-  const sold = props.aasm_state === "sold" || props.aasm_state === "refunded";
+
   const category = categoryList.find((c) => c.value == props.category);
   const subCategory = category?.subCategory.find(
     (s) => s.value == props.subcategory
@@ -91,6 +88,14 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
   }
 
   function renderButton() {
+    const sold = props.aasm_state === "sold" || props.aasm_state === "refunded";
+    const editable =
+      props.aasm_state === "draft" || props.aasm_state === "active";
+    const isSeller = session?.accountId == props.seller.id;
+    const inCart = userSettings.cart_items.find((cartItem) => {
+      return cartItem.listing_id == props.id;
+    });
+
     if (sold)
       return (
         <PrimaryButtonFull text="This item has sold" disabled={true} href="#" />
@@ -110,14 +115,17 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
           href={`/login?redirect=${router.asPath}`}
         />
       );
-    else if (isSeller) {
+    if (isSeller)
       return (
         <SecondaryButtonFull
           href={`/listings/${props.id}/edit`}
           text="Update Listing"
         />
       );
-    } else if (cantShipToYou) {
+    if (inCart) {
+      return <SecondaryButtonFull href={`/cart`} text="View in cart" />;
+    }
+    if (cantShipToYou) {
       return (
         <PrimaryButtonFull
           text="Doesn't ship to your location"
