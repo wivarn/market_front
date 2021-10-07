@@ -1,9 +1,18 @@
+import {
+  DiscordIconSm,
+  FacebookIconSm,
+  InstagramIconSm,
+  TwitterIconSm,
+  YoutubeIconSm,
+} from "components/icons";
+
+import { IconButtonLink } from "components/buttons/iconButton";
 import Link from "next/link";
 import { LogoXl } from "components/logo";
 
 export default function Footer(): JSX.Element {
   return (
-    <footer className="py-8 text-center bg-info-darker">
+    <footer className="py-16 text-center bg-info-darker">
       <div className="text-2xl font-semibold">
         <LogoXl colour="text-primary" />
         <nav>
@@ -40,6 +49,33 @@ export default function Footer(): JSX.Element {
             </li>
           </ul>
         </nav>
+        <div className="flex justify-center mt-4 space-x-4">
+          <IconButtonLink
+            url="https://discord.gg/WHvDqHC2SC"
+            icon={<DiscordIconSm />}
+            target="_blank"
+          />
+          <IconButtonLink
+            url="https://www.youtube.com/channel/UCDe_aLZv7CoKLxiZxAPbDJg"
+            icon={<YoutubeIconSm />}
+            target="_blank"
+          />
+          <IconButtonLink
+            url="https://www.facebook.com/skwirl.io"
+            icon={<FacebookIconSm />}
+            target="_blank"
+          />
+          <IconButtonLink
+            url="https://www.instagram.com/skwirl.io"
+            icon={<InstagramIconSm />}
+            target="_blank"
+          />
+          <IconButtonLink
+            url="https://twitter.com/skwirl_io"
+            icon={<TwitterIconSm />}
+            target="_blank"
+          />
+        </div>
         <div className="mt-4 text-sm">
           <div className="font-normal text-accent-light">
             © Copyright {new Date().getFullYear()} Skwirl.
