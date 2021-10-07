@@ -11,7 +11,7 @@ interface LinkProps {
 export const IconButtonLink = (props: LinkProps): JSX.Element => {
   return (
     <div className="group">
-      <div className="text-accent-darker hover:text-primary">
+      <div className="text-accent-lighter hover:text-primary">
         <Link href={props.url}>
           <a target={props.target}>{props.icon}</a>
         </Link>

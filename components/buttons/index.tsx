@@ -10,6 +10,7 @@ interface Props {
   submitting?: boolean;
   hidden?: boolean;
   href?: string;
+  target?: string;
   onClick?: () => Promise<void>;
 }
 
