@@ -59,7 +59,7 @@ export default function Cart(): JSX.Element {
 
   useEffect(() => {
     if (carts && !carts.length) {
-      assignUserSettings({ ...userSettings, has_cart: false });
+      assignUserSettings({ ...userSettings, cart_items: [] });
     }
   }, [carts]);
 
@@ -108,6 +108,10 @@ export default function Cart(): JSX.Element {
       .removeItem(sellerId, listingId)
       .then((cartsResponse) => {
         toast.success("Item removed from cart");
+        const newCartItems = userSettings.cart_items.filter(
+          (cart_item) => cart_item.listing_id != listingId
+        );
+        assignUserSettings({ ...userSettings, cart_items: newCartItems });
         setCarts(cartsResponse.data);
       })
       .catch((error) => {
