@@ -8,6 +8,7 @@ import ImageSlider from "components/listing/imageSlider";
 import { InfoCard } from "./infoCard";
 import { InfoCircleXs } from "components/icons";
 import Link from "next/link";
+import ListingOfferModal from "components/forms/listing/offer";
 import { PrimaryButtonFull } from "components/buttons";
 import ReactTooltip from "react-tooltip";
 import { UserInfo } from "components/user";
@@ -182,7 +183,10 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
             <span className="text-md text-accent-darker">{props.currency}</span>
             {renderShipping()}
           </div>
-          <div className="my-4">{renderButton()}</div>
+          <div className="my-4">
+            {renderButton()}
+            <ListingOfferModal {...props} />
+          </div>
           <div className="grid grid-cols-1 my-4 space-y-4 sm:grid-cols-2">
             <div className="mt-4">
               <label className="font-semibold text-accent-darker">
