@@ -28,7 +28,6 @@ export default function PurchaseOffers(): JSX.Element {
   if (offersError) return <GenericErrorMessage />;
 
   const offers: IOffer[] = offersResponse.data;
-  console.log(offers);
 
   return (
     <div className="my-4">

@@ -27,7 +27,13 @@ export function Offer(props: IOffer): JSX.Element {
                 </Link>
               </td>
               <td>stub</td>
-              <td>{props.amount}</td>
+              <td>
+                {Number(props.amount).toLocaleString("en", {
+                  style: "currency",
+                  currency: "usd",
+                })}{" "}
+                {props.listing.currency}
+              </td>
             </tr>
           </tbody>
         </table>
