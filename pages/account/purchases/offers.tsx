@@ -1,8 +1,8 @@
 import { GenericErrorMessage } from "components/message";
 import { IOffer } from "types/offer";
 import { NextSeo } from "next-seo";
-import { Offer } from "components/offer";
 import PageContainer from "components/pageContainer";
+import { PurchaseOffer } from "components/offer";
 import { SpinnerLg } from "components/spinner";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
@@ -35,7 +35,7 @@ export default function PurchaseOffers(): JSX.Element {
       <PageContainer>
         <h3 className="text-center">Active Offers</h3>
         {offers.map((offer) => {
-          return <Offer key={offer.id} {...offer} />;
+          return <PurchaseOffer key={offer.id} {...offer} />;
         })}
       </PageContainer>
     </div>
