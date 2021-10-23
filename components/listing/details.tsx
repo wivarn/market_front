@@ -8,7 +8,7 @@ import ImageSlider from "components/listing/imageSlider";
 import { InfoCard } from "./infoCard";
 import { InfoCircleXs } from "components/icons";
 import Link from "next/link";
-import ListingOfferModal from "components/forms/listing/offer";
+import ListingOfferModal from "components/forms/offer";
 import { PrimaryButtonFull } from "components/buttons";
 import ReactTooltip from "react-tooltip";
 import { UserInfo } from "components/user";

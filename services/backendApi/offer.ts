@@ -8,6 +8,10 @@ export const OfferApi = (
     listingId: string,
     amount: string | number
   ) => Promise<AxiosResponse<any>>;
+  createCounter: (
+    id: string,
+    amount: string | number
+  ) => Promise<AxiosResponse<any>>;
 } => {
   const create = async (listingId: string, amount: string | number) => {
     return base.post(
@@ -22,5 +26,17 @@ export const OfferApi = (
     );
   };
 
-  return { create };
+  const createCounter = async (id: string, amount: string | number) => {
+    return base.post(
+      `offers/${id}/counter_offer`,
+      {
+        amount: amount,
+      },
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+  };
+
+  return { create, createCounter };
 };

@@ -6,6 +6,8 @@ import {
 import { IOffer } from "types/offer";
 import Link from "next/dist/client/link";
 import { ListingPreviewList } from "components/listing/preview";
+import { OfferApi } from "services/backendApi/offer";
+import { useSession } from "next-auth/client";
 
 interface IOfferProps {
   offer: IOffer;
@@ -16,6 +18,8 @@ interface IOfferProps {
 }
 
 export const SaleOffer = (props: IOffer): JSX.Element => {
+  const [session] = useSession();
+
   const counter = props.counter;
   const headerText = counter ? "Counter Offer Sent" : "Offer Recieved";
   const menuItems = () => {
@@ -26,7 +30,7 @@ export const SaleOffer = (props: IOffer): JSX.Element => {
     };
 
     const counterOffer = async () => {
-      // do something
+      OfferApi(session?.accessToken).createCounter(props.id, 123);
     };
 
     const declineOffer = async () => {
