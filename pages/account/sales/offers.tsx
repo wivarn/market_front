@@ -12,7 +12,7 @@ export default function PurchaseOffers(): JSX.Element {
 
   function getOffers() {
     const { data, error } = useSWR(
-      session ? [`offers/sales_offers`, session.accessToken] : null
+      session ? [`offers/sale_offers`, session.accessToken] : null
     );
 
     return {
