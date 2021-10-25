@@ -88,7 +88,7 @@ export const SaleOffer = (props: IOffer): JSX.Element => {
     submitText: "Reject Offer",
   });
   const [cancelMenuItem, cancelModal] = Modal({
-    modalToggle: "Reject Offer",
+    modalToggle: "Cancel Offer",
     title: "Cancel Offer?",
     body: (
       <p>
@@ -146,31 +146,65 @@ export const SaleOffer = (props: IOffer): JSX.Element => {
 };
 
 export const PurchaseOffer = (props: IOffer): JSX.Element => {
+  const [session] = useSession();
+
   const counter = props.counter;
   const headerText = counter ? "Counter Offer Recieved" : "Offer Sent";
+  const [acceptMenuItem, acceptModal] = Modal({
+    modalToggle: "Accept Offer",
+    title: "Accept Offer?",
+    body: (
+      <p>
+        Confirm that you want to accept the offer of {offerAmount(props)} +
+        shipping for this item.
+        <br />
+        If you accept the offer then it will no longer be available for sale.
+        You will have 48 hours to pay for the item.
+      </p>
+    ),
+    submitAction: () => acceptOffer(`${session?.accessToken}`, props.id),
+    submitText: "Accept Offer",
+  });
+  const [counterMenuItem, counterModal] = Modal({
+    modalToggle: "Counter Offer",
+    title: "Submit Counter Offer",
+    body: (
+      <p>
+        Submit a counter offer for this item to the seller. If accepted you are
+        obligated to pay for the item within 48 hours.
+      </p>
+    ),
+    submitAction: () => counterOffer(`${session?.accessToken}`, props.id),
+    submitText: "Submit Offer",
+  });
+  const [rejectMenuItem, rejectModal] = Modal({
+    modalToggle: "Reject Offer",
+    title: "Reject Offer?",
+    body: (
+      <p>
+        Confirm that you want to reject the counter offer of{" "}
+        {offerAmount(props)} + shipping for this item. We will notify the seller
+        that you have rejected their counter offer.
+      </p>
+    ),
+    submitAction: () => rejectOffer(`${session?.accessToken}`, props.id),
+    submitText: "Reject Offer",
+  });
+  const [cancelMenuItem, cancelModal] = Modal({
+    modalToggle: "Cancel Offer",
+    title: "Cancel Offer?",
+    body: (
+      <p>
+        Confirm that you want to cancel the offer of {offerAmount(props)} +
+        shipping for this item. We will notify the seller that you have
+        cancelled your offer.
+      </p>
+    ),
+    submitAction: () => cancelOffer(`${session?.accessToken}`, props.id),
+    submitText: "Cancel Offer",
+  });
   const menuItems = () => {
     const items: JSX.Element[] = [];
-
-    const acceptOffer = async () => {
-      // do something
-    };
-
-    const counterOffer = async () => {
-      // do something
-    };
-
-    const rejectOffer = async () => {
-      // do something
-    };
-
-    const cancelOffer = async () => {
-      // do something
-      console.log("clicked cancel");
-    };
-
-    const openHistoryModal = async () => {
-      // do something
-    };
 
     items.push(
       <Link href={`/messages/${props.seller.id}`}>
@@ -179,13 +213,9 @@ export const PurchaseOffer = (props: IOffer): JSX.Element => {
     );
 
     if (counter) {
-      items.push(
-        <a onClick={acceptOffer}>Accept Offer</a>,
-        <a onClick={counterOffer}>Counter Offer</a>,
-        <a onClick={rejectOffer}>Reject Offer</a>
-      );
+      items.push(acceptMenuItem, counterMenuItem, rejectMenuItem);
     } else {
-      items.push(<a onClick={cancelOffer}>Cancel Offer</a>);
+      items.push(cancelMenuItem);
     }
 
     items.push(<a onClick={openHistoryModal}>View History</a>);
@@ -202,6 +232,7 @@ export const PurchaseOffer = (props: IOffer): JSX.Element => {
       </Link>
     );
   };
+  const hiddenElements = [acceptModal, counterModal, rejectModal, cancelModal];
 
   return (
     <Offer
@@ -210,6 +241,7 @@ export const PurchaseOffer = (props: IOffer): JSX.Element => {
       headerText={headerText}
       offerUserHeader={offerUserHeader()}
       offerUserLink={offerUserLink()}
+      hiddenElements={hiddenElements}
     />
   );
 };
