@@ -31,7 +31,7 @@ export const OfferApi = (
 
   const createCounter = async (id: string, amount: string | number) => {
     return base.post(
-      `offers/${id}/counter_offer`,
+      `offers/${id}/create_counter`,
       {
         amount: amount,
       },

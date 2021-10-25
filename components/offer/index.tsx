@@ -1,5 +1,6 @@
 import { IOffer } from "types/offer";
 import Link from "next/dist/client/link";
+import ListingCounterOfferModal from "components/forms/offer/counter";
 import { ListingPreviewList } from "components/listing/preview";
 import Modal from "components/modal";
 import { OfferApi } from "services/backendApi/offer";
@@ -24,10 +25,6 @@ const offerAmount = (offer: IOffer) => {
 
 const acceptOffer = async (accessToken: string, id: string) => {
   OfferApi(accessToken).accept(id);
-};
-
-const counterOffer = async (accessToken: string, id: string) => {
-  OfferApi(accessToken).createCounter(id, 1.23);
 };
 
 const rejectOffer = async (accessToken: string, id: string) => {
@@ -62,18 +59,7 @@ export const SaleOffer = (props: IOffer): JSX.Element => {
     submitAction: () => acceptOffer(`${session?.accessToken}`, props.id),
     submitText: "Accept Offer",
   });
-  const [counterMenuItem, counterModal] = Modal({
-    modalToggle: "Counter Offer",
-    title: "Submit Counter Offer",
-    body: (
-      <p>
-        Submit a counter offer for this item to the buyer. If accepted they are
-        obligated to pay for the item within 48 hours.
-      </p>
-    ),
-    submitAction: () => counterOffer(`${session?.accessToken}`, props.id),
-    submitText: "Submit Offer",
-  });
+  const [counterMenuItem, counterModal] = ListingCounterOfferModal(props);
   const [rejectMenuItem, rejectModal] = Modal({
     modalToggle: "Reject Offer",
     title: "Reject Offer?",
@@ -165,18 +151,7 @@ export const PurchaseOffer = (props: IOffer): JSX.Element => {
     submitAction: () => acceptOffer(`${session?.accessToken}`, props.id),
     submitText: "Accept Offer",
   });
-  const [counterMenuItem, counterModal] = Modal({
-    modalToggle: "Counter Offer",
-    title: "Submit Counter Offer",
-    body: (
-      <p>
-        Submit a counter offer for this item to the seller. If accepted you are
-        obligated to pay for the item within 48 hours.
-      </p>
-    ),
-    submitAction: () => counterOffer(`${session?.accessToken}`, props.id),
-    submitText: "Submit Offer",
-  });
+  const [counterMenuItem, counterModal] = ListingCounterOfferModal(props);
   const [rejectMenuItem, rejectModal] = Modal({
     modalToggle: "Reject Offer",
     title: "Reject Offer?",
