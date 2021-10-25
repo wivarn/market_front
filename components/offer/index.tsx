@@ -1,17 +1,13 @@
-import {
-  IOverflowMenuItem,
-  OverflowButton,
-} from "components/buttons/overflowButton";
-
 import { IOffer } from "types/offer";
 import Link from "next/dist/client/link";
 import { ListingPreviewList } from "components/listing/preview";
 import { OfferApi } from "services/backendApi/offer";
+import { OverflowMenuJsx } from "components/buttons/overflowMenuJsx";
 import { useSession } from "next-auth/client";
 
 interface IOfferProps {
   offer: IOffer;
-  menuItems: IOverflowMenuItem[];
+  menuItems: JSX.Element[];
   headerText: string;
   offerUserHeader: string;
   offerUserLink: JSX.Element;
@@ -23,7 +19,7 @@ export const SaleOffer = (props: IOffer): JSX.Element => {
   const counter = props.counter;
   const headerText = counter ? "Counter Offer Sent" : "Offer Recieved";
   const menuItems = () => {
-    const items: IOverflowMenuItem[] = [];
+    const items: JSX.Element[] = [];
 
     const acceptOffer = async () => {
       // do something
@@ -33,7 +29,7 @@ export const SaleOffer = (props: IOffer): JSX.Element => {
       OfferApi(session?.accessToken).createCounter(props.id, 123);
     };
 
-    const declineOffer = async () => {
+    const rejectOffer = async () => {
       // do something
     };
 
@@ -45,42 +41,23 @@ export const SaleOffer = (props: IOffer): JSX.Element => {
       // do something
     };
 
-    items.push({
-      href: `/messages/${props.buyer.id}`,
-      text: "Message Buyer",
-    });
+    items.push(
+      <Link href={`/messages/${props.buyer.id}`}>
+        <a>Message Buyer</a>
+      </Link>
+    );
 
     if (!counter) {
       items.push(
-        {
-          href: "#",
-          text: "Accept Offer",
-          onClick: acceptOffer,
-        },
-        {
-          href: "#",
-          text: "Counter Offer",
-          onClick: counterOffer,
-        },
-        {
-          href: "#",
-          text: "Decline Offer",
-          onClick: declineOffer,
-        }
+        <a onClick={acceptOffer}>Accept Offer</a>,
+        <a onClick={counterOffer}>Counter Offer</a>,
+        <a onClick={rejectOffer}>Reject Offer</a>
       );
     } else {
-      items.push({
-        href: "#",
-        text: "Cancel Offer",
-        onClick: cancelOffer,
-      });
+      items.push(<a onClick={cancelOffer}>Cancel Offer</a>);
     }
 
-    items.push({
-      href: "#",
-      text: "View History",
-      onClick: openHistoryModal,
-    });
+    items.push(<a onClick={openHistoryModal}>View History</a>);
 
     return items;
   };
@@ -110,7 +87,7 @@ export const PurchaseOffer = (props: IOffer): JSX.Element => {
   const counter = props.counter;
   const headerText = counter ? "Counter Offer Recieved" : "Offer Sent";
   const menuItems = () => {
-    const items: IOverflowMenuItem[] = [];
+    const items: JSX.Element[] = [];
 
     const acceptOffer = async () => {
       // do something
@@ -120,54 +97,36 @@ export const PurchaseOffer = (props: IOffer): JSX.Element => {
       // do something
     };
 
-    const declineOffer = async () => {
+    const rejectOffer = async () => {
       // do something
     };
 
     const cancelOffer = async () => {
       // do something
+      console.log("clicked cancel");
     };
 
     const openHistoryModal = async () => {
       // do something
     };
 
-    items.push({
-      href: `/messages/${props.seller.id}`,
-      text: "Message Seller",
-    });
+    items.push(
+      <Link href={`/messages/${props.seller.id}`}>
+        <a>Message Seller</a>
+      </Link>
+    );
 
     if (counter) {
       items.push(
-        {
-          href: "#",
-          text: "Accept Offer",
-          onClick: acceptOffer,
-        },
-        {
-          href: "#",
-          text: "Counter Offer",
-          onClick: counterOffer,
-        },
-        {
-          href: "#",
-          text: "Decline Offer",
-          onClick: declineOffer,
-        }
+        <a onClick={acceptOffer}>Accept Offer</a>,
+        <a onClick={counterOffer}>Counter Offer</a>,
+        <a onClick={rejectOffer}>Reject Offer</a>
       );
     } else {
-      items.push({
-        href: "#",
-        text: "Cancel Offer",
-        onClick: cancelOffer,
-      });
+      items.push(<a onClick={cancelOffer}>Cancel Offer</a>);
     }
 
-    items.push({
-      href: "#",
-      text: "View History",
-      onClick: openHistoryModal,
-    });
+    items.push(<a onClick={openHistoryModal}>View History</a>);
 
     return items;
   };
@@ -198,7 +157,7 @@ export const Offer = (props: IOfferProps): JSX.Element => {
 
   const renderOverflowButton = () => {
     return (
-      <OverflowButton
+      <OverflowMenuJsx
         menutItems={props.menuItems}
         menuItemsClassName="-right-8"
       />
