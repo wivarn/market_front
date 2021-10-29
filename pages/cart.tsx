@@ -162,6 +162,7 @@ export default function Cart(): JSX.Element {
 
     function renderCart(cart: ICart) {
       function notAvailable(listing: Ilisting): boolean {
+        if (listing.accepted_offer) return false;
         return (
           listing.shipping == null ||
           (!cart.checkout_session_id && listing.aasm_state != "active")
