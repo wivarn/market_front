@@ -101,6 +101,30 @@ export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
 
 // banner shaped preview
 export const ListingPreviewList = (props: Ilisting): JSX.Element => {
+  const renderPrice = () => {
+    return (
+      <span className="font-semibold text-accent-darker">
+        <span className={props.accepted_offer ? "line-through" : ""}>
+          {Number(props.price).toLocaleString("en", {
+            style: "currency",
+            currency: "usd",
+          })}{" "}
+          <span className="text-xs text-accent-dark">{props.currency}</span>
+        </span>
+        {props.accepted_offer ? (
+          <span>
+            {" "}
+            {Number(props.accepted_offer.amount).toLocaleString("en", {
+              style: "currency",
+              currency: "usd",
+            })}{" "}
+            <span className="text-xs text-accent-dark">{props.currency}</span>
+          </span>
+        ) : null}
+      </span>
+    );
+  };
+
   const renderShipping = () => {
     if (props.shipping == null) {
       return (
@@ -148,16 +172,7 @@ export const ListingPreviewList = (props: Ilisting): JSX.Element => {
 
             <div className="flex justify-end mt-4">
               <div className="grid grid-cols-1">
-                <span className="font-semibold text-accent-darker">
-                  {Number(props.price).toLocaleString("en", {
-                    style: "currency",
-                    currency: "usd",
-                  })}{" "}
-                  <span className="text-xs text-accent-dark">
-                    {props.currency}
-                  </span>
-                </span>
-
+                {renderPrice()}
                 {renderShipping()}
               </div>
             </div>

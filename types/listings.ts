@@ -1,3 +1,4 @@
+import { IOffer } from "types/offer";
 import { IUser } from "types/user";
 
 export interface Ilisting {
@@ -11,6 +12,7 @@ export interface Ilisting {
   price: string;
   aasm_state: string;
   shipping: string | number;
+  accepted_offer?: IOffer;
 }
 
 export interface IListingsPaginated {
