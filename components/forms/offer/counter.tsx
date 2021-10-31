@@ -96,7 +96,7 @@ export default function ListingCounterOfferModal(
                   Submit a counter offer for this item to the buyer. If accepted
                   they are obligated to pay for the item within 48 hours.
                 </p>
-                <p className="text-xs text-accent-dark">
+                <p className="mt-2 text-xs text-accent-dark">
                   Offers automatically expire in 48 hours
                 </p>
               </div>
@@ -120,6 +120,7 @@ export default function ListingCounterOfferModal(
                   <Form>
                     <CurrencyFieldFull
                       name="amount"
+                      label="Offer Amount"
                       placeholder="0"
                       currency={props.currency}
                     />
