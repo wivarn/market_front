@@ -12,6 +12,7 @@ export interface Ilisting {
   price: string;
   aasm_state: string;
   shipping: string | number;
+  accept_offers: boolean;
   accepted_offer?: IOffer;
 }
 
@@ -45,6 +46,7 @@ export interface IListingFormData {
   description: string;
   aasm_state: string;
   state_transition?: string;
+  accept_offers: boolean;
 }
 
 export interface IListingTemplate {
@@ -59,6 +61,7 @@ export interface IListingTemplate {
   domestic_shipping?: string | number;
   international_shipping?: string | number;
   combined_shipping?: string | number;
+  accept_offers: boolean;
 }
 
 export interface ICart {

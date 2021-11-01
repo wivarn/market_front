@@ -84,6 +84,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
   const router = useRouter();
   const [session, sessionLoading] = useSession();
   const [graded, setGraded] = useState(!!props.grading_company);
+  const [acceptOffers, setAcceptOffers] = useState(props.accept_offers);
   const [imageData, setImageData] = useState<(File | string)[]>(
     props.photos.map((photo) => photo.url)
   );
@@ -110,6 +111,13 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
       initialValues = { ...initialValues, [key]: undefined };
     }
   }
+
+  useEffect(() => {
+    if (newListing) {
+      setGraded(!!template.grading_company);
+      setAcceptOffers(template.accept_offers);
+    }
+  }, [template]);
 
   function renderGrading(formik: FormikProps<any>) {
     const label = graded ? "Grading" : "Condition";
@@ -277,6 +285,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                 domestic_shipping,
                 international_shipping,
                 combined_shipping,
+                accept_offers,
               }) => ({
                 category,
                 subcategory,
@@ -288,6 +297,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                 domestic_shipping,
                 international_shipping,
                 combined_shipping,
+                accept_offers,
               }))(values);
               Object.entries(requestValues).forEach(([key, value]) => {
                 if (value != undefined) {
@@ -418,6 +428,17 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                     currency={userSettings.currency}
                   />
 
+                  <ListingToggle
+                    name="accept_offers"
+                    enabled={acceptOffers}
+                    setEnabled={setAcceptOffers}
+                    label="Accept Offers?"
+                    description="Allow people to submit their best offer"
+                    onClick={async () => {
+                      formik.setFieldValue("accept_offers", !acceptOffers);
+                    }}
+                  />
+
                   <ListingNumberField
                     label={`Shipping to ${domesticShippingCountry}`}
                     name="domestic_shipping"
@@ -469,6 +490,7 @@ export const ListingFormDefaultProps: IListingFormData = {
   international_shipping: "",
   combined_shipping: "",
   aasm_state: "draft",
+  accept_offers: false,
 };
 
 export default ListingForm;

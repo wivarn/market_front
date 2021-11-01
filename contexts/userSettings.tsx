@@ -37,7 +37,7 @@ const defaultSettings: IUserSettings = {
   cart_items: [],
   has_pending_shipment: false,
   selling_enabled: false,
-  listing_template: {},
+  listing_template: { accept_offers: false },
   previous_path: "/",
   default_settings: true,
 };
