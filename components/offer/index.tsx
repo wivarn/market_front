@@ -262,7 +262,7 @@ export const Offer = (props: IOfferProps): JSX.Element => {
             </tbody>
           </table>
         </div>
-        <div>
+        <div className="pb-1">
           <ListingPreviewList key={offer.listing.id} {...offer.listing} />
         </div>
       </div>
