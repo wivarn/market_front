@@ -50,10 +50,9 @@ export const SaleOffer = (props: IOffer): JSX.Element => {
     body: (
       <p>
         Confirm that you want to accept the offer of {offerAmount(props)} +
-        shipping for this item.
-        <br />
-        If you accept the offer then it will no longer be available for sale.
-        The buyer will have 48 hours to pay for the item.
+        shipping for this item. If you accept the offer then it will no longer
+        be available for sale. The customer will have 48 hours to pay for the
+        item.
       </p>
     ),
     submitAction: () => acceptOffer(`${session?.accessToken}`, props.id),
@@ -66,8 +65,8 @@ export const SaleOffer = (props: IOffer): JSX.Element => {
     body: (
       <p>
         Confirm that you want to reject the offer of {offerAmount(props)} +
-        shipping for this item. We will notify the buyer that you have rejected
-        their offer.
+        shipping for this item. We will notify the customer that you have
+        rejected their offer.
       </p>
     ),
     submitAction: () => rejectOffer(`${session?.accessToken}`, props.id),
@@ -91,7 +90,7 @@ export const SaleOffer = (props: IOffer): JSX.Element => {
 
     items.push(
       <Link href={`/messages/${props.buyer.id}`}>
-        <a>Message Buyer</a>
+        <a>Message Customer</a>
       </Link>
     );
 

@@ -93,8 +93,8 @@ export default function ListingCounterOfferModal(
               </Dialog.Title>
               <div className="mt-2">
                 <p className="text-sm text-accent-darker">
-                  Submit a counter offer for this item to the buyer. If accepted
-                  they are obligated to pay for the item within 48 hours.
+                  Submit a counter offer for this item. If accepted they are
+                  obligated to pay for the item within 48 hours.
                 </p>
                 <p className="mt-2 text-xs text-accent-dark">
                   Offers automatically expire in 48 hours
@@ -108,7 +108,7 @@ export default function ListingCounterOfferModal(
                   OfferApi(session?.accessToken)
                     .createCounter(props.id, values.amount)
                     .then(() => {
-                      toast.success("Offer submitted.");
+                      toast.success("Counter offer sent.");
                       closeModal();
                     })
                     .catch((error) => {
@@ -118,13 +118,14 @@ export default function ListingCounterOfferModal(
               >
                 {(formik) => (
                   <Form>
-                    <CurrencyFieldFull
-                      name="amount"
-                      label="Offer Amount"
-                      placeholder="0"
-                      currency={props.currency}
-                    />
-
+                    <div className="mt-2">
+                      <CurrencyFieldFull
+                        name="amount"
+                        label="Counter Offer Amount"
+                        placeholder="0"
+                        currency={props.currency}
+                      />
+                    </div>
                     <div className="mt-2 space-x-2">
                       <SubmitButton
                         submitting={formik.isSubmitting}

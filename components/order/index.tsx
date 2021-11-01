@@ -188,7 +188,7 @@ export function Order(props: IOrderProps): JSX.Element {
 
     menuItems.push({
       href: `/messages/${sale ? order.buyer.id : order.seller.id}`,
-      text: `Message ${sale ? "Buyer" : "Seller"}`,
+      text: `Message ${sale ? "Customer" : "Seller"}`,
     });
 
     if (sale && ["pending_shipment", "shipped"].includes(order.aasm_state)) {

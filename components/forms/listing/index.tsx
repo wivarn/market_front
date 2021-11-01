@@ -376,7 +376,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                     label="Description (Optional)"
                     name="description"
                     id={`${idPrefix}description`}
-                    description="Use the description to provide any addtional detail about your listing that you want buyers to know about."
+                    description="Use the description to provide any addtional detail about your listing that you want customers to know about."
                     type="text"
                     placeholder="Write a description"
                   />

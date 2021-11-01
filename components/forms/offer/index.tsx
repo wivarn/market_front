@@ -80,10 +80,9 @@ export default function ListingOfferModal(props: IlistingDetails): JSX.Element {
                 </Dialog.Title>
                 <div className="mt-2">
                   <p className="text-sm text-accent-darker">
-                    Submit your best offer for this item to the seller. If
-                    accepted you are obligated to pay the seller for the item
-                    within 48 hours. Failure to pay for the item could result in
-                    suspension of your account.
+                    Submit an offer for this item to the seller. If accepted,
+                    you are obligated to pay within 48 hours. Failure to pay for
+                    the item could result in suspension of your account.
                   </p>
                   <p className="mt-2 text-xs text-accent-dark">
                     Offers automatically expire in 48 hours
