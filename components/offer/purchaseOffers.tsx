@@ -1,4 +1,5 @@
-import { GenericErrorMessage } from "components/message";
+import { BlankMessage, GenericErrorMessage } from "components/message";
+
 import { IOffer } from "types/offer";
 import PageContainer from "components/pageContainer";
 import { PurchaseOffer } from "components/offer";
@@ -27,6 +28,17 @@ export default function PurchaseOffers(): JSX.Element {
   if (offersError) return <GenericErrorMessage />;
 
   const offers: IOffer[] = offersResponse.data;
+
+  if (offers.length == 0) {
+    return (
+      <div>
+        <h3 className="text-center">Purchase Offers</h3>
+        <p className="mt-2 mb-4 text-center">
+          You have no active purchase offers
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div>

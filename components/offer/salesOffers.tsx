@@ -29,8 +29,17 @@ export default function SalesOffers(): JSX.Element {
 
   const offers: IOffer[] = offersResponse.data;
 
+  if (offers.length == 0) {
+    return (
+      <div className="mt-4">
+        <h3 className="text-center">Sales Offers</h3>
+        <p className="text-center">You have no active sales offers</p>
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <div className="mt-4">
       <h3 className="text-center">Sales Offers</h3>
       {offers.map((offer) => {
         return <SaleOffer key={offer.id} {...offer} />;
