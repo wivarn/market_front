@@ -1,7 +1,5 @@
 import { GenericErrorMessage } from "components/message";
 import { IOffer } from "types/offer";
-import { NextSeo } from "next-seo";
-import PageContainer from "components/pageContainer";
 import { SaleOffer } from "components/offer";
 import { SpinnerLg } from "components/spinner";
 import useSWR from "swr";

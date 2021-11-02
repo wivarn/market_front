@@ -1,7 +1,5 @@
-import { BlankMessage, GenericErrorMessage } from "components/message";
-
+import { GenericErrorMessage } from "components/message";
 import { IOffer } from "types/offer";
-import PageContainer from "components/pageContainer";
 import { PurchaseOffer } from "components/offer";
 import { SpinnerLg } from "components/spinner";
 import useSWR from "swr";
