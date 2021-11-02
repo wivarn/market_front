@@ -174,6 +174,7 @@ const ListingTemplateForm = (): JSX.Element => {
   const { userSettings, updateUserSettings } = useContext(UserSettingsContext);
   const template = userSettings.listing_template;
   const [graded, setGraded] = useState(!!template.grading_company);
+  const [acceptOffers, setAcceptOffers] = useState(template.accept_offers);
 
   useEffect(() => {
     setGraded(!!template.grading_company);
@@ -282,7 +283,7 @@ const ListingTemplateForm = (): JSX.Element => {
                     label="Description"
                     name="description"
                     id={`${idPrefix}description`}
-                    description="Use the description to provide any addtional detail about your listing that you want buyers to know about."
+                    description="Use the description to provide any addtional detail about your listing that you want customers to know about."
                     type="text"
                     placeholder="Write a description"
                   />
@@ -320,6 +321,17 @@ const ListingTemplateForm = (): JSX.Element => {
                     description="Enter the price. Lower prices will increase your chances of making a sale."
                     placeholder="0"
                     currency={userSettings.currency}
+                  />
+
+                  <ListingToggle
+                    name="accept_offers"
+                    enabled={acceptOffers}
+                    setEnabled={setAcceptOffers}
+                    label="Accept Offers?"
+                    description="Allow people to submit their best offer"
+                    onClick={async () => {
+                      formik.setFieldValue("accept_offers", !acceptOffers);
+                    }}
                   />
 
                   <ListingNumberField

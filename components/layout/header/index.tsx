@@ -102,7 +102,7 @@ export default function Header(): JSX.Element {
         <div data-tip data-for="sell">
           <IconLink href={href} icon={<CurrencyDollarIcon />} />
           <ReactTooltip id="sell" type="dark" place="bottom" effect="solid">
-            Sell
+            Listings
           </ReactTooltip>
         </div>
       );

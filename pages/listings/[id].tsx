@@ -77,6 +77,7 @@ export default function ShowListing(
           photos={listing.photos}
           title={listing.title}
           price={listing.price}
+          accept_offers={listing.accept_offers}
           currency={listing.currency}
           shipping={listing.shipping}
           combined_shipping={listing.combined_shipping}

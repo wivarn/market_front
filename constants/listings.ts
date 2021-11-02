@@ -217,6 +217,7 @@ export const listingSchema: ObjectShape = {
     .max(99999999.99, "Shipping must be less than 99999999.99")
     .nullable(),
   aasm_state: Yup.string().required("Required"),
+  accept_offers: Yup.boolean().required("Required"),
 };
 
 export const stateMappings: { [key: string]: string } = {

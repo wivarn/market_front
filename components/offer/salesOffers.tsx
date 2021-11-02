@@ -1,18 +1,16 @@
 import { GenericErrorMessage } from "components/message";
 import { IOffer } from "types/offer";
-import { NextSeo } from "next-seo";
-import PageContainer from "components/pageContainer";
-import { PurchaseOffer } from "components/offer";
+import { SaleOffer } from "components/offer";
 import { SpinnerLg } from "components/spinner";
 import useSWR from "swr";
 import { useSession } from "next-auth/client";
 
-export default function PurchaseOffers(): JSX.Element {
+export default function SalesOffers(): JSX.Element {
   const [session, sessionLoading] = useSession();
 
   function getOffers() {
     const { data, error } = useSWR(
-      session ? [`offers/purchase_offers`, session.accessToken] : null
+      session ? [`offers/sale_offers`, session.accessToken] : null
     );
 
     return {
@@ -29,15 +27,21 @@ export default function PurchaseOffers(): JSX.Element {
 
   const offers: IOffer[] = offersResponse.data;
 
+  if (offers.length == 0) {
+    return (
+      <div className="mt-4">
+        <h3 className="text-center">Sales Offers</h3>
+        <p className="text-center">You have no active sales offers</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="my-4">
-      <NextSeo title="Purchases" />
-      <PageContainer>
-        <h3 className="text-center">Active Offers</h3>
-        {offers.map((offer) => {
-          return <PurchaseOffer key={offer.id} {...offer} />;
-        })}
-      </PageContainer>
+    <div className="mt-4">
+      <h3 className="text-center">Sales Offers</h3>
+      {offers.map((offer) => {
+        return <SaleOffer key={offer.id} {...offer} />;
+      })}
     </div>
   );
 }

@@ -154,7 +154,7 @@ export const DropDown = (): JSX.Element => {
                 <Menu.Item>
                   {({ active }) => (
                     <LinkWrapper href={href} active={active}>
-                      Sell
+                      Listings
                     </LinkWrapper>
                   )}
                 </Menu.Item>
@@ -163,6 +163,13 @@ export const DropDown = (): JSX.Element => {
                     <LinkWrapper href="/account/sales" active={active}>
                       Sales
                       {salesDot()}
+                    </LinkWrapper>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <LinkWrapper href="/offers" active={active}>
+                      Offers
                     </LinkWrapper>
                   )}
                 </Menu.Item>
