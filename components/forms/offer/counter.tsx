@@ -46,7 +46,7 @@ export default function ListingCounterOfferModal(
 
   return [
     <a key={uniqueId("toggle")} onClick={async () => setModalOpen(true)}>
-      Counter Offer
+      {props.counter ? "New" : "Counter"} Offer
     </a>,
     <Transition key={uniqueId("modal")} appear show={modalOpen} as={Fragment}>
       <Dialog
@@ -89,12 +89,16 @@ export default function ListingCounterOfferModal(
                 as="h3"
                 className="text-lg font-medium leading-6 text-accent-darker"
               >
-                Submit Counter Offer
+                Submit {props.counter ? "New" : "Counter"} Offer
               </Dialog.Title>
               <div className="mt-2">
                 <p className="text-sm text-accent-darker">
-                  Submit a counter offer for this item. If accepted they are
-                  obligated to pay for the item within 48 hours.
+                  {props.counter
+                    ? "Submit a new offer for this item to the seller. If accepted,\
+                    you are obligated to pay within 48 hours. Failure to pay for\
+                    the item could result in suspension of your account."
+                    : "Submit a counter offer for this item. If accepted they are\
+                    obligated to pay for the item within 48 hours."}
                 </p>
                 <p className="mt-2 text-xs text-accent-dark">
                   Offers automatically expire in 48 hours
@@ -105,8 +109,16 @@ export default function ListingCounterOfferModal(
                 initialValues={{ amount: 0 }}
                 validationSchema={offerSchema}
                 onSubmit={(values: { amount: number }) => {
-                  OfferApi(session?.accessToken)
-                    .createCounter(props.id, values.amount)
+                  const request = props.counter
+                    ? OfferApi(session?.accessToken).create(
+                        props.listing.id,
+                        values.amount
+                      )
+                    : OfferApi(session?.accessToken).createCounter(
+                        props.id,
+                        values.amount
+                      );
+                  request
                     .then(() => {
                       toast.success("Counter offer sent.");
                       closeModal();
@@ -123,7 +135,7 @@ export default function ListingCounterOfferModal(
                         name="amount"
                         label="Counter Offer Amount"
                         placeholder="0"
-                        currency={props.currency}
+                        currency={props.listing.currency}
                       />
                     </div>
                     <div className="mt-2 space-x-2">
