@@ -1,7 +1,7 @@
 import { Menu, Transition } from "@headlessui/react";
 
+import { ChevronDownIconSm } from "components/icons";
 import { Fragment } from "react";
-import { OverflowIconSm } from "components/icons";
 
 interface IProps {
   disabled?: boolean;
@@ -16,10 +16,10 @@ export const OverflowMenuJsx = (props: IProps): JSX.Element => {
         <>
           <div>
             <Menu.Button
-              className="inline-flex items-center gap-2 p-1 mt-1 text-black bg-white border rounded-md disabled:cursor-not-allowed disabled:border-accent-light disabled:text-accent border-accent focus:outline-none hover:text-primary"
+              className="inline-flex items-center gap-2 px-2 py-1 text-sm text-black bg-white border rounded-md disabled:cursor-not-allowed disabled:border-accent-light disabled:text-accent border-accent focus:outline-none hover:text-primary"
               disabled={props.disabled}
             >
-              <OverflowIconSm />
+              Respond <ChevronDownIconSm />
             </Menu.Button>
           </div>
 
@@ -34,7 +34,7 @@ export const OverflowMenuJsx = (props: IProps): JSX.Element => {
             leaveTo="transform opacity-0 scale-95"
           >
             <Menu.Items
-              className={`absolute z-50 px-2 text-left bg-white rounded-md shadow-md w-max ring-1 ring-accent focus:outline-none ${props.menuItemsClassName}`}
+              className={`absolute mt-1 z-50 px-2 text-left bg-white rounded-md shadow-md w-max ring-1 ring-accent focus:outline-none ${props.menuItemsClassName}`}
             >
               <div className="py-2">
                 {props.menutItems.map((item, index) => {
