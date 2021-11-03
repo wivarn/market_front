@@ -34,7 +34,7 @@ export const OverflowMenuJsx = (props: IProps): JSX.Element => {
             leaveTo="transform opacity-0 scale-95"
           >
             <Menu.Items
-              className={`absolute mt-1 z-50 px-2 text-left bg-white rounded-md shadow-md w-max ring-1 ring-accent focus:outline-none ${props.menuItemsClassName}`}
+              className={`absolute mt-1 z-50 px-2 text-left bg-white rounded-md shadow-md w-44 ring-1 ring-accent focus:outline-none ${props.menuItemsClassName}`}
             >
               <div className="py-2">
                 {props.menutItems.map((item, index) => {
