@@ -133,7 +133,7 @@ export default function ListingCounterOfferModal(
                     <div className="mt-2">
                       <CurrencyFieldFull
                         name="amount"
-                        label="Counter Offer Amount"
+                        label="Offer Amount"
                         placeholder="0"
                         currency={props.listing.currency}
                       />

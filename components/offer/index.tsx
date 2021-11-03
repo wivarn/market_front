@@ -227,7 +227,7 @@ export const Offer = (props: IOfferProps): JSX.Element => {
     return (
       <OverflowMenuJsx
         menutItems={props.menuItems}
-        menuItemsClassName="-right-8"
+        menuItemsClassName="-left-16"
       />
     );
   };
@@ -236,7 +236,7 @@ export const Offer = (props: IOfferProps): JSX.Element => {
     <>
       <div className="max-w-4xl mx-auto mt-4 rounded-md shadow-md">
         <div>
-          <div className="relative flex items-center px-4 py-2 space-x-2 text-white bg-info-darker rounded-t-md">
+          <div className="relative flex items-center px-4 py-2 space-x-2 text-sm text-white bg-info-darker rounded-t-md md:text-base">
             {props.headerText}
             <span className="absolute right-3">{renderOverflowButton()}</span>
           </div>
