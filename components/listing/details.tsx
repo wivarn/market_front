@@ -23,6 +23,7 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
   const [submitting, setSubmitting] = useState(false);
   const { userSettings, assignUserSettings } = useContext(UserSettingsContext);
   const router = useRouter();
+  const isSeller = session?.accountId == props.seller.id;
 
   const category = categoryList.find((c) => c.value == props.category);
   const subCategory = category?.subCategory.find(
@@ -88,11 +89,10 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
       });
   }
 
-  function renderButton() {
+  function renderAddToCartButton() {
     const sold = props.aasm_state === "sold" || props.aasm_state === "refunded";
     const editable =
       props.aasm_state === "draft" || props.aasm_state === "active";
-    const isSeller = session?.accountId == props.seller.id;
     const inCart = userSettings.cart_items.find((cartItem) => {
       return cartItem.listing_id == props.id;
     });
@@ -161,6 +161,11 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
     );
   }
 
+  const renderMakeOfferButton = () => {
+    if (!props.accept_offers || !session || isSeller) return null;
+    return <ListingOfferModal {...props} />;
+  };
+
   return (
     <div className="container p-2 mx-auto">
       <div className="grid grid-cols-1 xl:grid-cols-2">
@@ -184,8 +189,8 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
             {renderShipping()}
           </div>
           <div className="my-4">
-            {renderButton()}
-            <ListingOfferModal {...props} />
+            {renderAddToCartButton()}
+            {renderMakeOfferButton()}
           </div>
           <div className="grid grid-cols-1 my-4 space-y-4 sm:grid-cols-2">
             <div className="mt-4">
