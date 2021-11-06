@@ -1,5 +1,5 @@
 import { GenericErrorMessage } from "components/message";
-import { IOffer } from "types/offer";
+import { IOfferDetailed } from "types/offer";
 import { SaleOffer } from "components/offer";
 import { SpinnerLg } from "components/spinner";
 import useSWR from "swr";
@@ -25,7 +25,7 @@ export default function SalesOffers(): JSX.Element {
   if (sessionLoading || offersLoading) return <SpinnerLg text="Loading..." />;
   if (offersError) return <GenericErrorMessage />;
 
-  const offers: IOffer[] = offersResponse.data;
+  const offers: IOfferDetailed[] = offersResponse.data;
 
   if (offers.length == 0) {
     return (

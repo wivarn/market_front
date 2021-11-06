@@ -1,4 +1,4 @@
-import { IOffer } from "types/offer";
+import { IOfferDetailed } from "types/offer";
 import Link from "next/dist/client/link";
 import ListingCounterOfferModal from "components/forms/offer/counter";
 import { ListingPreviewList } from "components/listing/preview";
@@ -8,7 +8,7 @@ import { OverflowMenuJsx } from "components/buttons/overflowMenuJsx";
 import { useSession } from "next-auth/client";
 
 interface IOfferProps {
-  offer: IOffer;
+  offer: IOfferDetailed;
   menuItems: JSX.Element[];
   headerText: string;
   offerUserHeader: string;
@@ -16,7 +16,7 @@ interface IOfferProps {
   hiddenElements?: JSX.Element[];
 }
 
-const offerAmount = (offer: IOffer) => {
+const offerAmount = (offer: IOfferDetailed) => {
   return `${Number(offer.amount).toLocaleString("en", {
     style: "currency",
     currency: "usd",
@@ -39,7 +39,7 @@ const openHistoryModal = async () => {
   // do something
 };
 
-export const SaleOffer = (props: IOffer): JSX.Element => {
+export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
   const [session] = useSession();
 
   const counter = props.counter;
@@ -130,7 +130,7 @@ export const SaleOffer = (props: IOffer): JSX.Element => {
   );
 };
 
-export const PurchaseOffer = (props: IOffer): JSX.Element => {
+export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
   const [session] = useSession();
 
   const counter = props.counter;

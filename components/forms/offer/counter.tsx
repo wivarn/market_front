@@ -6,14 +6,14 @@ import { Fragment, useState } from "react";
 import { ResetButton, SubmitButton } from "components/buttons";
 
 import { CurrencyFieldFull } from "../fields";
-import { IOffer } from "types/offer";
+import { IOfferDetailed } from "types/offer";
 import { OfferApi } from "services/backendApi/offer";
 import { toast } from "react-toastify";
 import { uniqueId } from "lodash";
 import { useSession } from "next-auth/client";
 
 export default function ListingCounterOfferModal(
-  props: IOffer
+  props: IOfferDetailed
 ): [JSX.Element, JSX.Element] {
   const [session] = useSession();
   const [modalOpen, setModalOpen] = useState(false);
