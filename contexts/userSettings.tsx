@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 import { signOut, useSession } from "next-auth/client";
 
 import { IListingTemplate } from "types/listings";
+import { IOfferDetailed } from "types/offer";
 import { ProfileApi } from "services/backendApi/profile";
 import router from "next/router";
 import { useEffect } from "react";
@@ -22,6 +23,7 @@ interface IUserSettings {
   listing_template: IListingTemplate;
   has_cart: boolean;
   cart_items: { listing_id: string }[];
+  offers: { purchase_offers: IOfferDetailed[]; sale_offers: IOfferDetailed[] };
   has_pending_shipment: boolean;
   selling_enabled: boolean;
   previous_path: string;
@@ -35,6 +37,7 @@ const defaultSettings: IUserSettings = {
   stripe_linked: false,
   has_cart: false,
   cart_items: [],
+  offers: { purchase_offers: [], sale_offers: [] },
   has_pending_shipment: false,
   selling_enabled: false,
   listing_template: { accept_offers: false },

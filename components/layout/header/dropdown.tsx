@@ -91,6 +91,19 @@ export const DropDown = (): JSX.Element => {
     );
   }
 
+  const offerDot = () => {
+    if (
+      !userSettings.offers.purchase_offers.length &&
+      !userSettings.offers.sale_offers.length
+    )
+      return null;
+    return (
+      <span className="absolute px-2 text-info-darker">
+        <CircleIconXs />
+      </span>
+    );
+  };
+
   return (
     <Menu as="span" className="relative">
       {({ open }) => (
@@ -170,6 +183,7 @@ export const DropDown = (): JSX.Element => {
                   {({ active }) => (
                     <LinkWrapper href="/offers" active={active}>
                       Offers
+                      {offerDot()}
                     </LinkWrapper>
                   )}
                 </Menu.Item>
