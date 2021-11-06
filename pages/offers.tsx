@@ -30,7 +30,9 @@ export default function Offers(): JSX.Element {
   const { offersResponse, offersLoading, offersError } = getOffers();
 
   useEffect(() => {
-    assignUserSettings({ ...userSettings, offers: offersResponse.data });
+    if (offersResponse?.data) {
+      assignUserSettings({ ...userSettings, offers: offersResponse.data });
+    }
   }, [offersResponse]);
 
   if (sessionLoading || offersLoading) return <SpinnerLg text="Loading..." />;

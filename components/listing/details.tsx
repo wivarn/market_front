@@ -162,7 +162,12 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
   }
 
   const renderMakeOfferButton = () => {
+    const offerMade = userSettings.offers.purchase_offers.find((offer) => {
+      return offer.listing.id == props.id;
+    });
     if (!props.accept_offers || !session || isSeller) return null;
+    if (offerMade)
+      return <SecondaryButtonFull href={`/offers`} text="View Offers" />;
     return <ListingOfferModal {...props} />;
   };
 
