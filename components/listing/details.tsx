@@ -1,5 +1,5 @@
 import { SecondaryButtonFull, SubmitButtonFull } from "components/buttons";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { CartApi } from "services/backendApi/cart";
 import { ConditionPill } from "./condition";
@@ -21,9 +21,20 @@ import { useSession } from "next-auth/client";
 const ListingDetails = (props: IlistingDetails): JSX.Element => {
   const [session] = useSession();
   const [submitting, setSubmitting] = useState(false);
-  const { userSettings, assignUserSettings } = useContext(UserSettingsContext);
+  const { userSettings, assignUserSettings, updateOffers } = useContext(
+    UserSettingsContext
+  );
   const router = useRouter();
   const isSeller = session?.accountId == props.seller.id;
+  const offerMade = userSettings.offers.purchase_offers.find((offer) => {
+    return offer.listing.id == props.id;
+  });
+
+  useEffect(() => {
+    if (session && offerMade) {
+      updateOffers(session.accessToken);
+    }
+  });
 
   const category = categoryList.find((c) => c.value == props.category);
   const subCategory = category?.subCategory.find(
@@ -162,9 +173,6 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
   }
 
   const renderMakeOfferButton = () => {
-    const offerMade = userSettings.offers.purchase_offers.find((offer) => {
-      return offer.listing.id == props.id;
-    });
     if (!props.accept_offers || !session || isSeller) return null;
     if (offerMade)
       return <SecondaryButtonFull href={`/offers`} text="View Offers" />;
