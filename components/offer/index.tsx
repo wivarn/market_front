@@ -6,6 +6,8 @@ import Modal from "components/modal";
 import { OfferApi } from "services/backendApi/offer";
 import { OverflowMenuJsx } from "components/buttons/overflowMenuJsx";
 import { useSession } from "next-auth/client";
+import { useContext } from "react";
+import { UserSettingsContext } from "contexts/userSettings";
 
 interface IOfferProps {
   offer: IOfferDetailed;
@@ -41,6 +43,7 @@ const openHistoryModal = async () => {
 
 export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
   const [session] = useSession();
+  const { updateOffers } = useContext(UserSettingsContext);
 
   const counter = props.counter;
   const headerText = counter ? "Counter Offer Sent" : "Offer Recieved";
@@ -55,7 +58,10 @@ export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
         item.
       </p>
     ),
-    submitAction: () => acceptOffer(`${session?.accessToken}`, props.id),
+    submitAction: () =>
+      acceptOffer(`${session?.accessToken}`, props.id).then(() => {
+        updateOffers(session?.accessToken);
+      }),
     submitText: "Accept Offer",
   });
   const [counterMenuItem, counterModal] = ListingCounterOfferModal(props);
@@ -69,7 +75,10 @@ export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
         rejected their offer.
       </p>
     ),
-    submitAction: () => rejectOffer(`${session?.accessToken}`, props.id),
+    submitAction: () =>
+      rejectOffer(`${session?.accessToken}`, props.id).then(() => {
+        updateOffers(session?.accessToken);
+      }),
     submitText: "Reject Offer",
   });
   const [cancelMenuItem, cancelModal] = Modal({
@@ -82,7 +91,10 @@ export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
         cancelled your offer.
       </p>
     ),
-    submitAction: () => cancelOffer(`${session?.accessToken}`, props.id),
+    submitAction: () =>
+      cancelOffer(`${session?.accessToken}`, props.id).then(() => {
+        updateOffers(session?.accessToken);
+      }),
     submitText: "Cancel Offer",
   });
   const menuItems = () => {
@@ -132,6 +144,7 @@ export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
 
 export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
   const [session] = useSession();
+  const { updateOffers } = useContext(UserSettingsContext);
 
   const counter = props.counter;
   const headerText = counter ? "Counter Offer Recieved" : "Offer Sent";
@@ -147,7 +160,10 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
         You will have 48 hours to pay for the item.
       </p>
     ),
-    submitAction: () => acceptOffer(`${session?.accessToken}`, props.id),
+    submitAction: () =>
+      acceptOffer(`${session?.accessToken}`, props.id).then(() => {
+        updateOffers(session?.accessToken);
+      }),
     submitText: "Accept Offer",
   });
   const [counterMenuItem, counterModal] = ListingCounterOfferModal(props);
@@ -161,7 +177,10 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
         that you have rejected their counter offer.
       </p>
     ),
-    submitAction: () => rejectOffer(`${session?.accessToken}`, props.id),
+    submitAction: () =>
+      rejectOffer(`${session?.accessToken}`, props.id).then(() => {
+        updateOffers(session?.accessToken);
+      }),
     submitText: "Reject Offer",
   });
   const [cancelMenuItem, cancelModal] = Modal({
@@ -174,7 +193,10 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
         cancelled your offer.
       </p>
     ),
-    submitAction: () => cancelOffer(`${session?.accessToken}`, props.id),
+    submitAction: () =>
+      cancelOffer(`${session?.accessToken}`, props.id).then(() => {
+        updateOffers(session?.accessToken);
+      }),
     submitText: "Cancel Offer",
   });
   const menuItems = () => {

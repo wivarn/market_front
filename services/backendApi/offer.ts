@@ -4,6 +4,7 @@ import { base } from "./base";
 export const OfferApi = (
   accessToken?: string
 ): {
+  index: () => Promise<AxiosResponse<any>>;
   create: (
     listingId: string,
     amount: string | number
@@ -16,6 +17,12 @@ export const OfferApi = (
   reject: (id: string) => Promise<AxiosResponse<any>>;
   cancel: (id: string) => Promise<AxiosResponse<any>>;
 } => {
+  const index = async () => {
+    return base.get("offers", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  };
+
   const create = async (listingId: string, amount: string | number) => {
     return base.post(
       "offers",
@@ -71,5 +78,5 @@ export const OfferApi = (
     );
   };
 
-  return { create, createCounter, accept, reject, cancel };
+  return { index, create, createCounter, accept, reject, cancel };
 };

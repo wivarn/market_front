@@ -3,6 +3,7 @@ import { signOut, useSession } from "next-auth/client";
 
 import { IListingTemplate } from "types/listings";
 import { IOfferDetailed } from "types/offer";
+import { OfferApi } from "services/backendApi/offer";
 import { ProfileApi } from "services/backendApi/profile";
 import router from "next/router";
 import { useEffect } from "react";
@@ -11,6 +12,7 @@ import { useInterval } from "ultils/hooks";
 interface IUserSettingsContext {
   userSettings: IUserSettings;
   updateUserSettings: (accessToken?: string) => void;
+  updateOffers: (accessToken?: string) => void;
   assignUserSettings: (newUserSettings: Partial<IUserSettings>) => void;
   resetUserSettings: () => void;
 }
@@ -50,6 +52,9 @@ export const UserSettingsContext = createContext<IUserSettingsContext>({
   updateUserSettings: () => {
     // empty
   },
+  updateOffers: () => {
+    // empty
+  },
   assignUserSettings: () => {
     // empty
   },
@@ -79,6 +84,22 @@ export const UserSettingsProvider = ({
             ...userSettings,
             default_settings: false,
             ...profileResponse.data,
+          });
+        });
+    }
+  };
+
+  const updateOffers = (accessToken?: string) => {
+    if (!accessToken) {
+      resetUserSettings();
+    } else {
+      OfferApi(accessToken)
+        .index()
+        .then((offersResponse) => {
+          setUserSettings({
+            ...userSettings,
+            default_settings: false,
+            offers: offersResponse.data,
           });
         });
     }
@@ -130,6 +151,7 @@ export const UserSettingsProvider = ({
   const contextProps: IUserSettingsContext = {
     userSettings: userSettings,
     updateUserSettings: updateUserSettings,
+    updateOffers: updateOffers,
     assignUserSettings: assignUserSettings,
     resetUserSettings: resetUserSettings,
   };
