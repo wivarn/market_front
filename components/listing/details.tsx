@@ -34,7 +34,7 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
     if (session && offerMade) {
       updateOffers(session.accessToken);
     }
-  });
+  }, []);
 
   const category = categoryList.find((c) => c.value == props.category);
   const subCategory = category?.subCategory.find(
@@ -173,7 +173,13 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
   }
 
   const renderMakeOfferButton = () => {
-    if (!props.accept_offers || !session || isSeller) return null;
+    if (
+      !props.accept_offers ||
+      !session ||
+      isSeller ||
+      props.aasm_state !== "active"
+    )
+      return null;
     if (offerMade)
       return <SecondaryButtonFull href={`/offers`} text="View Offers" />;
     return <ListingOfferModal {...props} />;
