@@ -2,21 +2,23 @@ import * as Yup from "yup";
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Form, Formik } from "formik";
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { ResetButton, SubmitButton } from "components/buttons";
 
 import { CurrencyFieldFull } from "../fields";
-import { IOffer } from "types/offer";
+import { IOfferDetailed } from "types/offer";
 import { OfferApi } from "services/backendApi/offer";
 import { toast } from "react-toastify";
 import { uniqueId } from "lodash";
 import { useSession } from "next-auth/client";
+import { UserSettingsContext } from "contexts/userSettings";
 
 export default function ListingCounterOfferModal(
-  props: IOffer
+  props: IOfferDetailed
 ): [JSX.Element, JSX.Element] {
   const [session] = useSession();
   const [modalOpen, setModalOpen] = useState(false);
+  const { updateOffers } = useContext(UserSettingsContext);
 
   const sellerSchema = {
     amount: Yup.number()
@@ -122,9 +124,10 @@ export default function ListingCounterOfferModal(
                     .then(() => {
                       toast.success("Counter offer sent.");
                       closeModal();
+                      updateOffers(session?.accessToken);
                     })
-                    .catch((error) => {
-                      toast.error(error.response.data.error);
+                    .catch(() => {
+                      toast.error("Error submitting counter offer.");
                     });
                 }}
               >

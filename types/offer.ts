@@ -6,6 +6,9 @@ export interface IOffer {
   amount: string;
   expires_at: number;
   counter: boolean;
+}
+
+export interface IOfferDetailed extends IOffer {
   buyer: IUser;
   seller: IUser;
   listing: Ilisting;

@@ -1,5 +1,5 @@
 import { SecondaryButtonFull, SubmitButtonFull } from "components/buttons";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { CartApi } from "services/backendApi/cart";
 import { ConditionPill } from "./condition";
@@ -21,8 +21,20 @@ import { useSession } from "next-auth/client";
 const ListingDetails = (props: IlistingDetails): JSX.Element => {
   const [session] = useSession();
   const [submitting, setSubmitting] = useState(false);
-  const { userSettings, assignUserSettings } = useContext(UserSettingsContext);
+  const { userSettings, assignUserSettings, updateOffers } = useContext(
+    UserSettingsContext
+  );
   const router = useRouter();
+  const isSeller = session?.accountId == props.seller.id;
+  const offerMade = userSettings.offers.purchase_offers.find((offer) => {
+    return offer.listing.id == props.id;
+  });
+
+  useEffect(() => {
+    if (session && offerMade) {
+      updateOffers(session.accessToken);
+    }
+  }, []);
 
   const category = categoryList.find((c) => c.value == props.category);
   const subCategory = category?.subCategory.find(
@@ -88,11 +100,10 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
       });
   }
 
-  function renderButton() {
+  function renderAddToCartButton() {
     const sold = props.aasm_state === "sold" || props.aasm_state === "refunded";
     const editable =
       props.aasm_state === "draft" || props.aasm_state === "active";
-    const isSeller = session?.accountId == props.seller.id;
     const inCart = userSettings.cart_items.find((cartItem) => {
       return cartItem.listing_id == props.id;
     });
@@ -161,6 +172,19 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
     );
   }
 
+  const renderMakeOfferButton = () => {
+    if (
+      !props.accept_offers ||
+      !session ||
+      isSeller ||
+      props.aasm_state !== "active"
+    )
+      return null;
+    if (offerMade)
+      return <SecondaryButtonFull href={`/offers`} text="View Offers" />;
+    return <ListingOfferModal {...props} />;
+  };
+
   return (
     <div className="container p-2 mx-auto">
       <div className="grid grid-cols-1 xl:grid-cols-2">
@@ -184,8 +208,8 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
             {renderShipping()}
           </div>
           <div className="my-4">
-            {renderButton()}
-            <ListingOfferModal {...props} />
+            {renderAddToCartButton()}
+            {renderMakeOfferButton()}
           </div>
           <div className="grid grid-cols-1 my-4 space-y-4 sm:grid-cols-2">
             <div className="mt-4">

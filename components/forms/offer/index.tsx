@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Form, Formik } from "formik";
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import {
   ResetButton,
   SecondaryButtonFull,
@@ -14,10 +14,12 @@ import { IlistingDetails } from "types/listings";
 import { OfferApi } from "services/backendApi/offer";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
+import { UserSettingsContext } from "contexts/userSettings";
 
 export default function ListingOfferModal(props: IlistingDetails): JSX.Element {
   const [session] = useSession();
   const [modalOpen, setModalOpen] = useState(false);
+  const { updateOffers } = useContext(UserSettingsContext);
 
   const offerSchema = Yup.object().shape({
     amount: Yup.number()
@@ -98,6 +100,7 @@ export default function ListingOfferModal(props: IlistingDetails): JSX.Element {
                       .then(() => {
                         toast.success("Offer submitted.");
                         closeModal();
+                        updateOffers(session?.accessToken);
                       })
                       .catch((error) => {
                         toast.error(error.response.data.error);

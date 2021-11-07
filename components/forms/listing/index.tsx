@@ -94,6 +94,14 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
   const [submittingPublish, setSubmittingPublish] = useState(false);
   const [submittingDraft, setSubmittingDraft] = useState(false);
   const [submittingDelete, setSubmittingDelete] = useState(false);
+  const newListing = !props.id;
+
+  useEffect(() => {
+    if (newListing) {
+      setGraded(!!template.grading_company);
+      setAcceptOffers(template.accept_offers);
+    }
+  }, [template]);
 
   if (sessionLoading || !template.id) return <SpinnerLg text="Loading..." />;
 
@@ -104,20 +112,12 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
   }
   const domesticShippingCountry = american ? "United States" : "Canada";
   const internationalShippingCountry = american ? "Canada" : "United States";
-  const newListing = !props.id;
   let initialValues = newListing ? { ...props, ...template } : props;
   for (const key in initialValues) {
     if (initialValues[key] === null) {
       initialValues = { ...initialValues, [key]: undefined };
     }
   }
-
-  useEffect(() => {
-    if (newListing) {
-      setGraded(!!template.grading_company);
-      setAcceptOffers(template.accept_offers);
-    }
-  }, [template]);
 
   function renderGrading(formik: FormikProps<any>) {
     const label = graded ? "Grading" : "Condition";

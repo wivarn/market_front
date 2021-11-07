@@ -115,7 +115,7 @@ export default function Cart(): JSX.Element {
         setCarts(cartsResponse.data);
       })
       .catch((error) => {
-        toast.error(JSON.stringify(error.response.data));
+        toast.error(error.response.data.error);
       })
       .finally(() => {
         setSubmittingRemove({ ...submittingRemove, [listingId]: false });
@@ -129,6 +129,9 @@ export default function Cart(): JSX.Element {
       .then((cartsResponse) => {
         toast.success("Cart has been emptied");
         setCarts(cartsResponse.data);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.error);
       })
       .finally(() => {
         setSubmittingEmpty({ ...submittingEmpty, [sellerId]: false });
