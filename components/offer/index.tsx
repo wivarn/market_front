@@ -5,9 +5,9 @@ import { ListingPreviewList } from "components/listing/preview";
 import Modal from "components/modal";
 import { OfferApi } from "services/backendApi/offer";
 import { OverflowMenuJsx } from "components/buttons/overflowMenuJsx";
-import { useSession } from "next-auth/client";
-import { useContext } from "react";
 import { UserSettingsContext } from "contexts/userSettings";
+import { useContext } from "react";
+import { useSession } from "next-auth/client";
 
 interface IOfferProps {
   offer: IOfferDetailed;

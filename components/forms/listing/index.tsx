@@ -7,6 +7,7 @@ import {
   SubmitButton,
 } from "components/buttons";
 import { Form, Formik, FormikProps } from "formik";
+import { InfoMessage, WarnMessage } from "components/message";
 import {
   ListingComboBoxOption,
   ListingDropdownCombobox,
@@ -29,7 +30,6 @@ import { createRef, useEffect, useState } from "react";
 
 import FormSection from "./section";
 import { IListingFormData } from "types/listings";
-import { InfoMessage } from "components/message";
 import Link from "next/link";
 import { ListingApi } from "services/backendApi/listing";
 import { MultiPictureField } from "../fields";
@@ -156,9 +156,20 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
   }
 
   const renderOfferWarning = () => {
-    if (hasPurchaseOffer) return <span>has purchase offer</span>;
-    if (hasSaleOffer) return <span>has sale offer</span>;
-    if (hasOffer) return <span>has offer</span>;
+    if (hasOffer)
+      return (
+        <div className="mb-2">
+          <WarnMessage>
+            <p>
+              This listing has at least one active offer. Any updates to the
+              listing will automatically cancel and/or reject all active offers.{" "}
+              <Link href="/offers">
+                <a className="underline text-info">View active offers.</a>
+              </Link>
+            </p>
+          </WarnMessage>
+        </div>
+      );
   };
 
   function renderUpdateButtons(formik: FormikProps<any>) {
