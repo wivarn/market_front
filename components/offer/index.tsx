@@ -8,6 +8,7 @@ import { OverflowMenuJsx } from "components/buttons/overflowMenuJsx";
 import { useSession } from "next-auth/client";
 import { useContext } from "react";
 import { UserSettingsContext } from "contexts/userSettings";
+import { formatDistanceToNowStrict } from "date-fns";
 
 interface IOfferProps {
   offer: IOfferDetailed;
@@ -273,11 +274,7 @@ export const Offer = (props: IOfferProps): JSX.Element => {
             <tbody className="text-center">
               <tr className="text-sm md:text-base">
                 <td>{props.offerUserLink}</td>
-                <td>
-                  {Math.abs(Number(new Date(offer.expires_at)) - Date.now()) /
-                    (60 * 60 * 1000)}{" "}
-                  Hours
-                </td>
+                <td>{formatDistanceToNowStrict(new Date(offer.expires_at))}</td>
                 <td>{offerAmount(offer)}</td>
               </tr>
             </tbody>
