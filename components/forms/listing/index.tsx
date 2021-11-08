@@ -161,10 +161,14 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
         <div className="mb-2">
           <WarnMessage>
             <p>
-              This listing has at least one active offer. Any updates to the
-              listing will automatically cancel and/or reject all active offers.{" "}
+              This listing has at least one{" "}
               <Link href="/offers">
-                <a className="underline text-info">View active offers.</a>
+                <a className="underline text-info">active offer</a>
+              </Link>
+              . Any updates to the listing will automatically cancel/reject all
+              offers.{" "}
+              <Link href="https://support.skwirl.io">
+                <a className="underline text-info">Learn more.</a>
               </Link>
             </p>
           </WarnMessage>
