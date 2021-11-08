@@ -95,6 +95,13 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
   const [submittingDraft, setSubmittingDraft] = useState(false);
   const [submittingDelete, setSubmittingDelete] = useState(false);
   const newListing = !props.id;
+  const hasPurchaseOffer = userSettings.offers.purchase_offers.find((offer) => {
+    return Number(offer.listing.id) == props.id;
+  });
+  const hasSaleOffer = userSettings.offers.sale_offers.find((offer) => {
+    return Number(offer.listing.id) == props.id;
+  });
+  const hasOffer = hasPurchaseOffer || hasSaleOffer;
 
   useEffect(() => {
     if (newListing) {
@@ -147,6 +154,12 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
       </>
     );
   }
+
+  const renderOfferWarning = () => {
+    if (hasPurchaseOffer) return <span>has purchase offer</span>;
+    if (hasSaleOffer) return <span>has sale offer</span>;
+    if (hasOffer) return <span>has offer</span>;
+  };
 
   function renderUpdateButtons(formik: FormikProps<any>) {
     if (
@@ -466,6 +479,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                     currency={userSettings.currency}
                   />
                 </FormSection>
+                {renderOfferWarning()}
                 {renderUpdateButtons(formik)}
                 {renderDeleteButton(formik, props.id)}
               </Form>

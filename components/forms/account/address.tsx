@@ -147,6 +147,14 @@ export default function AddressForm(): JSX.Element {
   const [address, setAddress] = useState<IAddress | null>(null);
   const [error, setError] = useState(false);
   const { userSettings, assignUserSettings } = useContext(UserSettingsContext);
+  const hasCart = userSettings.cart_items.length;
+  const hasOffer =
+    userSettings.offers.purchase_offers.length ||
+    userSettings.offers.sale_offers.length;
+
+  const renderWarning = () => {
+    if (hasCart || hasOffer) return <span>warning</span>;
+  };
 
   useEffect(() => {
     if (!session?.accessToken) return;
@@ -224,6 +232,7 @@ export default function AddressForm(): JSX.Element {
               {stateSelect(formik)}
               {zipField(formik.getFieldProps("country").value)}
 
+              {renderWarning()}
               <SubmitButtonFull
                 text="Update Address"
                 submitting={formik.isSubmitting}
