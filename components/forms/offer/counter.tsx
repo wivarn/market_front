@@ -8,10 +8,10 @@ import { ResetButton, SubmitButton } from "components/buttons";
 import { CurrencyFieldFull } from "../fields";
 import { IOfferDetailed } from "types/offer";
 import { OfferApi } from "services/backendApi/offer";
+import { UserSettingsContext } from "contexts/userSettings";
 import { toast } from "react-toastify";
 import { uniqueId } from "lodash";
 import { useSession } from "next-auth/client";
-import { UserSettingsContext } from "contexts/userSettings";
 
 export default function ListingCounterOfferModal(
   props: IOfferDetailed
@@ -122,12 +122,12 @@ export default function ListingCounterOfferModal(
                       );
                   request
                     .then(() => {
-                      toast.success("Counter offer sent.");
+                      toast.success("Offer sent.");
                       closeModal();
                       updateOffers(session?.accessToken);
                     })
                     .catch(() => {
-                      toast.error("Error submitting counter offer.");
+                      toast.error("Error submitting offer.");
                     });
                 }}
               >
