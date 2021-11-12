@@ -5,10 +5,10 @@ import { ListingPreviewList } from "components/listing/preview";
 import Modal from "components/modal";
 import { OfferApi } from "services/backendApi/offer";
 import { OverflowMenuJsx } from "components/buttons/overflowMenuJsx";
-import { useSession } from "next-auth/client";
-import { useContext } from "react";
 import { UserSettingsContext } from "contexts/userSettings";
-import { formatDistanceToNowStrict } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
+import { useContext } from "react";
+import { useSession } from "next-auth/client";
 
 interface IOfferProps {
   offer: IOfferDetailed;
@@ -274,7 +274,7 @@ export const Offer = (props: IOfferProps): JSX.Element => {
             <tbody className="text-center">
               <tr className="text-sm md:text-base">
                 <td>{props.offerUserLink}</td>
-                <td>{formatDistanceToNowStrict(new Date(offer.expires_at))}</td>
+                <td>{formatDistanceToNow(new Date(offer.expires_at))}</td>
                 <td>{offerAmount(offer)}</td>
               </tr>
             </tbody>
