@@ -47,7 +47,7 @@ export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
   const { updateOffers } = useContext(UserSettingsContext);
 
   const counter = props.counter;
-  const headerText = counter ? "Counter Offer Sent" : "Offer Recieved";
+  const headerText = counter ? "Counter Offer Sent" : "Offer Received";
   const [acceptMenuItem, acceptModal] = Modal({
     modalToggle: "Accept Offer",
     title: "Accept Offer?",
@@ -148,7 +148,7 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
   const { updateOffers } = useContext(UserSettingsContext);
 
   const counter = props.counter;
-  const headerText = counter ? "Counter Offer Recieved" : "Offer Sent";
+  const headerText = counter ? "Counter Offer Received" : "Offer Sent";
   const [acceptMenuItem, acceptModal] = Modal({
     modalToggle: "Accept Offer",
     title: "Accept Offer?",
