@@ -1,7 +1,7 @@
+import { InfoCircleSm, WarningIconSm } from "components/icons";
 import React, { ReactNode } from "react";
 
 import Image from "next/image";
-import { InfoCircleSm } from "components/icons";
 
 type Props = {
   children: ReactNode;
@@ -10,8 +10,19 @@ type Props = {
 export function InfoMessage(props: Props): JSX.Element {
   return (
     <div className="flex p-2 border rounded-md border-info bg-info-lightest">
-      <div className="mr-2 ">
+      <div className="mr-2 text-info">
         <InfoCircleSm />
+      </div>
+      {props.children}
+    </div>
+  );
+}
+
+export function WarnMessage(props: Props): JSX.Element {
+  return (
+    <div className="flex p-2 border rounded-md border-warning bg-warning-lightest">
+      <div className="mr-2 text-warning">
+        <WarningIconSm />
       </div>
       {props.children}
     </div>
