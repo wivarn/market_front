@@ -8,10 +8,10 @@ import { ResetButton, SubmitButton } from "components/buttons";
 import { CurrencyFieldFull } from "../fields";
 import { IOfferDetailed } from "types/offer";
 import { OfferApi } from "services/backendApi/offer";
+import { UserSettingsContext } from "contexts/userSettings";
 import { toast } from "react-toastify";
 import { uniqueId } from "lodash";
 import { useSession } from "next-auth/client";
-import { UserSettingsContext } from "contexts/userSettings";
 
 export default function ListingCounterOfferModal(
   props: IOfferDetailed
@@ -108,17 +108,17 @@ export default function ListingCounterOfferModal(
               </div>
 
               <Formik
-                initialValues={{ amount: 0 }}
+                initialValues={{}}
                 validationSchema={offerSchema}
-                onSubmit={(values: { amount: number }) => {
+                onSubmit={(values: { amount?: number }) => {
                   const request = props.counter
                     ? OfferApi(session?.accessToken).create(
                         props.listing.id,
-                        values.amount
+                        Number(values.amount)
                       )
                     : OfferApi(session?.accessToken).createCounter(
                         props.id,
-                        values.amount
+                        Number(values.amount)
                       );
                   request
                     .then(() => {
