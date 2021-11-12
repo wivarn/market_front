@@ -6,6 +6,7 @@ import Modal from "components/modal";
 import { OfferApi } from "services/backendApi/offer";
 import { OverflowMenuJsx } from "components/buttons/overflowMenuJsx";
 import { UserSettingsContext } from "contexts/userSettings";
+import { formatDistanceToNow } from "date-fns";
 import { useContext } from "react";
 import { useSession } from "next-auth/client";
 
@@ -273,11 +274,7 @@ export const Offer = (props: IOfferProps): JSX.Element => {
             <tbody className="text-center">
               <tr className="text-sm md:text-base">
                 <td>{props.offerUserLink}</td>
-                <td>
-                  {Math.abs(Number(new Date(offer.expires_at)) - Date.now()) /
-                    (60 * 60 * 1000)}{" "}
-                  Hours
-                </td>
+                <td>{formatDistanceToNow(new Date(offer.expires_at))}</td>
                 <td>{offerAmount(offer)}</td>
               </tr>
             </tbody>

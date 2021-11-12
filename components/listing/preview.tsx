@@ -6,9 +6,9 @@ import Link from "next/link";
 // card shaped preview
 export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
   const href =
-    props.aasm_state === "active"
-      ? `/listings/${props.id}`
-      : `/listings/${props.id}/edit`;
+    props.aasm_state === "draft" || props.aasm_state === "removed"
+      ? `/listings/${props.id}/edit`
+      : `/listings/${props.id}`;
   const renderShipping = () => {
     if (props.shipping == null) {
       return (

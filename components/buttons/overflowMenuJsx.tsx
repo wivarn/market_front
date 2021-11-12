@@ -42,7 +42,7 @@ export const OverflowMenuJsx = (props: IProps): JSX.Element => {
                     <Menu.Item key={index}>
                       {({ active }) => (
                         <span
-                          className={`block px-4 py-2 text-sm font-semibold rounded-md ${
+                          className={`block px-4 py-2 text-sm font-semibold rounded-md cursor-pointer ${
                             active
                               ? "bg-primary text-white"
                               : "text-accent-darker"
