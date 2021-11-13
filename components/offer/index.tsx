@@ -39,10 +39,6 @@ const cancelOffer = async (accessToken: string, id: string) => {
   OfferApi(accessToken).cancel(id);
 };
 
-const openHistoryModal = async () => {
-  // do something
-};
-
 export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
   const [session] = useSession();
   const { updateOffers } = useContext(UserSettingsContext);
@@ -113,8 +109,6 @@ export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
     } else {
       items.push(cancelMenuItem);
     }
-
-    items.push(<a onClick={openHistoryModal}>View History</a>);
 
     return items;
   };
@@ -216,8 +210,6 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
     } else {
       items.push(cancelMenuItem);
     }
-
-    items.push(<a onClick={openHistoryModal}>View History</a>);
 
     return items;
   };
