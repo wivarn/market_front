@@ -7,6 +7,7 @@ import { OfferApi } from "services/backendApi/offer";
 import { OverflowMenuJsx } from "components/buttons/overflowMenuJsx";
 import { UserSettingsContext } from "contexts/userSettings";
 import { formatDistanceToNow } from "date-fns";
+import router from "next/router";
 import { useContext } from "react";
 import { useSession } from "next-auth/client";
 
@@ -36,10 +37,6 @@ const rejectOffer = async (accessToken: string, id: string) => {
 
 const cancelOffer = async (accessToken: string, id: string) => {
   OfferApi(accessToken).cancel(id);
-};
-
-const openHistoryModal = async () => {
-  // do something
 };
 
 export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
@@ -113,8 +110,6 @@ export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
       items.push(cancelMenuItem);
     }
 
-    items.push(<a onClick={openHistoryModal}>View History</a>);
-
     return items;
   };
   const offerUserHeader = () => {
@@ -164,6 +159,7 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
     submitAction: () =>
       acceptOffer(`${session?.accessToken}`, props.id).then(() => {
         updateOffers(session?.accessToken);
+        router.push("/cart");
       }),
     submitText: "Accept Offer",
   });
@@ -214,8 +210,6 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
     } else {
       items.push(cancelMenuItem);
     }
-
-    items.push(<a onClick={openHistoryModal}>View History</a>);
 
     return items;
   };
