@@ -7,6 +7,7 @@ import { OfferApi } from "services/backendApi/offer";
 import { OverflowMenuJsx } from "components/buttons/overflowMenuJsx";
 import { UserSettingsContext } from "contexts/userSettings";
 import { formatDistanceToNow } from "date-fns";
+import router from "next/router";
 import { useContext } from "react";
 import { useSession } from "next-auth/client";
 
@@ -164,6 +165,7 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
     submitAction: () =>
       acceptOffer(`${session?.accessToken}`, props.id).then(() => {
         updateOffers(session?.accessToken);
+        router.push("/cart");
       }),
     submitText: "Accept Offer",
   });
