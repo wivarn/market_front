@@ -108,6 +108,8 @@ export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
       </Link>
     );
 
+    if (props.aasm_state == "accepted") return items;
+
     if (!counter) {
       items.push(acceptMenuItem, counterMenuItem, rejectMenuItem);
     } else {
@@ -212,6 +214,15 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
         <a>Message Seller</a>
       </Link>
     );
+
+    if (props.aasm_state == "accepted") {
+      items.push(
+        <Link href={`/cart`}>
+          <a>Pay now</a>
+        </Link>
+      );
+      return items;
+    }
 
     if (counter) {
       items.push(acceptMenuItem, counterMenuItem, rejectMenuItem);
