@@ -44,7 +44,11 @@ export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
   const { updateOffers } = useContext(UserSettingsContext);
 
   const counter = props.counter;
-  const headerText = counter ? "Counter Offer Sent" : "Offer Received";
+  const headerText = () => {
+    if (props.aasm_state == "accepted")
+      return counter ? "Counter Offer Accepted" : "Offer Accepted";
+    return counter ? "Counter Offer Sent" : "Offer Received";
+  };
   const [acceptMenuItem, acceptModal] = Modal({
     modalToggle: "Accept Offer",
     title: "Accept Offer?",
@@ -104,6 +108,8 @@ export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
       </Link>
     );
 
+    if (props.aasm_state == "accepted") return items;
+
     if (!counter) {
       items.push(acceptMenuItem, counterMenuItem, rejectMenuItem);
     } else {
@@ -129,7 +135,7 @@ export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
       <Offer
         offer={props}
         menuItems={menuItems()}
-        headerText={headerText}
+        headerText={headerText()}
         offerUserHeader={offerUserHeader()}
         offerUserLink={offerUserLink()}
         hiddenElements={hiddenElements}
@@ -143,7 +149,11 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
   const { updateOffers } = useContext(UserSettingsContext);
 
   const counter = props.counter;
-  const headerText = counter ? "Counter Offer Received" : "Offer Sent";
+  const headerText = () => {
+    if (props.aasm_state == "accepted")
+      return counter ? "Counter Offer Accepted" : "Offer Accepted";
+    return counter ? "Counter Offer Received" : "Offer Sent";
+  };
   const [acceptMenuItem, acceptModal] = Modal({
     modalToggle: "Accept Offer",
     title: "Accept Offer?",
@@ -205,6 +215,15 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
       </Link>
     );
 
+    if (props.aasm_state == "accepted") {
+      items.push(
+        <Link href={`/cart`}>
+          <a>Pay now</a>
+        </Link>
+      );
+      return items;
+    }
+
     if (counter) {
       items.push(acceptMenuItem, counterMenuItem, rejectMenuItem);
     } else {
@@ -229,7 +248,7 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
     <Offer
       offer={props}
       menuItems={menuItems()}
-      headerText={headerText}
+      headerText={headerText()}
       offerUserHeader={offerUserHeader()}
       offerUserLink={offerUserLink()}
       hiddenElements={hiddenElements}
