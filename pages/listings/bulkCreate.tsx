@@ -179,7 +179,7 @@ export default function BulkCreateListings(): JSX.Element {
       });
   }
 
-  if (!session) return <SpinnerLg text="Loading..." />;
+  if (!session || !listingTemplate.id) return <SpinnerLg text="Loading..." />;
 
   return (
     <>
