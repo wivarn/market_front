@@ -34,15 +34,16 @@ export const OverflowMenuJsx = (props: IProps): JSX.Element => {
             leaveTo="transform opacity-0 scale-95"
           >
             <Menu.Items
+              as="ol"
               className={`absolute mt-1 z-50 px-2 text-left bg-white rounded-md shadow-md w-44 ring-1 ring-accent focus:outline-none ${props.menuItemsClassName}`}
             >
               <div className="py-2">
                 {props.menutItems.map((item, index) => {
                   return (
-                    <Menu.Item key={index}>
+                    <Menu.Item key={index} as="li">
                       {({ active }) => (
                         <span
-                          className={`block px-4 py-2 text-sm font-semibold rounded-md cursor-pointer ${
+                          className={`overflow-menu-item grid grid-cols-1 rounded-md ${
                             active
                               ? "bg-primary text-white"
                               : "text-accent-darker"

@@ -2,7 +2,7 @@
   .icon-xs {
     @apply h-4 w-4;
   }
-  
+
   .icon-sm {
     @apply h-6 w-6;
   }
@@ -24,5 +24,9 @@
   }
   .image {
     @apply w-80 h-80 object-cover overflow-hidden self-center;
+  }
+
+  .overflow-menu-item > * {
+    @apply px-4 py-2 text-sm font-semibold cursor-pointer
   }
 }
