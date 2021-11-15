@@ -28,15 +28,15 @@ const offerAmount = (offer: IOfferDetailed) => {
 };
 
 const acceptOffer = async (accessToken: string, id: string) => {
-  OfferApi(accessToken).accept(id);
+  return OfferApi(accessToken).accept(id);
 };
 
 const rejectOffer = async (accessToken: string, id: string) => {
-  OfferApi(accessToken).reject(id);
+  return OfferApi(accessToken).reject(id);
 };
 
 const cancelOffer = async (accessToken: string, id: string) => {
-  OfferApi(accessToken).cancel(id);
+  return OfferApi(accessToken).cancel(id);
 };
 
 export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
