@@ -40,7 +40,7 @@ export default function Offers(): JSX.Element {
 
   return (
     <div className="my-4">
-      <NextSeo title="Purchases" />
+      <NextSeo title="Offers" />
       <PageContainer>
         <PurchaseOffers offers={userSettings.offers.purchase_offers} />
         <SalesOffers offers={userSettings.offers.sale_offers} />
