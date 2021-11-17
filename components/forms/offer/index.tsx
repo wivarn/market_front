@@ -102,8 +102,8 @@ export default function ListingOfferModal(props: IlistingDetails): JSX.Element {
                         closeModal();
                         updateOffers(session?.accessToken);
                       })
-                      .catch((error) => {
-                        toast.error(error.response.data.error);
+                      .catch(() => {
+                        toast.error("Offer could not be submitted.");
                       });
                   }}
                 >

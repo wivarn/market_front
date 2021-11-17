@@ -44,7 +44,7 @@ export default function Modal({
           closeModal();
         })
         .catch(() => {
-          toast.success(submitErrorText || "Error");
+          toast.error(submitErrorText || "Error");
           closeModal();
         });
     } else {
