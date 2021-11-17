@@ -2,6 +2,8 @@ import { createContext, useState } from "react";
 import { signOut, useSession } from "next-auth/client";
 
 import { IListingTemplate } from "types/listings";
+import { IOfferDetailed } from "types/offer";
+import { OfferApi } from "services/backendApi/offer";
 import { ProfileApi } from "services/backendApi/profile";
 import router from "next/router";
 import { useEffect } from "react";
@@ -10,6 +12,7 @@ import { useInterval } from "ultils/hooks";
 interface IUserSettingsContext {
   userSettings: IUserSettings;
   updateUserSettings: (accessToken?: string) => void;
+  updateOffers: (accessToken?: string) => void;
   assignUserSettings: (newUserSettings: Partial<IUserSettings>) => void;
   resetUserSettings: () => void;
 }
@@ -22,6 +25,7 @@ interface IUserSettings {
   listing_template: IListingTemplate;
   has_cart: boolean;
   cart_items: { listing_id: string }[];
+  offers: { purchase_offers: IOfferDetailed[]; sale_offers: IOfferDetailed[] };
   has_pending_shipment: boolean;
   selling_enabled: boolean;
   previous_path: string;
@@ -35,9 +39,10 @@ const defaultSettings: IUserSettings = {
   stripe_linked: false,
   has_cart: false,
   cart_items: [],
+  offers: { purchase_offers: [], sale_offers: [] },
   has_pending_shipment: false,
   selling_enabled: false,
-  listing_template: {},
+  listing_template: { accept_offers: false },
   previous_path: "/",
   default_settings: true,
 };
@@ -45,6 +50,9 @@ const defaultSettings: IUserSettings = {
 export const UserSettingsContext = createContext<IUserSettingsContext>({
   userSettings: defaultSettings,
   updateUserSettings: () => {
+    // empty
+  },
+  updateOffers: () => {
     // empty
   },
   assignUserSettings: () => {
@@ -76,6 +84,22 @@ export const UserSettingsProvider = ({
             ...userSettings,
             default_settings: false,
             ...profileResponse.data,
+          });
+        });
+    }
+  };
+
+  const updateOffers = (accessToken?: string) => {
+    if (!accessToken) {
+      resetUserSettings();
+    } else {
+      OfferApi(accessToken)
+        .index()
+        .then((offersResponse) => {
+          setUserSettings({
+            ...userSettings,
+            default_settings: false,
+            offers: offersResponse.data,
           });
         });
     }
@@ -127,6 +151,7 @@ export const UserSettingsProvider = ({
   const contextProps: IUserSettingsContext = {
     userSettings: userSettings,
     updateUserSettings: updateUserSettings,
+    updateOffers: updateOffers,
     assignUserSettings: assignUserSettings,
     resetUserSettings: resetUserSettings,
   };

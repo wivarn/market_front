@@ -1,5 +1,5 @@
 import { SecondaryButtonFull, SubmitButtonFull } from "components/buttons";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { CartApi } from "services/backendApi/cart";
 import { ConditionPill } from "./condition";
@@ -8,6 +8,7 @@ import ImageSlider from "components/listing/imageSlider";
 import { InfoCard } from "./infoCard";
 import { InfoCircleXs } from "components/icons";
 import Link from "next/link";
+import ListingOfferModal from "components/forms/offer";
 import { PrimaryButtonFull } from "components/buttons";
 import ReactTooltip from "react-tooltip";
 import { UserInfo } from "components/user";
@@ -20,8 +21,20 @@ import { useSession } from "next-auth/client";
 const ListingDetails = (props: IlistingDetails): JSX.Element => {
   const [session] = useSession();
   const [submitting, setSubmitting] = useState(false);
-  const { userSettings, assignUserSettings } = useContext(UserSettingsContext);
+  const { userSettings, assignUserSettings, updateOffers } = useContext(
+    UserSettingsContext
+  );
   const router = useRouter();
+  const isSeller = session?.accountId == props.seller.id;
+  const offerMade = userSettings.offers.purchase_offers.find((offer) => {
+    return offer.listing.id == props.id;
+  });
+
+  useEffect(() => {
+    if (session && offerMade) {
+      updateOffers(session.accessToken);
+    }
+  }, []);
 
   const category = categoryList.find((c) => c.value == props.category);
   const subCategory = category?.subCategory.find(
@@ -71,6 +84,16 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
     );
   };
 
+  const renderOffer = () => {
+    if (!props.accept_offers) return null;
+
+    return (
+      <div className="pr-1 text-sm leading-none text-accent-darker">
+        or Best Offer
+      </div>
+    );
+  };
+
   async function addItem() {
     setSubmitting(true);
     CartApi(session?.accessToken)
@@ -87,11 +110,10 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
       });
   }
 
-  function renderButton() {
+  function renderAddToCartButton() {
     const sold = props.aasm_state === "sold" || props.aasm_state === "refunded";
     const editable =
       props.aasm_state === "draft" || props.aasm_state === "active";
-    const isSeller = session?.accountId == props.seller.id;
     const inCart = userSettings.cart_items.find((cartItem) => {
       return cartItem.listing_id == props.id;
     });
@@ -160,6 +182,19 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
     );
   }
 
+  const renderMakeOfferButton = () => {
+    if (
+      !props.accept_offers ||
+      !session ||
+      isSeller ||
+      props.aasm_state !== "active"
+    )
+      return null;
+    if (offerMade)
+      return <SecondaryButtonFull href={`/offers`} text="View Offers" />;
+    return <ListingOfferModal {...props} />;
+  };
+
   return (
     <div className="container p-2 mx-auto">
       <div className="grid grid-cols-1 xl:grid-cols-2">
@@ -180,9 +215,15 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
               })}{" "}
             </span>
             <span className="text-md text-accent-darker">{props.currency}</span>
-            {renderShipping()}
+            <div className="flex">
+              {renderOffer()}
+              {renderShipping()}
+            </div>
           </div>
-          <div className="my-4">{renderButton()}</div>
+          <div className="my-4">
+            {renderAddToCartButton()}
+            {renderMakeOfferButton()}
+          </div>
           <div className="grid grid-cols-1 my-4 space-y-4 sm:grid-cols-2">
             <div className="mt-4">
               <label className="font-semibold text-accent-darker">

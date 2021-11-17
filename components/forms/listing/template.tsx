@@ -129,6 +129,7 @@ const listingSchema = Yup.object().shape({
     .min(0, "Shipping can't be less than 0")
     .max(99999999.99, "Shipping must be less than 99999999.99")
     .nullable(),
+  accept_offers: Yup.boolean().required("Required"),
 });
 
 const subcategoryRef = createRef<HTMLSpanElement>();
@@ -174,10 +175,12 @@ const ListingTemplateForm = (): JSX.Element => {
   const { userSettings, updateUserSettings } = useContext(UserSettingsContext);
   const template = userSettings.listing_template;
   const [graded, setGraded] = useState(!!template.grading_company);
+  const [acceptOffers, setAcceptOffers] = useState(template.accept_offers);
 
   useEffect(() => {
     setGraded(!!template.grading_company);
-  }, [template.grading_company]);
+    setAcceptOffers(template.accept_offers);
+  }, [template]);
 
   function renderGrading(formik: FormikProps<any>) {
     const label = graded ? "Grading" : "Condition";
@@ -239,6 +242,7 @@ const ListingTemplateForm = (): JSX.Element => {
                 if (values[key] == undefined || values[key] == "") {
                   values[key] = null;
                 }
+                if (key == "accept_offers") values[key] = !!values[key];
               });
               ListingTemplateApi(session?.accessToken)
                 .update(values)
@@ -282,7 +286,7 @@ const ListingTemplateForm = (): JSX.Element => {
                     label="Description"
                     name="description"
                     id={`${idPrefix}description`}
-                    description="Use the description to provide any addtional detail about your listing that you want buyers to know about."
+                    description="Use the description to provide any addtional detail about your listing that you want customers to know about."
                     type="text"
                     placeholder="Write a description"
                   />
@@ -320,6 +324,20 @@ const ListingTemplateForm = (): JSX.Element => {
                     description="Enter the price. Lower prices will increase your chances of making a sale."
                     placeholder="0"
                     currency={userSettings.currency}
+                  />
+
+                  <ListingToggle
+                    name="accept_offers"
+                    enabled={acceptOffers}
+                    setEnabled={setAcceptOffers}
+                    label="Accept Offers?"
+                    description="Allow people to submit their best offer"
+                    onClick={async () => {
+                      formik.setFieldValue(
+                        "accept_offers",
+                        !formik.values.accept_offers
+                      );
+                    }}
                   />
 
                   <ListingNumberField

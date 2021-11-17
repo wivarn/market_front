@@ -160,6 +160,10 @@ export const WarningIcon = (): JSX.Element => {
   return <HiExclamation className="icon" />;
 };
 
+export const WarningIconSm = (): JSX.Element => {
+  return <HiExclamation className="icon-sm" />;
+};
+
 export const GradedIcon = (): JSX.Element => {
   return <HiShieldCheck className="icon" />;
 };

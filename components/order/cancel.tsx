@@ -99,7 +99,7 @@ export default function CancelOrder({
                     style: "currency",
                     currency: "usd",
                   })}{" "}
-                  {order.currency} will be issued to the buyer. This action
+                  {order.currency} will be issued to the customer. This action
                   cannot be undone.
                 </p>
               </div>
