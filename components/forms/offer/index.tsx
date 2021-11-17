@@ -23,6 +23,7 @@ export default function ListingOfferModal(props: IlistingDetails): JSX.Element {
 
   const offerSchema = Yup.object().shape({
     amount: Yup.number()
+      .min(1, "Must at least 1.00")
       .lessThan(Number(props.price), "Must be less than the listing price")
       .required(),
   });
