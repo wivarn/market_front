@@ -11,6 +11,7 @@ import { SubmitButtonFull } from "components/buttons";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { InfoMessage } from "components/message";
 
 const createAccountSchema = Yup.object().shape({
   login: Yup.string().email("Invalid email").required("Required"),
@@ -126,6 +127,10 @@ export default function CreateAccountForm(): JSX.Element {
                     text="Create Account"
                     submitting={formik.isSubmitting}
                   />
+                  <InfoMessage>
+                    Remember to check your spam folder for the verification
+                    email.
+                  </InfoMessage>
                   <p className="text-sm text-accent-dark">
                     By creating an account you agree to Skwirl&#39;s{" "}
                     <a
