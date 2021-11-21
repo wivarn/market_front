@@ -24,6 +24,7 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="icon" href="/favicon.ico" key="favicon" />
+        <GoogleAnalytics />
       </Head>
       <DefaultSeo
         {...SEO}
@@ -40,7 +41,6 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
           ],
         }}
       />
-      <GoogleAnalytics />
       <Provider
         session={pageProps.session}
         options={{ clientMaxAge: accessTokenAgeSeconds }}
