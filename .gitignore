@@ -32,3 +32,4 @@ yarn-error.log*
 
 .forem.json
 public/uploads/
+public/robots.txt
