@@ -13,13 +13,11 @@ export default function ShowListing(): JSX.Element {
   const router = useRouter();
   const { id } = router.query;
   const { userSettings } = useContext(UserSettingsContext);
-  const { country, default_settings } = userSettings;
+  const { country } = userSettings;
 
   function getListing() {
     const { data, error } = useSWR(
-      id && !default_settings
-        ? `listings/${id}?destination_country=${country}`
-        : null
+      id ? `listings/${id}?destination_country=${country}` : null
     );
 
     return {
