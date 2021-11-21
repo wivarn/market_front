@@ -23,7 +23,7 @@ export function ConditionPill({
     : conditionList[category].find((con) => con.value == condition)?.text;
 
   return (
-    <span className="px-2 text-center border rounded-full w-max text-accent-darker border-accent-darker bg-accent-lighter">
+    <span className="px-2 text-sm text-center border rounded-full w-max text-accent-darker border-accent-darker bg-accent-lighter">
       {conditionString}
     </span>
   );

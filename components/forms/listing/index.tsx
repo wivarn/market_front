@@ -7,6 +7,7 @@ import {
   SubmitButton,
 } from "components/buttons";
 import { Form, Formik, FormikProps } from "formik";
+import { InfoMessage, WarnMessage } from "components/message";
 import {
   ListingComboBoxOption,
   ListingDropdownCombobox,
@@ -29,7 +30,6 @@ import { createRef, useEffect, useState } from "react";
 
 import FormSection from "./section";
 import { IListingFormData } from "types/listings";
-import { InfoMessage } from "components/message";
 import Link from "next/link";
 import { ListingApi } from "services/backendApi/listing";
 import { MultiPictureField } from "../fields";
@@ -95,6 +95,13 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
   const [submittingDraft, setSubmittingDraft] = useState(false);
   const [submittingDelete, setSubmittingDelete] = useState(false);
   const newListing = !props.id;
+  const hasPurchaseOffer = userSettings.offers.purchase_offers.find((offer) => {
+    return Number(offer.listing.id) == props.id;
+  });
+  const hasSaleOffer = userSettings.offers.sale_offers.find((offer) => {
+    return Number(offer.listing.id) == props.id;
+  });
+  const hasOffer = hasPurchaseOffer || hasSaleOffer;
 
   useEffect(() => {
     if (newListing) {
@@ -147,6 +154,27 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
       </>
     );
   }
+
+  const renderOfferWarning = () => {
+    if (hasOffer)
+      return (
+        <div className="mb-2">
+          <WarnMessage>
+            <p>
+              This listing has at least one{" "}
+              <Link href="/offers">
+                <a className="underline text-info">active offer</a>
+              </Link>
+              . Any updates to the listing will automatically cancel/reject all
+              offers.{" "}
+              <Link href="https://support.skwirl.io">
+                <a className="underline text-info">Learn more.</a>
+              </Link>
+            </p>
+          </WarnMessage>
+        </div>
+      );
+  };
 
   function renderUpdateButtons(formik: FormikProps<any>) {
     if (
@@ -466,6 +494,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                     currency={userSettings.currency}
                   />
                 </FormSection>
+                {renderOfferWarning()}
                 {renderUpdateButtons(formik)}
                 {renderDeleteButton(formik, props.id)}
               </Form>

@@ -22,6 +22,7 @@ export default function ListingCounterOfferModal(
 
   const sellerSchema = {
     amount: Yup.number()
+      .min(1, "Must at least 1.00")
       .lessThan(
         Number(props.listing.price),
         "Must be less than the listing price"
@@ -31,6 +32,7 @@ export default function ListingCounterOfferModal(
   };
   const buyerSchema = {
     amount: Yup.number()
+      .min(1, "Must at least 1.00")
       .lessThan(
         Number(props.listing.price),
         "Must be less than the listing price"
@@ -108,17 +110,17 @@ export default function ListingCounterOfferModal(
               </div>
 
               <Formik
-                initialValues={{ amount: 0 }}
+                initialValues={{}}
                 validationSchema={offerSchema}
-                onSubmit={(values: { amount: number }) => {
+                onSubmit={(values: { amount?: number }) => {
                   const request = props.counter
                     ? OfferApi(session?.accessToken).create(
                         props.listing.id,
-                        values.amount
+                        Number(values.amount)
                       )
                     : OfferApi(session?.accessToken).createCounter(
                         props.id,
-                        values.amount
+                        Number(values.amount)
                       );
                   request
                     .then(() => {

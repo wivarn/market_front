@@ -6,9 +6,18 @@ import Link from "next/link";
 // card shaped preview
 export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
   const href =
-    props.aasm_state === "active"
-      ? `/listings/${props.id}`
-      : `/listings/${props.id}/edit`;
+    props.aasm_state === "draft" || props.aasm_state === "removed"
+      ? `/listings/${props.id}/edit`
+      : `/listings/${props.id}`;
+  const renderOffer = () => {
+    if (!props.accept_offers) return null;
+
+    return (
+      <div className="pr-1 text-xs leading-none text-accent-darker">
+        or Best Offer{" "}
+      </div>
+    );
+  };
   const renderShipping = () => {
     if (props.shipping == null) {
       return (
@@ -88,7 +97,10 @@ export const ListingPreviewTile = (props: Ilisting): JSX.Element => {
                       />
                     </span>
                   </div>
-                  {renderShipping()}
+                  <div className="flex">
+                    {renderOffer()}
+                    {renderShipping()}
+                  </div>
                 </div>
               </div>
             </div>

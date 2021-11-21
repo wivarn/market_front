@@ -129,6 +129,7 @@ const listingSchema = Yup.object().shape({
     .min(0, "Shipping can't be less than 0")
     .max(99999999.99, "Shipping must be less than 99999999.99")
     .nullable(),
+  accept_offers: Yup.boolean().required("Required"),
 });
 
 const subcategoryRef = createRef<HTMLSpanElement>();
@@ -178,7 +179,8 @@ const ListingTemplateForm = (): JSX.Element => {
 
   useEffect(() => {
     setGraded(!!template.grading_company);
-  }, [template.grading_company]);
+    setAcceptOffers(template.accept_offers);
+  }, [template]);
 
   function renderGrading(formik: FormikProps<any>) {
     const label = graded ? "Grading" : "Condition";
@@ -240,6 +242,7 @@ const ListingTemplateForm = (): JSX.Element => {
                 if (values[key] == undefined || values[key] == "") {
                   values[key] = null;
                 }
+                if (key == "accept_offers") values[key] = !!values[key];
               });
               ListingTemplateApi(session?.accessToken)
                 .update(values)
@@ -330,7 +333,10 @@ const ListingTemplateForm = (): JSX.Element => {
                     label="Accept Offers?"
                     description="Allow people to submit their best offer"
                     onClick={async () => {
-                      formik.setFieldValue("accept_offers", !acceptOffers);
+                      formik.setFieldValue(
+                        "accept_offers",
+                        !formik.values.accept_offers
+                      );
                     }}
                   />
 

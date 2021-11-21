@@ -84,6 +84,16 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
     );
   };
 
+  const renderOffer = () => {
+    if (!props.accept_offers) return null;
+
+    return (
+      <div className="pr-1 text-sm leading-none text-accent-darker">
+        or Best Offer
+      </div>
+    );
+  };
+
   async function addItem() {
     setSubmitting(true);
     CartApi(session?.accessToken)
@@ -205,7 +215,10 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
               })}{" "}
             </span>
             <span className="text-md text-accent-darker">{props.currency}</span>
-            {renderShipping()}
+            <div className="flex">
+              {renderOffer()}
+              {renderShipping()}
+            </div>
           </div>
           <div className="my-4">
             {renderAddToCartButton()}

@@ -6,7 +6,8 @@ import Modal from "components/modal";
 import { OfferApi } from "services/backendApi/offer";
 import { OverflowMenuJsx } from "components/buttons/overflowMenuJsx";
 import { UserSettingsContext } from "contexts/userSettings";
-import { formatDistanceToNowStrict } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
+import router from "next/router";
 import { useContext } from "react";
 import { useSession } from "next-auth/client";
 
@@ -27,19 +28,15 @@ const offerAmount = (offer: IOfferDetailed) => {
 };
 
 const acceptOffer = async (accessToken: string, id: string) => {
-  OfferApi(accessToken).accept(id);
+  return OfferApi(accessToken).accept(id);
 };
 
 const rejectOffer = async (accessToken: string, id: string) => {
-  OfferApi(accessToken).reject(id);
+  return OfferApi(accessToken).reject(id);
 };
 
 const cancelOffer = async (accessToken: string, id: string) => {
-  OfferApi(accessToken).cancel(id);
-};
-
-const openHistoryModal = async () => {
-  // do something
+  return OfferApi(accessToken).cancel(id);
 };
 
 export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
@@ -47,7 +44,11 @@ export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
   const { updateOffers } = useContext(UserSettingsContext);
 
   const counter = props.counter;
-  const headerText = counter ? "Counter Offer Sent" : "Offer Received";
+  const headerText = () => {
+    if (props.aasm_state == "accepted")
+      return counter ? "Counter Offer Accepted" : "Offer Accepted";
+    return counter ? "Counter Offer Sent" : "Offer Received";
+  };
   const [acceptMenuItem, acceptModal] = Modal({
     modalToggle: "Accept Offer",
     title: "Accept Offer?",
@@ -107,13 +108,13 @@ export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
       </Link>
     );
 
+    if (props.aasm_state == "accepted") return items;
+
     if (!counter) {
       items.push(acceptMenuItem, counterMenuItem, rejectMenuItem);
     } else {
       items.push(cancelMenuItem);
     }
-
-    items.push(<a onClick={openHistoryModal}>View History</a>);
 
     return items;
   };
@@ -134,7 +135,7 @@ export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
       <Offer
         offer={props}
         menuItems={menuItems()}
-        headerText={headerText}
+        headerText={headerText()}
         offerUserHeader={offerUserHeader()}
         offerUserLink={offerUserLink()}
         hiddenElements={hiddenElements}
@@ -148,7 +149,11 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
   const { updateOffers } = useContext(UserSettingsContext);
 
   const counter = props.counter;
-  const headerText = counter ? "Counter Offer Received" : "Offer Sent";
+  const headerText = () => {
+    if (props.aasm_state == "accepted")
+      return counter ? "Counter Offer Accepted" : "Offer Accepted";
+    return counter ? "Counter Offer Received" : "Offer Sent";
+  };
   const [acceptMenuItem, acceptModal] = Modal({
     modalToggle: "Accept Offer",
     title: "Accept Offer?",
@@ -164,6 +169,7 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
     submitAction: () =>
       acceptOffer(`${session?.accessToken}`, props.id).then(() => {
         updateOffers(session?.accessToken);
+        router.push("/cart");
       }),
     submitText: "Accept Offer",
   });
@@ -209,13 +215,20 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
       </Link>
     );
 
+    if (props.aasm_state == "accepted") {
+      items.push(
+        <Link href={`/cart`}>
+          <a>Pay now</a>
+        </Link>
+      );
+      return items;
+    }
+
     if (counter) {
       items.push(acceptMenuItem, counterMenuItem, rejectMenuItem);
     } else {
       items.push(cancelMenuItem);
     }
-
-    items.push(<a onClick={openHistoryModal}>View History</a>);
 
     return items;
   };
@@ -235,7 +248,7 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
     <Offer
       offer={props}
       menuItems={menuItems()}
-      headerText={headerText}
+      headerText={headerText()}
       offerUserHeader={offerUserHeader()}
       offerUserLink={offerUserLink()}
       hiddenElements={hiddenElements}
@@ -274,7 +287,7 @@ export const Offer = (props: IOfferProps): JSX.Element => {
             <tbody className="text-center">
               <tr className="text-sm md:text-base">
                 <td>{props.offerUserLink}</td>
-                <td>{formatDistanceToNowStrict(new Date(offer.expires_at))}</td>
+                <td>{formatDistanceToNow(new Date(offer.expires_at))}</td>
                 <td>{offerAmount(offer)}</td>
               </tr>
             </tbody>

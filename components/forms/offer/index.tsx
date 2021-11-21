@@ -12,9 +12,9 @@ import {
 import { CurrencyFieldFull } from "../fields";
 import { IlistingDetails } from "types/listings";
 import { OfferApi } from "services/backendApi/offer";
+import { UserSettingsContext } from "contexts/userSettings";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/client";
-import { UserSettingsContext } from "contexts/userSettings";
 
 export default function ListingOfferModal(props: IlistingDetails): JSX.Element {
   const [session] = useSession();
@@ -23,6 +23,7 @@ export default function ListingOfferModal(props: IlistingDetails): JSX.Element {
 
   const offerSchema = Yup.object().shape({
     amount: Yup.number()
+      .min(1, "Must at least 1.00")
       .lessThan(Number(props.price), "Must be less than the listing price")
       .required(),
   });
@@ -92,18 +93,18 @@ export default function ListingOfferModal(props: IlistingDetails): JSX.Element {
                 </div>
 
                 <Formik
-                  initialValues={{ amount: 0 }}
+                  initialValues={{}}
                   validationSchema={offerSchema}
-                  onSubmit={(values: { amount: number }) => {
+                  onSubmit={(values: { amount?: number }) => {
                     OfferApi(session?.accessToken)
-                      .create(props.id, values.amount)
+                      .create(props.id, Number(values.amount))
                       .then(() => {
                         toast.success("Offer submitted.");
                         closeModal();
                         updateOffers(session?.accessToken);
                       })
-                      .catch((error) => {
-                        toast.error(error.response.data.error);
+                      .catch(() => {
+                        toast.error("Offer could not be submitted.");
                       });
                   }}
                 >
