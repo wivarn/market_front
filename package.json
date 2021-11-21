@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "scripts/generate-robots-txt",
     "build": "next build",
     "start": "next start"
   },
