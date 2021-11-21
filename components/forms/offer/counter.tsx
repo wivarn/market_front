@@ -124,12 +124,12 @@ export default function ListingCounterOfferModal(
                       );
                   request
                     .then(() => {
-                      toast.success("Counter offer sent.");
+                      toast.success("Offer sent.");
                       closeModal();
                       updateOffers(session?.accessToken);
                     })
                     .catch(() => {
-                      toast.error("Error submitting counter offer.");
+                      toast.error("Error submitting offer.");
                     });
                 }}
               >
