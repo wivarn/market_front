@@ -37,8 +37,8 @@ export default function CancelOrder({
         mutate([`orders/${order.id}?relation=sales`, session?.accessToken]);
         toast.success("Refund submitted");
       })
-      .catch(() => {
-        toast.error("Refund request failed");
+      .catch((error) => {
+        toast.error(error.response.data.error);
       })
       .finally(() => {
         closeModal();
@@ -52,7 +52,7 @@ export default function CancelOrder({
     <Transition appear show={open} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed inset-0 z-10 overflow-y-auto"
+        className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-70"
         onClose={closeModal}
       >
         <div className="min-h-screen px-4 text-center">
@@ -99,18 +99,18 @@ export default function CancelOrder({
                     style: "currency",
                     currency: "usd",
                   })}{" "}
-                  {order.currency} will be issued to the buyer. This action
+                  {order.currency} will be issued to the customer. This action
                   cannot be undone.
                 </p>
               </div>
 
-              <div className="space-x-2">
+              <div className="mt-2 space-x-2">
                 <SubmitButton
                   onClick={cancelOrder}
                   submitting={submitting}
-                  text="Ok"
+                  text="Cancel Order"
                 />
-                <SecondaryButton onClick={closeModal} text="Cancel" />
+                <SecondaryButton onClick={closeModal} text="Go Back" />
               </div>
             </div>
           </Transition.Child>

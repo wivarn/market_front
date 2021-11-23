@@ -9,6 +9,7 @@ import { SubmitButton } from "components/buttons";
 import { TextFieldFull } from "../fields";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { InfoMessage } from "components/message";
 
 const verifyAccountResendSchema = Yup.object().shape({
   login: Yup.string().email("Invalid email").required("Required"),
@@ -57,6 +58,9 @@ export default function ResendVerificationForm(): JSX.Element {
                   text="Resend verification email"
                   submitting={isSubmitting}
                 />
+                <InfoMessage>
+                  Remember to check your spam folder for the verification email.
+                </InfoMessage>
               </div>
               <div className="py-4 mt-4 border-t border-accent">
                 <SecondaryButton href="/login" text="Back to log in" />

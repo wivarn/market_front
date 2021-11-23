@@ -7,6 +7,7 @@ import {
   SubmitButton,
 } from "components/buttons";
 import { Form, Formik, FormikProps } from "formik";
+import { InfoMessage, WarnMessage } from "components/message";
 import {
   ListingComboBoxOption,
   ListingDropdownCombobox,
@@ -29,7 +30,6 @@ import { createRef, useEffect, useState } from "react";
 
 import FormSection from "./section";
 import { IListingFormData } from "types/listings";
-import { InfoMessage } from "components/message";
 import Link from "next/link";
 import { ListingApi } from "services/backendApi/listing";
 import { MultiPictureField } from "../fields";
@@ -84,6 +84,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
   const router = useRouter();
   const [session, sessionLoading] = useSession();
   const [graded, setGraded] = useState(!!props.grading_company);
+  const [acceptOffers, setAcceptOffers] = useState(props.accept_offers);
   const [imageData, setImageData] = useState<(File | string)[]>(
     props.photos.map((photo) => photo.url)
   );
@@ -93,6 +94,21 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
   const [submittingPublish, setSubmittingPublish] = useState(false);
   const [submittingDraft, setSubmittingDraft] = useState(false);
   const [submittingDelete, setSubmittingDelete] = useState(false);
+  const newListing = !props.id;
+  const hasPurchaseOffer = userSettings.offers.purchase_offers.find((offer) => {
+    return Number(offer.listing.id) == props.id;
+  });
+  const hasSaleOffer = userSettings.offers.sale_offers.find((offer) => {
+    return Number(offer.listing.id) == props.id;
+  });
+  const hasOffer = hasPurchaseOffer || hasSaleOffer;
+
+  useEffect(() => {
+    if (newListing) {
+      setGraded(!!template.grading_company);
+      setAcceptOffers(template.accept_offers);
+    }
+  }, [template]);
 
   if (sessionLoading || !template.id) return <SpinnerLg text="Loading..." />;
 
@@ -103,7 +119,6 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
   }
   const domesticShippingCountry = american ? "United States" : "Canada";
   const internationalShippingCountry = american ? "Canada" : "United States";
-  const newListing = !props.id;
   let initialValues = newListing ? { ...props, ...template } : props;
   for (const key in initialValues) {
     if (initialValues[key] === null) {
@@ -139,6 +154,27 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
       </>
     );
   }
+
+  const renderOfferWarning = () => {
+    if (hasOffer)
+      return (
+        <div className="mb-2">
+          <WarnMessage>
+            <p>
+              This listing has at least one{" "}
+              <Link href="/offers">
+                <a className="underline text-info">active offer</a>
+              </Link>
+              . Any updates to the listing will automatically cancel/reject all
+              offers.{" "}
+              <Link href="https://support.skwirl.io">
+                <a className="underline text-info">Learn more.</a>
+              </Link>
+            </p>
+          </WarnMessage>
+        </div>
+      );
+  };
 
   function renderUpdateButtons(formik: FormikProps<any>) {
     if (
@@ -277,6 +313,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                 domestic_shipping,
                 international_shipping,
                 combined_shipping,
+                accept_offers,
               }) => ({
                 category,
                 subcategory,
@@ -288,6 +325,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                 domestic_shipping,
                 international_shipping,
                 combined_shipping,
+                accept_offers,
               }))(values);
               Object.entries(requestValues).forEach(([key, value]) => {
                 if (value != undefined) {
@@ -366,7 +404,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                     label="Description (Optional)"
                     name="description"
                     id={`${idPrefix}description`}
-                    description="Use the description to provide any addtional detail about your listing that you want buyers to know about."
+                    description="Use the description to provide any addtional detail about your listing that you want customers to know about."
                     type="text"
                     placeholder="Write a description"
                   />
@@ -418,6 +456,17 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                     currency={userSettings.currency}
                   />
 
+                  <ListingToggle
+                    name="accept_offers"
+                    enabled={acceptOffers}
+                    setEnabled={setAcceptOffers}
+                    label="Accept Offers?"
+                    description="Allow people to submit their best offer"
+                    onClick={async () => {
+                      formik.setFieldValue("accept_offers", !acceptOffers);
+                    }}
+                  />
+
                   <ListingNumberField
                     label={`Shipping to ${domesticShippingCountry}`}
                     name="domestic_shipping"
@@ -445,6 +494,7 @@ const ListingForm = (props: IListingFormData): JSX.Element => {
                     currency={userSettings.currency}
                   />
                 </FormSection>
+                {renderOfferWarning()}
                 {renderUpdateButtons(formik)}
                 {renderDeleteButton(formik, props.id)}
               </Form>
@@ -469,6 +519,7 @@ export const ListingFormDefaultProps: IListingFormData = {
   international_shipping: "",
   combined_shipping: "",
   aasm_state: "draft",
+  accept_offers: false,
 };
 
 export default ListingForm;

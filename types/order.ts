@@ -19,6 +19,7 @@ export interface IOrder {
   listings: Ilisting[];
   created_at: string;
   refunds: IRefund[];
+  refunded_total: string;
 }
 
 export interface IOrdersPaginated {

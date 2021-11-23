@@ -1,9 +1,9 @@
 import * as Yup from "yup";
 
+import { CurrencyFieldFull, DropdownCombobox, TextFieldFull } from "../fields";
 import { Dialog, Transition } from "@headlessui/react";
-import { DropdownCombobox, NumberField, TextField } from "../fields";
 import { Form, Formik, FormikProps } from "formik";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import {
   PrimaryButton,
   SecondaryButton,
@@ -11,7 +11,6 @@ import {
 } from "components/buttons";
 
 import FormContainer from "../container";
-import { GenericErrorMessage } from "components/message";
 import { IOrderDetails } from "types/order";
 import { OrderApi } from "services/backendApi/order";
 import { SpinnerLg } from "components/spinner";
@@ -28,8 +27,15 @@ interface IProps {
 export default function OrderRefundForm({ order }: IProps): JSX.Element {
   const router = useRouter();
   const [session, sessionLoading] = useSession();
-  const [error, setError] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const formRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const refundForm = formRef.current;
+    if (refundForm) {
+      refundForm.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
 
   async function openModal(formik: FormikProps<any>) {
     formik.setTouched({ amount: true, reason: true, notes: true }, true);
@@ -47,7 +53,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
       .min(0.01, "Refund must more than 0.01")
       .max(
         Number(order.total),
-        `Refund must be less than ${Number(order.total)}`
+        `Refund cannot be more than $${Number(order.total)}`
       ),
     reason: Yup.mixed().oneOf(
       refundReasonList.map((reason): string | null => {
@@ -56,20 +62,19 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
     ),
     notes: Yup.mixed().when("reason", (reason, schema) => {
       if (reason == null) {
-        return schema.required("Notes is required when reason is 'Other'");
+        return schema.required("Note is required when reason is 'Other'");
       }
     }),
   });
 
   if (sessionLoading || !router.isReady) return <SpinnerLg text="Loading..." />;
-  if (error) return <GenericErrorMessage />;
 
   function renderModal(formik: FormikProps<any>) {
     return (
       <Transition appear show={modalOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
+          className="fixed inset-0 z-10 overflow-y-auto bg-black bg-opacity-70"
           onClose={closeModal}
         >
           <div className="min-h-screen px-4 text-center">
@@ -121,13 +126,13 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
                   </p>
                 </div>
 
-                <div className="space-x-2">
+                <div className="mt-2 space-x-2">
                   <SubmitButton
                     submitting={formik.isSubmitting}
                     onClick={formik.submitForm}
-                    text="Ok"
+                    text="Refund"
                   />
-                  <SecondaryButton onClick={closeModal} text="Cancel" />
+                  <SecondaryButton onClick={closeModal} text="Go Back" />
                 </div>
               </div>
             </Transition.Child>
@@ -138,7 +143,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
   }
 
   return (
-    <FormContainer>
+    <FormContainer formRef={formRef}>
       <Formik
         initialValues={{
           amount: 0,
@@ -154,11 +159,10 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
                 session?.accessToken,
               ]);
               toast.success("Refund request submitted");
-              actions.resetForm();
+              router.push(`/account/sales/${order.id}`);
             })
             .catch((error) => {
               toast.error(error.response.data.error);
-              setError(true);
             })
             .finally(() => {
               actions.setSubmitting(false);
@@ -167,16 +171,25 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
         }}
       >
         {(formik) => (
-          <Form id={`refund-${router.query.id}`}>
+          <Form>
             <div className="my-2 space-y-2">
               <h5 className="text-center text-accent-darker">Offer a Refund</h5>
 
-              <NumberField name="amount" label="Amount" />
-              <DropdownCombobox name="reason" items={refundReasonList} />
-              <TextField name="notes" label="Notes" />
+              <CurrencyFieldFull
+                name="amount"
+                label="Amount"
+                placeholder="0"
+                currency={order.currency}
+              />
+              <DropdownCombobox
+                name="reason"
+                label="Reason"
+                items={refundReasonList}
+              />
+              <TextFieldFull name="notes" label="Note" />
 
               <PrimaryButton
-                text="Refund"
+                text="Refund Order"
                 onClick={() => openModal(formik)}
                 disabled={!formik.isValid}
               />

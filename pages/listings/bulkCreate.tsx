@@ -63,7 +63,7 @@ export default function BulkCreateListings(): JSX.Element {
           if (field == "condition") {
             return Number(value).toFixed(1);
           }
-          if (field == "grading") {
+          if (field == "accept_offers") {
             return value.toLocaleLowerCase() == "true" ? true : false;
           }
           if (value == "") {
@@ -150,7 +150,7 @@ export default function BulkCreateListings(): JSX.Element {
                         key={vIndex}
                         className="p-2 text-sm border border-info-darker"
                       >
-                        {listing[key] ? `${listing[key]}` : ""}
+                        {listing[key] === null ? "" : `${listing[key]}`}
                         {errors.length ? (
                           <p className="text-error">{`${errors}`}</p>
                         ) : null}
@@ -179,7 +179,7 @@ export default function BulkCreateListings(): JSX.Element {
       });
   }
 
-  if (!session) return <SpinnerLg text="Loading..." />;
+  if (!session || !listingTemplate.id) return <SpinnerLg text="Loading..." />;
 
   return (
     <>

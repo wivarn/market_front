@@ -2,12 +2,17 @@ import * as Yup from "yup";
 
 import { DropdownCombobox, TextFieldFull } from "../fields";
 import { Form, Formik, FormikProps } from "formik";
-import { GenericErrorMessage, InfoMessage } from "components/message";
+import {
+  GenericErrorMessage,
+  InfoMessage,
+  WarnMessage,
+} from "components/message";
 import { countryList, provinceList, stateList } from "constants/address";
 
 import { AddressApi } from "services/backendApi/address";
 import FormContainer from "../container";
 import { IAddress } from "types/account";
+import Link from "next/link";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
 import { UserSettingsContext } from "contexts/userSettings";
@@ -147,6 +152,34 @@ export default function AddressForm(): JSX.Element {
   const [address, setAddress] = useState<IAddress | null>(null);
   const [error, setError] = useState(false);
   const { userSettings, assignUserSettings } = useContext(UserSettingsContext);
+  const hasCart = userSettings.cart_items.length;
+  const hasOffer =
+    userSettings.offers.purchase_offers.length ||
+    userSettings.offers.sale_offers.length;
+
+  const renderWarning = () => {
+    if (hasCart || hasOffer)
+      return (
+        <div>
+          <WarnMessage>
+            <p>
+              Updating your address will clear{" "}
+              <Link href="/cart">
+                <a className="underline text-info">your cart</a>
+              </Link>{" "}
+              and all{" "}
+              <Link href="/offers">
+                <a className="underline text-info">active offers</a>
+              </Link>{" "}
+              will be rejected or cancelled.{" "}
+              <Link href="https://support.skwirl.io">
+                <a className="underline text-info">Learn more.</a>
+              </Link>
+            </p>
+          </WarnMessage>
+        </div>
+      );
+  };
 
   useEffect(() => {
     if (!session?.accessToken) return;
@@ -224,6 +257,7 @@ export default function AddressForm(): JSX.Element {
               {stateSelect(formik)}
               {zipField(formik.getFieldProps("country").value)}
 
+              {renderWarning()}
               <SubmitButtonFull
                 text="Update Address"
                 submitting={formik.isSubmitting}

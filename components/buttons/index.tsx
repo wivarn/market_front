@@ -10,6 +10,7 @@ interface Props {
   submitting?: boolean;
   hidden?: boolean;
   href?: string;
+  target?: string;
   onClick?: () => Promise<void>;
 }
 
@@ -30,7 +31,7 @@ export const BackButton = (props: Props): JSX.Element => {
   );
 
   return (
-    <Link href={userSettings.previous_path || props.href || "/"}>
+    <Link href={props.href || userSettings.previous_path || "/"}>
       <a>{backButton}</a>
     </Link>
   );

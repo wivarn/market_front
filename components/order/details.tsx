@@ -25,7 +25,7 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
 
     return (
       <div className="max-w-4xl mx-auto mt-4">
-        <h3 className="mb-4 text-center">History</h3>
+        <h3 className="mb-4 text-center">Order History</h3>
         <table className="w-full border-b table-fixed">
           <thead className="bg-accent-lighter">
             <tr>
@@ -76,7 +76,7 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
         <h3 className="mb-4 text-center">Refund History</h3>
         <table className="w-full border-b table-fixed">
           <thead className="bg-accent-lighter">
-            <tr>
+            <tr className="text-sm md:text-base">
               <th className="w-1/5">Refund Amount</th>
               <th className="w-1/5">Date</th>
               <th className="w-1/5">Status</th>
@@ -94,7 +94,7 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
                 year: "numeric",
               });
               return (
-                <tr key={refund.updated_at}>
+                <tr key={refund.updated_at} className="text-xs md:text-base">
                   <td>
                     {Number(refund.amount).toLocaleString("en", {
                       style: "currency",

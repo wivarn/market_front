@@ -59,7 +59,7 @@ export default function Cart(): JSX.Element {
 
   useEffect(() => {
     if (carts && !carts.length) {
-      assignUserSettings({ ...userSettings, has_cart: false });
+      assignUserSettings({ ...userSettings, cart_items: [] });
     }
   }, [carts]);
 
@@ -108,10 +108,14 @@ export default function Cart(): JSX.Element {
       .removeItem(sellerId, listingId)
       .then((cartsResponse) => {
         toast.success("Item removed from cart");
+        const newCartItems = userSettings.cart_items.filter(
+          (cart_item) => cart_item.listing_id != listingId
+        );
+        assignUserSettings({ ...userSettings, cart_items: newCartItems });
         setCarts(cartsResponse.data);
       })
       .catch((error) => {
-        toast.error(JSON.stringify(error.response.data));
+        toast.error(error.response.data.error);
       })
       .finally(() => {
         setSubmittingRemove({ ...submittingRemove, [listingId]: false });
@@ -125,6 +129,9 @@ export default function Cart(): JSX.Element {
       .then((cartsResponse) => {
         toast.success("Cart has been emptied");
         setCarts(cartsResponse.data);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.error);
       })
       .finally(() => {
         setSubmittingEmpty({ ...submittingEmpty, [sellerId]: false });
@@ -158,6 +165,7 @@ export default function Cart(): JSX.Element {
 
     function renderCart(cart: ICart) {
       function notAvailable(listing: Ilisting): boolean {
+        if (listing.accepted_offer) return false;
         return (
           listing.shipping == null ||
           (!cart.checkout_session_id && listing.aasm_state != "active")

@@ -152,8 +152,16 @@ export const SuccessIcon = (): JSX.Element => {
   return <HiCheckCircle className="icon" />;
 };
 
+export const SuccessIconSm = (): JSX.Element => {
+  return <HiCheckCircle className="icon-sm" />;
+};
+
 export const WarningIcon = (): JSX.Element => {
   return <HiExclamation className="icon" />;
+};
+
+export const WarningIconSm = (): JSX.Element => {
+  return <HiExclamation className="icon-sm" />;
 };
 
 export const GradedIcon = (): JSX.Element => {
@@ -210,8 +218,8 @@ export const CircleIconXs = (): JSX.Element => {
 
 // Social media icons
 
-export const DiscordIcon = (): JSX.Element => {
-  return <FaDiscord className="icon" />;
+export const DiscordIconSm = (): JSX.Element => {
+  return <FaDiscord className="icon-sm" />;
 };
 
 export const TwitterIconSm = (): JSX.Element => {

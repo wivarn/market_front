@@ -1,16 +1,9 @@
-import {
-  DiscordIcon,
-  FacebookIconSm,
-  InstagramIconSm,
-  TwitterIconSm,
-  YoutubeIconSm,
-} from "components/icons";
 import { PrimaryButton, SecondaryButton } from "components/buttons";
 
-import { IconButtonLink } from "components/buttons/iconButton";
-import MailChimpForm from "components/forms/mailChimp";
+import Image from "next/image";
 import { NextSeo } from "next-seo";
 import { RecentListings } from "components/listing/recentListings";
+import { SuccessIconSm } from "components/icons";
 
 export default function Home(): JSX.Element {
   return (
@@ -24,13 +17,15 @@ export default function Home(): JSX.Element {
                 {
                   <>
                     {"The "}
-                    <span className="text-info">social marketplace</span>{" "}
-                    {" for\n"}
-                    <span className="text-primary">modern collectors</span>
+                    <span className="text-info">trading card</span>
+                    {"\n"}
+                    <span>marketplace for</span>
+                    {"\n"}
+                    <div className="text-primary">modern collectors</div>
                   </>
                 }
               </h1>
-              <h3 className="py-2">
+              <h3 className="py-2 text-accent-darker">
                 Find the next centerpiece for your collection!
               </h3>
               <PrimaryButton text="Sign up now" href="/account/new" />
@@ -44,53 +39,74 @@ export default function Home(): JSX.Element {
         </div>
       </div>
       <RecentListings />
-      <div className="py-16 mt-4 bg-info-darker">
-        <div className="grid justify-center space-y-2 justify-items-center">
-          <div className="text-2xl text-white lg:text-4xl">
-            Subscribe to our newsletter
+      <div className="py-16 bg-secondary">
+        <div className="grid mx-auto space-y-2 justify-items-center">
+          <div className="text-2xl text-accent-darker lg:text-4xl">
+            Buy with confidence
           </div>
-          <MailChimpForm />
+          <div className="grid items-center grid-cols-1 md:grid-cols-2">
+            <Image src="/assets/verify_seller.svg" height={300} width={300} />
+            <div className="max-w-lg space-y-2">
+              <h4>Our sellers are pre-screened to ensure:</h4>
+              <div className="flex space-x-2 text-success">
+                <SuccessIconSm />
+                <span className="text-black">
+                  Identity verification and contact information
+                </span>
+              </div>
+              <div className="flex space-x-2 text-success">
+                <SuccessIconSm />
+                <span className="text-black">
+                  Experience selling and shipping
+                </span>
+              </div>
+              <div className="flex space-x-2 text-success">
+                <SuccessIconSm />
+                <span className="text-black">
+                  History of great customer service
+                </span>
+              </div>
+              <div className="flex space-x-2 text-success">
+                <SuccessIconSm />
+                <span className="text-black">High quality products</span>
+              </div>
+            </div>
+          </div>
+          <div className="pt-4">
+            <SecondaryButton
+              text="Learn more about buying"
+              href="https://support.skwirl.io/kb/en/article/buying-on-skwirl"
+            />
+          </div>
         </div>
       </div>
       <div className="py-16 bg-primary">
-        <div className="grid justify-center space-y-2 justify-items-center">
-          <div className="text-white">
-            <DiscordIcon />
+        <div className="grid max-w-4xl mx-auto space-y-2 text-center text-white">
+          <div className="text-2xl lg:text-4xl">
+            Why you&#39;ll love selling on Skwirl
           </div>
-          <div className="text-2xl text-white lg:text-4xl">
-            Join the conversation
+          <div className="grid grid-cols-1 md:grid-cols-3 justify-items-center">
+            <div>
+              <Image src="/assets/low_fee.svg" height={200} width={200} />
+              <h5>Low seller fees</h5>
+            </div>
+            <div>
+              <Image src="/assets/free_listings.svg" height={200} width={200} />
+              <h5>Unlimited free listings</h5>
+            </div>
+            <div>
+              <Image
+                src="/assets/fraud_protection.svg"
+                height={200}
+                width={200}
+              />
+              <h5>Fraud protection</h5>
+            </div>
           </div>
-          <SecondaryButton
-            text="Chat with us on Discord"
-            href="https://discord.gg/WHvDqHC2SC"
-          />
-        </div>
-      </div>
-      <div className="py-16 bg-secondary">
-        <div className="grid justify-center space-y-2 justify-items-center">
-          <div className="text-2xl text-info-darker lg:text-4xl">
-            Follow us on social media
-          </div>
-          <div className="flex justify-center mt-4 space-x-4">
-            <IconButtonLink
-              url="https://www.youtube.com/channel/UCDe_aLZv7CoKLxiZxAPbDJg"
-              icon={<YoutubeIconSm />}
-              target="_blank"
-            />
-            <IconButtonLink
-              url="https://www.facebook.com/skwirl.io"
-              icon={<FacebookIconSm />}
-              target="_blank"
-            />
-            <IconButtonLink
-              url="https://www.instagram.com/skwirl.io"
-              icon={<InstagramIconSm />}
-              target="_blank"
-            />
-            <IconButtonLink
-              url="https://twitter.com/skwirl_io"
-              icon={<TwitterIconSm />}
-              target="_blank"
+          <div className="pt-8">
+            <SecondaryButton
+              text="Learn more about selling"
+              href="https://support.skwirl.io/kb/en/article/selling-on-skwirl"
             />
           </div>
         </div>
