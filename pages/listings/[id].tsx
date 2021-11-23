@@ -1,8 +1,7 @@
-import { NextSeo, ProductJsonLd } from "next-seo";
-
 import { BackButton } from "components/buttons";
 import { GenericErrorMessage } from "components/message";
 import ListingDetails from "components/listing/details";
+import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { UserSettingsContext } from "contexts/userSettings";
@@ -40,21 +39,6 @@ export default function ShowListing(): JSX.Element {
         <div className="absolute">
           <BackButton text="Back" />
         </div>
-        <ProductJsonLd
-          productName={listing.title}
-          images={[listing.photos[0].url]}
-          description={`Find the best sports cards, trading card games and collectibles on the Skwirl marketplace. Get the best deals for ${listing.title} and lowest online prices. Free shipping for many products!`}
-          offers={[
-            {
-              price: `${listing.price}`,
-              priceCurrency: `${listing.currency}`,
-              url: `https://skwirl.io/listings/${listing.id}`,
-              seller: {
-                name: "Skwirl",
-              },
-            },
-          ]}
-        />
         <NextSeo
           title={listing.title}
           description={`Find the best sports cards, trading card games and collectibles on the Skwirl marketplace. Get the best deals for ${listing.title} and lowest online prices. Free shipping for many products!`}
