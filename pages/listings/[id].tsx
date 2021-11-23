@@ -41,11 +41,12 @@ export default function ShowListing(): JSX.Element {
         </div>
         <NextSeo
           title={listing.title}
-          description={listing.description}
+          description={`Find the best sports cards, trading card games and collectibles on the Skwirl marketplace. Get the best deals for ${listing.title} and lowest online prices. Free shipping for many products!`}
           openGraph={{
+            type: "website",
             url: `https://skwirl.io/listings/${listing.id}`,
             title: `${listing.title}`,
-            description: `Find the best sports cards, trading cards and collectibles on the Skwirl marketplace. Get the best deals for ${listing.title} and best online prices. Free shipping for many products!`,
+            description: `Find the best sports cards, trading card games and collectibles on the Skwirl marketplace. Get the best deals for ${listing.title} and lowest online prices. Free shipping for many products!`,
             images: [
               {
                 url: `${listing.photos[0].url}`,
