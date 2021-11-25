@@ -37,8 +37,6 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@tailwindcss/line-clamp": "^0.2.1",
-    "@tailwindcss/typography": "^0.4.1",
     "@types/formidable": "^1.2.3",
     "@types/papaparse": "^5.2.5",
     "@types/react": "^17.0.3",
