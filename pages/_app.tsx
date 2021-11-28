@@ -7,9 +7,9 @@ import { DefaultSeo } from "next-seo";
 import GoogleAnalytics from "components/googleAnalytics";
 import Head from "next/head";
 import Layout from "components/layout";
-import { Provider } from "next-auth/client";
 import SEO from "next-seo-config";
 import { SWRConfig } from "swr";
+import { SessionProvider } from "next-auth/react";
 import { StrictMode } from "react";
 import Toast from "components/toast";
 import { UserSettingsProvider } from "contexts/userSettings";
@@ -17,7 +17,10 @@ import { WixAnswers } from "components/wixAnswers";
 import { accessTokenAgeSeconds } from "constants/auth";
 import { fetcher } from "services/backendApi/fetcher";
 
-function Market({ Component, pageProps }: AppProps): JSX.Element {
+function Market({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps): JSX.Element {
   return (
     <StrictMode>
       <Head>
@@ -45,9 +48,9 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
           ],
         }}
       />
-      <Provider
-        session={pageProps.session}
-        options={{ clientMaxAge: accessTokenAgeSeconds }}
+      <SessionProvider
+        session={session}
+        refetchInterval={accessTokenAgeSeconds}
       >
         <SWRConfig value={{ fetcher: fetcher }}>
           <UserSettingsProvider>
@@ -58,7 +61,7 @@ function Market({ Component, pageProps }: AppProps): JSX.Element {
             </Layout>
           </UserSettingsProvider>
         </SWRConfig>
-      </Provider>
+      </SessionProvider>
     </StrictMode>
   );
 }
