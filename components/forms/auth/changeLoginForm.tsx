@@ -9,7 +9,7 @@ import { SpinnerLg } from "components/spinner";
 import { TextFieldFull } from "../fields";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 const changeLoginSchema = Yup.object().shape({
   login: Yup.string().email("Invalid email").required("Required"),

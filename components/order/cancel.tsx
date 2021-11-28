@@ -7,7 +7,7 @@ import { OrderApi } from "services/backendApi/order";
 import { SpinnerXs } from "components/spinner";
 import { mutate } from "swr";
 import { toast } from "react-toastify";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 interface IProps {
   open: boolean;

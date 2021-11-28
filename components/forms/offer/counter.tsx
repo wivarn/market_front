@@ -11,7 +11,7 @@ import { OfferApi } from "services/backendApi/offer";
 import { UserSettingsContext } from "contexts/userSettings";
 import { toast } from "react-toastify";
 import { uniqueId } from "lodash";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 export default function ListingCounterOfferModal(
   props: IOfferDetailed

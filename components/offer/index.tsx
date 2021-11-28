@@ -9,7 +9,7 @@ import { UserSettingsContext } from "contexts/userSettings";
 import { formatDistanceToNow } from "date-fns";
 import router from "next/router";
 import { useContext } from "react";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 interface IOfferProps {
   offer: IOfferDetailed;

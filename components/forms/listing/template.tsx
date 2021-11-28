@@ -33,7 +33,7 @@ import { toast } from "react-toastify";
 import { useContext } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 const listingSchema = Yup.object().shape({
   category: Yup.mixed().oneOf(

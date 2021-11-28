@@ -1,7 +1,7 @@
 import { AuthApi } from "services/backendApi/auth";
 import { NextSeo } from "next-seo";
 import { SpinnerLg } from "components/spinner";
-import { signIn } from "next-auth/client";
+import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useRouter } from "next/router";

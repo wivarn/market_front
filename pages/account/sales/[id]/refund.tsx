@@ -7,7 +7,7 @@ import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 export default function Refund(): JSX.Element {
   const [session, sessionLoading] = useSession();

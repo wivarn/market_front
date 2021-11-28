@@ -7,7 +7,7 @@ import Link from "next/link";
 import { SecondaryButton } from "components/buttons";
 import { SubmitButtonFull } from "components/buttons";
 import { TextFieldFull } from "../fields";
-import { signIn } from "next-auth/client";
+import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useState } from "react";

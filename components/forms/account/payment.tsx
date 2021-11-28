@@ -11,7 +11,7 @@ import { SubmitButtonFull } from "components/buttons";
 import { UserSettingsContext } from "contexts/userSettings";
 import { toast } from "react-toastify";
 import { useContext } from "react";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 const currencyList = [
   { value: "CAD", text: "CAD" },

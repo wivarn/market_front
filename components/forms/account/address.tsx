@@ -20,7 +20,7 @@ import { createRef } from "react";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { useEffect } from "react";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 const addressSchema = Yup.object().shape({

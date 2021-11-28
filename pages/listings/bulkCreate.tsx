@@ -18,7 +18,7 @@ import { listingSchema } from "constants/listings";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 delete listingSchema.photos;

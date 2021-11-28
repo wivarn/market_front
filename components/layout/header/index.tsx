@@ -18,7 +18,7 @@ import { Spinner } from "components/spinner";
 import { UserSettingsContext } from "contexts/userSettings";
 import { categoryList } from "constants/listings";
 import { useContext } from "react";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 function CategoryPopovers() {
   const { userSettings } = useContext(UserSettingsContext);

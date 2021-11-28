@@ -11,7 +11,7 @@ import { UserSettingsContext } from "contexts/userSettings";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 export default function payments(): JSX.Element {
   const [session, sessionLoading] = useSession();

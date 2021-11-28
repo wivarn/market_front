@@ -10,7 +10,7 @@ import { SubmitButton } from "components/buttons";
 import { TextField } from "components/forms/fields";
 import { UserApi } from "services/backendApi/user";
 import { toast } from "react-toastify";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 const updateRoleSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),

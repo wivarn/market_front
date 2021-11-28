@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { signOut, useSession } from "next-auth/client";
+import { signOut, useSession } from "next-auth/react";
 
 import { IListingTemplate } from "types/listings";
 import { IOfferDetailed } from "types/offer";

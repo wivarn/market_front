@@ -8,7 +8,7 @@ import SearchFilter from "components/forms/listing/searchFilter";
 import { UserSettingsContext } from "contexts/userSettings";
 import { useContext } from "react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;

@@ -6,7 +6,7 @@ import { OrderApi } from "services/backendApi/order";
 import { SubmitButton } from "components/buttons";
 import { TextField } from "./fields";
 import { toast } from "react-toastify";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 const orderTrackingSchema = Yup.object().shape({
   tracking: Yup.string(),
