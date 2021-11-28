@@ -11,7 +11,8 @@ import useSWR from "swr";
 import { useSession } from "next-auth/react";
 
 export default function Listings(): JSX.Element {
-  const [session, loadingSession] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const router = useRouter();
   const { state, page } = router.query;
 
@@ -36,7 +37,7 @@ export default function Listings(): JSX.Element {
   const { response, loadingListings, isError } = getListings();
 
   function renderListings() {
-    if (loadingListings || loadingSession)
+    if (loadingListings || sessionLoading)
       return <SpinnerLg text="Loading..." />;
     if (isError) return <GenericErrorMessage></GenericErrorMessage>;
     const paginatedListings: IListingsPaginated = response.data;
