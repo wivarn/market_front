@@ -18,7 +18,8 @@ const emailSettingsSchema = Yup.object().shape({
 });
 
 export default function EmailSettingsForm(): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const [emailSettings, setEmailSettings] = useState<IEmailSettings | null>(
     null
   );

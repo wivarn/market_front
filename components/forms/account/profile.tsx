@@ -57,7 +57,8 @@ const emailLabel = () => {
 };
 
 export default function ProfileForm(): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const [imageData, setImageData] = useState<File | null>(null);
   const [profile, setProfile] = useState<IProfile | null>(null);
   const [error, setError] = useState(false);

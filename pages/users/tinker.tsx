@@ -28,7 +28,8 @@ const userAttributes = [
 ];
 
 export default function UpdateRole(): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const [users, setUser] = useState<any>(null);
   const [error, setError] = useState(false);
 

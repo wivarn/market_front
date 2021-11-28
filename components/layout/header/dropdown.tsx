@@ -47,7 +47,7 @@ function classNames(...classes: string[]) {
 }
 
 export const DropDown = (): JSX.Element => {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const { userSettings, resetUserSettings } = useContext(UserSettingsContext);
 

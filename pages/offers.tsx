@@ -11,7 +11,8 @@ import useSWR from "swr";
 import { useSession } from "next-auth/react";
 
 export default function Offers(): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const { userSettings, assignUserSettings } = useContext(UserSettingsContext);
 
   const getOffers = () => {

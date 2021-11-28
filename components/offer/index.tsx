@@ -40,7 +40,7 @@ const cancelOffer = async (accessToken: string, id: string) => {
 };
 
 export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const { updateOffers } = useContext(UserSettingsContext);
 
   const counter = props.counter;
@@ -145,7 +145,7 @@ export const SaleOffer = (props: IOfferDetailed): JSX.Element => {
 };
 
 export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const { updateOffers } = useContext(UserSettingsContext);
 
   const counter = props.counter;

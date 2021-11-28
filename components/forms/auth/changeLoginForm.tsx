@@ -20,7 +20,8 @@ const changeLoginSchema = Yup.object().shape({
 
 export default function ChangeLoginForm(): JSX.Element {
   const router = useRouter();
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
 
   if (sessionLoading) return <SpinnerLg text="Loading..." />;
 

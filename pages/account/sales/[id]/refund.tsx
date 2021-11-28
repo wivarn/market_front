@@ -10,7 +10,8 @@ import useSWR from "swr";
 import { useSession } from "next-auth/react";
 
 export default function Refund(): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const router = useRouter();
 
   function getOrder() {

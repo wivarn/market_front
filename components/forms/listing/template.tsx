@@ -170,7 +170,8 @@ function subCategoryCombobox(formik: FormikProps<any>) {
 }
 
 const ListingTemplateForm = (): JSX.Element => {
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const router = useRouter();
   const { userSettings, updateUserSettings } = useContext(UserSettingsContext);
   const template = userSettings.listing_template;

@@ -29,7 +29,7 @@ const headerSchema = Yup.array().of(
 const bodySchema = Yup.object().shape(listingSchema);
 
 export default function BulkCreateListings(): JSX.Element {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const [submittingBulkCreate, setSubmittingBulkCreate] = useState(false);
   const [listings, setListings] = useState<ParseResult<any>>({

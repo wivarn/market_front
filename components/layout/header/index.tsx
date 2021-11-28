@@ -67,7 +67,8 @@ function CategoryPopovers() {
 }
 
 export default function Header(): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const { userSettings } = useContext(UserSettingsContext);
 
   function renderNav() {

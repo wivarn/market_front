@@ -26,7 +26,8 @@ interface IProps {
 
 export default function OrderRefundForm({ order }: IProps): JSX.Element {
   const router = useRouter();
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const [modalOpen, setModalOpen] = useState(false);
   const formRef = useRef<HTMLSpanElement>(null);
 

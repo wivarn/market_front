@@ -30,7 +30,8 @@ const paymentSchema = Yup.object().shape({
 });
 
 export default function PaymentForm(): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const { userSettings, updateUserSettings } = useContext(UserSettingsContext);
 
   if (sessionLoading || userSettings.default_settings)

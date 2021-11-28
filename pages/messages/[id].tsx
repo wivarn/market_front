@@ -22,7 +22,7 @@ import { useSession } from "next-auth/react";
 export default function SendMessage(): JSX.Element {
   const router = useRouter();
   const { id } = router.query;
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   function getMessages() {
     const { data, error } = useSWR(

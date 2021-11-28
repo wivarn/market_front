@@ -148,7 +148,7 @@ function trimValues(values: IAddress) {
 }
 
 export default function AddressForm(): JSX.Element {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const [address, setAddress] = useState<IAddress | null>(null);
   const [error, setError] = useState(false);
   const { userSettings, assignUserSettings } = useContext(UserSettingsContext);

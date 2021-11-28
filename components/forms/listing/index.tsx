@@ -82,7 +82,8 @@ function subCategoryCombobox(formik: FormikProps<any>) {
 
 const ListingForm = (props: IListingFormData): JSX.Element => {
   const router = useRouter();
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const [graded, setGraded] = useState(!!props.grading_company);
   const [acceptOffers, setAcceptOffers] = useState(props.accept_offers);
   const [imageData, setImageData] = useState<(File | string)[]>(

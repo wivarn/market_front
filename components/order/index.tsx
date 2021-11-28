@@ -93,7 +93,8 @@ export function Order(props: IOrderProps): JSX.Element {
   const [order, setOrder] = useState(props.order);
   const [submittingTransition, setSubmittingTransition] = useState(false);
   const [cancelModal, setCancelModal] = useState(false);
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const router = useRouter();
 
   useEffect(() => {

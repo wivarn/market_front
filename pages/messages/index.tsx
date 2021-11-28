@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 
 export default function MessageIndex(): JSX.Element {
   const router = useRouter();
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   function getLatestMessages() {
     const { data, error } = useSWR(

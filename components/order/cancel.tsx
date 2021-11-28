@@ -21,7 +21,8 @@ export default function CancelOrder({
   order,
   setOrder,
 }: IProps): JSX.Element {
-  const [session, SessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const [submitting, setSubmitting] = useState(false);
 
   async function closeModal() {

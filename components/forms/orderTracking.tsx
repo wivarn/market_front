@@ -21,7 +21,7 @@ export default function OrderTrackingForm({
   orderId,
   tracking,
 }: props): JSX.Element {
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   return (
     <Formik

@@ -16,7 +16,7 @@ import { useSession } from "next-auth/react";
 export default function ListingCounterOfferModal(
   props: IOfferDetailed
 ): [JSX.Element, JSX.Element] {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const [modalOpen, setModalOpen] = useState(false);
   const { updateOffers } = useContext(UserSettingsContext);
 

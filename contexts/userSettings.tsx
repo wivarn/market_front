@@ -68,7 +68,7 @@ export const UserSettingsProvider = ({
 }: {
   children: React.ReactNode;
 }): JSX.Element => {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const [userSettings, setUserSettings] = useState<IUserSettings>(
     defaultSettings
   );

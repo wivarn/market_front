@@ -41,7 +41,8 @@ export default function ListingTabs({
   activeTab: string;
   children: React.ReactNode;
 }): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const router = useRouter();
   const { userSettings } = useContext(UserSettingsContext);
 
