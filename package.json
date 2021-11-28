@@ -21,7 +21,7 @@
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "next": "^12.0.4",
-    "next-auth": "0.0.0-pr.3217.87a21677",
+    "next-auth": "3.3.0",
     "next-seo": "^4.25.1",
     "papaparse": "^5.3.1",
     "react": "^17.0.2",
