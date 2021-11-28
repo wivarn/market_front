@@ -8,7 +8,7 @@ import SearchFilter from "components/forms/listing/searchFilter";
 import { UserSettingsContext } from "contexts/userSettings";
 import { useContext } from "react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -41,7 +41,8 @@ export default function ListingTabs({
   activeTab: string;
   children: React.ReactNode;
 }): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const router = useRouter();
   const { userSettings } = useContext(UserSettingsContext);
 

@@ -11,14 +11,15 @@ import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
 import { Toggle } from "../fields";
 import { toast } from "react-toastify";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 const emailSettingsSchema = Yup.object().shape({
   marketing: Yup.boolean().required("required"),
 });
 
 export default function EmailSettingsForm(): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const [emailSettings, setEmailSettings] = useState<IEmailSettings | null>(
     null
   );

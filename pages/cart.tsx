@@ -16,10 +16,11 @@ import { UserSettingsContext } from "contexts/userSettings";
 import { XIconSm } from "components/icons";
 import { toast } from "react-toastify";
 import { useContext } from "react";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 export default function Cart(): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   // TODO: add cart type
   const [carts, setCarts] = useState<any>(null);
   const [error, setError] = useState(false);

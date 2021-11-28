@@ -1,7 +1,7 @@
 import { CircleIconXs, MenuIcon, UserChevronIcon } from "components/icons";
 import { Fragment, LegacyRef, forwardRef } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { signOut, useSession } from "next-auth/client";
+import { signOut, useSession } from "next-auth/react";
 
 import { AuthApi } from "services/backendApi/auth";
 import { IconLink } from "./iconLink";
@@ -47,7 +47,7 @@ function classNames(...classes: string[]) {
 }
 
 export const DropDown = (): JSX.Element => {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
   const { userSettings, resetUserSettings } = useContext(UserSettingsContext);
 

@@ -9,10 +9,11 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 export default function sales(): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const router = useRouter();
   const { assignUserSettings } = useContext(UserSettingsContext);
 

@@ -4,11 +4,11 @@ import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 export default function MessageIndex(): JSX.Element {
   const router = useRouter();
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   function getLatestMessages() {
     const { data, error } = useSWR(

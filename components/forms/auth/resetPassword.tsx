@@ -7,7 +7,7 @@ import AuthFormContainer from "./container";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButton } from "components/buttons";
 import { TextFieldFull } from "../fields";
-import { signIn } from "next-auth/client";
+import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useRouter } from "next/router";

@@ -1,10 +1,10 @@
 import { IUser } from "types/user";
 import Image from "next/image";
 import Link from "next/link";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 export const UserInfo = (props: IUser): JSX.Element => {
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   function renderSendMessage() {
     if (!session || session.accountId == props.id) return null;

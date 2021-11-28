@@ -18,7 +18,7 @@ import { Spinner } from "components/spinner";
 import { UserSettingsContext } from "contexts/userSettings";
 import { categoryList } from "constants/listings";
 import { useContext } from "react";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 function CategoryPopovers() {
   const { userSettings } = useContext(UserSettingsContext);
@@ -67,7 +67,8 @@ function CategoryPopovers() {
 }
 
 export default function Header(): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const { userSettings } = useContext(UserSettingsContext);
 
   function renderNav() {

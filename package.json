@@ -21,7 +21,7 @@
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "next": "^12.0.4",
-    "next-auth": "^3.23.3",
+    "next-auth": "0.0.0-pr.3217.87a21677",
     "next-seo": "^4.25.1",
     "papaparse": "^5.3.1",
     "react": "^17.0.2",
@@ -37,8 +37,6 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@tailwindcss/line-clamp": "^0.2.1",
-    "@tailwindcss/typography": "^0.4.1",
     "@types/formidable": "^1.2.3",
     "@types/papaparse": "^5.2.5",
     "@types/react": "^17.0.3",

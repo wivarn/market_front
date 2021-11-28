@@ -7,10 +7,11 @@ import ListingForm from "components/forms/listing";
 import { NextSeo } from "next-seo";
 import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 export default function EditListing(): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const router = useRouter();
   const { id } = router.query;
   const [listing, setListing] = useState<IListingFormData | null>(null);
