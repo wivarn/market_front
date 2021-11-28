@@ -47,7 +47,7 @@ export default function CancelOrder({
       });
   }
 
-  if (SessionLoading) return <SpinnerXs />;
+  if (sessionLoading) return <SpinnerXs />;
 
   return (
     <Transition appear show={open} as={Fragment}>
