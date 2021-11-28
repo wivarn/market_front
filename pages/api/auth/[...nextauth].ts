@@ -1,8 +1,8 @@
 import NextAuth, { User } from "next-auth";
 
 import { AuthApi } from "services/backendApi/auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
-import Providers from "next-auth/providers";
 import { accessTokenAgeSeconds } from "constants/auth";
 import jwtDecode from "jwt-decode";
 
@@ -46,10 +46,11 @@ async function refreshAccessToken(token: JWT) {
 
 export default NextAuth({
   providers: [
-    Providers.Credentials({
+    CredentialsProvider({
       id: "credentials",
       name: "Credentials",
-      authorize: async (credentials: Credentials) => {
+      async authorize(credentials: any) {
+        console.log(credentials);
         try {
           const response = await AuthApi().login(
             credentials.login,
@@ -60,20 +61,22 @@ export default NextAuth({
           throw new Error(error.response.data.error);
         }
       },
+      credentials: {},
     }),
-    Providers.Credentials({
+    CredentialsProvider({
       id: "jwt",
       name: "Jwt",
-      authorize: async (jwt: User) => {
+      async authorize(jwt: any) {
         return jwt;
       },
+      credentials: {},
     }),
   ],
 
   secret: process.env.NEXT_AUTH_SECRET,
 
   callbacks: {
-    async jwt(token, user) {
+    async jwt({ token, user }) {
       if (user) {
         token.accessToken = user.access_token;
         token.accessTokenExpires = Date.now() + accessTokenAgeMS;
@@ -86,7 +89,7 @@ export default NextAuth({
       return refreshAccessToken(token);
     },
 
-    async session(session, token: JWT) {
+    async session({ session, token }) {
       session.accessToken = token.accessToken;
       session.accountId = jwtDecode<any>(token.accessToken).account_id;
       session.error = token.error;
