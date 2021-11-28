@@ -6,6 +6,7 @@ import { JWT } from "next-auth/jwt";
 import { accessTokenAgeSeconds } from "constants/auth";
 import jwtDecode from "jwt-decode";
 
+// Check if this line can be removed
 process.env.NEXTAUTH_URL = process.env.NEXTAUTH_URL || process.env.VERCEL_URL;
 
 interface Credentials {
