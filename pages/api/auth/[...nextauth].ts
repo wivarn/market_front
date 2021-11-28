@@ -51,7 +51,6 @@ export default NextAuth({
       id: "credentials",
       name: "Credentials",
       async authorize(credentials: any) {
-        console.log(credentials);
         try {
           const response = await AuthApi().login(
             credentials.login,
