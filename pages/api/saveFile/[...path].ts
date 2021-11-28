@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next-auth/internals/utils";
+import { NextApiRequest, NextApiResponse } from "next";
 import { appendFileSync, mkdirSync, readFileSync } from "fs";
 
 import { IncomingForm } from "formidable";
