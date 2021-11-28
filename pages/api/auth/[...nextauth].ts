@@ -1,18 +1,12 @@
-import NextAuth, { User } from "next-auth";
-
 import { AuthApi } from "services/backendApi/auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
+import NextAuth from "next-auth";
 import { accessTokenAgeSeconds } from "constants/auth";
 import jwtDecode from "jwt-decode";
 
 // Check if this line can be removed
 process.env.NEXTAUTH_URL = process.env.NEXTAUTH_URL || process.env.VERCEL_URL;
-
-interface Credentials {
-  login: string;
-  password: string;
-}
 
 // this is set to one minute less than clientMaxAge
 const accessTokenAgeMS = (accessTokenAgeSeconds - 60) * 1000;
