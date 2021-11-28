@@ -71,7 +71,7 @@ export default function LoginForm(): JSX.Element {
                 password: values.password,
                 redirect: false,
               })
-                .then((response) => {
+                .then((response: any) => {
                   if (response?.error) {
                     actions.setSubmitting(false);
                     actions.setFieldValue("password", "", false);
