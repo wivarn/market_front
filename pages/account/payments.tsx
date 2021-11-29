@@ -12,8 +12,10 @@ import { toast } from "react-toastify";
 import { useContext } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import { redirectUnauthenticated } from "ultils/authentication";
 
 export default function payments(): JSX.Element {
+  redirectUnauthenticated();
   const { data: session, status } = useSession();
   const sessionLoading = status === "loading";
   const router = useRouter();

@@ -11,6 +11,7 @@ import { TextField } from "components/forms/fields";
 import { UserApi } from "services/backendApi/user";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
+import { redirectUnauthenticated } from "ultils/authentication";
 
 const updateRoleSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -28,6 +29,7 @@ const userAttributes = [
 ];
 
 export default function UpdateRole(): JSX.Element {
+  redirectUnauthenticated();
   const { data: session, status } = useSession();
   const sessionLoading = status === "loading";
   const [users, setUser] = useState<any>(null);

@@ -17,8 +17,10 @@ import { XIconSm } from "components/icons";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { useSession } from "next-auth/react";
+import { redirectUnauthenticated } from "ultils/authentication";
 
 export default function Cart(): JSX.Element {
+  redirectUnauthenticated();
   const { data: session, status } = useSession();
   const sessionLoading = status === "loading";
   // TODO: add cart type
