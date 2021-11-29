@@ -2,11 +2,13 @@ import { BlankMessage, GenericErrorMessage } from "components/message";
 
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
+import { redirectUnauthenticated } from "ultils/authentication";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";
 
 export default function MessageIndex(): JSX.Element {
+  redirectUnauthenticated();
   const router = useRouter();
   const { data: session } = useSession();
 

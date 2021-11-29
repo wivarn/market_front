@@ -9,8 +9,10 @@ import { SpinnerLg } from "components/spinner";
 import { UserSettingsContext } from "contexts/userSettings";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";
+import { redirectUnauthenticated } from "ultils/authentication";
 
 export default function Offers(): JSX.Element {
+  redirectUnauthenticated();
   const { data: session, status } = useSession();
   const sessionLoading = status === "loading";
   const { userSettings, assignUserSettings } = useContext(UserSettingsContext);
