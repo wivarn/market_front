@@ -8,10 +8,13 @@ import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
+import { redirectUnauthenticated } from "ultils/authentication";
 
 export default function Listings(): JSX.Element {
-  const [session, loadingSession] = useSession();
+  redirectUnauthenticated();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const router = useRouter();
   const { state, page } = router.query;
 
@@ -36,7 +39,7 @@ export default function Listings(): JSX.Element {
   const { response, loadingListings, isError } = getListings();
 
   function renderListings() {
-    if (loadingListings || loadingSession)
+    if (loadingListings || sessionLoading)
       return <SpinnerLg text="Loading..." />;
     if (isError) return <GenericErrorMessage></GenericErrorMessage>;
     const paginatedListings: IListingsPaginated = response.data;

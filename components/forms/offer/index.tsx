@@ -14,12 +14,12 @@ import { IlistingDetails } from "types/listings";
 import { OfferApi } from "services/backendApi/offer";
 import { UserSettingsContext } from "contexts/userSettings";
 import { toast } from "react-toastify";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 export default function ListingOfferModal(props: IlistingDetails): JSX.Element {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const [modalOpen, setModalOpen] = useState(false);
-  const { updateOffers } = useContext(UserSettingsContext);
+  const { userSettings, updateOffers } = useContext(UserSettingsContext);
 
   const offerSchema = Yup.object().shape({
     amount: Yup.number()
@@ -37,6 +37,7 @@ export default function ListingOfferModal(props: IlistingDetails): JSX.Element {
       <SecondaryButtonFull
         onClick={async () => setModalOpen(true)}
         text="Make an offer"
+        disabled={!userSettings.address_set}
       />
       <Transition appear show={modalOpen} as={Fragment}>
         <Dialog

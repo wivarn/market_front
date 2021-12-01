@@ -20,7 +20,7 @@ import { createRef } from "react";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { useEffect } from "react";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 const addressSchema = Yup.object().shape({
@@ -148,7 +148,7 @@ function trimValues(values: IAddress) {
 }
 
 export default function AddressForm(): JSX.Element {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const [address, setAddress] = useState<IAddress | null>(null);
   const [error, setError] = useState(false);
   const { userSettings, assignUserSettings } = useContext(UserSettingsContext);

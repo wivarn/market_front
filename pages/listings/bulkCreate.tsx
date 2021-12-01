@@ -18,8 +18,9 @@ import { listingSchema } from "constants/listings";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { redirectUnauthenticated } from "ultils/authentication";
 
 delete listingSchema.photos;
 delete listingSchema.state;
@@ -29,7 +30,8 @@ const headerSchema = Yup.array().of(
 const bodySchema = Yup.object().shape(listingSchema);
 
 export default function BulkCreateListings(): JSX.Element {
-  const [session] = useSession();
+  redirectUnauthenticated();
+  const { data: session } = useSession();
   const router = useRouter();
   const [submittingBulkCreate, setSubmittingBulkCreate] = useState(false);
   const [listings, setListings] = useState<ParseResult<any>>({

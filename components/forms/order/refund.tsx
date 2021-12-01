@@ -18,7 +18,7 @@ import { mutate } from "swr";
 import { refundReasonList } from "constants/orders";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 interface IProps {
   order: IOrderDetails;
@@ -26,7 +26,8 @@ interface IProps {
 
 export default function OrderRefundForm({ order }: IProps): JSX.Element {
   const router = useRouter();
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const [modalOpen, setModalOpen] = useState(false);
   const formRef = useRef<HTMLSpanElement>(null);
 

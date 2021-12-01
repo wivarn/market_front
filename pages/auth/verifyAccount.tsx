@@ -1,13 +1,17 @@
+import { useEffect, useState } from "react";
+
 import { AuthApi } from "services/backendApi/auth";
+import { GenericErrorMessage } from "components/message";
 import { NextSeo } from "next-seo";
+import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
-import { signIn } from "next-auth/client";
+import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 export default function verifyAccount(): JSX.Element {
   const router = useRouter();
+  const [errorPage, setErrorPage] = useState(false);
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -21,15 +25,24 @@ export default function verifyAccount(): JSX.Element {
           signIn("jwt", {
             ...response.data,
             redirect: false,
+          }).then(() => {
+            toast.success(response.data.success);
+            router.push("/account/address");
           });
-          toast.success(response.data.success);
-          router.push("/account/address");
         })
         .catch((error) => {
+          setErrorPage(true);
           toast.error(error.response.data.error);
         });
     }
   }, [router.isReady]);
+
+  if (errorPage)
+    return (
+      <PageContainer>
+        <GenericErrorMessage />
+      </PageContainer>
+    );
   return (
     <>
       <NextSeo title="Verify Account" />

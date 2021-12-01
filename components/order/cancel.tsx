@@ -7,7 +7,7 @@ import { OrderApi } from "services/backendApi/order";
 import { SpinnerXs } from "components/spinner";
 import { mutate } from "swr";
 import { toast } from "react-toastify";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 interface IProps {
   open: boolean;
@@ -21,7 +21,8 @@ export default function CancelOrder({
   order,
   setOrder,
 }: IProps): JSX.Element {
-  const [session, SessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const [submitting, setSubmitting] = useState(false);
 
   async function closeModal() {
@@ -46,7 +47,7 @@ export default function CancelOrder({
       });
   }
 
-  if (SessionLoading) return <SpinnerXs />;
+  if (sessionLoading) return <SpinnerXs />;
 
   return (
     <Transition appear show={open} as={Fragment}>

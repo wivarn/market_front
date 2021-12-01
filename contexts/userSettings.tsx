@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { signOut, useSession } from "next-auth/client";
+import { signOut, useSession } from "next-auth/react";
 
 import { IListingTemplate } from "types/listings";
 import { IOfferDetailed } from "types/offer";
@@ -68,7 +68,7 @@ export const UserSettingsProvider = ({
 }: {
   children: React.ReactNode;
 }): JSX.Element => {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const [userSettings, setUserSettings] = useState<IUserSettings>(
     defaultSettings
   );

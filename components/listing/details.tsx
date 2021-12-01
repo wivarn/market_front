@@ -16,10 +16,10 @@ import { UserSettingsContext } from "contexts/userSettings";
 import { categoryList } from "constants/listings";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 const ListingDetails = (props: IlistingDetails): JSX.Element => {
-  const [session] = useSession();
+  const { data: session } = useSession();
   const [submitting, setSubmitting] = useState(false);
   const { userSettings, assignUserSettings, updateOffers } = useContext(
     UserSettingsContext
@@ -191,7 +191,29 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
     )
       return null;
     if (offerMade)
-      return <SecondaryButtonFull href={`/offers`} text="View Offers" />;
+      return (
+        <div data-tip data-for="make-offer">
+          <SecondaryButtonFull
+            href={`/offers`}
+            text="View Offers"
+            disabled={!userSettings.address_set}
+          />
+          <ReactTooltip
+            id="make-offer"
+            type="dark"
+            place="top"
+            multiline={true}
+            effect="solid"
+            disable={userSettings.address_set}
+          >
+            <div className="text-center">
+              You need to set your address
+              <br />
+              before making offers
+            </div>
+          </ReactTooltip>
+        </div>
+      );
     return <ListingOfferModal {...props} />;
   };
 
@@ -200,7 +222,7 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
       <div className="grid grid-cols-1 xl:grid-cols-2">
         <div className="my-4 lg:px-4">
           {props.photos.length ? (
-            <ImageSlider imageMetas={props.photos} />
+            <ImageSlider imageMetas={props.photos} imageTitle={props.title} />
           ) : null}
         </div>
         <InfoCard>
@@ -302,11 +324,7 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
           </div>
           <div className="my-8"></div>
           <h5>Seller Information</h5>
-          <Link href={`/users/${props.seller.id}`}>
-            <a>
-              <UserInfo {...props.seller} />
-            </a>
-          </Link>
+          <UserInfo {...props.seller} />
         </InfoCard>
       </div>
       <InfoCard>

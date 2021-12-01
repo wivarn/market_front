@@ -14,7 +14,7 @@ import ReactTooltip from "react-tooltip";
 import { SpinnerLg } from "components/spinner";
 import { SubmitButtonFull } from "components/buttons";
 import { toast } from "react-toastify";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 const profileSchema = Yup.object().shape({
   given_name: Yup.string()
@@ -57,7 +57,8 @@ const emailLabel = () => {
 };
 
 export default function ProfileForm(): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const [imageData, setImageData] = useState<File | null>(null);
   const [profile, setProfile] = useState<IProfile | null>(null);
   const [error, setError] = useState(false);

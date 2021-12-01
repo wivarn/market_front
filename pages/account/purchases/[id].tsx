@@ -6,10 +6,13 @@ import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
+import { redirectUnauthenticated } from "ultils/authentication";
 
 export default function Purchases(): JSX.Element {
-  const [session, sessionLoading] = useSession();
+  redirectUnauthenticated();
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const router = useRouter();
 
   function getOrder() {
