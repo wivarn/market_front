@@ -25,9 +25,10 @@ export default function verifyAccount(): JSX.Element {
           signIn("jwt", {
             ...response.data,
             redirect: false,
+          }).then(() => {
+            toast.success(response.data.success);
+            router.push("/account/address");
           });
-          toast.success(response.data.success);
-          router.push("/account/address");
         })
         .catch((error) => {
           setErrorPage(true);

@@ -56,9 +56,10 @@ export default function ResetPasswordForm(): JSX.Element {
                 signIn("jwt", {
                   ...response.data,
                   redirect: false,
+                }).then(() => {
+                  toast.success(response.data.success);
+                  router.push("/");
                 });
-                toast.success(response.data.success);
-                router.push("/");
               })
               .catch((error) => {
                 toast.error(error.response.data.error);
