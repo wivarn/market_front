@@ -308,11 +308,7 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
           </div>
           <div className="my-8"></div>
           <h5>Seller Information</h5>
-          <Link href={`/users/${props.seller.id}`}>
-            <a>
-              <UserInfo {...props.seller} />
-            </a>
-          </Link>
+          <UserInfo {...props.seller} />
         </InfoCard>
       </div>
       <InfoCard>
