@@ -8,7 +8,7 @@ import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { UserSettingsContext } from "contexts/userSettings";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import { useContext } from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
