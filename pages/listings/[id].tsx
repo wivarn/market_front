@@ -1,15 +1,23 @@
 import { BackButton } from "components/buttons";
 import { GenericErrorMessage } from "components/message";
+import { GetServerSideProps } from "next";
+import { IlistingDetails } from "types/listings";
+import { ListingApi } from "services/backendApi/listing";
 import ListingDetails from "components/listing/details";
 import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
 import { UserSettingsContext } from "contexts/userSettings";
+import { getSession } from "next-auth/client";
 import { useContext } from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-export default function ShowListing(): JSX.Element {
+export default function ShowListing(
+  props: IlistingDetails | Record<string, never>
+): JSX.Element {
+  let listing = props;
+
   const router = useRouter();
   const { id } = router.query;
   const { userSettings } = useContext(UserSettingsContext);
@@ -27,11 +35,13 @@ export default function ShowListing(): JSX.Element {
     };
   }
 
-  const { response, isLoading, isError } = getListing();
-  if (isLoading) return <SpinnerLg text="Loading..." />;
-  if (isError) return <GenericErrorMessage></GenericErrorMessage>;
+  if (!listing.id) {
+    const { response, isLoading, isError } = getListing();
+    if (isLoading) return <SpinnerLg text="Loading..." />;
+    if (isError) return <GenericErrorMessage></GenericErrorMessage>;
 
-  const listing = response.data;
+    listing = response.data;
+  }
 
   return (
     <div className="my-4">
@@ -79,3 +89,15 @@ export default function ShowListing(): JSX.Element {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  if (session) return { props: {} };
+
+  const id = context?.params?.id;
+  const listingResponse = await ListingApi().get(`${id}`);
+  const listing: IlistingDetails = listingResponse.data;
+  return {
+    props: listing,
+  };
+};
