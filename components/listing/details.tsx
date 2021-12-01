@@ -192,11 +192,27 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
       return null;
     if (offerMade)
       return (
-        <SecondaryButtonFull
-          href={`/offers`}
-          text="View Offers"
-          disabled={!userSettings.address_set}
-        />
+        <div data-tip data-for="make-offer">
+          <SecondaryButtonFull
+            href={`/offers`}
+            text="View Offers"
+            disabled={!userSettings.address_set}
+          />
+          <ReactTooltip
+            id="make-offer"
+            type="dark"
+            place="top"
+            multiline={true}
+            effect="solid"
+            disable={userSettings.address_set}
+          >
+            <div className="text-center">
+              You need to set your address
+              <br />
+              before making offers
+            </div>
+          </ReactTooltip>
+        </div>
       );
     return <ListingOfferModal {...props} />;
   };
