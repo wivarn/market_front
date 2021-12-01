@@ -191,7 +191,13 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
     )
       return null;
     if (offerMade)
-      return <SecondaryButtonFull href={`/offers`} text="View Offers" />;
+      return (
+        <SecondaryButtonFull
+          href={`/offers`}
+          text="View Offers"
+          disabled={!userSettings.address_set}
+        />
+      );
     return <ListingOfferModal {...props} />;
   };
 
