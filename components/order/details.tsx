@@ -1,5 +1,6 @@
 import { IOrderDetails } from "types/order";
 import { Order } from ".";
+import OrderFeedbackForm from "components/forms/order/feedback";
 import { refundReasonList } from "constants/orders";
 
 interface IOrderDetailsProps {
@@ -124,6 +125,7 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
   return (
     <>
       <Order order={order} />
+      <OrderFeedbackForm order={order} />
       {renderOrderHistory()}
       {renderRefundHistory()}
     </>
