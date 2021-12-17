@@ -1,3 +1,4 @@
+import { CheckCircleIconSm, InfoCircleSm, XIconSm } from "../icons";
 import { IOrder, IOrdersPaginated } from "types/order";
 import {
   IOverflowMenuItem,
@@ -7,7 +8,6 @@ import { useEffect, useState } from "react";
 
 import { BlankMessage } from "../message";
 import CancelOrder from "./cancel";
-import { InfoCircleSm } from "../icons";
 import Link from "next/link";
 import { ListingPreviewList } from "../listing/preview";
 import { OrderApi } from "services/backendApi/order";
@@ -268,6 +268,28 @@ export function Order(props: IOrderProps): JSX.Element {
       </table>
     );
   }
+
+  const renderFeedback = () => {
+    if (sale) {
+      if (order.recommend) {
+        return (
+          <>
+            <CheckCircleIconSm />
+            Reccomend
+          </>
+        );
+      }
+      return (
+        <>
+          <XIconSm />
+          Not Reccomend
+        </>
+      );
+    } else {
+      return <OrderFeedbackMini order={order} />;
+    }
+  };
+
   return (
     <>
       <CancelOrder
@@ -327,9 +349,7 @@ export function Order(props: IOrderProps): JSX.Element {
         </div>
         {renderTracking()}
         <div className="px-4 py-2 text-white bg-info-darker rounded-b-md">
-          <span>
-            <OrderFeedbackMini order={order} />
-          </span>
+          <span>{renderFeedback()}</span>
           <span className="text-right">
             <div className="text-xs">Total</div>
             <div className="font-bold">
