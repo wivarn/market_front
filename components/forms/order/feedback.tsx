@@ -43,7 +43,7 @@ export function OrderFeedbackMini({ order }: IProps): JSX.Element {
 
   return (
     <RadioGroup value={recommend} onChange={setRecommend}>
-      <RadioGroup.Label>Would you recommend this seller?</RadioGroup.Label>
+      <RadioGroup.Label>Do you recommend this seller?</RadioGroup.Label>
       <RadioGroup.Option value={true}>
         {({ checked }) => (
           <span className={checked ? "bg-accent" : ""}>Yes</span>

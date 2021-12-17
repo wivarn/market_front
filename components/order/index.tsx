@@ -1,4 +1,4 @@
-import { CheckCircleIconSm, InfoCircleSm, XIconSm } from "../icons";
+import { CheckCircleIconXs, ErrorIconXs, InfoCircleSm } from "../icons";
 import { IOrder, IOrdersPaginated } from "types/order";
 import {
   IOverflowMenuItem,
@@ -270,20 +270,36 @@ export function Order(props: IOrderProps): JSX.Element {
   }
 
   const renderFeedback = () => {
+    const review_icon = order.recommend ? (
+      <CheckCircleIconXs />
+    ) : (
+      <ErrorIconXs />
+    );
+    const review_text = order.recommend ? "Recommended" : "Not Recommended";
     if (sale) {
-      if (order.recommend) {
-        return (
-          <>
-            <CheckCircleIconSm />
-            Reccomend
-          </>
-        );
-      }
       return (
-        <>
-          <XIconSm />
-          Not Reccomend
-        </>
+        <div className="flex items-center space-x-1">
+          <p className="text-sm font-semibold text-accent-darker">Review:</p>
+          <div
+            className={
+              "" + `${order.recommend ? "text-success" : "text-error"}`
+            }
+          >
+            {review_icon}
+          </div>
+          <p
+            className={
+              "text-sm " + `${order.recommend ? "text-success" : "text-error"}`
+            }
+          >
+            {review_text}
+          </p>
+          <Link href={detailsHref}>
+            <a className="text-sm underline text-info hover:text-primary">
+              (view)
+            </a>
+          </Link>
+        </div>
       );
     } else {
       return <OrderFeedbackMini order={order} />;
@@ -329,6 +345,9 @@ export function Order(props: IOrderProps): JSX.Element {
             <span className="absolute right-3">{renderOverflowButton()}</span>
           </div>
           {renderOrderInfo()}
+          <div className="px-4 py-2 border-b bg-secondary-light">
+            {renderFeedback()}
+          </div>
           <div className="flex px-4 py-2 border-b text-accent-darker bg-accent-lightest">
             <span className="flex text-sm">
               Ship to:{" "}
@@ -349,8 +368,7 @@ export function Order(props: IOrderProps): JSX.Element {
         </div>
         {renderTracking()}
         <div className="px-4 py-2 text-white bg-info-darker rounded-b-md">
-          <span>{renderFeedback()}</span>
-          <span className="text-right">
+          <div className="text-right">
             <div className="text-xs">Total</div>
             <div className="font-bold">
               {Number(order.total).toLocaleString("en", {
@@ -359,7 +377,7 @@ export function Order(props: IOrderProps): JSX.Element {
               })}{" "}
               {order.currency}
             </div>
-          </span>
+          </div>
         </div>
       </div>
     </>
