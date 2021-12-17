@@ -44,6 +44,10 @@ export const UserInfo = (props: IUser): JSX.Element => {
               </div>
             </a>
           </Link>
+          <div>
+            <span>{props.recommendation_rate * 100}% Recommended </span>
+            <span>({props.total_sales_with_feedback})</span>
+          </div>
           {renderSendMessage()}
         </span>
       </div>
