@@ -19,8 +19,8 @@ export const OrderApi = (
   cancel: (id: string) => Promise<AxiosResponse<any>>;
   feedback: (
     id: string,
-    recommend: boolean | undefined,
-    feedback: string | undefined
+    recommend: boolean | null | undefined,
+    feedback: string | null | undefined
   ) => Promise<AxiosResponse<any>>;
 } => {
   const update = async (relation: string, id: string, tracking: string) => {
@@ -69,8 +69,8 @@ export const OrderApi = (
 
   const feedback = async (
     id: string,
-    recommend: boolean | undefined,
-    feedback: string | undefined
+    recommend: boolean | null | undefined,
+    feedback: string | null | undefined
   ) => {
     return base.post(
       `orders/${id}/feedback`,

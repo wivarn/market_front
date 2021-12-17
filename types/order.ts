@@ -20,6 +20,7 @@ export interface IOrder {
   created_at: string;
   refunds: IRefund[];
   refunded_total: string;
+  recommend: boolean | null;
 }
 
 export interface IOrdersPaginated {

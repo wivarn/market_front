@@ -11,6 +11,7 @@ import { InfoCircleSm } from "../icons";
 import Link from "next/link";
 import { ListingPreviewList } from "../listing/preview";
 import { OrderApi } from "services/backendApi/order";
+import { OrderFeedbackMini } from "components/forms/order/feedback";
 import OrderTrackingForm from "../forms/orderTracking";
 import { Pagination } from "../pagination";
 import ReactTooltip from "react-tooltip";
@@ -325,15 +326,20 @@ export function Order(props: IOrderProps): JSX.Element {
           })}
         </div>
         {renderTracking()}
-        <div className="px-4 py-2 text-right text-white bg-info-darker rounded-b-md">
-          <div className="text-xs">Total</div>
-          <div className="font-bold">
-            {Number(order.total).toLocaleString("en", {
-              style: "currency",
-              currency: "usd",
-            })}{" "}
-            {order.currency}
-          </div>
+        <div className="px-4 py-2 text-white bg-info-darker rounded-b-md">
+          <span>
+            <OrderFeedbackMini order={order} />
+          </span>
+          <span className="text-right">
+            <div className="text-xs">Total</div>
+            <div className="font-bold">
+              {Number(order.total).toLocaleString("en", {
+                style: "currency",
+                currency: "usd",
+              })}{" "}
+              {order.currency}
+            </div>
+          </span>
         </div>
       </div>
     </>
