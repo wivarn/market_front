@@ -47,7 +47,7 @@ export function OrderFeedbackMini({ order }: IProps): JSX.Element {
         <RadioGroup.Label>
           <p className="text-sm">Do you recommend this seller?</p>
         </RadioGroup.Label>
-        <div className="flex text-sm rounded-md">
+        <div className="flex text-sm rounded-md cursor-pointer">
           <RadioGroup.Option value={true}>
             {({ checked }) => (
               <span
