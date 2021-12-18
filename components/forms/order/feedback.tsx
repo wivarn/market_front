@@ -43,17 +43,39 @@ export function OrderFeedbackMini({ order }: IProps): JSX.Element {
 
   return (
     <RadioGroup value={recommend} onChange={setRecommend}>
-      <RadioGroup.Label>Do you recommend this seller?</RadioGroup.Label>
-      <RadioGroup.Option value={true}>
-        {({ checked }) => (
-          <span className={checked ? "bg-accent" : ""}>Yes</span>
-        )}
-      </RadioGroup.Option>
-      <RadioGroup.Option value={false}>
-        {({ checked }) => (
-          <span className={checked ? "bg-accent" : ""}>No</span>
-        )}
-      </RadioGroup.Option>
+      <div className="flex items-center space-x-2">
+        <RadioGroup.Label>
+          <p className="text-sm">Do you recommend this seller?</p>
+        </RadioGroup.Label>
+        <div className="flex text-sm rounded-md">
+          <RadioGroup.Option value={true}>
+            {({ checked }) => (
+              <span
+                className={
+                  checked
+                    ? "bg-success-lightest border rounded-l-md border-success px-2"
+                    : "rounded-l-md border px-2 bg-accent-lightest"
+                }
+              >
+                Yes
+              </span>
+            )}
+          </RadioGroup.Option>
+          <RadioGroup.Option value={false}>
+            {({ checked }) => (
+              <span
+                className={
+                  checked
+                    ? "border rounded-r-md border-error bg-error-lightest px-2"
+                    : "border px-2 bg-accent-lightest rounded-r-md"
+                }
+              >
+                No
+              </span>
+            )}
+          </RadioGroup.Option>
+        </div>
+      </div>
     </RadioGroup>
   );
 }
