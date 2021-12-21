@@ -270,6 +270,8 @@ export function Order(props: IOrderProps): JSX.Element {
   }
 
   const renderFeedback = () => {
+    if (!["shipped", "received"].includes(order.aasm_state)) return;
+
     const review_icon = order.recommend ? (
       <CheckCircleIconXs />
     ) : (

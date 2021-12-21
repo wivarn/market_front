@@ -1,18 +1,18 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
-import { TextArea } from "../fields";
+import { IOrder, IOrderDetails } from "types/order";
 import { useEffect, useState } from "react";
 
-import { IOrder, IOrderDetails } from "types/order";
+import Link from "next/link";
 import { OrderApi } from "services/backendApi/order";
 import { RadioGroup } from "@headlessui/react";
 import { Spinner } from "components/spinner";
 import { SubmitButton } from "components/buttons";
+import { TextArea } from "../fields";
 import { mutate } from "swr";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
 
 interface OrderRecommendFormProps {
   order: IOrder;
@@ -30,18 +30,16 @@ export function OrderRecommendForm({
   const [recommend, setRecommend] = useState<boolean | null>(order.recommend);
 
   useEffect(() => {
-    console.log("form state: ", recommend);
-    console.log("order state: ", order.recommend);
-
     if (recommend === order.recommend) return;
 
     OrderApi(session?.accessToken)
       .feedback(`${order.id}`, recommend, null)
-      .then(() => {
-        mutate([`orders/${order.id}?relation=purchases`, session?.accessToken]);
+      .then((response) => {
+        order.recommend = response.data.recommend;
         toast.success("Feedback submitted");
       })
       .catch((error) => {
+        setRecommend(order.recommend);
         toast.error(error.response.data.error);
       });
   }, [recommend]);
