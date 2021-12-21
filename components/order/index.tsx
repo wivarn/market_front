@@ -296,7 +296,7 @@ export function Order(props: IOrderProps): JSX.Element {
           >
             {review_text}
           </p>
-          <Link href={detailsHref}>
+          <Link href={`${detailsHref}#order-${order.id}-feedback`}>
             <a className="text-sm underline text-info hover:text-primary">
               (view)
             </a>

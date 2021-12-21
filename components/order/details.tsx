@@ -2,13 +2,18 @@ import { IOrderDetails } from "types/order";
 import { Order } from ".";
 import { refundReasonList } from "constants/orders";
 import OrderFeedbackForm from "components/forms/order/feedback";
+import { useSession } from "next-auth/react";
+import { SpinnerLg } from "components/spinner";
 
 interface IOrderDetailsProps {
   order: IOrderDetails;
 }
 
 export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const order = props.order;
+  const sale = order.seller.id == session?.accountId;
 
   function renderOrderHistory() {
     const historyMapping: {
@@ -122,13 +127,28 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
     );
   }
 
+  const renderFeedback = () => {
+    if (sale) {
+      return (
+        <>
+          <h3 id={`order-${order.id}-feedback`}>Feedback</h3>
+          <span>{order.feedback}</span>
+        </>
+      );
+    } else {
+      return <OrderFeedbackForm order={order} />;
+    }
+  };
+
+  if (sessionLoading) return <SpinnerLg text="Loading..." />;
+
   return (
     <>
       <Order order={order} />
       <div className="max-w-4xl mx-auto mt-4">
         {renderOrderHistory()}
         {renderRefundHistory()}
-        <OrderFeedbackForm order={order} />
+        {renderFeedback()}
       </div>
     </>
   );
