@@ -25,7 +25,7 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
     };
 
     return (
-      <div className="max-w-4xl mx-auto mt-4">
+      <>
         <h3 className="mb-4 text-center">Order History</h3>
         <table className="w-full border-b table-fixed">
           <thead className="bg-accent-lighter">
@@ -54,7 +54,7 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
             })}
           </tbody>
         </table>
-      </div>
+      </>
     );
   }
 
@@ -73,7 +73,7 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
     };
 
     return (
-      <div className="max-w-4xl mx-auto mt-4">
+      <>
         <h3 className="mb-4 text-center">Refund History</h3>
         <table className="w-full border-b table-fixed">
           <thead className="bg-accent-lighter">
@@ -118,16 +118,18 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
             })}
           </tbody>
         </table>
-      </div>
+      </>
     );
   }
 
   return (
     <>
       <Order order={order} />
-      {renderOrderHistory()}
-      {renderRefundHistory()}
-      <OrderFeedbackForm order={order} />
+      <div className="max-w-4xl mx-auto mt-4">
+        {renderOrderHistory()}
+        {renderRefundHistory()}
+        <OrderFeedbackForm order={order} />
+      </div>
     </>
   );
 }
