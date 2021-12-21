@@ -345,9 +345,7 @@ export function Order(props: IOrderProps): JSX.Element {
             <span className="absolute right-3">{renderOverflowButton()}</span>
           </div>
           {renderOrderInfo()}
-          <div className="px-4 py-2 border-b bg-secondary-light">
-            {renderFeedback()}
-          </div>
+          {renderFeedback()}
           <div className="flex px-4 py-2 border-b text-accent-darker bg-accent-lightest">
             <span className="flex text-sm">
               Ship to:{" "}
