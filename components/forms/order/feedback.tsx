@@ -1,10 +1,10 @@
 import * as Yup from "yup";
 
 import { Form, Formik } from "formik";
-import { TextField, Toggle } from "../fields";
+import { TextArea } from "../fields";
 import { useEffect, useState } from "react";
 
-import { IOrder } from "types/order";
+import { IOrder, IOrderDetails } from "types/order";
 import { OrderApi } from "services/backendApi/order";
 import { RadioGroup } from "@headlessui/react";
 import { Spinner } from "components/spinner";
@@ -13,11 +13,17 @@ import { mutate } from "swr";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 
-interface IProps {
+interface OrderRecommendFormProps {
   order: IOrder;
 }
 
-export function OrderFeedbackMini({ order }: IProps): JSX.Element {
+interface OrderFeedbackFormProps {
+  order: IOrderDetails;
+}
+
+export function OrderRecommendForm({
+  order,
+}: OrderRecommendFormProps): JSX.Element {
   const { data: session, status } = useSession();
   const sessionLoading = status === "loading";
   const [recommend, setRecommend] = useState<boolean | null>(order.recommend);
@@ -80,14 +86,17 @@ export function OrderFeedbackMini({ order }: IProps): JSX.Element {
   );
 }
 
-export default function OrderFeedbackForm({ order }: IProps): JSX.Element {
+export default function OrderFeedbackForm({
+  order,
+}: OrderFeedbackFormProps): JSX.Element {
   const { data: session, status } = useSession();
   const sessionLoading = status === "loading";
-  const [recommend, setRecommend] = useState<boolean>(false);
 
   const orderFeedbackSchema = Yup.object().shape({
-    recommend: Yup.boolean().required(),
-    feedback: Yup.string().max(1000).nullable(),
+    feedback: Yup.string()
+      .min(1)
+      .max(10000)
+      .required("Feedback cannot be blank"),
   });
 
   if (sessionLoading) return <Spinner text="Loading..." />;
@@ -96,12 +105,12 @@ export default function OrderFeedbackForm({ order }: IProps): JSX.Element {
     <Formik
       initialValues={{
         recommend: undefined,
-        feedback: undefined,
+        feedback: order.feedback,
       }}
       validationSchema={orderFeedbackSchema}
       onSubmit={(values, actions) => {
         OrderApi(session?.accessToken)
-          .feedback(`${order.id}`, values.recommend, values.feedback)
+          .feedback(`${order.id}`, null, values.feedback)
           .then(() => {
             mutate([
               `orders/${order.id}?relation=purchases`,
@@ -110,27 +119,24 @@ export default function OrderFeedbackForm({ order }: IProps): JSX.Element {
             toast.success("Feedback submitted");
           })
           .catch((error) => {
-            toast.error(error.response.data.error);
+            toast.error(
+              error.response.data.error ||
+                "There was an error submitting feedback."
+            );
           })
           .finally(() => {
             actions.setSubmitting(false);
           });
       }}
     >
-      {(formik) => (
-        <Form>
+      {() => (
+        <Form id={`${order.id}-feedback`}>
           <div className="my-2 space-y-2">
-            <Toggle
-              name="recommend"
-              label="Would you recommend this seller?"
-              enabled={recommend}
-              setEnabled={setRecommend}
-              onClick={async () => {
-                formik.setFieldValue("recommend", !recommend);
-              }}
+            <TextArea
+              label="Feedback"
+              name="feedback"
+              placeholder="Add feedback (optional)"
             />
-
-            <TextField name="feedback" placeholder="Add feedback (optional)" />
           </div>
 
           <SubmitButton text="Save" />
