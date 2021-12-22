@@ -15,6 +15,7 @@ import {
   HiChevronDown,
   HiChevronLeft,
   HiChevronRight,
+  HiClock,
   HiCloudUpload,
   HiDotsVertical,
   HiExclamation,
@@ -218,6 +219,10 @@ export const CheckCircleIconSm = (): JSX.Element => {
 
 export const CheckCircleIconXs = (): JSX.Element => {
   return <HiCheckCircle className="icon-xs" />;
+};
+
+export const ClockIconXs = (): JSX.Element => {
+  return <HiClock className="icon-xs" />;
 };
 
 export const CircleIconXs = (): JSX.Element => {

@@ -1,4 +1,9 @@
-import { CheckCircleIconXs, ErrorIconXs, InfoCircleSm } from "../icons";
+import {
+  CheckCircleIconXs,
+  ClockIconXs,
+  ErrorIconXs,
+  InfoCircleSm,
+} from "../icons";
 import { IOrder, IOrdersPaginated } from "types/order";
 import {
   IOverflowMenuItem,
@@ -270,34 +275,35 @@ export function Order(props: IOrderProps): JSX.Element {
   }
 
   const renderFeedback = () => {
-    if (!["shipped", "received"].includes(order.aasm_state)) return;
-
-    const review_icon = order.recommend ? (
-      <CheckCircleIconXs />
-    ) : (
-      <ErrorIconXs />
-    );
-    const review_text = order.recommend ? "Recommended" : "Not Recommended";
+    const review_text = () => {
+      if (order.recommend)
+        return (
+          <div className="flex items-center space-x-1 text-sm text-success">
+            <CheckCircleIconXs />
+            <div>Recommended</div>
+          </div>
+        );
+      else if (order.recommend === false)
+        return (
+          <div className="flex items-center space-x-1 text-sm text-error">
+            <ErrorIconXs />
+            <div>Not Recommended</div>
+          </div>
+        );
+      else
+        return (
+          <div className="flex items-center space-x-1 text-sm text-warning-dark">
+            <ClockIconXs />
+            <div>Awaiting Feedback</div>
+          </div>
+        );
+    };
     if (sale) {
       return (
         <div className="px-4 py-2 border-b bg-secondary-light">
           <div className="flex items-center space-x-1">
             <p className="text-sm font-semibold text-accent-darker">Review:</p>
-            <div
-              className={
-                "" + `${order.recommend ? "text-success" : "text-error"}`
-              }
-            >
-              {review_icon}
-            </div>
-            <p
-              className={
-                "text-sm " +
-                `${order.recommend ? "text-success" : "text-error"}`
-              }
-            >
-              {review_text}
-            </p>
+            {review_text()}
           </div>
           <Link href={`${detailsHref}#order-${order.id}-feedback`}>
             <a className="text-sm underline text-info hover:text-primary">
