@@ -135,7 +135,7 @@ export default function OrderFeedbackForm({
           });
       }}
     >
-      {() => {
+      {({ isSubmitting }) => {
         return (
           <Form id={`order-${order.id}-feedback`}>
             <div className="space-y-2 ">
@@ -145,7 +145,7 @@ export default function OrderFeedbackForm({
                 placeholder="Add feedback (optional)"
               />
             </div>
-            <SubmitButton text="Save Feedback" />
+            <SubmitButton text="Save Feedback" submitting={isSubmitting} />
           </Form>
         );
       }}
