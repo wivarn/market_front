@@ -9,7 +9,7 @@ import { OrderApi } from "services/backendApi/order";
 import { RadioGroup } from "@headlessui/react";
 import { Spinner } from "components/spinner";
 import { SubmitButton } from "components/buttons";
-import { TextArea } from "../fields";
+import { TextAreaFull } from "../fields";
 import { mutate } from "swr";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
@@ -47,11 +47,11 @@ export function OrderRecommendForm({
   if (sessionLoading) return <Spinner text="Loading..." />;
 
   return (
-    <div className="flex px-4 py-2 border-b bg-secondary-light">
+    <div className="px-4 py-2 border-b bg-secondary-light">
       <RadioGroup value={recommend} onChange={setRecommend}>
         <div className="flex items-center space-x-2">
           <RadioGroup.Label>
-            <p className="text-sm">Do you recommend this seller?</p>
+            <p className="text-sm">Would you recommend the seller?</p>
           </RadioGroup.Label>
           <div className="flex text-sm rounded-md cursor-pointer">
             <RadioGroup.Option value={true}>
@@ -84,7 +84,7 @@ export function OrderRecommendForm({
         </div>
       </RadioGroup>
       <Link href={`/account/purchases/${order.id}#order-${order.id}-feedback`}>
-        <a>(Leave Feedback)</a>
+        <a className="text-sm underline text-info">Leave Feedback</a>
       </Link>
     </div>
   );
@@ -133,19 +133,23 @@ export default function OrderFeedbackForm({
           });
       }}
     >
-      {() => (
-        <Form id={`order-${order.id}-feedback`}>
-          <div className="my-2 space-y-2">
-            <TextArea
-              label="Feedback"
-              name="feedback"
-              placeholder="Add feedback (optional)"
+      {(formik) => {
+        return (
+          <Form id={`order-${order.id}-feedback`}>
+            <div className="space-y-2 ">
+              <TextAreaFull
+                label="How was your experience?"
+                name="feedback"
+                placeholder="Add feedback (optional)"
+              />
+            </div>
+            <SubmitButton
+              text="Save Feedback"
+              submitting={formik.isSubmitting}
             />
-          </div>
-
-          <SubmitButton text="Save" />
-        </Form>
-      )}
+          </Form>
+        );
+      }}
     </Formik>
   );
 }
