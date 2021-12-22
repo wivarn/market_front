@@ -6,6 +6,18 @@ import { useSession } from "next-auth/react";
 export const UserInfo = (props: IUser): JSX.Element => {
   const { data: session } = useSession();
 
+  function renderRecommend() {
+    if (props.total_sales_with_feedback == 0)
+      return <div className="text-accent-darker">No Reviews</div>;
+
+    return (
+      <div className="text-accent-darker">
+        <span>{Math.round(props.recommendation_rate * 100)}% Recommended </span>
+        <span>({props.total_sales_with_feedback})</span>
+      </div>
+    );
+  }
+
   function renderSendMessage() {
     if (!session || session.accountId == props.id) return null;
 
@@ -44,12 +56,7 @@ export const UserInfo = (props: IUser): JSX.Element => {
               </span>
             </a>
           </Link>
-          <div className="text-accent-darker">
-            <span>
-              {Math.round(props.recommendation_rate * 100)}% Recommended{" "}
-            </span>
-            <span>({props.total_sales_with_feedback})</span>
-          </div>
+          {renderRecommend()}
           {renderSendMessage()}
         </span>
       </div>
