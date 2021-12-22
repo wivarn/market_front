@@ -125,6 +125,20 @@ export const TextArea = ({ label, ...props }: TextAreaProps): JSX.Element => {
   );
 };
 
+export const TextAreaFull = ({
+  label,
+  ...props
+}: TextAreaProps): JSX.Element => {
+  return (
+    <_TextArea
+      label={label}
+      labelClassName={labelClassName}
+      inputClassName={fullInputClassName}
+      {...props}
+    />
+  );
+};
+
 export const SearchField = ({
   label,
   ...props
