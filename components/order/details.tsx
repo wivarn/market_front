@@ -1,9 +1,9 @@
 import { IOrderDetails } from "types/order";
 import { Order } from ".";
-import { refundReasonList } from "constants/orders";
 import OrderFeedbackForm from "components/forms/order/feedback";
-import { useSession } from "next-auth/react";
 import { SpinnerLg } from "components/spinner";
+import { refundReasonList } from "constants/orders";
+import { useSession } from "next-auth/react";
 
 interface IOrderDetailsProps {
   order: IOrderDetails;
@@ -131,12 +131,21 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
     if (sale) {
       return (
         <>
-          <h3 id={`order-${order.id}-feedback`}>Feedback</h3>
+          <h3 className="mb-4 text-center" id={`order-${order.id}-feedback`}>
+            Feedback
+          </h3>
           <span>{order.feedback}</span>
         </>
       );
     } else {
-      return <OrderFeedbackForm order={order} />;
+      return (
+        <div className="mb-4">
+          <h3 className="mb-4 text-center" id={`order-${order.id}-feedback`}>
+            Feedback
+          </h3>
+          <OrderFeedbackForm order={order} />
+        </div>
+      );
     }
   };
 
@@ -146,9 +155,9 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
     <>
       <Order order={order} />
       <div className="max-w-4xl mx-auto mt-4">
+        {renderFeedback()}
         {renderOrderHistory()}
         {renderRefundHistory()}
-        {renderFeedback()}
       </div>
     </>
   );

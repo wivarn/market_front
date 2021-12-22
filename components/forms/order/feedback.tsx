@@ -133,7 +133,7 @@ export default function OrderFeedbackForm({
           });
       }}
     >
-      {(formik) => {
+      {() => {
         return (
           <Form id={`order-${order.id}-feedback`}>
             <div className="space-y-2 ">
@@ -143,10 +143,7 @@ export default function OrderFeedbackForm({
                 placeholder="Add feedback (optional)"
               />
             </div>
-            <SubmitButton
-              text="Save Feedback"
-              submitting={formik.isSubmitting}
-            />
+            <SubmitButton text="Save Feedback" />
           </Form>
         );
       }}

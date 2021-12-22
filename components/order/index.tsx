@@ -280,7 +280,7 @@ export function Order(props: IOrderProps): JSX.Element {
     const review_text = order.recommend ? "Recommended" : "Not Recommended";
     if (sale) {
       return (
-        <div className="flex items-center space-x-1">
+        <div className="flex items-center px-4 py-2 space-x-1 bg-secondary-light">
           <p className="text-sm font-semibold text-accent-darker">Review:</p>
           <div
             className={
@@ -298,7 +298,7 @@ export function Order(props: IOrderProps): JSX.Element {
           </p>
           <Link href={`${detailsHref}#order-${order.id}-feedback`}>
             <a className="text-sm underline text-info hover:text-primary">
-              (view)
+              View Feedback
             </a>
           </Link>
         </div>
