@@ -49,7 +49,7 @@ export function OrderRecommendForm({
   return (
     <div className="px-4 py-2 border-b bg-secondary-light">
       <RadioGroup value={recommend} onChange={setRecommend}>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1">
           <RadioGroup.Label>
             <p className="text-sm">Would you recommend the seller?</p>
           </RadioGroup.Label>
@@ -84,7 +84,9 @@ export function OrderRecommendForm({
         </div>
       </RadioGroup>
       <Link href={`/account/purchases/${order.id}#order-${order.id}-feedback`}>
-        <a className="text-sm underline text-info">Leave Feedback</a>
+        <a className="text-sm underline text-info hover:text-primary">
+          Leave Feedback
+        </a>
       </Link>
     </div>
   );

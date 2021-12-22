@@ -280,22 +280,25 @@ export function Order(props: IOrderProps): JSX.Element {
     const review_text = order.recommend ? "Recommended" : "Not Recommended";
     if (sale) {
       return (
-        <div className="flex items-center px-4 py-2 space-x-1 bg-secondary-light">
-          <p className="text-sm font-semibold text-accent-darker">Review:</p>
-          <div
-            className={
-              "" + `${order.recommend ? "text-success" : "text-error"}`
-            }
-          >
-            {review_icon}
+        <div className="px-4 py-2 border-b bg-secondary-light">
+          <div className="flex items-center space-x-1">
+            <p className="text-sm font-semibold text-accent-darker">Review:</p>
+            <div
+              className={
+                "" + `${order.recommend ? "text-success" : "text-error"}`
+              }
+            >
+              {review_icon}
+            </div>
+            <p
+              className={
+                "text-sm " +
+                `${order.recommend ? "text-success" : "text-error"}`
+              }
+            >
+              {review_text}
+            </p>
           </div>
-          <p
-            className={
-              "text-sm " + `${order.recommend ? "text-success" : "text-error"}`
-            }
-          >
-            {review_text}
-          </p>
           <Link href={`${detailsHref}#order-${order.id}-feedback`}>
             <a className="text-sm underline text-info hover:text-primary">
               View Feedback
