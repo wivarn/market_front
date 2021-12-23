@@ -128,13 +128,19 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
   }
 
   const renderFeedback = () => {
+    const feedback_text = order.feedback
+      ? order.feedback
+      : "No feedback received";
     if (sale) {
       return (
         <>
-          <h3 className="mb-4 text-center" id={`order-${order.id}-feedback`}>
+          <h3 className="mb-2 text-center" id={`order-${order.id}-feedback`}>
             Feedback
           </h3>
-          <div className="mb-4">{order.feedback}</div>
+          <div className="p-2 mb-4 text-center border rounded-md shadow-md">
+            <h5></h5>
+            {feedback_text}
+          </div>
         </>
       );
     } else {
