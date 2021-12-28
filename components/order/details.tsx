@@ -134,7 +134,7 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
           <h3 className="mb-4 text-center" id={`order-${order.id}-feedback`}>
             Feedback
           </h3>
-          <div className="mb-4">{order.feedback}</div>
+          <div className="mb-4">{order.review?.feedback}</div>
         </>
       );
     } else {

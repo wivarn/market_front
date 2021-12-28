@@ -276,14 +276,14 @@ export function Order(props: IOrderProps): JSX.Element {
 
   const renderFeedback = () => {
     const review_text = () => {
-      if (order.recommend)
+      if (order.review?.recommend)
         return (
           <div className="flex items-center space-x-1 text-sm text-success">
             <CheckCircleIconXs />
             <div>Recommended</div>
           </div>
         );
-      else if (order.recommend === false)
+      else if (order.review?.recommend === false)
         return (
           <div className="flex items-center space-x-1 text-sm text-error">
             <ErrorIconXs />

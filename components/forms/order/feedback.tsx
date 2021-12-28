@@ -27,13 +27,15 @@ export function OrderRecommendForm({
 }: OrderRecommendFormProps): JSX.Element {
   const { data: session, status } = useSession();
   const sessionLoading = status === "loading";
-  const [recommend, setRecommend] = useState<boolean | null>(order.recommend);
+  const [recommend, setRecommend] = useState<boolean | undefined>(
+    order.review?.recommend
+  );
 
   useEffect(() => {
     if (recommend === order.recommend) return;
 
     OrderApi(session?.accessToken)
-      .feedback(`${order.id}`, recommend, null)
+      .review(`${order.id}`, recommend, null)
       .then((response) => {
         order.recommend = response.data.recommend;
         toast.success("Feedback submitted");
@@ -111,12 +113,12 @@ export default function OrderFeedbackForm({
     <Formik
       initialValues={{
         recommend: undefined,
-        feedback: order.feedback,
+        feedback: order.review?.feedback,
       }}
       validationSchema={orderFeedbackSchema}
       onSubmit={(values, actions) => {
         OrderApi(session?.accessToken)
-          .feedback(`${order.id}`, null, values.feedback)
+          .review(`${order.id}`, null, values.feedback)
           .then(() => {
             mutate([
               `orders/${order.id}?relation=purchases`,

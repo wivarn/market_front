@@ -17,7 +17,7 @@ export const OrderApi = (
   ) => Promise<AxiosResponse<any>>;
   refund: (id: string, refund: IRefundRequest) => Promise<AxiosResponse<any>>;
   cancel: (id: string) => Promise<AxiosResponse<any>>;
-  feedback: (
+  review: (
     id: string,
     recommend: boolean | null | undefined,
     feedback: string | null | undefined
@@ -67,17 +67,17 @@ export const OrderApi = (
     );
   };
 
-  const feedback = async (
+  const review = async (
     id: string,
     recommend: boolean | null | undefined,
     feedback: string | null | undefined
   ) => {
     return base.post(
-      `orders/${id}/feedback`,
+      `orders/${id}/review`,
       { recommend: recommend, feedback: feedback },
       { headers: { Authorization: `Bearer ${accessToken}` } }
     );
   };
 
-  return { update, updateState, refund, cancel, feedback };
+  return { update, updateState, refund, cancel, review };
 };
