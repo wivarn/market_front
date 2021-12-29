@@ -8,7 +8,7 @@ export const UserInfo = (props: IUser): JSX.Element => {
 
   function renderRecommend() {
     if (props.total_sales_with_feedback == 0)
-      return <div className="text-accent-darker">No Reviews</div>;
+      return <div className="text-accent-darker">New Seller</div>;
 
     return (
       <div className="text-accent-darker">

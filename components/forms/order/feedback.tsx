@@ -30,6 +30,7 @@ export function OrderRecommendForm({
   const [recommend, setRecommend] = useState<boolean | undefined>(
     order.review?.recommend
   );
+  const disabled = order.aasm_state == "reserved";
 
   useEffect(() => {
     if (recommend === order.recommend) return;
@@ -50,7 +51,7 @@ export function OrderRecommendForm({
 
   return (
     <div className="px-4 py-2 border-b bg-secondary-light">
-      <RadioGroup value={recommend} onChange={setRecommend}>
+      <RadioGroup value={recommend} onChange={setRecommend} disabled={disabled}>
         <div className="flex items-center space-x-1">
           <RadioGroup.Label>
             <p className="text-sm">Would you recommend the seller?</p>
@@ -99,13 +100,13 @@ export default function OrderFeedbackForm({
 }: OrderFeedbackFormProps): JSX.Element {
   const { data: session, status } = useSession();
   const sessionLoading = status === "loading";
-
   const orderFeedbackSchema = Yup.object().shape({
     feedback: Yup.string()
       .min(1)
       .max(10000)
       .required("Feedback cannot be blank"),
   });
+  const disabled = order.aasm_state == "reserved";
 
   if (sessionLoading) return <Spinner text="Loading..." />;
 
@@ -145,9 +146,14 @@ export default function OrderFeedbackForm({
                 label="How was your experience?"
                 name="feedback"
                 placeholder="Add feedback (optional)"
+                disabled={disabled}
               />
             </div>
-            <SubmitButton text="Save Feedback" submitting={isSubmitting} />
+            <SubmitButton
+              text="Save Feedback"
+              submitting={isSubmitting}
+              disabled={disabled}
+            />
           </Form>
         );
       }}
