@@ -4,6 +4,7 @@ import OrderFeedbackForm from "components/forms/order/feedback";
 import { SpinnerLg } from "components/spinner";
 import { refundReasonList } from "constants/orders";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 interface IOrderDetailsProps {
   order: IOrderDetails;
@@ -128,17 +129,29 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
   }
 
   const renderFeedback = () => {
-    const feedback_text = order.review?.feedback
-      ? order.review.feedback
-      : "No feedback received";
     if (sale) {
+      const feedback_text = () => {
+        if (!order.review) return "No feedback received";
+        if (order.review.reviewer == "SYSTEM")
+          return (
+            <>
+              This is an automated review by the Skwirl Marktetplace{" "}
+              <Link href="#">
+                <a>(learn more)</a>
+              </Link>
+            </>
+          );
+
+        return order.review.feedback;
+      };
+
       return (
         <>
           <h3 className="mb-2 text-center" id={`order-${order.id}-feedback`}>
             Feedback
           </h3>
           <div className="p-2 mb-4 text-center border rounded-md shadow-md">
-            <h5>{feedback_text}</h5>
+            <h5>{feedback_text()}</h5>
           </div>
         </>
       );
