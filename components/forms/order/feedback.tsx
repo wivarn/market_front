@@ -101,10 +101,7 @@ export default function OrderFeedbackForm({
   const { data: session, status } = useSession();
   const sessionLoading = status === "loading";
   const orderFeedbackSchema = Yup.object().shape({
-    feedback: Yup.string()
-      .min(1)
-      .max(10000)
-      .required("Feedback cannot be blank"),
+    feedback: Yup.string().max(10000).nullable(),
   });
   const disabled = order.aasm_state == "reserved";
 
@@ -119,7 +116,7 @@ export default function OrderFeedbackForm({
       validationSchema={orderFeedbackSchema}
       onSubmit={(values, actions) => {
         OrderApi(session?.accessToken)
-          .review(`${order.id}`, null, values.feedback)
+          .review(`${order.id}`, null, values.feedback || null)
           .then(() => {
             mutate([
               `orders/${order.id}?relation=purchases`,
