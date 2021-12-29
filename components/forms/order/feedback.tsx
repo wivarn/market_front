@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 import { InfoCircleXs } from "components/icons";
 import ReactTooltip from "react-tooltip";
+import { sub } from "date-fns";
 
 interface OrderRecommendFormProps {
   order: IOrder;
@@ -32,7 +33,10 @@ export function OrderRecommendForm({
   const [recommend, setRecommend] = useState<boolean | undefined>(
     order.review?.recommend
   );
-  const disabled = order.aasm_state == "reserved";
+  const reviewLocked =
+    order.review &&
+    new Date(order.review.created_at) < sub(Date.now(), { days: 14 });
+  const disabled = order.aasm_state == "reserved" || reviewLocked;
 
   useEffect(() => {
     if (recommend === order.review?.recommend) return;
@@ -107,7 +111,11 @@ export default function OrderFeedbackForm({
     feedback: Yup.string().max(10000).nullable(),
   });
   const recommendNotSet = order.review?.recommend == null;
-  const disabled = order.aasm_state == "reserved" || recommendNotSet;
+  const reviewLocked =
+    order.review &&
+    new Date(order.review.created_at) < sub(Date.now(), { days: 14 });
+  const disabled =
+    order.aasm_state == "reserved" || recommendNotSet || reviewLocked;
 
   if (sessionLoading) return <Spinner text="Loading..." />;
 
