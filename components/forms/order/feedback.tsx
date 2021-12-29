@@ -40,11 +40,12 @@ export function OrderRecommendForm({
     OrderApi(session?.accessToken)
       .review(`${order.id}`, recommend, null)
       .then((response) => {
-        order.recommend = response.data.recommend;
+        order.review = response.data.review;
+        mutate([`orders/${order.id}?relation=purchases`, session?.accessToken]);
         toast.success("Feedback submitted");
       })
       .catch((error) => {
-        setRecommend(order.recommend);
+        setRecommend(order.review?.recommend);
         toast.error(error.response.data.error);
       });
   }, [recommend]);
@@ -151,10 +152,6 @@ export default function OrderFeedbackForm({
         OrderApi(session?.accessToken)
           .review(`${order.id}`, null, values.feedback || null)
           .then(() => {
-            mutate([
-              `orders/${order.id}?relation=purchases`,
-              session?.accessToken,
-            ]);
             toast.success("Feedback submitted");
           })
           .catch((error) => {
