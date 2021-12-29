@@ -13,6 +13,8 @@ import { TextAreaFull } from "../fields";
 import { mutate } from "swr";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
+import { InfoCircleXs } from "components/icons";
+import ReactTooltip from "react-tooltip";
 
 interface OrderRecommendFormProps {
   order: IOrder;
@@ -33,7 +35,7 @@ export function OrderRecommendForm({
   const disabled = order.aasm_state == "reserved";
 
   useEffect(() => {
-    if (recommend === order.recommend) return;
+    if (recommend === order.review?.recommend) return;
 
     OrderApi(session?.accessToken)
       .review(`${order.id}`, recommend, null)
@@ -103,15 +105,46 @@ export default function OrderFeedbackForm({
   const orderFeedbackSchema = Yup.object().shape({
     feedback: Yup.string().max(10000).nullable(),
   });
-  const disabled = order.aasm_state == "reserved";
+  const recommendNotSet = order.review?.recommend == null;
+  const disabled = order.aasm_state == "reserved" || recommendNotSet;
 
   if (sessionLoading) return <Spinner text="Loading..." />;
+
+  const recommendNotSetTooltip = () => {
+    if (!recommendNotSet) return;
+    return (
+      <span
+        data-tip
+        data-for={`order-${order.id}-recommend-not-set`}
+        className=""
+      >
+        <InfoCircleXs />
+        <ReactTooltip
+          id={`order-${order.id}-recommend-not-set`}
+          type="dark"
+          wrapper="span"
+          place="bottom"
+          effect="solid"
+        >
+          Recommend must be set first
+        </ReactTooltip>
+      </span>
+    );
+  };
+
+  const feedbackLabel = () => {
+    return (
+      <div className="flex items-center space-x-2">
+        <span className="font-semibold">How was your experience?</span>
+        {recommendNotSetTooltip()}
+      </div>
+    );
+  };
 
   return (
     <Formik
       initialValues={{
-        recommend: undefined,
-        feedback: order.review?.feedback,
+        feedback: order.review?.feedback || undefined,
       }}
       validationSchema={orderFeedbackSchema}
       onSubmit={(values, actions) => {
@@ -125,6 +158,7 @@ export default function OrderFeedbackForm({
             toast.success("Feedback submitted");
           })
           .catch((error) => {
+            actions.setFieldValue("feedback", order.review?.feedback || "");
             toast.error(
               error.response.data.error ||
                 "There was an error submitting feedback."
@@ -135,12 +169,12 @@ export default function OrderFeedbackForm({
           });
       }}
     >
-      {({ isSubmitting }) => {
+      {(formik) => {
         return (
           <Form id={`order-${order.id}-feedback`}>
             <div className="space-y-2 ">
               <TextAreaFull
-                label="How was your experience?"
+                label={feedbackLabel()}
                 name="feedback"
                 placeholder="Add feedback (optional)"
                 disabled={disabled}
@@ -148,8 +182,8 @@ export default function OrderFeedbackForm({
             </div>
             <SubmitButton
               text="Save Feedback"
-              submitting={isSubmitting}
-              disabled={disabled}
+              submitting={formik.isSubmitting}
+              disabled={disabled || !formik.values.feedback}
             />
           </Form>
         );

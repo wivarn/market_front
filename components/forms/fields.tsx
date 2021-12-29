@@ -37,7 +37,7 @@ type TextAreaProps = FieldHookConfig<string> &
     TextareaHTMLAttributes<HTMLTextAreaElement>,
     HTMLTextAreaElement
   > & {
-    label?: string;
+    label?: string | JSX.Element;
     description?: string;
     className?: string;
     labelClassName?: string;
