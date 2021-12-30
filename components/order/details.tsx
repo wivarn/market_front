@@ -151,6 +151,7 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
               </Link>
             </>
           );
+        if (!order.review.feedback) return "No feedback received";
 
         return order.review.feedback;
       };
@@ -161,11 +162,7 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
             Feedback
           </h3>
           <div className="px-2 py-4 mb-4 text-center border rounded-md shadow-md">
-            {feedback_text() == null ? (
-              <p className="text-accent-darker">No feedback received</p>
-            ) : (
-              <p>{feedback_text()}</p>
-            )}
+            <p>{feedback_text()}</p>
           </div>
         </>
       );
