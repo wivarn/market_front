@@ -33,6 +33,7 @@ export interface IOrderDetails extends IOrder {
   shipped_at: string | null;
   refunded_at: string | null;
   received_at: string | null;
+  cancelled_at: string | null;
 }
 
 export interface IRefundRequest {

@@ -5,6 +5,7 @@ import { SpinnerLg } from "components/spinner";
 import { refundReasonList } from "constants/orders";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { sub } from "date-fns";
 
 interface IOrderDetailsProps {
   order: IOrderDetails;
@@ -131,7 +132,16 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
   const renderFeedback = () => {
     if (sale) {
       const feedback_text = () => {
-        if (!order.review) return "No feedback received";
+        if (!order.review) {
+          if (
+            order.cancelled_at &&
+            new Date(order.cancelled_at) < sub(Date.now(), { days: 14 })
+          )
+            return "Transaction Cancelled";
+          if (order.refunded_total) return "Transaction Refunded";
+
+          return "No feedback received";
+        }
         if (order.review.reviewer == "SYSTEM")
           return (
             <>
