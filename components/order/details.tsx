@@ -160,8 +160,12 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
           <h3 className="mb-2 text-center" id={`order-${order.id}-feedback`}>
             Feedback
           </h3>
-          <div className="p-2 mb-4 text-center border rounded-md shadow-md">
-            <h5>{feedback_text()}</h5>
+          <div className="px-2 py-4 mb-4 text-center border rounded-md shadow-md">
+            {feedback_text() == null ? (
+              <p className="text-accent-darker">No feedback received</p>
+            ) : (
+              <p>{feedback_text()}</p>
+            )}
           </div>
         </>
       );
