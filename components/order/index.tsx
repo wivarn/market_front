@@ -294,7 +294,7 @@ export function Order(props: IOrderProps): JSX.Element {
         return (
           <div className="flex items-center space-x-1 text-sm text-warning-dark">
             <ClockIconXs />
-            <div>Awaiting Feedback</div>
+            <div>Awaiting Review</div>
           </div>
         );
     };
