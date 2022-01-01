@@ -7,8 +7,7 @@ export const UserInfo = (props: IUser): JSX.Element => {
   const { data: session } = useSession();
 
   function renderRecommend() {
-    if (props.total_sales_with_feedback == 0)
-      return <div className="text-accent-darker">New Seller</div>;
+    if (props.total_sales_with_feedback == 0) return null;
 
     return (
       <div className="text-accent-darker">
