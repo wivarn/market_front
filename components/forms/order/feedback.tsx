@@ -69,8 +69,8 @@ export function OrderRecommendForm({
                 <span
                   className={
                     checked
-                      ? "bg-success-lightest border rounded-l-md border-success px-2"
-                      : "rounded-l-md border px-2 bg-accent-lightest"
+                      ? "bg-success-lightest border rounded-l-md border-success px-2 disabled:bg-success-lighter"
+                      : "rounded-l-md border px-2 bg-accent-lightest disabled:bg-accent-lighter"
                   }
                 >
                   Yes
@@ -91,6 +91,21 @@ export function OrderRecommendForm({
               )}
             </RadioGroup.Option>
           </div>
+          <span data-tip data-for={`order-${order.id}-locked-30days`}>
+            <InfoCircleXs />
+            <ReactTooltip
+              id={`order-${order.id}-locked-30days`}
+              type="dark"
+              wrapper="span"
+              place="bottom"
+              effect="solid"
+              multiline={true}
+            >
+              <div className="text-center">
+                Reviews are locked 30 days <br /> after purchase
+              </div>
+            </ReactTooltip>
+          </span>
         </div>
       </RadioGroup>
       <Link href={`/account/purchases/${order.id}#order-${order.id}-feedback`}>
@@ -151,9 +166,28 @@ export default function OrderFeedbackForm({
               data-for={`order-${order.id}-recommend-not-set`}
               className=""
             >
-              <div className="space-y-2 ">
+              <div className="space-y-2">
+                <div className="flex space-x-1">
+                  <p className="text-sm text-accent-darker">
+                    How was your experience?
+                  </p>
+                  <span data-tip data-for={`order-${order.id}-locked-30days`}>
+                    <InfoCircleXs />
+                    <ReactTooltip
+                      id={`order-${order.id}-locked-30days`}
+                      type="dark"
+                      wrapper="span"
+                      place="bottom"
+                      effect="solid"
+                      multiline={true}
+                    >
+                      <div className="text-center">
+                        Reviews are locked 30 days <br /> after purchase
+                      </div>
+                    </ReactTooltip>
+                  </span>
+                </div>
                 <TextAreaFull
-                  label="How was your experience?"
                   name="feedback"
                   placeholder="Add feedback (optional)"
                   disabled={disabled}
@@ -171,7 +205,7 @@ export default function OrderFeedbackForm({
                 place="bottom"
                 effect="solid"
                 multiline={true}
-                disable={!disabled}
+                disable={!recommendNotSet}
               >
                 <div className="text-center">
                   You must select recommend yes or no <br /> prior to leaving
