@@ -4,18 +4,18 @@ import { Form, Formik } from "formik";
 import { IOrder, IOrderDetails } from "types/order";
 import { useEffect, useState } from "react";
 
+import { InfoCircleXs } from "components/icons";
 import Link from "next/link";
 import { OrderApi } from "services/backendApi/order";
 import { RadioGroup } from "@headlessui/react";
+import ReactTooltip from "react-tooltip";
 import { Spinner } from "components/spinner";
 import { SubmitButton } from "components/buttons";
 import { TextAreaFull } from "../fields";
 import { mutate } from "swr";
+import { sub } from "date-fns";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
-import { InfoCircleXs } from "components/icons";
-import ReactTooltip from "react-tooltip";
-import { sub } from "date-fns";
 
 interface OrderRecommendFormProps {
   order: IOrder;
@@ -119,37 +119,6 @@ export default function OrderFeedbackForm({
 
   if (sessionLoading) return <Spinner text="Loading..." />;
 
-  const recommendNotSetTooltip = () => {
-    if (!recommendNotSet) return;
-    return (
-      <span
-        data-tip
-        data-for={`order-${order.id}-recommend-not-set`}
-        className=""
-      >
-        <InfoCircleXs />
-        <ReactTooltip
-          id={`order-${order.id}-recommend-not-set`}
-          type="dark"
-          wrapper="span"
-          place="bottom"
-          effect="solid"
-        >
-          Recommend must be set first
-        </ReactTooltip>
-      </span>
-    );
-  };
-
-  const feedbackLabel = () => {
-    return (
-      <div className="flex items-center space-x-2">
-        <span className="font-semibold">How was your experience?</span>
-        {recommendNotSetTooltip()}
-      </div>
-    );
-  };
-
   return (
     <Formik
       initialValues={{
@@ -177,19 +146,39 @@ export default function OrderFeedbackForm({
       {(formik) => {
         return (
           <Form id={`order-${order.id}-feedback`}>
-            <div className="space-y-2 ">
-              <TextAreaFull
-                label={feedbackLabel()}
-                name="feedback"
-                placeholder="Add feedback (optional)"
-                disabled={disabled}
+            <div
+              data-tip
+              data-for={`order-${order.id}-recommend-not-set`}
+              className=""
+            >
+              <div className="space-y-2 ">
+                <TextAreaFull
+                  label="How was your experience?"
+                  name="feedback"
+                  placeholder="Add feedback (optional)"
+                  disabled={disabled}
+                />
+              </div>
+              <SubmitButton
+                text="Save Feedback"
+                submitting={formik.isSubmitting}
+                disabled={disabled || !formik.values.feedback}
               />
+              <ReactTooltip
+                id={`order-${order.id}-recommend-not-set`}
+                type="dark"
+                wrapper="span"
+                place="bottom"
+                effect="solid"
+                multiline={true}
+                disable={!disabled}
+              >
+                <div className="text-center">
+                  You must select recommend yes or no <br /> prior to leaving
+                  feedback
+                </div>
+              </ReactTooltip>
             </div>
-            <SubmitButton
-              text="Save Feedback"
-              submitting={formik.isSubmitting}
-              disabled={disabled || !formik.values.feedback}
-            />
           </Form>
         );
       }}
