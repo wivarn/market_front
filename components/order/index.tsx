@@ -299,17 +299,32 @@ export function Order(props: IOrderProps): JSX.Element {
         );
     };
     if (sale) {
+      const systemReviewer = order.review?.reviewer == "SYSTEM";
       return (
         <div className="px-4 py-2 border-b bg-secondary-light">
           <div className="flex items-center space-x-1">
             <p className="text-sm font-semibold text-accent-darker">Review:</p>
             {review_text()}
           </div>
-          <Link href={`${detailsHref}#order-${order.id}-feedback`}>
-            <a className="text-sm underline text-info hover:text-primary">
-              View Feedback
-            </a>
-          </Link>
+          {systemReviewer ? (
+            <div className="text-xs text-accent-darker">
+              Automated review by Skwirl{" "}
+              <a
+                href="https://support.skwirl.io"
+                target="_blank"
+                rel="noreferrer"
+                className="text-xs underline text-info hover:text-primary"
+              >
+                (learn more)
+              </a>
+            </div>
+          ) : (
+            <Link href={`${detailsHref}#order-${order.id}-feedback`}>
+              <a className="text-sm underline text-info hover:text-primary">
+                View Feedback
+              </a>
+            </Link>
+          )}
         </div>
       );
     } else {

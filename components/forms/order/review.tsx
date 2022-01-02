@@ -38,6 +38,8 @@ export function OrderRecommendForm({
     new Date(order.review.created_at) < sub(Date.now(), { days: 14 });
   const disabled = order.aasm_state == "reserved" || reviewLocked;
 
+  const systemReviewer = order.review?.reviewer == "SYSTEM";
+
   useEffect(() => {
     if (recommend === order.review?.recommend) return;
 
@@ -91,10 +93,10 @@ export function OrderRecommendForm({
               )}
             </RadioGroup.Option>
           </div>
-          <span data-tip data-for={`order-${order.id}-locked-30days`}>
+          <span data-tip data-for={`order-${order.id}-review-locked-30days`}>
             <InfoCircleXs />
             <ReactTooltip
-              id={`order-${order.id}-locked-30days`}
+              id={`order-${order.id}-review-locked-30days`}
               type="dark"
               wrapper="span"
               place="bottom"
@@ -102,17 +104,34 @@ export function OrderRecommendForm({
               multiline={true}
             >
               <div className="text-center">
-                Reviews are locked 30 days <br /> after purchase
+                Reviews are automatically set to recommended <br />
+                and locked 30 days after purchase
               </div>
             </ReactTooltip>
           </span>
         </div>
       </RadioGroup>
-      <Link href={`/account/purchases/${order.id}#order-${order.id}-feedback`}>
-        <a className="text-sm underline text-info hover:text-primary">
-          Leave Feedback
-        </a>
-      </Link>
+      {systemReviewer ? (
+        <div className="text-xs text-accent-darker">
+          Automated review by Skwirl{" "}
+          <a
+            href="https://support.skwirl.io"
+            target="_blank"
+            rel="noreferrer"
+            className="text-xs underline text-info hover:text-primary"
+          >
+            (learn more)
+          </a>
+        </div>
+      ) : (
+        <Link
+          href={`/account/purchases/${order.id}#order-${order.id}-feedback`}
+        >
+          <a className="text-sm underline text-info hover:text-primary">
+            Leave Feedback
+          </a>
+        </Link>
+      )}
     </div>
   );
 }
@@ -171,10 +190,13 @@ export default function OrderFeedbackForm({
                   <p className="text-sm text-accent-darker">
                     How was your experience?
                   </p>
-                  <span data-tip data-for={`order-${order.id}-locked-30days`}>
+                  <span
+                    data-tip
+                    data-for={`order-${order.id}-feedback-locked-30days`}
+                  >
                     <InfoCircleXs />
                     <ReactTooltip
-                      id={`order-${order.id}-locked-30days`}
+                      id={`order-${order.id}-feedback-locked-30days`}
                       type="dark"
                       wrapper="span"
                       place="bottom"
@@ -182,7 +204,7 @@ export default function OrderFeedbackForm({
                       multiline={true}
                     >
                       <div className="text-center">
-                        Reviews are locked 30 days <br /> after purchase
+                        Feedback is locked 30 days <br /> after purchase
                       </div>
                     </ReactTooltip>
                   </span>
