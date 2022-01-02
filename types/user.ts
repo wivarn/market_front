@@ -6,6 +6,8 @@ export interface IUser {
   picture: { url: string };
   listings?: Ilisting[];
   address?: { state: string; country: "CAN" | "USA" };
+  total_sales_with_feedback: number;
+  recommendation_rate: number;
 }
 
 export interface IUserWithRole extends IUser {

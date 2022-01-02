@@ -4,12 +4,12 @@ import { NextSeo } from "next-seo";
 import OrderDetails from "components/order/details";
 import PageContainer from "components/pageContainer";
 import { SpinnerLg } from "components/spinner";
+import { redirectUnauthenticated } from "ultils/authentication";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";
-import { redirectUnauthenticated } from "ultils/authentication";
 
-export default function Purchases(): JSX.Element {
+export default function PurchaseDetails(): JSX.Element {
   redirectUnauthenticated();
   const { data: session, status } = useSession();
   const sessionLoading = status === "loading";

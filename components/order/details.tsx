@@ -1,13 +1,21 @@
 import { IOrderDetails } from "types/order";
+import Link from "next/link";
 import { Order } from ".";
+import OrderFeedbackForm from "components/forms/order/review";
+import { SpinnerLg } from "components/spinner";
 import { refundReasonList } from "constants/orders";
+import { sub } from "date-fns";
+import { useSession } from "next-auth/react";
 
 interface IOrderDetailsProps {
   order: IOrderDetails;
 }
 
 export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
+  const { data: session, status } = useSession();
+  const sessionLoading = status === "loading";
   const order = props.order;
+  const sale = order.seller.id == session?.accountId;
 
   function renderOrderHistory() {
     const historyMapping: {
@@ -24,7 +32,7 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
     };
 
     return (
-      <div className="max-w-4xl mx-auto mt-4">
+      <>
         <h3 className="mb-4 text-center">Order History</h3>
         <table className="w-full border-b table-fixed">
           <thead className="bg-accent-lighter">
@@ -53,7 +61,7 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
             })}
           </tbody>
         </table>
-      </div>
+      </>
     );
   }
 
@@ -72,7 +80,7 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
     };
 
     return (
-      <div className="max-w-4xl mx-auto mt-4">
+      <>
         <h3 className="mb-4 text-center">Refund History</h3>
         <table className="w-full border-b table-fixed">
           <thead className="bg-accent-lighter">
@@ -117,15 +125,69 @@ export default function OrderDetails(props: IOrderDetailsProps): JSX.Element {
             })}
           </tbody>
         </table>
-      </div>
+      </>
     );
   }
+
+  const renderFeedback = () => {
+    if (sale) {
+      const feedback_text = () => {
+        if (!order.review) {
+          if (
+            order.cancelled_at &&
+            new Date(order.cancelled_at) < sub(Date.now(), { days: 14 })
+          )
+            return "Transaction Cancelled";
+          if (order.refunded_total) return "Transaction Refunded";
+
+          return "No feedback received";
+        }
+        if (order.review.reviewer == "SYSTEM")
+          return (
+            <>
+              This is an automated review by the Skwirl Marktetplace{" "}
+              <Link href="#">
+                <a>(learn more)</a>
+              </Link>
+            </>
+          );
+        if (!order.review.feedback) return "No feedback received";
+
+        return order.review.feedback;
+      };
+
+      return (
+        <>
+          <h3 className="mb-2 text-center" id={`order-${order.id}-feedback`}>
+            Feedback
+          </h3>
+          <div className="px-2 py-4 mb-4 text-center border rounded-md shadow-md">
+            <p>{feedback_text()}</p>
+          </div>
+        </>
+      );
+    } else {
+      return (
+        <div className="mb-4">
+          <h3 className="mb-4 text-center" id={`order-${order.id}-feedback`}>
+            Feedback
+          </h3>
+          <OrderFeedbackForm order={order} />
+        </div>
+      );
+    }
+  };
+
+  if (sessionLoading) return <SpinnerLg text="Loading..." />;
 
   return (
     <>
       <Order order={order} />
-      {renderOrderHistory()}
-      {renderRefundHistory()}
+      <div className="max-w-4xl mx-auto mt-4">
+        {renderFeedback()}
+        {renderOrderHistory()}
+        {renderRefundHistory()}
+      </div>
     </>
   );
 }

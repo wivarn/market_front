@@ -37,7 +37,7 @@ type TextAreaProps = FieldHookConfig<string> &
     TextareaHTMLAttributes<HTMLTextAreaElement>,
     HTMLTextAreaElement
   > & {
-    label?: string;
+    label?: string | JSX.Element;
     description?: string;
     className?: string;
     labelClassName?: string;
@@ -120,6 +120,20 @@ export const TextArea = ({ label, ...props }: TextAreaProps): JSX.Element => {
       label={label}
       labelClassName={labelClassName}
       inputClassName={inputClassName}
+      {...props}
+    />
+  );
+};
+
+export const TextAreaFull = ({
+  label,
+  ...props
+}: TextAreaProps): JSX.Element => {
+  return (
+    <_TextArea
+      label={label}
+      labelClassName={labelClassName}
+      inputClassName={fullInputClassName}
       {...props}
     />
   );

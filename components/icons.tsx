@@ -15,6 +15,7 @@ import {
   HiChevronDown,
   HiChevronLeft,
   HiChevronRight,
+  HiClock,
   HiCloudUpload,
   HiDotsVertical,
   HiExclamation,
@@ -180,6 +181,10 @@ export const ErrorIconSm = (): JSX.Element => {
   return <HiXCircle className="icon-sm" />;
 };
 
+export const ErrorIconXs = (): JSX.Element => {
+  return <HiXCircle className="icon-xs" />;
+};
+
 export const XIcon = (): JSX.Element => {
   return <HiX className="icon" />;
 };
@@ -210,6 +215,14 @@ export const ChevronDownIconSm = (): JSX.Element => {
 
 export const CheckCircleIconSm = (): JSX.Element => {
   return <HiCheckCircle className="icon-sm" />;
+};
+
+export const CheckCircleIconXs = (): JSX.Element => {
+  return <HiCheckCircle className="icon-xs" />;
+};
+
+export const ClockIconXs = (): JSX.Element => {
+  return <HiClock className="icon-xs" />;
 };
 
 export const CircleIconXs = (): JSX.Element => {
