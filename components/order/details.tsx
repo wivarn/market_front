@@ -1,11 +1,11 @@
 import { IOrderDetails } from "types/order";
+import Link from "next/link";
 import { Order } from ".";
-import OrderFeedbackForm from "components/forms/order/feedback";
+import OrderFeedbackForm from "components/forms/order/review";
 import { SpinnerLg } from "components/spinner";
 import { refundReasonList } from "constants/orders";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
 import { sub } from "date-fns";
+import { useSession } from "next-auth/react";
 
 interface IOrderDetailsProps {
   order: IOrderDetails;

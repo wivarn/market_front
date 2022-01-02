@@ -16,7 +16,7 @@ import CancelOrder from "./cancel";
 import Link from "next/link";
 import { ListingPreviewList } from "../listing/preview";
 import { OrderApi } from "services/backendApi/order";
-import { OrderRecommendForm } from "components/forms/order/feedback";
+import { OrderRecommendForm } from "components/forms/order/review";
 import OrderTrackingForm from "../forms/orderTracking";
 import { Pagination } from "../pagination";
 import ReactTooltip from "react-tooltip";
