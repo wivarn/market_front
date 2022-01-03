@@ -5,7 +5,7 @@ import { Form, Formik } from "formik";
 import { IMessage, IMessageWithCorrespondents } from "types/message";
 import { Spinner, SpinnerLg } from "components/spinner";
 import { useEffect, useRef } from "react";
-import useSWR, { mutate } from "swr";
+import useSWR, { useSWRConfig } from "swr";
 
 import { IUser } from "types/user";
 import Image from "next/image";
@@ -15,16 +15,17 @@ import { NextSeo } from "next-seo";
 import PageContainer from "components/pageContainer";
 import { SubmitButton } from "components/buttons";
 import { TextFieldFull } from "components/forms/fields";
+import { redirectUnauthenticated } from "ultils/authentication";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { redirectUnauthenticated } from "ultils/authentication";
 
 export default function SendMessage(): JSX.Element {
   redirectUnauthenticated();
   const router = useRouter();
   const { id } = router.query;
   const { data: session } = useSession();
+  const { mutate } = useSWRConfig();
 
   function getMessages() {
     const { data, error } = useSWR(

@@ -14,10 +14,10 @@ import FormContainer from "../container";
 import { IOrderDetails } from "types/order";
 import { OrderApi } from "services/backendApi/order";
 import { SpinnerLg } from "components/spinner";
-import { mutate } from "swr";
 import { refundReasonList } from "constants/orders";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useSWRConfig } from "swr";
 import { useSession } from "next-auth/react";
 
 interface IProps {
@@ -30,6 +30,7 @@ export default function OrderRefundForm({ order }: IProps): JSX.Element {
   const sessionLoading = status === "loading";
   const [modalOpen, setModalOpen] = useState(false);
   const formRef = useRef<HTMLSpanElement>(null);
+  const { mutate } = useSWRConfig();
 
   useEffect(() => {
     const refundForm = formRef.current;
