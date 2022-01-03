@@ -58,8 +58,9 @@ export function OrderRecommendForm({
                     return cachedOrder.id == response.data.id;
                   }
                 );
-                cachedOrders.data.orders[orderIndex].review =
-                  response.data.review;
+                if (orderIndex > -1)
+                  cachedOrders.data.orders[orderIndex].review =
+                    response.data.review;
                 return cachedOrders;
               },
               false
