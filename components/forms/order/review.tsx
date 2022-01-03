@@ -39,6 +39,7 @@ export function OrderRecommendForm({
   const disabled = order.aasm_state == "reserved" || reviewLocked;
   const systemReviewer = order.review?.reviewer == "SYSTEM";
   const { mutate } = useSWRConfig();
+  const { cache }: { cache: any } = useSWRConfig();
 
   useEffect(() => {
     if (recommend === order.review?.recommend) return;
@@ -46,12 +47,31 @@ export function OrderRecommendForm({
     OrderApi(session?.accessToken)
       .review(`${order.id}`, recommend, null)
       .then((response) => {
-        order.review = response.data.review;
+        const purchasesKey = new RegExp(`^@"orders\\?relation=purchases&`);
+        for (const key of cache.keys()) {
+          if (purchasesKey.test(key)) {
+            mutate(
+              key,
+              async (cachedOrders: any) => {
+                const orderIndex = cachedOrders.data.orders.findIndex(
+                  (cachedOrder: any) => {
+                    return cachedOrder.id == response.data.id;
+                  }
+                );
+                cachedOrders.data.orders[orderIndex].review =
+                  response.data.review;
+                return cachedOrders;
+              },
+              false
+            );
+          }
+        }
         mutate(
           [`orders/${order.id}?relation=purchases`, session?.accessToken],
-          async (cache: any) => {
-            if (cache?.data.review) cache.data.review = response.data.review;
-            return cache;
+          async (cachedOrder: any) => {
+            if (cachedOrder?.data.review)
+              cachedOrder.data.review = response.data.review;
+            return cachedOrder;
           },
           false
         );
