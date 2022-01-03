@@ -47,7 +47,14 @@ export function OrderRecommendForm({
       .review(`${order.id}`, recommend, null)
       .then((response) => {
         order.review = response.data.review;
-        mutate([`orders/${order.id}?relation=purchases`, session?.accessToken]);
+        mutate(
+          [`orders/${order.id}?relation=purchases`, session?.accessToken],
+          async (cache: any) => {
+            if (cache?.data.review) cache.data.review = response.data.review;
+            return cache;
+          },
+          false
+        );
         toast.success("Feedback submitted");
       })
       .catch((error) => {
