@@ -22,10 +22,10 @@ import { Pagination } from "../pagination";
 import ReactTooltip from "react-tooltip";
 import { SpinnerLg } from "../spinner";
 import { SubmitButton } from "../buttons";
-import { mutate } from "swr";
 import { stateMappings } from "constants/listings";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useSWRConfig } from "swr";
 import { useSession } from "next-auth/react";
 
 interface IOrderProps {
@@ -102,6 +102,7 @@ export function Order(props: IOrderProps): JSX.Element {
   const { data: session, status } = useSession();
   const sessionLoading = status === "loading";
   const router = useRouter();
+  const { mutate } = useSWRConfig();
 
   useEffect(() => {
     setOrder(props.order);

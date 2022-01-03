@@ -12,9 +12,9 @@ import ReactTooltip from "react-tooltip";
 import { Spinner } from "components/spinner";
 import { SubmitButton } from "components/buttons";
 import { TextAreaFull } from "../fields";
-import { mutate } from "swr";
 import { sub } from "date-fns";
 import { toast } from "react-toastify";
+import { useSWRConfig } from "swr";
 import { useSession } from "next-auth/react";
 
 interface OrderRecommendFormProps {
@@ -37,8 +37,8 @@ export function OrderRecommendForm({
     order.review &&
     new Date(order.review.created_at) < sub(Date.now(), { days: 14 });
   const disabled = order.aasm_state == "reserved" || reviewLocked;
-
   const systemReviewer = order.review?.reviewer == "SYSTEM";
+  const { mutate } = useSWRConfig();
 
   useEffect(() => {
     if (recommend === order.review?.recommend) return;
