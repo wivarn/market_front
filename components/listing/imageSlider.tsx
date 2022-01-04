@@ -32,7 +32,6 @@ function PrevArrow({
   return (
     <button
       className="absolute z-20 p-2 border rounded-full group-hover:opacity-50 focus:outline-none bg-accent-lighter opacity-10 left-5 bottom-1/2"
-      // style={{ ...style, display: "block", background: "green" }}
       onClick={onClick}
     >
       <ChevronLeftIcon />
