@@ -319,13 +319,13 @@ export function Order(props: IOrderProps): JSX.Element {
                 (learn more)
               </a>
             </div>
-          ) : (
+          ) : order.review?.feedback ? (
             <Link href={`${detailsHref}#order-${order.id}-feedback`}>
               <a className="text-sm underline text-info hover:text-primary">
                 View Feedback
               </a>
             </Link>
-          )}
+          ) : null}
         </div>
       );
     } else {
