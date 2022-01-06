@@ -20,6 +20,7 @@ export interface IOrder {
   created_at: string;
   refunds: IRefund[];
   refunded_total: string;
+  review?: IReview;
 }
 
 export interface IOrdersPaginated {
@@ -32,6 +33,7 @@ export interface IOrderDetails extends IOrder {
   shipped_at: string | null;
   refunded_at: string | null;
   received_at: string | null;
+  cancelled_at: string | null;
 }
 
 export interface IRefundRequest {
@@ -43,4 +45,11 @@ export interface IRefundRequest {
 export interface IRefund extends IRefundRequest {
   status: string;
   updated_at: string;
+}
+
+interface IReview {
+  recommend: boolean;
+  feedback: string | null;
+  reviewer: "BUYER" | "SYSTEM";
+  created_at: string;
 }

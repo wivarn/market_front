@@ -5,8 +5,8 @@ import { SecondaryButton, SubmitButton } from "components/buttons";
 import { IOrder } from "types/order";
 import { OrderApi } from "services/backendApi/order";
 import { SpinnerXs } from "components/spinner";
-import { mutate } from "swr";
 import { toast } from "react-toastify";
+import { useSWRConfig } from "swr";
 import { useSession } from "next-auth/react";
 
 interface IProps {
@@ -24,6 +24,7 @@ export default function CancelOrder({
   const { data: session, status } = useSession();
   const sessionLoading = status === "loading";
   const [submitting, setSubmitting] = useState(false);
+  const { mutate } = useSWRConfig();
 
   async function closeModal() {
     setOpen(false);

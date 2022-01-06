@@ -17,6 +17,11 @@ export const OrderApi = (
   ) => Promise<AxiosResponse<any>>;
   refund: (id: string, refund: IRefundRequest) => Promise<AxiosResponse<any>>;
   cancel: (id: string) => Promise<AxiosResponse<any>>;
+  review: (
+    id: string,
+    recommend: boolean | null | undefined,
+    feedback: string | null | undefined
+  ) => Promise<AxiosResponse<any>>;
 } => {
   const update = async (relation: string, id: string, tracking: string) => {
     return base.post(
@@ -62,5 +67,17 @@ export const OrderApi = (
     );
   };
 
-  return { update, updateState, refund, cancel };
+  const review = async (
+    id: string,
+    recommend: boolean | null | undefined,
+    feedback: string | null | undefined
+  ) => {
+    return base.post(
+      `orders/${id}/review`,
+      { recommend: recommend, feedback: feedback },
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+  };
+
+  return { update, updateState, refund, cancel, review };
 };

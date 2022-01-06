@@ -1,3 +1,9 @@
+import {
+  CheckCircleIconXs,
+  ClockIconXs,
+  ErrorIconXs,
+  InfoCircleSm,
+} from "../icons";
 import { IOrder, IOrdersPaginated } from "types/order";
 import {
   IOverflowMenuItem,
@@ -7,19 +13,19 @@ import { useEffect, useState } from "react";
 
 import { BlankMessage } from "../message";
 import CancelOrder from "./cancel";
-import { InfoCircleSm } from "../icons";
 import Link from "next/link";
 import { ListingPreviewList } from "../listing/preview";
 import { OrderApi } from "services/backendApi/order";
+import { OrderRecommendForm } from "components/forms/order/review";
 import OrderTrackingForm from "../forms/orderTracking";
 import { Pagination } from "../pagination";
 import ReactTooltip from "react-tooltip";
 import { SpinnerLg } from "../spinner";
 import { SubmitButton } from "../buttons";
-import { mutate } from "swr";
 import { stateMappings } from "constants/listings";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useSWRConfig } from "swr";
 import { useSession } from "next-auth/react";
 
 interface IOrderProps {
@@ -96,6 +102,7 @@ export function Order(props: IOrderProps): JSX.Element {
   const { data: session, status } = useSession();
   const sessionLoading = status === "loading";
   const router = useRouter();
+  const { mutate } = useSWRConfig();
 
   useEffect(() => {
     setOrder(props.order);
@@ -267,6 +274,65 @@ export function Order(props: IOrderProps): JSX.Element {
       </table>
     );
   }
+
+  const renderFeedback = () => {
+    const review_text = () => {
+      if (order.review?.recommend)
+        return (
+          <div className="flex items-center space-x-1 text-sm text-success">
+            <CheckCircleIconXs />
+            <div>Recommended</div>
+          </div>
+        );
+      else if (order.review?.recommend === false)
+        return (
+          <div className="flex items-center space-x-1 text-sm text-error">
+            <ErrorIconXs />
+            <div>Not Recommended</div>
+          </div>
+        );
+      else
+        return (
+          <div className="flex items-center space-x-1 text-sm text-warning-dark">
+            <ClockIconXs />
+            <div>Awaiting Review</div>
+          </div>
+        );
+    };
+    if (sale) {
+      const systemReviewer = order.review?.reviewer == "SYSTEM";
+      return (
+        <div className="px-4 py-2 border-b bg-secondary-light">
+          <div className="flex items-center space-x-1">
+            <p className="text-sm font-semibold text-accent-darker">Review:</p>
+            {review_text()}
+          </div>
+          {systemReviewer ? (
+            <div className="text-xs text-accent-darker">
+              Automated review by Skwirl{" "}
+              <a
+                href="https://support.skwirl.io"
+                target="_blank"
+                rel="noreferrer"
+                className="text-xs underline text-info hover:text-primary"
+              >
+                (learn more)
+              </a>
+            </div>
+          ) : order.review?.feedback ? (
+            <Link href={`${detailsHref}#order-${order.id}-feedback`}>
+              <a className="text-sm underline text-info hover:text-primary">
+                View Feedback
+              </a>
+            </Link>
+          ) : null}
+        </div>
+      );
+    } else {
+      return <OrderRecommendForm order={order} />;
+    }
+  };
+
   return (
     <>
       <CancelOrder
@@ -306,6 +372,7 @@ export function Order(props: IOrderProps): JSX.Element {
             <span className="absolute right-3">{renderOverflowButton()}</span>
           </div>
           {renderOrderInfo()}
+          {renderFeedback()}
           <div className="flex px-4 py-2 border-b text-accent-darker bg-accent-lightest">
             <span className="flex text-sm">
               Ship to:{" "}
@@ -325,14 +392,16 @@ export function Order(props: IOrderProps): JSX.Element {
           })}
         </div>
         {renderTracking()}
-        <div className="px-4 py-2 text-right text-white bg-info-darker rounded-b-md">
-          <div className="text-xs">Total</div>
-          <div className="font-bold">
-            {Number(order.total).toLocaleString("en", {
-              style: "currency",
-              currency: "usd",
-            })}{" "}
-            {order.currency}
+        <div className="px-4 py-2 text-white bg-info-darker rounded-b-md">
+          <div className="text-right">
+            <div className="text-xs">Total</div>
+            <div className="font-bold">
+              {Number(order.total).toLocaleString("en", {
+                style: "currency",
+                currency: "usd",
+              })}{" "}
+              {order.currency}
+            </div>
           </div>
         </div>
       </div>
