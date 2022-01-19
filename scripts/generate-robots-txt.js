@@ -4,7 +4,7 @@ const fs = require("fs");
 const crawlableRobotsTxt = `User-agent: *
 Allow: /
 
-Sitemap: https://${process.env.PUBLIC_ASSETS_DOMAIN}/sitemap.txt`;
+Sitemap: https://${process.env.PUBLIC_ASSETS_DOMAIN}/sitemap.xml.gz`;
 
 const uncrawlableRobotsTxt = `User-agent: *
 Disallow: /`;
