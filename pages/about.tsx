@@ -12,14 +12,24 @@ export default function About(): JSX.Element {
           <div className="grid max-w-2xl grid-cols-1 py-8 mx-auto mt-4 space-y-8 md:grid-cols-2 justify-items-center md:space-y-0">
             <div className="grid grid-cols-1 text-center justify-items-center">
               <div className="mb-4">
-                <Image src="/kevin-profile.png" height={200} width={200} />
+                <Image
+                  src="/kevin-profile.png"
+                  height={200}
+                  width={200}
+                  alt="kevin"
+                />
               </div>
               <h2 className="h4">Kevin Legere</h2>
               <p className="text-accent-dark">CEO | Founder</p>
             </div>
             <div className="grid grid-cols-1 text-center justify-items-center">
               <div className="mb-4">
-                <Image src="/ivan-profile.png" height={200} width={200} />
+                <Image
+                  src="/ivan-profile.png"
+                  height={200}
+                  width={200}
+                  alt="ivan"
+                />
               </div>
               <h2 className="h4">Ivan Wong</h2>
               <p className="text-accent-dark">CTO | Co-Founder</p>

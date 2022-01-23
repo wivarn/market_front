@@ -45,7 +45,12 @@ export default function Home(): JSX.Element {
             Buy with confidence
           </div>
           <div className="grid items-center grid-cols-1 md:grid-cols-2">
-            <Image src="/assets/verify_seller.svg" height={300} width={300} />
+            <Image
+              src="/assets/verify_seller.svg"
+              height={300}
+              width={300}
+              alt="verified-seller"
+            />
             <div className="max-w-lg space-y-2">
               <h4>Our sellers are pre-screened to ensure:</h4>
               <div className="flex space-x-2 text-success">
@@ -87,11 +92,21 @@ export default function Home(): JSX.Element {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 justify-items-center">
             <div>
-              <Image src="/assets/low_fee.svg" height={200} width={200} />
+              <Image
+                src="/assets/low_fee.svg"
+                height={200}
+                width={200}
+                alt="low-fees"
+              />
               <h5>Low seller fees</h5>
             </div>
             <div>
-              <Image src="/assets/free_listings.svg" height={200} width={200} />
+              <Image
+                src="/assets/free_listings.svg"
+                height={200}
+                width={200}
+                alt="free-listings"
+              />
               <h5>Unlimited free listings</h5>
             </div>
             <div>
@@ -99,6 +114,7 @@ export default function Home(): JSX.Element {
                 src="/assets/fraud_protection.svg"
                 height={200}
                 width={200}
+                alt="fraud-production"
               />
               <h5>Fraud protection</h5>
             </div>
