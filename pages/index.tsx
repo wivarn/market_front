@@ -114,7 +114,7 @@ export default function Home(): JSX.Element {
                 src="/assets/fraud_protection.svg"
                 height={200}
                 width={200}
-                alt="fraud-production"
+                alt="fraud-protection"
               />
               <h5>Fraud protection</h5>
             </div>
