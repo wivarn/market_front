@@ -226,9 +226,9 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
           ) : null}
         </div>
         <InfoCard>
-          <h2 className="pb-2 mt-2 mb-4 text-lg border-b sm:text-xl md:text-2xl">
+          <h1 className="pb-2 mt-2 mb-4 text-lg border-b sm:text-xl md:text-2xl">
             {props.title}
-          </h2>
+          </h1>
           <div>
             <span className="text-xl font-semibold md:text-2xl text-accent-darker">
               {Number(props.price).toLocaleString("en", {
@@ -328,7 +328,7 @@ const ListingDetails = (props: IlistingDetails): JSX.Element => {
         </InfoCard>
       </div>
       <InfoCard>
-        <h4 className="pb-2 text-center border-b">Description</h4>
+        <h1 className="pb-2 text-center border-b h4">Description</h1>
         <div className="pt-4 whitespace-pre-wrap">{props.description}</div>
       </InfoCard>
     </div>

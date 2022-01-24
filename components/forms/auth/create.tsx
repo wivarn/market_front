@@ -6,12 +6,12 @@ import { TextFieldFull, Toggle } from "../fields";
 import { AuthApi } from "services/backendApi/auth";
 import AuthFormContainer from "./container";
 import { ICreateAccount } from "types/account";
+import { InfoMessage } from "components/message";
 import { SecondaryButton } from "components/buttons";
 import { SubmitButtonFull } from "components/buttons";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { InfoMessage } from "components/message";
 
 const createAccountSchema = Yup.object().shape({
   login: Yup.string().email("Invalid email").required("Required"),
@@ -46,9 +46,9 @@ export default function CreateAccountForm(): JSX.Element {
   return (
     <div className="my-8">
       <AuthFormContainer>
-        <h3 className="py-4 text-center border-b border-accent">
+        <h1 className="py-4 text-center border-b h3 border-accent">
           Create a new account
-        </h3>
+        </h1>
         <div className="py-2">
           <Formik
             initialValues={{
