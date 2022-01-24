@@ -16,11 +16,14 @@ import { UserSettingsProvider } from "contexts/userSettings";
 import { WixAnswers } from "components/wixAnswers";
 import { accessTokenAgeSeconds } from "constants/auth";
 import { fetcher } from "services/backendApi/fetcher";
+import { useRouter } from "next/router";
 
 function Market({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps): JSX.Element {
+  const router = useRouter();
+
   return (
     <StrictMode>
       <Head>
@@ -36,7 +39,7 @@ function Market({
       <DefaultSeo
         {...SEO}
         openGraph={{
-          url: "https://skwirl.io",
+          url: process.env.NEXT_PUBLIC_VERCEL_URL + router.asPath,
           images: [
             {
               url: "https://skwirl.io/banner.png",
