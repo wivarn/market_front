@@ -8,7 +8,7 @@ import { SuccessIconSm } from "components/icons";
 export default function Home(): JSX.Element {
   return (
     <div>
-      <NextSeo title="Home" />
+      <NextSeo title="The trading card marketplace for modern collectors" />
       <div className="pt-10 pb-20 bg-secondary-lighter">
         <div className="container px-4 mx-auto max-w-screen-2xl">
           <header className="grid text-center lg:justify-items-start justify-items-center lg:items-center lg:flex lg:text-left">

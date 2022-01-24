@@ -4,7 +4,7 @@ import { NextSeo } from "next-seo";
 export default function login(): JSX.Element {
   return (
     <>
-      <NextSeo title="Login" />
+      <NextSeo title="Login to your account" />
       <LoginForm />
     </>
   );
