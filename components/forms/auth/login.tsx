@@ -55,9 +55,9 @@ export default function LoginForm(): JSX.Element {
   return (
     <div className="my-8">
       <AuthFormContainer>
-        <h3 className="py-4 text-center border-b border-accent">
+        <h1 className="py-4 text-center border-b h3 border-accent">
           Log in to your account
-        </h3>
+        </h1>
         <div className="py-2">
           <Formik
             initialValues={{

@@ -23,45 +23,50 @@ function Market({
 }: AppProps): JSX.Element {
   return (
     <StrictMode>
-      <Head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <link rel="icon" href="/favicon.ico" key="favicon" />
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+      <html lang="en">
+        <Head>
+          <meta charSet="UTF-8" />
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
+          <link rel="icon" href="/favicon.ico" key="favicon" />
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+          />
+        </Head>
+        <GoogleAnalytics />
+        <DefaultSeo
+          {...SEO}
+          openGraph={{
+            url: "https://skwirl.io",
+            images: [
+              {
+                url: "https://skwirl.io/banner.png",
+                width: 1200,
+                height: 675,
+                alt:
+                  "Skwirl Marketplace | Buy, sell and admire sports cards, trading cards and collectibles",
+              },
+            ],
+          }}
         />
-      </Head>
-      <GoogleAnalytics />
-      <DefaultSeo
-        {...SEO}
-        openGraph={{
-          url: "https://skwirl.io",
-          images: [
-            {
-              url: "https://skwirl.io/banner.png",
-              width: 1200,
-              height: 675,
-              alt:
-                "Skwirl Marketplace | Buy, sell and admire sports cards, trading cards and collectibles",
-            },
-          ],
-        }}
-      />
-      <SessionProvider
-        session={session}
-        refetchInterval={accessTokenAgeSeconds}
-      >
-        <SWRConfig value={{ fetcher: fetcher }}>
-          <UserSettingsProvider>
-            <Layout>
-              <WixAnswers />
-              <Component {...pageProps} />
-              <Toast />
-            </Layout>
-          </UserSettingsProvider>
-        </SWRConfig>
-      </SessionProvider>
+        <SessionProvider
+          session={session}
+          refetchInterval={accessTokenAgeSeconds}
+        >
+          <SWRConfig value={{ fetcher: fetcher }}>
+            <UserSettingsProvider>
+              <Layout>
+                <WixAnswers />
+                <Component {...pageProps} />
+                <Toast />
+              </Layout>
+            </UserSettingsProvider>
+          </SWRConfig>
+        </SessionProvider>
+      </html>
     </StrictMode>
   );
 }
