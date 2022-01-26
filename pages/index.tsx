@@ -31,7 +31,7 @@ export default function Home(): JSX.Element {
               <PrimaryButton text="Sign up now" href="/account/new" />
             </div>
             <img
-              src="/assets/hero-cards.png"
+              src="/assets/hero-cards.webp"
               height={638}
               width={600}
               alt="Card Hero"
