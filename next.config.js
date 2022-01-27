@@ -5,6 +5,10 @@ module.exports = {
   images: {
     domains: [`${process.env.PUBLIC_ASSETS_DOMAIN}`],
   },
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
+  },
   swcMinify: true,
   webpack(config, { isServer }) {
     if (isServer) {

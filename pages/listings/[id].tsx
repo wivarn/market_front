@@ -54,7 +54,7 @@ export default function ShowListing(
           description={`Find the best sports cards, trading card games and collectibles on the Skwirl marketplace. Get the best deals for ${listing.title} and lowest online prices. Free shipping for many products!`}
           openGraph={{
             type: "website",
-            url: `https://skwirl.io/listings/${listing.id}`,
+            url: process.env.NEXT_PUBLIC_VERCEL_URL + router.asPath,
             title: `${listing.title}`,
             description: `Find the best sports cards, trading card games and collectibles on the Skwirl marketplace. Get the best deals for ${listing.title} and lowest online prices. Free shipping for many products!`,
             images: [
