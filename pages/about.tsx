@@ -13,7 +13,7 @@ export default function About(): JSX.Element {
             <div className="grid grid-cols-1 text-center justify-items-center">
               <div className="mb-4">
                 <Image
-                  src="/kevin-profile.png"
+                  src="/kevin-profile.webp"
                   height={200}
                   width={200}
                   alt="kevin"
@@ -25,7 +25,7 @@ export default function About(): JSX.Element {
             <div className="grid grid-cols-1 text-center justify-items-center">
               <div className="mb-4">
                 <Image
-                  src="/ivan-profile.png"
+                  src="/ivan-profile.webp"
                   height={200}
                   width={200}
                   alt="ivan"
