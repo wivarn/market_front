@@ -42,7 +42,7 @@ function Market({
           url: process.env.NEXT_PUBLIC_VERCEL_URL + router.asPath,
           images: [
             {
-              url: "https://skwirl.io/banner.webp",
+              url: "https://skwirl.io/banner.png",
               width: 1200,
               height: 675,
               alt:
