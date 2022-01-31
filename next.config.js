@@ -1,7 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+/* eslint-disable @typescript-eslint/no-var-requires */
 const generateRobotsTxt = require("./scripts/generate-robots-txt");
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
