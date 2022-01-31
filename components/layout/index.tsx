@@ -1,5 +1,5 @@
 import Footer from "./footer";
-import Header from "./header";
+// import Header from "./header";
 
 export default function Layout({
   children,
@@ -8,7 +8,7 @@ export default function Layout({
 }): JSX.Element {
   return (
     <div className="flex flex-col h-screen">
-      <Header />
+      {/* <Header /> */}
       <main className="flex-grow bg-accent-lightest">{children}</main>
       <Footer />
     </div>

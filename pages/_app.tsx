@@ -8,15 +8,15 @@ import GoogleAnalytics from "components/googleAnalytics";
 import Head from "next/head";
 import Layout from "components/layout";
 import SEO from "next-seo-config";
-import { SWRConfig } from "swr";
+// import { SWRConfig } from "swr";
 import Script from "next/script";
 import { SessionProvider } from "next-auth/react";
 import { StrictMode } from "react";
-import Toast from "components/toast";
+// import Toast from "components/toast";
 import { UserSettingsProvider } from "contexts/userSettings";
 import { WixAnswers } from "components/wixAnswers";
 import { accessTokenAgeSeconds } from "constants/auth";
-import { fetcher } from "services/backendApi/fetcher";
+// import { fetcher } from "services/backendApi/fetcher";
 import { useRouter } from "next/router";
 
 function Market({
@@ -56,15 +56,15 @@ function Market({
         session={session}
         refetchInterval={accessTokenAgeSeconds}
       >
-        <SWRConfig value={{ fetcher: fetcher }}>
-          <UserSettingsProvider>
-            <Layout>
-              <WixAnswers />
-              <Component {...pageProps} />
-              <Toast />
-            </Layout>
-          </UserSettingsProvider>
-        </SWRConfig>
+        {/* <SWRConfig value={{ fetcher: fetcher }}> */}
+        <UserSettingsProvider>
+          <Layout>
+            <WixAnswers />
+            <Component {...pageProps} />
+            {/* <Toast /> */}
+          </Layout>
+        </UserSettingsProvider>
+        {/* </SWRConfig> */}
       </SessionProvider>
     </StrictMode>
   );
