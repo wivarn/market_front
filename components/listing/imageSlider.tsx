@@ -49,13 +49,14 @@ export default function ImageSlider(props: Props): JSX.Element {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
-  const images = props.imageMetas.map((imageMeta) => (
+  const images = props.imageMetas.map((imageMeta, index) => (
     <div className="px-2" key={imageMeta.url}>
       <div className="container mx-auto sm:w-600">
         <div className="flex flex-grow mx-auto ">
           <Image
             src={imageMeta.url}
             alt={props.imageTitle}
+            priority={index === 0 ? true : false}
             width="600"
             height="600"
             objectFit="contain"
