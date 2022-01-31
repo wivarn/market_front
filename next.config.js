@@ -1,7 +1,10 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+/* eslint-disable @typescript-eslint/no-var-requires */
 const generateRobotsTxt = require("./scripts/generate-robots-txt");
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 
-module.exports = {
+module.exports = withBundleAnalyzer({
   images: {
     domains: [`${process.env.PUBLIC_ASSETS_DOMAIN}`],
   },
@@ -16,4 +19,4 @@ module.exports = {
     }
     return config;
   },
-};
+});

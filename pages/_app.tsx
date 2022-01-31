@@ -9,6 +9,7 @@ import Head from "next/head";
 import Layout from "components/layout";
 import SEO from "next-seo-config";
 import { SWRConfig } from "swr";
+import Script from "next/script";
 import { SessionProvider } from "next-auth/react";
 import { StrictMode } from "react";
 import Toast from "components/toast";
@@ -30,7 +31,7 @@ function Market({
         <meta charSet="UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="icon" href="/favicon.png" key="favicon" />
-        <script
+        <Script
           async
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
         />
