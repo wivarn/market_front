@@ -12,7 +12,7 @@ import Head from "next/head";
 import { IconLink } from "./iconLink";
 import Link from "next/link";
 import ReactTooltip from "react-tooltip";
-import SearchForm from "components/forms/listing/search";
+// import SearchForm from "components/forms/listing/search";
 import { SkwirlIconMd } from "components/icons";
 import { Spinner } from "components/spinner";
 import { UserSettingsContext } from "contexts/userSettings";
@@ -155,9 +155,7 @@ export default function Header(): JSX.Element {
               </span>
             </a>
           </Link>
-          <span className="w-full px-2 mx-auto">
-            <SearchForm />
-          </span>
+          <span className="w-full px-2 mx-auto">{/* <SearchForm /> */}</span>
           <div className="ml-auto">{renderNav()}</div>
         </nav>
 
