@@ -1,10 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+/* eslint-disable @typescript-eslint/no-var-requires */
 const generateRobotsTxt = require("./scripts/generate-robots-txt");
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require("path");
 const DuplicatePackageCheckerPlugin = require("duplicate-package-checker-webpack-plugin");
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
@@ -20,6 +17,16 @@ module.exports = withBundleAnalyzer({
   swcMinify: true,
   webpack(config, { isServer }) {
     config.plugins.push(new DuplicatePackageCheckerPlugin());
+    config.resolve.alias["@babel/runtime"] = path.resolve(
+      __dirname,
+      "node_modules",
+      "@babel/runtime"
+    );
+    config.resolve.alias["regenerator-runtime"] = path.resolve(
+      __dirname,
+      "node_modules",
+      "regenerator-runtime"
+    );
     if (isServer) {
       generateRobotsTxt();
     }
