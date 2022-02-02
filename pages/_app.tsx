@@ -3,28 +3,26 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import { AppProps } from "next/app";
-import { DefaultSeo } from "next-seo";
-import GoogleAnalytics from "components/googleAnalytics";
 import Head from "next/head";
 import Layout from "components/layout";
-import SEO from "next-seo-config";
 import { SWRConfig } from "swr";
 import Script from "next/script";
 import { SessionProvider } from "next-auth/react";
 import { StrictMode } from "react";
-import Toast from "components/toast";
-import { UserSettingsProvider } from "contexts/userSettings";
-import { WixAnswers } from "components/wixAnswers";
 import { accessTokenAgeSeconds } from "constants/auth";
+import dynamic from "next/dynamic";
 import { fetcher } from "services/backendApi/fetcher";
-import { useRouter } from "next/router";
+
+const GoogleAnalytics = dynamic(() => import("components/googleAnalytics"));
+const DefaultNextSeo = dynamic(() => import("components/defaultNextSeo"));
+const UserSettingsProvider = dynamic(() => import("contexts/userSettings"));
+const WixAnswers = dynamic(() => import("components/wixAnswers"));
+const Toast = dynamic(() => import("components/toast"));
 
 function Market({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps): JSX.Element {
-  const router = useRouter();
-
   return (
     <StrictMode>
       <Head>
@@ -37,21 +35,7 @@ function Market({
         />
       </Head>
       <GoogleAnalytics />
-      <DefaultSeo
-        {...SEO}
-        openGraph={{
-          url: process.env.NEXT_PUBLIC_VERCEL_URL + router.asPath,
-          images: [
-            {
-              url: "https://skwirl.io/banner.png",
-              width: 1200,
-              height: 675,
-              alt:
-                "Skwirl Marketplace | Buy, sell and admire sports cards, trading cards and collectibles",
-            },
-          ],
-        }}
-      />
+      <DefaultNextSeo />
       <SessionProvider
         session={session}
         refetchInterval={accessTokenAgeSeconds}
