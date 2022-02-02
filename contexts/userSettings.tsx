@@ -63,11 +63,11 @@ export const UserSettingsContext = createContext<IUserSettingsContext>({
   },
 });
 
-export const UserSettingsProvider = ({
+export default function UserSettingsProvider({
   children,
 }: {
   children: React.ReactNode;
-}): JSX.Element => {
+}): JSX.Element {
   const { data: session } = useSession();
   const [userSettings, setUserSettings] = useState<IUserSettings>(
     defaultSettings
@@ -161,4 +161,4 @@ export const UserSettingsProvider = ({
       {children}
     </UserSettingsContext.Provider>
   );
-};
+}
