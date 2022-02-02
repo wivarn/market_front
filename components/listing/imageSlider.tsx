@@ -51,26 +51,24 @@ export default function ImageSlider(props: Props): JSX.Element {
   };
   const images = props.imageMetas.map((imageMeta, index) => (
     <div className="px-2" key={imageMeta.url}>
-      <div className="container mx-auto w-80 h-80 sm:w-600">
-        <Image
-          src={imageMeta.url}
-          alt={props.imageTitle}
-          priority={index === 0 ? true : false}
-          width="600"
-          height="600"
-          objectFit="contain"
-          placeholder="blur"
-          blurDataURL="/assets/image-loader.svg"
-          className="z-10 rounded-md"
-        />
-      </div>
+      <Image
+        src={imageMeta.url}
+        alt={props.imageTitle}
+        priority={index === 0 ? true : false}
+        width="600"
+        height="600"
+        objectFit="contain"
+        placeholder="blur"
+        blurDataURL="/assets/image-loader.svg"
+        className="z-10 rounded-md"
+      />
     </div>
   ));
   return (
     <div>
       <Slider
         {...settings}
-        className="container relative mx-auto mb-8 rounded-md group border-accent"
+        className="container relative mx-auto mb-8 rounded-md group border-accent w-80 h-80 sm:w-600 sm:h-600"
       >
         {images}
       </Slider>
