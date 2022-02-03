@@ -9,7 +9,7 @@ export default function Header(): JSX.Element {
   return (
     <>
       <header className="bg-primary">
-        <nav className="flex items-center px-2 mx-auto h-14 max-w-screen-2x">
+        <nav className="flex items-center px-2 mx-auto max-w-screen-2xl h-14">
           <Navbar />
         </nav>
 
