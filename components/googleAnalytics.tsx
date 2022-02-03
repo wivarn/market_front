@@ -1,3 +1,4 @@
+import Script from "next/script";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
@@ -22,7 +23,8 @@ export default function GoogleAnalytics(): JSX.Element {
     return <></>;
   }
   return (
-    <script
+    <Script
+      id="google-analytics-inline"
       dangerouslySetInnerHTML={{
         __html: `
           window.dataLayer = window.dataLayer || [];

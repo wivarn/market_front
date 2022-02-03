@@ -256,7 +256,7 @@ export const PurchaseOffer = (props: IOfferDetailed): JSX.Element => {
   );
 };
 
-export const Offer = (props: IOfferProps): JSX.Element => {
+const Offer = (props: IOfferProps): JSX.Element => {
   const offer = props.offer;
 
   const renderOverflowButton = () => {
